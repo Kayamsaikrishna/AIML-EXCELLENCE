@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequences - Phase 1.1.24</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <!-- Sidebar content (unchanged) -->
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Arithmetic & Algebra</li>
+
+            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
+            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
+            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
+
+            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
+            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
+            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
+
+            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
+            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
+
+            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
+            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
+            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
+            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
+
+            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
+            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
+            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
+
+            <li><a href="01_16_functions.html">16. Functions</a></li>
+            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
+            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
+
+            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
+            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
+            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
+            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
+            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
+
+            <li><a href="01_24_sequences.html" class="active">24. Sequences</a></li>
+            <li><a href="01_25_series.html">25. Series</a></li>
+            <li><a href="01_26_summation.html">26. Summation notation</a></li>
+            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
+
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Trigonometry</li>
+            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Sequences
+        </div>
+
+        <header>
+            <h1>24. Sequences (Order Matters)</h1>
+            <p class="subtitle">Lists, Time Steps, and the flow of Data.</p>
+        </header>
+
+        <!-- 1. BASICS -->
+        <section id="basics">
+            <h2>1. Arithmetic & Geometric</h2>
+            <div class="math-block">
+                $$ a_n = f(n) $$
+            </div>
+
+            <div class="syllabus-container">
+                <div class="sub-module">
+                    <h3 class="sub-module-title">Arithmetic (+d)</h3>
+                    <p>Add a constant each step. \( 2, 4, 6, 8 \dots \) (Linear Growth).</p>
+                </div>
+                <div class="sub-module">
+                    <h3 class="sub-module-title">Geometric (*r)</h3>
+                    <p>Multiply by a constant. \( 2, 4, 8, 16 \dots \) (Exponential Growth).</p>
+                </div>
+            </div>
+
+            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
+                <!-- SVG: RNN Time Steps -->
+                <svg width="600" height="200" viewBox="0 0 600 200" style="background: #f8fafc; border-radius: 8px;">
+                    <!-- Time Steps -->
+                    <rect x="50" y="80" width="60" height="40" rx="4" fill="#cbd5e1" stroke="#475569" />
+                    <text x="80" y="105" text-anchor="middle" font-weight="bold">X₁</text>
+
+                    <rect x="180" y="80" width="60" height="40" rx="4" fill="#cbd5e1" stroke="#475569" />
+                    <text x="210" y="105" text-anchor="middle" font-weight="bold">X₂</text>
+
+                    <rect x="310" y="80" width="60" height="40" rx="4" fill="#10b981" stroke="#047857" />
+                    <text x="340" y="105" text-anchor="middle" font-weight="bold">X₃</text>
+                    <text x="340" y="60" text-anchor="middle" fill="#047857" font-size="0.8rem">Predict Next</text>
+
+                    <!-- Arrows -->
+                    <line x1="110" y1="100" x2="180" y2="100" stroke="#64748b" stroke-width="2"
+                        marker-end="url(#arrow)" />
+                    <line x1="240" y1="100" x2="310" y2="100" stroke="#64748b" stroke-width="2"
+                        marker-end="url(#arrow)" />
+                    <line x1="370" y1="100" x2="440" y2="100" stroke="#64748b" stroke-width="2"
+                        stroke-dasharray="5,5" />
+
+                    <text x="500" y="105" fill="#64748b">Sequence Modeling</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. AI CONTEXT -->
+        <section id="ai-context">
+            <h2>2. Positional Encodings</h2>
+            <p>Transformers (like GPT) process all words at once (Parallel). They have no concept of "Order" unless we
+                force it.</p>
+            <p>We inject a fixed <strong>Sequence of Sines and Cosines</strong> into the embeddings so the model knows
+                that "dog" is at position 5.</p>
+
+            <div class="module-card">
+                <h3 class="module-title">The Formula</h3>
+                <div class="math-block">
+                    $$ PE(pos, 2i) = \sin(pos / 10000^{2i/d}) $$
+                </div>
+                <p>This creates a unique geometric signature for every position.</p>
+            </div>
+        </section>
+
+        <!-- 3. CODE IMPLEMENTATION -->
+        <section id="code">
+            <h2>3. Coding Order</h2>
+            <p>Generating Positional Encodings in Python.</p>
+
+            <div
+                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
+                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Python: Positional Encoding (Simplified)</div>
+                <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+def get_positional_encoding(max_seq_len, d_model):
+    pe = np.zeros((max_seq_len, d_model))
+    for pos in range(max_seq_len):
+        for i in range(0, d_model, 2):
+            div_term = 10000 ** (2 * i / d_model)
+            pe[pos, i] = np.sin(pos / div_term)
+            if i + 1 < d_model:
+                pe[pos, i + 1] = np.cos(pos / div_term)
+    return pe
+
+# Visualize
+d_model = 64
+max_seq_len = 50
+pe = get_positional_encoding(max_seq_len, d_model)
+
+plt.imshow(pe, cmap='RdBu', aspect='auto')
+plt.title("Transformer Positional Encodings")
+plt.xlabel("Embedding Dimension")
+plt.ylabel("Sequence Position")
+plt.colorbar()
+plt.show()</code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+    </footer>
+</body>
+
+</html>

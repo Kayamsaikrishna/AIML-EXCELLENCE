@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphing Rational Functions - Phase 1.1.22</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <!-- Sidebar content (unchanged) -->
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Arithmetic & Algebra</li>
+
+            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
+            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
+            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
+
+            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
+            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
+            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
+
+            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
+            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
+
+            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
+            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
+            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
+            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
+
+            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
+            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
+            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
+
+            <li><a href="01_16_functions.html">16. Functions</a></li>
+            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
+            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
+
+            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
+            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
+            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
+            <li><a href="01_22_graph_rational.html" class="active">22. Graphing rational</a></li>
+            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
+
+            <li><a href="01_24_sequences.html">24. Sequences</a></li>
+            <li><a href="01_25_series.html">25. Series</a></li>
+            <li><a href="01_26_summation.html">26. Summation notation</a></li>
+            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
+
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Trigonometry</li>
+            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; GRAPHING RATIONALS
+        </div>
+
+        <header>
+            <h1>22. Rational Graphs & Discontinuities</h1>
+            <p class="subtitle">When math breaks. Holes, Cliffs, and Clipping.</p>
+        </header>
+
+        <!-- 1. BASICS -->
+        <section id="basics">
+            <h2>1. Types of Breaks</h2>
+            <div class="math-block">
+                $$ f(x) = \frac{N(x)}{D(x)} $$
+            </div>
+
+            <div class="syllabus-container">
+                <div class="sub-module">
+                    <h3 class="sub-module-title">The Two Dangers</h3>
+                    <ul class="topic-list">
+                        <li class="topic-item"><strong>Hole (Removable):</strong> If a factor cancels out (e.g.,
+                            \(\frac{x-1}{x-1}\)). It's just a missing point.</li>
+                        <li class="topic-item"><strong>Asymptote (Infinite):</strong> If the factor stays in the
+                            denominator (e.g., \(\frac{1}{x}\)). The graph shoots to infinity.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
+                <!-- SVG: Gradient Cliff -->
+                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
+                    <!-- Axis -->
+                    <line x1="50" y1="250" x2="550" y2="250" stroke="#64748b" stroke-width="2" />
+                    <line x1="50" y1="50" x2="50" y2="250" stroke="#64748b" stroke-width="2" />
+
+                    <!-- Asymptote Line -->
+                    <line x1="450" y1="20" x2="450" y2="280" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5" />
+
+                    <!-- Curve shooting up -->
+                    <path d="M 50 240 Q 350 230 440 20" fill="none" stroke="#0f172a" stroke-width="3" />
+
+                    <!-- Gradient Vector Exploding -->
+                    <path d="M 400 150 L 400 80" stroke="#3b82f6" stroke-width="4" marker-end="url(#arrow)" />
+                    <text x="320" y="120" fill="#3b82f6" font-weight="bold">Exploding Gradient</text>
+
+                    <!-- Clipped Vector -->
+                    <path d="M 420 150 L 420 130" stroke="#10b981" stroke-width="4" marker-end="url(#arrow)" />
+                    <text x="430" y="140" fill="#10b981" font-weight="bold">Clipped</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. AI CONTEXT -->
+        <section id="ai-context">
+            <h2>2. Gradient Clipping</h2>
+            <p>In Recurrent Neural Networks (RNNs), the loss function can look like a Rational Function with steep
+                cliffs. If you step too close to the edge, the gradient becomes massive (Infinity).</p>
+            <p>This causes the weights to update by a huge amount, destroying the model's memory.</p>
+
+            <div class="module-card">
+                <h3 class="module-title">The Fix: Clipping</h3>
+                <p>We artificially limit the length of the gradient vector.</p>
+                <div class="math-block">
+                    $$ \text{if } ||g|| > c, \text{then } g = c \cdot \frac{g}{||g||} $$
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. CODE IMPLEMENTATION -->
+        <section id="code">
+            <h2>3. Coding Protection</h2>
+            <p>PyTorch has a built-in utility for this safety measure.</p>
+
+            <div
+                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
+                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// PyTorch: Gradient Clipping</div>
+                <pre><code class="language-python">import torch
+import torch.nn as nn
+
+# Simulate a massive gradient (Explosion)
+linear = nn.Linear(10, 10)
+# Manually setting gradients to be HUGE
+linear.weight.grad = torch.full((10, 10), 10000.0)
+
+print(f"Norm before: {linear.weight.grad.norm():.2f}") 
+# Output: 100000.00 (Danger!)
+
+# Clip Gradients to max norm of 5.0
+nn.utils.clip_grad_norm_(linear.parameters(), max_norm=5.0)
+
+print(f"Norm after: {linear.weight.grad.norm():.2f}") 
+# Output: 5.00 (Safe)
+# The direction is preserved, but the magnitude is tamed.</code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+    </footer>
+</body>
+
+</html>

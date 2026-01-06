@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphing Linear Functions - Phase 1.1.19</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <!-- Sidebar content (unchanged) -->
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Arithmetic & Algebra</li>
+
+            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
+            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
+            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
+
+            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
+            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
+            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
+
+            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
+            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
+
+            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
+            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
+            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
+            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
+
+            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
+            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
+            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
+
+            <li><a href="01_16_functions.html">16. Functions</a></li>
+            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
+            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
+
+            <li><a href="01_19_graph_linear.html" class="active">19. Graphing linear</a></li>
+            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
+            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
+            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
+            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
+
+            <li><a href="01_24_sequences.html">24. Sequences</a></li>
+            <li><a href="01_25_series.html">25. Series</a></li>
+            <li><a href="01_26_summation.html">26. Summation notation</a></li>
+            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
+
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Trigonometry</li>
+            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Linear Graphs
+        </div>
+
+        <header>
+            <h1>19. Graphing Linear Functions</h1>
+            <p class="subtitle">The Geometry of Constant Change. The Tangent Line.</p>
+        </header>
+
+        <!-- 1. BASICS -->
+        <section id="basics">
+            <h2>1. Slope-Intercept Form</h2>
+            <div class="math-block">
+                $$ y = mx + b $$
+            </div>
+
+            <div class="syllabus-container">
+                <div class="sub-module">
+                    <h3 class="sub-module-title">Meaning of M and B</h3>
+                    <ul class="topic-list">
+                        <li class="topic-item"><strong>m (Slope):</strong> Rate of Change. Rise over Run. The
+                            "Gradient".</li>
+                        <li class="topic-item"><strong>b (Intercept):</strong> Starting Value when \( x=0 \). The
+                            "Bias".</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
+                <!-- SVG: Gradient Descent Metaphor -->
+                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
+                    <!-- Axis -->
+                    <line x1="50" y1="250" x2="550" y2="250" stroke="#64748b" stroke-width="2" />
+                    <line x1="50" y1="50" x2="50" y2="250" stroke="#64748b" stroke-width="2" />
+
+                    <!-- Tangent Line -->
+                    <line x1="100" y1="200" x2="500" y2="100" stroke="#3b82f6" stroke-width="3" />
+                    <text x="510" y="100" fill="#3b82f6" font-weight="bold">Standard Linear</text>
+                    <text x="300" y="140" fill="#64748b">Slope = Constant</text>
+
+                    <!-- Error Curve (Dashed) -->
+                    <path d="M 100 240 Q 300 280 500 50" fill="none" stroke="#ef4444" stroke-width="2"
+                        stroke-dasharray="5,5" opacity="0.5" />
+                    <text x="450" y="240" fill="#ef4444">Non-Linear Reality</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. AI CONTEXT -->
+        <section id="ai-context">
+            <h2>2. The Tangent Approximation</h2>
+            <p>Most of Calculus (and Deep Learning) is based on the idea that <strong>if you zoom in close enough,
+                    everything looks like a line.</strong></p>
+            <p>We calculate the "Gradient" (Slope) at a single point to know which way is "Down". This allows us to
+                minimize error even on complex, curvy loss landscapes.</p>
+
+            <div class="module-card">
+                <h3 class="module-title">Stochastic Gradient Descent (SGD)</h3>
+                <p>SGD updates weights using the linear slope:</p>
+                <div class="math-block">
+                    $$ w_{new} = w_{old} - \text{learning\_rate} \cdot \text{slope} $$
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. CODE IMPLEMENTATION -->
+        <section id="code">
+            <h2>3. Coding Slopes</h2>
+            <p>Visualizing a line and its parameters using Matplotlib.</p>
+
+            <div
+                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
+                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Python: Plotting Linear Functions</div>
+                <pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Define Line Parameters
+m = -0.5  # Negative Slope (Going Down)
+b = 3.0   # Intercept (Start at 3)
+
+# Generate X values
+x = np.linspace(-10, 10, 100)
+
+# Calculate Y
+y = m * x + b
+
+# Plot
+plt.figure(figsize=(6, 4))
+plt.plot(x, y, label=f'y = {m}x + {b}', color='blue')
+plt.axhline(0, color='black', linewidth=1)
+plt.axvline(0, color='black', linewidth=1)
+plt.grid(True, which='both')
+plt.legend()
+plt.title("Linear Function (The Tangent)")
+plt.show()</code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+    </footer>
+</body>
+
+</html>

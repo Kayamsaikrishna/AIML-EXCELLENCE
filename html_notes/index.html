@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI/ML Hub - The Engineering of Intelligence</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Landing Page Specific Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            display: block;
+            /* Override global flex layout */
+        }
+
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Updated to use the new Premium Image */
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7)), url('images/aiml_hero_premium.png') center/cover no-repeat;
+            opacity: 1;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            z-index: 2;
+            animation: fadeUp 1s ease-out;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.1);
+            color: #2563eb;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #0f172a;
+        }
+
+        .main-title span {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sub-text {
+            font-size: 1.35rem;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            font-weight: 400;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .action-container {
+            margin-bottom: 4rem;
+        }
+
+        .primary-btn {
+            background: #2563eb;
+            color: white;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 50px -10px rgba(37, 99, 235, 0.5);
+            background: #1d4ed8;
+        }
+
+        /* Feature Pillars */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .pillar-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .pillar-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .pillar-head {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-desc {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Inline CSS Fix for Images (Removing ../) */
+        .card-visual {
+            height: 120px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .visual-math,
+        .visual-advmath {
+            background-image: url('images/theme_math.png');
+        }
+
+        .visual-code,
+        .visual-data,
+        .visual-ops,
+        .visual-cloud,
+        .visual-tools,
+        .visual-projects {
+            background-image: url('images/theme_code.png');
+        }
+
+        .visual-ml,
+        .visual-dl,
+        .visual-cv,
+        .visual-nlp,
+        .visual-rl,
+        .visual-spec,
+        .visual-adv,
+        .visual-domain {
+            background-image: url('images/theme_neural.png');
+        }
+
+        .visual-career,
+        .visual-emerge,
+        .visual-ethics,
+        .visual-community {
+            background-image: url('images/theme_future.png');
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+
+            .hero-section {
+                justify-content: flex-start;
+                padding-top: 6rem;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .site-footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(to bottom, #ffffff, #f8fafc);
+            border-top: 1px solid #e2e8f0;
+            margin-top: 0;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer-brand {
+            font-weight: 600;
+            color: #0f172a;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-section">
+        <div class="hero-bg"></div>
+
+        <div class="hero-content">
+            <span class="badge">The Evolution of Learning</span>
+            <h1 class="main-title">Engineering Intelligence<br><span>From First Principles.</span></h1>
+            <p class="sub-text">
+                Stop memorizing APIs. Start engineering systems. <br>
+                A complete roadmap from Mathematical Foundations to production-grade Generative AI, designed for the
+                serious engineer.
+            </p>
+
+            <div class="action-container">
+                <a href="home.html" class="primary-btn">Enter Knowledge Hub →</a>
+            </div>
+
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <span class="pillar-icon">📐</span>
+                    <div class="pillar-head">Rigorous Foundations</div>
+                    <div class="pillar-desc">Stop treating models as black boxes. Derive algorithms from scratch,
+                        understand high-dimensional geometry, and master the math that powers the state-of-the-art.
+                    </div>
+                </div>
+                <div class="pillar-card">
+                    <span class="pillar-icon">🛠️</span>
+                    <div class="pillar-head">Engineering at Scale</div>
+                    <div class="pillar-desc">Notebooks are for prototypes. Learn to build robust pipelines, optimize
+                        inference latency, manage memory hierarchies, and deploy models that survive the real world.
+                    </div>
+                </div>
+                <div class="pillar-card">
+                    <span class="pillar-icon">🧠</span>
+                    <div class="pillar-head">Interactive Intuition</div>
+                    <div class="pillar-desc">Static text fails at dynamic concepts. Use our interactive visualizations
+                        to manipulate weights, visualize gradients, and build a lasting mental model of intelligence.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <span class="footer-brand">AI/ML Engineering Hub</span>
+            <span class="footer-tagline">Architecting the future of intelligence.</span>
+            &copy; 2026 Kayam Sai Krishna. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

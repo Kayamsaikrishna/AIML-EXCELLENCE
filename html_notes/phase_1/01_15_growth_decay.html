@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exponential Growth & Decay - Phase 1.1.15</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <!-- Sidebar content (unchanged) -->
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Arithmetic & Algebra</li>
+
+            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
+            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
+            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
+
+            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
+            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
+            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
+
+            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
+            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
+
+            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
+            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
+            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
+            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
+
+            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
+            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
+            <li><a href="01_15_growth_decay.html" class="active">15. Growth & decay</a></li>
+
+            <li><a href="01_16_functions.html">16. Functions</a></li>
+            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
+            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
+
+            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
+            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
+            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
+            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
+            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
+
+            <li><a href="01_24_sequences.html">24. Sequences</a></li>
+            <li><a href="01_25_series.html">25. Series</a></li>
+            <li><a href="01_26_summation.html">26. Summation notation</a></li>
+            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
+
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Trigonometry</li>
+            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Growth & Decay
+        </div>
+
+        <header>
+            <h1>15. Exponential Models</h1>
+            <p class="subtitle">The math of viral explosions and radioactive decay. Learning Rate Annealing.</p>
+        </header>
+
+        <!-- 1. BASICS -->
+        <section id="basics">
+            <h2>1. The Formula of Change</h2>
+            <div class="math-block">
+                $$ A(t) = P \cdot e^{rt} $$
+            </div>
+
+            <div class="syllabus-container">
+                <div class="sub-module">
+                    <h3 class="sub-module-title">Variables</h3>
+                    <ul class="topic-list">
+                        <li class="topic-item"><strong>P (Principal):</strong> The starting amount.</li>
+                        <li class="topic-item"><strong>r (Rate):</strong> If \( r > 0 \), Growth. If \( r < 0 \),
+                                Decay.</li>
+                        <li class="topic-item"><strong>t (Time):</strong> The independent variable.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
+                <!-- SVG: Growth vs Decay -->
+                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
+                    <!-- Axis -->
+                    <line x1="50" y1="250" x2="550" y2="250" stroke="#64748b" stroke-width="2" /> <!-- x -->
+                    <line x1="50" y1="50" x2="50" y2="250" stroke="#64748b" stroke-width="2" /> <!-- y -->
+
+                    <!-- Decay Curve (Green) -->
+                    <path d="M 50 50 Q 150 240 550 248" fill="none" stroke="#10b981" stroke-width="3" />
+                    <text x="300" y="200" fill="#10b981" font-weight="bold">Standard Decay (Loss)</text>
+
+                    <!-- Growth Curve (Red) -->
+                    <path d="M 50 240 Q 300 230 550 50" fill="none" stroke="#ef4444" stroke-width="3" />
+                    <text x="350" y="100" fill="#ef4444" font-weight="bold">Explosion (Parameters)</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. AI CONTEXT -->
+        <section id="ai-context">
+            <h2>2. Learning Rate Annealing</h2>
+            <p>Training a neural network is like landing a plane. You start fast (high speed) to cover distance, but you
+                must slow down (decay speed) as you approach the runway (minimum loss) to land smoothly.</p>
+
+            <div class="module-card">
+                <h3 class="module-title">Exponential Decay Schedule</h3>
+                <p>$$ LR_{epoch} = LR_{initial} \cdot \gamma^{epoch} $$</p>
+                <p>We reduce the Learning Rate by a factor (e.g., 0.9) every epoch. This allows "Fine-Tuning".</p>
+            </div>
+        </section>
+
+        <!-- 3. CODE IMPLEMENTATION -->
+        <section id="code">
+            <h2>3. Coding Decay</h2>
+            <p>PyTorch handles this via `lr_scheduler`.</p>
+
+            <div
+                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
+                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// PyTorch: Scheduling</div>
+                <pre><code class="language-python">import torch
+import torch.nn as nn
+import torch.optim as optim
+
+model = nn.Linear(10, 1)
+optimizer = optim.SGD(model.parameters(), lr=0.1)
+
+# Decay LR by multiplying by 0.9 every step
+scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
+
+print(f"Start LR: {optimizer.param_groups[0]['lr']}")
+
+for epoch in range(3):
+    optimizer.step()
+    scheduler.step()
+    current_lr = optimizer.param_groups[0]['lr']
+    print(f"Epoch {epoch+1} LR: {current_lr:.4f}")
+
+# Output:
+# Start LR: 0.1
+# Epoch 1 LR: 0.0900
+# Epoch 2 LR: 0.0810
+# Epoch 3 LR: 0.0729</code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+    </footer>
+</body>
+
+</html>

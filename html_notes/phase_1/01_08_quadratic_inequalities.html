@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Inequalities - Phase 1.1.8</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <!-- Sidebar content (unchanged) -->
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Arithmetic & Algebra</li>
+
+            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
+            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
+            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
+
+            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
+            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
+            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
+
+            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
+            <li><a href="01_08_quadratic_inequalities.html" class="active">8. Quadratic inequalities</a></li>
+
+            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
+            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
+            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
+            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
+
+            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
+            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
+            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
+
+            <li><a href="01_16_functions.html">16. Functions</a></li>
+            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
+            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
+
+            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
+            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
+            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
+            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
+            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
+
+            <li><a href="01_24_sequences.html">24. Sequences</a></li>
+            <li><a href="01_25_series.html">25. Series</a></li>
+            <li><a href="01_26_summation.html">26. Summation notation</a></li>
+            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
+
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Trigonometry</li>
+            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Quadratic Inequalities
+        </div>
+
+        <header>
+            <h1>8. Quadratic Inequalities & Margins</h1>
+            <p class="subtitle">Solving \( ax^2 + bx + c > 0 \). Understanding "Safe Zones" in AI.</p>
+        </header>
+
+        <!-- 1. BASICS -->
+        <section id="basics">
+            <h2>1. The "Cut Points" Method</h2>
+            <p>To solve \( x^2 - 5x + 6 > 0 \), we don't just guess numbers. We use the <strong>Roots</strong> as
+                boundary markers.</p>
+            <ol>
+                <li><strong>Find Roots:</strong> Solve \( x^2 - 5x + 6 = 0 \) → \( (x-2)(x-3) = 0 \). Roots are 2 and 3.
+                </li>
+                <li><strong>Test Regions:</strong> The number line is cut into 3 pieces: \( (-\infty, 2) \), \( (2, 3)
+                    \), \( (3, \infty) \).</li>
+                <li><strong>Check Sign:</strong> Plug in a test point for each. e.g., \( x=0 \rightarrow 6 > 0 \)
+                    (True).</li>
+            </ol>
+
+            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
+                <!-- SVG: Parabola Above Axis -->
+                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
+                    <!-- Axis -->
+                    <line x1="50" y1="200" x2="550" y2="200" stroke="#64748b" stroke-width="2" />
+
+                    <!-- Parabola (Roots at x=200, x=400) -->
+                    <path d="M 100 0 Q 300 400 500 0" fill="none" stroke="#0f172a" stroke-width="3" />
+
+                    <!-- Roots -->
+                    <circle cx="215" cy="200" r="6" fill="#ef4444" />
+                    <text x="215" y="225" text-anchor="middle" font-weight="bold">x=2</text>
+
+                    <circle cx="385" cy="200" r="6" fill="#ef4444" />
+                    <text x="385" y="225" text-anchor="middle" font-weight="bold">x=3</text>
+
+                    <!-- Shading Positive Regions -->
+                    <rect x="50" y="0" width="165" height="200" fill="#10b981" opacity="0.2" />
+                    <text x="130" y="50" fill="#047857" font-weight="bold">POSITIVE (>0)</text>
+
+                    <rect x="385" y="0" width="165" height="200" fill="#10b981" opacity="0.2" />
+                    <text x="470" y="50" fill="#047857" font-weight="bold">POSITIVE (>0)</text>
+
+                    <!-- Shading Negative Region -->
+                    <rect x="215" y="200" width="170" height="100" fill="#ef4444" opacity="0.1" />
+                    <text x="300" y="250" fill="#b91c1c" font-weight="bold">NEGATIVE (<0)< /text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. AI CONTEXT -->
+        <section id="ai-context">
+            <h2>2. The Margin Loss</h2>
+            <p>In AI, we often don't just want the "Right Answer" to be bigger than the "Wrong Answer". We want it to be
+                bigger by a specific <strong>Margin</strong> (a gap).</p>
+            <div class="math-block">
+                $$ Score_{correct} - Score_{wrong} > Margin $$
+            </div>
+            <p>This is an inequality. If the condition is met (True), the Loss is 0. If it is violated (False), the Loss
+                is positive.</p>
+
+            <div class="module-card">
+                <h3 class="module-title">AI: Triplet Loss (Face Recognition)</h3>
+                <p>When training Face ID, we want:</p>
+                <ul>
+                    <li>Distance(Face, Same_Person) < Distance(Face, Different_Person) - Margin</li>
+                    <li>\( ||f(A) - f(P)||^2 + \alpha < ||f(A) - f(N)||^2 \)</li>
+                </ul>
+                <p>This is a <strong>Quadratic Inequality</strong> involving distances (squared norms).</p>
+            </div>
+        </section>
+
+        <!-- 3. CODE IMPLEMENTATION -->
+        <section id="code">
+            <h2>3. Coding Margin Ranking Loss</h2>
+            <p>PyTorch has this inequality built-in as `nn.MarginRankingLoss`.</p>
+
+            <div
+                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
+                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// PyTorch: Enforcing Inequalities</div>
+                <pre><code class="language-python">import torch
+import torch.nn as nn
+
+# Loss Function: max(0, -y * (x1 - x2) + margin)
+criterion = nn.MarginRankingLoss(margin=1.0)
+
+# Scores for two items
+score_good = torch.tensor([5.0], requires_grad=True) # High Score
+score_bad = torch.tensor([4.2], requires_grad=True)  # Slightly lower score
+
+# Target: 1 means score_good SHOULD be > score_bad
+target = torch.tensor([1.0])
+
+# Calculate Loss
+# Difference is 0.8. Margin is 1.0.
+# Inequality Failed! Gap (0.8) is less than Margin (1.0).
+loss = criterion(score_good, score_bad, target)
+
+loss.backward()
+
+print(f"Loss: {loss.item()}") 
+# Output: 0.2 (The extra amount needed to reach margin)</code></pre>
+            </div>
+
+            <div class="deep-dive-box">
+                <h3 class="deep-dive-title">Why use Margins?</h3>
+                <p>If we just required \( > 0 \), the model might output `5.000001` vs `5.0`. This is technically
+                    correct but "fragile". By enforcing a quadratic margin, we ensure the model is
+                    <strong>Confident</strong> and <strong>Robust</strong> to noise.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+    </footer>
+</body>
+
+</html>

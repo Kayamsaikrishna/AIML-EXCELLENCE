@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logarithms - Phase 1.1.14</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <!-- Sidebar content (unchanged) -->
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Arithmetic & Algebra</li>
+
+            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
+            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
+            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
+
+            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
+            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
+            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
+
+            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
+            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
+
+            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
+            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
+            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
+            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
+
+            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
+            <li><a href="01_14_logarithms.html" class="active">14. Logarithms</a></li>
+            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
+
+            <li><a href="01_16_functions.html">16. Functions</a></li>
+            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
+            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
+
+            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
+            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
+            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
+            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
+            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
+
+            <li><a href="01_24_sequences.html">24. Sequences</a></li>
+            <li><a href="01_25_series.html">25. Series</a></li>
+            <li><a href="01_26_summation.html">26. Summation notation</a></li>
+            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
+
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Trigonometry</li>
+            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Logarithms
+        </div>
+
+        <header>
+            <h1>14. Logarithms: Taming Giants</h1>
+            <p class="subtitle">Turning Multiplication into Addition. The numerical savior of AI.</p>
+        </header>
+
+        <!-- 1. BASICS -->
+        <section id="basics">
+            <h2>1. The Definition</h2>
+            <div class="math-block">
+                $$ y = \log_b(x) \iff b^y = x $$
+            </div>
+            <p>Logarithms ask: "How many times must I multiply the base to get x?"</p>
+
+            <div class="syllabus-container">
+                <div class="sub-module">
+                    <h3 class="sub-module-title">Key Property: Product Rule</h3>
+                    <p>$$ \log(a \cdot b) = \log(a) + \log(b) $$</p>
+                    <p>This property is the foundation of Information Theory and Maximum Likelihood Estimation.</p>
+                </div>
+            </div>
+
+            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
+                <!-- SVG: Log Curve -->
+                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
+                    <!-- Axis -->
+                    <line x1="50" y1="250" x2="550" y2="250" stroke="#64748b" stroke-width="2" />
+                    <line x1="50" y1="50" x2="50" y2="280" stroke="#64748b" stroke-width="2" />
+
+                    <!-- Log Curve -->
+                    <!-- Points: (1,0), (10, 1), (100, 2) scaled -->
+                    <path d="M 55 240 Q 150 150 550 50" fill="none" stroke="#3b82f6" stroke-width="3" />
+
+                    <text x="550" y="40" fill="#3b82f6" font-weight="bold">y = log(x)</text>
+                    <text x="70" y="270" text-anchor="middle">1</text>
+                    <circle cx="65" cy="250" r="4" fill="#3b82f6" />
+
+                    <text x="300" y="200" fill="#64748b">Slow Growth</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. AI CONTEXT -->
+        <section id="ai-context">
+            <h2>2. The Underflow Problem</h2>
+            <p>Probabilities are small numbers ($0.0 \le p \le 1.0$). If you multiply many probabilities (e.g., in a
+                language model predicting the next 100 words), the number becomes incredibly tiny.</p>
+            <div class="math-block">
+                $$ 0.1^{100} \approx 0.000...001 $$
+            </div>
+            <p>Computers cannot store this. They round it to exactly **zero**. This is called
+                <strong>Underflow</strong>.</p>
+
+            <div class="module-card">
+                <h3 class="module-title">The Solution: Log-Likelihood</h3>
+                <p>Instead of maximizing likelihood \( L = \prod p_i \), we maximize log-likelihood \( \log L = \sum
+                    \log p_i \).</p>
+                <ul>
+                    <li>Multiplication becomes <strong>Addition</strong> (Stable).</li>
+                    <li>Tiny numbers become identifiable negative numbers (e.g., \(\log(10^{-9}) = -20.7\)).</li>
+                    <li>The peak (maximum) stays at the exact same location because log is monotonic.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. CODE IMPLEMENTATION -->
+        <section id="code">
+            <h2>3. Coding Stability</h2>
+            <p>Demonstrating how Logs save us from numerical death.</p>
+
+            <div
+                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
+                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Python: Why we use Logs</div>
+                <pre><code class="language-python">import math
+
+# A sequence of probabilities (e.g., confidence in a sentence)
+probs = [0.1] * 400  # 400 events with 10% chance each
+
+# 1. Direct Multiplication
+product = 1.0
+for p in probs:
+    product *= p
+
+print(f"Product: {product}") 
+# Output: 0.0 (Underflow! Information lost.)
+
+# 2. Sum of Logs
+log_sum = 0.0
+for p in probs:
+    log_sum += math.log(p)
+
+print(f"Log Sum: {log_sum}") 
+# Output: -921.03
+# We still have the precise value. We can compare it to other models.</code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+    </footer>
+</body>
+
+</html>

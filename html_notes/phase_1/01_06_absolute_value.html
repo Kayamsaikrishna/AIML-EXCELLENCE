@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absolute Value - Phase 1.1.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <!-- Sidebar content (unchanged) -->
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Arithmetic & Algebra</li>
+
+            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
+            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
+            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
+
+            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
+            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
+            <li><a href="01_06_absolute_value.html" class="active">6. Absolute value</a></li>
+
+            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
+            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
+
+            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
+            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
+            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
+            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
+
+            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
+            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
+            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
+
+            <li><a href="01_16_functions.html">16. Functions</a></li>
+            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
+            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
+
+            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
+            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
+            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
+            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
+            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
+
+            <li><a href="01_24_sequences.html">24. Sequences</a></li>
+            <li><a href="01_25_series.html">25. Series</a></li>
+            <li><a href="01_26_summation.html">26. Summation notation</a></li>
+            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
+
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.1 Trigonometry</li>
+            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Absolute Value
+        </div>
+
+        <header>
+            <h1>6. Absolute Value & Loss Functions</h1>
+            <p class="subtitle">Distance cannot be negative. The mathematics of Error and Sparsity.</p>
+        </header>
+
+        <!-- 1. DEFINITION -->
+        <section id="basics">
+            <h2>1. The Definition of Distance</h2>
+            <div class="math-block">
+                $$ |x| = \begin{cases} x & \text{if } x \ge 0 \\ -x & \text{if } x < 0 \end{cases} $$ </div>
+
+                    <div class="syllabus-container">
+                        <div class="sub-module">
+                            <h3 class="sub-module-title">Why it Matters</h3>
+                            <p>In the physical world and engineering, "Negative Distance" doesn't exist. If a robot is
+                                -5 meters from the target, the <strong>Error</strong> magnitude is 5 meters. We optimize
+                                systems to minimize this magnitude.</p>
+                        </div>
+
+                        <div class="module-card">
+                            <h3 class="module-title">AI Context: MAE vs MSE</h3>
+                            <p>When training a Regression model (e.g., predicting house prices), we measure error.</p>
+                            <ul>
+                                <li><strong>Mean Absolute Error (L1):</strong> \( \frac{1}{n} \sum |y_{pred} - y_{true}|
+                                    \).</li>
+                                <li><strong>Mean Squared Error (L2):</strong> \( \frac{1}{n} \sum (y_{pred} -
+                                    y_{true})^2 \).</li>
+                            </ul>
+                            <p><strong>L1 (Absolute Value) is Robust:</strong> It doesn't overreact to outliers. If one
+                                house is priced crazily high, L1 treats it linearly. L2 squares the error, forcing the
+                                model to skew massively to fix that one mistake.</p>
+                        </div>
+                    </div>
+        </section>
+
+        <!-- 2. VISUALIZATION -->
+        <section id="visual">
+            <h2>2. The "V" vs The "U"</h2>
+            <p>The shape of the function determines how the Gradient flows.</p>
+
+            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
+                <!-- SVG: L1 vs L2 Graphs -->
+                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
+                    <!-- L1 Graph -->
+                    <g transform="translate(50, 0)">
+                        <line x1="0" y1="250" x2="200" y2="250" stroke="#64748b" stroke-width="2" /> <!-- x-axis -->
+                        <line x1="100" y1="50" x2="100" y2="250" stroke="#64748b" stroke-width="2" /> <!-- y-axis -->
+
+                        <!-- V Shape -->
+                        <line x1="100" y1="250" x2="180" y2="90" stroke="#3b82f6" stroke-width="3" />
+                        <line x1="100" y1="250" x2="20" y2="90" stroke="#3b82f6" stroke-width="3" />
+
+                        <text x="100" y="280" text-anchor="middle" font-weight="bold">L1: Absolute Value (|x|)</text>
+                        <text x="100" y="40" text-anchor="middle" fill="#3b82f6">Constant Gradient (+1 / -1)</text>
+                    </g>
+
+                    <!-- L2 Graph -->
+                    <g transform="translate(350, 0)">
+                        <line x1="0" y1="250" x2="200" y2="250" stroke="#64748b" stroke-width="2" /> <!-- x-axis -->
+                        <line x1="100" y1="50" x2="100" y2="250" stroke="#64748b" stroke-width="2" /> <!-- y-axis -->
+
+                        <!-- U Shape (Quadratic Bezier) -->
+                        <path d="M 20 50 Q 100 290 180 50" fill="none" stroke="#ef4444" stroke-width="3" />
+
+                        <text x="100" y="280" text-anchor="middle" font-weight="bold">L2: Quadratic (x²)</text>
+                        <text x="100" y="40" text-anchor="middle" fill="#ef4444">Gradient Vanishes at 0</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="deep-dive-box">
+                <h3 class="deep-dive-title">The Engineering Trade-off: Sparsity</h3>
+                <p>Because the L1 gradient is constant (it doesn't get smaller as you get closer to 0), it pushes
+                    weights <strong>Exactly to Zero</strong>.</p>
+                <p>This is called <strong>L1 Regularization (Lasso)</strong>. It is used for "Feature Selection"—the
+                    model automatically kills off useless features by setting their weights to exactly 0.</p>
+                <p>L2 (Ridge), on the other hand, just makes weights "small" but rarely zero.</p>
+            </div>
+        </section>
+
+        <!-- 3. CODE IMPLEMENTATION -->
+        <section id="code">
+            <h2>3. Coding L1 Regularization</h2>
+            <p>Let's see how we manually add L1 regularization to a PyTorch loss function.</p>
+
+            <div
+                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
+                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// PyTorch: Adding L1 Penalty</div>
+                <pre><code class="language-python">import torch
+import torch.nn as nn
+
+model = nn.Linear(10, 1) # simple linear model
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+
+# Training Loop
+def train_step(data, target):
+    optimizer.zero_grad()
+    output = model(data)
+    
+    # 1. Standard Loss (MSE)
+    mse_loss = nn.MSELoss()(output, target)
+    
+    # 2. L1 Regularization Term
+    l1_lambda = 0.01
+    l1_norm = sum(p.abs().sum() for p in model.parameters())
+    
+    # 3. Total Loss
+    loss = mse_loss + (l1_lambda * l1_norm)
+    
+    loss.backward() # Gradients calculated for both Error and Magnitude
+    optimizer.step()
+    
+    return loss.item()</code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+    </footer>
+</body>
+
+</html>

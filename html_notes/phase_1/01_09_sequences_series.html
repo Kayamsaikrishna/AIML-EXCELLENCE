@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequences & Series - Phase 1.1.9</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <!-- SIDEBAR will be replaced by script -->
+                <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">? Dashboard</a></li>
+            <li style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">1.1 Arithmetic & Algebra</li>
+            
+            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
+            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
+            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
+            
+            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
+            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
+            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
+            
+            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
+            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
+            
+            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
+            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
+            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
+            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
+            
+            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
+            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
+            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
+            
+            <li><a href="01_16_functions.html">16. Functions</a></li>
+            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
+            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
+            
+            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
+            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
+            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
+            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
+            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
+            
+            <li><a href="01_24_sequences.html">24. Sequences</a></li>
+            <li><a href="01_25_series.html">25. Series</a></li>
+            <li><a href="01_26_summation.html">26. Summation notation</a></li>
+            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
+
+            <li style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">1.1 Trigonometry</li>
+            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Sequences & Series
+        </div>
+
+        <header>
+            <h1>Sequences, Series & Induction</h1>
+            <p class="subtitle">The math of time and iteration. Dealing with data that has an order (Time Series, NLP).</p>
+        </header>
+
+        <!-- 24. Sequences -->
+        <section id="sequences">
+            <h2>24. Sequences</h2>
+            <p>An ordered list of numbers: \( a_1, a_2, a_3, \dots \)</p>
+            
+            <div class="module-card">
+                 <h3 class="module-title">AI: Recurrent Neural Networks (RNNs)</h3>
+                 <p>Standard Neural Networks treat input as a snapshot. RNNs treat input as a <strong>Sequence</strong>.</p>
+                 <p>$$ h_t = f(h_{t-1}, x_t) $$</p>
+                 <p>The state at time \(t\) depends on the state at \(t-1\). This is a recursive sequence definition!</p>
+            </div>
+            
+            <div class="syllabus-container">
+                <div class="sub-module">
+                    <h3 class="sub-module-title">Arithmetic Sequence</h3>
+                    <p>\( a_n = a_1 + (n-1)d \). (Linear Growth)</p>
+                </div>
+                <div class="sub-module">
+                    <h3 class="sub-module-title">Geometric Sequence</h3>
+                    <p>\( a_n = a_1 \cdot r^{n-1} \). (Exponential Growth/Decay)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 25. Series -->
+        <section id="series">
+            <h2>25. Series</h2>
+            <p>The sum of a sequence. \( S_n = \sum a_i \).</p>
+            
+            <div class="module-card">
+                 <h3 class="module-title">Deep Dive: Taylor Series</h3>
+                 <p>In Calculus, we approximate complex functions (like \(e^x\) or \(\sin x\)) as an infinite series of polynomials.</p>
+                 <p>$$ f(x) \approx f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \dots $$</p>
+                 <p><strong>Gradient Descent</strong> is basically just using the first two terms of the Taylor Series expansion to guess where the bottom of the hill is.</p>
+            </div>
+        </section>
+
+        <!-- 26. Summation -->
+        <section id="summation">
+            <h2>26. Summation Notation ($\Sigma$)</h2>
+            <p>The "For Loop" of Mathematics.</p>
+            <div class="math-block">
+                $$ \sum_{i=1}^{N} x_i $$
+            </div>
+            <p>This symbol is everywhere in AI. The Error function is usually a Sum of Squared Errors across $N$ examples.</p>
+        </section>
+
+        <!-- 27. Induction -->
+        <section id="induction">
+            <h2>27. Mathematical Induction</h2>
+            <p>How do we prove something is true for <em>all</em> cases?</p>
+            <ol>
+                <li><strong>Base Case:</strong> Prove it works for \(n=1\).</li>
+                <li><strong>Inductive Step:</strong> Prove that if it works for \(n=k\), it MUST work for \(n=k+1\).</li>
+            </ol>
+            
+            <div class="ai-insight-box">
+                <div class="ai-insight-title">Generalization</div>
+                <p>In AI, we want models that "Generalize". We train on \(k\) examples and hope it works on the \(k+1\)-th example (Test Set). While not a formal proof, the logic of learning is inductive: observing patterns and assuming they hold universally.</p>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- Reload sidebar script to ensure this new file gets the update immediately if opened directly -->
+    <script>
+        // Simple client-side fallback if static generation lagged, though mostly for visual dev
+    </script>
+    
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+    </footer>
+</body>
+
+</html>
+
+
+
