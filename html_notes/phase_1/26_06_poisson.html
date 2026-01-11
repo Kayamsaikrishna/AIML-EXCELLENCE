@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poisson Distribution - Phase 1.4.2.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 26: Discrete Distributions</li>
+            <li><a href="26_05_hypergeometric.html">05. Hypergeometric Distribution</a></li>
+            <li><a href="26_06_poisson.html" class="active">06. Poisson Distribution</a></li>
+            <li><a href="26_07_discrete_uniform.html">07. Discrete Uniform</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Poisson
+        </div>
+
+        <header>
+            <h1>06. Poisson Distribution</h1>
+            <p class="subtitle">Modeling rare events in fixed intervals.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Poisson Distribution</strong> models the probability of a given number of events occurring in
+                a fixed interval of time or space, provided these events occur with a known constant mean rate
+                ($\lambda$) and independently of the time since the last event.</p>
+            <div class="math-block">
+                $$ P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!} \quad \text{for } k=0, 1, 2, \dots $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Unique Property</h2>
+            <p>The Poisson distribution is unique because its <strong>Mean equals its Variance</strong>:</p>
+            <div class="math-block">
+                $$ E[X] = Var(X) = \lambda $$
+            </div>
+            <p>This is often used as a diagnostic check: if your data's variance is much higher than its mean, the
+                Poisson model might be too simple, and you should switch to Negative Binomial.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Demand Forecasting and Anomaly Detection</h2>
+            <div class="module-card">
+                <h3>The Math of Arrival Rates</h3>
+                <p>Poisson is the foundation of **Poisson Regression**, used when the AI needs to predict "event
+                    counts." </p>
+                <p>In **Predictive Maintenance**, the number of machine failures in a month acts as a Poisson random
+                    variable. In **Network Security AI**, the number of packets arriving at a server is modeled as a
+                    Poisson process; if the actual count $k$ is significantly higher than $\lambda$, the AI flags an
+                    <strong>Anomaly (DDoS Attack)</strong>. It is also used in **Log-Linear Models** for Natural
+                    Language Processing (NLP) to model the frequency of rare words. Understanding Poisson allows you to
+                    design AI systems that reason about "When the next event will happen." </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Poisson PMF</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.stats import poisson
+
+# Average rate of website visits: λ=10 per minute
+lam = 10
+
+# Probability of exactly 15 visits
+print(f"P(X=15): {poisson.pmf(15, lam):.4f}")
+
+# Simulate 5 minutes of data
+print(f"Arrivals: {poisson.rvs(lam, size=5)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 26: Discrete Distributions.</p>
+    </footer>
+</body>
+
+</html>

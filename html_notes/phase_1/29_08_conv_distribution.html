@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convergence in Distribution - Phase 1.4.5.8</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 29: Limit Theorems</li>
+            <li><a href="29_07_conv_probability.html">07. Conv. in Probability</a></li>
+            <li><a href="29_08_conv_distribution.html" class="active">08. Conv. in Distribution</a></li>
+            <li><a href="29_09_conv_almost_sure.html">09. Conv. Almost Sure</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Convergence
+            Dist
+        </div>
+
+        <header>
+            <h1>08. Convergence in Distribution</h1>
+            <p class="subtitle">The "Weakest" convergence: Matching shapes, not values.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>A sequence of random variables $X_1, X_2, \dots$ <strong>converges in distribution</strong> to a random
+                variable $X$ if their cumulative distribution functions (CDFs) converge to the CDF of $X$ at every point
+                where the target CDF is continuous. </p>
+            <div class="math-block">
+                $$ \lim_{n \to \infty} F_{X_n}(x) = F_X(x) $$
+            </div>
+            <p>Notation: $X_n \xrightarrow{d} X$. This is also called "Weak Convergence."</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Intuition: The Ghostly Shadow</h2>
+            <p>Convergence in distribution is less strict than convergence in probability. It doesn't mean the
+                individual values of $X_n$ are getting close to $X$ (they could be totally different random events). It
+                only means that the **histogram** of $X_n$ eventually looks exactly like the **PDF** of $X$. The
+                *behavior* of the system is becoming predictable, even if the specific outcomes are not.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Why CLT Works</h2>
+            <div class="module-card">
+                <h3>Approximating Complexity</h3>
+                <p>Convergence in distribution is the mathematical engine behind the <strong>Central Limit
+                        Theorem</strong>. </p>
+                <p>In **Deep Learning Research**, we often deal with millions of parameters. Trying to calculate the
+                    exact probability distribution of a neural network's internal state is impossible. However, because
+                    these states converge in distribution to a Gaussian as the number of neurons grows, we can use
+                    simple "Gaussian Approximations" to prove that a model is stable or to calculate its
+                    **Generalization Error**. In **A/B Testing** for AI features, we use this convergence to justify
+                    using <strong>p-values</strong> and <strong>t-tests</strong>—we rely on the fact that the
+                    experimental results will converge in distribution to a known curve, allowing us to make decisions
+                    with statistical confidence. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Shape Convergence</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Observe how Binomial(n, p) starts looking like Normal distribution
+from scipy.stats import binom, norm
+
+n = 100; p = 0.5
+x = np.arange(0, 101)
+
+# Binomial PMF
+plt.bar(x, binom.pmf(x, n, p), alpha=0.5, label='Binomial')
+
+# Normal PDF (Approximation)
+mu, std = n*p, np.sqrt(n*p*(1-p))
+plt.plot(x, norm.pdf(x, mu, std), color='red', label='Normal (Target)')
+
+plt.title("Convergence in Distribution Demo")
+plt.legend()
+plt.show()</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 29: Limit Theorems.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marginal Probability Distribution - Phase 1.4.4.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 28: Multivariate Probability</li>
+            <li><a href="28_01_joint_dist.html">01. Joint Distribution</a></li>
+            <li><a href="28_02_marginal_dist.html" class="active">02. Marginal Distribution</a></li>
+            <li><a href="28_03_conditional_dist.html">03. Conditional Distribution</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Marginal
+        </div>
+
+        <header>
+            <h1>02. Marginal Probability Distribution</h1>
+            <p class="subtitle">Slicing high-dimensional data into individual variables.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Marginal Distribution</strong> of a subset of random variables is the probability
+                distribution of the variables in the subset, without reference to the values of the other variables. To
+                find it, we "average out" the unwanted variables. </p>
+            <ul class="topic-list">
+                <li>**Discrete:** $P(X=x) = \sum_{y} P(X=x, Y=y)$</li>
+                <li>**Continuous:** $f_X(x) = \int_{-\infty}^{\infty} f(x, y) dy$</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Intuition: The Shadow</h2>
+            <p>Imagine the Joint Distribution as a 3D hill. The Marginal Distribution of $X$ is the "shadow" cast by
+                that hill onto the $X$-axis. It tells you everything about $X$ while ignoring the existence of $Y$.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Global Stats and Attention Mechanisms</h2>
+            <div class="module-card">
+                <h3>Ignoring the Noise</h3>
+                <p>Marginalization is how AI handles <strong>Missing or Irrelevant Data</strong>. </p>
+                <p>In **Data Analysis**, when you calculate the `mean()` or `std()` of a single column in a massive
+                    dataset, you are essentially calculating a statistic of the Marginal Distribution. In **Generative
+                    Modeling**, like <strong>Variational Autoencoders (VAEs)</strong>, we often care about the "Marginal
+                    Likelihood" of our data—the probability of an image existing regardless of the hidden "latent"
+                    factors the AI used to create it. In **Transformer models** (like ChatGPT), the **Attention
+                    Mechanism** can be seen as a way of dynamically marginalizing over tokens—the model decides which
+                    tokens are relevant to the current word and "averages out" the influence of the rest. Understanding
+                    marginals allows you to reason about how AI models summarize complex datasets into individual
+                    feature insights. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Marginalizing with Numpy</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Example: Marginalizing a Joint PMF
+# [X=0, X=1] x [Y=0, Y=1]
+joint_pmf = np.array([[0.1, 0.2],
+                      [0.3, 0.4]])
+
+# Marginal of X (summing across axis 1 / Y)
+marginal_x = np.sum(joint_pmf, axis=1)
+
+# Marginal of Y (summing across axis 0 / X)
+marginal_y = np.sum(joint_pmf, axis=0)
+
+print(f"P(X): {marginal_x}") # [0.3, 0.7]
+print(f"P(Y): {marginal_y}") # [0.4, 0.6]</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 28: Multivariate Probability.</p>
+    </footer>
+</body>
+
+</html>

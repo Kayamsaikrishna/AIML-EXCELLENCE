@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometric Interpretation of Regression - Phase 1.5.5.3</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 34: Regression Analysis</li>
+            <li><a href="34_02_ols_mechanics.html">02. OLS Mechanics</a></li>
+            <li><a href="34_03_geometric_regression.html" class="active">03. Geometric Interpretation</a></li>
+            <li><a href="34_04_multiple_linear_regression.html">04. Multiple Linear Regression</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#regression">Regression</a> &gt; Geometry
+        </div>
+
+        <header>
+            <h1>03. Geometric Interpretation of Regression</h1>
+            <p class="subtitle">Linear Algebra meets Statistics: The Projection.</p>
+        </header>
+
+        <section>
+            <h2>1. The Vector View</h2>
+            <p>In statistics, we see data as points. In geometry, we see $Y$ as a vector in an $n$-dimensional space.
+                Regression is the process of finding a vector $\hat{Y}$ that is a linear combination of our input
+                vectors ($X$'s) that is **Closest** to the actual $Y$. </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Orthogonal Projection</h2>
+            <p>The "Closest" point is found by an **Orthogonal Projection**. The residuals $\epsilon = Y - \hat{Y}$ must
+                be perpendicular (orthogonal) to the plane spanned by our feature vectors $X$. </p>
+            <div class="math-block">
+                $$ X^T(Y - X\beta) = 0 $$
+            </div>
+            <p>This is why the Mean of residuals is always zero in OLS.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Vector Spaces and Embeddings</h2>
+            <div class="module-card">
+                <h3>The Subspace of Reality</h3>
+                <p>In AI, this geometric view is the foundation of <strong>Vector Space Modeling</strong>. </p>
+                <p>When we perform **Principal Component Analysis (PCA)** or construct **Word Embeddings (Word2Vec)**,
+                    we are essentially doing high-dimensional geometry similar to regression. This view explains *why*
+                    we can compress data: we are "Projecting" the high-dimensional world onto a lower-dimensional
+                    **Latent Subspace**. This is also how **Modern Recommendatons** work: the AI projects users and
+                    items onto the same coordinate system. If a user is "Close" to a movie's feature vector in that
+                    subspace, the AI recommends it. Understanding regression as a "Projection" is the first step toward
+                    understanding the complex internal geometry of **Large Language Models**. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Visualizing the Subspace</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Proof that residuals are orthogonal to X
+residuals = y - model.predict(X)
+correlation = np.dot(X.flatten(), residuals.flatten())
+
+print(f"Dot Product (Close to zero): {correlation:.10f}")
+# In a perfect geometric world, this is exactly 0!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 34: Regression Analysis.</p>
+    </footer>
+</body>
+
+</html>

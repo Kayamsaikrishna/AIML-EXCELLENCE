@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One-tailed vs Two-tailed Tests - Phase 1.5.3.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_05_p_value_computation.html">05. p-value & Evidence</a></li>
+            <li><a href="32_06_one_vs_two_tailed.html" class="active">06. One vs Two Tailed</a></li>
+            <li><a href="32_07_z_test_single_mean.html">07. Z-test (Single Mean)</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Directionality
+        </div>
+
+        <header>
+            <h1>06. One-tailed vs Two-tailed Tests</h1>
+            <p class="subtitle">Choosing the direction of suspicion.</p>
+        </header>
+
+        <section>
+            <h2>1. The Difference in Focus</h2>
+            <ul class="topic-list">
+                <li><strong>Two-tailed Test:</strong> We test if the parameter is **Different** (Higher OR Lower) than
+                    the null. $H_1: \mu \ne \mu_0$. The 5% alpha is split (2.5% each side). This is the default
+                    "Neutral" stance.</li>
+                <li><strong>One-tailed Test:</strong> We test in a specific direction. $H_1: \mu > \mu_0$ (Right-tailed)
+                    or $H_1: \mu < \mu_0$ (Left-tailed). The entire 5% alpha is on one side, making it easier to find an
+                        effect in that direction, but impossible to detect an effect in the other.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. When to use One-tailed?</h2>
+            <p>ONLY when an effect in the opposite direction is physically impossible or completely irrelevant to your
+                decision. If you think the new drug is better, but you *also* need to know if it's worse (toxic), you
+                **MUST** use a two-tailed test.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: A/B Testing and Safe Rollouts</h2>
+            <div class="module-card">
+                <h3>The Ethics of Bias</h3>
+                <p>In AI, the tails of the test determine your **Standard of Proof**. </p>
+                <p>In <strong>A/B Testing** of a new UI, we usually use **Two-tailed tests</strong>. We want to know if
+                    the new design improves conversion, but we critically need to know if it *hurts* conversion.
+                    However, in <strong>Safety Testing**, we might use a **One-tailed test</strong>. If our goal is to
+                    prove that a new model's latency is "Less than 20ms," we don't care if it's 1ms or 10ms—we only care
+                    if it's *higher* than the limit. Using a one-tailed test gives the model more "statistical slack,"
+                    but it requires absolute certainty that the "Good" direction is the only one that matters. Choosing
+                    the wrong tail can lead to <strong>p-hacking**, where a researcher picks the one-tailed test just to
+                        get a significant result—a practice that lead to model failure in production. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Comparison of p-values</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Let's say Z-obs = 1.7
+z = 1.7
+
+# Two-tailed p-value
+p_two = 2 * (1 - stats.norm.cdf(abs(z))) # ~0.089
+
+# One-tailed (Right) p-value
+p_one = 1 - stats.norm.cdf(z) # ~0.045
+
+# Surprise! With the SAME data, the one-tailed test is "Significant" 
+# while the two-tailed is not. 
+# This illustrates why tail selection must happen BEFORE seeing the data.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

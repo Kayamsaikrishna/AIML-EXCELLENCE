@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mean Squared Error (MSE) - Phase 1.5.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 30: Statistical Inference</li>
+            <li><a href="30_05_bias_estimator.html">05. Bias of an Estimator</a></li>
+            <li><a href="30_06_mse.html" class="active">06. MSE (Mean Squared Error)</a></li>
+            <li><a href="30_07_consistency_inference.html">07. Consistency</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; MSE
+        </div>
+
+        <header>
+            <h1>06. Mean Squared Error (MSE)</h1>
+            <p class="subtitle">The ultimate measure of estimator quality.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Mean Squared Error (MSE)</strong> of an estimator measures the average of the squares of the
+                "errors"—that is, the average squared difference between the estimator and the parameter being
+                estimated. </p>
+            <div class="math-block">
+                $$ MSE(\hat{\theta}) = E[(\hat{\theta} - \theta)^2] $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Bias-Variance Decomposition</h2>
+            <p>One of the most important proofs in statistics shows that MSE is composed of two independent terms: </p>
+            <div class="math-block">
+                $$ MSE(\hat{\theta}) = Var(\hat{\theta}) + [Bias(\hat{\theta})]^2 $$
+            </div>
+            <p>This means that to have a good estimator (low MSE), you must minimize both the **Systematic Error**
+                (Bias) and the **Randomness** (Variance). Often, efforts to reduce one will increase the other.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Loss Function Objective</h2>
+            <div class="module-card">
+                <h3>The Target of Learning</h3>
+                <p>In AI, MSE is the most common **Loss Function** for Regression. </p>
+                <p>When you train an AI using `MeanSquaredError` as the criterion, you are explicitly asking the model
+                    to find parameters that balance the <strong>Bias-Variance Tradeoff</strong>. If you use a very
+                    complex model (like a 100-layer ResNet), your Bias will be low (low training error), but your
+                    Variance will be very high (Overfitting—high MSE on new data). If you use a simple model, your
+                    Variance will be low, but your Bias will be high (Underfitting). The goal of
+                    <strong>Regularization** and **Cross-Validation** is to find the "Sweet Spot" in the MSE curve where
+                        the sum of squared bias and variance is at its absolute minimum. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating decomposition</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Imagine we repeat an estimation 1000 times
+estimates = np.array([10.5, 11.2, 9.8, 10.1, ...])
+true_theta = 10.0
+
+# Components
+bias = np.mean(estimates) - true_theta
+variance = np.var(estimates)
+
+# Formulas
+mse_direct = np.mean((estimates - true_theta)**2)
+mse_decomposed = variance + bias**2
+
+print(f"MSE: {mse_direct:.4f}")
+print(f"Bias^2 + Var: {mse_decomposed:.4f}") # They are mathematically identical!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 30: Statistical Inference.</p>
+    </footer>
+</body>
+
+</html>

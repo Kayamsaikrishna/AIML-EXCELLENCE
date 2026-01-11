@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moment Generating Functions (MGF) - Phase 1.4.1.11</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 25: Random Variables</li>
+            <li><a href="25_10_moments.html">10. Moments</a></li>
+            <li><a href="25_11_mgf.html" class="active">11. MGF</a></li>
+            <li><a href="25_12_characteristic_fns.html">12. Characteristic Functions</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; MGF
+        </div>
+
+        <header>
+            <h1>11. Moment Generating Functions (MGF)</h1>
+            <p class="subtitle">Generating statistical information through Taylor series expansion.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Moment Generating Function (MGF)</strong> of a random variable $X$, denoted $M_X(t)$, is the
+                expected value of $e^{tX}$:</p>
+            <div class="math-block">
+                $$ M_X(t) = E[e^{tX}] $$
+            </div>
+            <p>It "encapsulates" all moments of the distribution in a single analytic function.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The "Generating" Property</h2>
+            <p>The $k$-th raw moment $E[X^k]$ can be found by taking the $k$-th derivative of $M_X(t)$ and evaluating it
+                at $t=0$:</p>
+            <div class="math-block">
+                $$ E[X^k] = \left. \frac{d^k M_X(t)}{dt^k} \right|_{t=0} $$
+            </div>
+            <p>This is extremely useful when the direct summation/integration for moments is complex, but the MGF has an
+                elegant closed-form expression.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Uniqueness and Convergence</h2>
+            <div class="module-card">
+                <h3>Theoretical Guarantees</h3>
+                <p>MGFs are essential for **Proving that two distributions are the same**. </p>
+                <p>The **Uniqueness Theorem** states that if two random variables have the same MGF (in a neighborhood
+                    around zero), they have the same distribution. In AI Research, MGFs are used to prove the **Central
+                    Limit Theorem**, which guarantees that the sum of many small independent errors follows a Gaussian
+                    curve—a core assumption in almost every model. Furthermore, in **Statistical Learning Theory**, MGFs
+                    of the loss function are used to derive **Generalization Bounds** (Chernoff Bounds), which tell us
+                    the maximum probability that an AI will fail on new data. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: MGF of a Normal Distribution</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># MGF of Standard Normal is exp(t^2 / 2)
+def standard_normal_mgf(t):
+    return np.exp(t**2 / 2)
+
+# Verify 2nd Moment (Variance + Mean^2)
+# Derivative of exp(t^2/2) is t * exp(t^2/2)
+# 2nd derivative is exp(t^2/2) + t^2 * exp(t^2/2)
+# At t=0, 2nd deriv = 1. (Which matches Var=1 for Z-dist)
+print(f"MGF at t=0.5: {standard_normal_mgf(0.5):.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 25: Random Variables.</p>
+    </footer>
+</body>
+
+</html>

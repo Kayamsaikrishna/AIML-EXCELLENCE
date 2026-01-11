@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Median and Mode - Phase 1.4.1.14</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 25: Random Variables</li>
+            <li><a href="25_13_skewness_kurtosis.html">13. Skewness & Kurtosis</a></li>
+            <li><a href="25_14_median_mode.html" class="active">14. Median & Mode</a></li>
+            <li><a href="25_15_quantiles_percentiles.html">15. Quantiles & Percentiles</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Median &
+            Mode
+        </div>
+
+        <header>
+            <h1>14. Median and Mode</h1>
+            <p class="subtitle">Alternative measures of center for non-normal data.</p>
+        </header>
+
+        <section>
+            <h2>1. Median (The 50th Percentile)</h2>
+            <p>The <strong>Median</strong> is the value $m$ such that $P(X \le m) \ge 0.5$ and $P(X \ge m) \ge 0.5$. In
+                simple terms, it is the middle value when data is sorted. Unlike the mean, the median is
+                <strong>Robust</strong> to outliers.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Mode (The Peak)</h2>
+            <p>The <strong>Mode</strong> is the value $x$ where the PMF/PDF reaches its maximum. </p>
+            <ul class="topic-list">
+                <li><strong>Unimodal:</strong> One peak (most normal distributions).</li>
+                <li><strong>Bimodal:</strong> Two peaks. In ML, this often indicates that your dataset is actually
+                    composed of two different groups of users or objects.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Data Imputation and Robust Loss</h2>
+            <div class="module-card">
+                <h3>Handling Missing Values</h3>
+                <p>Median and Mode are the "Workhorses" of **Feature Engineering**. </p>
+                <p>When you have a dataset with missing values, you must "Impute" (fill) them. If the feature is
+                    numerical (like Age) and has outliers, we use <strong>Median Imputation</strong> because the Mean
+                    would be biased by the extreme values. If the feature is categorical (like City), we use
+                    <strong>Mode Imputation</strong> (choosing the most frequent city). In **Robust Regression**,
+                    researchers often minimize the <strong>Mean Absolute Error (MAE)</strong>, which is equivalent to
+                    finding the **Median**. This is safer when data is noisy. Mode is also the foundation of **Maximum A
+                    Posteriori (MAP)** estimation, where the "Best" model parameter is considered to be the Mode of the
+                    posterior distribution. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating Robust Metrics</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy import stats
+
+data = [1, 1, 2, 3, 5, 8, 13, 1000] # 1000 is an outlier
+
+print(f"Mean: {np.mean(data)}") # ~130 (Heavily skewed!)
+print(f"Median: {np.median(data)}") # 4.0 (Typical value)
+print(f"Mode: {stats.mode(data).mode[0]}") # 1</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 25: Random Variables.</p>
+    </footer>
+</body>
+
+</html>

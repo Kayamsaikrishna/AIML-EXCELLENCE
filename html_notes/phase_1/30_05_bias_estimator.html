@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bias of an Estimator - Phase 1.5.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 30: Statistical Inference</li>
+            <li><a href="30_04_sampling_dist.html">04. Sampling Distribution</a></li>
+            <li><a href="30_05_bias_estimator.html" class="active">05. Bias of an Estimator</a></li>
+            <li><a href="30_06_mse.html">06. MSE (Mean Squared Error)</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Bias
+        </div>
+
+        <header>
+            <h1>05. Bias of an Estimator</h1>
+            <p class="subtitle">Is your "Guessing Rule" systematically wrong?</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>An <strong>Estimator</strong> $\hat{\theta}$ is a rule that we use to guess a population parameter
+                $\theta$. The <strong>Bias</strong> of an estimator is the difference between its expected value and the
+                true value. </p>
+            <div class="math-block">
+                $$ Bias(\hat{\theta}) = E[\hat{\theta}] - \theta $$
+            </div>
+            <p>An estimator is **Unbiased** if $Bias(\hat{\theta}) = 0$. This means that if we repeated the experiment
+                trillions of times, the average of all our guesses would exactly hit the bullseye.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Intuition: The Offset Sight</h2>
+            <p>Imagine a rifle with a scope. If you are a perfect shooter but the scope is misaligned by 2 inches to the
+                left, your shots will cluster together (low variance) but away from the bullseye. That "2-inch shift" is
+                the **Bias**. Bias is a systematic error built into the formula itself, not a result of bad luck.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Inductive Bias and Underfitting</h2>
+            <div class="module-card">
+                <h3>The Cost of Assumptions</h3>
+                <p>In AI, Bias represents the **Assumptions** your model makes about the world. </p>
+                <p>A **Linear Model** has high "Inductive Bias" because it assumes the relationship is a straight line.
+                    If the real world is a curve, the model will be systematically wrong (Underfitting). On the other
+                    hand, **Inductive Bias** is often necessary—without it, a model might just memorize the noise
+                    instead of learning the pattern. When we use <strong>N-1</strong> instead of **N** in the sample
+                    variance formula ($s^2$), we are correcting a mathematical bias (Bessel's correction). In **Deep
+                    Learning**, <strong>Regularization** (like L2) intentionally introduces a small amount of bias to
+                        significantly reduce the model's variance, making it perform better on new, unseen data. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Observing Bias in Variance</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Population Variance is 100 (std=10)
+true_var = 100
+
+# Function 1: Biased Variance (Divide by N)
+# Function 2: Unbiased Variance (Divide by N-1)
+
+results_biased = []
+results_unbiased = []
+
+for _ in range(1000):
+    sample = np.random.normal(0, 10, 5) # Small sample size makes bias obvious
+    results_biased.append(np.var(sample))
+    results_unbiased.append(np.var(sample, ddof=1))
+
+print(f"Biased Formula Avg: {np.mean(results_biased):.2f}")     # Will be ~80
+print(f"Unbiased Formula Avg: {np.mean(results_unbiased):.2f}") # Will be ~100</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 30: Statistical Inference.</p>
+    </footer>
+</body>
+
+</html>

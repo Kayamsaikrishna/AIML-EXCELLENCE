@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probability Mass Function (PMF) - Phase 1.4.1.3</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 25: Random Variables</li>
+            <li><a href="25_02_continuous_rv.html">02. Continuous Random Variables</a></li>
+            <li><a href="25_03_pmf.html" class="active">03. PMF</a></li>
+            <li><a href="25_04_pdf.html">04. PDF</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; PMF
+        </div>
+
+        <header>
+            <h1>03. Probability Mass Function (PMF)</h1>
+            <p class="subtitle">The distribution of discrete probability.</p>
+        </header>
+
+        <section>
+            <h2>1. What is a PMF?</h2>
+            <p>For a discrete random variable $X$, the <strong>Probability Mass Function (PMF)</strong>, denoted as
+                $p_X(x)$, provides the probability that $X$ takes exactly the value $x$.</p>
+            <div class="math-block">
+                $$ p_X(x) = P(X = x) $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Fundamental Properties</h2>
+            <p>Any valid PMF must satisfy two criteria:</p>
+            <ul class="topic-list">
+                <li><strong>Non-negativity:</strong> $p_X(x) \ge 0$ for all $x$.</li>
+                <li><strong>Normalization:</strong> The sum of probabilities over all possible values must equal 1:</li>
+            </ul>
+            <div class="math-block">
+                $$ \sum_{x \in \text{Range}(X)} p_X(x) = 1 $$
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Softmax and Class Probabilities</h2>
+            <div class="module-card">
+                <h3>Interpreting AI Confidence</h3>
+                <p>The <strong>Softmax</strong> function in Deep Learning is the most direct application of a PMF. </p>
+                <p>When a Neural Network processes an image and outputs $[0.1, 0.8, 0.1]$ for classes {Cat, Dog, Bird},
+                    it is defining a PMF. The numbers are non-negative and sum to 1.0. The training objective
+                    (Cross-Entropy Loss) works by comparing the <strong>Empirical PMF</strong> (from your data labels)
+                    to the <strong>Predicted PMF</strong> (from the model). Lowering the distance between these two mass
+                    functions is how the AI "learns" to distinguish objects. Understanding PMF properties ensures that
+                    your model's outputs are mathematically valid probabilities, not just random numbers.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Defining a Custom PMF</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Example: A biased coin (Heads=1, Tails=0)
+# P(H) = 0.7, P(T) = 0.3
+pmf = {1: 0.7, 0: 0.3}
+
+def get_prob(x):
+    return pmf.get(x, 0.0)
+
+print(f"P(X=1): {get_prob(1)}")
+print(f"P(X=5): {get_prob(5)}") # Not in range
+print(f"Sum checks out: {sum(pmf.values()) == 1.0}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 25: Random Variables.</p>
+    </footer>
+</body>
+
+</html>

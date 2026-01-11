@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Linear Regression - Phase 1.5.5.1</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 34: Regression Analysis</li>
+            <li><a href="34_01_simple_linear_regression.html" class="active">01. Simple Linear Regression</a></li>
+            <li><a href="34_02_ols_mechanics.html">02. OLS Mechanics</a></li>
+            <li><a href="34_03_geometric_regression.html">03. Geometric Interpretation</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#regression">Regression</a> &gt; Simple Linear
+        </div>
+
+        <header>
+            <h1>01. Simple Linear Regression</h1>
+            <p class="subtitle">Finding the straight-line relationship between variables.</p>
+        </header>
+
+        <section>
+            <h2>1. The Model</h2>
+            <p><strong>Simple Linear Regression (SLR)</strong> is the attempt to model the relationship between a single
+                independent variable $X$ and a dependent variable $Y$ using a straight line:</p>
+            <div class="math-block">
+                $$ Y = \beta_0 + \beta_1 X + \epsilon $$
+            </div>
+            <ul class="topic-list">
+                <li>$\beta_0$ (Intercept): The value of $Y$ when $X=0$.</li>
+                <li>$\beta_1$ (Slope): The change in $Y$ for a 1-unit change in $X$.</li>
+                <li>$\epsilon$ (Error/Residual): The random noise that the model cannot explain.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The "LINE" Assumptions</h2>
+            <p>For SLR to be "Best Linear Unbiased Estimator" (BLUE), we assume:</p>
+            <ul class="topic-list">
+                <li><strong>Linearity:</strong> The relationship is actually a straight line.</li>
+                <li><strong>Independence:</strong> Observations are independent.</li>
+                <li><strong>Normality:</strong> Residuals follow a Normal distribution.</li>
+                <li><strong>Equal Variance:</strong> Homoscedasticity (constant noise).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Foundation of Interpretable Weights</h2>
+            <div class="module-card">
+                <h3>Linearity as a Feature</h3>
+                <p>In AI, SLR is the **World's Most Important Baseline**. </p>
+                <p>Before you build a 100-layer Transformer, you check the Linear Regression score. In <strong>Feature
+                        Engineering**, $\beta_1$ tells the AI which features have the strongest correlation with the
+                        target. If you are predicting **House Prices**, $\beta_1$ for 'Square Footage' represents the
+                        'Price per sq ft'. This makes Linear Regression the gold standard for
+                        <strong>Interpretability**. Unlike a Neural Network, you can point to $\beta_1$ and explain to a
+                            business stakeholder exactly *why* the prediction is what it is. It is the core of
+                            **Regularized Linear Models** (Lasso/Ridge) used in high-dimensional biological data. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: A Basic Fit</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from sklearn.linear_model import LinearRegression
+
+# X must be a 2D array for sklearn
+model = LinearRegression()
+model.fit(X.reshape(-1, 1), y)
+
+print(f"Intercept: {model.intercept_}")
+print(f"Slope (Weight): {model.coef_[0]}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 34: Regression Analysis.</p>
+    </footer>
+</body>
+
+</html>

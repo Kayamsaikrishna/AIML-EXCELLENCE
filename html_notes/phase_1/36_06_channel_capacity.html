@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel Capacity - Phase 1.5.7.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 36: Information Theory</li>
+            <li><a href="36_05_cross_entropy_loss.html">05. Cross-Entropy Loss</a></li>
+            <li><a href="36_06_channel_capacity.html" class="active">06. Channel Capacity</a></li>
+            <li><a href="36_07_source_coding.html">07. Source Coding</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#infotheory">Info Theory</a> &gt; Capacity
+        </div>
+
+        <header>
+            <h1>06. Channel Capacity & Information Rate</h1>
+            <p class="subtitle">The speed limit of information.</p>
+        </header>
+
+        <section>
+            <h2>1. The Shannon Limit</h2>
+            <p><strong>Channel Capacity ($C$)</strong> is the maximum rate at which information can be transmitted over
+                a communication channel with an arbitrarily low error probability. Even in a noisy environment, Shannon
+                proved there is always a way to communicate perfectly, provided you don't exceed the capacity limit.
+            </p>
+            <div class="math-block">
+                $$ C = B \log_2(1 + \frac{S}{N}) $$
+            </div>
+            <p>where $B$ is bandwidth, $S$ is signal power, and $N$ is noise power.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Signal-to-Noise Ratio (SNR)</h2>
+            <p>If the noise ($N$) is too high, the capacity drops. To maintain the same information rate, you must
+                increase the power of the signal or use more clever error-correcting codes.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Model Capacity and Learning Rates</h2>
+            <div class="module-card">
+                <h3>The Information Throughput</h3>
+                <p>In AI, Channel Capacity is analogous to <strong>Model Capacity (VC Dimension)**. </p>
+                <p>A smaller model (e.g., **MobileNet**) has a lower "Channel Capacity" than a giant model (e.g.,
+                    **ResNet-152**). It can only "Transmit" (learn) so much complexity from the training data. If your
+                    dataset has high variance (Noise), a low-capacity model will fail to capture the signal. In
+                    <strong>Distributed AI Training**, we use Shannon's theory to optimize how much "Gradient
+                        Information" we send over the network. By using <strong>Quantization (e.g., 8-bit gradients)**,
+                            we reduce the bandwidth required, effectively trying to push the signal right up against the
+                            Channel Capacity to speed up training across thousands of GPUs. It is the math of
+                            **Communication Efficiency**. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Mathematical Note</h2>
+            <p>If you try to transmit information *above* the capacity $C$, errors are <strong>guaranteed**. In AI, if
+                    you try to fit a 1,000,000 parameter dataset into a 100 parameter model, you are exceeding the
+                    capacity, and your error rate will never reach zero. This is the information-theoretic root of
+                    **Underfitting**. </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 36: Information Theory.</p>
+    </footer>
+</body>
+
+</html>

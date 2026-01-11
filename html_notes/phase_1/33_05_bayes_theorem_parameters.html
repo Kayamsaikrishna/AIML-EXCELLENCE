@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayes' Theorem for Parameters - Phase 1.5.4.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 33: Bayesian Statistics</li>
+            <li><a href="33_04_posterior_distribution.html">04. Posterior Distribution</a></li>
+            <li><a href="33_05_bayes_theorem_parameters.html" class="active">05. Bayes' Thm (Parameters)</a></li>
+            <li><a href="33_06_conjugate_priors_concept.html">06. Conjugate Priors</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Bayes' Formula
+        </div>
+
+        <header>
+            <h1>05. Bayes' Theorem for Parameters</h1>
+            <p class="subtitle">The mathematical engine of learning.</p>
+        </header>
+
+        <section>
+            <h2>1. The Formal Equation</h2>
+            <p>Bayes' Theorem is the fundamental law for updating beliefs. For a parameter $\theta$ and data $D$:</p>
+            <div class="math-block">
+                $$ P(\theta | D) = \frac{P(D | \theta) P(\theta)}{P(D)} $$
+            </div>
+            <p>Or in simple terms:</p>
+            <div class="math-block">
+                $$ \text{Posterior} = \frac{\text{Likelihood} \times \text{Prior}}{\text{Marginal Likelihood}} $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The denominator: P(D)</h2>
+            <p>The **Marginal Likelihood** (or Evidence) is the probability of the data averaged over all possible
+                parameter values: $P(D) = \int P(D|\theta)P(\theta) d\theta$. This integral is often impossible to solve
+                analytically, which is why we need **MCMC** or **Conjugate Priors**. However, for many purposes, we say:
+            <div class="math-block">
+                $$ P(\theta | D) \propto P(D | \theta) P(\theta) $$
+            </div>
+            The posterior is **Proportional** to Likelihood times Prior.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Incremental Learning and Stream Processing</h2>
+            <div class="module-card">
+                <h3>Learning never stops</h3>
+                <p>In AI, Bayes' Theorem enables <strong>Streaming Intelligence</strong>. </p>
+                <p>Unlike Frequentist models that need to be "Retrained from scratch" on the whole dataset, Bayesian
+                    models are **Incremental**. Today's **Posterior** becomes tomorrow's **Prior**. When new data
+                    arrives, we don't look at the old data—we only update our current belief. This is used in
+                    <strong>Recommendation Systems** (like TikTok or YouTube): as you watch a 5-second video, the model
+                        performs a Bayesian update on your "Interest" parameters. It's a continuous, real-time
+                        conversation between the AI and the world. This efficiency makes Bayesian methods ideal for
+                        <strong>Edge Computing** and IoT devices with limited memory that cannot store massive
+                            historical training sets. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Proportional Update</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># The Core Bayesian Logic Loop
+prior = current_belief_dist()
+likelihood = calculate_evidence(new_batch)
+
+# The learning step
+posterior = (likelihood * prior) / normalization_constant
+
+# Repeat for the next batch!
+save_as_prior(posterior)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 33: Bayesian Statistics.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonferroni Correction - Phase 1.5.3.19</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_18_effect_size_cohen.html">18. Effect Size (Cohen's d)</a></li>
+            <li><a href="32_19_multiple_testing_bonferroni.html" class="active">19. Bonferroni Correction</a></li>
+            <li><a href="32_20_false_discovery_rate.html">20. FDR (Benjamini-Hochberg)</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Multiplicity
+        </div>
+
+        <header>
+            <h1>19. Multiple Testing Correction: Bonferroni</h1>
+            <p class="subtitle">Fighting the "p-hacking" monster in large-scale experiments.</p>
+        </header>
+
+        <section>
+            <h2>1. The Problem of Multiple Comparisons</h2>
+            <p>If you perform 100 independent tests with $\alpha=0.05$, you are **Guaranteed** to find about 5
+                "Statistically Significant" results purely by luck, even if there is no real effect. This is called the
+                <strong>Multiplicity Problem</strong>. In AI, where we test thousands of configurations, this is a
+                massive source of "Fooling ourselves." </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Bonferroni Solution</h2>
+            <p>The simplest way to control the **Family-Wise Error Rate (FWER)** is to divide your alpha by the number
+                of tests ($m$). </p>
+            <div class="math-block">
+                $$ \alpha_{new} = \frac{\alpha_{original}}{m} $$
+            </div>
+            <p>If you run 100 tests, your new significance threshold is $0.05 / 100 = 0.0005$. It is extremely
+                conservative and very hard to pass, but it ensures that the probability of *even one* false positive is
+                kept below 5%.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Grid Search and Data Mining</h2>
+            <div class="module-card">
+                <h3>Is it a breakthrough or a fluke?</h3>
+                <p>In AI, Bonferroni is use for <strong>High-Confidence Experimentation</strong>. </p>
+                <p>When you run a **Large-Scale Grid Search** for an architecture, testing 1,000 different combinations
+                    of dropout, layers, and gates, you *will* find one that looks amazing by chance. If your best model
+                    has $p=0.01$, but you ran 1,000 tests, its "corrected" p-value is effectively $0.01 \times 1,000 =
+                    10.0$ (Not significant!). By using Bonferroni, AI Researchers ensure that they don't publish "Fluke"
+                    architectures that fail to replicate on other datasets. In <strong>Bioinformatics AI**, where we
+                        test 20,000 genes to find markers for cancer, Bonferroni is the "Shield" that prevents us from
+                        telling patients they have a genetic risk when the AI just saw a random pattern in the noise.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: statsmodels.stats.multitest</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from statsmodels.stats.multitest import multipletests
+
+# Results from 10 different experiments
+p_vals = [0.001, 0.01, 0.045, 0.12, 0.45, 0.0001, 0.02, 0.8, 0.9, 0.03]
+
+# Apply Bonferroni correction
+reject, pvals_corrected, _, _ = multipletests(p_vals, alpha=0.05, method='bonferroni')
+
+print(f"Significant results after correction: {sum(reject)}")
+# Originally 5 were p < 0.05. After correction, only 2 remain!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

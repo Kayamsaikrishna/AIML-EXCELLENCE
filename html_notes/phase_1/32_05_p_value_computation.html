@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p-value Definition and Computation - Phase 1.5.3.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_04_alpha_beta_power.html">04. alpha, beta, & Power</a></li>
+            <li><a href="32_05_p_value_computation.html" class="active">05. p-value & Evidence</a></li>
+            <li><a href="32_06_one_vs_two_tailed.html">06. One vs Two Tailed</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; p-value
+        </div>
+
+        <header>
+            <h1>05. p-value: Definition and Computation</h1>
+            <p class="subtitle">The probability of "Winning" by pure luck.</p>
+        </header>
+
+        <section>
+            <h2>1. What a p-value IS</h2>
+            <p>The <strong>p-value</strong> is the probability of obtaining a test statistic at least as extreme as the
+                one observed, **assuming the Null Hypothesis ($H_0$) is true**. </p>
+            <p>It is a measurement of **Surprise**:
+            <ul class="topic-list">
+                <li>Low p-value ($< 0.05$): "This result is too weird to be luck. $H_0$ is likely wrong." </li>
+                <li>High p-value ($\ge 0.05$): "This result could easily have happened by chance. Keep $H_0$."</li>
+            </ul>
+            </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. What a p-value IS NOT</h2>
+            <p>1. It is **NOT** the probability that $H_0$ is true. <br>
+                2. It is **NOT** the probability that the finding is "Important" (Effect size matters more). <br>
+                3. It **IS** a measure of how incompatible the data is with the model of "No effect."</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Significance and Model Quality</h2>
+            <div class="module-card">
+                <h3>Filtering out Flukes</h3>
+                <p>In AI, p-values are used for <strong>Experiment Validation and Pruning</strong>. </p>
+                <p>If you run a <strong>Grid Search** for hyperparameters and find that Configuration A is 1% better
+                        than Configuration B, you shouldn't just pick A. You calculate the p-value of that 1%
+                        difference. If $p=0.45$, it means there is a 45% chance that B is actually better and you just
+                        got a "Lucky" shuffle of the validation set. In **Feature Engineering**, p-values are used to
+                        prune inputs. If a feature has a p-value of 0.8 against the output label, it's essentially
+                        garbage—it has no statistically significant relationship with what you're trying to predict.
+                        Removing it reduces the search space and prevents **Overfitting to Noise**. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating p from Z</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Observed Z-score: 2.1
+z_obs = 2.1
+
+# Probability of seeing Z > 2.1 or Z < -2.1
+p_val = 2 * (1 - stats.norm.cdf(abs(z_obs)))
+
+print(f"p-value: {p_val:.4f}")
+# p = 0.0357. Since p < 0.05, we reject the null!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

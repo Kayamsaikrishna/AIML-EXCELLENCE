@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Limit Theorem - Phase 1.4.5.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 29: Limit Theorems</li>
+            <li><a href="29_05_strong_lln.html">05. Strong Law (SLLN)</a></li>
+            <li><a href="29_06_clt.html" class="active">06. Central Limit Theorem</a></li>
+            <li><a href="29_07_conv_probability.html">07. Conv. in Probability</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; CLT
+        </div>
+
+        <header>
+            <h1>06. Central Limit Theorem (CLT)</h1>
+            <p class="subtitle">The universe's destiny is Gaussian.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Central Limit Theorem</strong> states that the sum (or average) of a large number of
+                independent, identically distributed (i.i.d.) random variables with finite variance will follow a
+                **Normal Distribution**, regardless of the shape of the original distribution. </p>
+            <div class="math-block">
+                $$ Z = \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} N(0, 1) \quad \text{as } n \to \infty
+                $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The "Law of Additive Noise"</h2>
+            <p>If you take 100 random variables from a Uniform distribution, a Poisson distribution, or a coin flip, and
+                you add them all together, the result is always a **Bell Curve**. This "Universal" behavior is why the
+                Normal distribution is so frequent in nature and AI.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Noise, Weights, and Residuals</h2>
+            <div class="module-card">
+                <h3>The Gaussian Baseline</h3>
+                <p>The CLT is why we assume **Gaussian Noise** in almost every AI model. </p>
+                <p>In **Linear Regression**, we assume the error term $\epsilon$ is normally distributed. Why? Because
+                    the "Total Error" is usually a sum of millions of tiny, independent random factors—by the CLT, that
+                    sum must be Gaussian. In **Neural Network Initialization**, we often initialize weights using a
+                    Normal distribution (like Xavier or Kaiming initialization). This ensures that the sums calculated
+                    by neurons in the first layer follow a predictable Gaussian range, preventing "Vanishing" or
+                    "Exploding" gradients. Finally, the CLT justifies using **Z-Scores** to normalize data; we can trust
+                    that standardized data follows a known distribution once our sample size is large enough. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: The CLT Demo</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Summing Uniform random variables
+n_samples = 10000
+sum_data = np.zeros(n_samples)
+
+for _ in range(50): # Summing 50 variables
+    sum_data += np.random.uniform(0, 1, n_samples)
+
+plt.hist(sum_data, bins=50, density=True)
+plt.title("CLT: Sum of Uniforms is Gaussian!")
+plt.show()</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 29: Limit Theorems.</p>
+    </footer>
+</body>
+
+</html>

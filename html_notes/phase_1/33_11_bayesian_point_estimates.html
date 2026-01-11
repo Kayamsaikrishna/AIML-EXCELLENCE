@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayesian Point Estimates - Phase 1.5.4.11</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 33: Bayesian Statistics</li>
+            <li><a href="33_10_credible_vs_confidence.html">10. Credible vs Confidence</a></li>
+            <li><a href="33_11_bayesian_point_estimates.html" class="active">11. Bayesian Point Estimates</a></li>
+            <li><a href="33_12_bayesian_hypothesis_testing.html">12. Bayesian Hypo Testing</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Point
+            Estimates
+        </div>
+
+        <header>
+            <h1>11. Bayesian Point Estimates</h1>
+            <p class="subtitle">Reducing a distribution to a single number.</p>
+        </header>
+
+        <section>
+            <h2>1. Why summarize?</h2>
+            <p>While the full Posterior is the "Correct" Bayesian answer, business and software systems often require a
+                single number (e.g., "What is the expected delivery time?"). Bayesian statistics offers several ways to
+                pick this number, each minimizing a different type of "Loss."</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Three Musketeers</h2>
+            <ul class="topic-list">
+                <li><strong>Posterior Mean:</strong> The "Balanced" choice. Minimizes the **Squared Error Loss**
+                    ($L_2$). It is the center of mass.</li>
+                <li><strong>Posterior Median:</strong> The "Robust" choice. Minimizes the **Absolute Error Loss**
+                    ($L_1$). Less sensitive to outliers in the posterior.</li>
+                <li><strong>Posterior Mode (MAP):</strong> The "Most Likely" choice. Minimizes 0-1 Loss. It is simply
+                    the peak of the distribution.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Regularization and MAP</h2>
+            <div class="module-card">
+                <h3>The Link to Tradition</h3>
+                <p>In AI, the MAP (Maximum a Posteriori) estimate is the bridge to standard training. </p>
+                <p>When you train a Neural Network with <strong>Weight Decay (L2)</strong>, you are technically finding
+                    the <strong>Posterior Mode (MAP)** of the weights under a Gaussian Prior. You aren't doing "Full
+                        Bayes"—you are just picking the highest point on the hill. However, in **Probabilistic
+                        Robotics**, we often use the **Posterior Mean** because it accounts for the "Tail Risks." If a
+                        path has a 90% chance of being safe but a 10% chance of total disaster (a heavy tail), the Mean
+                        will shift away from the danger, while the Mode might ignorantly steer right into it. Choosing
+                        the right Bayesian Point Estimate is essentially choosing the **Risk Profile** of your AI. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Summary Stats</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Assuming we have posterior samples
+mean_est = np.mean(samples)
+median_est = np.median(samples)
+
+# Mode can be found using KDE or scipy
+from scipy import stats
+mode_est = stats.mode(samples)
+
+# In a skewed distribution, these will all be different!
+# The difference between Mean and Median measures "How much the AI 
+# is worried about extreme outliers."</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 33: Bayesian Statistics.</p>
+    </footer>
+</body>
+
+</html>

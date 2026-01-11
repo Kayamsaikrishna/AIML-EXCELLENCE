@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi-Square Goodness-of-Fit - Phase 1.5.3.15</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_14_chi_square_independence.html">14. Chi-Square (Independence)</a></li>
+            <li><a href="32_15_chi_square_goodness_fit.html" class="active">15. Chi-Square (Goodness-of-Fit)</a></li>
+            <li><a href="32_16_non_parametric_wilcoxon.html">16. Wilcoxon Rank-Sum</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt;
+            Goodness-of-Fit
+        </div>
+
+        <header>
+            <h1>15. Chi-Square Goodness-of-Fit</h1>
+            <p class="subtitle">Does reality match the model?</p>
+        </header>
+
+        <section>
+            <h2>1. The Distribution Match</h2>
+            <p>While the Test of Independence compares two variables, the <strong>Goodness-of-Fit</strong> test compares
+                our sample frequencies to a **Predefined Theoretical Distribution**. For example, "Is this die fair?" or
+                "Is the distribution of customer types actually 50% Basic, 30% Pro, and 20% Enterprise?". </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Mechanism</h2>
+            <p>Just like the independence test, we use $(O-E)^2/E$. But here, the "Expected" values ($E$) come from our
+                theoretical model, not from the sample's own marginals. If the discrepancy is high, we reject the claim
+                that the data fits that distribution. </p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Fairness Audits and OOD Detection</h2>
+            <div class="module-card">
+                <h3>The Ethics of Distribution</h3>
+                <p>In AI, Goodness-of-Fit is the key to <strong>Bias Detection and AI Safety</strong>. </p>
+                <p>If you are building an **AI Loan Approver**, you run a **Goodness-of-Fit** test on its outputs. If
+                    the population is 50/50 male/female, but the AI approves 80/20, your "Observed" frequencies fail the
+                    Goodness-of-Fit test against the "Ethical Equality Distribution." This is how we mathematically
+                    **Audit** AI for fairness. In <strong>Auto-Monitoring**, we use this test for **Out-of-Distribution
+                        (OOD) Detection**. If our model expects "Uniform" input noise but suddenly sees "Poisson"
+                        spikes, the Goodness-of-Fit p-value will dive to zero, signaling that the environment has
+                        changed and the model needs to be re-trained or shut down before it makes "Confidently Wrong"
+                        predictions. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: stats.chisquare</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Observed counts in 5 categories
+obs = [18, 22, 16, 25, 19]
+
+# Theoretical Expected (Assuming Uniform: 100/5 = 20 each)
+exp = [20, 20, 20, 20, 20]
+
+stat, p = stats.chisquare(obs, f_exp=exp)
+
+print(f"p-value: {p:.4f}")
+# If p > 0.05, we have NO reason to doubt the uniform distribution.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

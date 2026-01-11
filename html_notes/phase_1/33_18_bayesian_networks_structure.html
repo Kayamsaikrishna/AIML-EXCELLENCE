@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayesian Networks Structure - Phase 1.5.4.18</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 33: Bayesian Statistics</li>
+            <li><a href="33_17_hamiltonian_monte_carlo.html">17. Hamiltonian Monte Carlo</a></li>
+            <li><a href="33_18_bayesian_networks_structure.html" class="active">18. Bayesian Networks</a></li>
+            <li><a href="33_19_conditional_independence_bn.html">19. Conditional Independence</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Bayesian Nets
+        </div>
+
+        <header>
+            <h1>18. Bayesian Networks: The Structure</h1>
+            <p class="subtitle">Representing complex worlds through Directed Acyclic Graphs (DAGs).</p>
+        </header>
+
+        <section>
+            <h2>1. Why Graphical Models?</h2>
+            <p>A full joint distribution for 100 variables requires $2^{100}$ parameters—more than the number of atoms
+                in the universe. <strong>Bayesian Networks (BNs)</strong> solve this by assuming that most things are
+                only locally dependent. They use a <strong>Directed Acyclic Graph (DAG)</strong> to represent "Who
+                causes whom." </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Core Principle: Factorization</h2>
+            <p>The joint probability of a BN is simply the product of the conditional probabilities of each node given
+                its parents:</p>
+            <div class="math-block">
+                $$ P(x_1, \dots, x_n) = \prod_{i=1}^{n} P(x_i | \text{parents}(x_i)) $$
+            </div>
+            <p>This "Modularization" reduces the number of parameters from exponential to linear, making complex
+                reasoning possible.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Causal AI and Expert Systems</h2>
+            <div class="module-card">
+                <h3>Modeling "Why", not just "What"</h3>
+                <p>In AI, Bayesian Networks are the foundation of <strong>Explainable Causal Reasoning</strong>. </p>
+                <p>Standard Neural Networks are "Black Boxes." In contrast, a **Bayesian Network** for <strong>Medical
+                        Diagnosis</strong> explicitly shows that "Smoking" causes "Cancer" which causes a "Positive
+                    X-ray." If a doctor asks the AI: "Why did you suggest this treatment?", the BN provides a clear,
+                    human-readable trace of evidence. They are also used in <strong>Cyber-Physical Systems** (like power
+                        grids) to perform **Root Cause Analysis**. If a sensor fails, the BN can backtrack through the
+                        graph to identify the most likely fault point, even if that point isn't directly monitored. It
+                        is the language of logic in a probabilistic world. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Defining a Structure</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from pgmpy.models import BayesianNetwork
+
+# Define the causal edges
+# Burglary -> Alarm, Earthquake -> Alarm, Alarm -> JohnCalls
+model = BayesianNetwork([('B', 'A'), ('E', 'A'), ('A', 'J')])
+
+# The structure alone implies certain independence rules!
+# e.g., John calls ONLY depends on the Alarm, not directly on the Burglary.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 33: Bayesian Statistics.</p>
+    </footer>
+</body>
+
+</html>

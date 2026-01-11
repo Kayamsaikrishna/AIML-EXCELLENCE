@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantiles and Percentiles - Phase 1.4.1.15</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 25: Random Variables</li>
+            <li><a href="25_14_median_mode.html">14. Median & Mode</a></li>
+            <li><a href="25_15_quantiles_percentiles.html" class="active">15. Quantiles & Percentiles</a></li>
+            <li><a href="25_16_rv_transformations.html">16. Transformation of RVs</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Quantiles
+        </div>
+
+        <header>
+            <h1>15. Quantiles and Percentiles</h1>
+            <p class="subtitle">Slicing the distribution into ordered parts.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p><strong>Quantiles</strong> are points taken at regular intervals from the CDF of a random variable. The
+                $p$-th quantile is the value $Q(p)$ such that $P(X \le Q(p)) = p$. </p>
+            <ul class="topic-list">
+                <li><strong>Quartiles:</strong> Divide data into 4 parts (25th, 50th, 75th percentiles).</li>
+                <li><strong>Deciles:</strong> Divide data into 10 parts.</li>
+                <li><strong>Percentiles:</strong> Divide data into 100 parts.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Interquartile Range (IQR)</h2>
+            <p>The **IQR** ($Q3 - Q1$) measures the spread of the "middle 50%" of the data. It is a robust alternative
+                to standard deviation and the foundation of the <strong>Box Plot</strong>.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Performance Benchmarking and Calibration</h2>
+            <div class="module-card">
+                <h3>Evaluating Error Distributions</h3>
+                <p>Quantiles are essential for reporting **Real-World AI performance**. </p>
+                <p>In industry, we rarely look at "Mean Error" alone. An AI might have a low mean error but perform
+                    terribly for 1% of users. We look at **P95 or P99 Latency/Error** (the 95th or 99th percentile) to
+                    ensure the system is reliable for everyone. Furthermore, in **Probabilistic Forecasting**, a model
+                    doesn't just predict "One Number"; it predicts **Quantile Intervals** (e.g., "The demand will be
+                    between 10 units [P10] and 50 units [P90]"). In **Model Calibration**, we use **Q-Q Plots**
+                    (Quantile-Quantile) to check if the AI's predicted errors actually follow a normal distribution or
+                    if the model is overconfident. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Quantile Analysis</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Example: Calculating P99 (the extreme threshold)
+latency_data = np.random.lognormal(mean=2, sigma=0.5, size=1000)
+
+p50 = np.percentile(latency_data, 50) # Median
+p95 = np.percentile(latency_data, 95)
+p99 = np.percentile(latency_data, 99)
+
+print(f"Typical Latency (P50): {p50:.2f}ms")
+print(f"Tail Latency (P99): {p99:.2f}ms")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 25: Random Variables.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-Distribution - Phase 1.4.3.9</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 27: Continuous Distributions</li>
+            <li><a href="27_08_chi_square.html">08. Chi-Square Dist</a></li>
+            <li><a href="27_09_f_distribution.html" class="active">09. F-Distribution</a></li>
+            <li><a href="27_10_laplace_dist.html">10. Laplace Distribution</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; F-Dist
+        </div>
+
+        <header>
+            <h1>09. F-Distribution (Snedecor's F)</h1>
+            <p class="subtitle">Comparing variances and testing entire models.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>F-Distribution</strong> is formed by the ratio of two independent Chi-Square random
+                variables, each divided by its respective degrees of freedom ($\text{df}_1, \text{df}_2$). </p>
+            <div class="math-block">
+                $$ F = \frac{X_1 / d_1}{X_2 / d_2} $$
+            </div>
+            <p>It is non-negative and asymmetric. It is the primary tool for <strong>Variance Comparison</strong>.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Relation to Regression</h2>
+            <p>In Linear Regression, the F-statistic is used to test the "Overall Significance" of the model. It
+                compares the variance explained by the model to the variance of the residuals (errors). If the F-score
+                is high, it proves that the model's features actually contribute useful information and the model isn't
+                just "guessing."</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: ANOVA and Model Ranking</h2>
+            <div class="module-card">
+                <h3>Deciding between Models</h3>
+                <p>The F-distribution is the math behind **ANOVA** (Analysis of Variance), used to compare multiple AI
+                    models at once. </p>
+                <p>If you are testing 5 different architectures for a vision task, you use an **F-Test** to check if
+                    there is a statistically significant difference in their average error rates. Instead of doing many
+                    pairwise comparisons (which increases the chance of a false positive), the F-distribution allows you
+                    to check all models simultaneously. It is also used in **Stepwise Selection**, where we add or
+                    remove features from an AI model based on whether the "F-to-Enter" score indicates that the new
+                    feature significantly improves the variance explained by the model. Understanding the F-distribution
+                    ensures that when you say "Architecture A is the best," you have the mathematical variance-based
+                    proof to back it up. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: F-Test for Model Comparison</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.stats import f
+
+# Degrees of freedom for 2 models
+dfn, dfd = 5, 100
+
+# Critical value for 95% confidence
+f_crit = f.ppf(0.95, dfn, dfd)
+print(f"Critical F-score: {f_crit:.4f}")
+
+# Probability of seeing an F-statistic > 3.0 by chance
+print(f"P(F > 3.0): {1 - f.cdf(3.0, dfn, dfd):.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 27: Continuous Distributions.</p>
+    </footer>
+</body>
+
+</html>

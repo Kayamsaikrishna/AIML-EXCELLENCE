@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Characteristic Functions - Phase 1.4.1.12</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 25: Random Variables</li>
+            <li><a href="25_11_mgf.html">11. MGF</a></li>
+            <li><a href="25_12_characteristic_fns.html" class="active">12. Characteristic Functions</a></li>
+            <li><a href="25_13_skewness_kurtosis.html">13. Skewness & Kurtosis</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt;
+            Characteristic Fns
+        </div>
+
+        <header>
+            <h1>12. Characteristic Functions</h1>
+            <p class="subtitle">The complex counterpart to Moment Generating Functions.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Characteristic Function</strong> $\phi_X(t)$ is the expected value of $e^{itX}$, where $i$ is
+                the imaginary unit:</p>
+            <div class="math-block">
+                $$ \phi_X(t) = E[e^{itX}] = \int_{-\infty}^{\infty} e^{itx} f_X(x) \, dx $$
+            </div>
+            <p>Note that this is the <strong>Inverse Fourier Transform</strong> of the PDF. Crucially, unlike the MGF,
+                the Characteristic Function <strong>always exists</strong> for any random variable.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Why Complexes?</h2>
+            <p>Because $e^{itx}$ is bounded ($|e^{itx}| = 1$), the integral always converges. This makes Characteristic
+                Functions the preferred tool for theoretical proofs in advanced statistics, such as the general proof of
+                the Central Limit Theorem and the Law of Large Numbers.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Frequency Domain Features</h2>
+            <div class="module-card">
+                <h3>Beyond the Time/Space Domain</h3>
+                <p>Characteristic Functions (and Fourier Analysis) are the heart of **Representational Learning for
+                    Signals**. </p>
+                <p>In **Speech Recognition** or **Audio AI**, we often convert raw audio (the space domain) into its
+                    frequency components. A characteristic function essentially tells you the "Frequency Signature" of a
+                    distribution. Furthermore, many modern **Kernel Methods** (like the **RBF Kernel** used in SVMs) can
+                    be understood through the lens of characteristic functions via Bochner's Theorem. Understanding this
+                    complex mapping allows AI researchers to design features that are "Translation Invariant"—meaning
+                    the AI can recognize a pattern regardless of where it appears in the data. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: A Simulated Characteristic Trace</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># For a discrete dice: phi(t) = sum( (1/6) * exp(i*t*k) ) for k=1..6
+def dice_cf(t):
+    return np.mean([np.exp(1j * t * k) for k in range(1, 7)])
+
+t_vals = np.linspace(-pi, pi, 100)
+cf_vals = [dice_cf(t) for t in t_vals]
+
+# The plot would show a complex periodicity
+print(f"CF at t=1: {dice_cf(1)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 25: Random Variables.</p>
+    </footer>
+</body>
+
+</html>

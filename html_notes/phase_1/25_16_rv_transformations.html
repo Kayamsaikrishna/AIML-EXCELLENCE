@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformation of Random Variables - Phase 1.4.1.16</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 25: Random Variables</li>
+            <li><a href="25_15_quantiles_percentiles.html">15. Quantiles & Percentiles</a></li>
+            <li><a href="25_16_rv_transformations.html" class="active">16. Transformation of RVs</a></li>
+            <li><a href="25_17_rv_functions.html">17. Functions of RVs</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; RV
+            Transformations
+        </div>
+
+        <header>
+            <h1>16. Transformation of Random Variables</h1>
+            <p class="subtitle">Warping probability density through mathematical functions.</p>
+        </header>
+
+        <section>
+            <h2>1. The Problem</h2>
+            <p>If we have a random variable $X$ with a known PDF $f_X(x)$, and we define a new variable $Y = g(X)$, what
+                is the PDF of $Y$? Simply plugging the function in is not enough—the "probability mass" must be squeezed
+                or stretched to maintain the area of 1.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Change of Variables Formula</h2>
+            <p>For a strictly monotonic and differentiable function $g(X)$, the PDF of $Y$ is given by:</p>
+            <div class="math-block">
+                $$ f_Y(y) = f_X(g^{-1}(y)) \left| \frac{d}{dy} g^{-1}(y) \right| $$
+            </div>
+            <p>The term $\left| \frac{d}{dy} g^{-1}(y) \right|$ is the **Jacobian**, which acts as a correction factor
+                for the "stretching" of the probability space.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Normalizing Flows</h2>
+            <div class="module-card">
+                <h3>Reshaping Data Distributions</h3>
+                <p>Variable transformation is the fundamental math behind **Normalizing Flows**, a powerful class of
+                    generative models. </p>
+                <p>Instead of trying to learn a complex data distribution (like the pixels of a face) directly,
+                    Normalizing Flows start with a simple Gaussian distribution and "warp" it through a series of
+                    invertible, differentiable functions. By applying the **Change of Variables Formula** at each step,
+                    the model calculates how the probability density changes. This allows the AI to generate
+                    high-fidelity data while still being able to calculate the exact log-likelihood of a data point.
+                    Furthermore, **Softmax** is a transformation that maps $N$ continuous random variables into a
+                    discrete PMF. Understanding these mappings is essential for creating models that "shape" noise into
+                    useful features. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Transforming a Distribution</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Log-Normal is the result of Y = exp(X), where X is Normal
+x = np.random.normal(0, 1, 1000)
+y = np.exp(x) # Transformation
+
+print(f"Mean of X: {np.mean(x):.4f}")
+print(f"Mean of Y: {np.mean(y):.4f} (Not exp(0)!)") # E[exp(X)] != exp(E[X])</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 25: Random Variables.</p>
+    </footer>
+</body>
+
+</html>

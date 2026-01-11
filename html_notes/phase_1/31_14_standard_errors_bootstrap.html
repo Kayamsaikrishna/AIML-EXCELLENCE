@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard Errors via Bootstrap - Phase 1.5.2.14</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 31: Estimation</li>
+            <li><a href="31_13_jackknife_method.html">13. Jackknife Method</a></li>
+            <li><a href="31_14_standard_errors_bootstrap.html" class="active">14. Standard Errors (Boot)</a></li>
+            <li><a href="31_15_bias_correction_bootstrap.html">15. Bias Correction (Boot)</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Bootstrap SE
+        </div>
+
+        <header>
+            <h1>14. Standard Errors via Bootstrap</h1>
+            <p class="subtitle">Quantifying precision when formulas fail.</p>
+        </header>
+
+        <section>
+            <h2>1. The Problem: Formula-less Statistics</h2>
+            <p>For the sample mean, we have a formula for standard error: $SE = \sigma / \sqrt{n}$. But what if you want
+                the standard error of the **Correlation Coefficient**, the **Ratio of Two Means**, or the **Eigenvalues
+                of a Matrix**? Most statistics do not have a simple analytical formula for their variance. </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Bootstrap Solution</h2>
+            <p>The Standard Error is simply the standard deviation of the sampling distribution. The Bootstrap allows us
+                to *simulate* that sampling distribution. </p>
+            <div class="math-block">
+                $$ SE_{boot} = \sqrt{\frac{1}{B-1} \sum_{b=1}^{B} (\hat{\theta}^*_b - \bar{\theta}^*)^2} $$
+            </div>
+            <p>Where $\hat{\theta}^*_b$ is the estimate from the $b$-th bootstrap sample, and $\bar{\theta}^*$ is the
+                average of all $B$ bootstrap estimates.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Model Uncertainty and Feature Selection</h2>
+            <div class="module-card">
+                <h3>Is the Weight Significant?</h3>
+                <p>In AI, Bootstrap SEs are used for **Feature Importance Ranking**. </p>
+                <p>When you train a <strong>Logistic Regression** or a **Linear Model</strong>, the library gives you
+                    "Coefficients." But are those coefficients stable? By bootstrapping the training data and
+                    re-calculating the coefficients, you get a <strong>Standard Error** for every weight in your neural
+                        network. If the weight is $w=5.0$ but the Bootstrap SE is $10.0$, it means that weight is pure
+                        noise—the model is just guessing. This allows AI engineers to <strong>Prune Features</strong>
+                        that have high variance, leading to models that generalize much better to new data. It
+                        transforms a "Black Box" model into an interpretable system where we know exactly which parts of
+                        the model are reliable and which are shaky. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: SE of Correlation</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Correlation between two variables
+x = np.random.normal(0, 1, 50)
+y = x + np.random.normal(0, 0.5, 50)
+
+boot_corrs = []
+for _ in range(2000):
+    indices = np.random.choice(range(50), 50, replace=True)
+    boot_corrs.append(np.corrcoef(x[indices], y[indices])[0,1])
+
+se_corr = np.std(boot_corrs)
+print(f"Sample Correlation: {np.corrcoef(x, y)[0,1]:.3f}")
+print(f"Bootstrap Standard Error: {se_corr:.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 31: Estimation & Bootstrap.</p>
+    </footer>
+</body>
+
+</html>

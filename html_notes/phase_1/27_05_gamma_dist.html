@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamma Distribution - Phase 1.4.3.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 27: Continuous Distributions</li>
+            <li><a href="27_04_exponential.html">04. Exponential Distribution</a></li>
+            <li><a href="27_05_gamma_dist.html" class="active">05. Gamma Distribution</a></li>
+            <li><a href="27_06_beta_dist.html">06. Beta Distribution</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Gamma
+        </div>
+
+        <header>
+            <h1>05. Gamma Distribution</h1>
+            <p class="subtitle">Generalizing the wait for multiple events.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Gamma Distribution</strong> models the time until the $k$-th event occurs in a Poisson
+                process. It is a two-parameter family ($\alpha$ as shape, $\beta$ as rate). </p>
+            <div class="math-block">
+                $$ f(x) = \frac{\beta^\alpha x^{\alpha-1} e^{-\beta x}}{\Gamma(\alpha)} \quad \text{for } x > 0 $$
+            </div>
+            <p>Where $\Gamma(\alpha) = (\alpha-1)!$ for integers. When $\alpha=1$, it simplifies to the Exponential
+                distribution.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Relation to Chi-Square</h2>
+            <p>The Chi-Square distribution, essential for hypothesis testing, is a special case of the Gamma
+                distribution where $\alpha = n/2$ and $\beta = 1/2$. This makes the Gamma distribution a "parent" to
+                many other vital statistical models.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Bayesian Priors and Uncertainty</h2>
+            <div class="module-card">
+                <h3>Modeling Positive Constraints</h3>
+                <p>Gamma distributions are the standard choice for <strong>Conjugate Priors</strong> in Bayesian AI.
+                </p>
+                <p>When an AI needs to estimate a "Rate" (like how often a user clicks an ad or how quickly a machine
+                    wears down), we use a Gamma distribution as our initial guess (the Prior). Because it is only
+                    defined for positive numbers, it is perfect for modeling variance, precision, or arrival rates. In
+                    **Generative AI**, Gamma distributions are used to model the "Sparsity" of activations, helping
+                    machines learn to recognize specific features rather than trying to pay attention to everything at
+                    once. Understanding Gamma is the key to creating AI that can "learn how to learn" by updating its
+                    beliefs about rates and frequencies. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Gamma Density</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.stats import gamma
+
+# alpha (shape) = 2, beta (rate) = 0.5
+# scipy uses a=alpha, scale=1/beta
+a, beta = 2, 0.5
+dist = gamma(a, scale=1/beta)
+
+# Mode of the distribution
+import numpy as np
+x = np.linspace(0, 20, 100)
+pdf = dist.pdf(x)
+print(f"Max density at x = {x[np.argmax(pdf)]:.2f}")
+
+# Sample from Gamma
+print(f"Sample: {dist.rvs():.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 27: Continuous Distributions.</p>
+    </footer>
+</body>
+
+</html>

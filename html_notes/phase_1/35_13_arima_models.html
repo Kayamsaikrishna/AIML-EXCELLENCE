@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARIMA Models - Phase 1.5.6.13</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 35: Time Series Analysis</li>
+            <li><a href="35_12_acf_pacf_autocorrelation.html">12. ACF & PACF</a></li>
+            <li><a href="35_13_arima_models.html" class="active">13. ARIMA Models</a></li>
+            <li><a href="35_14_sarima_seasonal.html">14. SARIMA Models</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#timeseries">Time Series</a> &gt; ARIMA
+        </div>
+
+        <header>
+            <h1>13. ARIMA Models</h1>
+            <p class="subtitle">The classical gold standard of time-series forecasting.</p>
+        </header>
+
+        <section>
+            <h2>1. The (p, d, q) Mastermind</h2>
+            <p><strong>ARIMA (AutoRegressive Integrated Moving Average)** is a unified framework for modeling time
+                    series data. It has three core parts:</p>
+            <ul class="topic-list">
+                <li><strong>AR (p) - AutoRegressive:</strong> Relationship between an observation and some number of
+                    lagged observations. ($Y_t$ depends on $Y_{t-1}, \dots, Y_{t-p}$).</li>
+                <li><strong>I (d) - Integrated:</strong> Number of times the data must be differenced to become
+                    stationary.</li>
+                <li><strong>MA (q) - Moving Average:</strong> Relationship between an observation and a residual error
+                    from a moving average model applied to lagged observations.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Equation</h2>
+            <div class="math-block">
+                $$ \hat{y}_t = \mu + \phi_1 y_{t-1} + \dots + \phi_p y_{t-p} + \theta_1 \epsilon_{t-1} + \dots +
+                \theta_q \epsilon_{t-q} + \epsilon_t $$
+            </div>
+            <p>It essentially treats every time step as a linear regression of its own past + the error of its previous
+                guesses. </p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Baseline for Sequence Learning</h2>
+            <div class="module-card">
+                <h3>Linear Recurrence</h3>
+                <p>In AI, ARIMA is the <strong>Recurrent Neural Network's Linear Ancestor**. </p>
+                <p>An **AR(1) model** ($y_t = \phi y_{t-1}$) is exactly what happens inside a single **RNN cell**
+                    without the non-linear activation. Before you use an **LSTM** or **GRU**, you run an ARIMA model to
+                    see the "Linear Baseline." If ARIMA gets a 5% error, and your complex Deep Learning model gets a
+                    4.5% error, the extra cost of GPUs might not be worth the complexity. ARIMA is also used in
+                    <strong>Ensemble Models (e.g., DeepAR)** where the AI handles the "Big Data" part and ARIMA handles
+                        the "Global Linear Trend" part. It provides the **Statistical Guarantees** (Confidence
+                        Intervals) that pure Neural Networks often lack. Understanding (p,d,q) is the key to
+                        understanding **Backpropagation-through-time (BPTT)** on its most fundamental level. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Fitting an ARIMA</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from statsmodels.tsa.arima.model import ARIMA
+
+# Fit an ARIMA(1, 1, 1) model
+model = ARIMA(data, order=(1, 1, 1))
+results = model.fit()
+
+print(results.summary())
+# The 'coef' values are the Phi and Theta from the math!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 35: Experimental Design & Time Series.</p>
+    </footer>
+</body>
+
+</html>

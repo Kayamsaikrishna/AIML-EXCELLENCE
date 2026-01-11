@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covariance - Phase 1.4.4.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 28: Multivariate Probability</li>
+            <li><a href="28_05_exp_multiple_rvs.html">05. Expectation of Multiple RVs</a></li>
+            <li><a href="28_06_covariance.html" class="active">06. Covariance</a></li>
+            <li><a href="28_07_correlation.html">07. Correlation</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Covariance
+        </div>
+
+        <header>
+            <h1>06. Covariance</h1>
+            <p class="subtitle">Measuring joint variability.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p><strong>Covariance</strong> is a measure of the joint variability of two random variables. If the greater
+                values of one variable mainly correspond with the greater values of the other, the covariance is
+                positive. </p>
+            <div class="math-block">
+                $$ Cov(X, Y) = E[(X - E[X])(Y - E[Y])] $$
+            </div>
+            <p>A simpler computational formula is:</p>
+            <div class="math-block">
+                $$ Cov(X, Y) = E[XY] - E[X]E[Y] $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Properties</h2>
+            <ul class="topic-list">
+                <li>$Cov(X, X) = Var(X)$</li>
+                <li>$Cov(X, Y) = Cov(Y, X)$</li>
+                <li>If $X$ and $Y$ are independent, $Cov(X, Y) = 0$. (Note: The reverse is not always true!)</li>
+                <li>$Var(X+Y) = Var(X) + Var(Y) + 2Cov(X, Y)$</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Redundancy and Dimensionality</h2>
+            <div class="module-card">
+                <h3>Eliminating Wasted Effort</h3>
+                <p>Covariance tells an AI which features are <strong>Redundant</strong>. </p>
+                <p>In **Data Preprocessing**, if two features (like "Temperature in Celsius" and "Temperature in
+                    Fahrenheit") have high covariance, they are providing essentially the same information. An AI
+                    engineer can remove one of them to reduce "Noise" and speed up training. This is the heart of **PCA
+                    (Principal Component Analysis)**, which calculates the <strong>Covariance Matrix</strong> of the
+                    entire dataset and compresses it into a smaller set of features that capture the most variance while
+                    having zero covariance with each other. Understanding covariance allows you to design models that
+                    focus on unique information rather than repeating the same patterns. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating Covariance Matrix</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# Height (cm) and Weight (kg)
+height = [160, 170, 180, 150, 165]
+weight = [60, 75, 85, 50, 68]
+
+# Compute covariance matrix
+cov_matrix = np.cov(height, weight)
+
+print(f"Covariance(Height, Weight): {cov_matrix[0, 1]:.2f}")
+print(f"Full Matrix:\n{cov_matrix}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 28: Multivariate Probability.</p>
+    </footer>
+</body>
+
+</html>

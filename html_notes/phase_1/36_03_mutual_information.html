@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual Information - Phase 1.5.7.3</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 36: Information Theory</li>
+            <li><a href="36_02_joint_conditional_entropy.html">02. Joint & Conditional</a></li>
+            <li><a href="36_03_mutual_information.html" class="active">03. Mutual Information</a></li>
+            <li><a href="36_04_kl_divergence.html">04. KL Divergence</a></li>
+            <hr>
+            <li class="nav-label navigation</li>
+            <li><a href=" index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#infotheory">Info Theory</a> &gt; MI
+        </div>
+
+        <header>
+            <h1>03. Mutual Information (MI)</h1>
+            <p class="subtitle">The measure of non-linear dependency.</p>
+        </header>
+
+        <section>
+            <h2>1. Beyond Correlation</h2>
+            <p>Standard Correlation only measures *Linear* relationships. If $Y = X^2$, correlation might be zero.
+                <strong>Mutual Information $I(X; Y)$</strong> measures how much information $X$ tells you about $Y$ (and
+                vice versa) regardless of the shape of the relationship.</p>
+            <div class="math-block">
+                $$ I(X; Y) = H(X) - H(X|Y) $$
+            </div>
+            <p>If $X$ and $Y$ are independent, $I(X; Y) = 0$. </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Information Bottleneck</h2>
+            <p>MI is a measure of the "Communication Channel" between two variables. If a feature has zero mutual
+                information with the target, it is literally useless—it carries no signal, only noise.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Feature Selection and Disentanglement</h2>
+            <div class="module-card">
+                <h3>The Signal Detector</h3>
+                <p>In AI, MI is the gold standard for <strong>Feature Selection Methods (mRMR)**. </p>
+                <p>Instead of testing every feature with a model, we calculate their **Mutual Information with the
+                    Target**. This is extremely powerful for <strong>Genomic AI** or **Financial High-frequency data**
+                        where we have 10,000+ features but only 10 are useful. Furthermore, <strong>InfoGANs (Generative
+                            Adversarial Networks)** use MI to learn **Disentangled Representations**: by maximizing the
+                            mutual information between a latent code and the generated image, the AI learns specific
+                            "Levers" (e.g., one lever changes the rotation of a face, another changes the lighting). It
+                            is the math of "Meaningful representation." </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: MI Score</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from sklearn.feature_selection import mutual_info_regression
+
+# Calculate MI between all features in X and target y
+mi_scores = mutual_info_regression(X, y)
+
+# Higher score = more 'information' provided by the feature
+for name, score in zip(feature_names, mi_scores):
+    print(f"Feature '{name}' MI: {score:.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 36: Information Theory.</p>
+    </footer>
+</body>
+
+</html>

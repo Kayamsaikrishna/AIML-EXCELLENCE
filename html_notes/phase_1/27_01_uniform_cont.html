@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuous Uniform Distribution - Phase 1.4.3.1</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 27: Continuous Distributions</li>
+            <li><a href="27_01_uniform_cont.html" class="active">01. Continuous Uniform</a></li>
+            <li><a href="27_02_normal_dist.html">02. Normal Distribution</a></li>
+            <li><a href="27_03_standard_normal.html">03. Standard Normal</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Uniform
+        </div>
+
+        <header>
+            <h1>01. Continuous Uniform Distribution</h1>
+            <p class="subtitle">Constant probability density over a specific range.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>A random variable $X$ follows a <strong>Continuous Uniform Distribution</strong> on the interval $[a,
+                b]$, denoted $X \sim U(a, b)$, if its PDF is constant between $a$ and $b$ and zero elsewhere.</p>
+            <div class="math-block">
+                $$ f(x) = \begin{cases} \frac{1}{b-a} & \text{if } a \le x \le b \\ 0 & \text{otherwise} \end{cases} $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Statistical Properties</h2>
+            <ul class="topic-list">
+                <li><strong>Mean:</strong> $E[X] = \frac{a+b}{2}$</li>
+                <li><strong>Variance:</strong> $Var(X) = \frac{(b-a)^2}{12}$</li>
+                <li><strong>CDF:</strong> $F(x) = \frac{x-a}{b-a}$ for $x \in [a, b]$.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Data Augmentation and Privacy</h2>
+            <div class="module-card">
+                <h3>The "Blank Slate" Distribution</h3>
+                <p>The continuous uniform distribution is the tool for adding <strong>Unbiased Noise</strong> to a
+                    system. </p>
+                <p>In **Data Augmentation**, when an AI "jitters" an image by slightly shifting coordinates or adjusting
+                    brightness, it often samples the shift value from a uniform distribution (e.g., $-\epsilon$ to
+                    $+\epsilon$). In **Differential Privacy**, adding uniform noise is a basic way to hide individual
+                    records while preserving aggregate statistics. Furthermore, in **Neural Architecture Search (NAS)**,
+                    when an AI explores different layer sizes or learning rates, it often uses <strong>Uniform
+                        Sampling</strong> across the space of possible values to ensure all options are explored equally
+                    before any bias towards "good" values is developed. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Uniform PDF and Sampling</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+from scipy.stats import uniform
+
+# Range [a, b] = [0, 10]
+# scipy uses (loc=a, scale=b-a)
+dist = uniform(loc=0, scale=10)
+
+# Simulate 5 random numbers
+samples = dist.rvs(size=5)
+print(f"Uniform Samples: {samples}")
+
+# PDF at x=5
+print(f"Density at 5: {dist.pdf(5)}") # Should be 1/10 = 0.1</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 27: Continuous Distributions.</p>
+    </footer>
+</body>
+
+</html>

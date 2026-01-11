@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Null vs Alternative Hypothesis - Phase 1.5.3.1</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_01_null_alt_hypothesis.html" class="active">01. Null vs Alternative</a></li>
+            <li><a href="32_02_test_stat_crit_val.html">02. Test Stat & Crit Val</a></li>
+            <li><a href="32_03_type1_type2_errors.html">03. Type I & II Errors</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Null vs Alt
+        </div>
+
+        <header>
+            <h1>01. Null and Alternative Hypotheses</h1>
+            <p class="subtitle">The Logic of "Innocent until proven guilty."</p>
+        </header>
+
+        <section>
+            <h2>1. The Foundation</h2>
+            <p>Every statistical test begins with two competing statements about a population parameter:</p>
+            <ul class="topic-list">
+                <li><strong>Null Hypothesis ($H_0$):</strong> The statement being tested. It usually represents "No
+                    effect," "No difference," or "Status Quo." We assume $H_0$ is true unless our data provides strong
+                    evidence against it.</li>
+                <li><strong>Alternative Hypothesis ($H_1$ or $H_a$):</strong> The statement we want to support. it
+                    represents a change, an effect, or a difference.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Courtroom Analogy</h2>
+            <p>In a trial, the defendant is presumed innocent ($H_0$) until proven guilty ($H_1$). The "Burden of Proof"
+                lies with the prosecution (the data). If the evidence is not strong enough, we **Fail to Reject
+                $H_0$**—we don't say the defendant is "Innocent," only that we don't have enough proof to convict.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Model Sanity Checking</h2>
+            <div class="module-card">
+                <h3>Is the AI actually learning?</h3>
+                <p>In AI research, the $H_0$ is your most important benchmark. </p>
+                <p>When you build a new recommendation engine, your $H_0$ is "The new AI has the same click-through rate
+                    as the old one." If you can't reject $H_0$, you shouldn't ship the model. In <strong>Anomaly
+                        Detection**, the $H_0$ is "This input data is normal." When an AI flags a fraudulent
+                        transaction, it is essentially saying: "The evidence against $H_0$ is so strong that I am
+                        rejecting normalcy in favor of $H_1$ (Fraud)." Without this logical framework, AI would just be
+                        "Pattern matching" without any concept of **False Alarms** or **Evidence thresholds**, leading
+                        to systems that are untrustworthy in high-stakes environments. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Defining Hypotheses</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Scenario: Testing if a coin is biased.
+# H0: p = 0.5 (Fair)
+# H1: p != 0.5 (Biased)
+
+true_p = 0.55 # Unknown to the test
+obs_heads = np.random.binomial(100, true_p)
+
+# We start by ASSUMING H0:
+p_null = 0.5
+expected_heads = 100 * p_null
+
+print(f"Observed: {obs_heads}, Expected under H0: {expected_heads}")
+# If |obs - exp| is "Large", we will question H0.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

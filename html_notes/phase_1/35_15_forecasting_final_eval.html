@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Series Evaluation & Pipeline - Phase 1.5.6.15</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 35: Time Series Analysis</li>
+            <li><a href="35_14_sarima_seasonal.html">14. SARIMA Models</a></li>
+            <li><a href="35_15_forecasting_final_eval.html" class="active">15. Final Evaluation</a></li>
+            <li><a href="index.html">Syllabus Index</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#timeseries">Time Series</a> &gt; Evaluation
+        </div>
+
+        <header>
+            <h1>15. Time Series Evaluation & Future Forecasting</h1>
+            <p class="subtitle">Validating the future before it happens.</p>
+        </header>
+
+        <section>
+            <h2>1. No Shuffling!</h2>
+            <p>In standard ML, we shuffle data. In Time Series, <strong>Shuffling is a Crime**. You cannot use tomorrow
+                    to predict today. We use **Walk-forward Validation** (or Time-Series Cross-Validation) where we
+                    train on the first $p$ steps and test on step $p+1$. </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Specific Metrics</h2>
+            <ul class="topic-list">
+                <li><strong>MAE:</strong> Mean Absolute Error. Easy to understand ($ error).</li>
+                <li><strong>MAPE:</strong> Mean Absolute Percentage Error. Great for business ("The model is off by
+                    5%").</li>
+                <li><strong>RMSE:</strong> Root Mean Square Error. Penalizes large "Surprise" errors more heavily.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Backtesting and Automated Pipelines</h2>
+            <div class="module-card">
+                <h3>Reality vs. Simulation</h3>
+                <p>In AI, time series evaluation is the core of <strong>Backtesting Systems</strong>. </p>
+                <p>In <strong>Algorithmic Trading**, we "Simulate" the past 10 years to see how our AI would have
+                        performed. Walk-forward validation prevents **Look-ahead Bias**, where the AI accidentally sees
+                        a future price spike and "Guesses" correctly only in the simulation. This is also how we build
+                        <strong>Model Monitoring Dashboards**: if the MAPE increases from 5% to 15%, the AI system
+                            triggers a **Retraining Pipeline**. Understanding evaluation is what allows AI to move from
+                            "Theoretical Success" to "Production Stability." It is the final verification that your
+                            model is actually capturing the physics of time. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Walk-forward Simulation</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from sklearn.model_selection import TimeSeriesSplit
+
+tscv = TimeSeriesSplit(n_splits=5)
+
+for train_index, test_index in tscv.split(data):
+    # Model learns on past, predicts next 'test' block
+    model_fit(data[train_index])
+    score = eval(data[test_index])
+    
+# Averaging the scores gives the true 'Ability' of the AI!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 35: Experimental Design & Time Series.</p>
+    </footer>
+</body>
+
+</html>

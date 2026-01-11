@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi-Square Distribution - Phase 1.4.3.8</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 27: Continuous Distributions</li>
+            <li><a href="27_07_t_dist.html">07. Student's t-Dist</a></li>
+            <li><a href="27_08_chi_square.html" class="active">08. Chi-Square Dist</a></li>
+            <li><a href="27_09_f_distribution.html">09. F-Distribution</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Chi-Square
+        </div>
+
+        <header>
+            <h1>08. Chi-Square ($\chi^2$) Distribution</h1>
+            <p class="subtitle">The math of squared deviations and independence.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>If $Z_1, Z_2, \dots, Z_k$ are $k$ independent **Standard Normal** random variables, then the sum of their
+                squares follows a <strong>Chi-Square Distribution</strong> with $k$ degrees of freedom. </p>
+            <div class="math-block">
+                $$ X = \sum_{i=1}^k Z_i^2 \sim \chi^2(k) $$
+            </div>
+            <p>The distribution is always positive and is skewed to the right (though it becomes more symmetric as $k$
+                increases).</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Statistical Properties</h2>
+            <ul class="topic-list">
+                <li><strong>Mean:</strong> $E[X] = k$</li>
+                <li><strong>Variance:</strong> $Var(X) = 2k$</li>
+                <li><strong>Additive Property:</strong> If $X \sim \chi^2(k_1)$ and $Y \sim \chi^2(k_2)$, then $X+Y \sim
+                    \chi^2(k_1+k_2)$.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Feature Selection and Data Validation</h2>
+            <div class="module-card">
+                <h3>Reducing Dimensionality</h3>
+                <p>The Chi-Square distribution is the "Gatekeeper" of **Feature Importance** in AI. </p>
+                <p>In **Feature Selection**, we use the **Chi-Square Test** to determine if a categorical feature (like
+                    "City" or "User Gender") is independent of the target label. If the result is a high Chi-Square
+                    value (above the critical threshold), the feature is likely important; if low, it's just noise and
+                    can be deleted to simplify the model. It is also used in **Goodness-of-Fit** tests to check if the
+                    AI's predicted probabilities match the distribution of the actual data. For example, if your AI
+                    predicts "Probability of Error" across 5 categories, the Chi-Square distribution helps you
+                    mathematically prove if the AI's "Mental Map" matches reality. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Chi-Square Test for Independence</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.stats import chi2_contingency
+
+# Contingency table (e.g., Click vs No-Click for 2 ad designs)
+#        Design A | Design B
+# Click:    20    |    40
+# Skip :   100    |    100
+
+table = [[20, 40], [100, 100]]
+chi2, p, dof, expected = chi2_contingency(table)
+
+print(f"Chi2 statistic: {chi2:.4f}")
+print(f"P-value: {p:.4f}") # If p < 0.05, the design MATTERS.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 27: Continuous Distributions.</p>
+    </footer>
+</body>
+
+</html>

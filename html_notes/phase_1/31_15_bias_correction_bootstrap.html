@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Bias Correction - Phase 1.5.2.15</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 31: Estimation</li>
+            <li><a href="31_14_standard_errors_bootstrap.html">14. Standard Errors (Boot)</a></li>
+            <li><a href="31_15_bias_correction_bootstrap.html" class="active">15. Bias Correction (Boot)</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Bias
+            Correction
+        </div>
+
+        <header>
+            <h1>15. Bias Correction via Bootstrap</h1>
+            <p class="subtitle">Correcting for systematic "Leans" in our estimates.</p>
+        </header>
+
+        <section>
+            <h2>1. What is Estimation Bias?</h2>
+            <p>An estimator $\hat{\theta}$ is <strong>Biased</strong> if its expected value is not equal to the true
+                parameter: $E[\hat{\theta}] \ne \theta$. Some very common estimators, like the maximum likelihood
+                estimator of variance, are systematically biased (they tend to underestimate the truth). </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Correction Formula</h2>
+            <p>The Bootstrap allows us to estimate this bias by comparing our original estimate to the average of our
+                bootstrap simulations.</p>
+            <div class="math-block">
+                $$ \widehat{\text{Bias}} = \bar{\theta}^* - \hat{\theta} $$
+                $$ \hat{\theta}_{\text{Corrected}} = \hat{\theta} - \widehat{\text{Bias}} = 2\hat{\theta} -
+                \bar{\theta}^* $$
+            </div>
+            <p>By subtracting the estimated bias, we move the estimator closer to the true value of the population
+                parameter.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Model Calibration and Risk Assessment</h2>
+            <div class="module-card">
+                <h3>Beyond Over-Fitting</h3>
+                <p>In AI, Bias Correction is the key to <strong>Calibration</strong>. </p>
+                <p>A classifier might be 90% accurate, but it might be <strong>Confident-Biased</strong>—it predicts
+                    "High Probability" for cases that are actually ambiguous. By bootstrapping the validation set and
+                    calculating the bias between predicted probabilities and actual outcomes, we can
+                    <strong>Calibrate</strong> the model. This is critical for <strong>Financial Risk AI** or
+                        <strong>Medical Screening</strong>. If an AI predicts a 10% risk of a market crash, but we know
+                        the model has a +2% bootstrap bias, we correct it to 8%. This ensures that the "Business Logic"
+                        of the AI is not just optimized for the training data, but is mathematically adjusted to be
+                        "Fair" and "Truthful" in its self-assessment. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Correcting the Variance Bias</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Example: Population Var is 25. Small samples often underestimate it.
+data = np.random.normal(50, 5, 10)
+raw_var = np.var(data) # Biased (n instead of n-1)
+
+boot_vars = [np.var(np.random.choice(data, 10)) for _ in range(5000)]
+bias_est = np.mean(boot_vars) - raw_var
+corrected_var = raw_var - bias_est
+
+print(f"Raw Estimate: {raw_var:.2f}")
+print(f"Bootstrap Corrected: {corrected_var:.2f}")
+# The corrected value will likely be closer to 25.0</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 31: Estimation & Bootstrap.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weibull Distribution - Phase 1.4.3.14</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 27: Continuous Distributions</li>
+            <li><a href="27_13_pareto_dist.html">13. Pareto Distribution</a></li>
+            <li><a href="27_14_weibull_dist.html" class="active">14. Weibull Distribution</a></li>
+            <li><a href="27_15_dirichlet_dist.html">15. Dirichlet Distribution</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Weibull
+        </div>
+
+        <header>
+            <h1>14. Weibull Distribution</h1>
+            <p class="subtitle">The math of aging, reliability, and failure.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Weibull Distribution</strong> is a versatile distribution used to model extreme values and
+                the time to failure of components. Its shape parameter $k$ allows it to model processes with increasing,
+                constant, or decreasing failure rates. </p>
+            <div class="math-block">
+                $$ f(x) = \frac{k}{\lambda} \left( \frac{x}{\lambda} \right)^{k-1} e^{-(x/\lambda)^k} \quad \text{for }
+                x \ge 0 $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Three Phases of Failure</h2>
+            <p>Depending on $k$, the Weibull distribution models different life stages:</p>
+            <ul class="topic-list">
+                <li>**$k < 1$ (Infant Mortality):** Failure rate decreases over time (e.g., defective software
+                        discovered early).</li>
+                <li>**$k = 1$ (Random Failure):** Failure rate is constant (Exponential Distribution).</li>
+                <li>**$k > 1$ (Wear-out):** Failure rate increases over time (e.g., mechanical friction or aging).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Predictive Maintenance</h2>
+            <div class="module-card">
+                <h3>Knowing when something will break</h3>
+                <p>The Weibull distribution is the foundation of <strong>Reliability AI</strong>. </p>
+                <p>In **Predictive Maintenance**, an AI model isn't just predicting "if" a factory robot will fail, but
+                    "When." By fitting sensor data to a Weibull distribution, the AI can calculate the **Remaining
+                    Useful Life (RUL)** of a component. In **Customer Analytics**, it models "Lifespan"—predicting
+                    exactly when a user's subscription will expire based on their usage patterns. Furthermore, in
+                    **Gradient Boosting** (like XGBoost), Weibull loss functions are used for "AFT" (Accelerated Failure
+                    Time) regression, allowing the AI to handle "Censored Data" (records where we know the subject
+                    hasn't failed <i>yet</i>, but we don't know when they will). </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Weibull Sampling</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.stats import weibull_min
+
+# k (shape) = 1.5, lambda (scale) = 1000 hours
+k, lam = 1.5, 1000
+dist = weibull_min(k, scale=lam)
+
+# Probability of failure before 500 hours
+print(f"P(X < 500): {dist.cdf(500):.4f}")
+
+# Median life span
+print(f"Median RUL: {dist.median():.2f} hours")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 27: Continuous Distributions.</p>
+    </footer>
+</body>
+
+</html>

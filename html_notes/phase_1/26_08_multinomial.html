@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multinomial Distribution - Phase 1.4.2.8</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 26: Discrete Distributions</li>
+            <li><a href="26_07_discrete_uniform.html">07. Discrete Uniform</a></li>
+            <li><a href="26_08_multinomial.html" class="active">08. Multinomial Distribution</a></li>
+            <li><a href="index.html">Syllabus Index</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Multinomial
+        </div>
+
+        <header>
+            <h1>08. Multinomial Distribution</h1>
+            <p class="subtitle">Generalizing success/failure to multiple categories.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Multinomial Distribution</strong> is the generalization of the Binomial distribution. It
+                models the count of outcomes for $n$ independent trials where each trial can result in one of $k$
+                categories, with probabilities $p_1, p_2, \dots, p_k$ (where $\sum p_i = 1$). </p>
+            <div class="math-block">
+                $$ P(X_1=x_1, \dots, X_k=x_k) = \frac{n!}{x_1! \dots x_k!} p_1^{x_1} \dots p_k^{x_k} $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Relation to Softmax</h2>
+            <p>While the Bernoulli distribution produces a single probability $p$, the Multinomial requires a vector of
+                probabilities. In Deep Learning, the **Softmax** layer takes raw scores (logits) and converts them into
+                this exact probability vector, ensuring they are non-negative and sum to 1.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Multi-class Classification and NLP</h2>
+            <div class="module-card">
+                <h3>Beyond Binary</h3>
+                <p>The Multinomial distribution is the foundation of **Multi-class Classification**. </p>
+                <p>When an AI categorizes an image as one of 1000 categories (like in ImageNet), it is modeling a
+                    Multinomial trial where $n=1$. The **Cross-Entropy Loss** for multi-class tasks is the Negative
+                    Log-Likelihood of this Multinomial distribution. In **Large Language Models (LLMs)** like GPT, the
+                    "Next Token Prediction" is a Multinomial sampling task where the categories are every word in the
+                    dictionary (the vocabulary). The model predicts a vector of 50,000+ probabilities, and we sample
+                    from that Multinomial distribution to get the next word. Understanding this allows you to reason
+                    about "Temperature" and "Top-P" sampling in AI text generation.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Multinomial Sampling</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.stats import multinomial
+
+# n=10 trials, 3 categories with probs [0.2, 0.5, 0.3]
+n = 10
+p = [0.2, 0.5, 0.3]
+
+# Probability of getting [2, 5, 3] successes
+print(f"P(X=[2,5,3]): {multinomial.pmf([2, 5, 3], n, p):.4f}")
+
+# Simulate 5 experiments
+print(f"Sample Outcomes:\n{multinomial.rvs(n, p, size=5)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 26: Discrete Distributions.</p>
+    </footer>
+</body>
+
+</html>

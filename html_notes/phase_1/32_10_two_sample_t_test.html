@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-Sample t-test (Independent) - Phase 1.5.3.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_09_z_test_proportions.html">09. Z-test (Proportions)</a></li>
+            <li><a href="32_10_two_sample_t_test.html" class="active">10. Two-Sample t-test</a></li>
+            <li><a href="32_11_paired_t_test.html">11. Paired t-test</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; 2-Sample
+            t-test
+        </div>
+
+        <header>
+            <h1>10. Two-Sample t-test (Independent)</h1>
+            <p class="subtitle">Comparing two unrelated groups of data.</p>
+        </header>
+
+        <section>
+            <h2>1. The Goal of Comparison</h2>
+            <p>The <strong>Independent Two-Sample t-test</strong> determines if there is a statistically significant
+                difference between the means of two independent groups. Unlike the one-sample test, we are not comparing
+                to a fixed number, but to another variable group. </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Formula (Pooled Variance)</h2>
+            <div class="math-block">
+                $$ t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{s_p^2 (\frac{1}{n_1} + \frac{1}{n_2})}} $$
+            </div>
+            <p>Where $s_p^2$ is the **Pooled Variance**, a weighted average of the variances from both groups. This
+                assumes the groups have roughly equal variances (Homoscedasticity). If they don't, we use **Welch's
+                t-test**, which is the more robust modern default.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Model Architecture Evaluation</h2>
+            <div class="module-card">
+                <h3>Architecture A vs Architecture B</h3>
+                <p>In AI research, the 2-Sample t-test is the "Judge" in **Competitions**. </p>
+                <p>When Google releases a new **Transformer** architecture and claims it is better than the previous
+                    one, they don't just report the average score. They take 20 different random initializations of
+                    Model A and 20 of Model B. These are independent "Groups." They run a **Two-sample t-test** on the
+                    validation metrics. If the p-value is 0.001, we can be highly confident that the architecture change
+                    *itself* caused the improvement, and it wasn't just a lucky random seed for Model B. In <strong>A/B
+                        Testing** of Recommendation Engines, this test allows us to compare "Users in Group 1 (New AI)"
+                        vs "Users in Group 2 (Baseline)" to prove that any increase in engagement is statistically
+                        valid. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: stats.ttest_ind</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Accuracy of Model A (20 runs)
+group_a = np.random.normal(0.85, 0.02, 20)
+# Accuracy of Model B (20 runs)
+group_b = np.random.normal(0.87, 0.02, 20)
+
+# equal_var=False performs Welch's t-test (Recommended default)
+t_stat, p_val = stats.ttest_ind(group_a, group_b, equal_var=False)
+
+print(f"t-stat: {t_stat:.2f}, p-value: {p_val:.4f}")
+# If p < 0.05, Group B is significantly different (better) than Group A.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

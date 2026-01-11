@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisher Information - Phase 1.5.12</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 30: Statistical Inference</li>
+            <li><a href="30_11_mle_properties.html">11. MLE Properties</a></li>
+            <li><a href="30_12_fisher_information.html" class="active">12. Fisher Information</a></li>
+            <li><a href="30_13_sufficient_statistics.html">13. Sufficient Statistics</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Fisher Info
+        </div>
+
+        <header>
+            <h1>12. Fisher Information</h1>
+            <p class="subtitle">Quantifying the "Quality" of information in data.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p><strong>Fisher Information</strong> $I(\theta)$ measures the amount of information that an observable
+                random variable $X$ carries about an unknown parameter $\theta$. It is defined as the variance of the
+                <strong>Score</strong> (the partial derivative of the log-likelihood). </p>
+            <div class="math-block">
+                $$ I(\theta) = E\left[ \left( \frac{\partial}{\partial \theta} \ln f(X \mid \theta) \right)^2 \right] =
+                -E\left[ \frac{\partial^2}{\partial \theta^2} \ln f(X \mid \theta) \right] $$
+            </div>
+            <p>If the surface of the log-likelihood is "steep" (high second derivative), then a small change in data
+                causes a large change in our belief—high Fisher information. If the surface is "flat," our data tells us
+                very little.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Cramér-Rao Lower Bound</h2>
+            <p>Fisher Information determines the <strong>Theoretic Limit of Precision</strong>. The variance of any
+                unbiased estimator $\hat{\theta}$ is bounded by the reciprocal of the Fisher Information:</p>
+            <div class="math-block">
+                $$ Var(\hat{\theta}) \ge \frac{1}{n I(\theta)} $$
+            </div>
+            <p>This is the "Universal speed limit" of statistics—it proves that you can never be perfectly certain about
+                a parameter given finite data.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Natural Gradient and Second-Order Optimization</h2>
+            <div class="module-card">
+                <h3>Optimizing in the Space of Probability</h3>
+                <p>In AI, Fisher Information is the bridge to <strong>Information Geometry</strong>. </p>
+                <p>In **Deep Learning**, the <strong>Natural Gradient</strong> algorithm uses the <strong>Fisher
+                        Information Matrix (FIM)</strong> instead of the standard identity matrix to scale the learning
+                    rate. While standard Gradient Descent moves in the "Parameter Space" (which can be distorted),
+                    Natural Gradient moves in the "Distribution Space," which is invariant to how you parameterize the
+                    model. This makes training much faster and more stable, especially for complex structures like
+                    <strong>Recurrent Neural Networks (RNNs)</strong>. Furthermore, the <strong>Fisher Information** is
+                        the expected value of the <strong>Hessian Matrix</strong> of the loss function. In **Pruning and
+                        Compression**, we use the Fisher Information to identify which weights in a neural network are
+                        "Uninformative"—if a weight has low Fisher Info, it means the model's accuracy doesn't rely on
+                        it, and we can safely delete it to make the AI smaller. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating Score Variance</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># For a Bernoulli trial, I(p) = 1 / (p * (1-p))
+p = 0.5
+n = 100
+theoretical_limit = 1 / (n * (1 / (p * (1-p))))
+
+# Empirical variance of 1000 MLE estimates
+estimates = [np.mean(np.random.binomial(1, p, n)) for _ in range(1000)]
+emp_var = np.var(estimates)
+
+print(f"Cramer-Rao Lower Bound: {theoretical_limit:.6f}")
+print(f"Empirical Variance: {emp_var:.6f}")
+# Empirical will be extremely close to the limit!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 30: Statistical Inference.</p>
+    </footer>
+</body>
+
+</html>

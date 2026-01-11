@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moments - Phase 1.4.1.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 25: Random Variables</li>
+            <li><a href="25_09_standard_deviation.html">09. Standard Deviation</a></li>
+            <li><a href="25_10_moments.html" class="active">10. Moments</a></li>
+            <li><a href="25_11_mgf.html">11. MGF</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Moments
+        </div>
+
+        <header>
+            <h1>10. Moments (1st, 2nd, 3rd, 4th)</h1>
+            <p class="subtitle">Describing distribution shape through powers of $X$.</p>
+        </header>
+
+        <section>
+            <h2>1. Raw vs. Central Moments</h2>
+            <p><strong>Raw Moments:</strong> The $k$-th raw moment is $E[X^k]$. The 1st raw moment is the
+                <strong>Mean</strong>.</p>
+            <p><strong>Central Moments:</strong> The $k$-th central moment is $E[(X - \mu)^k]$. The 2nd central moment
+                is the <strong>Variance</strong>.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Hierarchy of Moments</h2>
+            <ul class="topic-list">
+                <li><strong>1st Moment:</strong> Location (Mean).</li>
+                <li><strong>2nd Moment:</strong> Width (Variance).</li>
+                <li><strong>3rd Moment:</strong> Asymmetry (Skewness).</li>
+                <li><strong>4th Moment:</strong> Peakiness/Tails (Kurtosis).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Xavier and Kaiming Initialization</h2>
+            <div class="module-card">
+                <h3>Matching Distribution Moments</h3>
+                <p>Moments are critical for the **Initialization of Neural Networks**. </p>
+                <p>If you initialize a model's weights with values that are too large or too small, the signals will
+                    explode or vanish through the layers. Techniques like **Xavier (Glorot)** and **Kaiming (He)
+                    Initialization** are derived by calculating the relationship between the **2nd Moment (Variance)**
+                    of the inputs and the variance of the outputs. By setting initial weights such that these moments
+                    are "balanced," we ensure that signals flow smoothly during training. Furthermore, in **Generative
+                    Adversarial Networks (GANs)**, "Moment Matching" is a loss technique where the generator tries to
+                    produce data whose lower-order moments match those of the real dataset. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating Higher Moments</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import scipy.stats as stats
+
+data = np.random.normal(0, 1, 1000)
+
+m1 = stats.moment(data, moment=1) # Central: should be ~0
+m2 = stats.moment(data, moment=2) # Central: should be ~1
+m3 = stats.moment(data, moment=3) 
+m4 = stats.moment(data, moment=4)
+
+print(f"Mean (Raw 1): {np.mean(data):.4f}")
+print(f"Variance (Central 2): {m2:.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 25: Random Variables.</p>
+    </footer>
+</body>
+
+</html>

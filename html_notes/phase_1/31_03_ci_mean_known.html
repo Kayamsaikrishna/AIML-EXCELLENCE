@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI for Mean (Known Variance) - Phase 1.5.2.3</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 31: Estimation</li>
+            <li><a href="31_02_ci_concept.html">02. Confidence Intervals</a></li>
+            <li><a href="31_03_ci_mean_known.html" class="active">03. CI for Mean (Known)</a></li>
+            <li><a href="31_04_ci_mean_unknown.html">04. CI for Mean (Unknown)</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; CI Mean Known
+        </div>
+
+        <header>
+            <h1>03. CI for Population Mean (Known Variance)</h1>
+            <p class="subtitle">The Z-Interval: Our first analytical uncertainty bound.</p>
+        </header>
+
+        <section>
+            <h2>1. The Formula</h2>
+            <p>When the population variance $\sigma^2$ is known (a rare but illustrative case), we use the
+                <strong>Z-statistic</strong> to construct our interval. The formula is:</p>
+            <div class="math-block">
+                $$ \bar{x} \pm Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right) $$
+            </div>
+            <ul class="topic-list">
+                <li>$\bar{x}$: Sample Mean.</li>
+                <li>$Z_{\alpha/2}$: Critical value from the Z-table (e.g., 1.96 for 95% confidence).</li>
+                <li>$\sigma / \sqrt{n}$: Standard Error of the mean.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Assumptions</h2>
+            <ul class="topic-list">
+                <li>The data are sampled independently.</li>
+                <li>The population is Normal, **OR** the sample size is large enough ($n > 30$) for the Central Limit
+                    Theorem to apply.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Standardized Evaluation and Power Analysis</h2>
+            <div class="module-card">
+                <h3>Precision under Constraints</h3>
+                <p>In AI research, we often work with <strong>Benchmarks</strong> where the variance of the testing
+                    environment is known. </p>
+                <p>On a standardized test like <strong>ImageNet-mini</strong>, we might know from thousands of previous
+                    trials that the standard deviation of "Top-1 Accuracy" is roughly 2%. When you report your new
+                    model's performance on this benchmark, you can use the Known-Variance CI to prove that your 1%
+                    improvement isn't just a fluke. This formula is also used for <strong>Power Analysis</strong>—it
+                    helps you calculate <i>exactly how many images</i> you need to label to detect a 0.5% improvement in
+                    accuracy with 95% confidence. Without this, you might waste weeks training on too little data, only
+                    to find your final result is "Insignificant" because your error bars are too wide. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating the Z-Interval</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy import stats
+
+# Data: Test scores for 50 users
+data = np.random.normal(70, 5, 50)
+mu_hat = np.mean(data)
+sigma = 5 # Known population variance
+n = len(data)
+
+# 95% Confidence (alpha = 0.05)
+z_crit = stats.norm.ppf(0.975) # 1.96
+
+margin_of_error = z_crit * (sigma / np.sqrt(n))
+ci = (mu_hat - margin_of_error, mu_hat + margin_of_error)
+
+print(f"Sample Mean: {mu_hat:.2f}")
+print(f"95% Confidence Interval: ({ci[0]:.2f}, {ci[1]:.2f})")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 31: Estimation & Bootstrap.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties of CDF - Phase 1.4.1.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 25: Random Variables</li>
+            <li><a href="25_05_cdf.html">05. CDF</a></li>
+            <li><a href="25_06_cdf_properties.html" class="active">06. Properties of CDF</a></li>
+            <li><a href="25_07_expected_value.html">07. Expected Value</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; CDF
+            Properties
+        </div>
+
+        <header>
+            <h1>06. Properties of the CDF</h1>
+            <p class="subtitle">Mathematical constraints on cumulative probability.</p>
+        </header>
+
+        <section>
+            <h2>1. Core Properties</h2>
+            <p>Any valid CDF $F_X(x)$ must satisfy the following four properties:</p>
+            <ul class="topic-list">
+                <li><strong>Monotonicity:</strong> $F_X(x)$ is a non-decreasing function. If $x_1 < x_2$, then $F_X(x_1)
+                        \le F_X(x_2)$.</li>
+                <li><strong>Lower Limit:</strong> $\lim_{x \to -\infty} F_X(x) = 0$.</li>
+                <li><strong>Upper Limit:</strong> $\lim_{x \to \infty} F_X(x) = 1$.</li>
+                <li><strong>Right-Continuity:</strong> $F_X(x)$ is continuous from the right at every $x$.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Relation to PMF/PDF</h2>
+            <p>For a continuous RV, the PDF is the derivative of the CDF:</p>
+            <div class="math-block">
+                $$ f_X(x) = \frac{d}{dx} F_X(x) $$
+            </div>
+            <p>For a discrete RV, the PMF at $x$ is the "jump" in the CDF at $x$:</p>
+            <div class="math-block">
+                $$ p_X(x) = F_X(x) - \lim_{t \to x^-} F_X(t) $$
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Probability Integral Transform</h2>
+            <div class="module-card">
+                <h3>Generating Artificial Data</h3>
+                <p>One of the most powerful properties of the CDF in AI is the **Probability Integral Transform**. </p>
+                <p>This theorem states that if $X$ is a continuous RV with CDF $F_X$, then the variable $Y = F_X(X)$ is
+                    uniformly distributed between 0 and 1. Conversely, if you have a uniform random number $U$, you can
+                    generate a value from <i>any</i> distribution by applying the inverse CDF: $X = F_X^{-1}(U)$. This
+                    is how modern AI systems perform **Sampling**. When a generative model like a **GAN** or **VAE**
+                    produces a synthetic face or a line of text, it often starts by generating uniform noise and
+                    "warping" it through a complex learned CDF property. Understanding these constraints ensures that
+                    the data an AI generates follows the laws of probability.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Verifying Monotonicity</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+from scipy.stats import norm
+
+x = np.linspace(-5, 5, 20)
+cdf_vals = norm.cdf(x)
+
+# Check if non-decreasing
+is_monotonic = np.all(np.diff(cdf_vals) >= 0)
+print(f"Is CDF Monotonic? {is_monotonic}")
+print(f"Max value: {cdf_vals[-1]:.4f}") # Should be near 1.0</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 25: Random Variables.</p>
+    </footer>
+</body>
+
+</html>

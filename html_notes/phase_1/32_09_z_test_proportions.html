@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-test for Proportions - Phase 1.5.3.9</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_08_t_test_single_mean.html">08. t-test (Single Mean)</a></li>
+            <li><a href="32_09_z_test_proportions.html" class="active">09. Z-test (Proportions)</a></li>
+            <li><a href="32_10_two_sample_t_test.html">10. Two-Sample t-test</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Success Rates
+        </div>
+
+        <header>
+            <h1>09. Z-test for Proportions</h1>
+            <p class="subtitle">Benchmarking binary success rates.</p>
+        </header>
+
+        <section>
+            <h2>1. The Proportion Case</h2>
+            <p>Often we aren't testing a continuous average (like height or score), but a **Binary Rate** (Yes/No,
+                Click/No-Click, Spam/Not-Spam). This follows a Binomial distribution, which can be approximated by a
+                Normal distribution for large samples.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Statistical Test</h2>
+            <div class="math-block">
+                $$ Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} $$
+            </div>
+            <p>Where $\hat{p}$ is our observed success rate, $p_0$ is the claimed/null success rate, and $n$ is the
+                sample size. We use the **Null Proportion** ($p_0$) in the denominator for the standard error
+                calculation.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: CTR Analysis and Ad Recommendation</h2>
+            <div class="module-card">
+                <h3>Evaluating the Click</h3>
+                <p>In AI Marketing, the Z-test for Proportions is the daily workhorse for **Click-Through Rate (CTR)
+                    Optimization**. </p>
+                <p>When you deploy a new **Reinforcement Learning** agent for Ad placement, the $H_0$ is: "The new
+                    agent's CTR is no better than 2% ($p_0=0.02$)." If the agent delivers 2,500 clicks out of 100,000
+                    impressions ($\hat{p}=0.025$), a human might say "It's 25% better!". But an AI Scientist runs a
+                    **Z-test for Proportions**. Because $n=100,000$ (Very Large), even a 0.5% gain can be **Extremely
+                    Significant** ($Z \approx 11$). This allows the system to confidently shift millions of dollars in
+                    budget to the new model within minutes of deployment. Conversely, if $n$ was only 500, that 0.5%
+                    gain would be statistically invisible, and the Z-test would prevent the AI from making a premature
+                    and potentially expensive pivot. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: proportions_ztest</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from statsmodels.stats.proportion import proportions_ztest
+
+# 25 successes out of 500 trials
+count = 25
+nobs = 500
+base_rate = 0.04 # We want to test if it's DIFFERENT from 4%
+
+stat, pval = proportions_ztest(count, nobs, base_rate)
+
+print(f"Z-stat: {stat:.2f}, p-value: {pval:.4f}")
+# p = 0.22. We fail to reject H0. No evidence of rate change.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

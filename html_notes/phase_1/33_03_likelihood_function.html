@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Likelihood Function - Phase 1.5.4.3</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 33: Bayesian Statistics</li>
+            <li><a href="33_02_prior_distributions.html">02. Prior Distributions</a></li>
+            <li><a href="33_03_likelihood_function.html" class="active">03. Likelihood Function</a></li>
+            <li><a href="33_04_posterior_distribution.html">04. Posterior Distribution</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Likelihood
+        </div>
+
+        <header>
+            <h1>03. Likelihood Function</h1>
+            <p class="subtitle">How well does the parameter explain the observed reality?</p>
+        </header>
+
+        <section>
+            <h2>1. The Perspective Shift</h2>
+            <p>The <strong>Likelihood Function</strong> $L(\theta | x)$ is the probability (or density) of the data $x$
+                as a function of the parameter $\theta$. </p>
+            <ul class="topic-list">
+                <li><strong>Probability:</strong> Predicts data given a fixed parameter.</li>
+                <li><strong>Likelihood:</strong> Reflects on the parameter given fixed data.</li>
+            </ul>
+            <p>It is the "Evidence" provided by the experiment. In the Bayesian formula, it is the mechanism that
+                "pulls" the prior toward the data.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Math of Observation</h2>
+            <p>For $n$ independent and identically distributed (i.i.d) samples:</p>
+            <div class="math-block">
+                $$ L(\theta) = \prod_{i=1}^{n} f(x_i | \theta) $$
+            </div>
+            <p>Because products of probabilities become tiny quickly, we usually work with the **Log-Likelihood**, which
+                turns the product into a sum.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Loss Functions and Generative Modeling</h2>
+            <div class="module-card">
+                <h3>Likelihood as a Objective</h3>
+                <p>In AI, the Likelihood function is the core of <strong>Loss Optimization</strong>. </p>
+                <p>Every time you use <strong>Cross-Entropy Loss**, you are actually performing **Maximum Likelihood
+                        Estimation (MLE)**. You are asking the model: "Change your weights so that the observed labels
+                        in the training set become as likely as possible." In **Generative AI** (like GANs or Diffusion
+                        models), the goal is to learn the "Likelihood Landscape" of real images, so the AI can sample
+                        from regions of high likelihood to create new, realistic-looking data. Without the Likelihood
+                        function, AI would have no metric to measure its "Fit" to the world. It is the sensory input of
+                        the mathematical brain. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Likelihood vs. Density</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Observed data: x = 5
+data = 5
+
+# We think it might come from a Normal dist with mean 'mu'
+mu_candidates = np.linspace(0, 10, 100)
+
+# Likelihood is the height of the PDF at x=5 for DIFFERENT mus
+likelihoods = norm.pdf(data, loc=mu_candidates, scale=1)
+
+# Result: Likelihood is highest at mu=5. 
+# It tells us that 5 is the most 'Plausible' value for mu.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 33: Bayesian Statistics.</p>
+    </footer>
+</body>
+
+</html>

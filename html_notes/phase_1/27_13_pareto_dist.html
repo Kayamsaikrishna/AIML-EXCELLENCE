@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pareto Distribution - Phase 1.4.3.13</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 27: Continuous Distributions</li>
+            <li><a href="27_12_log_normal_dist.html">12. Log-Normal Distribution</a></li>
+            <li><a href="27_13_pareto_dist.html" class="active">13. Pareto Distribution</a></li>
+            <li><a href="27_14_weibull_dist.html">14. Weibull Distribution</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Pareto
+        </div>
+
+        <header>
+            <h1>13. Pareto Distribution</h1>
+            <p class="subtitle">The Power Law: 80% of effects come from 20% of causes.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Pareto Distribution</strong> is a power-law probability distribution used to describe social,
+                scientific, and geophysical phenomena. It is characterized by its extremely heavy "Right Tail." </p>
+            <div class="math-block">
+                $$ f(x) = \frac{\alpha x_m^\alpha}{x^{\alpha+1}} \quad \text{for } x \ge x_m $$
+            </div>
+            <p>Where $x_m$ is the scale (minimum possible value) and $\alpha$ is the shape parameter (tail index).</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The "80/20 Rule"</h2>
+            <p>The Pareto principle suggests that for many outcomes, roughly 80% of consequences come from 20% of the
+                causes. In the distribution, a smaller $\alpha$ leads to a "heavier" tail, meaning that extreme values
+                (like billionaires in a wealth distribution) represent a massive portion of the total mass.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Big Data and Network Modeling</h2>
+            <div class="module-card">
+                <h3>Modeling the Extremes</h3>
+                <p>Pareto distributions appear wherever there is a <strong>Preferential Attachment</strong> process (the
+                    rich get richer). </p>
+                <p>In **Network Analysis AI**, the number of links to a website or followers on a social network follow
+                    a Pareto distribution. In **E-commerce**, the "Long Tail" of products (many products sold once, few
+                    sold millions of times) is a Pareto phenomenon. Understanding this allows AI systems to perform
+                    **Anomaly Detection** on internet traffic—since normal traffic isn't usually Pareto-distributed, a
+                    sudden power-law shift can indicate a massive botnet or viral event. It is also used in
+                    **Reinforcement Learning** to model rewards in environments where most actions yield nothing, but a
+                    rare few yield massive returns. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Power Law Analysis</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.stats import pareto
+
+# alpha = 2.0 (Classic 80/20 behavior), xm = 1
+alpha, xm = 2.0, 1
+
+# Probability that a value is > 5 times the minimum
+print(f"P(X > 5): {1 - pareto.cdf(5, alpha, scale=xm):.4f}")
+
+# Simulating extreme values
+samples = pareto.rvs(alpha, scale=xm, size=10)
+print(f"Extremes: {samples.max():.2f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 27: Continuous Distributions.</p>
+    </footer>
+</body>
+
+</html>

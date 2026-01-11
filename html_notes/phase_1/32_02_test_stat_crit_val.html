@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Statistic & Critical Value - Phase 1.5.3.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_01_null_alt_hypothesis.html">01. Null vs Alternative</a></li>
+            <li><a href="32_02_test_stat_crit_val.html" class="active">02. Test Stat & Crit Val</a></li>
+            <li><a href="32_03_type1_type2_errors.html">03. Type I & II Errors</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Test Stats
+        </div>
+
+        <header>
+            <h1>02. Test Statistic and Critical Value</h1>
+            <p class="subtitle">The math that turns "Maybe" into "Yes" or "No."</p>
+        </header>
+
+        <section>
+            <h2>1. The Test Statistic</h2>
+            <p>A <strong>Test Statistic</strong> is a single numerical value calculated from your sample data. It
+                measures how far your observation deviates from what we expect under the Null Hypothesis. The common
+                forms are:</p>
+            <ul class="topic-list">
+                <li><strong>Z-score:</strong> Used for large samples or known variance.</li>
+                <li><strong>t-score:</strong> Used for small samples with unknown variance.</li>
+                <li><strong>Chi-Square:</strong> Used for categorical frequencies.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Critical Value & Rejection Region</h2>
+            <p>The <strong>Critical Value</strong> is the "Red Line" on the distribution curve. If your Test Statistic
+                falls beyond this value (into the <strong>Rejection Region</strong>), you reject $H_0$. This value is
+                determined by your chosen **Significance Level ($\alpha$)** (usually 0.05).</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Hard Constraints and Triggers</h2>
+            <div class="module-card">
+                <h3>Setting the Threshold</h3>
+                <p>In AI Engineering, Critical Values are the **Triggers** for automated actions. </p>
+                <p>In **Cybersecurity AI**, the Test Statistic might be the "Unexpected Volume of Outbound Traffic." The
+                    **Critical Value** is the threshold above which the AI automatically locks the network port. If the
+                    threshold is too low, you disrupt business (False Positives). If it's too high, you miss the hack
+                    (False Negatives). In **Self-Driving Cars**, the "Test Statistic" is the proximity to an obstacle.
+                    The **Critical Value** is the distance at which the emergency brake is triggered. Statistical theory
+                    ensures these thresholds aren't just arbitrary numbers—it allows us to say: "We set the brake
+                    threshold such that the probability of a false brake (due to sensor noise) is less than 0.1%." </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating critical Z</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy import stats
+
+# Goal: 95% Confidence (alpha = 0.05)
+alpha = 0.05
+
+# Two-tailed test critical values
+z_crit_low = stats.norm.ppf(alpha/2)
+z_crit_high = stats.norm.ppf(1 - alpha/2)
+
+print(f"Rejection Regions: Z < {z_crit_low:.2f} or Z > {z_crit_high:.2f}")
+# Result: Z < -1.96 or Z > 1.96</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

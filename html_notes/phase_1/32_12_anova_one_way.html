@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANOVA: One-way - Phase 1.5.3.12</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_11_paired_t_test.html">11. Paired t-test</a></li>
+            <li><a href="32_12_anova_one_way.html" class="active">12. ANOVA: One-way</a></li>
+            <li><a href="32_13_anova_two_way.html">13. ANOVA: Two-way</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; ANOVA
+        </div>
+
+        <header>
+            <h1>12. Analysis of Variance (ANOVA): One-way</h1>
+            <p class="subtitle">Comparing multiple groups without the "t-test trap."</p>
+        </header>
+
+        <section>
+            <h2>1. Why ANOVA?</h2>
+            <p>If you have three groups (A, B, C) and you want to know if they are different, why not just run three
+                t-tests (A-B, B-C, A-C)? Because of the <strong>Multiple Comparison Problem</strong>. Each test has a 5%
+                chance of a Type I error. With 3 tests, your total risk of a false positive jumps significantly. ANOVA
+                solves this by running a single "Omnibus" test to see if *any* group is different from the others.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The F-Statistic: Variance Ratios</h2>
+            <p>ANOVA calculates an **F-score**, which is the ratio of:</p>
+            <div class="math-block">
+                $$ F = \frac{\text{Variance BETWEEN groups}}{\text{Variance WITHIN groups}} $$
+            </div>
+            <p>If $F$ is large, it means the groups are moved far apart from each other relative to how much noise is
+                inside them. This implies a significant difference between at least two groups. </p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Multi-Model Benchmarking</h2>
+            <div class="module-card">
+                <h3>The "Leaderboard" Paradox</h3>
+                <p>In AI, ANOVA is the standard for **Tournament Evaluation**. </p>
+                <p>Imagine you are comparing four different AI models for **Self-Driving perception**: Model A (CNN),
+                    Model B (Vision Transformer), Model C (Hybrid), and Model D (Legacy). You test them on 30 different
+                    weather scenarios. You have 4 groups of data. If you only look at the averages, you might crown
+                    Model C as the winner. But an **ANOVA** will reveal if the differences are statistically significant
+                    or if the leaderboard positions are just random noise. In **Reinforcement Learning**, where training
+                    is notoriously unstable, ANOVA is used to compare different **Policy Gradient algorithms** across
+                    multiple seeds. It tells the researcher: "Don't bother with these fancy tweaks; none of them are
+                    statistically better than the base algorithm yet." </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: f_oneway</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Model A, B, and C scores across 10 trials
+model_a = [0.81, 0.83, 0.80, 0.82]
+model_b = [0.85, 0.86, 0.84, 0.85]
+model_c = [0.82, 0.82, 0.81, 0.83]
+
+f_stat, p_val = stats.f_oneway(model_a, model_b, model_c)
+
+print(f"F-statistic: {f_stat:.2f}, p-value: {pval:.4f}")
+# If p < 0.05, at least one model is significantly different from the rest. 
+# (Usually model B is the standout here).</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

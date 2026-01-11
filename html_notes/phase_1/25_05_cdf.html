@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cumulative Distribution Function (CDF) - Phase 1.4.1.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/codejs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 25: Random Variables</li>
+            <li><a href="25_04_pdf.html">04. PDF</a></li>
+            <li><a href="25_05_cdf.html" class="active">05. CDF</a></li>
+            <li><a href="25_06_cdf_properties.html">06. Properties of CDF</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; CDF
+        </div>
+
+        <header>
+            <h1>05. Cumulative Distribution Function (CDF)</h1>
+            <p class="subtitle">Answering the question: "What is the probability that $X \le x$?"</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Cumulative Distribution Function (CDF)</strong>, denoted $F_X(x)$, is defined for any random
+                variable (discrete or continuous) as:</p>
+            <div class="math-block">
+                $$ F_X(x) = P(X \le x) $$
+            </div>
+            <p>For discrete variables, it is a running sum of the PMF. For continuous variables, it is the integral of
+                the PDF from $-\infty$ to $x$.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Importance of the CDF</h2>
+            <p>While the PDF/PMF tells you about probabilities at a point (or density), the CDF is often easier to work
+                with when computing probabilities for ranges. For example:</p>
+            <div class="math-block">
+                $$ P(a < X \le b)=F_X(b) - F_X(a) $$ </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Percentiles and Confidence</h2>
+            <div class="module-card">
+                <h3>Interpreting Model Uncertainty</h3>
+                <p>The CDF is the primary tool for calculating **Percentiles** and **Quantiles**. </p>
+                <p>In AI, when we talk about a 95% **Confidence Interval**, we are using the CDF. If an AI predicts a
+                    house price and gives a probability distribution, the CDF allows us to say: "There is a 90% chance
+                    the house price is below \$500k." In **Deep Learning Optimization**, certain adaptive learning rate
+                    algorithms (like **AdaGrad**) use CDF-like accumulators to track the distribution of past gradients.
+                    Furthermore, the **GELU activation function**, used in many Transformer models (like BERT and GPT),
+                    is defined based on the CDF of the standard normal distribution. Understanding the CDF allows you to
+                    move from point-predictions to full probabilistic range predictions, which is essential for "Safer"
+                    AI systems.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Using the CDF for Range Probability</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.stats import norm
+
+# Standard Normal Distribution (mean=0, std=1)
+# Calculate probability that X <= 1.96
+p_95 = norm.cdf(1.96)
+print(f"P(X <= 1.96): {p_95:.4f}") # Approximately 0.975
+
+# Probability that X is between -1 and 1
+p_between = norm.cdf(1) - norm.cdf(-1)
+print(f"P(-1 <= X <= 1): {p_between:.4f}") # ~0.6827</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 25: Random Variables.</p>
+    </footer>
+</body>
+
+</html>

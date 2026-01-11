@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamma-Poisson Conjugate Pair - Phase 1.5.4.8</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 33: Bayesian Statistics</li>
+            <li><a href="33_07_conjugate_priors_normal.html">07. Normal-Normal Pair</a></li>
+            <li><a href="33_08_conjugate_priors_gamma.html" class="active">08. Gamma-Poisson Pair</a></li>
+            <li><a href="33_09_bayesian_workflow.html">09. Bayesian Workflow</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Gamma-Poisson
+        </div>
+
+        <header>
+            <h1>08. Gamma-Poisson Conjugate Pair</h1>
+            <p class="subtitle">Estimating rates and frequencies with Bayesian counts.</p>
+        </header>
+
+        <section>
+            <h2>1. The Scenario</h2>
+            <p>If you are monitoring "Counts" (number of clicks, number of server failures, number of stars), the data
+                follows a **Poisson** distribution with a rate $\lambda$. The conjugate prior for $\lambda$ is the
+                <strong>Gamma Distribution</strong>.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Update Rule</h2>
+            <p>The Gamma distribution has two parameters: $k$ (shape) and $\theta$ (scale), or more commonly $\alpha$
+                and $\beta$. </p>
+            <ul class="topic-list">
+                <li><strong>Prior:</strong> $Gamma(\alpha, \beta)$</li>
+                <li><strong>Data:</strong> $n$ observations with a total sum of counts $S = \sum x_i$.</li>
+                <li><strong>Posterior:</strong> $Gamma(\alpha + S, \beta + n)$</li>
+            </ul>
+            <p>Again, learning is purely additive. $\alpha$ accumulates the events, and $\beta$ accumulates the "Time"
+                or "Opportunities."</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: CLV and Traffic Prediction</h2>
+            <div class="module-card">
+                <h3>Modeling Rarity and Frequency</h3>
+                <p>In AI, the Gamma-Poisson pair is the standard for <strong>Customer Lifetime Value (CLV)** models.
+                </p>
+                <p>Not every customer is the same. Some buy once a year; others buy every week. We use a **Poisson
+                    Likelihood** to model their purchasing frequency. To capture the "Group Wisdom," we use a **Gamma
+                    Prior** representing the general population behavior. As a specific customer makes purchases, their
+                    individual $\lambda$ is updated via the Gamma-Poisson rule. This allows the AI to predict how many
+                    times a user will visit in the next 6 months. It's also vital in <strong>Cybersecurity AI**: we use
+                        it to establish a "Baseline Arrival Rate" for server requests. If the posterior suddenly shifts
+                        toward a much higher $\lambda$, the AI can flag a potential **DDoS attack** in its earliest
+                        stages. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Updating a Rate</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Initial belief: alpha=2, beta=1 (Mean rate = 2)
+a, b = 2, 1
+
+# We observe 3 minutes where counts were [5, 4, 6]
+sum_counts = 15
+minutes = 3
+
+# Posterior update
+a_post = a + sum_counts
+b_post = b + minutes
+
+# New distribution: Gamma(17, 4) -> Mean rate = 4.25
+# The AI has learned that the 'Rate' is higher than initially thought.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 33: Bayesian Statistics.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>False Discovery Rate (FDR) - Phase 1.5.3.20</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_19_multiple_testing_bonferroni.html">19. Bonferroni Correction</a></li>
+            <li><a href="32_20_false_discovery_rate.html" class="active">20. FDR (Benjamini-Hochberg)</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; FDR
+        </div>
+
+        <header>
+            <h1>20. False Discovery Rate (FDR)</h1>
+            <p class="subtitle">The Benjamini-Hochberg approach: Balancing power and precision.</p>
+        </header>
+
+        <section>
+            <h2>1. The Bonferroni Limitation</h2>
+            <p>Bonferroni is "Safe" but "Weak." If you test 10,000 things, the threshold becomes so tiny that you miss
+                almost every real effect. In massive datasets, we often care more about the <strong>Percentage of False
+                    Predictions</strong> among our findings, rather than ensuring *zero* false positives. This is the
+                <strong>False Discovery Rate (FDR)**.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Benjamini-Hochberg Procedure</h2>
+            <p>This method ranks all p-values from smallest to largest and applies a adaptive threshold. It asks: "Out
+                of all the things I claim are 'Discovered,' what percentage am I willing to admit are likely flukes?".
+                Usually, we set FDR to 0.05—meaning 5% of our discoveries might be false alarms, but we gain massive
+                **Power** to find the other 95%. </p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Feature Discovery and Precision-Recall Tradeoffs</h2>
+            <div class="module-card">
+                <h3>Finding Needles in the Haystack</h3>
+                <p>In AI, FDR is the standard for <strong>Feature Importance Ranking at Scale</strong>. </p>
+                <p>If you are building a **Genomic AI** or a **Financial Market Predictor**, you have 100,000 possible
+                    inputs. Bonferroni would leave you with 0 features. **False Discovery Rate (FDR)** allows you to
+                    select a subset of 500 vital features while acknowledging that ~25 of them might be noise. This is
+                    much better than having zero! In <strong>Anomaly Detection** (like identifying fraudulent bank
+                        accounts), you use FDR to tune the "Sensitivity" of your AI. It allows the business to say: "We
+                        want to catch as many hackers as possible, as long as no more than 1% of our 'Flagged' accounts
+                        are actually innocent users." FDR provides the mathematical knob to tune that threshold
+                        perfectly. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: FDR Correction</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># 100 experiments, many with small p-values but also noise
+p_vals = np.random.uniform(0, 1, 100) # Pure noise
+p_vals[:10] = 0.0001 # 10 real effects
+
+# Apply FDR (fdr_bh = Benjamini-Hochberg)
+reject, p_corr, _, _ = multipletests(p_vals, alpha=0.05, method='fdr_bh')
+
+print(f"Discoveries: {sum(reject)}")
+# FDR will likely find the 10 real ones while allowing 
+# a few 'False Discoveries' to maintain high power.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

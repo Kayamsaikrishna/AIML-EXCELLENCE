@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Independence of Random Variables - Phase 1.4.4.4</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 28: Multivariate Probability</li>
+            <li><a href="28_03_conditional_dist.html">03. Conditional Distribution</a></li>
+            <li><a href="28_04_independence_rv.html" class="active">04. Independence of RVs</a></li>
+            <li><a href="28_05_exp_multiple_rvs.html">05. Expectation of Multiple RVs</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Independence
+        </div>
+
+        <header>
+            <h1>04. Independence of Random Variables</h1>
+            <p class="subtitle">When one variable tells you nothing about another.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>Two random variables $X$ and $Y$ are <strong>Independent</strong> if knowing the value of one provides no
+                information about the value of the other. Mathematically, the joint PDF (or PMF) is simply the product
+                of their marginals:</p>
+            <div class="math-block">
+                $$ f(x,y) = f_X(x) f_Y(y) \quad \text{for all } x, y $$
+            </div>
+            <p>Similarly, for independence, the conditional distribution equals the marginal: $f(x \mid y) = f_X(x)$.
+            </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Extension to $n$ Variables</h2>
+            <p>A set of random variables $X_1, X_2, \dots, X_n$ is **mutually independent** if their joint distribution
+                factors into the product of all their individual marginals. This is accurately known as the
+                **Factorization Property**.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Naive Bayes and Feature Decoupling</h2>
+            <div class="module-card">
+                <h3>The "Naive" Simplification</h3>
+                <p>Independence is the most common (and most violated) <strong>Simplifying Assumption</strong> in AI.
+                </p>
+                <p>In **Naive Bayes**, we assume that all features (words in an email) are independent given the class
+                    (Spam or Not Spam). While technically "Naive" (because words like "Bank" and "Account" are highly
+                    correlated), this assumption allows the AI to calculate the joint probability by simply multiplying
+                    individual probabilities, making it incredibly fast and efficient even for millions of features. In
+                    **PCA (Principal Component Analysis)** and **ICA (Independent Component Analysis)**, the goal is to
+                    transform "tangled" correlated data into a new set of independent variables, making the underlying
+                    structure of the data easier for an AI to learn. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Checking for Independence</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># If independent: Joint Prob = P(X) * P(Y)
+p_x = np.array([0.5, 0.5])
+p_y = np.array([0.2, 0.8])
+
+# Predicted Joint PMF under independence
+independence_joint = np.outer(p_x, p_y)
+
+print(f"Independent Joint Table:\n{independence_joint}")
+# [[0.1, 0.4],
+#  [0.1, 0.4]]
+
+# If our actual joint data is different, variables are correlated!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 28: Multivariate Probability.</p>
+    </footer>
+</body>
+
+</html>

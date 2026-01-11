@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Confidence Intervals - Phase 1.5.2.12</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 31: Estimation</li>
+            <li><a href="31_11_bootstrap_parametric.html">11. Parametric Bootstrap</a></li>
+            <li><a href="31_12_bootstrap_confidence_intervals.html" class="active">12. Bootstrap CIs</a></li>
+            <li><a href="31_13_jackknife_method.html">13. Jackknife Method</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Bootstrap CIs
+        </div>
+
+        <header>
+            <h1>12. Bootstrap Confidence Intervals</h1>
+            <p class="subtitle">Turning 1,000 simulations into a solid guarantee.</p>
+        </header>
+
+        <section>
+            <h2>1. Three Ways to Build an Interval</h2>
+            <p>Once you have 1,000 bootstrap estimates ($\hat{\theta}^*_1, ..., \hat{\theta}^*_{1000}$), you can
+                construct a CI in three main ways:</p>
+            <ul class="topic-list">
+                <li><strong>The Generic (Standard) Method:</strong> $\hat{\theta} \pm Z_{\alpha/2} \times SE_{boot}$.
+                    (Assumes the bootstrap distribution is Normal).</li>
+                <li><strong>The Percentile Method:</strong> Take the 2.5th and 97.5th percentiles of your 1,000
+                    simulations. (Assumes the distribution is symmetric).</li>
+                <li><strong>The BCa Method (Bias-Corrected and Accelerated):</strong> A complex correction that adjusts
+                    for "Lean" (bias) and "Spread" (skewness) in the results. This is the **Gold Standard** for
+                    publication-quality statistics.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Why Percentile is "Risky"</h2>
+            <p>If your estimator is biased (e.g., $s^2$ systematically underestimates $\sigma^2$ in small samples), the
+                Percentile Interval will be centered in the wrong place. The BCa method detects this "Shift" and moves
+                the interval boundaries to compensate, ensuring a true 95% coverage rate.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Model Precision Bounds</h2>
+            <div class="module-card">
+                <h3>Reporting like a Forensic Scientist</h3>
+                <p>In AI, the way you report error bars matters for **Commercial Credibility**. </p>
+                <p>If you are pitching an AI product to a client, saying "Our model is 95% accurate" sounds like a
+                    marketing claim. Saying "Our model achieved a **95% BCa Bootstrap Confidence Interval** of $[94.2\%,
+                    96.1\%]$ based on 5,000 trials" sounds like a mathematical fact. It proves that you have considered
+                    the risk of a "Lucky Test Set." Furthermore, in <strong>Hyperparameter Optimization</strong>, we use
+                    these intervals to prune search branches—if the upper bound of a configuration's performance is
+                    already lower than the lower bound of our best known config, we can safely kill that experiment and
+                    save compute power. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Percentile vs. BCa</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Scipy handles the complex math of BCa
+from scipy.stats import bootstrap
+
+data = (np.random.normal(50, 5, 20),) # Data must be a tuple
+res = bootstrap(data, np.mean, confidence_level=0.95, method='BCa')
+
+print(f"BCa Confidence Interval: [{res.confidence_interval.low:.2f}, {res.confidence_interval.high:.2f}]")
+print(f"Standard Error of Mean: {res.standard_error:.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 31: Estimation & Bootstrap.</p>
+    </footer>
+</body>
+
+</html>

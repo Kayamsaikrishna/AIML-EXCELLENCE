@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypergeometric Distribution - Phase 1.4.2.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 26: Discrete Distributions</li>
+            <li><a href="26_04_neg_binomial.html">04. Negative Binomial</a></li>
+            <li><a href="26_05_hypergeometric.html" class="active">05. Hypergeometric Distribution</a></li>
+            <li><a href="26_06_poisson.html">06. Poisson Distribution</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt;
+            Hypergeometric
+        </div>
+
+        <header>
+            <h1>05. Hypergeometric Distribution</h1>
+            <p class="subtitle">Sampling without replacement: when trials are dependent.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Hypergeometric Distribution</strong> models the number of successes in $n$ draws from a
+                finite population of size $N$ that contains exactly $K$ successes, <strong>without replacement</strong>.
+            </p>
+            <div class="math-block">
+                $$ P(X=k) = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}} $$
+            </div>
+            <p>Unlike the Binomial distribution, the trials are not independent because the probability of success
+                changes with each draw.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Relation to Binomial</h2>
+            <p>When the population size $N$ is very large relative to the sample size $n$ ($N \gg n$), the
+                Hypergeometric distribution is well-approximated by the Binomial distribution, as the change in success
+                probability becomes negligible.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Data Bias and Significance</h2>
+            <div class="module-card">
+                <h3>Detecting Over-Representation</h3>
+                <p>The Hypergeometric distribution is the core of **Fisher's Exact Test**, used to detect bias in
+                    datasets. </p>
+                <p>In **Fairness AI**, if you have a dataset of 1000 resumes (the population $N$) with 10% from a
+                    minority group ($K$), and an AI selects 50 candidates ($n$), you use the Hypergeometric distribution
+                    to calculate the probability of seeing $k$ minority candidates by random chance. If the actual $k$
+                    is extremely low, the Hypergeometric PMF provides the **p-value** for proving that the AI is biased.
+                    It is also used in **Biology-focused AI** (Gene Set Enrichment Analysis) to determine if a specific
+                    functional category of genes is over-represented in a search result. Understanding this distribution
+                    allows you to mathematically prove whether a pattern in your data is a genuine discovery or just a
+                    sampling fluke. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Sampling and Significance</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.stats import hypergeom
+
+# N=100 (Total), K=20 (Successes), n=10 (Sample)
+N, K, n = 100, 20, 10
+
+# Probability of getting exactly 2 successes
+print(f"P(X=2): {hypergeom.pmf(2, N, K, n):.4f}")
+
+# Simulating the mean
+print(f"Expected successes: {hypergeom.mean(N, K, n)}") # n * (K/N) = 2.0</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 26: Discrete Distributions.</p>
+    </footer>
+</body>
+
+</html>

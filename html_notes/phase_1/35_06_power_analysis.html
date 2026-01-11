@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Analysis & Sample Size - Phase 1.5.6.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 35: Experimental Design</li>
+            <li><a href="35_05_multi_armed_bandits.html">05. Multi-armed Bandits</a></li>
+            <li><a href="35_06_power_analysis.html" class="active">06. Power Analysis</a></li>
+            <li><a href="35_07_anova_in_experimental.html">07. ANOVA in Experiments</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#experimental">Experimental Design</a> &gt;
+            Power
+        </div>
+
+        <header>
+            <h1>06. Power Analysis & Sample Size</h1>
+            <p class="subtitle">Knowing how much data is "Enough".</p>
+        </header>
+
+        <section>
+            <h2>1. The Four Pillars</h2>
+            <p><strong>Power Analysis</strong> connects four statistical concepts. If you know three, you can calculate
+                the fourth:</p>
+            <ul class="topic-list">
+                <li><strong>Significance ($\alpha$):</strong> Probability of a false alarm (usually 0.05).</li>
+                <li><strong>Power ($1-\beta$):</strong> Probability of correctly finding an effect (usually 0.80).</li>
+                <li><strong>Effect Size:</strong> How much of a change we are looking for (e.g., 5% lift).</li>
+                <li><strong>Sample Size ($n$):</strong> How many people we need to test.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The "Peeking" Problem</h2>
+            <p>Without a pre-calculated sample size, researchers often "Peak" at the data and stop when the p-value
+                looks good. This is **p-hacking** and leads to fake results. Power analysis locks in the sample size
+                *before* the test starts, ensuring scientific integrity.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Resource Optimization and Budgeting</h2>
+            <div class="module-card">
+                <h3>Saving Money and Time</h3>
+                <p>In AI, Power Analysis is the **Budget Planner**. </p>
+                <p>When training an AI model on a **Pay-per-token API (like GPT-4)** or using expensive **GPU
+                    clusters**, we use power analysis to decide the minimum amount of data we need to prove the model is
+                    better than the baseline. In <strong>Clinical AI**, where collecting a single data point might cost
+                        $1,000, power analysis is the difference between a successful project and a bankrupt one. It is
+                        also used in <strong>Dataset Curation**: if adding 1 million more rows only increases power by
+                            0.001%, we stop collecting. It ensures that the AI team is working on the most "Signal-rich"
+                            tasks rather than wasting resources on marginal gains. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating Required N</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from statsmodels.stats.power import TTestIndPower
+
+analysis = TTestIndPower()
+# How many users to detect a medium effect (0.5) 
+# with 80% power and 5% alpha?
+result = analysis.solve_power(effect_size=0.5, power=0.8, 
+                             alpha=0.05, ratio=1.0)
+
+print(f"Required Sample Size: {result:.1f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 35: Experimental Design & Time Series.</p>
+    </footer>
+</body>
+
+</html>

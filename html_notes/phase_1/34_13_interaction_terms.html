@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaction Terms - Phase 1.5.5.13</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 34: Regression Analysis</li>
+            <li><a href="34_12_log_transform_regression.html">12. Log-Linear Models</a></li>
+            <li><a href="34_13_interaction_terms.html" class="active">13. Interaction Terms</a></li>
+            <li><a href="34_14_weighted_least_squares.html">14. Weighted Least Squares</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#regression">Regression</a> &gt; Interactions
+        </div>
+
+        <header>
+            <h1>13. Interaction Terms</h1>
+            <p class="subtitle">When the effect of one variable depends on another.</p>
+        </header>
+
+        <section>
+            <h2>1. Synergy and Interference</h2>
+            <p>Standard regression assumes variables act independently. But often, the effect of $X_1$ on $Y$ changes
+                based on the value of $X_2$. We model this with an **Interaction Term** ($X_1 \times X_2$):</p>
+            <div class="math-block">
+                $$ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \epsilon $$
+            </div>
+            <p>Example: "Rain" alone might not affect traffic much, and "Accidents" alone might not either, but "Rain"
+                AND "Accidents" together cause total gridlock. </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Hierarchical Principle</h2>
+            <p>If you include an interaction term $X_1 \times X_2$, you MUST also include the raw terms $X_1$ and $X_2$,
+                even if their individual p-values are not significant. This ensures the model is logically consistent.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Feature Crosses and High-order Dependencies</h2>
+            <div class="module-card">
+                <h3>Solving the XOR Problem</h3>
+                <p>In AI, Interaction terms are known as <strong>Feature Crosses**. </p>
+                <p>A simple linear model cannot solve the **XOR problem** because it acts variable-by-variable. By
+                    adding an interaction term, you "Linearize" the non-linearity. In <strong>Recommendation Engines
+                        (DeepFM / Wide & Deep)**, feature crosses like 'UserAge' $\times$ 'MovieGenre' are the most
+                        powerful signals. They capture <strong>Hyper-Personalization**. While Deep Neural Networks
+                            "Implicitly" discover these crosses through layers, explicitly defining interaction terms in
+                            your regression baseline makes the model **Lightweight** and **Fast enough for real-time
+                            mobile apps**. Understanding interactions is the key to understanding why "Adding more data"
+                            isn't as effective as "Capturing more relationships." </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Creating Interaction Terms</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Using sklearn to create the cross-product
+poly = PolynomialFeatures(degree=2, interaction_only=True)
+X_interact = poly.fit_transform(X)
+
+# Feature names will include 'x0', 'x1', and 'x0*x1'
+model = LinearRegression().fit(X_interact, y)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 34: Regression Analysis.</p>
+    </footer>
+</body>
+
+</html>

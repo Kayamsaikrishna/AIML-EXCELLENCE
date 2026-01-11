@@ -2,620 +2,1666 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phase 1: Foundations - Syllabus</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Phase 1: Foundations - Syllabus</title>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body>
-    <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">Phase 1 Foundations</li>
-            <li><a href="#algebra">1.1 Algebra & Trig</a></li>
-            <li><a href="#vectors">1.2.1 Vectors</a></li>
-            <li><a href="#matrices">1.2.2 Matrices</a></li>
-            <li><a href="#eigen">1.2.3 Eigen-systems</a></li>
-            <li><a href="#systems">1.2.4 Linear Systems</a></li>
-            <li><a href="#transforms">1.2.5 Transformations</a></li>
-            <li><a href="#aiml_apps">1.2.6 AI/ML Apps</a></li>
-            <li><a href="#calculus">1.3 Calculus</a></li>
-        </ul>
-    </nav>
+        <nav class="sidebar">
+                <div class="sidebar-header">AI/ML Hub</div>
+                <ul class="nav-links">
+                        <li><a href="../home.html">← Dashboard</a></li>
+                        <li class="nav-label">Phase 1 Foundations</li>
+                        <li><a href="#algebra">1.1 Algebra & Trig</a></li>
+                        <li class="nav-label">1.2 Linear Algebra</li>
+                        <li><a href="#vectors">Vectors</a></li>
+                        <li><a href="#matrices">Matrices</a></li>
+                        <li><a href="#eigen">Eigen/SVD</a></li>
+                        <li><a href="#systems">Systems</a></li>
+                        <li><a href="#transforms">Transforms</a></li>
+                        <li><a href="#aiml_apps">AI/ML Apps</a></li>
+                        <li class="nav-label">1.3 Calculus</li>
+                        <li><a href="#limits">Limits</a></li>
+                        <li><a href="#differentiation">Differentiation</a></li>
+                        <li><a href="#deriv_apps">Deriv Apps</a></li>
+                        <li><a href="#integration">Integration</a></li>
+                        <li><a href="#sequences">Seq & Series</a></li>
+                        <li><a href="#multivariable">Multivariable</a></li>
+                        <li><a href="#optimization">Optimization</a></li>
+                        <li><a href="#odes">ODEs</a></li>
+                        <li><a href="#ml_opt">ML Opt</a></li>
+                        <li class="nav-label">1.4 Probability</li>
+                        <li><a href="#prob_axioms">Axioms</a></li>
+                        <li><a href="#random_variables">RVs</a></li>
+                        <li><a href="#discrete_dist">Discrete</a></li>
+                        <li><a href="#continuous_dist">Continuous</a></li>
+                        <li><a href="#joint_dist">Joint</a></li>
+                        <li><a href="#limit_theorems">Theorems</a></li>
+                        <li class="nav-label">1.5 Statistics</li>
+                        <li><a href="#stats_foundations">Foundations</a></li>
+                        <li><a href="#estimation">Estimation</a></li>
+                        <li><a href="#testing">Testing</a></li>
+                        <li><a href="#bayesian">Bayesian</a></li>
+                        <li><a href="#regression">Regression</a></li>
+                        <li><a href="#experimental">Exp & Time</a></li>
+                        <li><a href="#info_theory">Info Theory</a></li>
+                </ul>
+        </nav>
 
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; Phase 1 Foundations
-        </div>
-
-        <header>
-            <h1>Phase 1: Mathematical Foundations</h1>
-            <p class="subtitle">The bedrock of AI/ML: From high-school algebra to Multivariable Calculus.</p>
-        </header>
-
-        <div class="syllabus-grid">
-
-            <!-- 1.1 Algebra & Trigonometry -->
-            <section id="algebra" class="module-card">
-                <div class="module-header">
-                    <h2 class="module-title">1.1 Algebra & Trigonometry</h2>
-                    <span class="module-id">CORE</span>
-                </div>
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Algebra Fundamentals (01-15)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="01_01_number_systems.html">01. Number Systems</a></li>
-                        <li class="topic-item"><a href="01_02_operations.html">02. Order of Operations</a></li>
-                        <li class="topic-item"><a href="01_03_linear_equations.html">03. Linear Equations</a></li>
-                        <li class="topic-item"><a href="01_04_quadratics.html">04. Quadratic Equations</a></li>
-                        <li class="topic-item"><a href="01_05_polynomials.html">05. Polynomials</a></li>
-                        <li class="topic-item"><a href="01_06_exponentials_logarithms.html">06. Exp & Log
-                                Fundamentals</a></li>
-                        <li class="topic-item"><a href="01_07_functions.html">07. Functions & Mappings</a></li>
-                        <li class="topic-item"><a href="01_08_graph_linear.html">08. Graphing: Linear</a></li>
-                        <li class="topic-item"><a href="01_09_graph_quadratic.html">09. Graphing: Quadratic</a></li>
-                        <li class="topic-item"><a href="01_10_graph_poly.html">10. Graphing: Polynomial</a></li>
-                        <li class="topic-item"><a href="01_11_graph_rational.html">11. Graphing: Rational</a></li>
-                        <li class="topic-item"><a href="01_12_graph_explog.html">12. Graphing: Exp & Log</a></li>
-                        <li class="topic-item"><a href="01_13_sequences.html">13. Sequences</a></li>
-                        <li class="topic-item"><a href="01_14_series.html">14. Series</a></li>
-                        <li class="topic-item"><a href="01_15_summation.html">15. Summation Notation</a></li>
-                    </ul>
+        <main class="main-content">
+                <div class="breadcrumb">
+                        <a href="../home.html">Dashboard</a> &gt; Phase 1 Foundations
                 </div>
 
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Trigonometry & Polar (32-42)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="01_32_trig_basics.html">32. Angular Measure</a></li>
-                        <li class="topic-item"><a href="01_33_trig_functions.html">33. Sine, Cosine, Tangent</a></li>
-                        <li class="topic-item"><a href="01_34_unit_circle.html">34. The Unit Circle Intuition</a></li>
-                        <li class="topic-item"><a href="01_35_trig_identities.html">35. Pythagorean Identities</a></li>
-                        <li class="topic-item"><a href="01_36_double_angle.html">36. Double & Half Angle</a></li>
-                        <li class="topic-item"><a href="01_37_trig_graphs.html">37. Graphing Periodic Functions</a></li>
-                        <li class="topic-item"><a href="01_38_inverse_trig.html">38. Inverse Trig Functions</a></li>
-                        <li class="topic-item"><a href="01_39_law_sines_cosines.html">39. Laws of Sines & Cosines</a>
-                        </li>
-                        <li class="topic-item"><a href="01_40_polar_coords.html">40. Polar Coordinates</a></li>
-                        <li class="topic-item"><a href="01_41_complex_polar.html">41. Complex Numbers (Polar)</a></li>
-                        <li class="topic-item"><a href="01_42_eulers_formula.html">42. Euler's Formula (The Bridge)</a>
-                        </li>
-                    </ul>
-                </div>
-            </section>
+                <header>
+                        <h1>Phase 1: Mathematical Foundations</h1>
+                        <p class="subtitle">The bedrock of AI/ML: From high-school algebra to Multivariable Calculus.
+                        </p>
+                </header>
 
-            <!-- 1.2.1 Linear Algebra: Vectors -->
-            <section id="vectors" class="module-card">
-                <div class="module-header">
-                    <h2 class="module-title">1.2.1 Linear Algebra (Vectors)</h2>
-                    <span class="module-id">CORE</span>
-                </div>
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Vector Operations (01-12)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="02_01_vector_intro.html">01. Vector Fundamentals</a></li>
-                        <li class="topic-item"><a href="02_02_vector_ops.html">02. Addition & Scaling</a></li>
-                        <li class="topic-item"><a href="02_03_dot_product.html">03. Dot Product Deep Dive</a></li>
-                        <li class="topic-item"><a href="02_04_cross_product.html">04. Cross Product Geometry</a></li>
-                        <li class="topic-item"><a href="02_05_projections.html">05. Vector Projections</a></li>
-                        <li class="topic-item"><a href="02_06_unit_vectors.html">06. Unit Vectors & Norms</a></li>
-                        <li class="topic-item"><a href="02_07_linear_combos.html">07. Linear Combinations</a></li>
-                        <li class="topic-item"><a href="02_08_span.html">08. Concept of Span</a></li>
-                        <li class="topic-item"><a href="02_09_linear_independence.html">09. Linear Independence</a></li>
-                        <li class="topic-item"><a href="02_10_basis.html">10. Basis & Dimension</a></li>
-                        <li class="topic-item"><a href="02_11_orthogonality.html">11. Orthogonality Foundations</a></li>
-                        <li class="topic-item"><a href="02_12_gram_schmidt.html">12. Gram-Schmidt Process</a></li>
-                    </ul>
-                </div>
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Advanced Spaces (13-25)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="02_13_null_space.html">13. Null Space (Kernel)</a></li>
-                        <li class="topic-item"><a href="02_14_column_space.html">14. Column Space (Image)</a></li>
-                        <li class="topic-item"><a href="02_15_row_space.html">15. Row Space</a></li>
-                        <li class="topic-item"><a href="02_16_rank_nullity.html">16. Rank-Nullity Theorem</a></li>
-                        <li class="topic-item"><a href="02_17_change_of_basis.html">17. Change of Basis</a></li>
-                        <li class="topic-item"><a href="02_18_eigen_intro.html">18. Eigen-intuition</a></li>
-                        <li class="topic-item"><a href="02_19_inner_product_spaces.html">19. Inner Product Spaces</a>
-                        </li>
-                        <li class="topic-item"><a href="02_20_dual_spaces.html">20. Dual Spaces</a></li>
-                        <li class="topic-item"><a href="02_21_tensor_intro.html">21. Tensors for AI (Multi-way)</a></li>
-                        <li class="topic-item"><a href="02_22_cosine_similarity.html">22. Cosine Similarity (NLP)</a>
-                        </li>
-                        <li class="topic-item"><a href="02_23_manhattan_distance.html">23. L1 Norm (Manhattan)</a></li>
-                        <li class="topic-item"><a href="02_24_euclidean_distance.html">24. L2 Norm (Euclidean)</a></li>
-                        <li class="topic-item"><a href="02_25_lp_norms.html">25. Minkowski & Lp Norms</a></li>
-                    </ul>
-                </div>
-            </section>
+                <div class="syllabus-grid">
 
-            <!-- 1.2.2 Linear Algebra: Matrices -->
-            <section id="matrices" class="module-card">
-                <div class="module-header">
-                    <h2 class="module-title">1.2.2 Linear Algebra (Matrices)</h2>
-                    <span class="module-id">CORE</span>
-                </div>
+                        <!-- 1.1 Algebra & Trigonometry -->
+                        <section id="algebra" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.1 Algebra & Trigonometry</h2>
+                                        <span class="module-id">01</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="01_01_number_systems.html">01. Number
+                                                                Systems</a></li>
+                                                <li class="topic-item"><a href="01_02_operations.html">02.
+                                                                Operations</a></li>
+                                                <li class="topic-item"><a href="01_03_pemdas.html">03. Order Of
+                                                                Operations (Pemdas)</a></li>
+                                                <li class="topic-item"><a href="01_04_linear_equations.html">04. Linear
+                                                                Equations</a></li>
+                                                <li class="topic-item"><a href="01_05_linear_inequalities.html">05.
+                                                                Linear Inequalities</a></li>
+                                                <li class="topic-item"><a href="01_06_absolute_value.html">06. Absolute
+                                                                Value</a></li>
+                                                <li class="topic-item"><a href="01_07_quadratic_equations.html">07.
+                                                                Quadratic Equations</a></li>
+                                                <li class="topic-item"><a href="01_08_quadratic_inequalities.html">08.
+                                                                Quadratic Inequalities</a></li>
+                                                <li class="topic-item"><a href="01_09_polynomials.html">09.
+                                                                Polynomials</a></li>
+                                                <li class="topic-item"><a href="01_10_poly_division.html">10. Poly
+                                                                Division</a></li>
+                                                <li class="topic-item"><a href="01_11_theorems.html">11. Remainder &
+                                                                Factor Theorems</a></li>
+                                                <li class="topic-item"><a href="01_12_rationals.html">12. Rationals</a>
+                                                </li>
+                                                <li class="topic-item"><a href="01_13_exponentials.html">13.
+                                                                Exponentials</a></li>
+                                                <li class="topic-item"><a href="01_14_logarithms.html">14.
+                                                                Logarithms</a></li>
+                                                <li class="topic-item"><a href="01_15_growth_decay.html">15. Growth
+                                                                Decay</a></li>
+                                                <li class="topic-item"><a href="01_16_functions.html">16. Functions</a>
+                                                </li>
+                                                <li class="topic-item"><a href="01_17_transformations.html">17.
+                                                                Transformations</a></li>
+                                                <li class="topic-item"><a href="01_18_inverses.html">18. Inverses</a>
+                                                </li>
+                                                <li class="topic-item"><a href="01_19_graph_linear.html">19. Graph
+                                                                Linear</a></li>
+                                                <li class="topic-item"><a href="01_20_graph_quadratic.html">20. Graph
+                                                                Quadratic</a></li>
+                                                <li class="topic-item"><a href="01_21_graph_poly.html">21. Graph
+                                                                Poly</a></li>
+                                                <li class="topic-item"><a href="01_22_graph_rational.html">22. Graph
+                                                                Rational</a></li>
+                                                <li class="topic-item"><a href="01_23_graph_explog.html">23. Graph
+                                                                Explog</a></li>
+                                                <li class="topic-item"><a href="01_24_sequences.html">24. Sequences</a>
+                                                </li>
+                                                <li class="topic-item"><a href="01_25_series.html">25. Series</a></li>
+                                                <li class="topic-item"><a href="01_26_summation.html">26. Summation</a>
+                                                </li>
+                                                <li class="topic-item"><a href="01_27_induction.html">27. Induction</a>
+                                                </li>
+                                                <li class="topic-item"><a href="01_28_angle_measurement.html">28. Angle
+                                                                Measurement</a></li>
+                                                <li class="topic-item"><a href="01_29_trig_functions.html">29. Trig
+                                                                Functions</a></li>
+                                                <li class="topic-item"><a href="01_30_right_triangle_trig.html">30.
+                                                                Right Triangle Trig</a></li>
+                                                <li class="topic-item"><a href="01_31_unit_circle.html">31. Unit
+                                                                Circle</a></li>
+                                                <li class="topic-item"><a href="01_32_trig_identities.html">32. Trig
+                                                                Identities</a></li>
+                                                <li class="topic-item"><a href="01_33_sum_diff_formulas.html">33. Sum
+                                                                Diff Formulas</a></li>
+                                                <li class="topic-item"><a href="01_34_double_half_angle.html">34. Double
+                                                                Half Angle</a></li>
+                                                <li class="topic-item"><a href="01_35_product_sum_formulas.html">35.
+                                                                Product Sum Formulas</a></li>
+                                                <li class="topic-item"><a href="01_36_trig_equations.html">36. Trig
+                                                                Equations</a></li>
+                                                <li class="topic-item"><a href="01_37_inverse_trig.html">37. Inverse
+                                                                Trig</a></li>
+                                                <li class="topic-item"><a href="01_38_law_sines_cosines.html">38. Law
+                                                                Sines Cosines</a></li>
+                                                <li class="topic-item"><a href="01_39_trig_applications.html">39. Trig
+                                                                Applications</a></li>
+                                                <li class="topic-item"><a href="01_40_polar_coordinates.html">40. Polar
+                                                                Coordinates</a></li>
+                                                <li class="topic-item"><a href="01_41_complex_trig.html">41. Complex
+                                                                Trig</a></li>
+                                                <li class="topic-item"><a href="01_42_de_moivre.html">42. De Moivre</a>
+                                                </li>
+                                        </ul>
+                                </div>
+                        </section>
 
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Matrix Basics & Ops (01-10)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="03_01_matrix_basics.html">01. Matrix Fundamentals</a></li>
-                        <li class="topic-item"><a href="03_02_addition_scaling.html">02. Addition & Scalar Mult</a></li>
-                        <li class="topic-item"><a href="03_03_multiplication.html">03. Matrix Multiplication</a></li>
-                        <li class="topic-item"><a href="03_04_properties.html">04. Algebraic Properties</a></li>
-                        <li class="topic-item"><a href="03_05_transpose.html">05. Transpose & Symmetry</a></li>
-                        <li class="topic-item"><a href="03_06_inverse.html">06. Inversion Basics</a></li>
-                        <li class="topic-item"><a href="03_07_special_matrices.html">07. Identity, Zero, Diag</a></li>
-                        <li class="topic-item"><a href="03_08_orthogonal_matrices.html">08. Orthogonal Matrices</a></li>
-                        <li class="topic-item"><a href="03_09_trace.html">09. Matrix Trace Tr(A)</a></li>
-                        <li class="topic-item"><a href="03_10_determinants_intro.html">10. Geometric Determinant</a>
-                        </li>
-                    </ul>
-                </div>
+                        <!-- 1.2.1 Linear Algebra (Vectors) -->
+                        <section id="vectors" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.2.1 Linear Algebra (Vectors)</h2>
+                                        <span class="module-id">02</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="02_01_vector_basics.html">01. Vector
+                                                                Basics</a></li>
+                                                <li class="topic-item"><a href="02_02_vector_geometry.html">02. Vector
+                                                                Geometry</a></li>
+                                                <li class="topic-item"><a href="02_03_vector_ops.html">03. Vector
+                                                                Ops</a></li>
+                                                <li class="topic-item"><a href="02_04_scalar_mult.html">04. Scalar
+                                                                Mult</a></li>
+                                                <li class="topic-item"><a href="02_05_dot_product.html">05. Dot
+                                                                Product</a></li>
+                                                <li class="topic-item"><a href="02_06_dot_product_geom.html">06. Dot
+                                                                Product Geom</a></li>
+                                                <li class="topic-item"><a href="02_07_cross_product.html">07. Cross
+                                                                Product</a></li>
+                                                <li class="topic-item"><a href="02_08_cross_product_geom.html">08. Cross
+                                                                Product Geom</a></li>
+                                                <li class="topic-item"><a href="02_09_triple_scalar.html">09. Triple
+                                                                Scalar</a></li>
+                                                <li class="topic-item"><a href="02_10_triple_vector.html">10. Triple
+                                                                Vector</a></li>
+                                                <li class="topic-item"><a href="02_11_projections.html">11.
+                                                                Projections</a></li>
+                                                <li class="topic-item"><a href="02_12_orthogonality.html">12.
+                                                                Orthogonality</a></li>
+                                                <li class="topic-item"><a href="02_13_vector_spaces.html">13. Vector
+                                                                Spaces</a></li>
+                                                <li class="topic-item"><a href="02_14_subspaces_span.html">14. Subspaces
+                                                                Span</a></li>
+                                                <li class="topic-item"><a href="02_15_linear_combinations.html">15.
+                                                                Linear Combinations</a></li>
+                                                <li class="topic-item"><a href="02_16_linear_independence.html">16.
+                                                                Linear Independence</a></li>
+                                                <li class="topic-item"><a href="02_17_basis_dimension.html">17. Basis
+                                                                Dimension</a></li>
+                                                <li class="topic-item"><a href="02_18_change_basis.html">18. Change
+                                                                Basis</a></li>
+                                                <li class="topic-item"><a href="02_19_inner_products.html">19. Inner
+                                                                Products</a></li>
+                                                <li class="topic-item"><a href="02_20_norms.html">20. Norms</a></li>
+                                                <li class="topic-item"><a href="02_21_distance_metrics.html">21.
+                                                                Distance Metrics</a></li>
+                                                <li class="topic-item"><a href="02_22_vector_angles.html">22. Vector
+                                                                Angles</a></li>
+                                                <li class="topic-item"><a href="02_23_gram_schmidt.html">23. Gram
+                                                                Schmidt</a></li>
+                                                <li class="topic-item"><a href="02_24_higher_dimensions.html">24. Higher
+                                                                Dimensions</a></li>
+                                                <li class="topic-item"><a href="02_25_vector_symmetry.html">25. Vector
+                                                                Symmetry</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Systems & Elimination (11-20)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="03_11_determinants.html">11. Determinants (nxn)</a></li>
-                        <li class="topic-item"><a href="03_12_det_properties.html">12. Det Properties</a></li>
-                        <li class="topic-item"><a href="03_13_cofactor_expansion.html">13. Cofactor Expansion</a></li>
-                        <li class="topic-item"><a href="03_14_cramers_rule.html">14. Cramer's Rule</a></li>
-                        <li class="topic-item"><a href="03_15_rank.html">15. Rank of a Matrix</a></li>
-                        <li class="topic-item"><a href="03_16_rank_nullity.html">16. Nullity</a></li>
-                        <li class="topic-item"><a href="03_17_echelon_form.html">17. REF and RREF Form</a></li>
-                        <li class="topic-item"><a href="03_18_gaussian_elimination.html">18. Gaussian Elimination</a>
-                        </li>
-                        <li class="topic-item"><a href="03_19_gauss_jordan.html">19. Gauss-Jordan</a></li>
-                        <li class="topic-item"><a href="03_20_elementary_matrices.html">20. Elementary Matrices</a></li>
-                    </ul>
-                </div>
+                        <!-- 1.2.2 Linear Algebra (Matrices) -->
+                        <section id="matrices" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.2.2 Linear Algebra (Matrices)</h2>
+                                        <span class="module-id">03</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="03_01_matrix_basics.html">01. Matrix
+                                                                Basics</a></li>
+                                                <li class="topic-item"><a href="03_02_matrix_types.html">02. Matrix
+                                                                Types</a></li>
+                                                <li class="topic-item"><a href="03_03_special_matrices.html">03. Special
+                                                                Matrices</a></li>
+                                                <li class="topic-item"><a href="03_04_matrix_ops.html">04. Matrix
+                                                                Ops</a></li>
+                                                <li class="topic-item"><a href="03_05_matrix_mult.html">05. Matrix
+                                                                Mult</a></li>
+                                                <li class="topic-item"><a href="03_06_non_commutative.html">06. Non
+                                                                Commutative</a></li>
+                                                <li class="topic-item"><a href="03_07_transpose.html">07. Transpose</a>
+                                                </li>
+                                                <li class="topic-item"><a href="03_08_inverse.html">08. Inverse</a></li>
+                                                <li class="topic-item"><a href="03_09_invertibility.html">09.
+                                                                Invertibility</a></li>
+                                                <li class="topic-item"><a href="03_10_inverse_methods.html">10. Inverse
+                                                                Methods</a></li>
+                                                <li class="topic-item"><a href="03_11_determinants.html">11.
+                                                                Determinants</a></li>
+                                                <li class="topic-item"><a href="03_12_det_properties.html">12. Det
+                                                                Properties</a></li>
+                                                <li class="topic-item"><a href="03_13_cofactor_expansion.html">13.
+                                                                Cofactor Expansion</a></li>
+                                                <li class="topic-item"><a href="03_14_cramers_rule.html">14. Cramers
+                                                                Rule</a></li>
+                                                <li class="topic-item"><a href="03_15_rank.html">15. Rank</a></li>
+                                                <li class="topic-item"><a href="03_16_rank_nullity.html">16. Rank
+                                                                Nullity</a></li>
+                                                <li class="topic-item"><a href="03_17_echelon_form.html">17. Echelon
+                                                                Form</a></li>
+                                                <li class="topic-item"><a href="03_18_gaussian_elimination.html">18.
+                                                                Gaussian Elimination</a></li>
+                                                <li class="topic-item"><a href="03_19_gauss_jordan.html">19. Gauss
+                                                                Jordan</a></li>
+                                                <li class="topic-item"><a href="03_20_elementary_matrices.html">20.
+                                                                Elementary Matrices</a></li>
+                                                <li class="topic-item"><a href="03_21_decompositions.html">21.
+                                                                Decompositions</a></li>
+                                                <li class="topic-item"><a href="03_22_lu_decomp.html">22. Lu Decomp</a>
+                                                </li>
+                                                <li class="topic-item"><a href="03_23_qr_decomp.html">23. Qr Decomp</a>
+                                                </li>
+                                                <li class="topic-item"><a href="03_24_cholesky.html">24. Cholesky</a>
+                                                </li>
+                                                <li class="topic-item"><a href="03_25_schur.html">25. Schur</a></li>
+                                                <li class="topic-item"><a href="03_26_jordan_form.html">26. Jordan
+                                                                Form</a></li>
+                                                <li class="topic-item"><a href="03_27_block_matrices.html">27. Block
+                                                                Matrices</a></li>
+                                                <li class="topic-item"><a href="03_28_kronecker.html">28. Kronecker</a>
+                                                </li>
+                                                <li class="topic-item"><a href="03_29_hadamard.html">29. Hadamard</a>
+                                                </li>
+                                                <li class="topic-item"><a href="03_30_matrix_norms.html">30. Matrix
+                                                                Norms</a></li>
+                                                <li class="topic-item"><a href="03_30_sparse_matrices.html">30. Sparse
+                                                                Matrices</a></li>
+                                                <li class="topic-item"><a href="03_31_condition_number.html">31.
+                                                                Condition Number</a></li>
+                                                <li class="topic-item"><a href="03_32_sparse_matrices.html">32. Sparse
+                                                                Matrices</a></li>
+                                                <li class="topic-item"><a href="03_33_band_matrices.html">33. Band
+                                                                Matrices</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Advanced & Sparse (21-33)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="03_21_decompositions.html">21. Decompositions Overview</a></li>
-                        <li class="topic-item"><a href="03_22_lu_decomp.html">22. LU Decomposition</a></li>
-                        <li class="topic-item"><a href="03_23_qr_decomp.html">23. QR Decomposition</a></li>
-                        <li class="topic-item"><a href="03_24_cholesky.html">24. Cholesky Decomposition</a></li>
-                        <li class="topic-item"><a href="03_25_schur.html">25. Schur Decomposition</a></li>
-                        <li class="topic-item"><a href="03_26_jordan_form.html">26. Jordan Normal Form</a></li>
-                        <li class="topic-item"><a href="03_27_block_matrices.html">27. Block Matrices</a></li>
-                        <li class="topic-item"><a href="03_28_kronecker.html">28. Kronecker Product</a></li>
-                        <li class="topic-item"><a href="03_29_hadamard.html">29. Hadamard Product</a></li>
-                        <li class="topic-item"><a href="03_30_matrix_norms.html">30. Matrix Norms</a></li>
-                        <li class="topic-item"><a href="03_31_condition_number.html">31. Condition Number</a></li>
-                        <li class="topic-item"><a href="03_32_sparse_matrices.html">32. Sparse Matrices</a></li>
-                        <li class="topic-item"><a href="03_33_band_matrices.html">33. Band Matrices</a></li>
-                    </ul>
-                </div>
-            </section>
+                        <!-- 1.2.3 Eigen-systems (Eig + SVD) -->
+                        <section id="eigen" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.2.3 Eigen-systems (Eig + SVD)</h2>
+                                        <span class="module-id">04</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="04_01_eigen_basics.html">01. Eigen
+                                                                Basics</a></li>
+                                                <li class="topic-item"><a href="04_02_char_equation.html">02. Char
+                                                                Equation</a></li>
+                                                <li class="topic-item"><a href="04_03_finding_eigen.html">03. Finding
+                                                                Eigen</a></li>
+                                                <li class="topic-item"><a href="04_04_multiplicity.html">04.
+                                                                Multiplicity</a></li>
+                                                <li class="topic-item"><a href="04_05_diagonalization.html">05.
+                                                                Diagonalization</a></li>
+                                                <li class="topic-item"><a href="04_06_diag_conditions.html">06. Diag
+                                                                Conditions</a></li>
+                                                <li class="topic-item"><a href="04_07_similar_matrices.html">07. Similar
+                                                                Matrices</a></li>
+                                                <li class="topic-item"><a href="04_08_spectral_symmetric.html">08.
+                                                                Spectral Symmetric</a></li>
+                                                <li class="topic-item"><a href="04_09_spectral_normal.html">09. Spectral
+                                                                Normal</a></li>
+                                                <li class="topic-item"><a href="04_10_rayleigh_quotient.html">10.
+                                                                Rayleigh Quotient</a></li>
+                                                <li class="topic-item"><a href="04_11_power_iteration.html">11. Power
+                                                                Iteration</a></li>
+                                                <li class="topic-item"><a href="04_12_qr_algorithm.html">12. Qr
+                                                                Algorithm</a></li>
+                                                <li class="topic-item"><a href="04_13_svd_theory.html">13. Svd
+                                                                Theory</a></li>
+                                                <li class="topic-item"><a href="04_14_svd_variants.html">14. Svd
+                                                                Variants</a></li>
+                                                <li class="topic-item"><a href="04_15_svd_apps.html">15. Svd Apps</a>
+                                                </li>
+                                                <li class="topic-item"><a href="04_16_pseudoinverse.html">16.
+                                                                Pseudoinverse</a></li>
+                                                <li class="topic-item"><a href="04_17_pca_derivation.html">17. Pca
+                                                                Derivation</a></li>
+                                                <li class="topic-item"><a href="04_18_pca_svd.html">18. Pca Svd</a></li>
+                                                <li class="topic-item"><a href="04_19_eigendecomp_apps.html">19.
+                                                                Eigendecomp Apps</a></li>
+                                                <li class="topic-item"><a href="04_20_matrix_functions.html">20. Matrix
+                                                                Functions</a></li>
+                                                <li class="topic-item"><a href="04_21_positive_definite.html">21.
+                                                                Positive Definite</a></li>
+                                                <li class="topic-item"><a href="04_22_quadratic_forms.html">22.
+                                                                Quadratic Forms</a></li>
+                                                <li class="topic-item"><a href="04_23_spectral_radius.html">23. Spectral
+                                                                Radius</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-            <!-- 1.2.3 Linear Algebra: Eigen-systems -->
-            <section id="eigen" class="module-card">
-                <div class="module-header">
-                    <h2 class="module-title">1.2.3 Eigen-systems (Eig + SVD)</h2>
-                    <span class="module-id">CORE</span>
-                </div>
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Theory & Eig (01-10)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="04_01_eigen_basics.html">01. Eigen Basics</a></li>
-                        <li class="topic-item"><a href="04_02_char_equation.html">02. Characteristic Eq</a></li>
-                        <li class="topic-item"><a href="04_03_finding_eigen.html">03. Calculation Guide</a></li>
-                        <li class="topic-item"><a href="04_04_multiplicity.html">04. Multiplicity</a></li>
-                        <li class="topic-item"><a href="04_05_diagonalization.html">05. Diagonalization</a></li>
-                        <li class="topic-item"><a href="04_06_diag_conditions.html">06. Conditions for Diag</a></li>
-                        <li class="topic-item"><a href="04_07_similar_matrices.html">07. Similar Matrices</a></li>
-                        <li class="topic-item"><a href="04_08_spectral_symmetric.html">08. Spectral (Symmetric)</a></li>
-                        <li class="topic-item"><a href="04_09_spectral_normal.html">09. Spectral (Normal)</a></li>
-                        <li class="topic-item"><a href="04_10_rayleigh_quotient.html">10. Rayleigh Quotient</a></li>
-                    </ul>
-                </div>
-                <div class="sub-module">
-                    <h3 class="sub-module-title">SVD & PCA (11-23)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="04_11_power_iteration.html">11. Power Iteration</a></li>
-                        <li class="topic-item"><a href="04_12_qr_algorithm.html">12. QR Algorithm</a></li>
-                        <li class="topic-item"><a href="04_13_svd_theory.html">13. SVD Theory</a></li>
-                        <li class="topic-item"><a href="04_14_svd_variants.html">14. SVD Variants</a></li>
-                        <li class="topic-item"><a href="04_15_svd_apps.html">15. SVD Apps</a></li>
-                        <li class="topic-item"><a href="04_16_pseudoinverse.html">16. MP Pseudoinverse</a></li>
-                        <li class="topic-item"><a href="04_17_pca_derivation.html">17. PCA Derivation</a></li>
-                        <li class="topic-item"><a href="04_18_pca_svd.html">18. PCA vs SVD</a></li>
-                        <li class="topic-item"><a href="04_19_eigendecomp_apps.html">19. General Apps</a></li>
-                        <li class="topic-item"><a href="04_20_matrix_functions.html">20. Matrix Functions</a></li>
-                        <li class="topic-item"><a href="04_21_positive_definite.html">21. Positive Definite</a></li>
-                        <li class="topic-item"><a href="04_22_quadratic_forms.html">22. Quadratic Forms</a></li>
-                        <li class="topic-item"><a href="04_23_spectral_radius.html">23. Spectral Radius</a></li>
-                    </ul>
-                </div>
-            </section>
+                        <!-- 1.2.4 Systems of Linear Equations -->
+                        <section id="systems" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.2.4 Systems of Linear Equations</h2>
+                                        <span class="module-id">12</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="12_01_systems_intro.html">01. Systems
+                                                                Intro</a></li>
+                                                <li class="topic-item"><a href="12_02_homogeneous.html">02.
+                                                                Homogeneous</a></li>
+                                                <li class="topic-item"><a href="12_03_solution_spaces.html">03. Solution
+                                                                Spaces</a></li>
+                                                <li class="topic-item"><a href="12_04_solutions_types.html">04.
+                                                                Solutions Types</a></li>
+                                                <li class="topic-item"><a href="12_05_least_squares.html">05. Least
+                                                                Squares</a></li>
+                                                <li class="topic-item"><a href="12_06_determinacy.html">06.
+                                                                Determinacy</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-            <!-- 1.2.4 Linear Systems -->
-            <section id="systems" class="module-card">
-                <div class="module-header">
-                    <h2 class="module-title">1.2.4 Systems of Linear Equations</h2>
-                    <span class="module-id">CORE</span>
-                </div>
-                <div class="sub-module">
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="12_01_systems_intro.html">01. Consistent/Inconsistent
-                                Systems</a></li>
-                        <li class="topic-item"><a href="12_02_homogeneous.html">02. Homogeneous Systems</a></li>
-                        <li class="topic-item"><a href="12_03_solution_spaces.html">03. Solution Spaces</a></li>
-                        <li class="topic-item"><a href="12_04_solutions_types.html">04. Particular vs General
-                                Solutions</a></li>
-                        <li class="topic-item"><a href="12_05_least_squares.html">05. Least Squares Solutions</a></li>
-                        <li class="topic-item"><a href="12_06_determinacy.html">06. Over/Underdetermined Systems</a>
-                        </li>
-                    </ul>
-                </div>
-            </section>
+                        <!-- 1.2.5 Linear Transformations -->
+                        <section id="transforms" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.2.5 Linear Transformations</h2>
+                                        <span class="module-id">13</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="13_01_transform_basics.html">01.
+                                                                Transform Basics</a></li>
+                                                <li class="topic-item"><a href="13_02_transform_matrix.html">02.
+                                                                Transform Matrix</a></li>
+                                                <li class="topic-item"><a href="13_03_kernel_image.html">03. Kernel
+                                                                Image</a></li>
+                                                <li class="topic-item"><a href="13_04_rank_nullity_v2.html">04. Rank
+                                                                Nullity V2</a></li>
+                                                <li class="topic-item"><a href="13_05_isomorphisms.html">05.
+                                                                Isomorphisms</a></li>
+                                                <li class="topic-item"><a href="13_06_cob_transforms.html">06. Cob
+                                                                Transforms</a></li>
+                                                <li class="topic-item"><a href="13_07_composition_inverse.html">07.
+                                                                Composition Inverse</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-            <!-- 1.2.5 Linear Transformations -->
-            <section id="transforms" class="module-card">
-                <div class="module-header">
-                    <h2 class="module-title">1.2.5 Linear Transformations</h2>
-                    <span class="module-id">CORE</span>
-                </div>
-                <div class="sub-module">
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="13_01_transform_basics.html">01. Definition & Properties</a>
-                        </li>
-                        <li class="topic-item"><a href="13_02_transform_matrix.html">02. Matrix Representation</a></li>
-                        <li class="topic-item"><a href="13_03_kernel_image.html">03. Kernel & Image (Range)</a></li>
-                        <li class="topic-item"><a href="13_04_rank_nullity_v2.html">04. Rank-Nullity (Revisited)</a>
-                        </li>
-                        <li class="topic-item"><a href="13_05_isomorphisms.html">05. Isomorphisms</a></li>
-                        <li class="topic-item"><a href="13_06_cob_transforms.html">06. Change of Basis</a></li>
-                        <li class="topic-item"><a href="13_07_composition_inverse.html">07. Composition & Inverses</a>
-                        </li>
-                    </ul>
-                </div>
-            </section>
+                        <!-- 1.2.6 Applications in AI/ML -->
+                        <section id="aiml_apps" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.2.6 Applications in AI/ML</h2>
+                                        <span class="module-id">14</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="14_01_data_rep.html">01. Data Rep</a>
+                                                </li>
+                                                <li class="topic-item"><a href="14_02_covariance.html">02.
+                                                                Covariance</a></li>
+                                                <li class="topic-item"><a href="14_03_whitening.html">03. Whitening</a>
+                                                </li>
+                                                <li class="topic-item"><a href="14_04_regression_math.html">04.
+                                                                Regression Math</a></li>
+                                                <li class="topic-item"><a href="14_05_nn_weights.html">05. Nn
+                                                                Weights</a></li>
+                                                <li class="topic-item"><a href="14_06_convolution_matrix.html">06.
+                                                                Convolution Matrix</a></li>
+                                                <li class="topic-item"><a href="14_07_attention_math.html">07. Attention
+                                                                Math</a></li>
+                                                <li class="topic-item"><a href="14_08_graph_algos.html">08. Graph
+                                                                Algos</a></li>
+                                                <li class="topic-item"><a href="14_09_matrix_fact.html">09. Matrix
+                                                                Fact</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-            <!-- 1.2.6 AI/ML Applications -->
-            <section id="aiml_apps" class="module-card">
-                <div class="module-header">
-                    <h2 class="module-title">1.2.6 Applications in AI/ML</h2>
-                    <span class="module-id">BRIDGE</span>
-                </div>
-                <div class="sub-module">
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="14_01_data_rep.html">01. Feature Space & Data Rep</a></li>
-                        <li class="topic-item"><a href="14_02_covariance.html">02. Covariance & Correlation</a></li>
-                        <li class="topic-item"><a href="14_03_whitening.html">03. Whitening Transformations</a></li>
-                        <li class="topic-item"><a href="14_04_regression_math.html">04. Linear Regression Math</a></li>
-                        <li class="topic-item"><a href="14_05_nn_weights.html">05. NN Weights & Layers</a></li>
-                        <li class="topic-item"><a href="14_06_convolution_matrix.html">06. Convolution as Matrix
-                                Mult</a></li>
-                        <li class="topic-item"><a href="14_07_attention_math.html">07. Attention & Transformer Math</a>
-                        </li>
-                        <li class="topic-item"><a href="14_08_graph_algos.html">08. Graph Adjacency & PageRank</a></li>
-                        <li class="topic-item"><a href="14_09_matrix_fact.html">09. Matrix Factorization</a></li>
-                    </ul>
-                </div>
-            </section>
+                        <!-- 1.3.1 Limits & Continuity -->
+                        <section id="limits" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.3.1 Limits & Continuity</h2>
+                                        <span class="module-id">15</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="15_01_limits_intuition.html">01. Limits
+                                                                Intuition</a></li>
+                                                <li class="topic-item"><a href="15_02_limits_formal.html">02. Limits
+                                                                Formal</a></li>
+                                                <li class="topic-item"><a href="15_03_limits_onesided.html">03. Limits
+                                                                Onesided</a></li>
+                                                <li class="topic-item"><a href="15_03_limits_special.html">03. Limits
+                                                                Special</a></li>
+                                                <li class="topic-item"><a href="15_04_limit_laws.html">04. Limit
+                                                                Laws</a></li>
+                                                <li class="topic-item"><a href="15_04_limits_at_infinity.html">04.
+                                                                Limits At Infinity</a></li>
+                                                <li class="topic-item"><a href="15_05_continuity.html">05.
+                                                                Continuity</a></li>
+                                                <li class="topic-item"><a href="15_05_limits_infinite.html">05. Limits
+                                                                Infinite</a></li>
+                                                <li class="topic-item"><a href="15_06_discontinuities.html">06.
+                                                                Discontinuities</a></li>
+                                                <li class="topic-item"><a href="15_07_continuity_defn.html">07.
+                                                                Continuity Defn</a></li>
+                                                <li class="topic-item"><a href="15_08_discontinuities_types.html">08.
+                                                                Discontinuities Types</a></li>
+                                                <li class="topic-item"><a href="15_08_squeeze_theorem.html">08. Squeeze
+                                                                Theorem</a></li>
+                                                <li class="topic-item"><a href="15_09_evt.html">09. Evt</a></li>
+                                                <li class="topic-item"><a href="15_10_limits_at_infinity.html">10.
+                                                                Limits At Infinity</a></li>
+                                                <li class="topic-item"><a href="15_11_squeeze_theorem.html">11. Squeeze
+                                                                Theorem</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-            <!-- 1.3 Calculus -->
-            <section id="calculus" class="module-card">
-                <div class="module-header">
-                    <h2 class="module-title">1.3 Calculus (Comprehensive 1:1 Syllabus)</h2>
-                    <span class="module-id">CORE</span>
-                </div>
+                        <!-- 1.3.2 Differentiation -->
+                        <!-- 1.3.2 Single Variable Differentiation -->
+                        <section id="differentiation" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.3.2 Single Variable Differentiation</h2>
+                                        <span class="module-id">16</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="16_00_limit_defn.html">00. Limit
+                                                                Defn</a></li>
+                                                <li class="topic-item"><a href="16_01_derivative_defn.html">01.
+                                                                Derivative Defn</a></li>
+                                                <li class="topic-item"><a href="16_01_diff_basic_rules.html">01. Diff
+                                                                Basic Rules</a></li>
+                                                <li class="topic-item"><a href="16_02_geometric_interp.html">02.
+                                                                Geometric Interp</a></li>
+                                                <li class="topic-item"><a href="16_02_product_quotient.html">02. Product
+                                                                Quotient</a></li>
+                                                <li class="topic-item"><a href="16_03_chain_rule.html">03. Chain
+                                                                Rule</a></li>
+                                                <li class="topic-item"><a href="16_03_physical_interp.html">03. Physical
+                                                                Interp</a></li>
+                                                <li class="topic-item"><a href="16_04_diff_notation.html">04. Diff
+                                                                Notation</a></li>
+                                                <li class="topic-item"><a href="16_04_transcendental_diff.html">04.
+                                                                Transcendental Diff</a></li>
+                                                <li class="topic-item"><a href="16_05_basic_rules.html">05. Basic
+                                                                Rules</a></li>
+                                                <li class="topic-item"><a href="16_05_implicit_diff.html">05. Implicit
+                                                                Diff</a></li>
+                                                <li class="topic-item"><a href="16_06_higher_order.html">06. Higher
+                                                                Order</a></li>
+                                                <li class="topic-item"><a href="16_06_sum_diff_rules.html">06. Sum Diff
+                                                                Rules</a></li>
+                                                <li class="topic-item"><a href="16_07_lhopital.html">07. Lhopital</a>
+                                                </li>
+                                                <li class="topic-item"><a href="16_07_product_rule.html">07. Product
+                                                                Rule</a></li>
+                                                <li class="topic-item"><a href="16_08_notation.html">08. Notation</a>
+                                                </li>
+                                                <li class="topic-item"><a href="16_08_quotient_rule.html">08. Quotient
+                                                                Rule</a></li>
+                                                <li class="topic-item"><a href="16_09_chain_rule.html">09. Chain
+                                                                Rule</a></li>
+                                                <li class="topic-item"><a href="16_09_inv_trig_hyp.html">09. Inv Trig
+                                                                Hyp</a></li>
+                                                <li class="topic-item"><a href="16_10_implicit_diff.html">10. Implicit
+                                                                Diff</a></li>
+                                                <li class="topic-item"><a href="16_10_mvt_rolles.html">10. Mvt
+                                                                Rolles</a></li>
+                                                <li class="topic-item"><a href="16_11_related_rates.html">11. Related
+                                                                Rates</a></li>
+                                                <li class="topic-item"><a href="16_11_trig_derivatives.html">11. Trig
+                                                                Derivatives</a></li>
+                                                <li class="topic-item"><a href="16_12_exp_derivatives.html">12. Exp
+                                                                Derivatives</a></li>
+                                                <li class="topic-item"><a href="16_12_newton_root.html">12. Newton
+                                                                Root</a></li>
+                                                <li class="topic-item"><a href="16_13_log_derivatives.html">13. Log
+                                                                Derivatives</a></li>
+                                                <li class="topic-item"><a href="16_14_inv_trig_derivatives.html">14. Inv
+                                                                Trig Derivatives</a></li>
+                                                <li class="topic-item"><a href="16_15_hyperbolic_derivatives.html">15.
+                                                                Hyperbolic Derivatives</a></li>
+                                                <li class="topic-item"><a href="16_16_log_diff.html">16. Log Diff</a>
+                                                </li>
+                                                <li class="topic-item"><a href="16_17_higher_order.html">17. Higher
+                                                                Order</a></li>
+                                                <li class="topic-item"><a href="16_18_mvt.html">18. Mvt</a></li>
+                                                <li class="topic-item"><a href="16_19_rolles_theorem.html">19. Rolles
+                                                                Theorem</a></li>
+                                                <li class="topic-item"><a href="16_20_lhopital.html">20. Lhopital</a>
+                                                </li>
+                                                <li class="topic-item"><a href="16_21_related_rates.html">21. Related
+                                                                Rates</a></li>
+                                                <li class="topic-item"><a href="16_22_linear_approx.html">22. Linear
+                                                                Approx</a></li>
+                                                <li class="topic-item"><a href="16_23_newtons_method.html">23. Newtons
+                                                                Method</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-                <!-- 1.3.1 Limits & Continuity -->
-                <div class="sub-module">
-                    <h3 class="sub-module-title">1.3.1 Limits & Continuity (Series 15)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="15_01_limits_intuition.html">01. Intuitive Understanding</a>
-                        </li>
-                        <li class="topic-item"><a href="15_02_limits_formal.html">02. Formal (ε-δ)</a></li>
-                        <li class="topic-item"><a href="15_03_limits_onesided.html">03. One-Sided Limits</a></li>
-                        <li class="topic-item"><a href="15_04_limits_at_infinity.html">04. Limits at Infinity</a></li>
-                        <li class="topic-item"><a href="15_05_limits_infinite.html">05. Infinite Limits</a></li>
-                        <li class="topic-item"><a href="15_06_limits_laws.html">06. Limit Laws & Properties</a></li>
-                        <li class="topic-item"><a href="15_07_continuity_defn.html">07. Continuity Definition</a></li>
-                        <li class="topic-item"><a href="15_08_discontinuities_types.html">08. Types of
-                                Discontinuities</a></li>
-                        <li class="topic-item"><a href="15_09_ivt.html">09. Intermediate Value Theorem</a></li>
-                        <li class="topic-item"><a href="15_10_evt.html">10. Extreme Value Theorem</a></li>
-                        <li class="topic-item"><a href="15_11_squeeze_theorem.html">11. Squeeze Theorem</a></li>
-                    </ul>
-                </div>
+                        <!-- 1.3.3 Applications of Derivatives -->
+                        <section id="deriv_apps" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.3.3 Applications of Derivatives</h2>
+                                        <span class="module-id">17</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="17_01_critical_points.html">01. Critical
+                                                                Points</a></li>
+                                                <li class="topic-item"><a href="17_01_extrema.html">01. Extrema</a></li>
+                                                <li class="topic-item"><a href="17_02_concavity.html">02. Concavity</a>
+                                                </li>
+                                                <li class="topic-item"><a href="17_02_first_deriv_test.html">02. First
+                                                                Deriv Test</a></li>
+                                                <li class="topic-item"><a href="17_03_optimization.html">03.
+                                                                Optimization</a></li>
+                                                <li class="topic-item"><a href="17_03_second_deriv_test.html">03. Second
+                                                                Deriv Test</a></li>
+                                                <li class="topic-item"><a href="17_04_concavity_inflection.html">04.
+                                                                Concavity Inflection</a></li>
+                                                <li class="topic-item"><a href="17_04_taylor_intro.html">04. Taylor
+                                                                Intro</a></li>
+                                                <li class="topic-item"><a href="17_05_curve_sketching.html">05. Curve
+                                                                Sketching</a></li>
+                                                <li class="topic-item"><a href="17_05_curves_motion.html">05. Curves
+                                                                Motion</a></li>
+                                                <li class="topic-item"><a href="17_06_marginal_analysis.html">06.
+                                                                Marginal Analysis</a></li>
+                                                <li class="topic-item"><a href="17_06_optimization_applied.html">06.
+                                                                Optimization Applied</a></li>
+                                                <li class="topic-item"><a href="17_07_velocity_acceleration.html">07.
+                                                                Velocity Acceleration</a></li>
+                                                <li class="topic-item"><a href="17_08_marginal_analysis.html">08.
+                                                                Marginal Analysis</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-                <!-- 1.3.2 Differentiation -->
-                <div class="sub-module">
-                    <h3 class="sub-module-title">1.3.2 Single Variable Differentiation (Series 16)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="16_01_derivative_defn.html">01. Limit Definition</a></li>
-                        <li class="topic-item"><a href="16_02_geometric_interp.html">02. Geometric Interp (Tangent)</a>
-                        </li>
-                        <li class="topic-item"><a href="16_03_physical_interp.html">03. Physical Interp (Rates)</a></li>
-                        <li class="topic-item"><a href="16_04_diff_notation.html">04. Differentiation Notation</a></li>
-                        <li class="topic-item"><a href="16_05_basic_rules.html">05. Power & Constant Rules</a></li>
-                        <li class="topic-item"><a href="16_06_sum_diff_rules.html">06. Sum & Difference Rules</a></li>
-                        <li class="topic-item"><a href="16_07_product_rule.html">07. Product Rule</a></li>
-                        <li class="topic-item"><a href="16_08_quotient_rule.html">08. Quotient Rule</a></li>
-                        <li class="topic-item"><a href="16_09_chain_rule.html">09. Chain Rule (Composition)</a></li>
-                        <li class="topic-item"><a href="16_10_implicit_diff.html">10. Implicit Differentiation</a></li>
-                        <li class="topic-item"><a href="16_11_trig_derivatives.html">11. Trig Derivatives</a></li>
-                        <li class="topic-item"><a href="16_12_exp_derivatives.html">12. Exponential Derivatives</a></li>
-                        <li class="topic-item"><a href="16_13_log_derivatives.html">13. Logarithmic Derivatives</a></li>
-                        <li class="topic-item"><a href="16_14_inv_trig_derivatives.html">14. Inverse Trig
-                                Derivatives</a></li>
-                        <li class="topic-item"><a href="16_15_hyperbolic_derivatives.html">15. Hyperbolic
-                                Derivatives</a></li>
-                        <li class="topic-item"><a href="16_16_log_diff.html">16. Logarithmic Differentiation</a></li>
-                        <li class="topic-item"><a href="16_17_higher_order.html">17. Higher-Order Derivatives</a></li>
-                        <li class="topic-item"><a href="16_18_mvt.html">18. Mean Value Theorem</a></li>
-                        <li class="topic-item"><a href="16_19_rolles_theorem.html">19. Rolle's Theorem</a></li>
-                        <li class="topic-item"><a href="16_20_lhopital.html">20. L'Hôpital's Rule</a></li>
-                        <li class="topic-item"><a href="16_21_related_rates.html">21. Related Rates Problems</a></li>
-                        <li class="topic-item"><a href="16_22_linear_approx.html">22. Linear Approx & Differentials</a>
-                        </li>
-                        <li class="topic-item"><a href="16_23_newtons_method.html">23. Newton's Method Root</a></li>
-                    </ul>
-                </div>
+                        <!-- 1.3.4 Single Variable Integration -->
+                        <section id="integration" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.3.4 Single Variable Integration</h2>
+                                        <span class="module-id">18</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="18_01_antiderivatives.html">01.
+                                                                Antiderivatives</a></li>
+                                                <li class="topic-item"><a href="18_02_indefinite_integrals.html">02.
+                                                                Indefinite Integrals</a></li>
+                                                <li class="topic-item"><a href="18_02_substitution_parts.html">02.
+                                                                Substitution Parts</a></li>
+                                                <li class="topic-item"><a href="18_03_advanced_integration.html">03.
+                                                                Advanced Integration</a></li>
+                                                <li class="topic-item"><a href="18_03_integration_rules.html">03.
+                                                                Integration Rules</a></li>
+                                                <li class="topic-item"><a href="18_04_riemann_definite.html">04. Riemann
+                                                                Definite</a></li>
+                                                <li class="topic-item"><a href="18_04_usubstitution.html">04.
+                                                                Usubstitution</a></li>
+                                                <li class="topic-item"><a href="18_05_ftc.html">05. Ftc</a></li>
+                                                <li class="topic-item"><a href="18_05_integration_by_parts.html">05.
+                                                                Integration By Parts</a></li>
+                                                <li class="topic-item"><a href="18_06_area_volume.html">06. Area
+                                                                Volume</a></li>
+                                                <li class="topic-item"><a href="18_06_trig_integrals.html">06. Trig
+                                                                Integrals</a></li>
+                                                <li class="topic-item"><a href="18_07_arc_surface.html">07. Arc
+                                                                Surface</a></li>
+                                                <li class="topic-item"><a href="18_07_trig_substitution.html">07. Trig
+                                                                Substitution</a></li>
+                                                <li class="topic-item"><a href="18_08_numerical_integration.html">08.
+                                                                Numerical Integration</a></li>
+                                                <li class="topic-item"><a href="18_08_pfd.html">08. Pfd</a></li>
+                                                <li class="topic-item"><a href="18_09_rational_integration.html">09.
+                                                                Rational Integration</a></li>
+                                                <li class="topic-item"><a href="18_10_improper_integrals.html">10.
+                                                                Improper Integrals</a></li>
+                                                <li class="topic-item"><a href="18_11_riemann_sums.html">11. Riemann
+                                                                Sums</a></li>
+                                                <li class="topic-item"><a href="18_12_ftc.html">12. Ftc</a></li>
+                                                <li class="topic-item"><a href="18_13_integral_props.html">13. Integral
+                                                                Props</a></li>
+                                                <li class="topic-item"><a href="18_14_avg_value.html">14. Avg Value</a>
+                                                </li>
+                                                <li class="topic-item"><a href="18_15_area_between_curves.html">15. Area
+                                                                Between Curves</a></li>
+                                                <li class="topic-item"><a href="18_16_volumes.html">16. Volumes</a></li>
+                                                <li class="topic-item"><a href="18_17_arc_length.html">17. Arc
+                                                                Length</a></li>
+                                                <li class="topic-item"><a href="18_18_surface_area.html">18. Surface
+                                                                Area</a></li>
+                                                <li class="topic-item"><a href="18_19_work_force.html">19. Work
+                                                                Force</a></li>
+                                                <li class="topic-item"><a href="18_20_numerical_integration.html">20.
+                                                                Numerical Integration</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-                <!-- 1.3.3 Applications of Derivatives -->
-                <div class="sub-module">
-                    <h3 class="sub-module-title">1.3.3 Applications of Derivatives (Series 17)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="17_01_critical_points.html">01. Critical Points & Saddle</a>
-                        </li>
-                        <li class="topic-item"><a href="17_02_first_deriv_test.html">02. First Derivative Test</a></li>
-                        <li class="topic-item"><a href="17_03_second_deriv_test.html">03. Second Derivative Test</a>
-                        </li>
-                        <li class="topic-item"><a href="17_04_concavity_inflection.html">04. Concavity & Inflection</a>
-                        </li>
-                        <li class="topic-item"><a href="17_05_curve_sketching.html">05. Curve Sketching</a></li>
-                        <li class="topic-item"><a href="17_06_optimization_applied.html">06. Applied Optimization</a>
-                        </li>
-                        <li class="topic-item"><a href="17_07_velocity_acceleration.html">07. Velocity &
-                                Acceleration</a></li>
-                        <li class="topic-item"><a href="17_08_marginal_analysis.html">08. Marginal Analysis (Econ)</a>
-                        </li>
-                    </ul>
-                </div>
+                        <!-- 1.3.5 Sequences and Series -->
+                        <section id="sequences" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.3.5 Sequences and Series</h2>
+                                        <span class="module-id">19</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="19_01_sequence_convergence.html">01.
+                                                                Sequence Convergence</a></li>
+                                                <li class="topic-item"><a href="19_02_sequence_limits.html">02. Sequence
+                                                                Limits</a></li>
+                                                <li class="topic-item"><a href="19_03_bounded_monotonic.html">03.
+                                                                Bounded Monotonic</a></li>
+                                                <li class="topic-item"><a href="19_04_series_tests_intro.html">04.
+                                                                Series Tests Intro</a></li>
+                                                <li class="topic-item"><a href="19_05_geometric_series.html">05.
+                                                                Geometric Series</a></li>
+                                                <li class="topic-item"><a href="19_06_p_series.html">06. P Series</a>
+                                                </li>
+                                                <li class="topic-item"><a href="19_07_comparison_test.html">07.
+                                                                Comparison Test</a></li>
+                                                <li class="topic-item"><a href="19_08_limit_comparison.html">08. Limit
+                                                                Comparison</a></li>
+                                                <li class="topic-item"><a href="19_09_ratio_test.html">09. Ratio
+                                                                Test</a></li>
+                                                <li class="topic-item"><a href="19_10_root_test.html">10. Root Test</a>
+                                                </li>
+                                                <li class="topic-item"><a href="19_11_integral_test.html">11. Integral
+                                                                Test</a></li>
+                                                <li class="topic-item"><a href="19_12_alternating_series.html">12.
+                                                                Alternating Series</a></li>
+                                                <li class="topic-item"><a href="19_13_abs_cond_convergence.html">13. Abs
+                                                                Cond Convergence</a></li>
+                                                <li class="topic-item"><a href="19_14_power_series.html">14. Power
+                                                                Series</a></li>
+                                                <li class="topic-item"><a href="19_15_radius_interval.html">15. Radius
+                                                                Interval</a></li>
+                                                <li class="topic-item"><a href="19_16_taylor_polynomials.html">16.
+                                                                Taylor Polynomials</a></li>
+                                                <li class="topic-item"><a href="19_17_maclaurin_series.html">17.
+                                                                Maclaurin Series</a></li>
+                                                <li class="topic-item"><a href="19_18_common_taylor.html">18. Common
+                                                                Taylor</a></li>
+                                                <li class="topic-item"><a href="19_19_taylor_remainder.html">19. Taylor
+                                                                Remainder</a></li>
+                                                <li class="topic-item"><a href="19_20_taylor_applications.html">20.
+                                                                Taylor Applications</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-                <!-- 1.3.4 Integration -->
-                <div class="sub-module">
-                    <h3 class="sub-module-title">1.3.4 Single Variable Integration (Series 18)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="18_01_antiderivatives.html">01. Antiderivatives</a></li>
-                        <li class="topic-item"><a href="18_02_indefinite_integrals.html">02. Indefinite Integrals</a>
-                        </li>
-                        <li class="topic-item"><a href="18_03_integration_rules.html">03. Integration Rules
-                                (Algebraic)</a></li>
-                        <li class="topic-item"><a href="18_04_usubstitution.html">04. U-Substitution Method</a></li>
-                        <li class="topic-item"><a href="18_05_integration_by_parts.html">05. Integration by Parts</a>
-                        </li>
-                        <li class="topic-item"><a href="18_06_trig_integrals.html">06. Trigonometric Integrals</a></li>
-                        <li class="topic-item"><a href="18_07_trig_substitution.html">07. Trig Substitution</a></li>
-                        <li class="topic-item"><a href="18_08_pfd.html">08. Partial Fraction Decomp (PFD)</a></li>
-                        <li class="topic-item"><a href="18_09_rational_integration.html">09. Integrating Rational Fn</a>
-                        </li>
-                        <li class="topic-item"><a href="18_10_improper_integrals.html">10. Improper Integrals</a></li>
-                        <li class="topic-item"><a href="18_11_riemann_sums.html">11. Definite Integrals & Riemann</a>
-                        </li>
-                        <li class="topic-item"><a href="18_12_ftc.html">12. Fundamental Theorem (FTC)</a></li>
-                        <li class="topic-item"><a href="18_13_definite_integral_props.html">13. Properties of
-                                Integrals</a></li>
-                        <li class="topic-item"><a href="18_14_average_value.html">14. Average Value of a Fn</a></li>
-                        <li class="topic-item"><a href="18_15_area_between_curves.html">15. Area Between Curves</a></li>
-                        <li class="topic-item"><a href="18_16_volumes.html">16. Volumes (Disk/Washer/Shell)</a></li>
-                        <li class="topic-item"><a href="18_17_arc_length.html">17. Arc Length</a></li>
-                        <li class="topic-item"><a href="18_18_surface_area.html">18. Surface Area of Revolution</a></li>
-                        <li class="topic-item"><a href="18_19_work_fluid_force.html">19. Work & Fluid Force Apps</a>
-                        </li>
-                        <li class="topic-item"><a href="18_20_numerical_integration.html">20. Numerical
-                                (Trapezoidal/Simpson)</a></li>
-                    </ul>
-                </div>
+                        <!-- 1.3.6 Multivariable Calculus -->
+                        <section id="multivariable" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.3.6 Multivariable Calculus</h2>
+                                        <span class="module-id">20</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="20_01_multi_functions.html">01. Multi
+                                                                Functions</a></li>
+                                                <li class="topic-item"><a href="20_02_multi_domain_range.html">02. Multi
+                                                                Domain Range</a></li>
+                                                <li class="topic-item"><a href="20_03_level_curves_contours.html">03.
+                                                                Level Curves Contours</a></li>
+                                                <li class="topic-item"><a href="20_04_level_surfaces.html">04. Level
+                                                                Surfaces</a></li>
+                                                <li class="topic-item"><a href="20_05_multi_limits.html">05. Multi
+                                                                Limits</a></li>
+                                                <li class="topic-item"><a href="20_06_partial_derivatives.html">06.
+                                                                Partial Derivatives</a></li>
+                                                <li class="topic-item"><a href="20_07_higher_order_partials.html">07.
+                                                                Higher Order Partials</a></li>
+                                                <li class="topic-item"><a href="20_08_mixed_partials.html">08. Mixed
+                                                                Partials</a></li>
+                                                <li class="topic-item"><a href="20_09_gradient_vectors.html">09.
+                                                                Gradient Vectors</a></li>
+                                                <li class="topic-item"><a href="20_10_gradient_geom.html">10. Gradient
+                                                                Geom</a></li>
+                                                <li class="topic-item"><a href="20_11_directional_derivatives.html">11.
+                                                                Directional Derivatives</a></li>
+                                                <li class="topic-item"><a href="20_12_tangent_planes.html">12. Tangent
+                                                                Planes</a></li>
+                                                <li class="topic-item"><a href="20_13_multi_chain_rule.html">13. Multi
+                                                                Chain Rule</a></li>
+                                                <li class="topic-item"><a href="20_14_multi_implicit.html">14. Multi
+                                                                Implicit</a></li>
+                                                <li class="topic-item"><a href="20_15_jacobian_matrix.html">15. Jacobian
+                                                                Matrix</a></li>
+                                                <li class="topic-item"><a href="20_16_total_derivative.html">16. Total
+                                                                Derivative</a></li>
+                                                <li class="topic-item"><a href="20_17_differentiability.html">17.
+                                                                Differentiability</a></li>
+                                                <li class="topic-item"><a href="20_18_double_rect.html">18. Double
+                                                                Rect</a></li>
+                                                <li class="topic-item"><a href="20_19_double_general.html">19. Double
+                                                                General</a></li>
+                                                <li class="topic-item"><a href="20_20_triple_integrals.html">20. Triple
+                                                                Integrals</a></li>
+                                                <li class="topic-item"><a href="20_21_change_variables.html">21. Change
+                                                                Variables</a></li>
+                                                <li class="topic-item"><a href="20_22_polar_integrals.html">22. Polar
+                                                                Integrals</a></li>
+                                                <li class="topic-item"><a href="20_23_cylindrical_integrals.html">23.
+                                                                Cylindrical Integrals</a></li>
+                                                <li class="topic-item"><a href="20_24_spherical_integrals.html">24.
+                                                                Spherical Integrals</a></li>
+                                                <li class="topic-item"><a href="20_25_multi_integral_apps.html">25.
+                                                                Multi Integral Apps</a></li>
+                                                <li class="topic-item"><a href="20_26_line_integrals.html">26. Line
+                                                                Integrals</a></li>
+                                                <li class="topic-item"><a href="20_27_conservative_fields.html">27.
+                                                                Conservative Fields</a></li>
+                                                <li class="topic-item"><a href="20_28_ftc_line.html">28. Ftc Line</a>
+                                                </li>
+                                                <li class="topic-item"><a href="20_29_greens_theorem.html">29. Greens
+                                                                Theorem</a></li>
+                                                <li class="topic-item"><a href="20_30_surface_integrals.html">30.
+                                                                Surface Integrals</a></li>
+                                                <li class="topic-item"><a href="20_31_stokes_theorem.html">31. Stokes
+                                                                Theorem</a></li>
+                                                <li class="topic-item"><a href="20_32_divergence_theorem.html">32.
+                                                                Divergence Theorem</a></li>
+                                                <li class="topic-item"><a href="20_33_curl_divergence.html">33. Curl
+                                                                Divergence</a></li>
+                                                <li class="topic-item"><a href="20_34_vector_calculus_apps.html">34.
+                                                                Vector Calculus Apps</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-                <!-- 1.3.5 Sequences & Series -->
-                <div class="sub-module">
-                    <h3 class="sub-module-title">1.3.5 Sequences and Series (Series 19)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="19_01_sequence_convergence.html">01. Convergence of
-                                Sequences</a></li>
-                        <li class="topic-item"><a href="19_02_sequence_limits.html">02. Limits of Sequences</a></li>
-                        <li class="topic-item"><a href="19_03_bounded_monotonic.html">03. Bounded & Monotonic</a></li>
-                        <li class="topic-item"><a href="19_04_series_tests_intro.html">04. Infinite Series & Tests
-                                Intro</a></li>
-                        <li class="topic-item"><a href="19_05_geometric_series.html">05. Geometric Series</a></li>
-                        <li class="topic-item"><a href="19_06_p_series.html">06. p-Series</a></li>
-                        <li class="topic-item"><a href="19_07_comparison_test.html">07. Comparison Test</a></li>
-                        <li class="topic-item"><a href="19_08_limit_comparison.html">08. Limit Comparison Test</a>
-                        </li>
-                        <li class="topic-item"><a href="19_09_ratio_test.html">09. Ratio Test</a></li>
-                        <li class="topic-item"><a href="19_10_root_test.html">10. Root Test</a></li>
-                        <li class="topic-item"><a href="19_11_integral_test.html">11. Integral Test</a></li>
-                        <li class="topic-item"><a href="19_12_alternating_series.html">12. Alternating Series
-                                Test</a></li>
-                        <li class="topic-item"><a href="19_13_abs_cond_convergence.html">13. Absolute & Conditional</a>
-                        </li>
-                        <li class="topic-item"><a href="19_14_power_series.html">14. Power Series</a></li>
-                        <li class="topic-item"><a href="19_15_radius_interval.html">15. Radius & Interval of Conv</a>
-                        </li>
-                        <li class="topic-item"><a href="19_16_taylor_polynomials.html">16. Taylor Series &
-                                Polynomials</a></li>
-                        <li class="topic-item"><a href="19_17_maclaurin_series.html">17. Maclaurin Series</a></li>
-                        <li class="topic-item"><a href="19_18_common_taylor.html">18. Common Taylor (e^x, sin/cos)</a>
-                        </li>
-                        <li class="topic-item"><a href="19_19_taylor_remainder.html">19. Taylor's Remainder Theorem</a>
-                        </li>
-                        <li class="topic-item"><a href="19_20_taylor_applications.html">20. Applications of Taylor</a>
-                        </li>
-                    </ul>
-                </div>
+                        <!-- 1.3.7 Optimization in Multiple Variables -->
+                        <section id="optimization" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.3.7 Optimization in Multiple Variables</h2>
+                                        <span class="module-id">21</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="21_01_multi_critical.html">01. Multi
+                                                                Critical</a></li>
+                                                <li class="topic-item"><a href="21_02_hessian_matrix.html">02. Hessian
+                                                                Matrix</a></li>
+                                                <li class="topic-item"><a href="21_03_2d_deriv_test.html">03. 2D Deriv
+                                                                Test</a></li>
+                                                <li class="topic-item"><a href="21_04_saddle_points.html">04. Saddle
+                                                                Points</a></li>
+                                                <li class="topic-item"><a href="21_05_constrained_opt.html">05.
+                                                                Constrained Opt</a></li>
+                                                <li class="topic-item"><a href="21_06_lagrange_multipliers.html">06.
+                                                                Lagrange Multipliers</a></li>
+                                                <li class="topic-item"><a href="21_07_kkt_conditions.html">07. Kkt
+                                                                Conditions</a></li>
+                                                <li class="topic-item"><a href="21_08_convexity.html">08. Convexity</a>
+                                                </li>
+                                                <li class="topic-item"><a href="21_09_global_local.html">09. Global
+                                                                Local</a></li>
+                                                <li class="topic-item"><a href="21_10_gd_foundation.html">10. Gd
+                                                                Foundation</a></li>
+                                                <li class="topic-item"><a href="21_11_newton_multi.html">11. Newton
+                                                                Multi</a></li>
+                                                <li class="topic-item"><a href="21_12_quasi_newton.html">12. Quasi
+                                                                Newton</a></li>
+                                                <li class="topic-item"><a href="21_13_convex_opt_basics.html">13. Convex
+                                                                Opt Basics</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-                <!-- 1.3.6 Multivariable -->
-                <div class="sub-module">
-                    <h3 class="sub-module-title">1.3.6 Multivariable Calculus (Series 20)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="20_01_multi_functions.html">01. Functions of Variables</a></li>
-                        <li class="topic-item"><a href="20_02_multi_domain_range.html">02. Domain/Range (Higher Dim)</a>
-                        </li>
-                        <li class="topic-item"><a href="20_03_level_curves_contours.html">03. Level Curves &
-                                Contours</a></li>
-                        <li class="topic-item"><a href="20_04_level_surfaces.html">04. Level Surfaces</a></li>
-                        <li class="topic-item"><a href="20_05_multi_limits.html">05. Limits & Continuity (Multi)</a>
-                        </li>
-                        <li class="topic-item"><a href="20_06_partial_derivatives.html">06. Partial Derivatives
-                                (1st)</a></li>
-                        <li class="topic-item"><a href="20_07_higher_order_partials.html">07. Higher-Order Partials</a>
-                        </li>
-                        <li class="topic-item"><a href="20_08_mixed_partials.html">08. Mixed Partials & Clairaut's</a>
-                        </li>
-                        <li class="topic-item"><a href="20_09_gradient_vectors.html">09. Gradient Vectors</a></li>
-                        <li class="topic-item"><a href="20_10_gradient_geom.html">10. Geom Interpretation (Gradient)</a>
-                        </li>
-                        <li class="topic-item"><a href="20_11_directional_derivatives.html">11. Directional
-                                Derivatives</a></li>
-                        <li class="topic-item"><a href="20_12_tangent_planes.html">12. Tangent Planes & Linear
-                                Approx</a></li>
-                        <li class="topic-item"><a href="20_13_multi_chain_rule.html">13. Multivariable Chain Rule</a>
-                        </li>
-                        <li class="topic-item"><a href="20_14_multi_implicit.html">14. Implicit Diff (Multi)</a></li>
-                        <li class="topic-item"><a href="20_15_jacobian_matrix.html">15. Jacobian Matrix</a></li>
-                        <li class="topic-item"><a href="20_16_total_derivative.html">16. Total Derivative</a></li>
-                        <li class="topic-item"><a href="20_17_differentiability.html">17. Differentiability (Multi)</a>
-                        </li>
-                        <li class="topic-item"><a href="20_18_double_rect.html">18. Double Integrals (Rect)</a></li>
-                        <li class="topic-item"><a href="20_19_double_general.html">19. Double Integrals (General)</a>
-                        </li>
-                        <li class="topic-item"><a href="20_20_triple_integrals.html">20. Triple Integrals</a></li>
-                        <li class="topic-item"><a href="20_21_change_variables.html">21. Change of Variables</a></li>
-                        <li class="topic-item"><a href="20_22_polar_integrals.html">22. Polar Coords in Double Int</a>
-                        </li>
-                        <li class="topic-item"><a href="20_23_cylindrical_integrals.html">23. Cylindrical Coords
-                                (Triple)</a></li>
-                        <li class="topic-item"><a href="20_24_spherical_integrals.html">24. Spherical Coords
-                                (Triple)</a></li>
-                        <li class="topic-item"><a href="20_25_multi_integral_apps.html">25. Integral Apps
-                                (Volume/Mass)</a></li>
-                        <li class="topic-item"><a href="20_26_line_integrals.html">26. Line Integrals
-                                (Scalar/Vector)</a></li>
-                        <li class="topic-item"><a href="20_27_conservative_fields.html">27. Conservative Vector
-                                Fields</a></li>
-                        <li class="topic-item"><a href="20_28_ftc_line.html">28. Fundamental Thm (Line Int)</a></li>
-                        <li class="topic-item"><a href="20_29_greens_theorem.html">29. Green's Theorem</a></li>
-                        <li class="topic-item"><a href="20_30_surface_integrals.html">30. Surface Integrals</a></li>
-                        <li class="topic-item"><a href="20_31_stokes_theorem.html">31. Stokes' Theorem</a></li>
-                        <li class="topic-item"><a href="20_32_divergence_theorem.html">32. Divergence (Gauss)
-                                Theorem</a></li>
-                        <li class="topic-item"><a href="20_33_curl_divergence.html">33. Curl and Divergence</a></li>
-                        <li class="topic-item"><a href="20_34_vector_calc_apps.html">34. Vector Calculus Apps</a></li>
-                    </ul>
-                </div>
+                        <!-- 1.3.8 Differential Equations -->
+                        <section id="odes" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.3.8 Differential Equations</h2>
+                                        <span class="module-id">22</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="22_01_ode_intro.html">01. Ode Intro</a>
+                                                </li>
+                                                <li class="topic-item"><a href="22_02_first_order_detail.html">02. First
+                                                                Order Detail</a></li>
+                                                <li class="topic-item"><a href="22_03_second_order_detail.html">03.
+                                                                Second Order Detail</a></li>
+                                                <li class="topic-item"><a href="22_04_homo_nonhomo.html">04. Homo
+                                                                Nonhomo</a></li>
+                                                <li class="topic-item"><a href="22_05_ode_ml_apps.html">05. Ode Ml
+                                                                Apps</a></li>
+                                        </ul>
+                                </div>
+                        </section>
 
-                <!-- 1.3.7 Optimization in Multiple Variables -->
-                <div class="sub-module">
-                    <h3 class="sub-module-title">1.3.7 Optimization in Multiple Variables (Series 21)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="21_01_multi_critical.html">01. Multi-dim Critical Points</a>
-                        </li>
-                        <li class="topic-item"><a href="21_02_hessian_matrix.html">02. Hessian Matrix</a></li>
-                        <li class="topic-item"><a href="21_03_2d_deriv_test.html">03. 2D Second Derivative Test</a></li>
-                        <li class="topic-item"><a href="21_04_saddle_points.html">04. Saddle Points</a></li>
-                        <li class="topic-item"><a href="21_05_constrained_opt.html">05. Constrained Optimization</a>
-                        </li>
-                        <li class="topic-item"><a href="21_06_lagrange_multipliers.html">06. Lagrange Multipliers</a>
-                        </li>
-                        <li class="topic-item"><a href="21_07_kkt_conditions.html">07. KKT Conditions</a></li>
-                        <li class="topic-item"><a href="21_08_convexity.html">08. Convex Sets & Functions</a></li>
-                        <li class="topic-item"><a href="21_09_global_local.html">09. Global vs Local Optima</a></li>
-                        <li class="topic-item"><a href="21_10_gd_foundation.html">10. Gradient Descent Math</a></li>
-                        <li class="topic-item"><a href="21_11_newton_multi.html">11. Multi-dim Newton's</a></li>
-                        <li class="topic-item"><a href="21_12_quasi_newton.html">12. Quasi-Newton Methods</a></li>
-                        <li class="topic-item"><a href="21_13_convex_opt_basics.html">13. Convex Opt Basics</a></li>
-                    </ul>
-                </div>
+                        <!-- 1.3.9 Calculus for ML Optimization -->
+                        <section id="ml_opt" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.3.9 Calculus for ML Optimization</h2>
+                                        <span class="module-id">23</span>
+                                </div>
+                                <div class="sub-module">
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="23_01_loss_optimization.html">01. Loss
+                                                                Optimization</a></li>
+                                                <li class="topic-item"><a href="23_02_gradient_algorithms.html">02.
+                                                                Gradient Algorithms</a></li>
+                                                <li class="topic-item"><a href="23_03_backpropagation.html">03.
+                                                                Backpropagation</a></li>
+                                                <li class="topic-item"><a href="23_04_neural_chain_rule.html">04. Neural
+                                                                Chain Rule</a></li>
+                                                <li class="topic-item"><a href="23_05_loss_convexity.html">05. Loss
+                                                                Convexity</a></li>
+                                                <li class="topic-item"><a href="23_06_taylor_optimization.html">06.
+                                                                Taylor Optimization</a></li>
+                                                <li class="topic-item"><a href="23_07_numerical_diff.html">07. Numerical
+                                                                Diff</a></li>
+                                                <li class="topic-item"><a href="23_08_automatic_diff.html">08. Automatic
+                                                                Diff</a></li>
+                                                <li class="topic-item"><a href="23_09_comp_graphs.html">09. Comp
+                                                                Graphs</a></li>
+                                        </ul>
+                                </div>
+                        </section>
+                        </section>
 
-                <!-- 1.3.8 Differential Equations -->
-                <div class="sub-module">
-                    <h3 class="sub-module-title">1.3.8 Differential Equations (Series 22)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="22_01_ode_intro.html">01. ODEs Intro</a></li>
-                        <li class="topic-item"><a href="22_02_first_order_detail.html">02. 1st Order
-                                (Separable/Linear)</a></li>
-                        <li class="topic-item"><a href="22_03_second_order_detail.html">03. 2nd Order Linear ODEs</a>
-                        </li>
-                        <li class="topic-item"><a href="22_04_homo_nonhomo.html">04. Homo vs Non-Homogeneous</a></li>
-                        <li class="topic-item"><a href="22_05_ode_ml_apps.html">05. ODE Apps in Physics & ML</a></li>
-                    </ul>
-                </div>
+                        <!-- 1.4 Probability and Statistics -->
+                        <section id="probability" class="module-card">
+                                <div class="module-header">
+                                        <h2 class="module-title">1.4 Probability and Statistics</h2>
+                                        <span class="module-id">CORE</span>
+                                </div>
 
-                <!-- 1.3.9 Calculus for AI/ML -->
-                <div class="sub-module">
-                    <h3 class="sub-module-title">1.3.9 Calculus for AI/ML (Series 23)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="23_01_loss_optimization.html">01. Loss Function Optimization</a>
-                        </li>
-                        <li class="topic-item"><a href="23_02_gradient_algorithms.html">02. Gradient-based
-                                Algorithms</a></li>
-                        <li class="topic-item"><a href="23_03_backpropagation.html">03. Backpropagation Derivation</a>
-                        </li>
-                        <li class="topic-item"><a href="23_04_neural_chain_rule.html">04. Chain Rule in Neural Nets</a>
-                        </li>
-                        <li class="topic-item"><a href="23_05_loss_convexity.html">05. Convexity in Loss Fn</a></li>
-                        <li class="topic-item"><a href="23_06_taylor_optimization.html">06. Taylor Approx in Opt</a>
-                        </li>
-                        <li class="topic-item"><a href="23_07_numerical_diff.html">07. Numerical Differentiation</a>
-                        </li>
-                        <li class="topic-item"><a href="23_08_automatic_diff.html">08. Automatic Differentiation</a>
-                        </li>
-                        <li class="topic-item"><a href="23_09_comp_graphs.html">09. Computational Graphs</a></li>
-                    </ul>
-                </div>
-            </section>
+                                <div class="sub-module">
+                                        <h3 class="sub-module-title">1.4.1 Basic Probability Concepts (Series 24)</h3>
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="24_01_exp_outcomes_sample.html">01. Exp
+                                                                & Sample Spaces</a></li>
+                                                <li class="topic-item"><a href="24_02_events_event_spaces.html">02.
+                                                                Events & Event Spaces</a>
+                                                </li>
+                                                <li class="topic-item"><a href="24_03_kolmogorov_axioms.html">03.
+                                                                Kolmogorov Axioms</a></li>
+                                                <li class="topic-item"><a href="24_04_prob_properties.html">04. Prob
+                                                                Properties</a></li>
+                                                <li class="topic-item"><a href="24_05_complement_rule.html">05.
+                                                                Complement Rule</a></li>
+                                                <li class="topic-item"><a href="24_06_addition_rule_exclusive.html">06.
+                                                                Addition Rule
+                                                                (Exclusive)</a></li>
+                                                <li class="topic-item"><a href="24_07_general_addition_rule.html">07.
+                                                                General Addition Rule</a>
+                                                </li>
+                                                <li class="topic-item"><a href="24_08_multiplication_rule.html">08.
+                                                                Multiplication Rule</a></li>
+                                                <li class="topic-item"><a href="24_09_conditional_prob.html">09.
+                                                                Conditional Probability</a>
+                                                </li>
+                                                <li class="topic-item"><a href="24_10_bayes_theorem.html">10. Bayes'
+                                                                Theorem</a></li>
+                                                <li class="topic-item"><a href="24_11_law_total_prob.html">11. Law of
+                                                                Total Probability</a></li>
+                                                <li class="topic-item"><a href="24_12_independence.html">12.
+                                                                Independence</a></li>
+                                                <li class="topic-item"><a href="24_13_exclusive_vs_independent.html">13.
+                                                                Exclusive vs
+                                                                Independent</a></li>
+                                                <li class="topic-item"><a href="24_14_counting_principles.html">14.
+                                                                Counting Principles</a></li>
+                                                <li class="topic-item"><a href="24_15_permutations.html">15.
+                                                                Permutations</a></li>
+                                                <li class="topic-item"><a href="24_16_combinations.html">16.
+                                                                Combinations</a></li>
+                                                <li class="topic-item"><a href="24_17_binomial_coefficients.html">17.
+                                                                Binomial Coefficients</a>
+                                                </li>
+                                </div>
 
-            <!-- 1.4 Probability and Statistics -->
-            <section id="probability" class="module-card">
-                <div class="module-header">
-                    <h2 class="module-title">1.4 Probability and Statistics</h2>
-                    <span class="module-id">CORE</span>
-                </div>
+                                <div class="sub-module">
+                                        <h3 class="sub-module-title">1.4.2 Random Variables (Series 25)</h3>
+                                        <ul class="topic-list">
+                                                <li class="topic-item"><a href="25_01_discrete_rv.html">01. Discrete
+                                                                Random Variables</a></li>
+                                                <li class="topic-item"><a href="25_02_continuous_rv.html">02. Continuous
+                                                                Random Variables</a>
+                                                </li>
+                                                <li class="topic-item"><a href="25_03_pmf.html">03. PMF</a></li>
+                                                <li class="topic-item"><a href="25_04_pdf.html">04. PDF</a></li>
+                                                <li class="topic-item"><a href="25_05_cdf.html">05. CDF</a></li>
+                                                <li class="topic-item"><a href="25_06_cdf_properties.html">06.
+                                                                Properties of CDF</a></li>
+                                                <li class="topic-item"><a href="25_07_expected_value.html">07. Expected
+                                                                Value</a></li>
+                                                <li class="topic-item"><a href="25_08_variance.html">08. Variance</a>
+                                                </li>
+                                                <li class="topic-item"><a href="25_09_standard_deviation.html">09.
+                                                                Standard Deviation</a></li>
+                                                <li class="topic-item"><a href="25_10_moments.html">10. Moments</a></li>
+                                                <li class="topic-item"><a href="25_11_mgf.html">11. Moment Generating
+                                                                Functions</a></li>
+                                                <li class="topic-item"><a href="25_12_characteristic_fns.html">12.
+                                                                Characteristic Functions</a>
+                                                </li>
+                                                <li class="topic-item"><a href="25_13_skewness_kurtosis.html">13.
+                                                                Skewness & Kurtosis</a></li>
+                                                <li class="topic-item"><a href="25_14_median_mode.html">14. Median &
+                                                                Mode</a></li>
+                                                <li class="topic-item"><a href="25_15_quantiles_percentiles.html">15.
+                                                                Quantiles &
+                                                                Percentiles</a></li>
+                                                <li class="topic-item"><a href="25_16_rv_transformations.html">16.
+                                                                Transformation of RVs</a>
+                                                </li>
+                                                <li class="topic-item"><a href="25_17_rv_functions.html">17. Functions
+                                                                of RVs</a></li>
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.4.3 Common Discrete Distributions
+                                                                (Series 26)</h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="26_01_bernoulli.html">01.
+                                                                                Bernoulli Distribution</a>
+                                                                </li>
+                                                                <li class="topic-item"><a href="26_02_binomial.html">02.
+                                                                                Binomial Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="26_03_geometric.html">03.
+                                                                                Geometric Distribution</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="26_04_neg_binomial.html">04.
+                                                                                Negative Binomial</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="26_05_hypergeometric.html">05.
+                                                                                Hypergeometric
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a href="26_06_poisson.html">06.
+                                                                                Poisson Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="26_07_discrete_uniform.html">07.
+                                                                                Discrete Uniform</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="26_08_multinomial.html">08.
+                                                                                Multinomial Distribution</a>
+                                                                </li>
+                                                        </ul>
+                                                </div>
 
-                <div class="sub-module">
-                    <h3 class="sub-module-title">1.4.1 Basic Probability Concepts (Series 24)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><a href="24_01_exp_outcomes_sample.html">01. Exp & Sample Spaces</a></li>
-                        <li class="topic-item"><a href="24_02_events_event_spaces.html">02. Events & Event Spaces</a>
-                        </li>
-                        <li class="topic-item"><a href="24_03_kolmogorov_axioms.html">03. Kolmogorov Axioms</a></li>
-                        <li class="topic-item"><a href="24_04_prob_properties.html">04. Prob Properties</a></li>
-                        <li class="topic-item"><a href="24_05_complement_rule.html">05. Complement Rule</a></li>
-                        <li class="topic-item"><a href="24_06_addition_rule_exclusive.html">06. Addition Rule
-                                (Exclusive)</a></li>
-                        <li class="topic-item"><a href="24_07_general_addition_rule.html">07. General Addition Rule</a>
-                        </li>
-                        <li class="topic-item"><a href="24_08_multiplication_rule.html">08. Multiplication Rule</a></li>
-                        <li class="topic-item"><a href="24_09_conditional_prob.html">09. Conditional Probability</a>
-                        </li>
-                        <li class="topic-item"><a href="24_10_bayes_theorem.html">10. Bayes' Theorem</a></li>
-                        <li class="topic-item"><a href="24_11_law_total_prob.html">11. Law of Total Probability</a></li>
-                        <li class="topic-item"><a href="24_12_independence.html">12. Independence</a></li>
-                        <li class="topic-item"><a href="24_13_exclusive_vs_independent.html">13. Exclusive vs
-                                Independent</a></li>
-                        <li class="topic-item"><a href="24_14_counting_principles.html">14. Counting Principles</a></li>
-                        <li class="topic-item"><a href="24_15_permutations.html">15. Permutations</a></li>
-                        <li class="topic-item"><a href="24_16_combinations.html">16. Combinations</a></li>
-                        <li class="topic-item"><a href="24_17_binomial_coefficients.html">17. Binomial Coefficients</a>
-                        </li>
-                        <li class="topic-item"><a href="24_18_inclusion_exclusion.html">18. Inclusion-Exclusion</a></li>
-                    </ul>
-                </div>
-            </section>
-            </section>
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.4.4 Common Continuous
+                                                                Distributions (Series 27)</h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="27_01_uniform_cont.html">01.
+                                                                                Continuous Uniform</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_02_normal_dist.html">02. Normal
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_03_standard_normal.html">03.
+                                                                                Standard Normal</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_04_exponential.html">04.
+                                                                                Exponential Distribution</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_05_gamma_dist.html">05. Gamma
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_06_beta_dist.html">06. Beta
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a href="27_07_t_dist.html">07.
+                                                                                Student's t-Dist</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_08_chi_square.html">08.
+                                                                                Chi-Square Dist</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_09_f_distribution.html">09.
+                                                                                F-Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_10_laplace_dist.html">10.
+                                                                                Laplace Distribution</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_11_cauchy_dist.html">11. Cauchy
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_12_log_normal_dist.html">12.
+                                                                                Log-Normal
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_13_pareto_dist.html">13. Pareto
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_14_weibull_dist.html">14.
+                                                                                Weibull Distribution</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="27_15_dirichlet_dist.html">15.
+                                                                                Dirichlet
+                                                                                Distribution</a></li>
+                                                        </ul>
+                                                </div>
 
-        </div>
-    </main>
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.4.5 Multivariate Probability
+                                                                (Series 28)</h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="28_01_joint_dist.html">01. Joint
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_02_marginal_dist.html">02.
+                                                                                Marginal Distribution</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_03_conditional_dist.html">03.
+                                                                                Conditional
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_04_independence_rv.html">04.
+                                                                                Independence of RVs</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_05_exp_multiple_rvs.html">05.
+                                                                                Exp. Multiple RVs</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_06_covariance.html">06.
+                                                                                Covariance</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_07_correlation.html">07.
+                                                                                Correlation (Pearson)</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_08_corr_properties.html">08.
+                                                                                Correlation Props</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_09_spearman_rank.html">09.
+                                                                                Spearman's Rank</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_10_covariance_matrix.html">10.
+                                                                                Covariance Matrix</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_11_precision_matrix.html">11.
+                                                                                Precision Matrix</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_12_iterated_expectations.html">12.
+                                                                                Iterated
+                                                                                Expectations</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_13_total_variance.html">13. Law
+                                                                                of Total Variance</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_14_vector_rvs.html">14.
+                                                                                Vector-Valued RVs</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_15_multivariate_normal.html">15.
+                                                                                Multivar. Normal</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_16_conditional_gaussian.html">16.
+                                                                                Conditional
+                                                                                Gaussian</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="28_17_correlation_causation.html">17.
+                                                                                Corr vs
+                                                                                Causation</a></li>
+                                                        </ul>
+                                                </div>
+
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.4.6 Limit Theorems (Series 29)
+                                                        </h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="29_01_markov_inequality.html">01.
+                                                                                Markov's
+                                                                                Inequality</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="29_02_chebyshev_inequality.html">02.
+                                                                                Chebyshev's
+                                                                                Inequality</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="29_03_chernoff_bound.html">03.
+                                                                                Chernoff Bound</a></li>
+                                                                <li class="topic-item"><a href="29_04_weak_lln.html">04.
+                                                                                Weak Law (WLLN)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="29_05_strong_lln.html">05. Strong
+                                                                                Law (SLLN)</a></li>
+                                                                <li class="topic-item"><a href="29_06_clt.html">06.
+                                                                                Central Limit Theorem</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="29_07_conv_probability.html">07.
+                                                                                Conv. in
+                                                                                Probability</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="29_08_conv_distribution.html">08.
+                                                                                Conv. in
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="29_09_conv_almost_sure.html">09.
+                                                                                Conv. Almost Sure</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="29_10_slutsky_theorem.html">10.
+                                                                                Slutsky's Theorem</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="29_11_delta_method.html">11. The
+                                                                                Delta Method</a></li>
+                                                        </ul>
+                                                </div>
+
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.5.1 Foundations of Inference
+                                                                (Series 30)</h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="30_01_pop_vs_sample.html">01.
+                                                                                Population vs Sample</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_02_parameter_space.html">02.
+                                                                                Parameter Space</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_03_statistics_estimators.html">03.
+                                                                                Statistics &
+                                                                                Estimators</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_04_sampling_dist.html">04.
+                                                                                Sampling Distributions</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_05_bias_estimator.html">05.
+                                                                                Bias of an Estimator</a>
+                                                                </li>
+                                                                <li class="topic-item"><a href="30_06_mse.html">06. Mean
+                                                                                Squared Error</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_07_consistency_inference.html">07.
+                                                                                Consistency</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_08_efficiency_estimator.html">08.
+                                                                                Efficiency</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_09_method_of_moments.html">09.
+                                                                                Method of Moments</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_10_mle_intro.html">10. Max
+                                                                                Likelihood (MLE)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_11_mle_properties.html">11. MLE
+                                                                                Properties</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_12_fisher_information.html">12.
+                                                                                Fisher
+                                                                                Information</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_13_sufficient_statistics.html">13.
+                                                                                Sufficient
+                                                                                Statistics</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="30_14_map_estimation.html">14. MAP
+                                                                                Estimation</a></li>
+                                                        </ul>
+                                                </div>
+
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.5.2 Estimation & Bootstrap
+                                                                (Series 31)</h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="31_01_precision_accuracy.html">01.
+                                                                                Precision vs
+                                                                                Accuracy</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_02_ci_concept.html">02.
+                                                                                Confidence Intervals</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_03_ci_mean_known.html">03. CI
+                                                                                for Mean (Known)</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_04_ci_mean_unknown.html">04. CI
+                                                                                for Mean
+                                                                                (Unknown)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_05_t_distribution_inference.html">05.
+                                                                                t-dist in
+                                                                                Inference</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_06_ci_proportion.html">06. CI
+                                                                                for Proportion</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_07_ci_difference_means.html">07.
+                                                                                CI for
+                                                                                Difference</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_08_sample_size_determination.html">08.
+                                                                                Sample Size
+                                                                                Selection</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_09_bootstrap_principle.html">09.
+                                                                                Bootstrap
+                                                                                Principle</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_10_bootstrap_non_parametric.html">10.
+                                                                                Non-para
+                                                                                Bootstrap</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_11_bootstrap_parametric.html">11.
+                                                                                Parametric
+                                                                                Bootstrap</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_12_bootstrap_confidence_intervals.html">12.
+                                                                                Bootstrap
+                                                                                CIs</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_13_jackknife_method.html">13.
+                                                                                Jackknife Method</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_14_standard_errors_bootstrap.html">14.
+                                                                                Standard
+                                                                                Errors (Boot)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="31_15_bias_correction_bootstrap.html">15.
+                                                                                Bias
+                                                                                Correction (Boot)</a></li>
+                                                        </ul>
+                                                </div>
+
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.5.3 Hypothesis Testing (Series
+                                                                32)</h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="32_01_null_alt_hypothesis.html">01.
+                                                                                Null vs
+                                                                                Alternative</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_02_test_stat_crit_val.html">02.
+                                                                                Test Stat & Crit
+                                                                                Val</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_03_type1_type2_errors.html">03.
+                                                                                Type I & II
+                                                                                Errors</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_04_alpha_beta_power.html">04.
+                                                                                alpha, beta, &
+                                                                                Power</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_05_p_value_computation.html">05.
+                                                                                p-value &
+                                                                                Evidence</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_06_one_vs_two_tailed.html">06.
+                                                                                One vs Two Tailed</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_07_z_test_single_mean.html">07.
+                                                                                Z-test (Single
+                                                                                Mean)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_08_t_test_single_mean.html">08.
+                                                                                t-test (Single
+                                                                                Mean)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_09_z_test_proportions.html">09.
+                                                                                Z-test
+                                                                                (Proportions)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_10_two_sample_t_test.html">10.
+                                                                                Two-Sample t-test</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_11_paired_t_test.html">11.
+                                                                                Paired t-test</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_12_anova_one_way.html">12.
+                                                                                ANOVA: One-way</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_13_anova_two_way.html">13.
+                                                                                ANOVA: Two-way</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_14_chi_square_independence.html">14.
+                                                                                Chi-Square
+                                                                                (Indep)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_15_chi_square_goodness_fit.html">15.
+                                                                                Chi-Square
+                                                                                (Fit)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_16_non_parametric_wilcoxon.html">16.
+                                                                                Wilcoxon
+                                                                                Rank-Sum</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_17_non_parametric_kruskal.html">17.
+                                                                                Kruskal-Wallis
+                                                                                Test</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_18_effect_size_cohen.html">18.
+                                                                                Effect Size
+                                                                                (Cohen)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_19_multiple_testing_bonferroni.html">19.
+                                                                                Bonferroni
+                                                                                Correction</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="32_20_false_discovery_rate.html">20.
+                                                                                False Discovery
+                                                                                Rate</a></li>
+                                                        </ul>
+                                                </div>
+
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.5.4 Bayesian Statistics (Series
+                                                                33)</h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="33_01_bayesian_paradigm.html">01.
+                                                                                Bayesian vs
+                                                                                Frequentist</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_02_prior_distributions.html">02.
+                                                                                Prior
+                                                                                Distributions</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_03_likelihood_function.html">03.
+                                                                                Likelihood
+                                                                                Function</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_04_posterior_distribution.html">04.
+                                                                                Posterior
+                                                                                Distribution</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_05_bayes_theorem_parameters.html">05.
+                                                                                Bayes' Thm
+                                                                                (Parameters)</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_06_conjugate_priors_concept.html">06.
+                                                                                Conjugate
+                                                                                Priors</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_07_conjugate_priors_normal.html">07.
+                                                                                Normal-Normal
+                                                                                Pair</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_08_conjugate_priors_gamma.html">08.
+                                                                                Gamma-Poisson
+                                                                                Pair</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_09_bayesian_workflow.html">09.
+                                                                                Bayesian Workflow</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_10_credible_vs_confidence.html">10.
+                                                                                Credible vs
+                                                                                Confidence</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_11_bayesian_point_estimates.html">11.
+                                                                                Bayesian Point
+                                                                                Estimates</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_12_bayesian_hypothesis_testing.html">12.
+                                                                                Bayesian
+                                                                                Hypo Testing</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_13_bayes_factors.html">13.
+                                                                                Bayes Factors</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_14_mcmc_overview.html">14. MCMC
+                                                                                (The Solution)</a>
+                                                                </li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_15_gibbs_sampling.html">15.
+                                                                                Gibbs Sampling</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_16_metropolis_hastings.html">16.
+                                                                                Metropolis-Hastings</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_17_hamiltonian_monte_carlo.html">17.
+                                                                                Hamiltonian
+                                                                                Monte Carlo</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_18_bayesian_networks_structure.html">18.
+                                                                                Bayesian
+                                                                                Networks</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_19_conditional_independence_bn.html">19.
+                                                                                Conditional
+                                                                                Independence</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="33_20_bayesian_inference_applications.html">20.
+                                                                                Inference & ML Apps</a></li>
+                                                        </ul>
+                                                </div>
+
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.5.5 Regression Analysis (Series
+                                                                34)</h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="34_01_simple_linear_regression.html">01.
+                                                                                Simple Linear Regression</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_02_ols_mechanics.html">02. OLS
+                                                                                Mechanics</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_03_geometric_regression.html">03.
+                                                                                Geometric Interpretation</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_04_multiple_linear_regression.html">04.
+                                                                                Multiple Linear Regression</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_05_hat_matrix_projections.html">05.
+                                                                                The Hat Matrix</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_06_gauss_markov_theorem.html">06.
+                                                                                Gauss-Markov Theorem</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_07_residual_analysis.html">07.
+                                                                                Residual Analysis</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_08_r_squared.html">08.
+                                                                                R-squared</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_09_adj_r_squared.html">09.
+                                                                                Adjusted R-squared</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_10_multicollinearity_vif.html">10.
+                                                                                Multicollinearity & VIF</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_11_polynomial_regression.html">11.
+                                                                                Polynomial Regression</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_12_log_transform_regression.html">12.
+                                                                                Log-Linear Models</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_13_interaction_terms.html">13.
+                                                                                Interaction Terms</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_14_weighted_least_squares.html">14.
+                                                                                Weighted Least Squares</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_15_glm_link_functions.html">15.
+                                                                                GLMs & Link Functions</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_16_logistic_glm_connection.html">16.
+                                                                                Logistic/GLM Connection</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="34_17_leverage_influence.html">17.
+                                                                                Influence & Leverage</a></li>
+                                                        </ul>
+                                                </div>
+
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.5.6 Exp Design & Time Series
+                                                                (Series 35)</h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="35_01_experimental_randomization.html">01.
+                                                                                Randomization</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_02_factorial_designs.html">02.
+                                                                                Factorial Designs</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_03_blocking_confounding.html">03.
+                                                                                Blocking & Confounding</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_04_ab_testing_intro.html">04.
+                                                                                A/B Testing Intro</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_05_multi_armed_bandits.html">05.
+                                                                                Multi-armed Bandits</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_06_power_analysis.html">06.
+                                                                                Power Analysis</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_07_anova_in_experimental.html">07.
+                                                                                ANOVA in Experiments</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_08_timeseries_components.html">08.
+                                                                                Time Series Intro</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_09_stationarity_unit_root.html">09.
+                                                                                Stationarity</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_10_differencing_transformations.html">10.
+                                                                                Differencing</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_11_moving_averages_smoothing.html">11.
+                                                                                Moving Averages</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_12_acf_pacf_autocorrelation.html">12.
+                                                                                ACF & PACF</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_13_arima_models.html">13. ARIMA
+                                                                                Models</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_14_sarima_seasonal.html">14.
+                                                                                SARIMA Models</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="35_15_forecasting_final_eval.html">15.
+                                                                                Final Eval</a></li>
+                                                        </ul>
+                                                </div>
+
+                                                <div class="sub-module">
+                                                        <h3 class="sub-module-title">1.5.7 Information Theory (Series
+                                                                36)</h3>
+                                                        <ul class="topic-list">
+                                                                <li class="topic-item"><a
+                                                                                href="36_01_entropy_uncertainty.html">01.
+                                                                                Entropy</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_02_joint_conditional_entropy.html">02.
+                                                                                Joint & Conditional</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_03_mutual_information.html">03.
+                                                                                Mutual Info</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_04_kl_divergence.html">04. KL
+                                                                                Divergence</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_05_cross_entropy_loss.html">05.
+                                                                                Cross-Entropy</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_06_channel_capacity.html">06.
+                                                                                Channel Capacity</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_07_source_coding.html">07.
+                                                                                Source Coding</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_08_jensen_inequality.html">08.
+                                                                                Jensen's</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_09_gibbs_inequality.html">09.
+                                                                                Gibbs'</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_10_maximum_entropy_principle.html">10.
+                                                                                Max Entropy</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_11_information_geometry_fisher.html">11.
+                                                                                Info Geometry</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_12_f_divergences.html">12.
+                                                                                f-Divergences</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_13_renyi_entropy.html">13.
+                                                                                Renyi Entropy</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_14_kolmogorov_complexity.html">14.
+                                                                                Kolmogorov</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_15_minimum_description_length.html">15.
+                                                                                MDL Principle</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_16_compression_learning_link.html">16.
+                                                                                Compression vs Learning</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_17_arithmetic_coding.html">17.
+                                                                                Arithmetic Coding</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_18_typical_sets.html">18.
+                                                                                Typical Sets</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_19_asymptotic_equipartition.html">19.
+                                                                                AEP Principle</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_20_rate_distortion_theory.html">20.
+                                                                                Rate Distortion</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_21_directed_information.html">21.
+                                                                                Directed Info</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_22_quantum_information_basics.html">22.
+                                                                                Quantum Info</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_23_erm_information_theoretic.html">23.
+                                                                                ERM & Info</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_24_max_entropy_reinforcement.html">24.
+                                                                                MaxEnt RL</a></li>
+                                                                <li class="topic-item"><a
+                                                                                href="36_25_phase_1_final_capstone.html">25.
+                                                                                Final Capstone</a></li>
+                                                        </ul>
+                                                </div>
+                        </section>
+                        </section>
+
+                </div>
+        </main>
 </body>
 
 </html>

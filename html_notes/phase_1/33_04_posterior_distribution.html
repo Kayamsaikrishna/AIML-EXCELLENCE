@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posterior Distribution - Phase 1.5.4.4</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 33: Bayesian Statistics</li>
+            <li><a href="33_03_likelihood_function.html">03. Likelihood Function</a></li>
+            <li><a href="33_04_posterior_distribution.html" class="active">04. Posterior Distribution</a></li>
+            <li><a href="33_05_bayes_theorem_parameters.html">05. Bayes' Thm (Parameters)</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Posterior
+        </div>
+
+        <header>
+            <h1>04. Posterior Distribution</h1>
+            <p class="subtitle">The synthesis of prior knowledge and new evidence.</p>
+        </header>
+
+        <section>
+            <h2>1. The Final Verdict</h2>
+            <p>The <strong>Posterior Distribution</strong> $P(\theta | x)$ represents your updated belief about the
+                parameter $\theta$ after observing data $x$. It is essentially the "Answer" to a Bayesian inference
+                problem. </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Balancing Act</h2>
+            <p>The posterior is a compromise between the **Prior** and the **Likelihood**. </p>
+            <ul class="topic-list">
+                <li>If you have **Little Data**: The posterior stays close to the Prior.</li>
+                <li>If you have **Massive Data**: The Likelihood dominates, and even a strong prior is eventually
+                    "overwhelmed" by the evidence.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Learned Model</h2>
+            <div class="module-card">
+                <h3>Prediction with Confidence</h3>
+                <p>In AI, the Posterior is the <strong>Learned Model</strong>. </p>
+                <p>When you train a **Spam Filter**, the Posterior represents everything the AI knows about "Spammy"
+                    words. But unlike a simple "Yes/No" score, the posterior gives you a distribution. This is used in
+                    <strong>Probabilistic Deep Learning** to create **Ensemble effects** without multiple models.
+                        Instead of asking one model for its guess, we "Average" the predictions across the weights in
+                        the posterior distribution (Bayesian Model Averaging). This leads to predictions that are not
+                        only more accurate but also more **Robust to Noise**. If the posterior for a specific input is
+                        "Bi-modal" (two separate peaks), the AI knows it's seeing something ambiguous and should perhaps
+                        defer to a human expert. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Posterior vs. Prior</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Scenario: We have a Prior N(0, 1) and observe data N(2, 0.5)
+prior = norm.pdf(x, 0, 1)
+likelihood = norm.pdf(x, 2, 0.5)
+
+# Posterior is proportional to Prior * Likelihood
+unnormalized_posterior = prior * likelihood
+# We normalize it so it sums to 1
+posterior = unnormalized_posterior / np.trapz(unnormalized_posterior, x)
+
+plt.plot(x, prior, '--', label='Prior')
+plt.plot(x, likelihood, ':', label='Likelihood')
+plt.plot(x, posterior, '-', label='Posterior')
+# Notice how the Posterior sits BETWEEN the initial guess and the evidence!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 33: Bayesian Statistics.</p>
+    </footer>
+</body>
+
+</html>

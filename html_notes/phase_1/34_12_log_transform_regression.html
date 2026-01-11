@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log-Linear & Log-Log Models - Phase 1.5.5.12</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 34: Regression Analysis</li>
+            <li><a href="34_11_polynomial_regression.html">11. Polynomial Regression</a></li>
+            <li><a href="34_12_log_transform_regression.html" class="active">12. Log-Linear Models</a></li>
+            <li><a href="34_13_interaction_terms.html">13. Interaction Terms</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#regression">Regression</a> &gt; Log
+            Transformation
+        </div>
+
+        <header>
+            <h1>12. Log-Linear & Log-Log Models</h1>
+            <p class="subtitle">Linearizing growth and measuring elasticities.</p>
+        </header>
+
+        <section>
+            <h2>1. Why Logarithms?</h2>
+            <p>Data often spans massive scales (Wealth, Populations, Word counts). In these cases, a 1-unit increase in
+                $X$ isn't meaningful—a **Percentage change** is. By taking the Log of $X$, $Y$, or both, we can model
+                these multiplicative relationships linearly.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Interpretations</h2>
+            <ul class="topic-list">
+                <li><strong>Log-Linear ($\ln Y = \beta_0 + \beta_1 X$):</strong> A 1-unit change in $X$ is associated
+                    with a $100 \times \beta_1$ <strong>Percentage Change</strong> in $Y$. (Example: "Every extra year
+                    of education increases salary by 8%").</li>
+                <li><strong>Log-Log ($\ln Y = \beta_0 + \beta_1 \ln X$):</strong> Interpeted as
+                    <strong>Elasticity</strong>. A 1% change in $X$ results in a $\beta_1$% change in $Y$.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Power Laws and Log-Scalable Metrics</h2>
+            <div class="module-card">
+                <h3>Taming the Long Tail</h3>
+                <p>In AI, log-transformations are mandatory for <strong>Long-Tailed Distributions</strong>. </p>
+                <p>When training an AI on **Search Queries** or **User Engagement**, the raw numbers range from 0 to
+                    1,000,000. Without a Log-transform, the high-value outliers would "Stretch" the model into
+                    uselessness. By modeling in Log-space, the AI focuses on **Relative Growth**. This is why
+                    <strong>Network Latency** or **Packet Loss** metrics are often analyzed on a Log-scale.
+                        Understanding Elasticity is also critical in <strong>Pricing AI Models**: we need to know the
+                            price elasticity of demand—how much a 1% price increase will drop the AI subscription
+                            volume. Failing to log-transform "Skewed" data is the #1 reason for accurate-looking models
+                            that fail in the real world. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Log-Fitting</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Transform and fit
+X_log = np.log(X)
+y_log = np.log(y)
+
+model = LinearRegression().fit(X_log.reshape(-1, 1), y_log)
+
+print(f"Elasticity: {model.coef_[0]:.2f}")
+# This tells us the %-to-% relationship!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 34: Regression Analysis.</p>
+    </footer>
+</body>
+
+</html>

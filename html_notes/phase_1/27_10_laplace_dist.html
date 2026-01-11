@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laplace Distribution - Phase 1.4.3.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 27: Continuous Distributions</li>
+            <li><a href="27_09_f_distribution.html">09. F-Distribution</a></li>
+            <li><a href="27_10_laplace_dist.html" class="active">10. Laplace Distribution</a></li>
+            <li><a href="27_11_cauchy_dist.html">11. Cauchy Distribution</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Laplace
+        </div>
+
+        <header>
+            <h1>10. Laplace (Double Exponential) Distribution</h1>
+            <p class="subtitle">Sharp peaks and the math of sparsity.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Laplace Distribution</strong> can be thought of as two exponential distributions spliced
+                together back-to-back at the mean $\mu$. It is characterized by its sharp peak and heavy tails (compared
+                to Normal). </p>
+            <div class="math-block">
+                $$ f(x) = \frac{1}{2b} e^{-\frac{|x-\mu|}{b}} $$
+            </div>
+            <p>Where $\mu$ is the location parameter and $b$ is the scale parameter.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Statistical Properties</h2>
+            <ul class="topic-list">
+                <li><strong>Mean:</strong> $\mu$</li>
+                <li><strong>Variance:</strong> $2b^2$</li>
+                <li><strong>Kurtosis:</strong> 6 (higher than Normal's 3, indicating it is "leptokurtic").</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: L1 Regularization and Feature Selection</h2>
+            <div class="module-card">
+                <h3>The "Sparsity" Prior</h3>
+                <p>The Laplace distribution is the mathematical engine behind **L1 Regularization (Lasso)**. </p>
+                <p>In Machine Learning training, when we add an L1 penalty to our loss function, we are implicitly
+                    assuming that the model's weights follow a Laplace distribution centered at 0. Because of the sharp
+                    peak at zero, the optimization process is much more likely to push unimportant weights
+                    <strong>exactly to zero</strong>. This performs automatic **Feature Selection**, creating "Sparse"
+                    models that are easier to interpret and run faster in production. In **Robust Regression**, the
+                    Laplace distribution is used to model residuals that might have extreme outliers, as it is less
+                    sensitive to them than the Gaussian-based Least Squares approach. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Laplace vs. Normal</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+from scipy.stats import laplace, norm
+
+# Compare density at peak
+print(f"Laplace peak (b=1): {laplace.pdf(0, loc=0, scale=1):.4f}")
+print(f"Normal peak (std=1): {norm.pdf(0, loc=0, scale=1):.4f}")
+# Laplace is taller and sharper!
+
+# Sample weights (Sparse simulation)
+weights = laplace.rvs(loc=0, scale=0.1, size=10)
+print(f"Simulated Sparse Weights:\n{weights.round(3)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 27: Continuous Distributions.</p>
+    </footer>
+</body>
+
+</html>

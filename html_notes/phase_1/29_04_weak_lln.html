@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weak Law of Large Numbers - Phase 1.4.5.4</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 29: Limit Theorems</li>
+            <li><a href="29_03_chernoff_bound.html">03. Chernoff Bound</a></li>
+            <li><a href="29_04_weak_lln.html" class="active">04. Weak Law (WLLN)</a></li>
+            <li><a href="29_05_strong_lln.html">05. Strong Law (SLLN)</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; WLLN
+        </div>
+
+        <header>
+            <h1>04. Weak Law of Large Numbers (WLLN)</h1>
+            <p class="subtitle">The guarantee that sample averages converge in probability.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Weak Law of Large Numbers</strong> states that as the number of independent and identically
+                distributed (i.i.d.) samples $n$ increases, the sample mean $\bar{X}_n$ converges in probability to the
+                true population mean $\mu$. </p>
+            <div class="math-block">
+                $$ \lim_{n \to \infty} P(|\bar{X}_n - \mu| \ge \epsilon) = 0 \quad \text{for any } \epsilon > 0 $$
+            </div>
+            <p>This means that for any small margin of error $\epsilon$, the probability that the average is "wrong"
+                goes to zero as we get more data.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Intuition: The Truth in Numbers</h2>
+            <p>If you flip a fair coin 10 times, you might get 7 heads (70%). But if you flip it 1,000,000 times, the
+                chance of getting 70% heads is effectively zero. The "Weak" law guarantees that the average will
+                **eventually** stay within the neighborhood of the truth.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Consistency and Big Data</h2>
+            <div class="module-card">
+                <h3>Why More Data is Better</h3>
+                <p>The WLLN is why **Supervised Learning** works at all. </p>
+                <p>In **Statistics**, we call an estimator "Consistent" if it follows the WLLN. When we calculate the
+                    "Training Error" of an AI on a dataset, we are using the dataset average as an estimate for the
+                    "True Generalization Error." The WLLN guarantees that as we increase the size of our training set,
+                    the performance we see during training will become a perfect reflection of the model's true
+                    capability. This is the mathematical justification for the "Big Data" revolution—it proves that we
+                    can find the "True" patterns of the world simply by looking at enough examples. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Observing Convergence</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import matplotlib.pyplot as plt
+
+# Simulate n coin flips and track the running average
+n_trials = 5000
+flips = np.random.binomial(1, 0.5, n_trials)
+running_avg = np.cumsum(flips) / np.arange(1, n_trials + 1)
+
+plt.plot(running_avg)
+plt.axhline(y=0.5, color='r', linestyle='--')
+plt.title("WLLN: Convergence of Sample Mean")
+plt.xlabel("Number of Samples")
+plt.ylabel("Sample Mean")
+plt.show()</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 29: Limit Theorems.</p>
+    </footer>
+</body>
+
+</html>

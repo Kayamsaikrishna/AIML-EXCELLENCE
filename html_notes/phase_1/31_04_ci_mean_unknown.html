@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI for Mean (Unknown Variance) - Phase 1.5.2.4</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 31: Estimation</li>
+            <li><a href="31_03_ci_mean_known.html">03. CI for Mean (Known)</a></li>
+            <li><a href="31_04_ci_mean_unknown.html" class="active">04. CI for Mean (Unknown)</a></li>
+            <li><a href="31_05_t_distribution_inference.html">05. t-distribution in Inference</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; CI Mean
+            Unknown
+        </div>
+
+        <header>
+            <h1>04. CI for Population Mean (Unknown Variance)</h1>
+            <p class="subtitle">The t-Interval: Handling "Double Uncertainty."</p>
+        </header>
+
+        <section>
+            <h2>1. The Formula</h2>
+            <p>In almost all real-world AI projects, we do not know the population variance $\sigma^2$ beforehand. We
+                must estimate it from the sample using $s$. This adds a second layer of uncertainty, requiring us to use
+                the <strong>t-distribution</strong> instead of the Z-distribution. </p>
+            <div class="math-block">
+                $$ \bar{x} \pm t_{\alpha/2, n-1} \left( \frac{s}{\sqrt{n}} \right) $$
+            </div>
+            <ul class="topic-list">
+                <li>$\bar{x}$: Sample Mean.</li>
+                <li>$t_{\alpha/2, n-1}$: Critical value from the t-distribution with $n-1$ degrees of freedom.</li>
+                <li>$s / \sqrt{n}$: Sample Standard Error.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Why t is wider than Z</h2>
+            <p>The t-distribution has "fatter tails" than the Normal distribution. This wider range reflects our lack of
+                knowledge about the true variance. As the sample size $n$ increases, our estimate of $s$ becomes so good
+                that the t-distribution slowly merges with the Standard Normal Z-distribution. For $n > 100$, the
+                difference is negligible.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Experimental Reliability and Model Choice</h2>
+            <div class="module-card">
+                <h3>The Truth about Error Bars</h3>
+                <p>In AI, the Unknown-Variance CI is the **Professional Standard** for reporting results. </p>
+                <p>When you read a research paper that says "The model achieved $92\% \pm 1.2\%$ accuracy," they are
+                    almost always using a t-interval. This is critical for <strong>Comparing Models</strong>. If Model
+                    A's CI and Model B's CI overlap significantly, you cannot claim Model A is better—you simply have
+                    too little data to distinguish them. In <strong>Early Stage Training</strong>, where you might only
+                    have 10-20 "Golden Samples" for a niche task, using the t-interval instead of the Z-interval
+                    prevents you from being over-optimistic about your model's stability. It forces you to respect the
+                    fact that with small data, your estimate of the "noise" is itself noisy. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating the t-Interval</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy import stats
+
+# Data: Latency of an API call in milliseconds (n=12)
+latencies = [45, 52, 48, 41, 60, 55, 49, 44, 51, 53, 47, 50]
+n = len(latencies)
+mu_hat = np.mean(latencies)
+s_hat = np.std(latencies, ddof=1)
+
+# 95% Confidence (df = 11)
+t_crit = stats.t.ppf(0.975, df=n-1)
+
+margin_of_error = t_crit * (s_hat / np.sqrt(n))
+ci = (mu_hat - margin_of_error, mu_hat + margin_of_error)
+
+print(f"Sample Mean: {mu_hat:.2f}")
+print(f"95% CI (t-dist): ({ci[0]:.2f}, {ci[1]:.2f})")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 31: Estimation & Bootstrap.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slutsky's Theorem - Phase 1.4.5.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 29: Limit Theorems</li>
+            <li><a href="29_09_conv_almost_sure.html">09. Conv. Almost Sure</a></li>
+            <li><a href="29_10_slutsky_theorem.html" class="active">10. Slutsky's Theorem</a></li>
+            <li><a href="29_11_delta_method.html">11. The Delta Method</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Slutsky
+        </div>
+
+        <header>
+            <h1>10. Slutsky's Theorem</h1>
+            <p class="subtitle">Applying algebra to probabilistic limits.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p><strong>Slutsky's Theorem</strong> allows us to perform algebraic operations on sequences of random
+                variables that converge in different ways. If $X_n \xrightarrow{d} X$ (Convergence in Distribution) and
+                $Y_n \xrightarrow{p} c$ (Convergence in Probability to a constant), then:</p>
+            <ul class="topic-list">
+                <li>$X_n + Y_n \xrightarrow{d} X + c$</li>
+                <li>$X_n Y_n \xrightarrow{d} cX$</li>
+                <li>$X_n / Y_n \xrightarrow{d} X / c$ (if $c \neq 0$)</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Why It Matters</h2>
+            <p>In many real-world problems, we have one complex part of a formula that slowly becomes Gaussian ($X_n$)
+                and another part that steadily reveals its true value ($Y_n$). Slutsky's Theorem proves that we can
+                "substitute" the constant value into the formula without breaking the convergence of the Gaussian part.
+                This is the "Glue" that holds large-sample statistics together.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Hypothesis Testing and T-Tests</h2>
+            <div class="module-card">
+                <h3>The Math of Confidence Intervals</h3>
+                <p>Slutsky's Theorem is why we can use the **Standard Deviation of a Sample** instead of the unknown
+                    Population Standard Deviation. </p>
+                <p>In **Statistics for AI**, when we perform a <strong>Z-test</strong> or <strong>t-test</strong>, we
+                    calculate a score like $Z = \frac{\bar{X} - \mu}{s / \sqrt{n}}$. Here, the numerator $\bar{X} - \mu$
+                    converges in distribution to a Normal distribution (by CLT), and the denominator $s$ (sample
+                    standard deviation) converges in probability to the true $\sigma$ (by WLLN). Slutsky's Theorem
+                    guarantees that the resulting ratio $Z$ actually follows a Normal distribution in the limit. Without
+                    this theorem, our confidence intervals for AI accuracy would be mathematically invalid because we
+                    don't know the "True" variance of the entire world. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Observing Slutsky's Logic</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Xn -> N(0, 1) in distribution
+# Yn -> 5 in probability
+n = 10000
+xn = np.random.normal(0, 1, n)
+yn = 5 + (1 / np.sqrt(np.arange(1, n+1))) # Converges to 5
+
+# Combined Result
+zn = xn * yn[-1]
+
+print(f"Mean of Combined: {np.mean(zn):.4f}") # Near 0
+print(f"Std of Combined: {np.std(zn):.4f}")   # Near 5! (cX)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 29: Limit Theorems.</p>
+    </footer>
+</body>
+
+</html>

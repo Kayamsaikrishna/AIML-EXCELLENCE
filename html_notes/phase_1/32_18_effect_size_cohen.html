@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effect Size (Cohen's d) - Phase 1.5.3.18</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_17_non_parametric_kruskal.html">17. Kruskal-Wallis Test</a></li>
+            <li><a href="32_18_effect_size_cohen.html" class="active">18. Effect Size (Cohen's d)</a></li>
+            <li><a href="32_19_multiple_testing_bonferroni.html">19. Bonferroni Correction</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Effect Size
+        </div>
+
+        <header>
+            <h1>18. Effect Size (Cohen's d)</h1>
+            <p class="subtitle">Measuring the MAGNITUDE of change, not just its existence.</p>
+        </header>
+
+        <section>
+            <h2>1. The Significance Trap</h2>
+            <p>With a large enough sample size ($n=1,000,000$), almost any tiny difference becomes "Statistically
+                Significant" ($p < 0.05$). But is a 0.0001% increase in model accuracy worth a $10M cloud bill? This is
+                    where <strong>Effect Size</strong> comes in. It measures **Magnitude** independent of sample size.
+            </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Cohen's d</h2>
+            <p>The most common measure for comparing two means. It calculates how many standard deviations separate the
+                two groups.</p>
+            <div class="math-block">
+                $$ d = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled}} $$
+            </div>
+            <p>Guidelines: $d=0.2$ (Small), $d=0.5$ (Medium), $d=0.8$ (Large). </p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Practical Impact and Model ROI</h2>
+            <div class="module-card">
+                <h3>Is the juice worth the squeeze?</h3>
+                <p>In AI Deployment, Effect Size is the language of <strong>Product Management</strong>. </p>
+                <p>If you have a **Recommendation Engine** and your new deep-learning model is "Statistically
+                    Significant" over the base model, the next question is: "By how much?". If the **Cohen's d** is 0.1,
+                    the gain is "Negligible" even if the p-value is 0.0001. A low effect size means that while the
+                    improvement is "Real," it is so small that users won't notice it. In <strong>AutoML Search**, we
+                        filter results by Effect Size. We only care about hyperparameters that move the metric by a
+                        "Medium" or "Large" margin. This ensures that the AI team focuses on high-impact innovations
+                        rather than wasting time "polishing sand"—optimizing for tiny gains that have zero impact on the
+                        final business goal. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating d</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Mean scores and SDs of two models
+m1, s1 = 0.82, 0.04
+m2, s2 = 0.85, 0.05
+
+# Standard Pooled SD formula
+pooled_sd = np.sqrt((s1**2 + s2**2) / 2)
+d = (m2 - m1) / pooled_sd
+
+print(f"Cohen's d: {d:.2f}")
+# d = 0.67. This is a "Medium to Large" effect. 
+# It's definitely worth deploying the new model!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

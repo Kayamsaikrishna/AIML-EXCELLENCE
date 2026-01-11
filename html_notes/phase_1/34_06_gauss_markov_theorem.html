@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gauss-Markov Theorem - Phase 1.5.5.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 34: Regression Analysis</li>
+            <li><a href="34_05_hat_matrix_projections.html">05. The Hat Matrix</a></li>
+            <li><a href="34_06_gauss_markov_theorem.html" class="active">06. Gauss-Markov Theorem</a></li>
+            <li><a href="34_07_residual_analysis.html">07. Residual Analysis</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#regression">Regression</a> &gt; BLUE
+        </div>
+
+        <header>
+            <h1>06. Gauss-Markov Theorem</h1>
+            <p class="subtitle">Why OLS is the king of linear models.</p>
+        </header>
+
+        <section>
+            <h2>1. The BLUE Guarantee</h2>
+            <p>The <strong>Gauss-Markov Theorem</strong> states that if the error terms have zero mean and are
+                uncorrelated with constant variance (Homoscedastic), then the OLS estimator is the
+                <strong>BLUE</strong>:</p>
+            <ul class="topic-list">
+                <li><strong>Best:</strong> It has the minimum variance (lowest uncertainty).</li>
+                <li><strong>Linear:</strong> It is a linear function of the data.</li>
+                <li><strong>Unbiased:</strong> On average, it hits the true parameter.</li>
+                <li><strong>Estimator:</strong> It's a rule for guessing based on data.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Caveat</h2>
+            <p>Gauss-Markov is NOT about accuracy on new data; it is about the efficiency of estimating the *true*
+                underlying model. If your assumptions (like homoscedasticity) fail, OLS is no longer BLUE—you might need
+                **Weighted Least Squares** or **Regularization**.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Theoretical Guarantees and Dataset Sanity</h2>
+            <div class="module-card">
+                <h3>Knowing when to Trust the Model</h3>
+                <p>In AI, Gauss-Markov provides the <strong>Theoretical Lower Bound for Error**. </p>
+                <p>When you evaluate an **AutoML system**, it attempts thousands of models for your data. The
+                    Gauss-Markov theorem tells us that for a linear problem, you *cannot* beat OLS in terms of
+                    estimation efficiency if the noise is Gaussian. In <strong>Financial AI**, where we need "Unbiased"
+                        returns, this theorem is used to prove that a specific trading algorithm is the most efficient
+                        possible use of the signal. If we find a model that has even lower variance than OLS, we have
+                        either **Overfitted** or **Violated Linearity**. It serves as a "Reality Check" for complex deep
+                        learning architectures: if a 50-layer ResNet can't significantly beat the OLS-BLUE baseline,
+                        your data might just be inherently linear and much simpler to solve. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Checking Homoscedasticity</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># If variance is NOT constant, OLS is NOT BLUE
+residuals = y - model.predict(X)
+plt.scatter(model.predict(X), residuals)
+plt.axhline(0, color='red')
+# If the plot looks like a 'Fan' shape, Gauss-Markov is broken!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 34: Regression Analysis.</p>
+    </footer>
+</body>
+
+</html>

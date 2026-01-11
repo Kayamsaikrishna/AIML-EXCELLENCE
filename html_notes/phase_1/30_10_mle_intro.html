@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximum Likelihood Estimation (MLE) - Phase 1.5.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 30: Statistical Inference</li>
+            <li><a href="30_09_method_of_moments.html">09. Method of Moments</a></li>
+            <li><a href="30_10_mle_intro.html" class="active">10. Max Likelihood (MLE)</a></li>
+            <li><a href="30_11_mle_properties.html">11. MLE Properties</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; MLE
+        </div>
+
+        <header>
+            <h1>10. Maximum Likelihood Estimation (MLE)</h1>
+            <p class="subtitle">The engine of AI: Finding parameters that explain the data.</p>
+        </header>
+
+        <section>
+            <h2>1. The Definition</h2>
+            <p><strong>Maximum Likelihood Estimation (MLE)</strong> is a method of estimating the parameters of a
+                statistical model by finding the parameter values that maximize the <strong>Likelihood
+                    Function</strong>. It answers: "Which parameters make the observed data most probable?" </p>
+            <div class="math-block">
+                $$ L(\theta) = f(x_1, x_2, \dots, x_n \mid \theta) = \prod_{i=1}^n f(x_i \mid \theta) $$
+                $$ \hat{\theta}_{MLE} = \arg\max_{\theta} L(\theta) $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Log-Likelihood Hack</h2>
+            <p>Because maximizing a product is mathematically difficult, we almost always maximize the
+                <strong>Log-Likelihood</strong> ($l(\theta) = \ln L(\theta)$). Logarithms turn products into sums,
+                making the calculus significantly easier without changing the location of the maximum.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Foundation of Training</h2>
+            <div class="module-card">
+                <h3>The "Why" Behind Gradient Descent</h3>
+                <p>In AI, almost every training process is an <strong>MLE search</strong>. </p>
+                <p>When you minimize <strong>Cross-Entropy Loss</strong> in a Classification model, you are
+                    mathematically performing Maximum Likelihood Estimation. For <strong>Linear Regression</strong>,
+                    maximizing the Gaussian likelihood is equivalent to minimizing the <strong>Mean Squared Error
+                        (MSE)</strong>. Every time an AI model "learns" from data, it is iterating through the parameter
+                    space to find the MLE. It is the gold standard because, for large datasets, MLE is guaranteed to be
+                    <strong>Consistent</strong>, <strong>Asymptotically Normal</strong>, and <strong>Efficient</strong>
+                    (the best possible guess). Understanding MLE is the key to understanding why specific <strong>Loss
+                        Functions</strong> (like Negative Log-Likelihood) are chosen for different types of data. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: MLE for a Bernoulli Trial</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Observed: 80 heads in 100 coin flips. Estimate 'p'.
+# Likelihood = p^80 * (1-p)^20
+# Log-Likelihood = 80*log(p) + 20*log(1-p)
+
+p_values = np.linspace(0.01, 0.99, 100)
+log_lik = 80 * np.log(p_values) + 20 * np.log(1 - p_values)
+
+mle_p = p_values[np.argmax(log_lik)]
+print(f"MLE Estimate of p: {mle_p:.2f}") # Result: 0.80
+# For Bernoulli, MLE is simply (successes / total)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 30: Statistical Inference.</p>
+    </footer>
+</body>
+
+</html>

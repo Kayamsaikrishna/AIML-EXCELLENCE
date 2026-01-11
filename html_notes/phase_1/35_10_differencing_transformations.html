@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Differencing & Transformations - Phase 1.5.6.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 35: Time Series Analysis</li>
+            <li><a href="35_09_stationarity_unit_root.html">09. Stationarity</a></li>
+            <li><a href="35_10_differencing_transformations.html" class="active">10. Differencing</a></li>
+            <li><a href="35_11_moving_averages_smoothing.html">11. Moving Averages</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#timeseries">Time Series</a> &gt; Differencing
+        </div>
+
+        <header>
+            <h1>10. Differencing & Transformations</h1>
+            <p class="subtitle">Forcing the data to behave.</p>
+        </header>
+
+        <section>
+            <h2>1. The Differencing Hack</h2>
+            <p>If a time series is not stationary, the simplest solution is <strong>Differencing</strong>: instead of
+                modeling the value $Y_t$, you model the <strong>Change</strong> between time steps: </p>
+            <div class="math-block">
+                $$ \Delta Y_t = Y_t - Y_{t-1} $$
+            </div>
+            <p>Differencing removes the Trend. If a trend exists, $\Delta Y_t$ will be much more stable than $Y_t$. </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Transformations: Box-Cox & Log</h2>
+            <p>If the variance is increasing over time (Heteroscedasticity), a **Log Transformation** or **Box-Cox
+                Transformation** can "Squash" the data, making the variance constant. This is vital before applying
+                linear forecasting models.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Delta-Signals and Signal Stability</h2>
+            <div class="module-card">
+                <h3>Pre-processing for Success</h3>
+                <p>In AI, differencing is known as <strong>Delta-Feature Encoding**. </p>
+                <p>When training an AI for **Autonomous Driving**, we don't just feed the 'Position' of a pedestrian; we
+                    feed the **Velocity** (first derivative/difference) and **Acceleration** (second difference). These
+                    are stationary features that the AI can generalize across different locations. In <strong>Natural
+                        Language Processing (NLP)**, while we don't "difference" words, the concept of **Positional
+                        Encoding** in Transformers serves a similar purpose: it provides a relative reference point for
+                        the temporal sequence. By forcing data into a stationary form using transformations, AI
+                        engineers enable models like <strong>WaveNet** or <strong>TCNs (Temporal Convolutional
+                                Networks)** to converge 10x faster because the "Search Space" for the weights is much
+                                smaller and more predictable. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Applying Differencing</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Simple first-order difference
+diff_data = data.diff().dropna()
+
+# Visualizing the stationary signal
+plt.plot(diff_data)
+# Does it look like a constant cloud around zero?
+# If so, you've successfully linearized time!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 35: Experimental Design & Time Series.</p>
+    </footer>
+</body>
+
+</html>

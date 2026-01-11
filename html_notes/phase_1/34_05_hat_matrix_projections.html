@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hat Matrix & Projections - Phase 1.5.5.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 34: Regression Analysis</li>
+            <li><a href="34_04_multiple_linear_regression.html">04. Multiple Linear Regression</a></li>
+            <li><a href="34_05_hat_matrix_projections.html" class="active">05. The Hat Matrix</a></li>
+            <li><a href="34_06_gauss_markov_theorem.html">06. Gauss-Markov Theorem</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#regression">Regression</a> &gt; Hat Matrix
+        </div>
+
+        <header>
+            <h1>05. The Hat Matrix & Projections</h1>
+            <p class="subtitle">The linear algebra machinery of predictions.</p>
+        </header>
+
+        <section>
+            <h2>1. The Matrix Solution</h2>
+            <p>In matrix form, the OLS prediction is $\hat{Y} = X\beta$. To find the best $\beta$, we solve the
+                <strong>Normal Equations</strong>:</p>
+            <div class="math-block">
+                $$ \hat{\beta} = (X^T X)^{-1} X^T Y $$
+            </div>
+            <p>Substituting this back into the prediction gives: $\hat{Y} = X(X^T X)^{-1} X^T Y$.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Why "Hat" Matrix?</h2>
+            <p>We define $H = X(X^T X)^{-1} X^T$. This is the <strong>Hat Matrix</strong> because it "Puts a hat on Y"
+                (transforms $Y$ into $\hat{Y}$):</p>
+            <div class="math-block">
+                $$ \hat{Y} = H Y $$
+            </div>
+            <p>Properties: It is <strong>Idempotent</strong> ($H^2 = H$) and **Symmetric** ($H^T = H$). This confirms it
+                is a valid geometric projection matrix. </p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Attention Mechanisms and Linear Projections</h2>
+            <div class="module-card">
+                <h3>The Math of Focus</h3>
+                <p>In AI, the Hat Matrix logic is the soul of <strong>Linear Transformations**. </p>
+                <p>The core of a <strong>Transformer's Attention Mechanism** is a series of projections ($Q, K, V$). By
+                        projecting input embeddings into different subspaces, the AI "Attends" to different features.
+                        The Hat Matrix also helps in **Anomaly Detection**: the diagonal elements $H_{ii}$ (Leverage)
+                        tell the AI how much a specific data point $y_i$ influences its own prediction. If one point has
+                        massive leverage, it might be an outlier or a labeling error. Understanding the "Projection"
+                        nature of matrices allows AI engineers to optimize **Inference Speed** by using low-rank
+                        approximations of these matrices without losing the "Essence" of the data. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: The Manual Matrix Fit</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># The Matrix OLS Solution
+# (X'X)^-1 X'y
+XtX_inv = np.linalg.inv(X.T @ X)
+beta = XtX_inv @ X.T @ y
+
+# The Hat Matrix
+H = X @ XtX_inv @ X.T
+
+# Prediction via Hat Matrix
+y_hat = H @ y
+print(f"Predictions check (SSE): {np.sum((y - y_hat)**2):.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 34: Regression Analysis.</p>
+    </footer>
+</body>
+
+</html>

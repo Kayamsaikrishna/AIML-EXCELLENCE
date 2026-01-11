@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANOVA in Experimental Design - Phase 1.5.6.7</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 35: Experimental Design</li>
+            <li><a href="35_06_power_analysis.html">06. Power Analysis</a></li>
+            <li><a href="35_07_anova_in_experimental.html" class="active">07. ANOVA in Experiments</a></li>
+            <li><a href="35_08_timeseries_components.html">08. Time Series Intro</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#experimental">Experimental Design</a> &gt;
+            ANOVA
+        </div>
+
+        <header>
+            <h1>07. ANOVA in Experimental Design</h1>
+            <p class="subtitle">Comparing more than two versions at once.</p>
+        </header>
+
+        <section>
+            <h2>1. Beyond the T-test</h2>
+            <p>If you have three variants (A, B, and C), you could run three t-tests. But this increases the "False
+                Alarm" rate (Type I Error). <strong>Analysis of Variance (ANOVA)** is the statistical tool designed to
+                    test if there is *at least one* significant difference among multiple groups in a single step.</p>
+            <div class="math-block">
+                $$ F = \frac{\text{Variance between groups}}{\text{Variance within groups}} $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The F-Ratio</h2>
+            <p>If the variation between your experimental groups is much larger than the variation within each group
+                (the noise), the F-ratio will be high. This tells the AI: "The group difference is real and not just
+                random chance."</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Model Architecture Search (NAS)</h2>
+            <div class="module-card">
+                <h3>Benchmarking the Best</h3>
+                <p>In AI, ANOVA is used in <strong>Model Selection Frameworks**. </p>
+                <p>When you use **Neural Architecture Search (NAS)** or a tool like **Auto-GPT**, you are trying many
+                    different "recipes" (configurations). ANOVA allows the AI to statistically prove that Architecture B
+                    is significantly better than A, C, and D. It is also the backbone of <strong>Feature Importance
+                        Analysis**: we want to know if the difference in target prediction is truly influenced by the
+                        'Country' feature over 200 possible values. By using ANOVA, AI engineers can "Filter"
+                        categorical features that don't add enough signal to justify the model's memory footprint. It
+                        ensures your 7-Billion parameter model is only "Paying attention" to variables that actually
+                        move the needle. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: One-way ANOVA</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.stats import f_oneway
+
+group_a = [85, 86, 88, 75, 78]
+group_b = [90, 92, 93, 85, 87]
+group_c = [70, 72, 75, 65, 68]
+
+# Testing if at least one group is different
+f_stat, p_val = f_oneway(group_a, group_b, group_c)
+
+print(f"P-value: {p_val:.4f}")
+# If p < 0.05, we perform a 'Post-hoc' test to find WHICH one is best.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 35: Experimental Design & Time Series.</p>
+    </footer>
+</body>
+
+</html>

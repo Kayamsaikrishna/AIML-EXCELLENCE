@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parametric Bootstrap - Phase 1.5.2.11</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 31: Estimation</li>
+            <li><a href="31_10_bootstrap_non_parametric.html">10. Non-parametric Bootstrap</a></li>
+            <li><a href="31_11_bootstrap_parametric.html" class="active">11. Parametric Bootstrap</a></li>
+            <li><a href="31_12_bootstrap_confidence_intervals.html">12. Bootstrap CIs</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Para Bootstrap
+        </div>
+
+        <header>
+            <h1>11. Parametric Bootstrap</h1>
+            <p class="subtitle">Combining Model Assumptions with Resampling.</p>
+        </header>
+
+        <section>
+            <h2>1. The Concept</h2>
+            <p>The <strong>Parametric Bootstrap</strong> differs from the non-parametric version because it assumes the
+                population follows a specific distribution (like Normal, Poisson, or Gamma). </p>
+            <p>Instead of resampling from the data, we:
+            <ol class="topic-list">
+                <li>Estimate the parameters ($\hat{\theta}$) from the original sample.</li>
+                <li>Assume the "True" population is exactly that distribution.</li>
+                <li>Generate new "resamples" by drawing thousands of new values from that theoretical distribution.</li>
+            </ol>
+            </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Why use it?</h2>
+            <p>If you *know* the data is roughly Normal, the Parametric Bootstrap is much more powerful and accurate
+                than the non-parametric version, especially for tiny datasets. It effectively "smooths out" the noise in
+                your sample using the structure of the mathematical model. It serves as a bridge between pure theory and
+                pure data-driven estimation.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Generative Modeling and Synthetic Data</h2>
+            <div class="module-card">
+                <h3>The Logic of Simulation</h3>
+                <p>In AI, the Parametric Bootstrap is the heart of <strong>Data Augmentation via Simulation</strong>.
+                </p>
+                <p>If you are building an AI for <strong>Algorithmic Trading</strong>, you only have one "History" of
+                    the stock market. You can't just resample with replacement because the time dependency Matters.
+                    Instead, you fit a model (like an ARMA or GARCH process) to the data and then use the
+                    <strong>Parametric Bootstrap</strong> to simulate 10,000 "Alternative Histories" of the market. You
+                    then train your AI on these synthetic worlds. This is also how <strong>Generative Adversarial
+                        Networks (GANs)</strong> and <strong>Variational Autoencoders (VAEs)</strong> operate: they
+                    learn the "Parameters" of the image space and then "Resample" from that space to create new,
+                    synthetic cat pictures. Understanding this theorem tells you that synthetic data is not "Magic"—it
+                    is a mathematically valid way to explore the uncertainty of your model's beliefs. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Parametric Resampling</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Original Sample (n=20)
+data = np.random.normal(50, 5, 20)
+
+# 1. Estimate params
+mu_hat = np.mean(data)
+sigma_hat = np.std(data, ddof=1)
+
+# 2. Parametric Bootstrap
+boot_means = []
+for _ in range(5000):
+    # Generating from the ESTIMATED distribution, not the raw data
+    resample = np.random.normal(mu_hat, sigma_hat, 20)
+    boot_means.append(np.mean(resample))
+
+# 95% CI
+low, high = np.percentile(boot_means, [2.5, 97.5])
+print(f"Parametric Bootstrap CI: [{low:.2f}, {high:.2f}]")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 31: Estimation & Bootstrap.</p>
+    </footer>
+</body>
+
+</html>

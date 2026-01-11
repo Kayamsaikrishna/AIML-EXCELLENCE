@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANOVA: Two-way (Interaction) - Phase 1.5.3.13</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 32: Hypothesis Testing</li>
+            <li><a href="32_12_anova_one_way.html">12. ANOVA: One-way</a></li>
+            <li><a href="32_13_anova_two_way.html" class="active">13. ANOVA: Two-way</a></li>
+            <li><a href="32_14_chi_square_independence.html">14. Chi-Square (Independence)</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Two-way ANOVA
+        </div>
+
+        <header>
+            <h1>13. Two-way ANOVA</h1>
+            <p class="subtitle">Analyzing multiple factors and their hidden interactions.</p>
+        </header>
+
+        <section>
+            <h2>1. Beyond Single Factors</h2>
+            <p>While One-way ANOVA compares several groups of one factor, **Two-way ANOVA** looks at two factors
+                simultaneously. For example, if you are testing model performance, Factor 1 could be **Architecture**
+                (ResNet vs. ViT) and Factor 2 could be **Dataset Resolution** (224x224 vs. 512x512). </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Interaction Effects: The Critical Insight</h2>
+            <p>The most important part of a Two-way ANOVA is the <strong>Interaction Effect</strong>. This asks: "Does
+                the effect of one factor depend on the other?". For example, maybe ResNet works better at low
+                resolution, but ViT only works when resolution is high. If an interaction is present, you cannot talk
+                about one factor without mentioning the other. </p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Hyperparameter Synergy and Feature Crosses</h2>
+            <div class="module-card">
+                <h3>When A + B != C</h3>
+                <p>In AI, Two-way ANOVA is the core of **Advanced Ablation Studies**. </p>
+                <p>When you are tuning a **Neural Network**, you might tune the **Learning Rate** and the **Batch
+                    Size**. If you tune them one-by-one, you might miss the "Sweet Spot" because these factors have a
+                    massive **Interaction**. A high learning rate might be disastrous with a small batch, but perfect
+                    with a large one. In **Feature Engineering**, this concept drives **Feature Crosses**: when you
+                    combine "Gender" and "Income" into a single feature because the AI's behavior for income differs
+                    wildly depending on gender. Use Two-way ANOVA to prove that these combinations are statistically
+                    meaningful and not just adding unnecessary complexity to your model. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: statsmodels.formula.api</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import statsmodels.api as sm
+from statsmodels.formula.api import ols
+
+# DataFrame with results from Architecture and Resolution
+# 'score ~ C(Arch) + C(Res) + C(Arch):C(Res)'
+model = ols('score ~ C(Arch) * C(Res)', data=df).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+
+print(anova_table)
+# Look for the 'PR(>F)' of the interaction term 'Arch:Res'. 
+# If < 0.05, you have a breakthrough insight into your model's synergy!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 32: Hypothesis Testing.</p>
+    </footer>
+</body>
+
+</html>

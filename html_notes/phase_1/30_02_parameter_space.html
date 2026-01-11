@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parameter Space - Phase 1.5.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/SearchPath/cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">Series 30: Statistical Inference</li>
+            <li><a href="30_01_pop_vs_sample.html">01. Population vs Sample</a></li>
+            <li><a href="30_02_parameter_space.html" class="active">02. Parameter Space</a></li>
+            <li><a href="30_03_statistics_estimators.html">03. Statistics & Estimators</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#statistics">Statistics</a> &gt; Parameter
+            Space
+        </div>
+
+        <header>
+            <h1>02. Parameter Space ($\Theta$)</h1>
+            <p class="subtitle">Defining the boundaries of what is possible.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Parameter Space</strong> is the set of all possible values that a parameter (or vector of
+                parameters) can take for a given statistical model. It is usually denoted by the Greek letter $\Theta$.
+            </p>
+            <div class="math-block">
+                $$ \theta \in \Theta $$
+            </div>
+            <p>For example, if we are modeling the probability of a coin flip, the parameter space for $p$ is the
+                interval $[0, 1]$. If we are modeling heights (Normal distribution), the parameter space for $\sigma$ is
+                $(0, \infty)$.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Constrained vs. Unconstrained</h2>
+            <p>In many problems, the parameter space is limited by mathematical or physical reality. Variance cannot be
+                negative; probabilities cannot exceed 1. Defining $\Theta$ correctly is the first step in any
+                optimization or inference problem—it tells the "search engine" where it is allowed to look for the
+                truth.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Weights, Biases, and Hyperparameters</h2>
+            <div class="module-card">
+                <h3>The Terrain of Learning</h3>
+                <p>In AI, the Parameter Space is the <strong>Configuration Space</strong> of your model. </p>
+                <p>For a **Neural Network**, $\Theta$ is the massive high-dimensional space containing every possible
+                    combination of <strong>Weights ($W$) and Biases ($b$)</strong>. When we train a model, we are
+                    performing a search through this "Parameter Space" to find the specific $\theta$ that minimizes our
+                    loss function. In **Automated Machine Learning (AutoML)**, we define a <strong>Hyperparameter
+                        Space</strong> (e.g., Learning Rate $\in [1e-5, 1]$, Batch Size $\in \{16, 32, 64\}$) and use
+                    search algorithms to find the best configuration. If your parameter space is too small, your AI
+                    can't learn the truth (Underfitting); if it's too large or poorly defined, your optimizer might get
+                    lost in a "featureless desert" of noise. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Defining Bounds for Optimization</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.optimize import minimize
+
+# Objective: Find 'p' that maximizes likelihood
+# Constraint: p must be in [0, 1] (The Parameter Space)
+
+def objective(p):
+    # Log-likelihood example for 7 successes in 10 flips
+    return -(7 * np.log(p) + 3 * np.log(1 - p))
+
+# Search only within the valid Parameter Space
+result = minimize(objective, x0=0.5, bounds=[(1e-6, 1-1e-6)])
+
+print(f"Optimal p within Theta: {result.x[0]:.2f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Series 30: Statistical Inference.</p>
+    </footer>
+</body>
+
+</html>
