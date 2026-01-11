@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schur Decomposition - Phase 1.2.2.25</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_24_cholesky.html">24. Cholesky</a></li>
+            <li><a href="03_25_schur.html" class="active">25. Schur Decomposition</a></li>
+            <li><a href="03_26_jordan_form.html">26. Jordan Form</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Schur Decomposition
+        </div>
+
+        <header>
+            <h1>25. Schur Decomposition</h1>
+            <p class="subtitle">Unitary transformations for stability analysis.</p>
+        </header>
+
+        <section>
+            <h2>1. The Theorem</h2>
+            <p>Every square matrix \( \mathbf{A} \) (with potentially complex eigenvalues) can be factored as:</p>
+            <div class="math-block">
+                $$ \mathbf{A} = \mathbf{QTQ}^H $$
+            </div>
+            <p>Where \( \mathbf{Q} \) is a <strong>Unitary Matrix</strong> (\( \mathbf{Q}^H\mathbf{Q} = \mathbf{I} \))
+                and \( \mathbf{T} \) is an <strong>Upper Triangular Matrix</strong> (Schur Form).</p>
+        </section>
+
+        <section>
+            <h2>2. Importance in Control & Stability</h2>
+            <div class="module-card">
+                <h3>Theoretical Cornerstone</h3>
+                <p>Unlike Eigendecomposition (which requires the matrix to be diagonalizable), Schur Decomposition
+                    <strong>always exists</strong> for any square matrix. This makes it a primary tool for numerical
+                    stability proofs in control systems and recurrent neural networks (RNNs).
+                </p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Stability:</strong> The diagonal elements of \( \mathbf{T} \) are the
+                        eigenvalues of \( \mathbf{A} \). If any \( \text{Re}(\lambda) > 0 \), the system is unstable
+                        (Exploding Gradients).</li>
+                    <li class="topic-item"><strong>Base for other Decompositions:</strong> Most computer algorithms
+                        first reduce a matrix to Schur form before finding SVD or Eigendecomposition.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Real Schur Form</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+from scipy.linalg import schur
+
+A = np.array([[0, 2, 2], [0, 1, 2], [1, 0, 1]])
+
+# T is the (quasi) upper triangular schur form
+T, Q = schur(A)
+
+print(f"Schur Form T:\n{np.round(T, 2)}")
+print(f"Eigenvalues: {np.diag(T)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

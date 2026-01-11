@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Addition Rule - Phase 1.4.7</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.4 Basic Probability</li>
+            <li><a href="24_06_addition_rule_exclusive.html">06. Addition Rule (Exclusive)</a></li>
+            <li><a href="24_07_general_addition_rule.html" class="active">07. General Addition Rule</a></li>
+            <li><a href="24_08_multiplication_rule.html">08. Multiplication Rule</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; General
+            Addition
+        </div>
+
+        <header>
+            <h1>07. General Addition Rule</h1>
+            <p class="subtitle">Handling the overlap between possibilities.</p>
+        </header>
+
+        <section>
+            <h2>1. Overlapping Events</h2>
+            <p>In many real-world scenarios, events are <strong>not</strong> mutually exclusive. An email can be "Spam"
+                (A) AND "Urgent" (B). Simply adding their probabilities would count the "Spam AND Urgent" emails twice.
+            </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Formula (Inclusion-Exclusion)</h2>
+            <p>To find the probability of $A$ OR $B$ occurring, we add their individual probabilities and subtract the
+                intersection once to fix the double-counting:</p>
+            <div class="math-block">
+                $$ P(A \cup B) = P(A) + P(B) - P(A \cap B) $$
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Multi-Label Classification</h2>
+            <div class="module-card">
+                <h3>Non-Exclusive Tags</h3>
+                <p>Unlike standard image classification (where an image is ONLY one thing), <strong>Multi-Label
+                        Tagging</strong> allows overlapping events. </p>
+                <p>If an AI is tagging a news article, it might assign "Politics: 0.8" and "Crisis: 0.6". These are not
+                    mutually exclusive. If we want to calculate the probability that an article belongs to "Politics OR
+                    Crisis", we cannot just add $0.8 + 0.6 = 1.4$ (which is an impossible probability). We must use the
+                    <strong>General Addition Rule</strong>. This requires the model to also estimate the probability of
+                    the overlap. Proper multi-label probability modeling is what allows AI to understand that a single
+                    piece of data can represent multiple concepts simultaneously without breaking the mathematical
+                    bounds of probability.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Union of Overlapping Sets</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Experiment: Card drawn is a 'Heart' (A) OR a 'Face Card' (B)
+p_heart = 13/52
+p_face = 12/52
+p_heart_and_face = 3/52 # J, Q, K of Hearts
+
+# General Addition Rule
+p_union = p_heart + p_face - p_heart_and_face
+
+print(f"P(Heart OR Face): {p_union:.4f}")
+print(f"Direct Verification: {22/52:.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.4 Expansion.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computational Graphs - Phase 1.3.9.9</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.9 Calculus for AI/ML</li>
+            <li><a href="23_08_automatic_diff.html">08. Automatic Differentiation</a></li>
+            <li><a href="23_09_comp_graphs.html" class="active">09. Computational Graphs</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#calculus">Calculus</a> &gt; Comp Graphs
+        </div>
+
+        <header>
+            <h1>09. Computational Graphs</h1>
+            <p class="subtitle">The structural representation of calculus.</p>
+        </header>
+
+        <section>
+            <h2>1. Anatomy of a Graph</h2>
+            <p>A <strong>Computational Graph</strong> is a directed graph where <strong>Nodes</strong> represent
+                operations (add, multiply, exp) or variables, and <strong>Edges</strong> represent the flow of data.
+                This is how a computer "Sees" a mathematical equation.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Forward and Backward Passes</h2>
+            <ul class="topic-list">
+                <li><strong>Forward:</strong> Compute values from inputs to outputs following the arrows.</li>
+                <li><strong>Backward:</strong> Compute gradients from outputs to inputs by traversing the graph against
+                    the arrows using the chain rule.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Dynamic vs. Static Graphs</h2>
+            <div class="module-card">
+                <h3>Architecture Paradigms</h3>
+                <p>Computational graphs define the "Logic" of your AI model. </p>
+                <p><strong>TensorFlow 1.x</strong> used <strong>Static Graphs</strong>: you define the entire math graph
+                    first, then run data through it. This is fast but rigid. <strong>PyTorch</strong> popularized
+                    <strong>Dynamic Graphs</strong> (Imperative): the graph is built on-the-fly as code executes. This
+                    allows for complex logic like `if` statements or variable-length loops inside a neural network.
+                    Understanding the graph structure of calculus is essential for optimizing AI performance; it's what
+                    allows compilers (like XLA or TorchScript) to fuse operations and run math directly on GPU hardware
+                    at the speed of light. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: A Simple DAG</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Equation: z = (a + b) * c
+# Graph:
+# Node 1: d = a + b
+# Node 2: z = d * c
+
+# To calculate dz/da:
+# dz/da = (dz/dd) * (dd/da) 
+#       = c * 1 = c
+
+a, b, c = 2, 3, 4
+d = a + b
+z = d * c
+
+dz_dc = d
+dz_dd = c
+dd_da = 1
+
+dz_da = dz_dd * dd_da
+print(f"Gradient w.r.t a: {dz_da}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

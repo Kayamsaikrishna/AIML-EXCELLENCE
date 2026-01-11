@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Norms - Phase 1.2.2.30</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_29_hadamard.html">29. Hadamard Product</a></li>
+            <li><a href="03_30_matrix_norms.html" class="active">30. Matrix Norms</a></li>
+            <li><a href="03_31_condition_number.html">31. Condition Number</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Norms
+        </div>
+
+        <header>
+            <h1>30. Matrix Norms</h1>
+            <p class="subtitle">Measuring the magnitude of a linear transformation.</p>
+        </header>
+
+        <section>
+            <h2>1. Common Norms</h2>
+            <div class="module-card">
+                <h3>Frobenius Norm (\( ||\mathbf{A}||_F \))</h3>
+                <p>The matrix equivalent of the Euclidean norm for vectors. It is the square root of the sum of the
+                    squares of all elements.</p>
+                <div class="math-block">
+                    $$ ||\mathbf{A}||_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2} $$
+                </div>
+                <p><strong>AI Use:</strong> Used in <strong>Weight Decay</strong> (L2 Regularization) to penalize
+                    large layer weights and prevent overfitting.</p>
+            </div>
+
+            <div class="module-card">
+                <h3>Spectral Norm (\( ||\mathbf{A}||_2 \))</h3>
+                <p>The maximum "amplification" a matrix can provide to a vector. It equals the largest singular value
+                    (\( \sigma_{max} \)).</p>
+                <div class="math-block">
+                    $$ ||\mathbf{A}||_2 = \sigma_{max}(\mathbf{A}) $$
+                </div>
+                <p><strong>AI Use:</strong> <strong>Spectral Normalization</strong> is used in GANs to stabilize
+                    training
+                    by ensuring the Discriminator is Lipschitz continuous.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Importance in AI Generalization</h2>
+            <div class="module-card">
+                <h3>The Complexity Budget</h3>
+                <p>Large matrix norms often correlate with high model complexity. By constraining the norms of weight
+                    matrices, we force the model to learn smoother, more generalizable functions rather than
+                    memorizing noise.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Calculating Norms</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+W = np.random.randn(512, 1024)
+
+# Frobenius Norm (Default)
+fro_norm = np.linalg.norm(W)
+
+# Spectral Norm (Max Singular Value)
+spectral_norm = np.linalg.norm(W, ord=2)
+
+# Max Absolute Row Sum (L-infinity norm)
+inf_norm = np.linalg.norm(W, ord=np.inf)
+
+print(f"Frobenius: {fro_norm:.2f}")
+print(f"Spectral: {spectral_norm:.2f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

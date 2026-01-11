@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change of Basis - Phase 1.2.18</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2 Linear Algebra</li>
+            <li><a href="02_17_basis_dimension.html">17. Basis & Dimension</a></li>
+            <li><a href="02_18_change_basis.html" class="active">18. Change of Basis</a></li>
+            <li><a href="02_19_inner_products.html">19. Inner Products</a></li>
+            <li class="nav-label">1.1 Arithmetic & Algebra</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Change of Basis
+        </div>
+
+        <header>
+            <h1>18. Change of Basis</h1>
+            <p class="subtitle">Looking at the same problem from a different angle.</p>
+        </header>
+
+        <section>
+            <h2>1. Coordinate Transformations</h2>
+            <p>A vector's components are relative to its <strong>Basis</strong>. If you change the basis from
+                \( \mathcal{B} \) to \( \mathcal{B}' \), you need a <strong>Transition Matrix \( P \)</strong>.</p>
+
+            <div class="math-block">
+                $$ [\mathbf{x}]_{\mathcal{B}} = P [\mathbf{x}]_{\mathcal{B}'} $$
+            </div>
+
+            <div class="visual-diagram">
+                <svg width="400" height="250" viewBox="0 0 400 250">
+                    <!-- Standard Grid (Grey) -->
+                    <line x1="50" y1="200" x2="350" y2="200" stroke="#cbd5e1" />
+                    <line x1="200" y1="50" x2="200" y2="250" stroke="#cbd5e1" />
+
+                    <!-- New Basis Axes (Rotated Blue) -->
+                    <line x1="200" y1="150" x2="350" y2="50" stroke="#3b82f6" stroke-width="2" />
+                    <line x1="200" y1="150" x2="100" y2="0" stroke="#3b82f6" stroke-width="2" />
+
+                    <text x="360" y="50" fill="#3b82f6">b1'</text>
+                    <text x="80" y="20" fill="#3b82f6">b2'</text>
+                    <text x="360" y="200" fill="#94a3b8">Standard x</text>
+                </svg>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Kernels & Linear Separation</h2>
+            <div class="module-card">
+                <h3>The Kernel Trick</h3>
+                <p>In <strong>Support Vector Machines (SVMs)</strong>, we often have data that isn't linearly
+                    separable in its raw basis. We change the basis (often to an infinite-dimensional one) where the
+                    data becomes perfectly separable by a straight line or plane.</p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Coordinate Shifts:</strong> Useful in Image Processing to align
+                        images from different cameras.</li>
+                    <li class="topic-item"><strong>Diagonalization:</strong> Changing basis to the eigenvectors of a
+                        matrix to simplify operations (Matrix Exponentiation).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Change of Basis Computation</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# Standard Basis Vector
+v_std = np.array([3, 4])
+
+# New Basis B' = {[1, 1], [1, -1]}
+B_prime = np.array([[1, 1], [1, -1]]).T
+
+# Transition Matrix (Standard to B') = inverse(B')
+P_inv = np.linalg.inv(B_prime)
+
+# Coordinates in new basis
+v_new = P_inv @ v_std
+
+print(f"Standard coords: {v_std}")
+print(f"New basis coords: {v_new}") # [3.5, -0.5]</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

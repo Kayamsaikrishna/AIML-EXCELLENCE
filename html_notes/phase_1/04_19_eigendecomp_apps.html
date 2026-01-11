@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eigendecomposition Apps - Phase 1.2.3.19</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.3 Eigen-systems</li>
+            <li><a href="04_18_pca_svd.html">18. PCA vs SVD Relation</a></li>
+            <li><a href="04_19_eigendecomp_apps.html" class="active">19. Eigendecomposition Apps</a></li>
+            <li><a href="04_20_matrix_functions.html">20. Matrix Functions</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Eigendecomposition Apps
+        </div>
+
+        <header>
+            <h1>19. Broad Applications of Eigendecomposition</h1>
+            <p class="subtitle">The engine behind Physics and modern Graph Theory.</p>
+        </header>
+
+        <section>
+            <h2>1. Graph Theory: Spectral Clustering</h2>
+            <div class="module-card">
+                <p>How do you cluster nodes in a graph that aren't linearly separable? By finding the
+                    eigenvalues and eigenvectors of the <strong>Graph Laplacian</strong> \(\mathbf{L} = \mathbf{D} -
+                    \mathbf{A}\).
+                    The second smallest eigenvalue (Fiedler value) tells us the minimum cut needed to split the graph.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Physics: Normal Modes</h2>
+            <p>In mechanical engineering or sound simulation, eigenvalues represent <strong>natural frequencies</strong>
+                of vibration. In AI, this is used in <strong>Physics-Informed Neural Networks (PINNs)</strong>
+                to ensure models follow real-world oscillation patterns.</p>
+        </section>
+
+        <section>
+            <h2>3. Stability in Recurrent Networks (RNNs)</h2>
+            <div class="module-card">
+                <h3>The Spectral Radius Rule</h3>
+                <p>If the maximum eigenvalue (Spectral Radius) of the weight matrix in an RNN is greater than 1,
+                    the hidden state will likely <strong>Explode</strong> over time. Maintaining eigenvalues
+                    near 1 is the goal of <strong>Orthogonal Initializers</strong> and Gradient Clipping.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Face Recognition (Eigenfaces)</h2>
+            <p>The first ever successful face recognition algorithm used PCA on images. The principal components
+                literally look like "Ghost Faces" that capture the primary features (jawline, eye shape)
+                needed to distinguish one person from another.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marginal Analysis - Phase 1.3.3.8</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.3 Applications of Derivs</li>
+            <li><a href="17_07_velocity_acceleration.html">07. Velocity & Accel</a></li>
+            <li><a href="17_08_marginal_analysis.html" class="active">08. Marginal Analysis</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Marginal Analysis
+        </div>
+
+        <header>
+            <h1>08. Marginal Analysis (Economics)</h1>
+            <p class="subtitle">The derivative in the world of business.</p>
+        </header>
+
+        <section>
+            <h2>1. The "Marginal" Concept</h2>
+            <p>In economics, "marginal" is simply another word for <strong>derivative</strong>. It describes the rate of
+                change of a total quantity with respect to the number of units produced or sold.</p>
+            <ul class="topic-list">
+                <li><strong>Marginal Cost \(C'(x)\):</strong> The cost of producing one additional unit.</li>
+                <li><strong>Marginal Revenue \(R'(x)\):</strong> The additional income from selling one more unit.</li>
+                <li><strong>Marginal Profit \(P'(x)\):</strong> The change in profit for one more unit.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Optimization Rule</h2>
+            <p>A business maximizes its profit when <strong>Marginal Revenue equals Marginal Cost</strong> (\(MR =
+                MC\)). This is because at this point, the derivative of profit \(P(x) = R(x) - C(x)\) is zero:</p>
+            <div class="math-block">
+                $$ P'(x) = R'(x) - C'(x) = 0 \implies R'(x) = C'(x) $$
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Dynamic Pricing Engines</h2>
+            <div class="module-card">
+                <h3>Real-Time Revenue Maximization</h3>
+                <p>Platforms like Amazon, Uber, and Airlines use AI models for <strong>Dynamic Pricing</strong>. These
+                    models estimate the "Price Elasticity of Demand" (which is a percentage-based derivative). </p>
+                <p>By calculating the marginal revenue and marginal cost in real-time as supply and demand shift, the AI
+                    can find the "Optimal Price Point" that maximizes profit at every single second. These
+                    high-frequency adjustments are impossible for humans but are straightforward for an AI agent
+                    equipped with calculus logic.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Finding Profit-Max Quantity</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># C(x) = 100 + 5x (Cost)
+# R(x) = 20x - 0.1x^2 (Revenue)
+# P(x) = R(x) - C(x)
+
+import sympy as sp
+
+x = sp.Symbol('x')
+cost = 100 + 5*x
+rev = 20*x - 0.1*x**2
+profit = rev - cost
+
+# Maximize profit
+p_prime = sp.diff(profit, x)
+opt_q = sp.solve(p_prime, x)[0]
+
+print(f"Optimal quantity to produce: {opt_q}")
+print(f"Max Profit: ${profit.subs(x, opt_q)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

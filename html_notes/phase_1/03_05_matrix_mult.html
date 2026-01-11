@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Multiplication - Phase 1.2.2.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_04_matrix_ops.html">04. Matrix Ops</a></li>
+            <li><a href="03_05_matrix_mult.html" class="active">05. Matrix Mult</a></li>
+            <li><a href="03_06_non_commutative.html">06. Non-Commutativity</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Mult
+        </div>
+
+        <header>
+            <h1>05. Matrix Multiplication (Dot Product Rule)</h1>
+            <p class="subtitle">The dynamic engine of AI inference.</p>
+        </header>
+
+        <section>
+            <h2>1. The Fundamental Rule</h2>
+            <p>To multiply \( \mathbf{A} \) (\( m \times n \)) and \( \mathbf{B} \) (\( n \times p \)), the
+                <strong>columns of A must match the rows of B</strong>. The result is a matrix of size \( m \times p \).
+            </p>
+
+            <div class="math-block">
+                $$ c_{ij} = \sum_{k=1}^n a_{ik}b_{kj} $$
+            </div>
+            <p>Each element \( c_{ij} \) is the <strong>Dot Product</strong> of the \( i \)-th row of A and the \( j
+                \)-th column of B.</p>
+        </section>
+
+        <section>
+            <h2>2. Visualizing Parallel Processing</h2>
+            <div class="visual-diagram">
+                <svg width="500" height="200" viewBox="0 0 500 200">
+                    <!-- Matrix A (Rows) -->
+                    <rect x="50" y="50" width="80" height="100" fill="#bfdbfe" stroke="#1e40af" />
+                    <line x1="50" y1="75" x2="130" y2="75" stroke="#1e40af" stroke-dasharray="2" />
+                    <line x1="50" y1="100" x2="130" y2="100" stroke="#1e40af" />
+                    <text x="70" y="40" font-weight="bold">Rows of A</text>
+
+                    <text x="150" y="105" font-size="24">×</text>
+
+                    <!-- Matrix B (Cols) -->
+                    <rect x="180" y="50" width="100" height="80" fill="#bbf7d0" stroke="#16a34a" />
+                    <line x1="213" y1="50" x2="213" y2="130" stroke="#16a34a" stroke-dasharray="2" />
+                    <line x1="246" y1="50" x2="246" y2="130" stroke="#16a34a" />
+                    <text x="200" y="40" font-weight="bold">Cols of B</text>
+
+                    <text x="295" y="105" font-size="24">=</text>
+
+                    <!-- Result C -->
+                    <rect x="330" y="50" width="100" height="100" fill="#fef08a" stroke="#ca8a04" />
+                    <text x="350" y="40" font-weight="bold">Result C</text>
+                </svg>
+            </div>
+
+            <div class="module-card">
+                <h3>Linear Layers (Dense Layers)</h3>
+                <p>In a Neural Network, calculating the hidden state is a matrix multiplication: \( \mathbf{H} =
+                    \sigma(\mathbf{X} \mathbf{W}) \).</p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>X:</strong> Input batch matrix.</li>
+                    <li class="topic-item"><strong>W:</strong> Weight matrix where each column is one neuron.</li>
+                    <li class="topic-item"><strong>Scaling:</strong> Since compute cost is \( O(m \cdot n \cdot p) \),
+                        optimizing matrix multiplication is the primary goal of AI hardware designers (Tensor Cores).
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Efficient Multiplication</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+A = np.random.rand(128, 512) # 128 samples, 512 features
+W = np.random.rand(512, 1024) # 512 inputs, 1024 neurons
+
+# Standard Matrix Mult (The @ operator)
+C = A @ W 
+
+print(f"Result shape: {C.shape}") # (128, 1024)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

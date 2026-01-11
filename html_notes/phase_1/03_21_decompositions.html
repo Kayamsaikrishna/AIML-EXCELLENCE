@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Decompositions - Phase 1.2.2.21</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_20_elementary_matrices.html">20. Elementary Matrices</a></li>
+            <li><a href="03_21_decompositions.html" class="active">21. Decompositions</a></li>
+            <li><a href="03_22_lu_decomp.html">22. LU Decomposition</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Decompositions
+        </div>
+
+        <header>
+            <h1>21. Matrix Decompositions (Factorization)</h1>
+            <p class="subtitle">Finding the prime factors of a matrix.</p>
+        </header>
+
+        <section>
+            <h2>1. Why Decompose?</h2>
+            <p>Just as \( 12 = 3 \times 4 \) tells us about the properties of 12, factoring a matrix into a product
+                of simpler matrices (Symmetric, Orthogonal, Triangular) makes complex problems trivial to solve.</p>
+
+            <div class="module-card">
+                <h3>The Three Main Goals</h3>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Computational Speed:</strong> Solving \( \mathbf{Ax} = \mathbf{b} \)
+                        is \( O(n^3) \). Using LU or Cholesky makes it much faster for large batches.</li>
+                    <li class="topic-item"><strong>Numerical Stability:</strong> Directly calculating \( \mathbf{A}^{-1}
+                        \) introduces huge rounding errors. Decompositions avoid this.</li>
+                    <li class="topic-item"><strong>Interpretability:</strong> SVD or Eigendecomposition tells us the
+                        "principal directions" of data variance (PCA).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. The AI Toolkit Overview</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Decomposition</th>
+                        <th>Factors</th>
+                        <th>Typical AI Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>LU</strong></td>
+                        <td>L (Lower), U (Upper)</td>
+                        <td>Fast inference and system solving.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QR</strong></td>
+                        <td>Q (Orthogonal), R (Triangular)</td>
+                        <td>Least squares and stable regression.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cholesky</strong></td>
+                        <td>L · L<sup>T</sup></td>
+                        <td>Sampling from Gaussian distributions.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SVD</strong></td>
+                        <td>U · Σ · V<sup>T</sup></td>
+                        <td>Rank reduction (LoRA), PCA, Compression.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Python: Native Scipy Methods</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+from scipy.linalg import lu, qr, cholesky
+
+A = np.array([[4, 12, -16], [12, 37, -43], [-16, -43, 98]])
+
+# LU
+P, L, U = lu(A)
+
+# QR
+Q, R = qr(A)
+
+# Cholesky (Requires positive definite symmetric)
+L_chol = cholesky(A, lower=True)
+
+print("LU and QR are the workhorses of numerical AI.")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

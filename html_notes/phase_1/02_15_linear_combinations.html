@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Combinations - Phase 1.2.15</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2 Linear Algebra</li>
+            <li><a href="02_14_subspaces_span.html">14. Subspaces & Span</a></li>
+            <li><a href="02_15_linear_combinations.html" class="active">15. Linear Combinations</a></li>
+            <li><a href="02_16_linear_independence.html">16. Linear Independence</a></li>
+            <li class="nav-label">1.1 Arithmetic & Algebra</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Linear Combinations
+        </div>
+
+        <header>
+            <h1>15. Linear Combinations</h1>
+            <p class="subtitle">The basic operation of all Neural Networks.</p>
+        </header>
+
+        <section>
+            <h2>1. Algebraic Definition</h2>
+            <p>A linear combination is a result of scaling vectors and adding them together.</p>
+
+            <div class="math-block">
+                $$ \mathbf{w} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \dots + c_n \mathbf{v}_n $$
+            </div>
+
+            <div class="visual-diagram">
+                <svg width="450" height="200" viewBox="0 0 450 200">
+                    <!-- Layer concept -->
+                    <circle cx="50" cy="40" r="10" fill="#3b82f6" /><text x="70" y="45">v1</text>
+                    <circle cx="50" cy="100" r="10" fill="#3b82f6" /><text x="70" y="105">v2</text>
+                    <circle cx="50" cy="160" r="10" fill="#3b82f6" /><text x="70" y="165">v3</text>
+
+                    <!-- Weights -->
+                    <line x1="60" y1="40" x2="250" y2="100" stroke="#94a3b8" stroke-width="2" />
+                    <line x1="60" y1="100" x2="250" y2="100" stroke="#94a3b8" stroke-width="4" />
+                    <line x1="60" y1="160" x2="250" y2="100" stroke="#94a3b8" stroke-width="1" />
+
+                    <!-- Summation Node -->
+                    <circle cx="260" cy="100" r="25" fill="#1e40af" />
+                    <text x="252" y="107" fill="white" font-weight="bold" font-size="20">Σ</text>
+
+                    <text x="300" y="105" font-weight="bold" fill="#1e40af">w = 0.5 v1 + 2.0 v2 + 0.1 v3</text>
+                </svg>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. The "Linear" in Neural Networks</h2>
+            <div class="module-card">
+                <h3>Weighted Summing</h3>
+                <p>Every single neuron in a network performs a <strong>Linear Combination</strong> of its inputs before
+                    applying a non-linear activation. The "weights" of the target model \(W\) are the scalars \(c_i\).
+                </p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Inference:</strong> Calculating the output is just taking a linear
+                        combination.</li>
+                    <li class="topic-item"><strong>Training:</strong> Adjusting the scalars \(c_i\) to minimize error.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Manual Linear Combination</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# Basis Vectors
+v1 = np.array([1, 0])
+v2 = np.array([0, 1])
+
+# Scalars (Weights)
+c1, c2 = 2.5, -1.2
+
+# Linear Combination
+w = c1*v1 + c2*v2 
+
+print(f"Resultant Vector: {w}") # Output: [2.5, -1.2]</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

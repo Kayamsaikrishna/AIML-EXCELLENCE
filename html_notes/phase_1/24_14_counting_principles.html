@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counting Principles - Phase 1.4.14</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.4 Basic Probability</li>
+            <li><a href="24_13_exclusive_vs_independent.html">13. Exclusive vs Independent</a></li>
+            <li><a href="24_14_counting_principles.html" class="active">14. Counting Principles</a></li>
+            <li><a href="24_15_permutations.html">15. Permutations</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Counting
+        </div>
+
+        <header>
+            <h1>14. Counting Principles</h1>
+            <p class="subtitle">The math of "How many ways?"</p>
+        </header>
+
+        <section>
+            <h2>1. Multiplication Principle</h2>
+            <p>The <strong>Multiplication Principle</strong> (Fundamental Counting Principle) states that if one event
+                can occur in \(m\) ways and another in \(n\) ways, the total number of ways both can occur is \(m \times
+                n\).</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Addition Principle</h2>
+            <p>The <strong>Addition Principle</strong> states that if two events are mutually exclusive, and the first
+                can occur in \(m\) ways while the second can occur in \(n\) ways, the total number of ways <i>either</i>
+                can occur is \(m + n\).</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Hyperparameter Grid Search</h2>
+            <div class="module-card">
+                <h3>The Explosion of Possibilities</h3>
+                <p>In Machine Learning, we often need to find the best settings (hyperparameters) for our models. </p>
+                <p>If you have: </p>
+                <ul class="topic-list">
+                    <li>3 Learning Rates</li>
+                    <li>4 Batch Sizes</li>
+                    <li>2 Types of Optimizers</li>
+                </ul>
+                <p>The <strong>Multiplication Principle</strong> tells us there are $3 \times 4 \times 2 = 24$ unique
+                    combinations to test. While 24 sounds small, modern AI models have dozens of hyperparameters,
+                    leading to <strong>Combinatorial Explosion</strong>. This is why we use <strong>Random
+                        Search</strong> or <strong>Bayesian Optimization</strong> instead of checking every single
+                    combination. Counting principles allow AI Engineers to estimate the "Search Space" of a problem,
+                    helping them decide how much compute power they need to find the optimal solution. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Cartesisan Product Counting</h2>
+            <div class="code-block">
+                <pre><code class="language-python">h_params = {
+    "lr": [0.1, 0.01, 0.001],
+    "batch": [16, 32, 64, 128],
+    "opt": ["SGD", "Adam"]
+}
+
+total_ways = 1
+for key in h_params:
+    total_ways *= len(h_params[key])
+
+print(f"Total Grid Search points: {total_ways}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.4 Expansion.</p>
+    </footer>
+</body>
+
+</html>

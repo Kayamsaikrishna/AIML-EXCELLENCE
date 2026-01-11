@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curves & Motion - Phase 1.3.3.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.3 Applications of Derivatives</li>
+            <li><a href="17_04_taylor_intro.html">04. Taylor Intro</a></li>
+            <li><a href="17_05_curves_motion.html" class="active">05. Curves & Motion</a></li>
+            <li><a href="17_06_marginal_analysis.html">06. Marginal Analysis</a></li>
+            <li class="nav-label">1.3.4 Integration</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Curves/Motion
+        </div>
+
+        <header>
+            <h1>05. Curve Sketching and Motion</h1>
+            <p class="subtitle">The complete visual analysis of functions.</p>
+        </header>
+
+        <section>
+            <h2>1. The Curve Sketching Checklist</h2>
+            <div class="module-card">
+                <ol class="topic-list">
+                    <li class="topic-item"><strong>Domain/Intercepts:</strong> Where does it live and where does it
+                        cross zero?</li>
+                    <li class="topic-item"><strong>Asymptotes:</strong> Behavior at infinity or division by zero.</li>
+                    <li class="topic-item"><strong>Monotonicity (\(f'\)):</strong> Where is it increasing/decreasing?
+                        (Find Critical Points).</li>
+                    <li class="topic-item"><strong>Concavity (\(f''\)):</strong> Where is it curved up/down? (Find
+                        Inflection Points).</li>
+                </ol>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Physics of Motion</h2>
+            <div class="math-block">
+                $$ s(t) = \text{Position} $$
+                $$ v(t) = s'(t) = \text{Velocity} $$
+                $$ a(t) = v'(t) = s''(t) = \text{Acceleration} $$
+            </div>
+            <p><strong>Note:</strong> Speed is the absolute value of velocity \(|v(t)|\).</p>
+        </section>
+
+        <section>
+            <h2>3. AI Connection: Trajectory Prediction</h2>
+            <div class="module-card">
+                <h3>Kalman Filters and Tracking</h3>
+                <p>In Computer Vision, when an AI tracks a moving person, it doesn't just look at the
+                    current frame. it uses the <strong>First Derivative</strong> (current velocity) and
+                    the <strong>Second Derivative</strong> (acceleration) to predict where the person
+                    will be in the <i>next</i> frame. This allows the AI to "handle" occlusions (when the person
+                    walks behind a tree) by trusting the calculus of motion.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Automated Analysis</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+t = sp.Symbol('t')
+s = t**3 - 6*t**2 + 9*t # Position function
+
+v = sp.diff(s, t)
+a = sp.diff(v, t)
+
+print(f"Velocity: {v}")
+print(f"Acceleration: {a}")
+
+# Find when particle is at rest (v=0)
+rest_times = sp.solve(v, t)
+print(f"Rest at t = {rest_times}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

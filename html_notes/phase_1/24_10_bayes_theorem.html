@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayes' Theorem - Phase 1.4.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.4 Basic Probability</li>
+            <li><a href="24_09_conditional_prob.html">09. Conditional Probability</a></li>
+            <li><a href="24_10_bayes_theorem.html" class="active">10. Bayes' Theorem</a></li>
+            <li><a href="24_11_law_total_prob.html">11. Law of Total Probability</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Bayes'
+            Theorem
+        </div>
+
+        <header>
+            <h1>10. Bayes' Theorem</h1>
+            <p class="subtitle">The engine of reasoning under uncertainty.</p>
+        </header>
+
+        <section>
+            <h2>1. Reversing the Condition</h2>
+            <p>Often, we know the probability of a "Symptom" given a "Disease", but we want to know the probability of
+                the "Disease" given the "Symptom". <strong>Bayes' Theorem</strong> provides the mathematical bridge to
+                reverse conditional probabilities.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Formula</h2>
+            <div class="math-block">
+                $$ P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)} $$
+            </div>
+            <ul class="topic-list">
+                <li><strong>Posterior: \(P(A|B)\)</strong> - The probability of our hypothesis after seeing the
+                    evidence.</li>
+                <li><strong>Likelihood: \(P(B|A)\)</strong> - How likely is the evidence if our hypothesis is true?</li>
+                <li><strong>Prior: \(P(A)\)</strong> - Our initial belief before seeing any evidence.</li>
+                <li><strong>Evidence: \(P(B)\)</strong> - The total probability of the evidence occurring.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Bayesian Brain</h2>
+            <div class="module-card">
+                <h3>Naive Bayes and Model Training</h3>
+                <p>Bayes' Theorem is the foundation of an entire branch of Machine Learning: <strong>Bayesian
+                        Inference</strong>. </p>
+                <p>In <strong>Naive Bayes Classifiers</strong>, we predict the class of a data point by calculating the
+                    posterior for every possible class and picking the highest one. It's called "Naive" because we
+                    assume all input features are independent (an assumption that simplifies the math but surprisingly
+                    works well for text). </p>
+                <p>More importantly, Machine Learning as a whole can be viewed as "Finding the Weights that maximize the
+                    Posterior". Every time you train an AI, you are essentially updating its <strong>Prior
+                        Beliefs</strong> (initial weights) based on the <strong>Evidence</strong> (training data) to
+                    arrive at a <strong>Posterior</strong> (final model weights). Bayes' Theorem isn't just a formula;
+                    it's the philosophy of how AI "Learns".</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Medical Test Bayesian Check</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Experiment: Disease testing
+# P(Disease) = 0.01 (Prior)
+# P(Test Positive | Disease) = 0.99 (Likelihood)
+# P(Test Positive | No Disease) = 0.05 (False Positive)
+
+p_disease = 0.01
+p_no_disease = 0.99
+p_pos_given_disease = 0.99
+p_pos_given_no_disease = 0.05
+
+# Evidence P(Pos) = P(Pos|D)P(D) + P(Pos|NoD)P(NoD)
+p_pos = (p_pos_given_disease * p_disease) + (p_pos_given_no_disease * p_no_disease)
+
+# Posterior P(Disease | Positive)
+p_disease_given_pos = (p_pos_given_disease * p_disease) / p_pos
+
+print(f"P(Disease | Pos): {p_disease_given_pos:.4f}") # Surprisingly low! approx 16%</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.4 Expansion.</p>
+    </footer>
+</body>
+
+</html>

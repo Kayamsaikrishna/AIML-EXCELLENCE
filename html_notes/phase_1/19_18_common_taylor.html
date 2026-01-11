@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Taylor Series - Phase 1.3.5.18</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.5 Sequences & Series</li>
+            <li><a href="19_17_maclaurin_series.html">17. Maclaurin Series</a></li>
+            <li><a href="19_18_common_taylor.html" class="active">18. Common Taylor</a></li>
+            <li><a href="19_19_taylor_remainder.html">19. Taylor Remainder</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Common Series
+        </div>
+
+        <header>
+            <h1>18. Common Taylor & Maclaurin Series</h1>
+            <p class="subtitle">The standard "cheat sheet" for calculus approximations.</p>
+        </header>
+
+        <section>
+            <h2>1. Essential Reference Table</h2>
+            <div class="module-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Function</th>
+                            <th>Series Expansion</th>
+                            <th>Interval</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>\( \frac{1}{1-x} \)</td>
+                            <td>\( 1 + x + x^2 + x^3 + \dots \)</td>
+                            <td>\( (-1, 1) \)</td>
+                        </tr>
+                        <tr>
+                            <td>\( e^x \)</td>
+                            <td>\( 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots \)</td>
+                            <td>\( (-\infty, \infty) \)</td>
+                        </tr>
+                        <tr>
+                            <td>\( \sin x \)</td>
+                            <td>\( x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots \)</td>
+                            <td>\( (-\infty, \infty) \)</td>
+                        </tr>
+                        <tr>
+                            <td>\( \cos x \)</td>
+                            <td>\( 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots \)</td>
+                            <td>\( (-\infty, \infty) \)</td>
+                        </tr>
+                        <tr>
+                            <td>\( \ln(1+x) \)</td>
+                            <td>\( x - \frac{x^2}{2} + \frac{x^3}{3} - \dots \)</td>
+                            <td>\( (-1, 1] \)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. AI/ML Connection: Fast Math</h2>
+            <div class="module-card">
+                <h3>Approximation via Table</h3>
+                <p>When you call `math.sin()` or `np.exp()` in Python, the computer doesn't actually "know" the geometry
+                    of a triangle or the nature of growth. It uses high-speed <strong>Taylor Table</strong>
+                    approximations. </p>
+                <p>In <strong>Embedded AI</strong> (like the processors inside your smartwatch or a drone), calculating
+                    a full exponent is too slow. Engineers pre-calculate the first 3 or 4 terms of these common series.
+                    This allows the AI to perform complex trig and exponential math using only basic additions and
+                    multiplications, enabling real-time object detection and path planning on very low power.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Convergence visualization</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Approximating e^1 using 1, 2, and 3 terms
+def e_approx(x, terms):
+    import math
+    return sum((x**n)/math.factorial(n) for n in range(terms))
+
+for t in [2, 4, 6, 8]:
+    val = e_approx(1, t)
+    print(f"Terms: {t} | e approx: {val:.6f}")
+
+import math
+print(f"Actual e: {math.e:.6f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

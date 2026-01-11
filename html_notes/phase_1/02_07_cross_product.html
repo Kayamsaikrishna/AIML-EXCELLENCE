@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross Product - Phase 1.2.7</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2 Linear Algebra</li>
+            <li><a href="02_06_dot_product_geom.html">06. Dot Product Geom</a></li>
+            <li><a href="02_07_cross_product.html" class="active">07. Cross Product</a></li>
+            <li><a href="02_08_cross_product_geom.html">08. Cross Product Geom</a></li>
+            <li><a href="02_09_triple_scalar.html">09. Triple Scalar Product</a></li>
+            <li class="nav-label">1.1 Arithmetic & Algebra</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Cross Product
+        </div>
+
+        <header>
+            <h1>07. Cross Product (Vector Product)</h1>
+            <p class="subtitle">Generating orthogonality in 3D space.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition & Determinant Form</h2>
+            <p>Unlike the dot product, the cross product only exists in <strong>3D Space</strong> (or 7D). It returns a
+                vector that is perpendicular to both inputs.</p>
+
+            <div class="math-block">
+                $$ \mathbf{u} \times \mathbf{v} = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ u_1 & u_2 &
+                u_3 \\ v_1 & v_2 & v_3 \end{vmatrix} $$
+            </div>
+
+            <div class="module-card">
+                <h3>Properties</h3>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Anti-Commutative:</strong> \( \mathbf{u} \times \mathbf{v} =
+                        -(\mathbf{v} \times \mathbf{u}) \).</li>
+                    <li class="topic-item"><strong>Magnitude:</strong> \( \|\mathbf{u} \times \mathbf{v}\| =
+                        \|\mathbf{u}\| \|\mathbf{v}\| \sin \theta \).</li>
+                    <li class="topic-item"><strong>Self-Parallel:</strong> \( \mathbf{u} \times \mathbf{u} = \mathbf{0}
+                        \).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Applications in Robotics & Graphics AI</h2>
+            <div class="module-card">
+                <h3>Surface Normals & Torque</h3>
+                <p>In <strong>3D Computer Vision</strong> (like NeRFs or LiDAR processing), we need to find the
+                    orientation of a surface. The cross product of two vectors on a plane gives the <strong>Surface
+                        Normal</strong>.</p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Robotics:</strong> Calculating the torque \( \mathbf{\tau} =
+                        \mathbf{r} \times \mathbf{F} \) for arm movements.</li>
+                    <li class="topic-item"><strong>Ray Casting:</strong> Determining if a point is "inside" or "outside"
+                        a mesh during AI-driven 3D reconstruction.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Computing Cross Product</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+u = np.array([1, 0, 0]) # i vector
+v = np.array([0, 1, 0]) # j vector
+
+# The cross product should be k (0, 0, 1)
+cp = np.cross(u, v)
+
+print(f"Cross Product (u x v): {cp}") # Output: [0 0 1]</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

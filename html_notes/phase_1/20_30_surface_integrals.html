@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surface Integrals - Phase 1.3.6.30</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.6 Multivariable Calculus</li>
+            <li><a href="20_29_greens_theorem.html">29. Green's Theorem</a></li>
+            <li><a href="20_30_surface_integrals.html" class="active">30. Surface Integrals</a></li>
+            <li><a href="20_31_stokes_theorem.html">31. Stokes' Theorem</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Surface Integrals
+        </div>
+
+        <header>
+            <h1>30. Surface Integrals</h1>
+            <p class="subtitle">Measuring data on a curved shell.</p>
+        </header>
+
+        <section>
+            <h2>1. What is a Surface Integral?</h2>
+            <p>A <strong>Surface Integral</strong> generalizes the idea of a double integral to curved surfaces in 3D
+                space. It calculates the net value of a scalar or vector field over a surface \(S\).</p>
+            <div class="math-block">
+                $$ \iint_S f(x, y, z) dS = \iint_D f(\mathbf{r}(u,v)) |\mathbf{r}_u \times \mathbf{r}_v| dA $$
+            </div>
+            <p>If the field is a vector field \(\mathbf{F}\), the surface integral calculates the
+                <strong>Flux</strong>—the net flow through the surface:</p>
+            <div class="math-block">
+                $$ \Phi = \iint_S \mathbf{F} \cdot \mathbf{n} dS $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Orientation</h2>
+            <p>A surface must be two-sided (orientable) for the flux to be well-defined. We pick a unit normal vector
+                \(\mathbf{n}\) to define "up" vs "down".</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Manifold Regularization</h2>
+            <div class="module-card">
+                <h3>Integral on Feature Shells</h3>
+                <p>In <strong>Unsupervised Learning</strong>, we often assume that high-dimensional data points lie on a
+                    <strong>Low-Dimensional Surface</strong> (manifold). If we want to move from one cluster to another,
+                    we are moving <i>along</i> that surface. </p>
+                <p><strong>Surface Integrals</strong> are used in <strong>Geometric Deep Learning</strong> to calculate
+                    how "Smoothly" a model transforms the data. By penalizing the integral of the gradient over the
+                    <strong>Diffeomorphic Surface</strong> of the feature space, we can force the AI to learn simple,
+                    interpretable representations. It ensures that the model's "Knowledge" is evenly distributed over
+                    the curved shell of valid data, preventing the AI from "overfitting" to tiny, sharp regions of the
+                    manifold.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Symbolic Surface Setup</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+u, v = sp.symbols('u v')
+# Parametric Sphere: r(u, v) = [sin(u)cos(v), sin(u)sin(v), cos(u)]
+r = sp.Matrix([sp.sin(u)*sp.cos(v), sp.sin(u)*sp.sin(v), sp.cos(u)])
+
+# Find Cross Product of partials to get normal vector
+ru = sp.diff(r, u)
+rv = sp.diff(r, v)
+n_vec = ru.cross(rv)
+
+print(f"Normal Vector (dS) magnitude: {sp.simplify(n_vec.norm())}")
+# Result for sphere is sin(u), which is the standard Jacobian factor.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

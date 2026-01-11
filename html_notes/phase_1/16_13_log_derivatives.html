@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logarithmic Derivatives - Phase 1.3.2.13</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.2 Differentiation</li>
+            <li><a href="16_11_trig_derivatives.html">11. Trig Derivatives</a></li>
+            <li><a href="16_12_exp_derivatives.html">12. Exp Derivatives</a></li>
+            <li><a href="16_13_log_derivatives.html" class="active">13. Log Derivatives</a></li>
+            <li><a href="16_14_inv_trig_derivatives.html">14. Inverse Trig</a></li>
+            <li><a href="16_15_hyperbolic_derivatives.html">15. Hyperbolic</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Log Derivatives
+        </div>
+
+        <header>
+            <h1>13. Derivatives of Logarithmic Functions</h1>
+            <p class="subtitle">Turning multiplicative change into additive change.</p>
+        </header>
+
+        <section>
+            <h2>1. The Natural Log Rule</h2>
+            <p>The derivative of the natural logarithm is the reciprocal of the input.</p>
+            <div class="math-block">
+                $$ \frac{d}{dx}[\ln x] = \frac{1}{x} $$
+            </div>
+            <p>With the <strong>Chain Rule</strong> (the most common form in AI):</p>
+            <div class="math-block">
+                $$ \frac{d}{dx}[\ln(u(x))] = \frac{u'(x)}{u(x)} $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. General Log Rule</h2>
+            <p>For a logarithm with base \(a\):</p>
+            <div class="math-block">
+                $$ \frac{d}{dx}[\log_a x] = \frac{1}{x \ln a} $$
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Log-Loss & Cross Entropy</h2>
+            <div class="module-card">
+                <h3>Gradient of Choice</h3>
+                <p>Most classification models use <strong>Cross-Entropy Loss</strong>, which is defined using the
+                    natural log: \(L = -\sum y_{true} \ln(y_{pred})\).</p>
+                <p>When we calculate the gradient of this loss to train the model, we use the rule \(\frac{d}{dx}\ln(x)
+                    = 1/x\). This reciprocal derivative is why models penalize "overconfident" wrong answers so
+                    heavily—as the predicted probability \(y_{pred}\) approaches 0, the derivative \(1/y_{pred}\)
+                    approaches infinity, creating a massive push to correct the weights.</p>
+                <p>This is why Logarithmic Derivatives are the "brakes" and "accelerators" of probabilistic AI.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Differentiating the Log</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+# Derivative of ln(x^2 + 1)
+f = sp.log(x**2 + 1)
+f_prime = sp.diff(f, x)
+
+print(f"Function: {f}")
+print(f"Derivative: {f_prime}") 
+# Output: 2*x/(x**2 + 1)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

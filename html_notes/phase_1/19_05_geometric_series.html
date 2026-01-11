@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometric Series - Phase 1.3.5.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.5 Sequences & Series</li>
+            <li><a href="19_04_series_tests_intro.html">04. Series Intro</a></li>
+            <li><a href="19_05_geometric_series.html" class="active">05. Geometric Series</a></li>
+            <li><a href="19_06_p_series.html">06. p-Series</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Geometric Series
+        </div>
+
+        <header>
+            <h1>05. Geometric Series</h1>
+            <p class="subtitle">The foundation of infinite summation.</p>
+        </header>
+
+        <section>
+            <h2>1. The Formula</h2>
+            <p>A <strong>Geometric Series</strong> is a series where each term is a constant multiple of the previous
+                term. It has the form:</p>
+            <div class="math-block">
+                $$ S = \sum_{n=0}^{\infty} ar^n = a + ar + ar^2 + ar^3 + \dots $$
+            </div>
+            <p>The series <strong>converges</strong> if \(|r| < 1\) and its sum is:</p>
+                    <div class="math-block">
+                        $$ S = \frac{a}{1 - r} $$
+                    </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Why it matters</h2>
+            <p>If \(|r| \geq 1\), the terms grow or stay the same, meaning the sum diverges to infinity. This is the
+                most famous series because it is one of the few where we can calculate the <i>exact</i> sum easily.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Infinite Future</h2>
+            <div class="module-card">
+                <h3>Reinforcement Learning Rewards</h3>
+                <p>In <strong>Reinforcement Learning (RL)</strong>, an AI agent receives rewards over time. But a reward
+                    today is worth more than a reward tomorrow. We calculate the "Return" as a <strong>Discounted
+                        Sum</strong>:</p>
+                <div class="math-block">
+                    $$ G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots $$
+                </div>
+                <p>Here, \(\gamma\) (the discount factor) acts exactly like the common ratio \(r\). To ensure the AI
+                    doesn't see "infinite" value in just standing still, we set \(\gamma < 1\). The <strong>Geometric
+                        Series</strong> formula allows RL researchers to prove that the total expected value is finite,
+                        which is what makes training algorithms like <strong>Q-Learning</strong> mathematically sound.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating Geometric Sums</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># a = 1, r = 0.5. Sum should be 1 / (1 - 0.5) = 2.0
+a = 1
+r = 0.5
+
+# Numerical approximation
+partial_sum = sum(a * (r**n) for n in range(100))
+# Theoretical formula
+theoretical_sum = a / (1 - r)
+
+print(f"Partial Sum (100 terms): {partial_sum:.10f}")
+print(f"Theoretical Sum: {theoretical_sum:.10f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

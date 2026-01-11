@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limit Laws & Properties - Phase 1.3.1.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.1 Limits & Continuity</li>
+            <li><a href="15_01_limits_intuition.html">01. Intuitive Limits</a></li>
+            <li><a href="15_02_limits_formal.html">02. Formal (ε-δ)</a></li>
+            <li><a href="15_03_limits_onesided.html">03. One-Sided Limits</a></li>
+            <li><a href="15_04_limits_at_infinity.html">04. Limits at Infinity</a></li>
+            <li><a href="15_05_limits_infinite.html">05. Infinite Limits</a></li>
+            <li><a href="15_06_limits_laws.html" class="active">06. Limit Laws</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Limit Laws
+        </div>
+
+        <header>
+            <h1>06. Limit Laws & Properties</h1>
+            <p class="subtitle">The tools for calculating limits analytically.</p>
+        </header>
+
+        <section>
+            <h2>1. The Algebraic Laws</h2>
+            <p>If we know the limits \(\lim_{x \to a} f(x) = L\) and \(\lim_{x \to a} g(x) = M\), we can use these laws:
+            </p>
+            <div class="module-card">
+                <ul>
+                    <li><strong>Sum Law:</strong> \(\lim [f(x) + g(x)] = L + M\)</li>
+                    <li><strong>Difference Law:</strong> \(\lim [f(x) - g(x)] = L - M\)</li>
+                    <li><strong>Constant Multiple Law:</strong> \(\lim [c \cdot f(x)] = c \cdot L\)</li>
+                    <li><strong>Product Law:</strong> \(\lim [f(x) \cdot g(x)] = L \cdot M\)</li>
+                    <li><strong>Quotient Law:</strong> \(\lim \frac{f(x)}{g(x)} = \frac{L}{M}\) (if \(M \neq 0\))</li>
+                    <li><strong>Power Law:</strong> \(\lim [f(x)]^n = L^n\)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Direct Substitution</h2>
+            <p>For polynomials and most "well-behaved" functions (rational, trig, log), we can calculate the limit by
+                simply plugging in the value, provided there is no division by zero or negative square root.</p>
+            <div class="math-block">
+                $$ \lim_{x \to 2} (3x^2 + 5x - 1) = 3(2)^2 + 5(2) - 1 = 12 + 10 - 1 = 21 $$
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Gradient Composition</h2>
+            <div class="module-card">
+                <h3>Composing Complex Operations</h3>
+                <p>In Neural Networks, the final output is a composition of many simple limits (functions). When we
+                    apply the <strong>Chain Rule</strong> during backpropagation, we are relying on these limit laws to
+                    decompose the complex gradient of the entire network into a product of local gradients. If the limit
+                    laws didn't hold for combined operations, calculating the derivative of a 100-layer network would be
+                    impossible.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Symbolic Computation</h2>
+            <div class="code-block">
+                <p>We can use the <code>SymPy</code> library to calculate limits analytically.</p>
+                <pre><code class="language-python">from sympy import Symbol, limit, sin
+
+x = Symbol('x')
+f = (x**2 + 3*x + 2) / (x + 1)
+
+# Analytically computing the limit as x -> -1
+# Factorized: (x+2)(x+1)/(x+1) -> x+2. As x -> -1, L = 1.
+result = limit(f, x, -1)
+print(f"Analytical Limit: {result}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

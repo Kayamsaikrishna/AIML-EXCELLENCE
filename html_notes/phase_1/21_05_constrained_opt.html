@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constrained Optimization - Phase 1.3.7.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.7 Optimization in Multi-Vars</li>
+            <li><a href="21_04_saddle_points.html">04. Saddle Points</a></li>
+            <li><a href="21_05_constrained_opt.html" class="active">05. Constrained Opt</a></li>
+            <li><a href="21_06_lagrange_multipliers.html">06. Lagrange Multipliers</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Constrained Opt
+        </div>
+
+        <header>
+            <h1>05. Constrained Optimization</h1>
+            <p class="subtitle">Finding the best solution within boundaries.</p>
+        </header>
+
+        <section>
+            <h2>1. The Problem Setup</h2>
+            <p>In real-world problems, we don't just want to maximize "Profit" or "Accuracy" in an infinite space. We
+                usually have <strong>Constraints</strong> (budget, time, physical laws). </p>
+            <p>A constrained optimization problem looks like this:</p>
+            <div class="math-block">
+                $$ \text{Maximize/Minimize } f(x, y) $$
+                $$ \text{Subject to } g(x, y) = k $$
+            </div>
+            <p>The solution must lie on the curve \(g(x, y) = k\). We aren't looking for the hill peak, but the highest
+                point on the <i>fence</i> built around the hill.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Equality vs. Inequality</h2>
+            <p>Constraints can be <strong>Hard Equalities</strong> (\(x + y = 1\)) or <strong>Inequalities</strong>
+                (\(x^2 + y^2 \leq 1\)). Dealing with inequalities requires more advanced math like the KKT conditions.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Fairness and Resource Limits</h2>
+            <div class="module-card">
+                <h3>Fairness Constraints</h3>
+                <p>In <strong>Ethical AI</strong>, we don't just want a model to be accurate; we want it to be
+                    <strong>Fair</strong>. This means we might minimize error \(f(x, w)\) subject to a constraint \(g(w)
+                    \leq \epsilon\), where \(g\) measures the "Bias" of the model against a specific group. </p>
+                <p>By treating Fairness as a mathematical constraint, we force the AI to find the "Maximum Accuracy"
+                    possible while staying within the "Safe and Ethical" boundary. Without constrained optimization, AI
+                    would simply follow the path of least resistance, often amplifying human biases found in the data.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Simple Constrained Check</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Example: Minimize x^2 + y^2 subject to x + y = 1
+# Intuition: The closest point of the line to the origin.
+
+from scipy.optimize import minimize
+
+def objective(v):
+    return v[0]**2 + v[1]**2
+
+cons = ({'type': 'eq', 'fun': lambda v: v[0] + v[1] - 1})
+
+res = minimize(objective, [0, 0], constraints=cons)
+print(f"Optimal Point: {res.x}")
+# Result: [0.5, 0.5]</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

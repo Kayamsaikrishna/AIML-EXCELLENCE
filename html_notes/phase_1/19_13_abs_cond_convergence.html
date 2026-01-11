@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absolute & Conditional Convergence - Phase 1.3.5.13</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.5 Sequences & Series</li>
+            <li><a href="19_12_alternating_series.html">12. Alternating Series</a></li>
+            <li><a href="19_13_abs_cond_convergence.html" class="active">13. Absolute & Conditional</a></li>
+            <li><a href="19_14_power_series.html">14. Power Series</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Conv Types
+        </div>
+
+        <header>
+            <h1>13. Absolute & Conditional Convergence</h1>
+            <p class="subtitle">Does the sum care about the order of its parts?</p>
+        </header>
+
+        <section>
+            <h2>1. Definitions</h2>
+            <ul class="topic-list">
+                <li><strong>Absolute Convergence:</strong> A series \(\sum a_n\) converges absolutely if \(\sum |a_n|\)
+                    converges.</li>
+                <li><strong>Conditional Convergence:</strong> A series \(\sum a_n\) converges, but \(\sum |a_n|\)
+                    diverges (e.g., the Alternating Harmonic Series).</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Riemann Rearrangement Theorem</h2>
+            <p>If a series is <strong>Conditionally Convergent</strong>, you can rearrange its terms to sum to
+                <i>any</i> number you want, or even to diverge! If a series is <strong>Absolutely Convergent</strong>,
+                the sum is fixed regardless of order. This makes Absolute Convergence the "gold standard" for stability.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Stability of Weights</h2>
+            <div class="module-card">
+                <h3>Permutation Invariance</h3>
+                <p>In <strong>Transformer</strong> and <strong>Set-based AI</strong> models, the order of input doesn't
+                    always matter. We want the model to produce the same result regardless of whether it sees "A then B"
+                    or "B then A". </p>
+                <p>Mathematically, if the contribution of features in a model sums <strong>Absolutely</strong>, the AI
+                    is stable under <strong>Shuffling</strong>. If the model relied on a "Conditional" summation, just
+                    changing the order of your training data (Data Augmentation) could cause the weights to explode or
+                    settle on completely different, random values. Absolute convergence ensures that as the number of
+                    data points (\(n\)) goes to infinity, the learned "Knowledge" is a fixed, physical constant.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Order Sensitivity Demo</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Alternating Harmonic: 1 - 1/2 + 1/3 - 1/4 ... sums to ln(2)
+# If we rearrange: (1 + 1/3 - 1/2) + (1/5 + 1/7 - 1/4) ...
+# The sum will change to 1.5 * ln(2)!
+
+import numpy as np
+
+def alt_harmonic(n):
+    return sum(((-1)**(i+1))/i for i in range(1, n+1))
+
+print(f"Standard Sum: {alt_harmonic(1000):.6f}")
+print(f"Goal (ln 2): {np.log(2):.6f}")
+print("Rearranging this sequence in Python memory would yield different results!")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

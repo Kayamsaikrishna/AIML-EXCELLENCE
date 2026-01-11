@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Types - Phase 1.2.2.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_01_matrix_basics.html">01. Matrix Basics</a></li>
+            <li><a href="03_02_matrix_types.html" class="active">02. Matrix Types</a></li>
+            <li><a href="03_03_special_matrices.html">03. Special Matrices</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Types
+        </div>
+
+        <header>
+            <h1>02. Basic Matrix Types</h1>
+            <p class="subtitle">The building blocks of linear transformations.</p>
+        </header>
+
+        <section>
+            <h2>1. Classification by Shape</h2>
+            <div class="module-card">
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Square Matrix:</strong> Rows = Columns (\( n \times n \)). Essential
+                        for determinants and inverses.</li>
+                    <li class="topic-item"><strong>Rectangular Matrix:</strong> Rows \(\neq\) Columns (\( m \times n
+                        \)). Common for datasets.</li>
+                    <li class="topic-item"><strong>Row Matrix:</strong> A single row (\( 1 \times n \)). Effectively a
+                        row vector.</li>
+                    <li class="topic-item"><strong>Column Matrix:</strong> A single column (\( m \times 1 \)).
+                        Effectively a column vector.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Specific Purpose Matrices</h2>
+            <div class="module-card">
+                <h3>The Identity Matrix (\( \mathbf{I} \))</h3>
+                <p>The "Number 1" of matrices. Multiplying any matrix by \( \mathbf{I} \) leaves it unchanged.</p>
+                <div class="math-block">
+                    $$ \mathbf{I} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} $$
+                </div>
+                <p><strong>AI Use:</strong> Residual connections can be viewed as adding an Identity mapping to the
+                    learned features.</p>
+            </div>
+
+            <div class="module-card">
+                <h3>The Zero Matrix (\( \mathbf{0} \))</h3>
+                <p>All elements are zero. Represents "Dead" weights or the absence of a signal.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Initializing Special Matrices</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# 3x3 Identity Matrix
+I = np.eye(3)
+
+# 2x4 Zero Matrix
+Z = np.zeros((2, 4))
+
+# 3x3 Matrix of Ones (Useful for Bias Initialization)
+O = np.ones((3, 3))
+
+print(f"Identity:\n{I}")
+print(f"Zeros:\n{Z}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

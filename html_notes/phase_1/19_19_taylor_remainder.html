@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taylor's Remainder Theorem - Phase 1.3.5.19</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.5 Sequences & Series</li>
+            <li><a href="19_18_common_taylor.html">18. Common Taylor</a></li>
+            <li><a href="19_19_taylor_remainder.html" class="active">19. Taylor Remainder</a></li>
+            <li><a href="19_20_taylor_applications.html">20. Taylor Apps</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Taylor Remainder
+        </div>
+
+        <header>
+            <h1>19. Taylor's Remainder Theorem</h1>
+            <p class="subtitle">Exactly how wrong is our approximation?</p>
+        </header>
+
+        <section>
+            <h2>1. The Formula</h2>
+            <p>If we approximate a function \(f(x)\) using a Taylor polynomial \(P_n(x)\) of degree \(n\), the error (or
+                remainder) \(R_n(x)\) is given by <strong>Lagrange's Form</strong>:</p>
+            <div class="math-block">
+                $$ R_n(x) = \frac{f^{(n+1)}(z)}{(n+1)!} (x - a)^{n+1} $$
+            </div>
+            <p>Where \(z\) is some unknown number between \(a\) and \(x\). While we don't know \(z\), we can often find
+                the maximum possible value of the \((n+1)\)-th derivative to find the <strong>Error Bound</strong>.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Convergent Approximation</h2>
+            <p>A Taylor series only equals the function if the limit of the remainder goes to zero as \(n\) goes to
+                infinity. If \(\lim R_n(x) = 0\), the approximation is perfect.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Safety Bounds</h2>
+            <div class="module-card">
+                <h3>Worst-Case Error Guaruntees</h3>
+                <p>In <strong>Autonomous Driving</strong> or <strong>Robotic Surgery</strong>, "Approximately Correct"
+                    isn't enough. If an AI uses a Taylor series to predict the movement of a car, we must know the
+                    <strong>Maximum Possible Error</strong>. </p>
+                <p>By using the <strong>Remainder Theorem</strong>, engineers can calculate that even if the AI is
+                    "wrong", it will never be wrong by more than, say, 2 centimeters. This "Safe Offset" is added to the
+                    robot's collision avoidance logic. If we can't bound the Taylor Remainder, we can't get safety
+                    certification for AI in the real world. Calculus literally provides the "Safety Net" for intelligent
+                    systems.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating Error Bounds</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Approximating sin(0.5) with 3 terms
+# Remainder R_3 depends on 4th derivative (sin(x) -> cos -> -sin -> -cos -> sin)
+# Max value of sin(z) is 1.0.
+
+def error_bound(x, n):
+    import math
+    # Bound = M / (n+1)! * |x-a|^(n+1) where M is max of (n+1)th deriv
+    m = 1.0 # max of sin/cos derivatives
+    return m / math.factorial(n+1) * (x**(n+1))
+
+x_val = 0.5
+print(f"Max Error for 3 terms at x=0.5: {error_bound(x_val, 3):.8f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

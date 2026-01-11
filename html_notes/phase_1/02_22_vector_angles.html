@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Angles - Phase 1.2.22</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2 Linear Algebra</li>
+            <li><a href="02_21_distance_metrics.html">21. Distance Metrics</a></li>
+            <li><a href="02_22_vector_angles.html" class="active">22. Angle between Vectors</a></li>
+            <li><a href="02_23_gram_schmidt.html">23. Gram-Schmidt</a></li>
+            <li class="nav-label">1.1 Arithmetic & Algebra</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Vector Angles
+        </div>
+
+        <header>
+            <h1>22. Angle between Vectors</h1>
+            <p class="subtitle">From raw numbers to geometric orientation.</p>
+        </header>
+
+        <section>
+            <h2>1. The Formula</h2>
+            <p>Using the dot product geometric definition, we can solve for the angle \(\theta\).</p>
+
+            <div class="math-block">
+                $$ \theta = \cos^{-1} \left( \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|} \right)
+                $$
+            </div>
+
+            <div class="module-card">
+                <h3>Intuition</h3>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>θ = 0°:</strong> Parallel, maximum correlation.</li>
+                    <li class="topic-item"><strong>θ = 90°:</strong> Orthogonal, zero correlation.</li>
+                    <li class="topic-item"><strong>θ = 180°:</strong> Opposite, maximum negative correlation.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Document Embeddings & NLP</h2>
+            <div class="module-card">
+                <h3>The "King - Man + Woman = Queen" Logic</h3>
+                <p>In <strong>Word2Vec</strong> and <strong>Transformer</strong> embeddings, semantic relationships are
+                    often captured as angles. If the angle between "Paris" and "France" is similar to the angle
+                    between "Berlin" and "Germany", the model has effectively learned the concept of "Capital of".</p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Attention Scores:</strong> Softmax over dot products (angles) decides
+                        which words are "seeing" each other.</li>
+                    <li class="topic-item"><strong>Query-Key Alignment:</strong> High attention occurs when the query
+                        vector and key vector have a small angle.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Calculating the Angle</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+u = np.array([1, 0])
+v = np.array([1, 1])
+
+cosine_theta = np.dot(u, v) / (np.linalg.norm(u) * np.linalg.norm(v))
+theta_rad = np.arccos(np.clip(cosine_theta, -1.0, 1.0))
+theta_deg = np.degrees(theta_rad)
+
+print(f"Angle: {theta_deg:.2f}°") # Output: 45.00°</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

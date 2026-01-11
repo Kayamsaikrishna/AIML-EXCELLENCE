@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Spaces - Phase 1.2.13</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2 Linear Algebra</li>
+            <li><a href="02_12_orthogonality.html">12. Orthogonality</a></li>
+            <li><a href="02_13_vector_spaces.html" class="active">13. Vector Spaces</a></li>
+            <li><a href="02_14_subspaces_span.html">14. Subspaces & Span</a></li>
+            <li class="nav-label">1.1 Arithmetic & Algebra</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Vector Spaces
+        </div>
+
+        <header>
+            <h1>13. Vector Spaces Definition</h1>
+            <p class="subtitle">The playground for data.</p>
+        </header>
+
+        <section>
+            <h2>1. The 10 Axioms</h2>
+            <p>A Vector Space \( V \) is a set of elements called vectors, together with two operations: Addition and
+                Scalar Multiplication. For \( V \) to be a vector space, it must satisfy 10 axioms, the most critical
+                being
+                <strong>Closure</strong>.
+            </p>
+
+            <div class="module-card">
+                <h3>Closure Rules</h3>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Addition Closure:</strong> If \( \mathbf{u}, \mathbf{v} \in V \),
+                        then \( \mathbf{u} + \mathbf{v} \in V \).</li>
+                    <li class="topic-item"><strong>Scalar Closure:</strong> If \( \mathbf{v} \in V \) and \( c \in
+                        \mathbb{R} \), then \( c \mathbf{v} \in V \).</li>
+                </ul>
+            </div>
+            <p>If these rules are broken, your "playground" has gaps, and AI operations will fail to produce valid
+                outputs.</p>
+        </section>
+
+        <section>
+            <h2>2. The Embedding Space</h2>
+            <div class="module-card">
+                <h3>Bounded vs. Unbounded Spaces</h3>
+                <p>In AI, we often treat <strong>Representations</strong> as vectors in a space.
+                    However, many AI "spaces" are technically not full Vector Spaces because they have boundaries (e.g.,
+                    values restricted between 0 and 1).
+                </p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Latent Space:</strong> The multi-dimensional space created by a
+                        model's hidden layers where semantically similar items are grouped.</li>
+                    <li class="topic-item"><strong>The Zero Vector:</strong> Every vector space must have a zero vector
+                        (Origin). In AI, this usually represents "Silence" or "No Feature Presence".</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Checking for Closure</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Concept: A set of positive integers is NOT a vector space 
+# because it's not closed under negative scalar multiplication.
+
+v = 5
+c = -1
+result = v * c # -5 (This leaves the space of positive numbers)
+
+# In AI, if we use ReLU, we are working with a "Convex Cone"
+# rather than a full Vector Space.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

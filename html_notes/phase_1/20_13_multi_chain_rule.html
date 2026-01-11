@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multivariable Chain Rule - Phase 1.3.5.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.5 Multivariable Calc I</li>
+            <li><a href="19_03_partial_derivatives.html">03. Partial Derivs</a></li>
+            <li><a href="19_04_higher_partial.html">04. Higher Partial</a></li>
+            <li><a href="19_05_multi_chain_rule.html" class="active">05. Multi Chain Rule</a></li>
+            <li><a href="19_06_directional_derivs.html">06. Directional Derivs</a></li>
+            <li><a href="19_07_gradient_vector.html">07. Gradient Vector</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Chain Rule
+        </div>
+
+        <header>
+            <h1>05. Multivariable Chain Rule</h1>
+            <p class="subtitle">Propagating influence across dependencies.</p>
+        </header>
+
+        <section>
+            <h2>1. The Formula</h2>
+            <p>If \(z = f(x, y)\) depends on \(x\) and \(y\), and both \(x\) and \(y\) depend on another variable \(t\),
+                the total rate of change of \(z\) with respect to \(t\) is the sum of changes along all paths:</p>
+            <div class="math-block">
+                $$ \frac{dz}{dt} = \frac{\partial z}{\partial x} \frac{dx}{dt} + \frac{\partial z}{\partial y}
+                \frac{dy}{dt} $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Tree Diagrams</h2>
+            <p>To solve complex chain rule problems involving many variables (e.g., \(x, y, u, v, t\)), physicists and
+                AI researchers draw <strong>Dependency Trees</strong>. Each edge in the tree represents a partial
+                derivative. To find the total derivative, you multiply along each path and add the paths together.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Modern Backpropagation</h2>
+            <div class="module-card">
+                <h3>Information Flow in Networks</h3>
+                <p>Neural networks are not single lines; they are complex graphs with many parallel paths (like
+                    <strong>ResNets</strong> or <strong>Transformers</strong>). When computing the gradient of the loss,
+                    the AI must use the Multivariable Chain Rule to sum up the contributions from every single path that
+                    leads from a weight to the final outcome. </p>
+                <p>If a weight influences two different neurons in the next layer, the gradient "splits" and then "adds
+                    up" later. This <strong>Additive Property</strong> of the chain rule is why Deep Learning is
+                    possible—it allows us to attribute error correctly even in networks with billions of complex,
+                    interlocking connections.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Symbolic Multi-Chain Rule</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+t = sp.Symbol('t')
+x = sp.sin(t)
+y = sp.exp(t)
+z = x**2 + y**2
+
+# Calculate dz/dt directly
+total_deriv = sp.diff(z, t)
+
+# Show it matches the Chain Rule sum
+dz_dx = 2*x
+dx_dt = sp.cos(t)
+dz_dy = 2*y
+dy_dt = sp.exp(t)
+
+sum_rule = dz_dx * dx_dt + dz_dy * dy_dt
+
+print(f"Total Deriv: {sp.simplify(total_deriv)}")
+print(f"Chain Sum  : {sp.simplify(sum_rule)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

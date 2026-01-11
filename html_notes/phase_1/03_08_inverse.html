@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Inverse - Phase 1.2.2.8</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_07_transpose.html">07. Transpose</a></li>
+            <li><a href="03_08_inverse.html" class="active">08. Inverse Matrices</a></li>
+            <li><a href="03_09_invertibility.html">09. Invertibility</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Inverse
+        </div>
+
+        <header>
+            <h1>08. Inverse Matrices & Properties</h1>
+            <p class="subtitle">The reciprocal of a linear transformation.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>A square matrix \( \mathbf{A} \) is <strong>Invertible</strong> (or Non-Singular) if there exists a
+                matrix \( \mathbf{A}^{-1} \) such that:</p>
+            <div class="math-block">
+                $$ \mathbf{AA}^{-1} = \mathbf{A}^{-1}\mathbf{A} = \mathbf{I} $$
+            </div>
+
+            <div class="module-card">
+                <h3>Key Properties</h3>
+                <ul class="topic-list">
+                    <li class="topic-item">\( (\mathbf{A}^{-1})^{-1} = \mathbf{A} \).</li>
+                    <li class="topic-item">\( (\mathbf{AB})^{-1} = \mathbf{B}^{-1}\mathbf{A}^{-1} \). (Order is
+                        reversed!)</li>
+                    <li class="topic-item">\( (\mathbf{A}^T)^{-1} = (\mathbf{A}^{-1})^T \).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. The "Closed-Form" Solution in AI</h2>
+            <div class="module-card">
+                <h3>The Normal Equation</h3>
+                <p>In <strong>Linear Regression</strong>, we want to find weights \( \mathbf{w} \) that minimize error.
+                    The exact, non-iterative solution is the <strong>Normal Equation</strong>:</p>
+                <div class="math-block">
+                    $$ \mathbf{w} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} $$
+                </div>
+                <p><strong>Warning:</strong> Calculating a matrix inverse is computationally expensive (\( O(n^3) \)).
+                    In deep learning, we almost never calculate it directly; we use optimization (Gradient Descent)
+                    instead.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Numpy Inverse</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+
+# Compute Inverse
+A_inv = np.linalg.inv(A)
+
+# Verification
+identity = A @ A_inv
+
+print(f"Inverse:\n{A_inv}")
+print(f"Check (Identity):\n{np.round(identity)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

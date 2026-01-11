@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trig Applications - Phase 1.1.39</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.2 Trigonometry</li>
+            <li><a href="01_28_angle_measurement.html">28. Angle Measurement</a></li>
+            <li><a href="01_29_trig_functions.html">29. Trig Functions</a></li>
+            <li><a href="01_30_right_triangle_trig.html">30. Right Triangle Trig</a></li>
+            <li><a href="01_31_unit_circle.html">31. Unit Circle</a></li>
+            <li><a href="01_32_trig_identities.html">32. Trig Identities</a></li>
+            <li><a href="01_33_sum_diff_formulas.html">33. Sum & Diff Formulas</a></li>
+            <li><a href="01_34_double_half_angle.html">34. Double & Half Angle</a></li>
+            <li><a href="01_35_product_sum_formulas.html">35. Product-Sum Formulas</a></li>
+            <li><a href="01_36_trig_equations.html">36. Trig Equations</a></li>
+            <li><a href="01_37_inverse_trig.html">37. Inverse Trig Functions</a></li>
+            <li><a href="01_38_law_sines_cosines.html">38. Law of Sines & Cosines</a></li>
+            <li><a href="01_39_trig_applications.html" class="active">39. Trig Applications</a></li>
+            <li><a href="01_40_polar_coordinates.html">40. Polar Coordinates</a></li>
+            <li><a href="01_41_complex_trig.html">41. Complex Numbers (Trig)</a></li>
+            <li><a href="01_42_de_moivre.html">42. De Moivre's Theorem</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Trig Appplications
+        </div>
+
+        <header>
+            <h1>39. Engineering & AI Applications</h1>
+            <p class="subtitle">Where Trigonometry powers the physical and digital worlds.</p>
+        </header>
+
+        <section>
+            <h2>1. Physics: The Simple Harmonic Motion</h2>
+            <p>Every oscillation—from a bridge vibrating to an electron spinning—is described by the general wave
+                equation:</p>
+            <div class="math-block">
+                $$ y(t) = A \sin(\omega t + \phi) $$
+            </div>
+            <ul class="topic-list">
+                <li class="topic-item">\(A\) = Amplitude (Volume / Intensity)</li>
+                <li class="topic-item">\(\omega\) = Angular Frequency (Pitch)</li>
+                <li class="topic-item">\(\phi\) = Phase Shift (Horizontal displacement)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. LiDAR & Computer Vision sensing</h2>
+            <div class="module-card">
+                <h3>Scanning the World</h3>
+                <p>Autonomous vehicles use <strong>LiDAR</strong> (Light Detection and Ranging). The sensor rotates and
+                    shoots laser beams. By measuring the "Time of Flight" and the precise <strong>Angle</strong>
+                    (\(\theta, \phi\)) of the laser, the AI uses trig to convert the polar data into a 3D point cloud
+                    \((x, y, z)\).</p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Ray-Tracing:</strong> In photorealistic AI rendering (like NeRFs), we
+                        trace rays of light through pixels using trigonometry to calculate lighting, shadows, and
+                        reflections.</li>
+                    <li class="topic-item"><strong>Drones:</strong> Flight stabilization (gimbals) uses real-time
+                        inverse trig to keep cameras level regardless of the drone's tilt.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Simulating a Wave</h2>
+            <div
+                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
+                <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+def generate_wave(amp, freq, phase, t):
+    return amp * np.sin(2 * np.pi * freq * t + phase)
+
+time = np.linspace(0, 1, 1000)
+wave1 = generate_wave(1.0, 5, 0, time)      # Pure Tone
+wave2 = generate_wave(0.5, 10, np.pi/2, time) # Octave Shifted
+
+# Constructing a complex "Sound"
+complex_wave = wave1 + wave2
+
+plt.plot(time, complex_wave)
+plt.title("Synthesis of a Complex Signal")
+plt.show()</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

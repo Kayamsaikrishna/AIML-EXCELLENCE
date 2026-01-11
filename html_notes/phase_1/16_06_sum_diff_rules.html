@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum & Difference Rules - Phase 1.3.2.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.2 Differentiation</li>
+            <li><a href="16_06_sum_diff_rules.html" class="active">06. Sum & Difference</a></li>
+            <li><a href="16_07_product_rule.html">07. Product Rule</a></li>
+            <li><a href="16_08_quotient_rule.html">08. Quotient Rule</a></li>
+            <li><a href="16_09_chain_rule.html">09. Chain Rule</a></li>
+            <li><a href="16_10_implicit_diff.html">10. Implicit Diff</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Sum & Difference
+        </div>
+
+        <header>
+            <h1>06. Sum and Difference Rules</h1>
+            <p class="subtitle">Differentiation is a linear operator.</p>
+        </header>
+
+        <section>
+            <h2>1. The Rules</h2>
+            <p>The derivative of a sum of functions is simply the sum of their individual derivatives. This also applies
+                to differences.</p>
+            <div class="math-block">
+                $$ \frac{d}{dx}[f(x) \pm g(x)] = f'(x) \pm g'(x) $$
+            </div>
+            <p>This means we can differentiate long polynomials term-by-term.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Worked Example</h2>
+            <p>Find the derivative of \(y = x^4 + 3x^2 - 10\).</p>
+            <ol>
+                <li>Differentiate \(x^4 \to 4x^3\)</li>
+                <li>Differentiate \(3x^2 \to 6x\)</li>
+                <li>Differentiate \(-10 \to 0\)</li>
+            </ol>
+            <p><strong>Result:</strong> \(y' = 4x^3 + 6x\)</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Combined Loss Functions</h2>
+            <div class="module-card">
+                <h3>Regularization + Fit</h3>
+                <p>In Machine Learning, we often use a <strong>Compounded Loss Function</strong>. For example, Elastic
+                    Net Regression uses:</p>
+                <div class="math-block">
+                    $$ \text{Total Loss} = \text{MSE Loss} + \text{L1 Regularization} + \text{L2 Regularization} $$
+                </div>
+                <p>Because of the <strong>Sum Rule</strong>, the optimizer can calculate the gradient for the data fit
+                    and the gradient for the regularization penalties separately and just add them together to get the
+                    total update for the model weights.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Differentiating Expressions</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+f1 = x**2
+f2 = 5*x
+total = f1 + f2
+
+# The derivative of the sum is the sum of derivatives
+deriv = sp.diff(total, x)
+
+print(f"Derivative of {f1} + {f2} is: {deriv}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementary Matrices - Phase 1.2.2.20</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_19_gauss_jordan.html">19. Gauss-Jordan</a></li>
+            <li><a href="03_20_elementary_matrices.html" class="active">20. Elementary Matrices</a></li>
+            <li><a href="03_21_decompositions.html">21. Decompositions</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Elementary Matrices
+        </div>
+
+        <header>
+            <h1>20. Elementary Matrices & Row Operations</h1>
+            <p class="subtitle">Row operations as matrix multiplication.</p>
+        </header>
+
+        <section>
+            <h2>1. What is an Elementary Matrix?</h2>
+            <p>An elementary matrix \( \mathbf{E} \) is obtained by performing a single elementary row operation
+                on the identity matrix \( \mathbf{I} \).</p>
+            <div class="module-card">
+                <h3>Left-Multiplication Principle</h3>
+                <p>Multiplying a matrix \( \mathbf{A} \) on the <strong>left</strong> by an elementary matrix
+                    \( \mathbf{E} \) is exactly equivalent to performing that same row operation on \( \mathbf{A} \).
+                </p>
+                <div class="math-block">
+                    $$ \mathbf{E}_k \dots \mathbf{E}_2 \mathbf{E}_1 \mathbf{A} = \mathbf{A}_{RREF} $$
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Inverses and Products</h2>
+            <div class="module-card">
+                <ul class="topic-list">
+                    <li class="topic-item">Elementary matrices are <strong>always invertible</strong>.</li>
+                    <li class="topic-item">The inverse of an elementary matrix is another elementary matrix that
+                        "undoes" the operation.</li>
+                </ul>
+                <p><strong>AI Theory:</strong> This is a precursor to <strong>LU Decomposition</strong>. The matrix \(
+                    \mathbf{L} \)
+                    is essentially the product of the inverses of the elementary matrices used for Gaussian elimination.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Building an Elementary Matrix</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# A 3x3 Identity
+E = np.eye(3)
+
+# Row Op: Add -2 * Row 0 to Row 1
+E[1, 0] = -2
+
+A = np.array([[1, 1, 1], [2, 5, 5], [0, 0, 1]])
+
+# Result of Matrix Mult
+result = E @ A
+
+print(f"Elementary Matrix E:\n{E}")
+print(f"Result (Should have 0 at index [1,0]):\n{result}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

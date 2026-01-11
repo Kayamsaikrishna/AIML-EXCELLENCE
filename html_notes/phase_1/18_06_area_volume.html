@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area & Volume - Phase 1.3.4.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.4 Integration</li>
+            <li><a href="18_05_ftc.html">05. FTC</a></li>
+            <li><a href="18_06_area_volume.html" class="active">06. Area & Volume</a></li>
+            <li><a href="18_07_arc_surface.html">07. Arc & Surface</a></li>
+            <li class="nav-label">1.3.3 Applications</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Area/Volume
+        </div>
+
+        <header>
+            <h1>06. Area Between Curves and Volumes</h1>
+            <p class="subtitle">Geometric applications of the definite integral.</p>
+        </header>
+
+        <section>
+            <h2>1. Area Between Two Curves</h2>
+            <p>If \(f(x) \geq g(x)\) on \([a, b]\), the area between them is:</p>
+            <div class="math-block" style="font-size: 1.5rem;">
+                $$ A = \int_a^b [f(x) - g(x)] dx $$
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Volumes of Revolution</h2>
+            <div class="module-card">
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Disk Method:</strong> Rotating \(f(x)\) around x-axis: \( V =
+                        \int_a^b \pi [f(x)]^2 dx \).</li>
+                    <li class="topic-item"><strong>Washer Method:</strong> Rotating gap between \(f\) and \(g\): \( V =
+                        \int_a^b \pi ([f(x)]^2 - [g(x)]^2) dx \).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI Connection: Model Divergence</h2>
+            <div class="module-card">
+                <h3>Earth Mover's Distance (EMD)</h3>
+                <p>In Generative AI (GANs), we need to measure how different two probability
+                    distributions are. The area between the two "landscapes" (curves) represents the
+                    "effort" needed to transform one into the other. This "area between curves"
+                    logic is the geometric basis for the **Wasserstein Loss**, which prevents
+                    GANs from collapsing during training.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Area Computation</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+f = x**2
+g = x
+
+# 1. Find intersection points (0 and 1)
+pts = sp.solve(f - g, x)
+
+# 2. Integrate top - bottom on [0, 1]
+area = sp.integrate(g - f, (x, 0, 1))
+
+print(f"Area between y=x and y=x^2 on [0, 1]: {area}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indefinite Integrals - Phase 1.3.4.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.4 Integration</li>
+            <li><a href="18_01_antiderivatives.html">01. Antiderivatives</a></li>
+            <li><a href="18_02_indefinite_integrals.html" class="active">02. Indefinite Integrals</a></li>
+            <li><a href="18_03_integration_rules.html">03. Integration Rules</a></li>
+            <li><a href="18_04_usubstitution.html">04. U-Substitution</a></li>
+            <li><a href="18_05_integration_by_parts.html">05. Integration by Parts</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Indefinite Integrals
+        </div>
+
+        <header>
+            <h1>02. Indefinite Integrals</h1>
+            <p class="subtitle">The operator symbol for reconstruction.</p>
+        </header>
+
+        <section>
+            <h2>1. Notation & Vocabulary</h2>
+            <p>The notation \(\int f(x) dx\) is used to denote the set of all antiderivatives of \(f(x)\). It is called
+                an <strong>indefinite integral</strong>.</p>
+            <ul class="topic-list">
+                <li><strong>\(\int\):</strong> The integral sign (a stretched "S" for Sum).</li>
+                <li><strong>\(f(x)\):</strong> The integrand (the function being integrated).</li>
+                <li><strong>\(dx\):</strong> The differential (indicating the variable of integration).</li>
+                <li><strong>\(F(x) + C\):</strong> The result.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Identity Relationship</h2>
+            <p>Integration and Differentiation are <strong>inverse operations</strong>. If you integrate a function and
+                then differentiate the result, you get the original function back:</p>
+            <div class="math-block">
+                $$ \frac{d}{dx} \left[ \int f(x) dx \right] = f(x) $$
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Continuous Expected Value</h2>
+            <div class="module-card">
+                <h3>Integrating for Averages</h3>
+                <p>In classical statistics, the "Average" (Expectation) of a discrete set of numbers is a sum. But for
+                    continuous variables (like "Height" or "Stock Price"), the expected value is an
+                    <strong>integral</strong>:</p>
+                <div class="math-block">
+                    $$ E[X] = \int x \cdot p(x) dx $$
+                </div>
+                <p>Where \(p(x)\) is the probability density. To calculate the most likely prediction for a model that
+                    outputs continuous values, AI libraries must perform this integration either symbolically or
+                    numerically.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Evaluating Indefinite Integrals</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+integrand = sp.sin(x) + x**2
+
+# Compute integral
+ind_integral = sp.integrate(integrand, x)
+
+print(f"Integral of {integrand} is: {ind_integral} + C")
+# Output: -cos(x) + x**3/3 + C</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

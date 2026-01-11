@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permutations - Phase 1.4.15</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.4 Basic Probability</li>
+            <li><a href="24_14_counting_principles.html">14. Counting Principles</a></li>
+            <li><a href="24_15_permutations.html" class="active">15. Permutations</a></li>
+            <li><a href="24_16_combinations.html">16. Combinations</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Permutations
+        </div>
+
+        <header>
+            <h1>15. Permutations</h1>
+            <p class="subtitle">When order matters.</p>
+        </header>
+
+        <section>
+            <h2>1. Order and Selection</h2>
+            <p>A <strong>Permutation</strong> is an arrangement of objects in a specific order. If you change the order,
+                you have a different permutation.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Formulas</h2>
+            <ul class="topic-list">
+                <li><strong>Without Repetition:</strong> Choosing \(r\) items from \(n\) distinct items.
+                    $$ P(n, r) = \frac{n!}{(n-r)!} $$
+                </li>
+                <li><strong>With Repetition:</strong> Choosing \(r\) items from \(n\) types where items can be reused.
+                    $$ n^r $$
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Genetic Algorithms</h2>
+            <div class="module-card">
+                <h3>Pathfinding and Optimization</h3>
+                <p>In <strong>Evolutionary AI</strong> and <strong>Genetic Algorithms</strong>, a "Chromosome" is often
+                    represented as a permutation of genes. </p>
+                <p>For problems like the <strong>Traveling Salesperson Problem (TSP)</strong>—which AI uses to optimize
+                    delivery routes—the sample space is the set of all possible permutations of cities. If there are 10
+                    cities, there are $10! = 3,628,800$ possible routes. Permutations allow AI Researchers to understand
+                    the <strong>Search Complexity</strong> of discrete problems. Understanding how to swap and mutate
+                    these permutations without simple repetition is key to "Evolving" better solutions for complex
+                    logistics and scheduling. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating Permutations</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import math
+
+n = 10 # Total items
+r = 3  # Items chosen
+
+# Pure Math Formula
+p_n_r = math.factorial(n) / math.factorial(n - r)
+
+print(f"Permutations P({n}, {r}): {p_n_r}")
+
+# Python Built-in Generator
+from itertools import permutations
+items = ['A', 'B', 'C']
+print(f"Permutations of {items}: {list(permutations(items))}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.4 Expansion.</p>
+    </footer>
+</body>
+
+</html>

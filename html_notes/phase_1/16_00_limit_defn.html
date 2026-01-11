@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limit Defn of Derivative - Phase 1.3.2.0</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.2 Differentiation</li>
+            <li><a href="16_00_limit_defn.html" class="active">00. Limit Definition</a></li>
+            <li><a href="16_01_diff_basic_rules.html">01. Basic Rules</a></li>
+            <li class="nav-label">1.3.1 Limits</li>
+            <li><a href="15_01_limits_intro.html">← Limits Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Limit Defn
+        </div>
+
+        <header>
+            <h1>00. Limit Definition of the Derivative</h1>
+            <p class="subtitle">The instantaneous rate of change.</p>
+        </header>
+
+        <section>
+            <h2>1. The Difference Quotient</h2>
+            <p>The average slope between two points \((x, f(x))\) and \((x+h, f(x+h))\) is:</p>
+            <div class="math-block">
+                $$ m_{sec} = \frac{f(x+h) - f(x)}{h} $$
+            </div>
+            <p>As \(h\) shrinks to zero, the secant line becomes the <strong>Tangent Line</strong>.</p>
+        </section>
+
+        <section>
+            <h2>2. The Formal Definition</h2>
+            <div class="math-block" style="font-size: 1.5rem;">
+                $$ f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} $$
+            </div>
+            <p>This is the core identity of all Calculus. If this limit exists, we say \(f\) is
+                <strong>Differentiable</strong> at \(x\).</p>
+        </section>
+
+        <section>
+            <h2>3. AI Connection: Numerical Gradients</h2>
+            <div class="module-card">
+                <p>When we test if a complex Neural Network's "Auto-Grad" system is working correctly,
+                    we perform a <strong>Gradient Check</strong>. We calculate the slope using this
+                    limit definition with a tiny \(h\) (e.g., \(10^{-7}\)) and compare it to the analytical
+                    derivative. This is the ultimate "Ground Truth" for optimization.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Deriving from Definition</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x, h = sp.symbols('x h')
+f = x**2
+
+# Apply definition: lim_{h->0} (f(x+h) - f(x)) / h
+diff_quotient = (f.subs(x, x + h) - f) / h
+derivative = sp.limit(diff_quotient, h, 0)
+
+print(f"Function: {f}")
+print(f"Derivative via Definition: {derivative}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

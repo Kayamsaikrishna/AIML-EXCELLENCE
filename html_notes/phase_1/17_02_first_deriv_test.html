@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Derivative Test - Phase 1.3.3.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.3 Applications of Derivs</li>
+            <li><a href="17_01_critical_points.html">01. Critical Points</a></li>
+            <li><a href="17_02_first_deriv_test.html" class="active">02. 1st Deriv Test</a></li>
+            <li><a href="17_03_second_deriv_test.html">03. 2nd Deriv Test</a></li>
+            <li><a href="17_04_concavity_inflection.html">04. Concavity</a></li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; First Derivative Test
+        </div>
+
+        <header>
+            <h1>02. The First Derivative Test</h1>
+            <p class="subtitle">Classifying peaks and valleys using signs.</p>
+        </header>
+
+        <section>
+            <h2>1. The Test</h2>
+            <p>Suppose \(c\) is a critical point of a continuous function \(f\). To determine if \(c\) is a maximum or
+                minimum, we look at the sign of \(f'(x)\) as it passes through \(c\):</p>
+            <div class="math-block">
+                <ul>
+                    <li>If \(f'(x)\) changes from <strong>positive to negative</strong>, \(c\) is a <strong>Local
+                            Maximum</strong>.</li>
+                    <li>If \(f'(x)\) changes from <strong>negative to positive</strong>, \(c\) is a <strong>Local
+                            Minimum</strong>.</li>
+                    <li>If \(f'(x)\) does not change sign, \(c\) is neither (it could be a shelf or an inflection
+                        point).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The "Sign Chart" Method</h2>
+            <p>Usually, we pick test points to the left and right of the critical point. If the slope was climbing (+),
+                hit zero, and started falling (-), you found a peak.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Gradient Descent Direction</h2>
+            <div class="module-card">
+                <h3>Oscillating near a Minimum</h3>
+                <p>In <strong>Gradient Descent</strong>, if our learning rate is too high, we might see the gradient
+                    change from positive to negative repeatedly. This is exactly what the First Derivative Test
+                    describes: we are jumping across the critical point from one side of the valley to the other. </p>
+                <p>Knowing that a sign change in the gradient indicates we have "passed" the optimum allows adaptive
+                    optimizers to slow down (decay) the learning rate to settle into the actual minimum point.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Sign Check Logic</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Function: f(x) = x^2, f'(x) = 2x. Critical point at 0.
+def df(x): return 2*x
+
+left_slope = df(-0.1)  # Result: -0.2 (Negative)
+right_slope = df(0.1)  # Result: 0.2 (Positive)
+
+if left_slope < 0 and right_slope > 0:
+    print("Slope changed from negative to positive. This is a Local Minimum.")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

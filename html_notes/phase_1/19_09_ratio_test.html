@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratio Test - Phase 1.3.8.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.8 Series & Taylor</li>
+            <li><a href="22_05_alternating_series.html">05. Alternating Series</a></li>
+            <li><a href="22_06_ratio_test.html" class="active">06. Ratio Test</a></li>
+            <li><a href="22_07_root_test.html">07. Root Test</a></li>
+            <li><a href="22_08_power_series.html">08. Power Series</a></li>
+            <li><a href="22_09_power_series_funcs.html">09. Power Series Funcs</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Ratio Test
+        </div>
+
+        <header>
+            <h1>06. Absolute Convergence & The Ratio Test</h1>
+            <p class="subtitle">Finding the speed of term decay.</p>
+        </header>
+
+        <section>
+            <h2>1. Absolute Convergence</h2>
+            <p>A series \(\sum a_n\) is <strong>Absolutely Convergent</strong> if the sum of its absolute values \(\sum
+                |a_n|\) converges. This is strongest form of convergence—if path is absolutely convergent, you can
+                rearrange its terms however you like and the sum won't change.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Ratio Test</h2>
+            <p>The Ratio Test is the most important tool for series containing factorials (\(n!\)) or powers (\(a^n\)).
+                We look at the ratio of consecutive terms:</p>
+            <div class="math-block">
+                $$ L = \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| $$
+            </div>
+            <ul class="topic-list">
+                <li><strong>If \(L < 1\):</strong> The series <strong>Converges Absolutely</strong>.</li>
+                <li><strong>If \(L > 1\):</strong> The series <strong>Diverges</strong>.</li>
+                <li><strong>If \(L = 1\):</strong> The test is inconclusive.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Stability of Neural Updates</h2>
+            <div class="module-card">
+                <h3>Convergence Rates</h3>
+                <p>In <strong>Deep Learning</strong>, we want to know how fast the error decreases. If the ratio of
+                    error at step \(t+1\) to the error at step \(t\) is always less than 1, we have <strong>Exponential
+                        Convergence</strong>. </p>
+                <p>The Ratio Test is essentially the discrete version of checking a "Learning Rate Boundary". If an AI's
+                    learning updates grow faster than they shrink (Ratio \(> 1\)), the model will suffer from
+                    <strong>Exploding Gradients</strong> and crash. If the updates shrink consistently (Ratio \(< 1\)),
+                        the learning process is stable and the model is likely to reach a high-quality global optimum.
+                        This math is the basis for proving which "Optimizers" are safe to use in production.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Testing a Factorial Series</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Series n! / n^n
+# a_{n+1}/a_n = (n+1)! / (n+1)^(n+1) * n^n / n!
+# = (n+1) * n^n / (n+1)^(n+1) = (n / (n+1))^n -> 1/e
+
+import numpy as np
+n = 100000
+ratio = (n / (n+1))**n
+print(f"Ratio limit: {ratio:.6f}")
+print(f"Verify (1/e): {1/np.exp(1):.6f}")
+# Since 1/e < 1, the series converges!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

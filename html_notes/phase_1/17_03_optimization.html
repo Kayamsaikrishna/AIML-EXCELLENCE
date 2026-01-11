@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimization Problems - Phase 1.3.3.3</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.3 Applications of Derivatives</li>
+            <li><a href="17_02_concavity.html">02. Concavity</a></li>
+            <li><a href="17_03_optimization.html" class="active">03. Optimization</a></li>
+            <li><a href="17_04_taylor_intro.html">04. Taylor Intro</a></li>
+            <li class="nav-label">1.3.2 Differentiation</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Optimization
+        </div>
+
+        <header>
+            <h1>03. Modeling and Optimization</h1>
+            <p class="subtitle">Turning constraints into coordinates.</p>
+        </header>
+
+        <section>
+            <h2>1. The Workflow</h2>
+            <div class="module-card">
+                <ol class="topic-list">
+                    <li class="topic-item"><strong>Objective Function:</strong> Define what you want to
+                        maximize/minimize.</li>
+                    <li class="topic-item"><strong>Constraints:</strong> Relate the variables using problem rules.</li>
+                    <li class="topic-item"><strong>Elimination:</strong> Substitute constraints to get a single-variable
+                        function.</li>
+                    <li class="topic-item"><strong>Solution:</strong> Find critical points and test with the 2nd
+                        derivative.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Classic Example: Max Area</h2>
+            <p>You have 100m of fence for a rectangular field against a wall. Maximize Area \(A = x \cdot y\).</p>
+            <ul class="topic-list">
+                <li class="topic-item">Constraint: \(x + 2y = 100 \implies x = 100 - 2y\)</li>
+                <li class="topic-item">Objective: \(A = (100-2y)y = 100y - 2y^2\)</li>
+                <li class="topic-item">Optimize: \(A' = 100 - 4y = 0 \implies y = 25m\).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI Connection: Hyperparameter Optimization</h2>
+            <div class="module-card">
+                <p>Optimization in AI isn't just about training weights. We also optimize **Hyperparameters**
+                    (like the learning rate, number of layers, or regularization strength). While we often
+                    use "Black Box" optimizers like Bayesian Search, the goal is identical: define a surrogate
+                    model of the accuracy function and find its peak using derivatives.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Numerical Optimization</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.optimize import minimize_scalar
+
+# We want to minimize f(x) = (x-3)^2 + 4
+def objective(x):
+    return (x-3)**2 + 4
+
+res = minimize_scalar(objective)
+
+print(f"Optimal x: {res.x:.4f}")
+print(f"Minimum Value: {res.fun:.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

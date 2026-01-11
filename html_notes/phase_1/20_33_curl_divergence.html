@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divergence - Phase 1.3.5.9</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.5 Multivariable Calc I</li>
+            <li><a href="19_08_tangent_planes.html">08. Tangent Planes</a></li>
+            <li><a href="19_09_divergence.html" class="active">09. Divergence</a></li>
+            <li><a href="19_10_curl.html">10. Curl</a></li>
+            <li><a href="19_11_extrema.html">11. Multivariable Extrema</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Divergence
+        </div>
+
+        <header>
+            <h1>09. Divergence (\(\text{div } \vec{F}\))</h1>
+            <p class="subtitle">Measuring the expansion and contraction of fields.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>Divergence deals with <strong>Vector Fields</strong> \(\vec{F} = \langle P, Q, R \rangle\). It measures
+                whether points act as "sources" (field spreading out) or "sinks" (field converging in).</p>
+            <div class="math-block">
+                $$ \text{div } \vec{F} = \nabla \cdot \vec{F} = \frac{\partial P}{\partial x} + \frac{\partial
+                Q}{\partial y} + \frac{\partial R}{\partial z} $$
+            </div>
+            <p>Divergence is a <strong>scalar</strong> value at each point.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Interpretation</h2>
+            <ul class="topic-list">
+                <li><strong>Positive Divergence:</strong> A source. Something is being added to the field at that point.
+                </li>
+                <li><strong>Negative Divergence:</strong> A sink. Something is being removed.</li>
+                <li><strong>Zero Divergence:</strong> The field is <i>incompressible</i>. What flows in must flow out.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Score-Based Generative Models</h2>
+            <div class="module-card">
+                <h3>Probability Flow</h3>
+                <p>Generating images with AI (like <strong>DALL·E</strong> or <strong>Stable Diffusion</strong>) works
+                    by starting with random noise and gradually "denoising" it. This process can be viewed as a vector
+                    field where every pixel is "flowing" toward the nearest realistic image. </p>
+                <p>The <strong>Divergence</strong> of this field tells us how the probability density changes over time.
+                    Researchers use the <strong>Divergence Theorem</strong> to ensure that the AI model doesn't "leak"
+                    probability into impossible states. High-quality diffusion models are built using
+                    <strong>Divergence-Free</strong> priors or strictly controlled divergence to maintain the sharpest
+                    details during generation.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Divergence Calculation</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Field F = <x^2, y^2, z^2>
+# div F = 2x + 2y + 2z
+
+import sympy as sp
+
+x, y, z = sp.symbols('x y z')
+P = x**2
+Q = y**2
+R = z**2
+
+div_F = sp.diff(P, x) + sp.diff(Q, y) + sp.diff(R, z)
+
+print(f"Divergence of F: {div_F}")
+# At point (1, 1, 1), divergence is 6.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

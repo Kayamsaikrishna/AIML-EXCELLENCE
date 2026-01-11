@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVT - Phase 1.3.1.7</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.1 Limits & Continuity</li>
+            <li><a href="15_06_discontinuities.html">06. Discontinuities</a></li>
+            <li><a href="15_07_ivt.html" class="active">07. IVT</a></li>
+            <li><a href="15_08_squeeze_theorem.html">08. Squeeze Theorem</a></li>
+            <li class="nav-label">1.2.6 AI/ML Apps</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; IVT
+        </div>
+
+        <header>
+            <h1>07. Intermediate Value Theorem (IVT)</h1>
+            <p class="subtitle">The "no skipping" guarantee.</p>
+        </header>
+
+        <section>
+            <h2>1. The Theorem</h2>
+            <p>If \(f(x)\) is continuous on a closed interval \([a, b]\), and \(K\) is any number between
+                \(f(a)\) and \(f(b)\), then there exists at least one number \(c\) in \((a, b)\) such that:</p>
+            <div class="math-block" style="font-size: 1.5rem;">
+                $$ f(c) = K $$
+            </div>
+            <p>Key Insight: **Continuous functions can't "jump" over values.**</p>
+        </section>
+
+        <section>
+            <h2>2. Finding Roots (Application)</h2>
+            <div class="module-card">
+                <p>If \(f(a)\) is negative and \(f(b)\) is positive, and \(f\) is continuous, then IVT
+                    guarantees there is at least one <strong>Root</strong> (where \(f(c)=0\)) between them.
+                    This is the mathematical basis for the <strong>Bisection Method</strong>.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI Analogy: Data Manifolds</h2>
+            <div class="module-card">
+                <p>In GANs (Generative Adversarial Networks), we assume that the mapping from latent noise
+                    to images is a continuous function. IVT implies that between any two generated
+                    images (e.g., a cat and a dog), there must exist an image that is an "intermediate"
+                    interpolation of the two. This is what makes **Latent Space Interpolation** possible.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Bisection Root Finding</h2>
+            <div class="code-block">
+                <pre><code class="language-python">def f(x): return x**3 - x - 2 # Roots between 1 and 2
+
+def bisection(a, b, iter=20):
+    if f(a) * f(b) > 0: return "IVT doesn't guarantee root"
+    
+    for _ in range(iter):
+        mid = (a + b) / 2
+        if f(mid) == 0: return mid
+        if f(a) * f(mid) < 0: b = mid
+        else: a = mid
+    return (a + b) / 2
+
+root = bisection(1, 2)
+print(f"Approximate root: {root:.6f}")
+print(f"Verification f(root): {f(root):.6f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

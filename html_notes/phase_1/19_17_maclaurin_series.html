@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maclaurin Series - Phase 1.3.5.17</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.5 Sequences & Series</li>
+            <li><a href="19_16_taylor_polynomials.html">16. Taylor Polynomials</a></li>
+            <li><a href="19_17_maclaurin_series.html" class="active">17. Maclaurin Series</a></li>
+            <li><a href="19_18_common_taylor.html">18. Common Taylor</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Maclaurin
+        </div>
+
+        <header>
+            <h1>17. Maclaurin Series</h1>
+            <p class="subtitle">Solving for infinity from the origin.</p>
+        </header>
+
+        <section>
+            <h2>1. The Definition</h2>
+            <p>A <strong>Maclaurin Series</strong> is simply a Taylor Series centered at \(a = 0\). It is named after
+                the Scottish mathematician Colin Maclaurin.</p>
+            <div class="math-block">
+                $$ f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!} x^n = f(0) + f'(0)x + \frac{f''(0)}{2!}x^2 + \dots
+                $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Why Center at Zero?</h2>
+            <p>Calculating derivatives at zero is often computationally cheaper and results in much "cleaner"
+                polynomials. Most of the famous approximations used in engineering and physics (like \( \sin x \approx x
+                \)) are actually 1st-order Maclaurin series.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Origin of Weights</h2>
+            <div class="module-card">
+                <h3>Xavier Initialization</h3>
+                <p>When we start training a Neural Network, we usually initialize weights close to
+                    <strong>Zero</strong>. Why? Because many activation functions (like <strong>Sigmoid</strong> and
+                    <strong>Tanh</strong>) are at their most "Linear" and "Responsive" near zero. </p>
+                <p>By looking at the <strong>Maclaurin Series</strong> of these activations, we can see that for small
+                    weights, they behave like \(f(x) \approx x\). This allows gradients to flow easily during the start
+                    of training. If we centered our model's "Knowledge" elsewhere, we would face vanishing gradients
+                    immediately. Maclaurin series tells us that the "Origin" is the safest place for a learning system
+                    to begin its journey.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Maclaurin coefficients</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+f = sp.sin(x)
+
+# First 5 terms of Maclaurin Series
+series = sp.series(f, x, 0, 8)
+print(f"Maclaurin of sin(x): {series}")
+# Output contains only odd powers: x - x^3/6 + x^5/120 - x^7/5040</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

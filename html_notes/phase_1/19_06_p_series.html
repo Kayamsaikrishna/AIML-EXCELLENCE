@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p-Series - Phase 1.3.5.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.5 Sequences & Series</li>
+            <li><a href="19_05_geometric_series.html">05. Geometric Series</a></li>
+            <li><a href="19_06_p_series.html" class="active">06. p-Series</a></li>
+            <li><a href="19_07_comparison_test.html">07. Comparison Test</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; p-Series
+        </div>
+
+        <header>
+            <h1>06. p-Series</h1>
+            <p class="subtitle">Finding the "tipping point" between finite and infinite.</p>
+        </header>
+
+        <section>
+            <h2>1. The Test</h2>
+            <p>The <strong>p-series</strong> is a series of the form:</p>
+            <div class="math-block">
+                $$ \sum_{n=1}^{\infty} \frac{1}{n^p} = 1 + \frac{1}{2^p} + \frac{1}{3^p} + \dots $$
+            </div>
+            <p>The <strong>p-series Test</strong> states:</p>
+            <ul class="topic-list">
+                <li>If \(p > 1\), the series <strong>converges</strong>.</li>
+                <li>If \(p \leq 1\), the series <strong>diverges</strong>.</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Harmonic Series</h2>
+            <p>When \(p = 1\), we get the <strong>Harmonic Series</strong> (\(1 + 1/2 + 1/3 + \dots\)). Even though the
+                terms go to zero, they don't do it fast enough. The sum grows to infinity very slowly. This is the
+                boundary between convergent and divergent behavior.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Zipf's Law</h2>
+            <div class="module-card">
+                <h3>The Math of Language</h3>
+                <p>In <strong>Natural Language Processing (NLP)</strong>, we observe that the frequency of words follows
+                    <strong>Zipf's Law</strong>. The most common word appears roughly twice as often as the second most
+                    common, three times as often as the third, and so on. </p>
+                <p>This is a <strong>p-series</strong> with \(p \approx 1\). This means that if you had an infinite
+                    dictionary, the total "Weight" of all words would diverge. This physical reality is why AI models
+                    like <strong>GPT-4</strong> use a "Vocabulary Limit". If they tried to learn every possible "rare"
+                    word, the model's memory requirements would follow a Divergent p-Series, eventually crashing the
+                    system. By understanding the p-series, engineers can balance "Model Breadth" with "Finite Memory".
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Visualizing Divergence</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># p=1 (Harmonic) vs p=2 (Convergent)
+import matplotlib.pyplot as plt
+
+n = list(range(1, 100))
+harmonic = [sum(1/i for i in range(1, x+1)) for x in n]
+convergent = [sum(1/(i**2) for i in range(1, x+1)) for x in n]
+
+plt.plot(n, harmonic, label="p=1 (Divergent)")
+plt.plot(n, convergent, label="p=2 (Convergent)")
+plt.legend()
+plt.show() # In a real environment, this shows p=2 flattening while p=1 grows.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

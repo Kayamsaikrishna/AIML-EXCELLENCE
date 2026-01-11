@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volumes of Revolution - Phase 1.3.4.16</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.4 Integration</li>
+            <li><a href="18_14_avg_value.html">14. Average Value</a></li>
+            <li><a href="18_15_area_between_curves.html">15. Area Between Curves</a></li>
+            <li><a href="18_16_volumes.html" class="active">16. Volumes</a></li>
+            <li><a href="18_17_arc_length.html">17. Arc Length</a></li>
+            <li><a href="18_18_surface_area.html">18. Surface Area</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Volumes
+        </div>
+
+        <header>
+            <h1>16. Volumes of Revolution</h1>
+            <p class="subtitle">Turning 2D shapes into 3D models.</p>
+        </header>
+
+        <section>
+            <h2>1. The Core Idea</h2>
+            <p>If you take a 2D area and spin it around an axis (like a pottery wheel), you create a 3D solid. Calculus
+                allows us to calculate the volume of these solids by summing up infinitely thin "slices".</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Methods</h2>
+            <ul class="topic-list">
+                <li><strong>Disk Method (\(V = \int \pi [R(x)]^2 dx\)):</strong> Use when the slices are solid circles.
+                </li>
+                <li><strong>Washer Method (\(V = \int \pi ([R(x)]^2 - [r(x)]^2) dx\)):</strong> Use when the solid has a
+                    hole in the middle.</li>
+                <li><strong>Shell Method (\(V = \int 2\pi x f(x) dx\)):</strong> Use when you "wrap" thin cylindrical
+                    shells around an axis.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: 3D Generation & NeRFs</h2>
+            <div class="module-card">
+                <h3>Neural Radiance Fields (NeRF)</h3>
+                <p>Generating 3D objects from 2D photos is a massive field in AI. Models like **NeRFs** represent 3D
+                    space as a continuous function of density and color. </p>
+                <p>To render an image from a NeRF, the AI must "Integrate" the volume along a ray of light. This is
+                    effectively calculating a volume integral. If the model is generating a symmetrical object (like a
+                    vase or a car wheel), it might use **Rotational Symmetry** priors based on these volume integration
+                    rules to fill in missing parts of the object that the camera couldn't see. Understanding volumes of
+                    revolution is the first step toward understanding 3D AI and Digital Twins.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating a Sphere's Volume</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Rotate y = sqrt(r^2 - x^2) around x-axis
+# Integral of pi * (sqrt(r^2 - x^2))^2 from -r to r
+# Result: 4/3 * pi * r^3
+
+import sympy as sp
+
+x, r = sp.symbols('x r')
+f_squared = r**2 - x**2
+volume = sp.pi * sp.integrate(f_squared, (x, -r, r))
+
+print(f"Volume of a sphere with radius r: {volume}")
+# Output: 4*pi*r**3/3</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

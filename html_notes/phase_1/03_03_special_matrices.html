@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Matrices - Phase 1.2.2.3</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_02_matrix_types.html">02. Matrix Types</a></li>
+            <li><a href="03_03_special_matrices.html" class="active">03. Special Matrices</a></li>
+            <li><a href="03_04_matrix_ops.html">04. Matrix Ops</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Special Matrices
+        </div>
+
+        <header>
+            <h1>03. Diagonal, Triangular, and Symmetric Matrices</h1>
+            <p class="subtitle">Structured matrices for efficient computation.</p>
+        </header>
+
+        <section>
+            <h2>1. Definitions & Visuals</h2>
+            <div class="module-card">
+                <h3>Symmetric Matrix (\( \mathbf{A} = \mathbf{A}^T \))</h3>
+                <p>The elements are mirrored across the main diagonal. \( a_{ij} = a_{ji} \).</p>
+                <div class="math-block">
+                    $$ \begin{bmatrix} 1 & \color{blue}{2} & \color{red}{3} \\ \color{blue}{2} & 5 & \color{green}{6} \\
+                    \color{red}{3} & \color{green}{6} & 9 \end{bmatrix} $$
+                </div>
+                <p><strong>AI Use:</strong> The <strong>Covariance Matrix</strong> and the <strong>Hessian
+                        Matrix</strong> (used in optimization) are always symmetric.</p>
+            </div>
+
+            <div class="module-card">
+                <h3>Diagonal Matrix</h3>
+                <p>All non-diagonal elements are zero. Multiplying by a diagonal matrix is a simple element-wise
+                    scaling.</p>
+                <div class="math-block">
+                    $$ \begin{bmatrix} w_1 & 0 & 0 \\ 0 & w_2 & 0 \\ 0 & 0 & w_3 \end{bmatrix} $$
+                </div>
+            </div>
+
+            <div class="module-card">
+                <h3>Triangular Matrices</h3>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Upper Triangular (U):</strong> Elements below the diagonal are zero.
+                    </li>
+                    <li class="topic-item"><strong>Lower Triangular (L):</strong> Elements above the diagonal are zero.
+                    </li>
+                </ul>
+                <p><strong>AI Use:</strong> These are the output of <strong>LU Decomposition</strong>, used to solve
+                    linear systems efficiently.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Skew-Symmetric Matrices (\( \mathbf{A} = -\mathbf{A}^T \))</h2>
+            <p>Diagonal elements must be zero. They represent infinitesimal rotations in physics engines for robotics.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Python: Working with Structure</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# Create a Symmetric Matrix
+A = np.array([[1, 2], [2, 5]])
+is_symmetric = np.allclose(A, A.T)
+
+# Extract Diagonal
+diag = np.diag(A)
+
+# Create Triangular matrices
+U = np.triu(A)
+L = np.tril(A)
+
+print(f"Upper Triangular:\n{U}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

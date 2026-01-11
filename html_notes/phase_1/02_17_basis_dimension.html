@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basis & Dimension - Phase 1.2.17</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2 Linear Algebra</li>
+            <li><a href="02_16_linear_independence.html">16. Linear Independence</a></li>
+            <li><a href="02_17_basis_dimension.html" class="active">17. Basis & Dimension</a></li>
+            <li><a href="02_18_change_basis.html">18. Change of Basis</a></li>
+            <li class="nav-label">1.1 Arithmetic & Algebra</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Basis & Dimension
+        </div>
+
+        <header>
+            <h1>17. Basis and Dimension</h1>
+            <p class="subtitle">Defining the minimum necessary information.</p>
+        </header>
+
+        <section>
+            <h2>1. What is a Basis?</h2>
+            <p>A set of vectors \( B \) is a <strong>Basis</strong> for a vector space \( V \) if:</p>
+            <div class="module-card">
+                <ul class="topic-list">
+                    <li class="topic-item">\( B \) is <strong>Linearly Independent</strong>.</li>
+                    <li class="topic-item">\( B \) <strong>Spans</strong> \( V \).</li>
+                </ul>
+            </div>
+            <p>The number of vectors in any basis for \( V \) is called the <strong>Dimension</strong> of the space.</p>
+        </section>
+
+        <section>
+            <h2>2. Latent Dimensions (The Secret Sauce of AI)</h2>
+            <div class="module-card">
+                <h3>Autoencoders & Bottlenecks</h3>
+                <p>In <strong>Generative AI (VAEs, GANs)</strong>, we take an image (Dimension = 1,000,000 pixels) and
+                    force it through a "Bottleneck" (Dimension = 128 latent factors). The model must find a new
+                    <strong>Basis</strong> for the data that captures only the essential features.
+                </p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Sparse Coding:</strong> Representing data using a basis where most
+                        coefficients are zero.</li>
+                    <li class="topic-item"><strong>Low-Dimensional Manifolds:</strong> Why a 3D object's surface can be
+                        described using a 2D basis.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Space Dimensionality</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# A space spanned by 3 vectors in 3D
+v1 = np.array([1, 0, 0])
+v2 = np.array([0, 1, 0])
+v3 = np.array([1, 1, 0]) # Linear combination of v1 and v2
+
+# Calculate dimension
+matrix = np.array([v1, v2, v3])
+dimension = np.linalg.matrix_rank(matrix)
+
+print(f"Dimension of the space: {dimension}") # Output: 2 (A plane)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

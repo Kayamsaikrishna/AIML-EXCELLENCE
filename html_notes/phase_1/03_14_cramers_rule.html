@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cramer's Rule - Phase 1.2.2.14</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_13_cofactor_expansion.html">13. Cofactor Expansion</a></li>
+            <li><a href="03_14_cramers_rule.html" class="active">14. Cramer's Rule</a></li>
+            <li><a href="03_15_rank.html">15. Rank</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Cramer's Rule
+        </div>
+
+        <header>
+            <h1>14. Cramer's Rule</h1>
+            <p class="subtitle">Solving linear systems using determinants.</p>
+        </header>
+
+        <section>
+            <h2>1. The Analytical Formula</h2>
+            <p>For a system \( \mathbf{Ax} = \mathbf{b} \), Cramer's rule allows you to solve for each variable
+                independently using determinants.</p>
+            <div class="math-block">
+                $$ x_i = \frac{\text{det}(\mathbf{A}_i)}{\text{det}(\mathbf{A})} $$
+            </div>
+            <p>Where \( \mathbf{A}_i \) is the matrix \( \mathbf{A} \) but with the \( i \)-th column replaced by the
+                vector \( \mathbf{b} \).</p>
+        </section>
+
+        <section>
+            <h2>2. The "Stability" Consideration</h2>
+            <div class="module-card">
+                <h3>Theoretical vs. Physical AI</h3>
+                <p>Cramer's rule is beautiful theoretically but <strong>dangerous numerically</strong>. Because it
+                    relies on Dividing by the determinant, if the matrix is "almost singular" (determinant close to 0),
+                    the result will explode or be highly inaccurate due to float precision errors.</p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Condition Number:</strong> Related to Cramer's Rule, it measures how
+                        much the output changes for a small change in input.</li>
+                    <li class="topic-item"><strong>Better Alternatives:</strong> LU Decomposition or iterative solvers
+                        like <strong>Conjugate Gradient</strong> are preferred in real-time AI.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Cramer's Implementation</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+def cramer_solve(A, b):
+    det_A = np.linalg.det(A)
+    if np.isclose(det_A, 0): return None
+    
+    n = len(b)
+    result = []
+    for i in range(n):
+        Ai = A.copy()
+        Ai[:, i] = b
+        result.append(np.linalg.det(Ai) / det_A)
+    return np.array(result)
+
+A = np.array([[2, 1], [1, 3]])
+b = np.array([5, 10])
+
+x = cramer_solve(A, b)
+print(f"Solution: {x}") # [1, 3] approx</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

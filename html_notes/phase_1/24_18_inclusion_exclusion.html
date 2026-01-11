@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusion-Exclusion - Phase 1.4.18</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.4 Basic Probability</li>
+            <li><a href="24_17_binomial_coefficients.html">17. Binomial Coefficients</a></li>
+            <li><a href="24_18_inclusion_exclusion.html" class="active">18. Inclusion-Exclusion</a></li>
+            <li class="nav-label">Series 25 Preview</li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt;
+            Inclusion-Exclusion
+        </div>
+
+        <header>
+            <h1>18. General Inclusion-Exclusion Principle</h1>
+            <p class="subtitle">Complexity in the Union of sets.</p>
+        </header>
+
+        <section>
+            <h2>1. Beyond Two Events</h2>
+            <p>While the union of two events is simple ($P + P - \text{Int}$), the <strong>General Inclusion-Exclusion
+                    Principle</strong> allows us to calculate the probability of the union of <i>any</i> number of
+                events. </p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The General Formula</h2>
+            <div class="math-block">
+                $$ P\left(\bigcup_{i=1}^n A_i\right) = \sum P(A_i) - \sum P(A_i \cap A_j) + \sum P(A_i \cap A_j \cap
+                A_k) - \dots $$
+            </div>
+            <p>The signs alternate: add individual probabilities, subtract pairs, add triples, and so on. This handles
+                the overlapping intersections between multiple data filters or tags.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Intersection over Union (IoU)</h2>
+            <div class="module-card">
+                <h3>Set-based Performance</h3>
+                <p>In <strong>Object Detection</strong> (like YOLO or Faster R-CNN) and <strong>Semantic
+                        Segmentation</strong>, our primary metric is <strong>Intersection over Union (IoU)</strong>
+                    (also called the Jaccard Index). </p>
+                <div class="math-block">
+                    $$ \text{IoU} = \frac{|P \cap G|}{|P \cup G|} = \frac{|P \cap G|}{|P| + |G| - |P \cap G|} $$
+                </div>
+                <p>To calculate the denominator (the Union), we use the Inclusion-Exclusion principle. When evaluating a
+                    model that detects multiple overlapping objects, understanding the complex union of these detection
+                    boxes is critical. If your model detects the same car three times with slight overlaps,
+                    Inclusion-Exclusion is the math that allows the system to realize it is still looking at only one
+                    car (using NMS - Non-Maximum Suppression). This principle is the "Quality Control" of spatial AI.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: IoU Calculator</h2>
+            <div class="code-block">
+                <pre><code class="language-python">def calculate_iou(box1, box2):
+    # Simplified 1D version for intuition
+    inter = max(0, min(box1[1], box2[1]) - max(box1[0], box2[0]))
+    union = (box1[1] - box1[0]) + (box2[1] - box2[0]) - inter
+    return inter / union
+
+# Box A: [0, 5], Box B: [3, 8]
+# Interaction: [3, 5] (Length 2)
+# Union: 5 + 5 - 2 = 8
+print(f"IoU: {calculate_iou([0, 5], [3, 8]):.2f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.4 Expansion.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numerical Integration - Phase 1.3.4.20</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.4 Integration</li>
+            <li><a href="18_18_surface_area.html">18. Surface Area</a></li>
+            <li><a href="18_19_work_force.html">19. Work & Force</a></li>
+            <li><a href="18_20_numerical_integration.html" class="active">20. Numerical Integr</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Numerical Integration
+        </div>
+
+        <header>
+            <h1>20. Numerical Integration</h1>
+            <p class="subtitle">When an analytical answer doesn't exist.</p>
+        </header>
+
+        <section>
+            <h2>1. Why Numerical?</h2>
+            <p>Most real-world integrals (like the bell curve \(\int e^{-x^2} dx\)) cannot be solved with basic
+                antiderivative rules. In these cases, we use algorithms to estimate the area with high precision.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Standard Algorithms</h2>
+            <ul class="topic-list">
+                <li><strong>Trapezoidal Rule:</strong> Approximates the function with straight lines (trapezoids).
+                    Faster than Riemann sums for the same number of points.</li>
+                <li><strong>Simpson's Rule:</strong> Approximates the function with <strong>parabolas</strong>
+                    (quadratic segments). Extremely accurate for smooth functions and usually the default in scientific
+                    computing libraries.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Monte Carlo & Estimation</h2>
+            <div class="module-card">
+                <h3>Bayesian Inference</h3>
+                <p>In <strong>Bayesian AI</strong>, to find the "Most Likely" prediction, we must calculate the
+                    "Evidence" term, which is a massive integral over the entire parameter space of the model. For
+                    Neural Networks, this is an integral in billions of dimensions. </p>
+                <p>Because these cannot be solved analytically (or even with Simpson's rule due to the "Curse of
+                    Dimensionality"), AI researchers use <strong>Monte Carlo Integration</strong>. This is a
+                    "randomized" version of numerical integration—we sample points randomly and take their weighted
+                    average. This is the only way that modern AI systems can reason about uncertainty and confidence.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Trapezoid vs Simpson</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+from scipy.integrate import trapezoid, simpson
+
+x = np.linspace(0, np.pi, 100)
+y = np.sin(x)
+
+# Theoretical area is 2
+trapz_res = trapezoid(y, x)
+simp_res = simpson(y, x)
+
+print(f"Trapezoidal Result: {trapz_res:.6f}")
+print(f"Simpson Result:     {simp_res:.6f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Independence - Phase 1.4.12</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.4 Basic Probability</li>
+            <li><a href="24_11_law_total_prob.html">11. Law of Total Probability</a></li>
+            <li><a href="24_12_independence.html" class="active">12. Independence</a></li>
+            <li><a href="24_13_exclusive_vs_independent.html">13. Exclusive vs Independent</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Independence
+        </div>
+
+        <header>
+            <h1>12. Independence of Events</h1>
+            <p class="subtitle">When outcomes don't care about each other.</p>
+        </header>
+
+        <section>
+            <h2>1. Defining Independence</h2>
+            <p>Two events $A$ and $B$ are <strong>Independent</strong> if the occurrence of one does not change the
+                probability of the other. Mathematically, knowing that $B$ happened gives you zero new information about
+                the likelihood of $A$.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Multiplication Test</h2>
+            <p>The definitive test for independence is whether the probability of both occurring is exactly the product
+                of their individual probabilities:</p>
+            <div class="math-block">
+                $$ P(A \cap B) = P(A) \cdot P(B) $$
+            </div>
+            <p>Equivalently: $P(A|B) = P(A)$ and $P(B|A) = P(B)$.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Disentangled Representations</h2>
+            <div class="module-card">
+                <h3>Feature Independence</h3>
+                <p>In <strong>Feature Selection</strong> and <strong>Dimensionality Reduction</strong>, we often look
+                    for independent features. If two features are perfectly independent, they provide unique
+                    information. If they are dependent, one is redundant. </p>
+                <p><strong>Independent Component Analysis (ICA)</strong> is a powerful AI technique used for "Blind
+                    Source Separation" (e.g., separating two voices talking at the same time). It works by assuming the
+                    original sources are statistically independent. By maximizing the independence of the output
+                    signals, the AI can "Unmix" complex data. Independence is the mathematical goal of
+                    <strong>Disentanglement</strong>: we want our AI's internal logic to separate "Style" from "Content"
+                    or "Shape" from "Color", treating each as an independent knob it can turn. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Dependency Check</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Dataset: 100 images
+# A: Image has a Dog (20/100)
+# B: Image has a Blue Background (30/100)
+# Intersection: Dog AND Blue Background (6/100)
+
+p_a = 0.2
+p_b = 0.3
+p_inter = 0.06
+
+is_independent = np.isclose(p_a * p_b, p_inter)
+print(f"Independent? {is_independent}") # True: (0.2 * 0.3 = 0.06)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.4 Expansion.</p>
+    </footer>
+</body>
+
+</html>

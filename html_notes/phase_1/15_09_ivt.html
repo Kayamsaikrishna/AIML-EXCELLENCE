@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermediate Value Theorem (IVT) - Phase 1.3.1.9</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.1 Limits & Continuity</li>
+            <li><a href="15_07_continuity_defn.html">07. Continuity Definition</a></li>
+            <li><a href="15_08_discontinuities_types.html">08. Discontinuities</a></li>
+            <li><a href="15_09_ivt.html" class="active">09. IVT</a></li>
+            <li><a href="15_10_evt.html">10. EVT</a></li>
+            <li><a href="15_11_squeeze_theorem.html">11. Squeeze Theorem</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; IVT
+        </div>
+
+        <header>
+            <h1>09. Intermediate Value Theorem (IVT)</h1>
+            <p class="subtitle">Ensuring no "skipping" of values in a continuous flow.</p>
+        </header>
+
+        <section>
+            <h2>1. The Theorem</h2>
+            <p>The <strong>Intermediate Value Theorem</strong> states that if a function \(f\) is
+                <strong>continuous</strong> on a closed interval \([a, b]\), and \(N\) is any number between \(f(a)\)
+                and \(f(b)\), then there exists at least one number \(c\) in \([a, b]\) such that:</p>
+            <div class="math-block">
+                $$ f(c) = N $$
+            </div>
+            <p>In simple terms: if you start at altitude 10 and end at altitude 20, and the path is continuous, you
+                <i>must</i> cross altitude 15 at some point.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Application: Root Finding</h2>
+            <p>One of the most powerful uses of IVT is to prove a function has a <strong>root</strong> (a zero). If
+                \(f(a)\) is negative and \(f(b)\) is positive, and the function is continuous, there
+                <strong>must</strong> be some point \(c\) where \(f(c) = 0\).</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Binary Search & Bisection</h2>
+            <div class="module-card">
+                <h3>Solving for Hyperparameters</h3>
+                <p>When searching for a hyperparameter that results in a target accuracy, we often use the
+                    <strong>Bisection Method</strong>. If a learning rate \(\alpha=0.1\) yields an accuracy of 0.8, and
+                    \(\alpha=0.01\) yields 0.9, the IVT guarantees that if the relationship is continuous, there is a
+                    learning rate in between that yields exactly 0.85.</p>
+                <p>This "Existence Proof" is why we are confident that searching within ranges (like in GridSearch or
+                    Bayesian Optimization) will eventually hit our target performance.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: The Bisection Method</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Find the root of f(x) = x^3 - 2 using IVT logic
+def f(x):
+    return x**3 - 2
+
+# We know f(1) = -1 and f(2) = 6. Continuity ensures a root between 1 and 2.
+low, high = 1.0, 2.0
+for _ in range(10): # 10 iterations of bisection
+    mid = (low + high) / 2
+    if f(mid) < 0:
+        low = mid # root is in upper half
+    else:
+        high = mid # root is in lower half
+
+print(f"Approximate Cube Root of 2: {mid:.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

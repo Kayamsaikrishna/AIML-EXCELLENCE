@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isomorphisms - Phase 1.2.5.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.5 Transformations</li>
+            <li><a href="13_04_rank_nullity_v2.html">04. Rank-Nullity (v2)</a></li>
+            <li><a href="13_05_isomorphisms.html" class="active">05. Isomorphisms</a></li>
+            <li><a href="13_06_cob_transforms.html">06. Change of Basis</a></li>
+            <li class="nav-label">1.2.4 Linear Systems</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Isomorphisms
+        </div>
+
+        <header>
+            <h1>05. Isomorphisms</h1>
+            <p class="subtitle">Same structure, different name.</p>
+        </header>
+
+        <section>
+            <h2>1. What is an Isomorphism?</h2>
+            <p>A linear transformation \(T: V \to W\) is an <strong>Isomorphism</strong> if it is both
+                <strong>Injective</strong> (one-to-one) and <strong>Surjective</strong> (onto).
+                Effectively, \(T\) is invertible.
+            </p>
+            <p>In matrix terms: \(\mathbf{A}\) must be an <strong>Invertible Square Matrix</strong>.</p>
+        </section>
+
+        <section>
+            <h2>2. The "Same" Rule</h2>
+            <p>If two finite-dimensional vector spaces have the <strong>same dimension</strong>, they are
+                isomorphic! This is mind-blowing because it means the space of \(2\times 2\) matrices
+                is "mathematically identical" to \(\mathbb{R}^4\).</p>
+        </section>
+
+        <section>
+            <h2>3. AI Relevance: Latent Space Equivalence</h2>
+            <div class="module-card">
+                <p>In <strong>Autoencoders</strong>, if the encoder transformation is an isomorphism, it means no
+                    information is lost in the compression; the latent space perfectly "isomorphs" the input space.
+                    However, we usually want <strong>Lossy</strong> compression to capture only salient features.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Mathematical Checklist</h2>
+            <ul class="topic-list">
+                <li class="topic-item">Does \(T(\mathbf{v}) = \mathbf{0}\) imply \(\mathbf{v} = \mathbf{0}\)?</li>
+                <li class="topic-item">Is the matrix \(\mathbf{A}\) square?</li>
+                <li class="topic-item">Is \(\det(\mathbf{A}) \neq 0\)?</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

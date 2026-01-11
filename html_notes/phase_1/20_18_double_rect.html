@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double Integrals - Phase 1.3.6.1</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.6 Multivariable Calc II</li>
+            <li><a href="20_01_double_integrals_rect.html" class="active">01. Double Integrals</a></li>
+            <li><a href="20_02_iterated_integrals.html">02. Iterated Integrals</a></li>
+            <li><a href="20_03_general_regions.html">03. General Regions</a></li>
+            <li><a href="20_04_polar_integration.html">04. Polar Integration</a></li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Double Integrals
+        </div>
+
+        <header>
+            <h1>01. Double Integrals over Rectangles</h1>
+            <p class="subtitle">Integrating across a two-dimensional domain.</p>
+        </header>
+
+        <section>
+            <h2>1. The Concept</h2>
+            <p>While a single integral measures the <strong>area</strong> under a 1D curve, a double integral measures
+                the <strong>volume</strong> under a 3D surface \(z = f(x, y)\) over a rectangular region \(R\) in the
+                \(xy\)-plane.</p>
+            <div class="math-block">
+                $$ V = \iint_{R} f(x, y) dA = \lim_{n,m \to \infty} \sum_{i=1}^{n} \sum_{j=1}^{m} f(x_i, y_j) \Delta A
+                $$
+            </div>
+            <p>Where \(\Delta A = \Delta x \Delta y\).</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Interpretation</h2>
+            <p>If \(f(x, y) = 1\), the double integral simply calculates the <strong>Area</strong> of region \(R\). If
+                \(f\) represents density, the integral calculates the <strong>total mass</strong>. If \(f\) is a
+                probability density, the integral calculates <strong>Joint Probability</strong>.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Joint Probability Distributions</h2>
+            <div class="module-card">
+                <h3>Correlation & Independence</h3>
+                <p>In AI, we often deal with multiple random variables (e.g., \(X\) = weight, \(Y\) = height). The
+                    <strong>Joint Probability Density Function (PDF)</strong>, \(p(x, y)\), tells us the likelihood of
+                    seeing a specific combination. </p>
+                <p>To find the probability that a person's weight is between 60-80kg AND height is between 160-180cm, we
+                    must perform a <strong>Double Integral</strong> over that rectangular range. If we cant solve this
+                    integral, we cant predict how likely a new data point is, which is the foundation of <strong>Anomaly
+                        Detection</strong> and <strong>Naive Bayes</strong> classifiers.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Numerical Double Integration</h2>
+            <div class="code-block">
+                <pre><code class="language-python">from scipy.integrate import dblquad
+import numpy as np
+
+# Integrate f(x, y) = x*y over square [0,1]x[0,1]
+# Analytic: (1/2)*(1/2) = 0.25
+
+f = lambda y, x: x * y
+area, error = dblquad(f, 0, 1, lambda x: 0, lambda x: 1)
+
+print(f"Volume under x*y: {area:.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

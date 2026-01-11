@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formal Definition of Limits (ε-δ) - Phase 1.3.1.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.1 Limits & Continuity</li>
+            <li><a href="15_01_limits_intuition.html">01. Intuitive Limits</a></li>
+            <li><a href="15_02_limits_formal.html" class="active">02. Formal (ε-δ)</a></li>
+            <li><a href="15_03_limits_onesided.html">03. One-Sided Limits</a></li>
+            <li><a href="15_04_limits_at_infinity.html">04. Limits at Infinity</a></li>
+            <li><a href="15_05_limits_infinite.html">05. Infinite Limits</a></li>
+            <li><a href="15_06_limits_laws.html">06. Limit Laws</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Formal Limits
+        </div>
+
+        <header>
+            <h1>02. Formal Definition (ε-δ)</h1>
+            <p class="subtitle">Ensuring mathematical rigor: The Epsilon-Delta definition.</p>
+        </header>
+
+        <section>
+            <h2>1. The Rigorous Definition</h2>
+            <p>While the intuitive definition ("gets closer to") is useful, we need a way to <i>prove</i> limits. The
+                formal definition states:</p>
+            <div class="module-card">
+                <p>Let \(f\) be a function defined on an open interval containing \(a\), except possibly at \(a\)
+                    itself. We say that:</p>
+                <div class="math-block">
+                    $$ \lim_{x \to a} f(x) = L $$
+                </div>
+                <p>if for every number <strong>\(\epsilon > 0\)</strong> (epsilon), there exists a number
+                    <strong>\(\delta > 0\)</strong> (delta) such that:</p>
+                <div class="math-block">
+                    $$ \text{if } 0 < |x - a| < \delta \implies |f(x) - L| < \epsilon $$ </div>
+                </div>
+        </section>
+
+        <section>
+            <h2>2. What does this actually mean?</h2>
+            <p>Think of it as a challenge:</p>
+            <ul>
+                <li><strong>The Challenge (\(\epsilon\)):</strong> Someone says, "I want the output of the function to
+                    be within 0.01 units of \(L\)."</li>
+                <li><strong>The Response (\(\delta\)):</strong> You must find a distance around \(a\) such that every
+                    \(x\) in that range (except \(a\)) produces an output within that 0.01 units.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Convergence Analysis</h2>
+            <div class="module-card">
+                <h3>Is your Optimizer "Converging"?</h3>
+                <p>In AI research, we often prove that an algorithm (like Adam or SGD) converges to an optimal weight
+                    \(w^*\). This proof fundamentally relies on the \(\epsilon-\delta\) logic: "Given a target error
+                    \(\epsilon\), how many iterations \(n\) (our \(\delta\) in discrete space) are needed to ensure we
+                    are that close to the optimum?"</p>
+                <p>Without this formal framework, we couldn't guarantee that AI models would ever stop learning or
+                    settle at a "good" solution.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Visualizing with Code</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Checking the definition for f(x) = 2x, as x -> 3, L = 6
+def check_delta(epsilon):
+    # For f(x) = 2x, |2x - 6| < epsilon => 2|x - 3| < epsilon
+    # So |x - 3| < epsilon/2. Thus, delta = epsilon/2
+    delta = epsilon / 2
+    return delta
+
+eps = 0.5
+delta_found = check_delta(eps)
+print(f"For epsilon {eps}, delta is {delta_found}")
+
+# Verify: pick x in (3 - delta, 3 + delta)
+test_x = 3 + (delta_found * 0.9)
+error = abs((2 * test_x) - 6)
+print(f"Test x: {test_x}, Output error: {error} (Must be < {eps})")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

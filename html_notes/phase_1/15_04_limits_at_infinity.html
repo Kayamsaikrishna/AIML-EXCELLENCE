@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limits at Infinity - Phase 1.3.1.4</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.1 Limits & Continuity</li>
+            <li><a href="15_01_limits_intuition.html">01. Intuitive Limits</a></li>
+            <li><a href="15_02_limits_formal.html">02. Formal (ε-δ)</a></li>
+            <li><a href="15_03_limits_onesided.html">03. One-Sided Limits</a></li>
+            <li><a href="15_04_limits_at_infinity.html" class="active">04. Limits at Infinity</a></li>
+            <li><a href="15_05_limits_infinite.html">05. Infinite Limits</a></li>
+            <li><a href="15_06_limits_laws.html">06. Limit Laws</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Limits at Infinity
+        </div>
+
+        <header>
+            <h1>04. Limits at Infinity</h1>
+            <p class="subtitle">Predicting the "End Behavior" of a function.</p>
+        </header>
+
+        <section>
+            <h2>1. Exploring Horizontal Asymptotes</h2>
+            <p>What happens to a function \(f(x)\) as \(x\) grows larger and larger without bound? We denote this as:
+            </p>
+            <div class="math-block">
+                $$ \lim_{x \to \infty} f(x) = L \quad \text{or} \quad \lim_{x \to -\infty} f(x) = M $$
+            </div>
+            <p>If these limits equal a finite number \(L\), the line \(y = L\) is called a <strong>Horizontal
+                    Asymptote</strong>.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Common Patterns</h2>
+            <ul>
+                <li><strong>Rational Functions:</strong> If the degree of the denominator is higher than the numerator,
+                    the limit is 0.
+                    $$\lim_{x \to \infty} \frac{2x + 5}{x^2 - 1} = 0$$
+                </li>
+                <li><strong>Exponential Functions:</strong> \(e^{-x}\) approaches 0 as \(x \to \infty\).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Activation Saturation</h2>
+            <div class="module-card">
+                <h3>Sigmoid and Tanh Limits</h3>
+                <p>The <strong>Sigmoid</strong> activation function \(\sigma(x) = \frac{1}{1 + e^{-x}}\) is designed
+                    around its limits at infinity:</p>
+                <ul>
+                    <li>\(\lim_{x \to \infty} \sigma(x) = 1\) (Maximum probability)</li>
+                    <li>\(\lim_{x \to -\infty} \sigma(x) = 0\) (Minimum probability)</li>
+                </ul>
+                <p>In Deep Learning, if the values entering these functions are very large, the function "saturates"
+                    near its limits. Because the slope (derivative) at these limits is almost 0, gradients stop flowing,
+                    leading to the <strong>Vanishing Gradient Problem</strong>.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Simulating Extremes</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# Test extreme values
+large_x = [10, 100, 1000]
+print("Sigmoid as x -> Infinity:")
+for x in large_x:
+    print(f"σ({x}) = {sigmoid(x):.10f}")
+
+small_x = [-10, -100, -1000]
+print("\nSigmoid as x -> -Infinity:")
+for x in small_x:
+    print(f"σ({x}) = {sigmoid(x):.10f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

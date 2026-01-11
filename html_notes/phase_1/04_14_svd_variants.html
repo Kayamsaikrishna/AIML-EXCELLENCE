@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVD Variants - Phase 1.2.3.14</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.3 Eigen-systems</li>
+            <li><a href="04_13_svd_theory.html">13. SVD Theory</a></li>
+            <li><a href="04_14_svd_variants.html" class="active">14. SVD Variants</a></li>
+            <li><a href="04_15_svd_apps.html">15. SVD Applications</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; SVD Variants
+        </div>
+
+        <header>
+            <h1>14. Full vs. Compact vs. Truncated SVD</h1>
+            <p class="subtitle">Optimizing memory and complexity in AI pipelines.</p>
+        </header>
+
+        <section>
+            <h2>1. The Spectrum of SVD</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Variant</th>
+                        <th>Dimensions (\(\Sigma\))</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Full SVD</strong></td>
+                        <td>\(m \times n\)</td>
+                        <td>Theoretical proofs and small matrices.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compact SVD</strong></td>
+                        <td>\(r \times r\)</td>
+                        <td>Removing explicitly dependent zero-rows/cols.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Truncated SVD</strong></td>
+                        <td>\(k \times k\)</td>
+                        <td><strong>Data Compression / Denoising</strong>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. Truncated SVD: The Best Approximation</h2>
+            <div class="module-card">
+                <h3>Eckart-Young Theorem</h3>
+                <p>If you want to represent a massive matrix using only \(k\) columns, the best possible approximation
+                    (in terms of Frobenius norm) is obtained by taking the largest \(k\) singular values and vectors
+                    from the SVD.</p>
+                <div class="math-block">
+                    $$ \hat{\mathbf{A}} = \sum_{i=1}^k \sigma_i \mathbf{u}_i \mathbf{v}_i^T $$
+                </div>
+                <p>This effectively <strong>filters out noise</strong>, as noise usually resides in the low-magnitude
+                    singular values.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Memory Savings</h2>
+            <p>Storing a \(1000 \times 1000\) image takes 1M parameters. If we truncate to \(k=50\), we only store
+                \( (50 \times 1000) + 50 + (50 \times 1000) \approx 100k \) parameters. A **10x compression**!</p>
+        </section>
+
+        <section>
+            <h2>4. Python: Image Compression Simulation</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# A large synthetic data matrix
+A = np.random.randn(500, 500)
+
+U, s, Vt = np.linalg.svd(A)
+
+# Truncate to k = 20
+k = 20
+A_approx = U[:, :k] @ np.diag(s[:k]) @ Vt[:k, :]
+
+print(f"Full storage: {A.size}")
+print(f"Compressed storage (approx): {U[:, :k].size + k + Vt[:k, :].size}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

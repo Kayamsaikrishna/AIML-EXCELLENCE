@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conservative Fields - Phase 1.3.6.27</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.6 Multivariable Calculus</li>
+            <li><a href="20_26_line_integrals.html">26. Line Integrals</a></li>
+            <li><a href="20_27_conservative_fields.html" class="active">27. Conservative Fields</a></li>
+            <li><a href="20_28_ftc_line.html">28. FTC for Line Integrals</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Conservative Fields
+        </div>
+
+        <header>
+            <h1>27. Conservative Vector Fields</h1>
+            <p class="subtitle">When the journey doesn't change the destination.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>A vector field \(\mathbf{F}\) is called <strong>Conservative</strong> if it is the gradient of some
+                scalar function \(f\), called the <strong>Potential Function</strong>:</p>
+            <div class="math-block">
+                $$ \mathbf{F} = \nabla f $$
+            </div>
+            <p>In a conservative field, the line integral along a path only depends on the start and end points, not the
+                path taken. This is called <strong>Path Independence</strong>.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Curl Test</h2>
+            <p>A field \(\mathbf{F} = P\mathbf{i} + Q\mathbf{j}\) is conservative if and only if \(P_y = Q_x\). In 3D,
+                this means \(\nabla \times \mathbf{F} = \mathbf{0}\). If a field is "Curl-Free", it has a potential.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Optimization Landscapes</h2>
+            <div class="module-card">
+                <h3>Global Stability</h3>
+                <p>In <strong>Physics-Informed Neural Networks (PINNs)</strong> or <strong>Energy-Based Models
+                        (EBMs)</strong>, we often force the AI to learn a conservative vector field. </p>
+                <p>If the gradients of an AI model's loss are "Conservative", it means the model is consistent. If an AI
+                    "hallucinates" a path to a solution that depends on the order of its logic (path dependent), it is
+                    unstable. By enforcing <strong>Potential Function</strong> constraints, we ensure the AI settles on
+                    a <strong>Global Minimum</strong> that is physically grounded. Conservative fields are the reason
+                    why we can trust that an optimization sequence will reach a stable "Energy State".</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Testing for Conservativeness</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x, y = sp.symbols('x y')
+# Field: F = (2xy)i + (x^2 + cos(y))j
+P = 2*x*y
+Q = x**2 + sp.cos(y)
+
+# P_y should equal Q_x
+Py = sp.diff(P, y) # 2x
+Qx = sp.diff(Q, x) # 2x
+
+print(f"Py: {Py}, Qx: {Qx}")
+print(f"Is Conservative? {Py == Qx}")
+
+# Find potential function f
+f = sp.integrate(P, x) # x^2*y + h(y)
+# Diff f w.r.t y and equate to Q to find h(y)
+print(f"Potential: x^2*y + sin(y)")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcendental Diff - Phase 1.3.2.4</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.2 Differentiation</li>
+            <li><a href="16_03_chain_rule.html">03. Chain Rule</a></li>
+            <li><a href="16_04_transcendental_diff.html" class="active">04. Transcendental</a></li>
+            <li><a href="16_05_implicit_diff.html">05. Implicit Diff</a></li>
+            <li class="nav-label">1.3.1 Limits</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Transcendental
+        </div>
+
+        <header>
+            <h1>04. Differentiation of Transcendental Functions</h1>
+            <p class="subtitle">The calculus of e, log, and trig.</p>
+        </header>
+
+        <section>
+            <h2>1. Exponential and Logarithmic</h2>
+            <p>These functions are unique because they are "Self-Similar" under differentiation:</p>
+            <div class="math-block">
+                $$ \frac{d}{dx} e^x = e^x, \quad \frac{d}{dx} \ln(x) = \frac{1}{x} $$
+            </div>
+            <p>For any base \(a\): \(\frac{d}{dx} a^x = a^x \ln(a) \).</p>
+        </section>
+
+        <section>
+            <h2>2. Trigonometric Derivatives</h2>
+            <div class="module-card">
+                <ul class="topic-list">
+                    <li class="topic-item">\(\frac{d}{dx} \sin x = \cos x\)</li>
+                    <li class="topic-item">\(\frac{d}{dx} \cos x = -\sin x\)</li>
+                    <li class="topic-item">\(\frac{d}{dx} \tan x = \sec^2 x\)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI Connection: The Sigmoid Property</h2>
+            <div class="module-card">
+                <p>The **Sigmoid Activation** \(\sigma(x) = \frac{1}{1 + e^{-x}}\) has a beautiful derivative
+                    property using these rules:</p>
+                <div class="math-block" style="font-size: 1.3rem;">
+                    $$ \sigma'(x) = \sigma(x) (1 - \sigma(x)) $$
+                </div>
+                <p>This means we can calculate the gradient using only the <strong>Output</strong> of the
+                    neuron, without re-calculating the expensive exponential. This is a massive speed-up
+                    in training hardware.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Verifying Sigmoid Gradient</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def sigmoid_grad(x):
+    s = sigmoid(x)
+    return s * (1 - s)
+
+# Numerical test
+h = 1e-7
+x_val = 2.0
+numerical_grad = (sigmoid(x_val + h) - sigmoid(x_val)) / h
+
+print(f"Formula Grad:   {sigmoid_grad(x_val):.8f}")
+print(f"Numerical Grad: {numerical_grad:.8f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

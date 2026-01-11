@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Surfaces - Phase 1.3.6.4</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.6 Multivariable Calculus</li>
+            <li><a href="20_03_level_curves_contours.html">03. Level Curves</a></li>
+            <li><a href="20_04_level_surfaces.html" class="active">04. Level Surfaces</a></li>
+            <li><a href="20_05_multi_limits.html">05. Multi-limits</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Level Surfaces
+        </div>
+
+        <header>
+            <h1>04. Level Surfaces</h1>
+            <p class="subtitle">Finding boundaries in higher dimensions.</p>
+        </header>
+
+        <section>
+            <h2>1. Expanding the Concept</h2>
+            <p>If a function has <strong>three</strong> variables, \(f(x, y, z)\), its graph would exist in 4D space
+                (which we cannot see). However, we can visualize the function by setting its value to a constant \(k\).
+                This creates a 3D surface in 3D space, called a <strong>Level Surface</strong>.</p>
+            <div class="math-block">
+                $$ S_k = \{ (x, y, z) \mid f(x, y, z) = k \} $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Example: The Sphere</h2>
+            <p>The function \(f(x, y, z) = x^2 + y^2 + z^2\) has level surfaces that are <strong>Spheres</strong>
+                centered at the origin. For \(k=4\), the level surface is a sphere of radius 2. As \(k\) increases, the
+                "shells" grow larger.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Decision Boundaries</h2>
+            <div class="module-card">
+                <h3>Classification in 3D</h3>
+                <p>In <strong>Binary Classification</strong>, we often have a model that outputs a probability \(p =
+                    \sigma(f(x_1, x_2, x_3))\). We decide that a point belongs to "Class A" if \(p \geq 0.5\). </p>
+                <p>The mathematical boundary between Class A and Class B is the <strong>Level Surface</strong> where
+                    \(f(x, y, z) = 0\) (or whatever value results in \(p=0.5\)). If \(f\) is linear, this surface is a
+                    <strong>Plane</strong>. If \(f\) is a Neural Network, this surface is a complex, warped
+                    <strong>Manifold</strong> that separates cats from dogs in the feature space. Understanding level
+                    surfaces allows AI engineers to reason about how "Curvy" or "Smooth" the model's logic is.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Plotting 3D Implicit Surfaces</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Using Mayavi or Matplotlib to visualize a Level Surface
+# Surface: x^2 + y^2 - z^2 = 1 (Hyperboloid)
+
+from mpl_toolkits.mplot3d import axes3d
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Note: Complex surfaces often require Volume Rendering or Isosurfaces
+# For simplicity, we can plot contours at different Z-slices.
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Data
+x, y, z = np.ogrid[-2:2:20j, -2:2:20j, -2:2:20j]
+f = x**2 + y**2 - z**2
+
+# In advanced libraries, we would use 'isosurface(f, 0)'
+print("Level surface logic: Points where weight_sum = Threshold")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

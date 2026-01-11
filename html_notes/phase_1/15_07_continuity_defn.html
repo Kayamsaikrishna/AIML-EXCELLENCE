@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuity Definition - Phase 1.3.1.7</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.1 Limits & Continuity</li>
+            <li><a href="15_01_limits_intuition.html">01. Intuitive Limits</a></li>
+            <li><a href="15_02_limits_formal.html">02. Formal (ε-δ)</a></li>
+            <li><a href="15_07_continuity_defn.html" class="active">07. Continuity Definition</a></li>
+            <li><a href="15_08_discontinuities_types.html">08. Discontinuities</a></li>
+            <li><a href="15_09_ivt.html">09. IVT</a></li>
+            <li><a href="15_11_squeeze_theorem.html">11. Squeeze Theorem</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Continuity
+        </div>
+
+        <header>
+            <h1>07. Continuity Definition</h1>
+            <p class="subtitle">The smooth flow of mathematical functions.</p>
+        </header>
+
+        <section>
+            <h2>1. What makes a function "Continuous"?</h2>
+            <p>Intuitively, a function is continuous if you can draw its graph without lifting your pencil.
+                Mathematically, for a function \(f\) to be <strong>continuous at a point \(a\)</strong>, three
+                conditions must be met:</p>
+            <div class="module-card">
+                <ol>
+                    <li><strong>Value Exists:</strong> \(f(a)\) is defined.</li>
+                    <li><strong>Limit Exists:</strong> \(\lim_{x \to a} f(x)\) exists.</li>
+                    <li><strong>Link Established:</strong> \(\lim_{x \to a} f(x) = f(a)\).</li>
+                </ol>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Continuity on Intervals</h2>
+            <p>A function is continuous on an interval if it is continuous at every point in that interval. Most
+                elementary functions (sin, cos, exp, polynomials) are continuous everywhere in their domain.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Smooth Loss Landscape</h2>
+            <div class="module-card">
+                <h3>Gradient Descent needs Continuity</h3>
+                <p>For Gradient Descent to work, the <strong>Loss Landscape</strong> (the surface representing the error
+                    for all possible weights) should ideally be continuous. If there are "holes" or sudden jumps
+                    (discontinuities) in the error surface, the optimizer might "fall through" or get trapped in
+                    unreachable regions.</p>
+                <p>Ensuring that our network layers and activation functions are continuous (like Sigmoid, Tanh, or
+                    ReLU) is essential for a stable training process.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Checking Continuity at a Point</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Checking if f(x) = |x| is continuous at x=0
+def f(x):
+    return abs(x)
+
+# 1. f(0) exists
+value = f(0) # 0
+
+# 2. Limit exists
+# As x -> 0+ (0.001) -> 0.001
+# As x -> 0- (-0.001) -> 0.001
+# So limit is 0
+
+# 3. Limit (0) == Value (0)
+# Result: Continuous!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

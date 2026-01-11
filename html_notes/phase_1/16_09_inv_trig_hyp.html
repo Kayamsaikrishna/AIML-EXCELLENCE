@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inv Trig & Hyp Diff - Phase 1.3.2.9</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.2 Differentiation</li>
+            <li><a href="16_08_notation.html">08. Notation</a></li>
+            <li><a href="16_09_inv_trig_hyp.html" class="active">09. Inverse/Hyp</a></li>
+            <li><a href="16_10_mvt_rolles.html">10. MVT & Rolles</a></li>
+            <li class="nav-label">1.3.1 Limits</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Inv Trig/Hyp
+        </div>
+
+        <header>
+            <h1>09. Inverse Trig and Hyperbolic Derivatives</h1>
+            <p class="subtitle">Differentiation of the "S" and "H" functions.</p>
+        </header>
+
+        <section>
+            <h2>1. Inverse Trigonometric Derivatives</h2>
+            <div class="math-block">
+                $$ \frac{d}{dx} \arcsin x = \frac{1}{\sqrt{1-x^2}} $$
+                $$ \frac{d}{dx} \arccos x = -\frac{1}{\sqrt{1-x^2}} $$
+                $$ \frac{d}{dx} \arctan x = \frac{1}{1+x^2} $$
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Hyperbolic Functions (tanh)</h2>
+            <p>Hyperbolic functions are combinations of exponentials. They are extremely common in Neural Networks.</p>
+            <div class="math-block">
+                $$ \sinh x = \frac{e^x - e^{-x}}{2}, \quad \cosh x = \frac{e^x + e^{-x}}{2} $$
+                $$ \frac{d}{dx} \sinh x = \cosh x, \quad \frac{d}{dx} \cosh x = \sinh x $$
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI Connection: The Tanh Activation</h2>
+            <div class="module-card">
+                <p>The <strong>Hyperbolic Tangent</strong> (\(\tanh\)) was the standard activation for hidden
+                    layers before ReLU became popular. Its derivative is:</p>
+                <div class="math-block">
+                    $$ \frac{d}{dx} \tanh x = 1 - \tanh^2 x $$
+                </div>
+                <p>Like Sigmoid, this can be computed using only the <strong>function value</strong>, saving
+                    substantial compute during backpropagation. It maps inputs to \((-1, 1)\), which is often
+                    preferred for zero-centered data distributions.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: tanh and its Gradient</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+def tanh(x): return np.tanh(x)
+def tanh_grad(x): return 1 - np.tanh(x)**2
+
+x = 0.5
+print(f"tanh(0.5): {tanh(x):.4f}")
+print(f"gradient: {tanh_grad(x):.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

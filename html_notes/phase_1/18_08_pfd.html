@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partial Fraction Decomposition - Phase 1.3.4.8</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.4 Integration</li>
+            <li><a href="18_06_trig_integrals.html">06. Trig Integrals</a></li>
+            <li><a href="18_07_trig_substitution.html">07. Trig Substitution</a></li>
+            <li><a href="18_08_pfd.html" class="active">08. Partial Fractions</a></li>
+            <li><a href="18_09_rational_integration.html">09. Rational Functions</a></li>
+            <li><a href="18_10_improper_integrals.html">10. Improper Integrals</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; PFD
+        </div>
+
+        <header>
+            <h1>08. Partial Fraction Decomposition (PFD)</h1>
+            <p class="subtitle">Breaking down complex rational ratios.</p>
+        </header>
+
+        <section>
+            <h2>1. The Goal</h2>
+            <p>PFD is an algebraic method used to split a complex fraction into a sum of simpler fractions. This is
+                primarily done so we can use the <strong>Log Rule</strong> or <strong>Inverse Trig Rule</strong> for
+                integration.</p>
+            <div class="math-block">
+                $$ \frac{P(x)}{Q(x)} = \frac{A}{x - r} + \frac{B}{x - s} $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Cases</h2>
+            <ul class="topic-list">
+                <li><strong>Distinct Linear Factors:</strong> \(\frac{A}{x-r} + \frac{B}{x-s}\)</li>
+                <li><strong>Repeated Factors:</strong> \(\frac{A}{x-r} + \frac{B}{(x-r)^2}\)</li>
+                <li><strong>Irreducible Quadratic Factors:</strong> \(\frac{Ax+B}{x^2+px+q}\)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Linear Time-Invariant (LTI) Systems</h2>
+            <div class="module-card">
+                <h3>The Laplace Domain</h3>
+                <p>In <strong>Control Theory</strong> and <strong>Signal Processing AI</strong>, we model systems using
+                    "Transfer Functions". Often, these functions are complex polynomials. To understand how a robot will
+                    react to an input over time, we must perform an "Inverse Laplace Transform", which relies entirely
+                    on <strong>Partial Fraction Decomposition</strong>.</p>
+                <p>By breaking a complex system into smaller "modes" (the partial fractions), an AI can predict the
+                    stability of a feedback loop or the frequency response of a sensor filter. PFD is also used in
+                    <strong>Gaussian Process</strong> regressions when handling complex rational kernels.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Symbolic PFD</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+f = 1 / (x**2 - 5*x + 6)
+
+# Decompose into Partial Fractions
+decomposed = sp.apart(f)
+
+print(f"Original: {f}")
+print(f"Decomposed: {decomposed}")
+# Output: 1/(x-3) - 1/(x-2)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

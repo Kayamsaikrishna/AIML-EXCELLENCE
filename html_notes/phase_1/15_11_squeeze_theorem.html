@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squeeze Theorem - Phase 1.3.1.11</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.1 Limits & Continuity</li>
+            <li><a href="15_09_ivt.html">09. IVT</a></li>
+            <li><a href="15_10_evt.html">10. EVT</a></li>
+            <li><a href="15_11_squeeze_theorem.html" class="active">11. Squeeze Theorem</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Squeeze Theorem
+        </div>
+
+        <header>
+            <h1>11. Squeeze (Sandwich) Theorem</h1>
+            <p class="subtitle">Trapping a difficult limit between two easy ones.</p>
+        </header>
+
+        <section>
+            <h2>1. The Concept</h2>
+            <p>The <strong>Squeeze Theorem</strong> is used to find a limit of a function \(f(x)\) that is difficult to
+                compute directly. If we can find two other functions \(g(x)\) and \(h(x)\) such that \(f(x)\) is always
+                pinned between them:</p>
+            <div class="math-block">
+                $$ g(x) \leq f(x) \leq h(x) \quad \text{near } a $$
+            </div>
+            <p>And if \(\lim_{x \to a} g(x) = L\) and \(\lim_{x \to a} h(x) = L\), then by necessity:</p>
+            <div class="math-block">
+                $$ \lim_{x \to a} f(x) = L $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Classic Example: \(x^2 \sin(1/x)\)</h2>
+            <p>As \(x \to 0\), \(\sin(1/x)\) oscillates wildly between -1 and 1. We cannot find its limit directly.
+                However, we know:</p>
+            <p>$$ -1 \leq \sin(1/x) \leq 1 $$</p>
+            <p>Multiplying by \(x^2\):</p>
+            <p>$$ -x^2 \leq x^2\sin(1/x) \leq x^2 $$</p>
+            <p>Since \(\lim_{x \to 0} -x^2 = 0\) and \(\lim_{x \to 0} x^2 = 0\), the middle function
+                <strong>must</strong> also approach 0.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Performance Lower Bounds</h2>
+            <div class="module-card">
+                <h3>Vizing the Worst Case</h3>
+                <p>In <strong>Reinforcement Learning (RL)</strong> and <strong>Adversarial AI</strong>, we often cannot
+                    calculate the exact performance of a model because the environment is stochastic (wildly oscillating
+                    like \(\sin(1/x)\)). Instead, we build "lower bounds" and "upper bounds" on the performance.</p>
+                <p>If we can prove that the model's error is always squeezed between two functions that both collapse to
+                    zero as training time increases, we have proven that our model will definitely succeed, even if we
+                    can't track its exact path.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Visualizing the Squeeze</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# f(x) = x^2 * sin(1/x)
+# g(x) = -x^2 (Lower bound)
+# h(x) = x^2 (Upper bound)
+
+def f(x): return x**2 * np.sin(1/x)
+def g(x): return -x**2
+def h(x): return x**2
+
+# Pick a tiny x
+x = 0.0001
+print(f"Lower bound g(x): {g(x):.12f}")
+print(f"Function f(x):    {f(x):.12f}")
+print(f"Upper bound h(x): {h(x):.12f}")
+
+# f(x) is trapped!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

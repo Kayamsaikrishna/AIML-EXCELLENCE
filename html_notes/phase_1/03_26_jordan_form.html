@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jordan Form - Phase 1.2.2.26</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_25_schur.html">25. Schur Decomposition</a></li>
+            <li><a href="03_26_jordan_form.html" class="active">26. Jordan Form</a></li>
+            <li><a href="03_27_block_matrices.html">27. Block Matrices</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Jordan Form
+        </div>
+
+        <header>
+            <h1>26. Jordan Normal Form</h1>
+            <p class="subtitle">The closest form to diagonalization for general matrices.</p>
+        </header>
+
+        <section>
+            <h2>1. What happens when Diagonalization fails?</h2>
+            <p>A matrix is diagonalizable only if it has a complete set of linearly independent eigenvectors. When
+                eigenvalues have <strong>Algebraic Multiplicity</strong> higher than their <strong>Geometric
+                    Multiplicity</strong>,
+                the matrix is "defective". The <strong>Jordan Normal Form (JNF)</strong> is the most simplified
+                representation we can achieve for such matrices.</p>
+
+            <div class="math-block">
+                $$ \mathbf{J} = \mathbf{P}^{-1}\mathbf{AP} = \begin{bmatrix} J_1 & 0 & \dots \\ 0 & J_2 & \dots \\
+                \vdots & \vdots & \ddots \end{bmatrix} $$
+            </div>
+            <p>Each <strong>Jordan Block</strong> \( J_i \) looks like this:</p>
+            <div class="math-block">
+                $$ J_i = \begin{bmatrix} \lambda_i & 1 & 0 \\ 0 & \lambda_i & 1 \\ 0 & 0 & \lambda_i \end{bmatrix} $$
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Importance in System Dynamics</h2>
+            <div class="module-card">
+                <h3>Stability Analysis</h3>
+                <p>In <strong>Robotics</strong> and <strong>Recurrent Neural Networks (RNNs)</strong>, the growth of a
+                    signal over time is governed by powers of the weight matrix \( \mathbf{W}^t \). The Jordan form
+                    allows us to see that if a Jordan block has \( \lambda = 1 \), the "1" on the super-diagonal
+                    leads to <strong>linearly increasing</strong> signals (Polynomial growth), which can cause drift
+                    in control systems.</p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Generalized Eigenvectors:</strong> Used to construct the basis for
+                        JNF.</li>
+                    <li class="topic-item"><strong>Computing matrix functions:</strong> It is easy to calculate \(
+                        e^{\mathbf{A}t} \) or \( \mathbf{A}^n \) using the Jordan form.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Attempting JNF</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+# A defective matrix
+A = sp.Matrix([[5, 4, 2, 1], [0, 1, -1, -1], [-1, -1, 3, 0], [1, 1, -1, 2]])
+
+# Jordan Form returns (P, J)
+P, J = A.jordan_form()
+
+print("Jordan Form J:")
+sp.pprint(J)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

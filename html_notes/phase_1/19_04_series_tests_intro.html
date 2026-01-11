@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Series - Phase 1.3.8.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.8 Series & Taylor</li>
+            <li><a href="22_01_sequences.html">01. Sequences</a></li>
+            <li><a href="22_02_series_intro.html" class="active">02. Series Intro</a></li>
+            <li><a href="22_03_integral_test.html">03. Integral Test</a></li>
+            <li><a href="22_04_comparison_tests.html">04. Comparison Tests</a></li>
+            <li><a href="22_05_alternating_series.html">05. Alternating Series</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Series Intro
+        </div>
+
+        <header>
+            <h1>02. Introduction to Infinite Series</h1>
+            <p class="subtitle">Summing infinitely many things to get a finite result.</p>
+        </header>
+
+        <section>
+            <h2>1. What is a Series?</h2>
+            <p>An infinite series is the sum of the terms of a sequence:</p>
+            <div class="math-block">
+                $$ S = \sum_{n=1}^{\infty} a_n = a_1 + a_2 + a_3 + \dots $$
+            </div>
+            <p>To see if it converges, we look at the limit of the <strong>Partial Sums</strong> \(S_k = \sum_{n=1}^k
+                a_n\).</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Geometric Series</h2>
+            <p>A classic series where each term is a multiple of the previous: \(a_n = ar^{n-1}\). It converges
+                <strong>if and only if</strong> \(|r| < 1\):</p>
+                    <div class="math-block">
+                        $$ S = \frac{a}{1 - r} $$
+                    </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Reinforcement Learning (RL)</h2>
+            <div class="module-card">
+                <h3>Discounted Future Rewards</h3>
+                <p>In <strong>Reinforcement Learning</strong>, an AI agent tries to maximize the sum of rewards it will
+                    get in the future. Because rewards in the future are less certain than rewards now, we use a
+                    <strong>Discount Factor</strong> \(\gamma\) (usually \(0.99\)). </p>
+                <div class="math-block">
+                    $$ G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots = \sum_{k=0}^{\infty} \gamma^k
+                    R_{t+k+1} $$
+                </div>
+                <p>This is exactly a <strong>Geometric Series</strong>. The convergence property (\(\gamma < 1\))
+                        ensures that the total total expected reward (Value) is a finite number that the AI can actually
+                        calculate and optimize. Without this infinite sum, AI agents would have to be "Short-Sighted"
+                        and couldn't plan for the long-term.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Summing a Geometric Series</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Sum of 1/2^n: 1/2 + 1/4 + 1/8...
+# a = 1/2, r = 1/2.
+# Expected: (1/2) / (1 - 1/2) = 1.0
+
+total = 0
+for n in range(1, 20):
+    total += 1 / (2**n)
+    print(f"Partial Sum {n}: {total:.6f}")
+
+# Reaches 0.999998 by step 19.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

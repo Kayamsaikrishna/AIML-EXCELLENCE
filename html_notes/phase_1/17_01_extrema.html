@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Critical Points & Extrema - Phase 1.3.3.1</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.3 Applications of Derivatives</li>
+            <li><a href="17_01_extrema.html" class="active">01. Extrema</a></li>
+            <li><a href="17_02_concavity.html">02. Concavity</a></li>
+            <li><a href="17_03_optimization.html">03. Optimization</a></li>
+            <li class="nav-label">1.3.2 Differentiation</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Extrema
+        </div>
+
+        <header>
+            <h1>01. Critical Points and Extrema</h1>
+            <p class="subtitle">Finding the peaks and valleys.</p>
+        </header>
+
+        <section>
+            <h2>1. Critical Points</h2>
+            <p>A point \(c\) in the domain of \(f\) is a <strong>Critical Point</strong> if:</p>
+            <div class="math-block">
+                $$ f'(c) = 0 \quad \text{or} \quad f'(c) \text{ is undefined} $$
+            </div>
+            <p>These are the only candidates for where a function might reach a maximum or minimum.</p>
+        </section>
+
+        <section>
+            <h2>2. First and Second Derivative Tests</h2>
+            <div class="module-card">
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>First Derivative Test:</strong> If \(f'(x)\) changes from positive to
+                        negative at \(c\), it's a <strong>Relative Max</strong>.</li>
+                    <li class="topic-item"><strong>Second Derivative Test:</strong> If \(f'(c)=0\) and \(f''(c) > 0\),
+                        it's a <strong>Relative Min</strong> (Bottom of a bowl).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI Connection: The Loss Surface</h2>
+            <div class="module-card">
+                <h3>Global vs Local Minima</h3>
+                <p>In Machine Learning, we want to find the <strong>Global Minimum</strong> of a Loss function.
+                    However, Loss surfaces in Deep Learning have millions of dimensions and are riddled
+                    with <strong>Local Minima</strong> and <strong>Saddle Points</strong>. Gradient Descent
+                    searches for critical points (\(f'(x)=0\)) blindly; understanding these tests helps
+                    us design better optimizers (like Adam or RMSprop) that can escape "trap" critical points.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Symbolic Extrema Search</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+f = x**3 - 3*x**2 + 2
+
+# 1. Find Critical Points
+df = sp.diff(f, x)
+crit_pts = sp.solve(df, x)
+
+print(f"Critical Points: {crit_pts}")
+
+# 2. Test each point with f''(x)
+d2f = sp.diff(df, x)
+for pt in crit_pts:
+    val = d2f.subs(x, pt)
+    status = "Max" if val < 0 else "Min" if val > 0 else "Saddle/Inconclusive"
+    print(f"At x={pt}: f''(x)={val} -> {status}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

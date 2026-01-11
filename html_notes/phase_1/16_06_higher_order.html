@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Higher-order Derivatives - Phase 1.3.2.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.2 Differentiation</li>
+            <li><a href="16_05_implicit_diff.html">05. Implicit Diff</a></li>
+            <li><a href="16_06_higher_order.html" class="active">06. Higher-order</a></li>
+            <li><a href="16_07_lhopital.html">07. L'Hôpital's Rule</a></li>
+            <li class="nav-label">1.3.1 Limits</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Higher-order
+        </div>
+
+        <header>
+            <h1>06. Higher-Order Derivatives</h1>
+            <p class="subtitle">Differentiation of derivatives.</p>
+        </header>
+
+        <section>
+            <h2>1. Definitions and Notation</h2>
+            <p>If \(f'(x)\) is the "rate of change" (velocity), then the derivative of the derivative
+                \(f''(x)\) is the "rate of change of the rate" (acceleration/curvature).</p>
+            <div class="math-block">
+                $$ f''(x) = \frac{d^2y}{dx^2}, \quad f'''(x) = \frac{d^3y}{dx^3}, \quad f^{(n)}(x) = \text{n-th
+                derivative} $$
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Curvature Interpretation</h2>
+            <div class="module-card">
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>\(f''(x) > 0\):</strong> Function is Concave Up (holding water).</li>
+                    <li class="topic-item"><strong>\(f''(x) < 0\):</strong> Function is Concave Down (shedding water).
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI Connection: Second-Order Optimizers</h2>
+            <div class="module-card">
+                <h3>The Hessian Road</h3>
+                <p>Standard Gradient Descent only uses the first derivative. It's like walking downhill
+                    while looking purely at your feet. <strong>Newton's Method</strong> and **L-BFGS**
+                    use the second derivative (Curvature) to jump further where the surface is flat
+                    and slow down where it's curvy. Higher-order derivatives provide the
+                    "topography" needed for efficient training.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: N-th Order Diff</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+f = sp.exp(x) * x**4
+
+# 4th derivative
+df4 = sp.diff(f, x, 4)
+
+print(f"f(x)   = {f}")
+print(f"f''''(x) = {sp.simplify(df4)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gradient Vector - Phase 1.3.5.7</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.5 Multivariable Calc I</li>
+            <li><a href="19_06_directional_derivs.html">06. Directional Derivs</a></li>
+            <li><a href="19_07_gradient_vector.html" class="active">07. Gradient Vector</a></li>
+            <li><a href="19_08_tangent_planes.html">08. Tangent Planes</a></li>
+            <li><a href="19_09_divergence_curl.html">09. Divergence & Curl</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Gradient Vector
+        </div>
+
+        <header>
+            <h1>07. The Gradient Vector (\(\nabla f\))</h1>
+            <p class="subtitle">The compass that points towards the peak.</p>
+        </header>
+
+        <section>
+            <h2>1. Definition</h2>
+            <p>The <strong>Gradient</strong> of a function \(f(x, y)\) is a vector that collects all of its first-order
+                partial derivatives:</p>
+            <div class="math-block">
+                $$ \nabla f(x, y) = \left\langle \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}
+                \right\rangle $$
+            </div>
+            <p>In three variables, it is \(\langle f_x, f_y, f_z \rangle\).</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Two Magical Properties</h2>
+            <ol class="topic-list">
+                <li><strong>Steepest Ascent:</strong> The gradient vector always points in the direction where the
+                    function increases the fastest.</li>
+                <li><strong>Orthogonality:</strong> At any point, the gradient vector is <strong>perpendicular</strong>
+                    (orthogonal) to the level curve (isocontour) passing through that point.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Gradient Descent (The Core)</h2>
+            <div class="module-card">
+                <h3>The Engine of AI</h3>
+                <p>If you want to minimize an Error Function \(E(w)\), you don't walk in the direction of the
+                    gradient—you walk in the <strong>opposite</strong> direction. This is <strong>Gradient
+                        Descent</strong>:</p>
+                <div class="math-block">
+                    $$ w_{new} = w_{old} - \eta \nabla E(w_{old}) $$
+                </div>
+                <p>Because the gradient points "up the hill", negative gradient points "down the hill". Without this
+                    simple vector, Neural Networks wouldn't be able to learn, and modern AI wouldn't exist. It is the
+                    single most important mathematical concept in Artificial Intelligence.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Visualizing the Gradient Field</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+x, y = np.meshgrid(np.linspace(-2,2,10), np.linspace(-2,2,10))
+# f = x^2 + y^2 -> grad_f = <2x, 2y>
+u = 2*x
+v = 2*y
+
+plt.quiver(x, y, u, v)
+plt.title("Gradient Vector Field of f(x,y) = x^2 + y^2")
+plt.show()</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

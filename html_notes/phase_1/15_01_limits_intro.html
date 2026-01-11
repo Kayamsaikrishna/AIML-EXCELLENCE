@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intuition of Limits - Phase 1.3.1.1</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.1 Limits & Continuity</li>
+            <li><a href="15_01_limits_intro.html" class="active">01. Intuition of Limits</a></li>
+            <li><a href="15_02_limits_formal.html">02. Formal Definition</a></li>
+            <li><a href="15_03_limits_special.html">03. One-sided/Infinite</a></li>
+            <li class="nav-label">1.2.6 AI/ML Apps</li>
+            <li><a href="14_01_data_rep.html">← Back to Algebra</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Limits Intro
+        </div>
+
+        <header>
+            <h1>01. Intuition of Limits</h1>
+            <p class="subtitle">The gateway to continuous mathematics.</p>
+        </header>
+
+        <section>
+            <h2>1. What is a Limit?</h2>
+            <p>A <strong>Limit</strong> describes the behavior of a function \(f(x)\) as \(x\) gets arbitrarily
+                close to a specific value \(a\), without necessarily reaching it. We write this as:</p>
+            <div class="math-block" style="font-size: 1.5rem;">
+                $$ \lim_{x \to a} f(x) = L $$
+            </div>
+            <p>This means: "As \(x\) approaches \(a\), the value of \(f(x)\) approaches \(L\)."</p>
+        </section>
+
+        <section>
+            <h2>2. The Problem of "Zero"</h2>
+            <div class="module-card">
+                <p>Calculus exists because we often need to divide by something that is <i>almost</i> zero.
+                    Consider the slope of a line between two points \((x, f(x))\) and \((x+h, f(x+h))\):</p>
+                <div class="math-block">
+                    $$ \text{Slope} = \frac{f(x+h) - f(x)}{h} $$
+                </div>
+                <p>If \(h=0\), the math breaks. But if \(h \to 0\), the limit reveals the <strong>Instantaneous
+                        Slope</strong> (the Derivative).</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Numerical Stability</h2>
+            <div class="module-card">
+                <h3>Vanishing and Exploding Gradients</h3>
+                <p>In Deep Learning, we compute gradients (limits) over many layers. If the "limit" of the weight
+                    updates
+                    approaches 0, the network stops learning (Vanishing Gradient). If it approaches \(\infty\), the
+                    network breaks (Exploding Gradient). Understanding limits helps us design <strong>Activation
+                        Functions</strong>
+                    like ReLU, which avoid these "dead zones".</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Approximating a Limit</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# Function: f(x) = (sin x) / x
+# Value at x=0 is undefined (0/0)
+def f(x):
+    return np.sin(x) / x
+
+# Let's approach 0 from the right
+steps = [0.1, 0.01, 0.001, 0.0001, 0.00001]
+for h in steps:
+    print(f"As x -> {h}, f(x) -> {f(h):.6f}")
+
+# The limit is 1.0!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

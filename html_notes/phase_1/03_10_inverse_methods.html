@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inverse Methods - Phase 1.2.2.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_09_invertibility.html">09. Invertibility</a></li>
+            <li><a href="03_10_inverse_methods.html" class="active">10. Inverse Methods</a></li>
+            <li><a href="03_11_determinants.html">11. Determinants</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Inverse Methods
+        </div>
+
+        <header>
+            <h1>10. Methods to find Inverse</h1>
+            <p class="subtitle">From hand-calculation to high-performance solvers.</p>
+        </header>
+
+        <section>
+            <h2>1. Method 1: The Adjoint Method (\( 2 \times 2 \) Case)</h2>
+            <p>For a small matrix, the analytical solution is easy to remember:</p>
+            <div class="math-block">
+                $$ \mathbf{A}^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix} $$
+            </div>
+            <p>Where \( (ad - bc) \) is the determinant.</p>
+        </section>
+
+        <section>
+            <h2>2. Method 2: Elementary Row Operations</h2>
+            <p>Also known as the <strong>Gauss-Jordan Method</strong>. You append the Identity matrix to \( \mathbf{A}
+                \):</p>
+            <div class="math-block">
+                $$ [\mathbf{A} | \mathbf{I}] \xrightarrow{\text{Row Ops}} [\mathbf{I} | \mathbf{A}^{-1}] $$
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Numerical Computing & AI Frameworks</h2>
+            <div class="module-card">
+                <h3>Pseudoinverse (Moore-Penrose)</h3>
+                <p>What if a matrix is not square or is singular? In AI, we use the <strong>Pseudoinverse (\(
+                        \mathbf{A}^+ \))</strong>.
+                    It provides the "best-fit" inverse using Singular Value Decomposition (SVD).</p>
+                <div class="math-block">
+                    $$ \mathbf{A}^+ = (\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T $$
+                </div>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Stability:</strong> Calculating the exact inverse for large matrices
+                        is numerically unstable. We usually solve \( \mathbf{Ax} = \mathbf{b} \) using <strong>LU
+                            Decomposition</strong> or <strong>QR</strong> instead of multiplying by \( \mathbf{A}^{-1}
+                        \).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Pseudoinverse</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# A non-square matrix (Cannot have a standard inverse)
+A = np.array([[1, 2], [3, 4], [5, 6]])
+
+# Moore-Penrose Pseudoinverse
+A_pinv = np.linalg.pinv(A)
+
+print(f"Pseudoinverse shape: {A_pinv.shape}") # (2, 3)
+print(f"Check: np.allclose(A_pinv @ A, I) -> \n{np.round(A_pinv @ A)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

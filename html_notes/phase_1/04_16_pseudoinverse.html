@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pseudoinverse - Phase 1.2.3.16</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.3 Eigen-systems</li>
+            <li><a href="04_15_svd_apps.html">15. SVD Applications</a></li>
+            <li><a href="04_16_pseudoinverse.html" class="active">16. Pseudoinverse</a></li>
+            <li><a href="04_17_pca_derivation.html">17. PCA Derivation</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Pseudoinverse
+        </div>
+
+        <header>
+            <h1>16. Moore-Penrose Pseudoinverse</h1>
+            <p class="subtitle">Inverting the un-invertible.</p>
+        </header>
+
+        <section>
+            <h2>1. The Problem: Rectangular Systems</h2>
+            <p>In Linear Regression, we often have \(\mathbf{y} = \mathbf{Xw}\) where \(\mathbf{X}\) is \(m \times n\)
+                (more data than features). There is no standard inverse if \(m \neq n\). We need a "best fit" inverse.
+            </p>
+        </section>
+
+        <section>
+            <h2>2. The SVD Solution</h2>
+            <p>The pseudoinverse \(\mathbf{A}^+\) is elegantly defined using the components of SVD:</p>
+            <div class="math-block">
+                $$ \mathbf{A}^+ = \mathbf{V}\Sigma^+\mathbf{U}^T $$
+            </div>
+            <p>Where \(\Sigma^+\) is obtained by taking the reciprocal of every non-zero entry on the diagonal
+                of \(\Sigma\) and then transposing the matrix.</p>
+
+            <div class="module-card">
+                <h3>Numerical Stability</h3>
+                <p>In practice, we only take the reciprocal of singular values that are larger than a small epsilon
+                    (\(\text{rel\_tol}\)). Small singular values are usually noise; reciprocating them would blow
+                    up the inverse and cause massive numerical errors.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI Application: Least Squares</h2>
+            <p>The closed-form solution to the Normal Equation in Linear Regression is:</p>
+            <div class="math-block">
+                $$ \mathbf{w} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} $$
+            </div>
+            <p>Numerically, we prefer using the Pseudoinverse directly: \(\mathbf{w} = \mathbf{X}^+\mathbf{y}\).
+                This is more robust to redundant (linearly dependent) features.</p>
+        </section>
+
+        <section>
+            <h2>4. Python: Comparing Inverses</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# A non-square matrix (Rank deficient)
+A = np.array([[1, 2], [2, 4]]) # Col 2 is exactly 2*Col 1
+
+# Standard inverse fails
+try:
+    np.linalg.inv(A)
+except np.linalg.LinAlgError:
+    print("Standard inverse failed (Singular matrix)")
+
+# Pseudoinverse succeeds
+A_pinv = np.linalg.pinv(A)
+print(f"Pseudoinverse:\n{A_pinv}")
+
+# Property: A @ A_pinv @ A should be A
+print(f"A_pinv property check: {np.allclose(A @ A_pinv @ A, A)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

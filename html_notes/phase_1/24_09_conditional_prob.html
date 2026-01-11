@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Probability - Phase 1.4.9</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.4 Basic Probability</li>
+            <li><a href="24_08_multiplication_rule.html">08. Multiplication Rule</a></li>
+            <li><a href="24_09_conditional_prob.html" class="active">09. Conditional Probability</a></li>
+            <li><a href="24_10_bayes_theorem.html">10. Bayes' Theorem</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Conditional
+            Prob
+        </div>
+
+        <header>
+            <h1>09. Conditional Probability Definition</h1>
+            <p class="subtitle">Updating our beliefs based on new information.</p>
+        </header>
+
+        <section>
+            <h2>1. What is Conditional Probability?</h2>
+            <p><strong>Conditional Probability</strong> is the probability of an event \(A\) occurring, given that
+                another event \(B\) has already occurred. It represents the "reduced" sample space where only outcomes
+                in $B$ are considered.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Formula</h2>
+            <p>The probability of $A$ given $B$ is the ratio of the intersection area to the total area of $B$:</p>
+            <div class="math-block">
+                $$ P(A|B) = \frac{P(A \cap B)}{P(B)} $$
+            </div>
+            <p>This is only defined when $P(B) > 0$. If $B$ is impossible, we cannot condition on it.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Recommender Systems</h2>
+            <div class="module-card">
+                <h3>Collaborative Filtering</h3>
+                <p>In <strong>Recommendation Engines</strong> (like Amazon's "Customers who bought this also
+                    bought..."), conditional probability is the primary driver. </p>
+                <p>The system calculates: </p>
+                <div class="math-block">
+                    $$ P(\text{Buy Book Y} | \text{Bought Book X}) = \frac{\text{Users who bought BOTH}}{\text{Users who
+                    bought Book X}} $$
+                </div>
+                <p>By ranking items based on these conditional probabilities, AI can suggest the most relevant products.
+                    Every "Prediction" an AI makes is technically a conditional probability: <strong>P(Label |
+                        Features)</strong>. You are asking the model: "Given that I see these pixels, what is the
+                    probability that the object is a car?" Understanding the math of conditioning is the first step
+                    toward understanding how AI makes decisions based on evidence. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Calculating Conditional Probability</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># Experiment: Survey of 100 people
+# 60 like Coffee (B)
+# 40 like Tea
+# 30 like BOTH (A and B)
+
+p_b = 60 / 100
+p_a_and_b = 30 / 100
+
+# Condition: Probability someone likes Tea (A) GIVEN they like Coffee (B)
+p_a_given_b = p_a_and_b / p_b
+
+print(f"P(Tea | Coffee): {p_a_given_b:.2f}") # 0.50</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.4 Expansion.</p>
+    </footer>
+</body>
+
+</html>

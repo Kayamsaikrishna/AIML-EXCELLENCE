@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law of Total Probability - Phase 1.4.11</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.4 Basic Probability</li>
+            <li><a href="24_10_bayes_theorem.html">10. Bayes' Theorem</a></li>
+            <li><a href="24_11_law_total_prob.html" class="active">11. Law of Total Probability</a></li>
+            <li><a href="24_12_independence.html">12. Independence</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html#probability">Probability</a> &gt; Total
+            Probability
+        </div>
+
+        <header>
+            <h1>11. Law of Total Probability</h1>
+            <p class="subtitle">Looking at all possible paths to an outcome.</p>
+        </header>
+
+        <section>
+            <h2>1. Partitioning the Space</h2>
+            <p>The <strong>Law of Total Probability</strong> allows us to find the probability of an event \(B\) by
+                summing its probability across a set of mutually exclusive, exhaustive "Partitions" of the sample space
+                (\(A_1, A_2, \dots\)).</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Formula</h2>
+            <div class="math-block">
+                $$ P(B) = \sum_{i} P(B | A_i) \cdot P(A_i) $$
+            </div>
+            <p>Imagine you have three machines (A, B, C) producing parts. The Law of Total Probability lets you
+                calculate the total probability of a "Defective Part" by combining the defect rate of each machine
+                weighted by its production volume.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Mixture Models</h2>
+            <div class="module-card">
+                <h3>Gaussian Mixture Models (GMM)</h3>
+                <p>In <strong>Unsupervised Learning</strong>, we often assume that data comes from multiple different
+                    "Sub-Populations". For example, a dataset of customer heights might be a mixture of two groups: Men
+                    and Women. </p>
+                <p>A <strong>Gaussian Mixture Model (GMM)</strong> uses the Law of Total Probability to calculate the
+                    likelihood of a data point: </p>
+                <div class="math-block">
+                    $$ P(x) = \sum_{k=1}^K \pi_k \cdot \mathcal{N}(x; \mu_k, \sigma_k) $$
+                </div>
+                <p>Where $\pi_k$ is the prior probability of being in group $k$, and the Normal distribution is the
+                    conditional probability of the value given that group. This law is what allows AI to model
+                    <strong>Multimodal Data</strong> (data with multiple "humps" or clusters). Without it, models would
+                    try to find a single average that represents nobody well; with it, AI can understand complex,
+                    diverse populations. </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Weighted Probability Sum</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># 3 Clusters: A (30%), B (50%), C (20%)
+# Conditional probability of event 'X' in each cluster
+p_clusters = [0.3, 0.5, 0.2]
+p_x_given_cluster = [0.1, 0.4, 0.8]
+
+# Law of Total Probability
+p_x_total = sum(p * q for p, q in zip(p_clusters, p_x_given_cluster))
+
+print(f"Total Probability of X: {p_x_total:.2f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.4 Expansion.</p>
+    </footer>
+</body>
+
+</html>

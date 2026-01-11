@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Determinacy - Phase 1.2.4.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.4 Linear Systems</li>
+            <li><a href="12_05_least_squares.html">05. Least Squares</a></li>
+            <li><a href="12_06_determinacy.html" class="active">06. Determinacy</a></li>
+            <li class="nav-label">1.2.5 Transformations</li>
+            <li><a href="13_01_transform_basics.html">01. Transform Basics</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Determinacy
+        </div>
+
+        <header>
+            <h1>06. Over & Underdetermined Systems</h1>
+            <p class="subtitle">Constraint counting in higher dimensions.</p>
+        </header>
+
+        <section>
+            <h2>1. Overdetermined Systems</h2>
+            <p>When you have <strong>more equations than unknowns</strong> (\(m > n\)).</p>
+            <ul class="topic-list">
+                <li class="topic-item"><strong>Typical state:</strong> Inconsistent (No perfect solution).</li>
+                <li class="topic-item"><strong>Strategy:</strong> Least Squares (find the "best fit").</li>
+                <li class="topic-item"><strong>AI Example:</strong> Training a model with 1,000,000 data points but only
+                    10,000 parameters.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Underdetermined Systems</h2>
+            <p>When you have <strong>fewer equations than unknowns</strong> (\(m < n\)).</p>
+                    <ul class="topic-list">
+                        <li class="topic-item"><strong>Typical state:</strong> Infinite solutions.</li>
+                        <li class="topic-item"><strong>Strategy:</strong> Min-norm solution (find the "simplest"
+                            solution).</li>
+                        <li class="topic-item"><strong>AI Example:</strong> Modern Deep Learning where number of
+                            parameters \(>>\) number of data points.</li>
+                    </ul>
+        </section>
+
+        <section>
+            <h2>3. Determinacy Table</h2>
+            <table class="module-card" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--accent);">
+                        <th style="padding: 1rem;">Type</th>
+                        <th style="padding: 1rem;">Shape</th>
+                        <th style="padding: 1rem;">Solutions (Typical)</th>
+                        <th style="padding: 1rem;">ML Context</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 1rem;">Determined</td>
+                        <td style="padding: 1rem;">Square (\(m=n\))</td>
+                        <td style="padding: 1rem;">1 Unique</td>
+                        <td style="padding: 1rem;">Exact Interpolation</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem;">Overdetermined</td>
+                        <td style="padding: 1rem;">Tall (\(m>n\))</td>
+                        <td style="padding: 1rem;">0 (Inconsistent)</td>
+                        <td style="padding: 1rem;">Compression/Regression</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem;">Underdetermined</td>
+                        <td style="padding: 1rem;">Wide (\(m<n\))< /td>
+                        <td style="padding: 1rem;">\(\infty\) Solutions</td>
+                        <td style="padding: 1rem;">Over-parameterized Models</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Python: Min-Norm Solution</h2>
+            <p>For underdetermined systems, we often want the solution with the smallest length \(\|\mathbf{x}\|_2\).
+            </p>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# System: x + y + z = 10 (1 equation, 3 unknowns)
+A = np.array([[1, 1, 1]])
+b = np.array([10])
+
+# Using Pseudoinverse gives the min-norm solution
+x_min_norm = np.linalg.pinv(A) @ b
+
+print(f"Min-norm solution: {x_min_norm}")
+# Result ensures equal distribution [3.33, 3.33, 3.33]</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

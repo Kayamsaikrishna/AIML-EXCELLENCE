@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transform Basics - Phase 1.2.5.1</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.5 Transformations</li>
+            <li><a href="13_01_transform_basics.html" class="active">01. Transform Basics</a></li>
+            <li><a href="13_02_transform_matrix.html">02. Matrix Representation</a></li>
+            <li class="nav-label">1.2.4 Linear Systems</li>
+            <li><a href="12_01_systems_intro.html">← Systems Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Transform Basics
+        </div>
+
+        <header>
+            <h1>01. Linear Transformations</h1>
+            <p class="subtitle">Mappings that preserve the lattice.</p>
+        </header>
+
+        <section>
+            <h2>1. The Definition</h2>
+            <p>A mapping \(T: V \to W\) is <strong>Linear</strong> if it satisfies two conditions for all
+                vectors \(\mathbf{u}, \mathbf{v}\) and scalar \(c\):</p>
+            <div class="math-block">
+                $$ 1. \ T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v}) \quad (\text{Additivity}) $$
+                $$ 2. \ T(c\mathbf{u}) = cT(\mathbf{u}) \quad (\text{Homogeneity}) $$
+            </div>
+            <p>Visually: <strong>Origin stays put</strong> and <strong>grid lines remain parallel and evenly
+                    spaced</strong>.</p>
+        </section>
+
+        <section>
+            <h2>2. Why Linearity Matters in AI</h2>
+            <div class="module-card">
+                <h3>The Linear Layer</h3>
+                <p>In a Neural Network, a dense layer is \(\mathbf{y} = \sigma(\mathbf{Wx} + \mathbf{b})\).
+                    The term \(\mathbf{Wx}\) is the <strong>Linear Transformation</strong>. Linearity allows us
+                    to distribute operations, which is why we can process <strong>batches</strong> of data efficiently
+                    using Matrix Multiplication.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Geometric Invariants</h2>
+            <p>Linear transformations can rotate, stretch, and shear space, but they <strong>cannot
+                    bend or curve</strong> it. To create complex, curved "decision boundaries" in AI, we must
+                inject <strong>Non-linearity</strong> (like ReLU or Sigmoid) between these linear steps.</p>
+        </section>
+
+        <section>
+            <h2>4. Visualization: Scaling & Shearing</h2>
+            <div class="module-card">
+                <div style="text-align: center;">
+                    <svg width="200" height="200" viewBox="-10 -10 110 110">
+                        <!-- Original Grid (Unit Square) -->
+                        <rect x="0" y="0" width="50" height="50" fill="none" stroke="#555" stroke-dasharray="2" />
+                        <!-- Transformed Square (Shear) -->
+                        <path d="M 0 0 L 70 0 L 100 50 L 30 50 Z" fill="rgba(0, 242, 254, 0.2)" stroke="var(--accent)"
+                            stroke-width="2" />
+                        <text x="10" y="30" fill="white">Linear Map</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

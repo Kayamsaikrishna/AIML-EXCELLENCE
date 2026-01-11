@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partial Derivatives - Phase 1.3.5.3</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.5 Multivariable Calc I</li>
+            <li><a href="19_01_surfaces_intro.html">01. Surfaces Intro</a></li>
+            <li><a href="19_02_several_vars.html">02. Several Variables</a></li>
+            <li><a href="19_03_partial_derivatives.html" class="active">03. Partial Derivs</a></li>
+            <li><a href="19_04_higher_partial.html">04. Higher Partial</a></li>
+            <li><a href="19_05_multi_chain_rule.html">05. Multi Chain Rule</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Partial Derivatives
+        </div>
+
+        <header>
+            <h1>03. Partial Derivatives</h1>
+            <p class="subtitle">Wiggling one variables at a time.</p>
+        </header>
+
+        <section>
+            <h2>1. The Logic of "Holding Constant"</h2>
+            <p>A partial derivative measures how the function changes with respect to <strong>one</strong> specific
+                variable, while all other variables are treated as <strong>constants</strong>.</p>
+            <div class="math-block">
+                $$ f_x(x, y) = \frac{\partial f}{\partial x} \quad \text{(y is constant)} $$
+                $$ f_y(x, y) = \frac{\partial f}{\partial y} \quad \text{(x is constant)} $$
+            </div>
+            <p>Geometrically, a partial derivative represents the slope of a cross-section of the surface.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Notation</h2>
+            <p>In AI research, we use the "curly d" (\(\partial\)) to distinguish partial derivatives from the total
+                derivative (\(d\)). We also use subscript notation \(f_i\) where \(i\) is the index of the weight.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Gradient Component</h2>
+            <div class="module-card">
+                <h3>Backpropagation Internals</h3>
+                <p>Training an AI involves millions of weights (\(w_1, w_2, \dots w_n\)). To update them, we need to
+                    know how the <strong>Loss</strong> (\(L\)) changes if we tweak just <strong>one</strong> weight.
+                    This is exactly what a partial derivative tells us: </p>
+                <div class="math-block">
+                    $$ \text{Update: } w_i \leftarrow w_i - \eta \frac{\partial L}{\partial w_i} $$
+                </div>
+                <p>The entire field of **Auto-Differentiation** (implemented in PyTorch and TensorFlow) is essentially a
+                    massive, optimized system for calculating millions of partial derivatives per second. Every clever
+                    "learning" in an AI starts with a single partial derivative.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Partial Differentiation with SymPy</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x, y = sp.symbols('x y')
+f = x**2 * y + sp.sin(x*y)
+
+# Differentiate with respect to x (y is constant)
+df_dx = sp.diff(f, x)
+
+# Differentiate with respect to y (x is constant)
+df_dy = sp.diff(f, y)
+
+print(f"Partial w.r.t x: {df_dx}")
+print(f"Partial w.r.t y: {df_dy}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

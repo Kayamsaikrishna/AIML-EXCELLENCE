@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Hôpital's Rule - Phase 1.3.2.20</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.2 Differentiation</li>
+            <li><a href="16_16_log_diff.html">16. Log Diff</a></li>
+            <li><a href="16_17_higher_order.html">17. Higher-Order</a></li>
+            <li><a href="16_18_mvt.html">18. Mean Value Thm</a></li>
+            <li><a href="16_19_rolles_theorem.html">19. Rolle's Theorem</a></li>
+            <li><a href="16_20_lhopital.html" class="active">20. L'Hôpital's Rule</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; L'Hôpital's Rule
+        </div>
+
+        <header>
+            <h1>20. L'Hôpital's Rule</h1>
+            <p class="subtitle">Resolving "Indeterminate" limits.</p>
+        </header>
+
+        <section>
+            <h2>1. Indeterminate Forms</h2>
+            <p>Sometimes when calculating a limit, you end up with nonsensical forms like \(\frac{0}{0}\) or
+                \(\frac{\infty}{\infty}\). These are called <strong>indeterminate forms</strong> because the result
+                isn't necessarily zero or infinity—it depends on which function is "winning" the race.</p>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Rule</h2>
+            <p>If \(\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{0}{0}\) or \(\frac{\infty}{\infty}\), then:</p>
+            <div class="math-block">
+                $$ \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)} $$
+            </div>
+            <p>Provided the second limit exists. You can apply the rule multiple times! Note: This is
+                <strong>not</strong> the quotient rule—you differentiate the top and bottom separately.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Numerical Stability</h2>
+            <div class="module-card">
+                <h3>Limits in Loss Functions</h3>
+                <p>Calculus models often involve terms like \(\frac{1 - e^{-x}}{x}\). If you try to evaluate this at
+                    \(x=0\) in code, you get <code>NaN</code> (Not a Number) because of division by zero. </p>
+                <p>However, by using L'Hôpital's Rule, we know that as \(x \to 0\), the value limit is
+                    \(\frac{e^{-x}}{1} = 1\). This "theoretical value" is used to create stable numerical
+                    implementations (like <code>numpy.sinc</code> or <code>scipy.special.log1p</code>) that avoid
+                    crashing when a training process hits a zero-state.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Symbolic Limit Resolution</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+f = sp.sin(x)
+g = x
+
+# Evaluates to 0/0 if evaluated directly at 0
+limit_val = sp.limit(f/g, x, 0)
+
+print(f"Limit of sin(x)/x as x->0 : {limit_val}") 
+# Result: 1 (via L'Hopital's)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

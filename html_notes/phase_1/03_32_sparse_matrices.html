@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparse Matrices - Phase 1.2.2.32</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_31_condition_number.html">31. Condition Number</a></li>
+            <li><a href="03_32_sparse_matrices.html" class="active">32. Sparse Matrices</a></li>
+            <li><a href="03_33_band_matrices.html">33. Band Matrices</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Sparse Matrices
+        </div>
+
+        <header>
+            <h1>32. Sparse Matrices</h1>
+            <p class="subtitle">Efficient computing for mostly empty data.</p>
+        </header>
+
+        <section>
+            <h2>1. What is Sparsity?</h2>
+            <p>A matrix is <strong>Sparse</strong> if the vast majority of its elements are zero. Storing all those
+                zeros
+                is a massive waste of memory and compute.</p>
+
+            <div class="module-card">
+                <h3>Storage Formats</h3>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>COO (Coordinate):</strong> Stores (row, col, value) tuples. Best for
+                        building matrices.</li>
+                    <li class="topic-item"><strong>CSR (Compressed Sparse Row):</strong> Optimized for fast row-access
+                        and matrix-vector multiplication.</li>
+                    <li class="topic-item"><strong>CSC (Compressed Sparse Column):</strong> Optimized for column-access
+                        and slicing.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Large Scale AI Applications</h2>
+            <div class="module-card">
+                <h3>NLP and Graphs</h3>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>TF-IDF:</strong> In a vocabulary of 50k words, a single document only
+                        contains a few hundred.</li>
+                    <li class="topic-item"><strong>Adjacency Matrices:</strong> In a social network, the friend-matrix
+                        is 99.98% sparse.</li>
+                    <li class="topic-item"><strong>Model Pruning:</strong> Removing small weights to make neural
+                        networks sparse for edge devices.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Sparse Computing</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+from scipy.sparse import csr_matrix
+
+# Create a largely empty matrix
+data = np.zeros((1000, 1000))
+data[1, 5] = 10.0
+data[500, 500] = 3.0
+
+# Convert to CSR
+sparse_data = csr_matrix(data)
+
+print(f"Full Data: {data.nbytes} bytes")
+print(f"Compressed: {sparse_data.data.nbytes} bytes")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

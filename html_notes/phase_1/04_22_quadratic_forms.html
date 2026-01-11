@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Forms - Phase 1.2.3.22</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.3 Eigen-systems</li>
+            <li><a href="04_21_positive_definite.html">21. Positive Definite</a></li>
+            <li><a href="04_22_quadratic_forms.html" class="active">22. Quadratic Forms</a></li>
+            <li><a href="04_23_spectral_radius.html">23. Spectral Radius</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Quadratic Forms
+        </div>
+
+        <header>
+            <h1>22. Quadratic Forms</h1>
+            <p class="subtitle">The multi-variable version of \(ax^2\).</p>
+        </header>
+
+        <section>
+            <h2>1. Algebraic Structure</h2>
+            <p>A <strong>Quadratic Form</strong> is a scalar-valued function defined by a symmetric matrix
+                \(\mathbf{A}\):</p>
+            <div class="math-block" style="font-size: 1.5rem;">
+                $$ q(\mathbf{x}) = \mathbf{x}^T\mathbf{A}\mathbf{x} $$
+            </div>
+            <p>Example in 2D:</p>
+            <div class="math-block">
+                $$ \begin{bmatrix} x & y \end{bmatrix} \begin{bmatrix} a & b \\ b & c \end{bmatrix} \begin{bmatrix} x \\
+                y \end{bmatrix} = ax^2 + 2bxy + cy^2 $$
+            </div>
+        </section>
+
+        <section>
+            <h2>2. The Principal Axes Theorem</h2>
+            <div class="module-card">
+                <p>Every quadratic form can be diagonalized into a "sum of squares" by changing to the
+                    eigenvector basis (\(\mathbf{x} = \mathbf{Py}\)). This removes the cross-term (\(2bxy\)).</p>
+                <div class="math-block">
+                    $$ q(\mathbf{y}) = \lambda_1 y_1^2 + \lambda_2 y_2^2 + \dots + \lambda_n y_n^2 $$
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Visualization: The Topography of Loss</h2>
+            <p>In Machine Learning, we often look at the <strong>level sets</strong> \(q(\mathbf{x}) = c\). These
+                form ellipsoids in higher dimensions. The shape of these ellipsoids (determined by eigenvalues)
+                directly affects how fast <strong>Gradient Descent</strong> converges.</p>
+        </section>
+
+        <section>
+            <h2>4. Python: Contouring a Quadratic Form</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# A matrix defining the quadratic bowl
+A = np.array([[3, 1], [1, 2]])
+
+def q(x, y):
+    vec = np.array([x, y])
+    return vec.T @ A @ vec
+
+# Calculate value at a point
+print(f"Value at (1, 1): {q(1, 1)}")
+
+# Eigenvalues determine the "steepness"
+vals = np.linalg.eigvals(A)
+print(f"Steepness along principal axes: {vals}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rank-Nullity - Phase 1.2.2.16</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_15_rank.html">15. Rank</a></li>
+            <li><a href="03_16_rank_nullity.html" class="active">16. Nullity</a></li>
+            <li><a href="03_17_echelon_form.html">17. Row Echelon Form</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Rank-Nullity
+        </div>
+
+        <header>
+            <h1>16. Nullity and Rank-Nullity Theorem</h1>
+            <p class="subtitle">The balance between information kept and information lost.</p>
+        </header>
+
+        <section>
+            <h2>1. Defining Null Space</h2>
+            <p>The <strong>Null Space</strong> (or Kernel) of a matrix \( \mathbf{A} \) is the set of all vectors
+                \( \mathbf{x} \) that are mapped to zero: \( \mathbf{Ax} = 0 \).</p>
+            <p>The <strong>Nullity</strong> is the dimension of this null space.</p>
+        </section>
+
+        <section>
+            <h2>2. The Rank-Nullity Theorem</h2>
+            <p>For any \( m \times n \) matrix \( \mathbf{A} \), the sum of its rank and nullity must equal the number
+                of columns (\( n \)).</p>
+            <div class="math-block">
+                $$ \text{rank}(\mathbf{A}) + \text{nullity}(\mathbf{A}) = n $$
+            </div>
+
+            <div class="module-card">
+                <h3>The Data Bottleneck Intuition</h3>
+                <p>Think of \( n \) as the total number of features in your input. When you pass it through a linear
+                    layer with weight matrix \( \mathbf{W} \):</p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Rank:</strong> The meaningful features that are preserved.</li>
+                    <li class="topic-item"><strong>Nullity:</strong> The "dead features" or noise that are filtered out
+                        (information loss).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Calculating Nullity</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+from scipy.linalg import null_space
+
+A = np.array([[1, 2, 3], [2, 4, 6], [1, 1, 1]])
+
+# Rank
+rank = np.linalg.matrix_rank(A)
+
+# Null Space Vectors
+ns = null_space(A)
+nullity = ns.shape[1]
+
+# Theorem Verification (n=3 columns)
+print(f"Rank: {rank}, Nullity: {nullity}")
+print(f"Sum: {rank + nullity} (Should be 3)")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

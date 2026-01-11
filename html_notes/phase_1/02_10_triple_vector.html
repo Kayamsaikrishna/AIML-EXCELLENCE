@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triple Vector Product - Phase 1.2.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2 Linear Algebra</li>
+            <li><a href="02_09_triple_scalar.html">09. Triple Scalar Product</a></li>
+            <li><a href="02_10_triple_vector.html" class="active">10. Triple Vector Product</a></li>
+            <li><a href="02_11_projections.html">11. Projections</a></li>
+            <li><a href="02_12_orthogonality.html">12. Orthogonality</a></li>
+            <li class="nav-label">1.1 Arithmetic & Algebra</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Triple Vector
+        </div>
+
+        <header>
+            <h1>10. Triple Vector Product</h1>
+            <p class="subtitle">The BAC-CAB Identity and Vector Simplification.</p>
+        </header>
+
+        <section>
+            <h2>1. The BAC-CAB Identity</h2>
+            <p>The Triple Vector Product \( \mathbf{u} \times (\mathbf{v} \times \mathbf{w}) \) results in a vector. It
+                is restricted to the plane formed by \( \mathbf{v} \) and \( \mathbf{w} \).</p>
+
+            <div class="math-block">
+                $$ \mathbf{u} \times (\mathbf{v} \times \mathbf{w}) = \mathbf{v}(\mathbf{u} \cdot \mathbf{w}) -
+                \mathbf{w}(\mathbf{u} \cdot \mathbf{v}) $$
+            </div>
+
+            <div class="module-card">
+                <h3>Why simplify?</h3>
+                <p>Cross products are computationally more expensive than dot products. Using the identity allows
+                    hardware accelerators to process complex geometric transformations using simpler arithmetic.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Complex Transformations in Robotics</h2>
+            <div class="module-card">
+                <h3>Angular Velocity & Acceleration</h3>
+                <p>In <strong>Reinforcement Learning for Robotics</strong> (like humanoid walking), calculating
+                    centripetal acceleration frequently involves triple vector products of the form \( \mathbf{\omega}
+                    \times (\mathbf{\omega} \times \mathbf{r}) \).
+                </p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Simplification:</strong> Using the identity, this becomes \(
+                        \mathbf{\omega}(\mathbf{\omega} \cdot \mathbf{r}) - \mathbf{r}(\mathbf{\omega} \cdot
+                        \mathbf{\omega}) \).</li>
+                    <li class="topic-item"><strong>Real-time Physics:</strong> This reduction is critical for
+                        high-frequency physics engines (1000Hz controllers).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Verifying the Identity</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+u = np.random.rand(3)
+v = np.random.rand(3)
+w = np.random.rand(3)
+
+# Direct calculation
+res1 = np.cross(u, np.cross(v, w))
+
+# BAC-CAB calculation
+res2 = v * np.dot(u, w) - w * np.dot(u, v)
+
+# Verify they are identical
+print(f"Verification: {np.allclose(res1, res2)}") # Output: True</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

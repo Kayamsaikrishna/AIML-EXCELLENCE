@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVD Apps - Phase 1.2.3.15</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.3 Eigen-systems</li>
+            <li><a href="04_14_svd_variants.html">14. SVD Variants</a></li>
+            <li><a href="04_15_svd_apps.html" class="active">15. SVD Applications</a></li>
+            <li><a href="04_16_pseudoinverse.html">16. Pseudoinverse</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; SVD Apps
+        </div>
+
+        <header>
+            <h1>15. SVD Applications</h1>
+            <p class="subtitle">The Swiss-Army Knife of Numeric AI.</p>
+        </header>
+
+        <section>
+            <h2>1. Collaborative Filtering (Recommender Systems)</h2>
+            <div class="module-card">
+                <p>Imagine a User-Movie rating matrix. It's mostly empty (Sparse). SVD can decompose this into
+                    "User Features" and "Movie Features" (Latent Space). By multiplying them back, we
+                    <strong>predict</strong> the missing ratings.
+                </p>
+                <div class="math-block">
+                    $$ \text{Rating}_{ij} \approx \text{Profile}_i \cdot \text{Features}_j $$
+                </div>
+                <p>This was the winning strategy for the original <strong>Netflix Prize</strong>.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Image Denoising</h2>
+            <div class="module-card">
+                <p>A natural image has a structure that is captured by the first few singular values. Experimental
+                    noise is random and distributed across all singular values. By reconstructing the image using
+                    only the top \(k\) values, the noise is mathematically removed.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Stability in Control Systems</h2>
+            <p>In Robotics, the <strong>Condition Number</strong> (ratio of max to min singular values) tells us
+                if a robotic arm is near a "Singularity" where it might behave uncontrollably. SVD is the primary
+                tool for this health check.</p>
+        </section>
+
+        <section>
+            <h2>4. Python: Singular Value Decay</h2>
+            <p>Visualizing why truncation works (The "Elite 20%" rule):</p>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Simulate rank-deficient data with some noise
+A = np.dot(np.random.rand(100, 5), np.random.rand(5, 100)) + 0.1*np.random.rand(100, 100)
+
+U, s, Vt = np.linalg.svd(A)
+
+# Observe the decay
+# You will see the first 5 values are much larger than the noise
+print(f"Top 10 Singular Values: {np.round(s[:10], 2)}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

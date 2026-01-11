@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gauss-Jordan - Phase 1.2.2.19</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_18_gaussian_elimination.html">18. Gaussian Elimination</a></li>
+            <li><a href="03_19_gauss_jordan.html" class="active">19. Gauss-Jordan</a></li>
+            <li><a href="03_20_elementary_matrices.html">20. Elementary Matrices</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Gauss-Jordan
+        </div>
+
+        <header>
+            <h1>19. Gauss-Jordan Elimination</h1>
+            <p class="subtitle">Complete reduction to the identity matrix.</p>
+        </header>
+
+        <section>
+            <h2>1. The Backward Pass</h2>
+            <p>Gauss-Jordan extends Gaussian elimination by reducing the matrix all the way to
+                <strong>Reduced Row Echelon Form (RREF)</strong>. This means eliminating entries both
+                <em>below</em> and <em>above</em> each pivot.
+            </p>
+
+            <div class="module-card">
+                <h3>Visual Transition</h3>
+                <div class="math-block">
+                    $$ [\mathbf{A}] \xrightarrow{\text{Gaussian}} [REF] \xrightarrow{\text{Jordan}} [RREF] $$
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Applications in Matrix Logic</h2>
+            <div class="module-card">
+                <h3>The Dual Purpose</h3>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Direct Solving:</strong> The solution to \( \mathbf{Ax} = \mathbf{b}
+                        \) can be read directly from the augmented column of a RREF matrix.</li>
+                    <li class="topic-item"><strong>Inverse Calculation:</strong> Reducing \( [\mathbf{A} | \mathbf{I}]
+                        \) to \( [\mathbf{I} | \mathbf{A}^{-1}] \).</li>
+                </ul>
+                <p><strong>Note:</strong> While manual calculation stops here, AI frameworks use Gauss-Jordan logic to
+                    implement
+                    numerical solvers and find the rank of a matrix reliably.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Full Reduction</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+def gauss_jordan(A):
+    n = A.shape[0]
+    # Reduce to RREF
+    for i in range(n):
+        A[i] = A[i] / A[i, i] # Normalize pivot to 1
+        for j in range(n):
+            if i != j:
+                A[j] -= A[j, i] * A[i]
+    return A
+
+A = np.array([[2, 1], [1, 3]], dtype=float)
+rref = gauss_jordan(A)
+print(f"RREF (Identity for non-singular):\n{rref}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

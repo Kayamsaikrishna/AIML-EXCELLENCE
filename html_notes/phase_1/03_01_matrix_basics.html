@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Basics - Phase 1.2.2.1</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_01_matrix_basics.html" class="active">01. Matrix Basics</a></li>
+            <li><a href="03_02_matrix_types.html">02. Matrix Types</a></li>
+            <li><a href="03_03_special_matrices.html">03. Special Matrices</a></li>
+            <li><a href="03_04_matrix_ops.html">04. Matrix Ops</a></li>
+            <li><a href="03_05_matrix_mult.html">05. Matrix Mult</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+            <li><a href="02_01_vector_basics.html">01. Vector Basics</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Basics
+        </div>
+
+        <header>
+            <h1>01. Matrix Definition & Notation</h1>
+            <p class="subtitle">Organizing data into grids for parallel processing.</p>
+        </header>
+
+        <section>
+            <h2>1. What is a Matrix?</h2>
+            <p>A matrix is a rectangular array of numbers arranged in <strong>rows</strong> and
+                <strong>columns</strong>.
+                In AI, a matrix is formally known as a <strong>Rank-2 Tensor</strong>.</p>
+
+            <div class="math-block">
+                $$ \mathbf{A} = \begin{bmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} & a_{22} & \dots & a_{2n} \\
+                \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \dots & a_{mn} \end{bmatrix} \in \mathbb{R}^{m
+                \times n} $$
+            </div>
+
+            <div class="module-card">
+                <h3>Dimension Standards</h3>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>m:</strong> Number of rows (usually represents samples in a batch).
+                    </li>
+                    <li class="topic-item"><strong>n:</strong> Number of columns (usually represents features or
+                        dimensions).</li>
+                    <li class="topic-item"><strong>Index:</strong> \( a_{ij} \) refers to the element at the \( i \)-th
+                        row and \( j \)-th column.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Matrices in the AI Workflow</h2>
+            <div class="visual-diagram">
+                <svg width="500" height="200" viewBox="0 0 500 200">
+                    <!-- Matrix Box -->
+                    <rect x="50" y="40" width="120" height="120" fill="none" stroke="#2563eb" stroke-width="2" />
+                    <!-- Inside elements -->
+                    <text x="65" y="70" font-family="monospace">0.1 0.5</text>
+                    <text x="65" y="105" font-family="monospace">0.8 0.2</text>
+                    <text x="65" y="140" font-family="monospace">0.3 0.9</text>
+
+                    <text x="110" y="180" text-anchor="middle" font-weight="bold">Data Matrix (X)</text>
+                    <text x="110" y="25" text-anchor="middle" font-size="12">3 samples x 2 features</text>
+
+                    <!-- Arrow -->
+                    <line x1="180" y1="100" x2="280" y2="100" stroke="#94a3b8" stroke-width="3"
+                        marker-end="url(#arrow)" />
+
+                    <!-- Neural Network Symbol -->
+                    <rect x="290" y="60" width="150" height="80" rx="10" fill="#bfdbfe" stroke="#1e40af" />
+                    <text x="365" y="105" text-anchor="middle" fill="#1e40af" font-weight="bold">Parallel Compute</text>
+
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orientation="auto">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="module-card">
+                <h3>Batching Data</h3>
+                <p>Instead of passing one vector at a time to a model, we stack them into a matrix. This allows
+                    <strong>GPUs</strong> to perform <strong>SIMD (Single Instruction, Multiple Data)</strong>
+                    operations,
+                    dramatically speeding up training.
+                </p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Batch Size:</strong> The number of rows (\( m \)) in the input
+                        matrix.</li>
+                    <li class="topic-item"><strong>Weight Matrix:</strong> The parameters of a layer are stored as a
+                        matrix where each column corresponds to a single neuron.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Creating Matrices in Numpy</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# Creating a 3x2 Matrix
+A = np.array([
+    [1, 2],
+    [3, 4],
+    [5, 6]
+])
+
+print(f"Matrix A:\n{A}")
+print(f"Shape: {A.shape}") # (3, 2)
+print(f"Element a[1,0]: {A[1,0]}") # Output: 3 (Zero-indexed)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

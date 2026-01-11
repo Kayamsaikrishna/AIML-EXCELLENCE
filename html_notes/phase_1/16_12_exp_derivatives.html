@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exponential Derivatives - Phase 1.3.2.12</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.2 Differentiation</li>
+            <li><a href="16_11_trig_derivatives.html">11. Trig Derivatives</a></li>
+            <li><a href="16_12_exp_derivatives.html" class="active">12. Exp Derivatives</a></li>
+            <li><a href="16_13_log_derivatives.html">13. Log Derivatives</a></li>
+            <li><a href="16_14_inv_trig_derivatives.html">14. Inverse Trig</a></li>
+            <li><a href="16_15_hyperbolic_derivatives.html">15. Hyperbolic</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Exp Derivatives
+        </div>
+
+        <header>
+            <h1>12. Derivatives of Exponential Functions</h1>
+            <p class="subtitle">Functions that grow in proportion to themselves.</p>
+        </header>
+
+        <section>
+            <h2>1. The Natural Exponential Rule</h2>
+            <p>The function \(e^x\) is unique in all of mathematics. Its derivative is exactly equal to itself. Every
+                point on the graph has a slope equal to its height.</p>
+            <div class="math-block">
+                $$ \frac{d}{dx}[e^x] = e^x $$
+            </div>
+            <p>With the <strong>Chain Rule</strong>, this becomes even more powerful:</p>
+            <div class="math-block">
+                $$ \frac{d}{dx}[e^{u(x)}] = e^{u(x)} \cdot u'(x) $$
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. General Exponential Rule</h2>
+            <p>For any positive base \(a\):</p>
+            <div class="math-block">
+                $$ \frac{d}{dx}[a^x] = a^x \ln a $$
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: The Sigmoid Gradient</h2>
+            <div class="module-card">
+                <h3>Backprop through Sigmoid</h3>
+                <p>The <strong>Sigmoid Activation Function</strong> is defined as: \(\sigma(x) = \frac{1}{1 + e^{-x}}\).
+                </p>
+                <p>Because of the beautiful derivative property of \(e^x\), the derivative of the Sigmoid function can
+                    be calculated using only the output of the function itself:</p>
+                <div class="math-block">
+                    $$ \sigma'(x) = \sigma(x)(1 - \sigma(x)) $$
+                </div>
+                <p>This "computational shortcut" makes neural networks significantly faster to train, as we don't need
+                    to re-compute expensive exponentials during the backpropagation phase—we just reuse the value we
+                    already calculated during the forward pass.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Verifying the shortcut</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def sigmoid_grad(x):
+    s = sigmoid(x)
+    return s * (1 - s)
+
+x_val = 0.5
+print(f"Sigmoid at {x_val}: {sigmoid(x_val):.4f}")
+print(f"Gradient at {x_val}: {sigmoid_grad(x_val):.4f}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

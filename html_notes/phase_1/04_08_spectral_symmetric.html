@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spectral Theorem (Symmetric) - Phase 1.2.3.08</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.3 Eigen-systems</li>
+            <li><a href="04_07_similar_matrices.html">07. Similar Matrices</a></li>
+            <li><a href="04_08_spectral_symmetric.html" class="active">08. Spectral Theorem (Sym)</a></li>
+            <li><a href="04_09_spectral_normal.html">09. Spectral Theorem (Normal)</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Spectral Theorem (Sym)
+        </div>
+
+        <header>
+            <h1>08. Spectral Theorem (Real Symmetric)</h1>
+            <p class="subtitle">The crown jewel of Linear Algebra for Data Science.</p>
+        </header>
+
+        <section>
+            <h2>1. The Power of Symmetry</h2>
+            <p>If \(\mathbf{A}\) is a real symmetric matrix (\(\mathbf{A} = \mathbf{A}^T\)), it possesses extraordinary
+                properties:</p>
+            <div class="module-card">
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Real Eigenvalues:</strong> All eigenvalues are guaranteed to be real.
+                    </li>
+                    <li class="topic-item"><strong>Orthogonal Eigenvectors:</strong> Eigenvectors corresponding to
+                        different eigenvalues are
+                        guaranteed to be perpendicular (Orthogonal).</li>
+                    <li class="topic-item"><strong>Orthogonal Diagonalization:</strong> \(\mathbf{A} = \mathbf{QDQ}^T\),
+                        where \(\mathbf{Q}\) is an
+                        orthogonal matrix (\(\mathbf{Q}^T\mathbf{Q} = \mathbf{I}\)).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Geometry: Pure Stretching</h2>
+            <p>A symmetric matrix represents a purely "stretching" transformation along orthogonal axes. There is
+                <strong>no rotation</strong> involved in the transformation once align with the principal axes.
+            </p>
+            <div style="text-align: center; margin: 2rem 0;">
+                <svg width="200" height="200" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="40" fill="none" stroke="#ddd" stroke-dasharray="4" />
+                    <ellipse cx="100" cy="100" rx="80" ry="30" fill="none" stroke="var(--accent)" stroke-width="2"
+                        transform="rotate(45 100 100)" />
+                    <line x1="100" y1="100" x2="160" y2="40" stroke="#ff4d4d" stroke-width="2"
+                        marker-end="url(#arrowhead)" />
+                    <line x1="100" y1="100" x2="60" y2="60" stroke="#00d2ff" stroke-width="2"
+                        marker-end="url(#arrowhead)" />
+                </svg>
+                <p><em>Symmetric matrices transform unit balls into orthogonal ellipsoids.</em></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. AI Application: Covariance & PCA</h2>
+            <div class="module-card">
+                <h3>Principal Components</h3>
+                <p>A **Covariance Matrix** is always symmetric. The Spectral Theorem tells us we can find
+                    orthogonal directions (Principal Components) along which our data varies the most. The
+                    eigenvalues tell us the **Variance** along those directions.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Orthogonal Check</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import numpy as np
+
+# A symmetric matrix
+A = np.array([[4, 2], [2, 3]])
+
+# Get Q (eigenvectors) and D (vals)
+eigenvals, Q = np.linalg.eigh(A) # eigh is optimized for symmetric
+
+# Check orthogonality of Q
+ortho_test = Q.T @ Q
+print(f"Q.T @ Q (Should be Identity):\n{np.round(ortho_test, 5)}")
+
+# Reconstruction
+D = np.diag(eigenvals)
+print(f"Reconstructed A:\n{Q @ D @ Q.T}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

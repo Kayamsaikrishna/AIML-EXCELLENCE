@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Row Echelon Form - Phase 1.2.2.17</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+            <li><a href="03_16_rank_nullity.html">16. Nullity</a></li>
+            <li><a href="03_17_echelon_form.html" class="active">17. Row Echelon Form</a></li>
+            <li><a href="03_18_gaussian_elimination.html">18. Gaussian Elimination</a></li>
+            <li class="nav-label">1.2.1 Vectors</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Row Echelon Form
+        </div>
+
+        <header>
+            <h1>17. Row Echelon Form (REF) & Reduced (RREF)</h1>
+            <p class="subtitle">Standardizing matrices for easy solving.</p>
+        </header>
+
+        <section>
+            <h2>1. What is Echelon Form?</h2>
+            <div class="module-card">
+                <h3>Row Echelon Form (REF)</h3>
+                <ul class="topic-list">
+                    <li class="topic-item">All non-zero rows are above any zero rows.</li>
+                    <li class="topic-item">The first non-zero entry in a row (Pivot) is to the right of the pivot in the
+                        row above.</li>
+                    <li class="topic-item">Visualized as a "staircase" of zeros.</li>
+                </ul>
+            </div>
+
+            <div class="module-card">
+                <h3>Reduced Row Echelon Form (RREF)</h3>
+                <ul class="topic-list">
+                    <li class="topic-item">Satisfies REF criteria.</li>
+                    <li class="topic-item">Every pivot is a 1.</li>
+                    <li class="topic-item">Every pivot is the only non-zero entry in its column.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Canonical Representations in AI</h2>
+            <div class="module-card">
+                <h3>Identifying Dependency</h3>
+                <p>When you reduce a data matrix to RREF, you can immediately see which variables are dependent.
+                    If a row becomes all zeros, that sample was a linear combination of others. If a column doesn't
+                    have a pivot, that feature is redundant.</p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Basis Finding:</strong> The non-zero rows of an REF matrix form a
+                        basis for the row space.</li>
+                    <li class="topic-item"><strong>Uniqueness:</strong> While REF is not unique, the RREF of a matrix is
+                        <strong>Guaranteed Unique</strong>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Computing RREF</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+# Sympy has a direct RREF method (Numpy does not!)
+M = sp.Matrix([[1, 2, 3], [2, 4, 6], [1, 1, 1]])
+
+# rref() returns (rref_matrix, pivot_tuple)
+m_rref, pivots = M.rref()
+
+print(f"RREF Matrix:\n{m_rref}")
+print(f"Pivot Columns: {pivots}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finding Eigen - Phase 1.2.3.03</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.2.3 Eigen-systems</li>
+            <li><a href="04_02_char_equation.html">02. Characteristic Equation</a></li>
+            <li><a href="04_03_finding_eigen.html" class="active">03. Finding Eigen (2x2, 3x3)</a></li>
+            <li><a href="04_04_multiplicity.html">04. Multiplicity</a></li>
+            <li class="nav-label">1.2.2 Matrices</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Finding Eigen
+        </div>
+
+        <header>
+            <h1>03. Finding Eigenvalues & Eigenvectors</h1>
+            <p class="subtitle">A step-by-step mechanical guide.</p>
+        </header>
+
+        <section>
+            <h2>Step 1: The Eigenvalues</h2>
+            <p>Solve \(\det(\mathbf{A} - \lambda\mathbf{I}) = 0\).</p>
+            <div class="module-card">
+                <h3>Numerical Example (2x2)</h3>
+                <p>Let \(\mathbf{A} = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}\).</p>
+                <div class="math-block">
+                    $$ \begin{vmatrix} 4-\lambda & 1 \\ 2 & 3-\lambda \end{vmatrix} = 0 $$
+                    $$ (4-\lambda)(3-\lambda) - 2 = 12 - 7\lambda + \lambda^2 - 2 = 0 $$
+                    $$ \lambda^2 - 7\lambda + 10 = 0 \implies (\lambda-5)(\lambda-2) = 0 $$
+                </div>
+                <p>Results: \(\lambda_1 = 5, \lambda_2 = 2\).</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Step 2: The Eigenvectors</h2>
+            <p>For each \(\lambda\), solve the system \((\mathbf{A} - \lambda\mathbf{I})\mathbf{v} = 0\).</p>
+            <div class="module-card">
+                <h3>For \(\lambda_1 = 5\):</h3>
+                <div class="math-block">
+                    $$ \begin{bmatrix} 4-5 & 1 \\ 2 & 3-5 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} =
+                    \begin{bmatrix} 0 \\ 0 \end{bmatrix} $$
+                    $$ \begin{bmatrix} -1 & 1 \\ 2 & -2 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} =
+                    \begin{bmatrix} 0 \\ 0 \end{bmatrix} $$
+                </div>
+                <p>Both equations imply \(-x + y = 0 \implies x = y\). An eigenvector is \(\begin{bmatrix} 1 \\ 1
+                    \end{bmatrix}\).</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Step-by-Step with Sympy</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+
+A = sp.Matrix([[4, 1], [2, 3]])
+
+# Step 1: Eigenvalues
+eigenvals = A.eigenvals()
+print(f"Eigenvalues: {eigenvals}") # Returns value:multiplicity
+
+# Step 2: Eigenvectors
+eigenvects = A.eigenvects()
+for val, mult, vects in eigenvects:
+    print(f"Lambda = {val}: Vector = {vects[0]}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>

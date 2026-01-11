@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homo vs Non-Homogeneous - Phase 1.3.8.4</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.8 Differential Equations</li>
+            <li><a href="22_03_second_order_detail.html">03. 2nd Order ODEs</a></li>
+            <li><a href="22_04_homo_nonhomo.html" class="active">04. Homo vs Non-Homog</a></li>
+            <li><a href="22_05_ode_ml_apps.html">05. ODE Apps in Physics & ML</a></li>
+            <hr>
+            <li class="nav-label navigation">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Homo vs Non-Homogeneous
+        </div>
+
+        <header>
+            <h1>04. Homogeneous vs. Non-Homogeneous ODEs</h1>
+            <p class="subtitle">Internal dynamics vs. external drivers.</p>
+        </header>
+
+        <section>
+            <h2>1. The Difference</h2>
+            <ul class="topic-list">
+                <li><strong>Homogeneous:</strong> \(ay'' + by' + cy = 0\). These describe the system's "Natural"
+                    behavior without outside interference (e.g., a bell ringing).</li>
+                <li><strong>Non-Homogeneous:</strong> \(ay'' + by' + cy = f(x)\). These describe a system being "Driven"
+                    by an external force \(f(x)\).</li>
+            </ul>
+        </section>
+
+        <section class="module-card">
+            <h2>2. The Method of Undetermined Coefficients</h2>
+            <p>To solve a non-homogeneous ODE, find the <strong>Complementary Solution</strong> \(y_c\) (from the
+                homogeneous part) and a <strong>Particular Solution</strong> \(y_p\) (that matches the shape of the
+                forcing function \(f(x)\)). The total solution is:</p>
+            <div class="math-block">
+                $$ y = y_c + y_p $$
+            </div>
+            <p>If \(f(x)\) is a polynomial, assume \(y_p\) is a polynomial. If \(f(x)\) is \(\sin\), assume \(y_p\) is a
+                combination of \(\sin\) and \(\cos\).</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Control and External Data</h2>
+            <div class="module-card">
+                <h3>Forcing the AI to a Target</h3>
+                <p>In <strong>Reinforcement Learning (RL)</strong> and <strong>Robotics</strong>, we often have a robot
+                    that has its own internal physics (the Homogeneous part), but we apply an external "Control Input"
+                    (the Non-Homogeneous part) to guide it to a goal. </p>
+                <p>By treating the AI's actions as the "Forcing Function" \(f(t)\), control engineers can calculate
+                    exactly how much force is needed to overcome the robot's natural inertia and friction.
+                    Non-homogeneous ODEs are the math behind <strong>Cruise Control</strong>, <strong>Drone
+                        Stabilization</strong>, and <strong>Automated Trading Bots</strong> that must respond to
+                    external "Market Forces".</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Particular Solution Search</h2>
+            <div class="code-block">
+                <pre><code class="language-python"># For y'' + y = sin(x)
+import sympy as sp
+
+x = sp.symbols('x')
+y = sp.Function('y')
+
+ode = sp.Eq(y(x).diff(x, 2) + y(x), sp.sin(x))
+sol = sp.dsolve(ode)
+print(f"Solution: {sol}")
+# Note: Resonance occurs if forcing matches natural frequency!</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

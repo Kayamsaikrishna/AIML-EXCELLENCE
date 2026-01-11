@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Definite Integral Properties - Phase 1.3.4.13</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li class="nav-label">1.3.4 Integration</li>
+            <li><a href="18_12_ftc.html">12. FTC</a></li>
+            <li><a href="18_13_integral_props.html" class="active">13. Integral Props</a></li>
+            <li><a href="18_14_avg_value.html">14. Average Value</a></li>
+            <li><a href="18_15_area_between_curves.html">15. Area Between Curves</a></li>
+            <li><a href="18_16_volumes.html">16. Volumes</a></li>
+            <hr>
+            <li class="nav-label">Navigation</li>
+            <li><a href="index.html">Syllabus Index</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
+                href="index.html#calculus">Calculus</a> &gt; Properties
+        </div>
+
+        <header>
+            <h1>13. Properties of Definite Integrals</h1>
+            <p class="subtitle">Efficient manipulation of area logic.</p>
+        </header>
+
+        <section>
+            <h2>1. Core Algebraic Properties</h2>
+            <div class="math-block">
+                <ul>
+                    <li><strong>Lineary:</strong> \(\int [kf(x) + lg(x)] dx = k\int f(x) + l\int g(x)\)</li>
+                    <li><strong>Order:</strong> \(\int_{a}^{b} f(x) dx = -\int_{b}^{a} f(x) dx\)</li>
+                    <li><strong>Zero Width:</strong> \(\int_{a}^{a} f(x) dx = 0\)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="module-card">
+            <h2>2. Splitting Intervals & Symmetry</h2>
+            <p><strong>Additivity:</strong> \(\int_{a}^{c} f(x) dx = \int_{a}^{b} f(x) dx + \int_{b}^{c} f(x) dx\).</p>
+            <p><strong>Symmetry:</strong> If \(f\) is even (\(f(-x) = f(x)\)) on \([-a, a]\), the area is
+                \(2\int_{0}^{a} f(x) dx\). If odd, the total signed area is 0.</p>
+        </section>
+
+        <section>
+            <h2>3. AI/ML Connection: Distributed Summation</h2>
+            <div class="module-card">
+                <h3>MapReduce & Data Sharding</h3>
+                <p>Large AI models (like <strong>Llama-3</strong>) are trained on trillions of tokens. No single machine
+                    can process this. The <strong>Additivity property</strong> is used to split the training integral
+                    (the total loss over the dataset) into thousands of "shards". </p>
+                <p>Each machine independently integrates a chunk of the data (\(\int_{a}^{b}, \int_{b}^{c} \dots\)).
+                    Because of these calculus properties, we can simply <strong>add the results together</strong> at the
+                    end (a <i>Reduce</i> operation) to get the correct global state. This linearity property is what
+                    makes scalable AI training mathematically valid.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Python: Properties Verification</h2>
+            <div class="code-block">
+                <pre><code class="language-python">import sympy as sp
+x = sp.Symbol('x')
+f = x**2
+
+# Show that int(0,2) = int(0,1) + int(1,2)
+area_0_2 = sp.integrate(f, (x, 0, 2))
+area_0_1 = sp.integrate(f, (x, 0, 1))
+area_1_2 = sp.integrate(f, (x, 1, 2))
+
+print(f"Full Area (0->2): {area_0_2}")
+print(f"Sum of parts: {area_0_1 + area_1_2}")
+print(f"Property holds: {area_0_1 + area_1_2 == area_0_2}")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
+    </footer>
+</body>
+
+</html>

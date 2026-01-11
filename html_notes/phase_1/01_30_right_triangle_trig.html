@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Triangle Trig - Phase 1.1.30</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">AI/ML Hub</div>
+        <ul class="nav-links">
+            <li><a href="../home.html">← Dashboard</a></li>
+            <li
+                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
+                1.2 Trigonometry</li>
+            <li><a href="01_28_angle_measurement.html">28. Angle Measurement</a></li>
+            <li><a href="01_29_trig_functions.html">29. Trig Functions</a></li>
+            <li><a href="01_30_right_triangle_trig.html" class="active">30. Right Triangle Trig</a></li>
+            <li><a href="01_31_unit_circle.html">31. Unit Circle</a></li>
+            <li><a href="01_32_trig_identities.html">32. Trig Identities</a></li>
+            <li><a href="01_33_sum_diff_formulas.html">33. Sum & Diff Formulas</a></li>
+            <li><a href="01_34_double_half_angle.html">34. Double & Half Angle</a></li>
+            <li><a href="01_35_product_sum_formulas.html">35. Product-Sum Formulas</a></li>
+            <li><a href="01_36_trig_equations.html">36. Trig Equations</a></li>
+            <li><a href="01_37_inverse_trig.html">37. Inverse Trig Functions</a></li>
+            <li><a href="01_38_law_sines_cosines.html">38. Law of Sines & Cosines</a></li>
+            <li><a href="01_39_trig_applications.html">39. Trig Applications</a></li>
+            <li><a href="01_40_polar_coordinates.html">40. Polar Coordinates</a></li>
+            <li><a href="01_41_complex_trig.html">41. Complex Numbers (Trig)</a></li>
+            <li><a href="01_42_de_moivre.html">42. De Moivre's Theorem</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Right Triangle Trig
+        </div>
+
+        <header>
+            <h1>30. Right Triangle Trigonometry</h1>
+            <p class="subtitle">The Geometry of Orthogonality.</p>
+        </header>
+
+        <section>
+            <h2>1. Pythagorean Foundations</h2>
+            <p>Every right triangle follows the rule that defines Euclidean Distance:</p>
+            <div class="math-block">
+                $$ a^2 + b^2 = c^2 $$
+            </div>
+            <p>In terms of Trig Functions:</p>
+            <ul class="topic-list">
+                <li class="topic-item">Side Opposite (\(O\)) = \(H \sin \theta\)</li>
+                <li class="topic-item">Side Adjacent (\(A\)) = \(H \cos \theta\)</li>
+            </ul>
+
+            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
+                <svg width="400" height="250" viewBox="0 0 400 250" style="background: #f8fafc; border-radius: 8px;">
+                    <!-- Triangle -->
+                    <path d="M 100 200 L 300 200 L 300 50 Z" fill="#eff6ff" stroke="#3b82f6" stroke-width="3" />
+                    <!-- Right Angle Mark -->
+                    <path d="M 280 200 L 280 180 L 300 180" fill="none" stroke="#64748b" />
+                    <!-- Labels -->
+                    <text x="200" y="220" text-anchor="middle">Adjacent (A)</text>
+                    <text x="315" y="130" transform="rotate(-90 315 130)" text-anchor="middle">Opposite (O)</text>
+                    <text x="180" y="110" transform="rotate(-37 180 110)" text-anchor="middle">Hypotenuse (H)</text>
+                    <text x="130" y="190">θ</text>
+                </svg>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Computer Vision & Engineering</h2>
+            <div class="module-card">
+                <h3>Orthogonal Projection</h3>
+                <p>In 3D Computer Vision, we often need to project a 3D point onto a 2D camera plane. This is pure Right
+                    Triangle Trig.</p>
+                <ul class="topic-list">
+                    <li class="topic-item"><strong>Ray Casting:</strong> To determine if a pixel is occupied, we cast a
+                        ray and use \( \sin \) and \( \cos \) to check intersections.</li>
+                    <li class="topic-item"><strong>L2 Norm:</strong> The standard Euclidean distance used in loss
+                        functions is just the Hypotenuse calculation scaled to \( n \) dimensions.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Python: Euclidean Distance</h2>
+            <div
+                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
+                <pre><code class="language-python">import math
+
+# A triangle with base 3 and height 4 (The 3-4-5 Triangle)
+base = 3
+height = 4
+
+# Pythagorean calculation
+hypotenuse = math.sqrt(base**2 + height**2)
+
+# Finding the angle (Inverse Trig)
+theta_rad = math.atan2(height, base)
+theta_deg = math.degrees(theta_rad)
+
+print(f"Hypotenuse: {hypotenuse}") # 5.0
+print(f"Angle: {theta_deg:.2f}°")   # 53.13°</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
+    </footer>
+</body>
+
+</html>
