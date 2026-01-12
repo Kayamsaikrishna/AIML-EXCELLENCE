@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Partials & Clairaut's - Phase 1.3.6.8</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_08_mixed_partials.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_08_mixed_partials.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_08</div>
+            <h1>08. Mixed Partial Derivatives & Clairaut's Theorem</h1>
+            <p class="lead-text">Does the order of operations matter?</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Mixed Partials Definition</h2>
+<p>A second-order partial derivative can be "mixed", meaning we differentiate with respect to one variable
+                and then another. </p>
+<div class="math-block">
+                $$ f_{xy} = \frac{\partial}{\partial y} \left( \frac{\partial f}{\partial x} \right) , \quad f_{yx} =
+                \frac{\partial}{\partial x} \left( \frac{\partial f}{\partial y} \right) $$
+            </div>
+</section>
+<section class="module-card">
+<h2>2. Clairaut's Theorem</h2>
+<p>If the mixed partial derivatives \(f_{xy}\) and \(f_{yx}\) are <strong>continuous</strong> on a region,
+                then they are <strong>equal</strong>:</p>
+<div class="math-block">
+                $$ f_{xy} = f_{yx} $$
+            </div>
+<p>This is extremely powerful because it means we can pick the "easiest" variable to differentiate first
+                without changing the final result.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Hessian Symmetry</h2>
+<div class="module-card">
+<h3>Efficient Second-Order Optimization</h3>
+<p>In advanced AI optimization (like <strong>Netwon's Method</strong> or <strong>Natural
+                        Gradient</strong>), we use the <strong>Hessian Matrix</strong> \(\mathbf{H}\), which is the
+                    matrix of all second-order partial derivatives. </p>
+<p>Thanks to <strong>Clairaut's Theorem</strong>, the Hessian matrix of a smooth loss function is always
+                    <strong>Symmetric</strong> (\(\mathbf{H} = \mathbf{H}^T\)). This property allows AI scientists to
+                    halve the memory needed to store the Hessian and use specialized linear algebra routines (like
+                    <strong>Eigen-decomposition</strong> for symmetric matrices) to find the "Curvature" of the loss
+                    landscape. Without this mathematical symmetry, second-order optimization would be twice as slow and
+                    twice as memory-intensive.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Verifying Symmetry</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
+
+x, y = sp.symbols('x y')
+f = x**2 * sp.exp(y) + sp.sin(x*y)
+
+f_xy = sp.diff(sp.diff(f, x), y)
+f_yx = sp.diff(sp.diff(f, y), x)
+
+print(f"f_xy: {f_xy}")
+print(f"f_yx: {f_yx}")
+print(f"Are they equal? {f_xy == f_yx}")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

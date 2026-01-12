@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.02 Continuous Random Variables - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.2 Random Variables</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="18_01_discrete_rv.html" class="nav-link">01. Discrete RV</a></li>
+                        <li class="nav-item"><a href="18_02_continuous_rv.html" class="nav-link active">02. Continuous
+                                RV</a></li>
+                        <li class="nav-item"><a href="18_03_pmf.html" class="nav-link">03. PMF</a></li>
+                        <li class="nav-item"><a href="18_04_pdf.html" class="nav-link">04. PDF</a></li>
+                        <li class="nav-item"><a href="18_05_cdf.html" class="nav-link">05. CDF</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Uncountable</span>
+                </div>
+                <h1>Continuous Random Variables</h1>
+                <p class="lead-text">Measuring, not counting.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Continuum</h3>
+                    <p>
+                        A Continuous Random Variable takes values from an interval of numbers (e.g., height, time,
+                        temperature).
+                        \(P(X=x) = 0\) for any specific point \(x\).
+                        Instead, we measure the probability of \(X\) falling within a <strong>range</strong>: \(P(a < X < b)\). </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Weights and Biases</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Model Parameters</h3>
+                    <p>
+                        The weights \(\theta\) in a Neural Network are continuous variables.
+                        In Bayesian Neural Networks, we treat these weights as distributions (usually Gaussian).
+                        Since they are continuous, we optimize them using gradients (Calculus). Discrete variables (like
+                        Tree nodes) are much harder to optimize because gradients don't exist.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Floating Point</h2>
+                <div class="code-header">continuous_dist.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate continuous data (Height in cm)
+# Mean=170, Std=10
+heights = np.random.normal(170, 10, 1000)
+
+# Probability of exact match is basically 0
+exact_170 = np.sum(heights == 170.0)
+print(f"Count exactly 170.0: {exact_170}")
+
+# Probability of range [169, 171]
+in_range = np.sum((heights > 169) & (heights < 171))
+print(f"Count in range: {in_range} ({in_range/1000:.1%})")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="18_01_discrete_rv.html" class="footer-link">← Prev: Discrete RV</a>
+                        <span class="separator">|</span>
+                        <a href="18_03_pmf.html" class="footer-link">Next: PMF →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

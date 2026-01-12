@@ -4,194 +4,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absolute Value - Phase 1.1.6</title>
+    <title>01.06 Absolute Value - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html" class="active">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_05_linear_inequalities.html" class="nav-link">05. Linear
+                            Inequalities</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">06. Absolute Value</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Absolute Value
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 06. Absolute Value
         </div>
 
-        <header>
-            <h1>6. Absolute Value & Loss Functions</h1>
-            <p class="subtitle">Distance cannot be negative. The mathematics of Error and Sparsity.</p>
+        <header class="page-header">
+            <div class="badge">Module 06</div>
+            <h1>Absolute Value & Vector Norms</h1>
+            <p class="lead-text">From the basic concept of "distance from zero" to the L1 Regularization techniques that
+                define sparse AI models.</p>
         </header>
 
-        <!-- 1. DEFINITION -->
-        <section id="basics">
-            <h2>1. The Definition of Distance</h2>
-            <div class="math-block">
-                $$ |x| = \begin{cases} x & \text{if } x \ge 0 \\ -x & \text{if } x < 0 \end{cases} $$ </div>
+        <!-- VISUAL DIAGRAM: NORMS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Geometry of Loss</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    subgraph Math [Mathematical Definition]
+        Abs["|x|: Distance"]
+        L1["L1 Norm: Manhattan"]
+        L2["L2 Norm: Euclidean"]
+    end
 
-                    <div class="syllabus-container">
-                        <div class="sub-module">
-                            <h3 class="sub-module-title">Why it Matters</h3>
-                            <p>In the physical world and engineering, "Negative Distance" doesn't exist. If a robot is
-                                -5 meters from the target, the <strong>Error</strong> magnitude is 5 meters. We optimize
-                                systems to minimize this magnitude.</p>
-                        </div>
+    subgraph AI [Machine Learning Impact]
+        MAE["Mean Absolute Error"]
+        Lasso["Lasso Regularization"]
+        Sparsity["Feature Selection (Sparsity)"]
+    end
 
-                        <div class="module-card">
-                            <h3 class="module-title">AI Context: MAE vs MSE</h3>
-                            <p>When training a Regression model (e.g., predicting house prices), we measure error.</p>
-                            <ul>
-                                <li><strong>Mean Absolute Error (L1):</strong> \( \frac{1}{n} \sum |y_{pred} - y_{true}|
-                                    \).</li>
-                                <li><strong>Mean Squared Error (L2):</strong> \( \frac{1}{n} \sum (y_{pred} -
-                                    y_{true})^2 \).</li>
-                            </ul>
-                            <p><strong>L1 (Absolute Value) is Robust:</strong> It doesn't overreact to outliers. If one
-                                house is priced crazily high, L1 treats it linearly. L2 squares the error, forcing the
-                                model to skew massively to fix that one mistake.</p>
-                        </div>
-                    </div>
-        </section>
+    Abs --> L1
+    Abs --> L2
+    
+    L1 --> MAE
+    L1 --> Lasso
+    Lasso --> Sparsity
 
-        <!-- 2. VISUALIZATION -->
-        <section id="visual">
-            <h2>2. The "V" vs The "U"</h2>
-            <p>The shape of the function determines how the Gradient flows.</p>
+    L2 -->|"Ridge Regression"| WeightDecay["Weight Decay (L2)"]
 
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <!-- SVG: L1 vs L2 Graphs -->
-                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- L1 Graph -->
-                    <g transform="translate(50, 0)">
-                        <line x1="0" y1="250" x2="200" y2="250" stroke="#64748b" stroke-width="2" /> <!-- x-axis -->
-                        <line x1="100" y1="50" x2="100" y2="250" stroke="#64748b" stroke-width="2" /> <!-- y-axis -->
-
-                        <!-- V Shape -->
-                        <line x1="100" y1="250" x2="180" y2="90" stroke="#3b82f6" stroke-width="3" />
-                        <line x1="100" y1="250" x2="20" y2="90" stroke="#3b82f6" stroke-width="3" />
-
-                        <text x="100" y="280" text-anchor="middle" font-weight="bold">L1: Absolute Value (|x|)</text>
-                        <text x="100" y="40" text-anchor="middle" fill="#3b82f6">Constant Gradient (+1 / -1)</text>
-                    </g>
-
-                    <!-- L2 Graph -->
-                    <g transform="translate(350, 0)">
-                        <line x1="0" y1="250" x2="200" y2="250" stroke="#64748b" stroke-width="2" /> <!-- x-axis -->
-                        <line x1="100" y1="50" x2="100" y2="250" stroke="#64748b" stroke-width="2" /> <!-- y-axis -->
-
-                        <!-- U Shape (Quadratic Bezier) -->
-                        <path d="M 20 50 Q 100 290 180 50" fill="none" stroke="#ef4444" stroke-width="3" />
-
-                        <text x="100" y="280" text-anchor="middle" font-weight="bold">L2: Quadratic (x²)</text>
-                        <text x="100" y="40" text-anchor="middle" fill="#ef4444">Gradient Vanishes at 0</text>
-                    </g>
-                </svg>
-            </div>
-
-            <div class="deep-dive-box">
-                <h3 class="deep-dive-title">The Engineering Trade-off: Sparsity</h3>
-                <p>Because the L1 gradient is constant (it doesn't get smaller as you get closer to 0), it pushes
-                    weights <strong>Exactly to Zero</strong>.</p>
-                <p>This is called <strong>L1 Regularization (Lasso)</strong>. It is used for "Feature Selection"—the
-                    model automatically kills off useless features by setting their weights to exactly 0.</p>
-                <p>L2 (Ridge), on the other hand, just makes weights "small" but rarely zero.</p>
+    style L1 fill:#ffe4e6,stroke:#f43f5e
+    style Lasso fill:#fecaca,stroke:#ef4444
+    style Sparsity fill:#fef2f2,stroke:#b91c1c
+                    </pre>
+                </div>
             </div>
         </section>
 
-        <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Coding L1 Regularization</h2>
-            <p>Let's see how we manually add L1 regularization to a PyTorch loss function.</p>
+        <!-- 1. DEFINITION & THE KINK PROBLEM -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Non-Differentiability Problem</h2>
+                <p>The function \( f(x) = |x| \) is continuous everywhere, but <strong>not differentiable</strong> at \(
+                    x=0 \). This is a "kink" in the optimization landscape.</p>
 
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// PyTorch: Adding L1 Penalty</div>
-                <pre><code class="language-python">import torch
+                <div class="math-block">
+                    $$ \frac{d}{dx}|x| = \text{sign}(x) = \begin{cases} 1 & x > 0 \\ -1 & x < 0 \\ \text{undefined} &
+                        x=0 \end{cases} $$ </div>
+
+                        <h3>The Solution: Subgradients</h3>
+                        <p>In Convex Optimization, when the gradient is undefined, we use a
+                            <strong>Subgradient</strong>. At \( x=0 \), any value in the interval \( [-1, 1] \) is a
+                            valid subgradient. AI optimizers often just arbitrarily choose 0.</p>
+                </div>
+        </section>
+
+        <!-- 2. NORM THEORY: L1 vs L2 -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>2. Norm Theory: Measuring Vectors</h2>
+                <p>In high dimensions, "size" depends on how you measure it. Generically, the \( L_p \) norm is:</p>
+                <div class="math-block">
+                    $$ ||x||_p = \left( \sum |x_i|^p \right)^{1/p} $$
+                </div>
+
+                <table class="data-table" style="width:100%; border-collapse: collapse; margin-top: 20px;">
+                    <tr style="background:#f3f4f6; text-align: left;">
+                        <th style="padding:10px; border:1px solid #ddd;">Norm</th>
+                        <th style="padding:10px; border:1px solid #ddd;">Formula</th>
+                        <th style="padding:10px; border:1px solid #ddd;">Nickname</th>
+                        <th style="padding:10px; border:1px solid #ddd;">AI Behavior</th>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">\( L_1 \)</td>
+                        <td style="padding:10px; border:1px solid #ddd;">\( \sum |x_i| \)</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Manhattan</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Prone to <strong>Sparsity</strong> (sets
+                            weights to exactly 0).</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">\( L_2 \)</td>
+                        <td style="padding:10px; border:1px solid #ddd;">\( \sqrt{\sum x_i^2} \)</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Euclidean</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Prone to <strong>diffuse</strong> small weights
+                            (Weight Decay).</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3. SPARSITY & LASSO -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f43f5e;">
+                <h2>3. Why L1 Induces Sparsity (Lasso)</h2>
+                <p>This is a critical concept in Model Compression. Why does adding \( \lambda ||w||_1 \) to the loss
+                    function define feature selection?</p>
+
+                <div class="deep-dive-box">
+                    <h4 class="deep-dive-title">The Geometry of Constraints</h4>
+                    <p>Imagine the error surface is an ellipse. The L1 constraint area is a <strong>Diamond</strong>
+                        (rotated square). The L2 constraint area is a <strong>Circle</strong>.</p>
+                    <p>When the ellipse expands to touch the constraint:</p>
+                    <ul>
+                        <li>It hits the <strong>Circle (L2)</strong> at a random non-zero point.</li>
+                        <li>It hits the <strong>Diamond (L1)</strong> at a <strong>vertex</strong> (corner), which lies
+                            exactly on an axis (where other weights are 0).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PYTHON EXPERIMENT -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>4. Proving L1 Sparsity in Python</h2>
+                <p>Let's force a model to learn a sparse vector.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import torch
 import torch.nn as nn
+import torch.optim as optim
 
-model = nn.Linear(10, 1) # simple linear model
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+# True vector has only 1 non-zero element
+true_weights = torch.tensor([0.0, 5.0, 0.0, 0.0, 0.0])
+inputs = torch.randn(100, 5)
+targets = inputs @ true_weights
 
-# Training Loop
-def train_step(data, target):
+# Model initiated with random noise
+model = nn.Linear(5, 1, bias=False)
+
+# Optimizer with L1 Regularization is tricky in PyTorch
+# Usually we add it manually to loss
+optimizer = optim.SGD(model.parameters(), lr=0.1)
+
+print("Training with L1 Penalty...")
+for _ in range(100):
     optimizer.zero_grad()
-    output = model(data)
+    preds = model(inputs).squeeze()
+    mse_loss = nn.MSELoss()(preds, targets)
     
-    # 1. Standard Loss (MSE)
-    mse_loss = nn.MSELoss()(output, target)
-    
-    # 2. L1 Regularization Term
-    l1_lambda = 0.01
+    # L1 Penalty term
+    l1_lambda = 0.1
     l1_norm = sum(p.abs().sum() for p in model.parameters())
     
-    # 3. Total Loss
-    loss = mse_loss + (l1_lambda * l1_norm)
-    
-    loss.backward() # Gradients calculated for both Error and Magnitude
+    loss = mse_loss + l1_lambda * l1_norm
+    loss.backward()
     optimizer.step()
-    
-    return loss.item()</code></pre>
+
+# Result: Weights should be pushed towards 0, except index 1
+print(f"Learned Weights: {model.weight.data}")
+</code></pre>
+                </div>
             </div>
         </section>
 
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

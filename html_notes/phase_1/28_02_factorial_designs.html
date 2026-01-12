@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.02 Factorial Designs - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.12 Experimental Design</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_01_experimental_randomization.html" class="nav-link">01.
+                                Experimental Randomization</a></li>
+                        <li class="nav-item"><a href="28_02_factorial_designs.html" class="nav-link active">02.
+                                Factorial Designs</a></li>
+                        <li class="nav-item"><a href="28_03_blocking_confounding.html" class="nav-link">03. Blocking &
+                                Confounding</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Multivariate Exploration</span>
+                </div>
+                <h1>Factorial Designs</h1>
+                <p class="lead-text">Testing everything at once. Why the interaction between variables is often more
+                    important than the variables themselves.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The OFAT Error</h3>
+                    <p>
+                        Most people use <strong>One-Factor-At-a-Time (OFAT)</strong> experiments. They change one thing, test it,
+                        then change another.
+                        <br><br>
+                        <strong>The Failure:</strong> OFAT misses the interaction. For example: A new drug might work great at 30°C
+                        but fail at 40°C. If you only test "Temp" and "Drug" separately, you will never see the disaster
+                        coming.
+                    </p>
+                </div>
+
+                <h2>1. The \(2^k\) Design</h2>
+                <p>
+                    The most common factorial design is the <strong>\(2^k\)</strong> design, where you have <strong>\(k\)</strong> factors, and
+                    each factor has <strong>2 levels</strong> (e.g., Low and High).
+                </p>
+                <div class="math-box">
+                    $$ \text{Total Runs} = 2^k $$
+                </div>
+                <p>
+                    If you have 3 factors (Temperature, Pressure, Time):
+                    <br>
+                    \( 2^3 = 8 \) different combinations to test.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Main Effects vs. Interactions</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Main Effect</h4>
+                        <p>The average change in the outcome when one factor is moved from its low to high level,
+                            averaged over all levels of the other factors.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Interaction Effect</h4>
+                        <p>When the effect of Factor A is <strong>different</strong> depending on the level of Factor B. This is the
+                            "Synergy" or "Conflict".</p>
+                    </div>
+                </div>
+                <div class="insight-box" style="border-left-color: var(--secondary);">
+                    In a Factorial Design, if an interaction is significant, you <strong>cannot</strong> interpret the Main Effects
+                    alone. The interaction "steals" the meaning.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Hyperparameter Tuning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">AutoML</span>
+                    <span class="ml-badge">Optimization</span>
+                    <h3>Grid Search is a Factorial Design</h3>
+                    <p>
+                        When you use `GridSearchCV` in scikit-learn, you are performing a Full Factorial Design in the
+                        space of your hyperparameters.
+                    </p>
+                    <ul>
+                        <li><strong>The Curse of Dimensionality:</strong> Factorial designs explode. A 10-hyperparameter grid with 5
+                            levels each requires \(5^{10}\) training runs. This is why we switch to <strong>Random Search</strong> or
+                            <strong>Bayesian Optimization</strong> for high-dimensional tuning.</li>
+                        <li><strong>Feature Crosses:</strong> In Deep Learning (e.g., Recommendation Systems), we manually create
+                            "Interaction Terms" between Categorical features (User_ID x Ad_ID). This is essentially
+                            encoding a factorial relationship directly into the model's architecture.</li>
+                        <li><strong>Fractional Factorial:</strong> If you have 20 variables, you can't test all \(2^{20}\)
+                            combinations. You use "Fractional" designs that test a carefully chosen subset to capture
+                            the most important effects (The "Pareto Principle" of variables).</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Pro-Tip:</strong> If your model performs differently on weekends vs. weekdays, you have a
+                        <strong>Time x Factor Interaction</strong>. A simple linear model will miss this unless you use an
+                        Interaction Term or a Factorial approach to splitting your data.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.10 Differencing & Transformations - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.13 Time Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_09_stationarity_unit_root.html" class="nav-link">09.
+                                Stationarity Unit Root</a></li>
+                        <li class="nav-item"><a href="28_10_differencing_transformations.html"
+                                class="nav-link active">10. Differencing Transformations</a></li>
+                        <li class="nav-item"><a href="28_11_moving_averages_smoothing.html" class="nav-link">11. Moving
+                                Averages Smoothing</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Pre-processing</span>
+                </div>
+                <h1>Differencing & Transformations</h1>
+                <p class="lead-text">Taming the Signal. The surgical techniques to remove trends and stabilize the chaos
+                    in your data.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Correction Kit</h3>
+                    <p>
+                        Most time series data in the wild is Non-Stationary. Before we can model it, we have to
+                        "squeeze" it until the mean and variance become constant.
+                        <br><br>
+                        - <strong>Differencing</strong> fixes the Mean (removes Trend).
+                        - <strong>Transformations</strong> fix the Variance (stabilizes Volatility).
+                    </p>
+                </div>
+
+                <h2>1. Differencing (The "Delta" Method)</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>First Differencing (\(d=1\))</h4>
+                        <div class="math-box">$$ Y'_t = Y_t - Y_{t-1} $$</div>
+                        <p>Removes a <strong>Linear Trend</strong>. Instead of predicting the absolute price, you are predicting the
+                            *change* in price.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Seasonal Differencing (\(D=1\))</h4>
+                        <div class="math-box">$$ Y'_t = Y_t - Y_{t-s} $$</div>
+                        <p>Removes <strong>Seasonality</strong>. If \(s=120\) (monthly), you compare this March to last March. This
+                            isolates the true underlying growth.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Mathematical Transformations</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Log Transformation</h4>
+                        <p>\( \log(Y_t) \). Converts exponential growth into linear growth. Essential for "Fan-shaped"
+                            data where variance grows over time.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Box-Cox Transformation</h4>
+                        <p>A generalized transformation that uses a parameter \(\lambda\) to find the best way to make
+                            the data look "Normal" and stationary.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Variance Stabilizing (VST)</h4>
+                        <p>Often used in genomics and sensor data to ensure that higher values don't have higher
+                            proportionally noise.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Feature Pipelines</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Data Ops</span>
+                    <h3>The Pre-processing Paradox</h3>
+                    <p>
+                        In many ML models, differencing is the difference between a "Random Guess" and a "Winning
+                        Trade."
+                    </p>
+                    <ul>
+                        <li><strong>Information Loss:</strong> When you difference data, you lose the "Level" (the actual price). If
+                            your goal is to know the total revenue, you must remember to <strong>Integrate</strong>
+                            (Inverse-Difference) the predictions back to the original scale!</li>
+                        <li><strong>Fractional Differencing:</strong> A modern technique used in Quantitative Finance that preserves
+                            some "Memory" of the original series while still achieving stationarity. Standard
+                            differencing (\(d=10\)) often throws away too much useful information.</li>
+                        <li><strong>Deep Learning Inputs:</strong> Transformers and LSTMs perform significantly better when the
+                            inputs are normalized. Feeding a raw stock price (\(2000\)) is much harder for a network
+                            than feeding a returns percentage (\(+0.5\%\)).</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Secret:</strong> Never difference more than twice (\(d > 2\)). If the data isn't
+                        stationary after two rounds of differencing, you probably have a structural break in the dataset
+                        that needs a more complex model (like Regime Switching).
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

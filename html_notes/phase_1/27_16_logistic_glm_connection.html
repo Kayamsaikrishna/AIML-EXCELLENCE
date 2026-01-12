@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistic Regression as a GLM - Phase 1.5.5.16</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">Unknown Pillar</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="27_16_logistic_glm_connection.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 27_16_logistic_glm_connection.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 34_16</div>
+            <h1>16. Logistic Regression as a GLM</h1>
+            <p class="lead-text">The bridge between regression and classification.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Predicting 0 or 1</h2>
+<p>Standard regression for a binary outcome ($Y \in \{0, 1\}$) fails because it can predict impossible
+                values (e.g., -0.5 or 1.2). <strong>Logistic Regression** solves this by using the **Logit Link
+                    Function** ($g(p) = \ln(\frac{p}{1-p})$).</strong></p>
+</section>
+<section class="module-card">
+<h2>2. The Probability Squash</h2>
+<p>The inverse of the logit link is the <strong>Sigmoid Function</strong>:</p>
+<div class="math-block">
+                $$ P(Y=1|X) = \frac{1}{1 + e^{-X\beta}} $$
+            </div>
+<p>This ensures that no matter how large the input $X\beta$ gets, the output stays between 0 and 1. We model
+                the <strong>Log-Odds</strong> as a linear function of $X$.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: The Logistic Neuron</h2>
+<div class="module-card">
+<h3>The Binary Gate</h3>
+<p>In AI, the Logistic GLM is the <strong>Most Widely Used Classifier in History**. </strong></p>
+<p>From <strong>Credit Scoring</strong> to <strong>Disease Screening</strong>, Logistic units provide the "Probability of
+                    success." In <strong>Natural Language Processing (NLP)**, the final layer of a sentiment analyzer is
+                        typically a Logistic GLM. It also explains the "Internal Logic" of <strong>Logistic Units in
+                            LSTMs/GRUs**: by using a Sigmoid gate, the AI decides how much of the previous memory to
+                            "Forget" (0.1) or "Keep" (0.9). Understanding Logistic Regression as a GLM is the key to
+                            jumping from continuous estimation to discrete decision-making. It is the fundamental
+                            building block of <strong>Probabilistic ML</strong>. </strong></strong></p>
+</div>
+</section>
+<section>
+<h2>4. Python: The Logistic Fit</h2>
+<div class="code-block">
+<pre><code class="language-python">from sklearn.linear_model import LogisticRegression
+
+# Classification!
+model = LogisticRegression().fit(X, y)
+
+# Get the probabilities instead of just 0/1
+probs = model.predict_proba(X_new)[:, 1]</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

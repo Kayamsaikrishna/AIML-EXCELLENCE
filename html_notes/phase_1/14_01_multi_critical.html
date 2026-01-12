@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.01 Loss Landscapes & Critical Points - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_01_multi_critical.html" class="nav-link active">01. Critical
+                                Points</a></li>
+                        <li class="nav-item"><a href="14_02_hessian_matrix.html" class="nav-link">02. Hessian Matrix</a>
+                        </li>
+                        <li class="nav-item"><a href="14_03_saddle_points.html" class="nav-link">03. Saddle Points</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">Loss Landscapes</span>
+                </div>
+                <h1>Critical Points & Loss Surfaces</h1>
+                <p class="lead-text">Navigating the high-dimensional peaks and valleys of Neural Networks.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Foundation of Training</h3>
+                    <p>
+                        Training a model means finding the best parameters \(\mathbf{w}\) that minimize a **Loss
+                        Function** \(L(\mathbf{w})\).
+                        This is equivalent to finding the lowest point in a mountainous landscape.
+                    </p>
+                    <p>
+                        The "flat" spots where the slope is zero are called <strong>Critical Points</strong>.
+                        \[ \nabla L(\mathbf{w}) = \mathbf{0} \]
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        stateDiagram-v2
+                        [*] --> RandomInit
+                        RandomInit --> ComputeGrad: Calculate ∇L
+                        ComputeGrad --> UpdateParams: w = w - η∇L
+                        UpdateParams --> CheckConv
+
+                        CheckConv --> ComputeGrad: Gradient ≠ 0
+                        CheckConv --> CriticalPoint: Gradient ≈ 0
+
+                        state CriticalPoint {
+                        [*] --> TestCurvature
+                        TestCurvature --> LocalMin: Convex (Good!)
+                        TestCurvature --> SaddlePoint: Mixed (Trap!)
+                        TestCurvature --> LocalMax: Concave (Bad)
+                        }
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Saddle Point Problem</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why SGD Gets Stuck</h3>
+                    <p>
+                        In low dimensions (1D or 2D), we worry about getting stuck in "Local Minima" (small potholes).
+                        However, in Deep Learning (billions of dimensions), <strong>Saddle Points</strong> are exponentially more
+                        common.
+                    </p>
+                    <p>
+                        A saddle point curves up in some directions and down in others (like a Pringles chip).
+                        Standard Gradient Descent slows down significantly near saddle points because the gradient
+                        \(\nabla L\) becomes tiny, deceiving the optimizer into thinking it has converged.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Visualizing the Landscape</h2>
+                <div class="code-header">plot_loss_surface.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Define a function with a Saddle Point at (0,0)
+# f(x,y) = x^2 - y^2 (The classic Monkey Saddle)
+def loss_function(x, y):
+    return x**2 - y**2
+
+x = np.linspace(-2, 2, 30)
+y = np.linspace(-2, 2, 30)
+X, Y = np.meshgrid(x, y)
+Z = loss_function(X, Y)
+
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot surface
+surf = ax.plot_surface(X, Y, Z, cmap='coolwarm', edgecolor='none', alpha=0.8)
+
+# Mark the Critical Point (0,0,0)
+ax.scatter([0], [0], [0], color='red', s=100, label='Saddle Point')
+
+ax.set_title("Loss Landscape: Saddle Point")
+ax.set_xlabel("Weight w1")
+ax.set_ylabel("Weight w2")
+ax.set_zlabel("Loss")
+plt.legend()
+plt.show()</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="../13_34_vector_calculus_apps.html" class="footer-link">← Prev: Vector Apps</a>
+                        <span class="separator">|</span>
+                        <a href="14_02_hessian_matrix.html" class="footer-link">Next: Hessian Matrix →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

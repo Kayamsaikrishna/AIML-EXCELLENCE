@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>34.04 NP-Completeness & Reductions - Complexity Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.10.1 Complexity Core</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="34_03_complexity_classes_p_np.html" class="nav-link">03.
+                                Complexity Classes</a></li>
+                        <li class="nav-item"><a href="34_04_np_completeness_reductions.html" class="nav-link active">04.
+                                NP-Completeness</a></li>
+                        <li class="nav-item"><a href="34_05_approximation_heuristics_ai.html" class="nav-link">05.
+                                Heuristics in AI</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Complexity Theory</span>
+                    <span class="badge secondary">Reductions</span>
+                </div>
+                <h1>NP-Completeness & Reductions</h1>
+                <p class="lead-text">Universal Hardness. Discovering the 'Kings' of NP—problems so difficult that
+                    solving any one of them efficiently would yield an efficient solution for all problems in NP.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Power of Reduction</h3>
+                    <p>
+                        A <strong>Polynomial-time Reduction</strong> (\(A \leq_p B\)) means: "If I had a magic box that could solve
+                        problem \(B\) quickly, I could use it to solve problem \(A\) quickly." It proves that \(B\) is
+                        at least as hard as \(A\).
+                    </p>
+                </div>
+
+                <h2>1. NP-Completeness (NPC)</h2>
+                <p>A problem \(B\) is <strong>NP-Complete</strong> if:</p>
+                <ol>
+                    <li>\(B \in NP\) (Solution can be verified quickly).</li>
+                    <li>Every problem in \(NP\) can be reduced to \(B\) in polynomial time.</li>
+                </ol>
+                <div class="math-box">
+                    <strong>Cook-Levin Theorem:</strong> The first problem proved to be NP-Complete was **SAT
+                    (Satisfiability)**.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Famous NPC Problems</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>3-SAT</h4>
+                        <p>Determining if a logical formula (in a specific format) has a 'True' assignment. The base for
+                            many AI logic proofs.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Traveling Salesperson (TSP)</h4>
+                        <p>Finding the shortest path that visits all nodes exactly once. The cornerstone of logistics
+                            and route optimization.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Knapsack Problem</h4>
+                        <p>Selecting the most valuable items under a weight limit. Essential for AI-driven resource
+                            allocation.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">LLM</span>
+                    <span class="ml-badge">Hardware</span>
+                    <h3>NPC in the AI Workspace</h3>
+                    <ul>
+                        <li><strong>Neural Architecture Search (NAS):</strong> Exploring the space of all possible network graphs to
+                            find the 'best' one is an NP-Complete search problem. This is why we use Evolutionary
+                            Algorithms or Reinforcement Learning instead of brute force.</li>
+                        <li><strong>Protein Folding:</strong> Predicted by *AlphaFold*. While the *check* (measuring energy) is in P,
+                            searching the 3D space for the minimal energy state is an NPC problem that AI helps solve
+                            through learnable heuristics.</li>
+                        <li><strong>Symbolic Reasoning:</strong> Automated Theorem Proving and Logic AI rely on SAT solvers. Proving
+                            that an AI agent won't violate a safety constraint is often an NPC verification task.</li>
+                        <li><strong>Job Scheduling:</strong> Orchestrating training runs across 10,000 GPUs effectively is an NPC
+                            Bin-Packing problem.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Logic of Reduction</h2>
+                <div class="mermaid">
+                    graph LR
+                    InputA[Problem A Input] --> Transformer[Poly-time Converter]
+                    Transformer --> InputB[Problem B Input]
+                    InputB --> SolverB[Blackbox Solver for B]
+                    SolverB --> ResultB[Result for B]
+                    ResultB --> Interpreter[Result for A]
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">Using a solution for B to
+                    answer A proves A <= B.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

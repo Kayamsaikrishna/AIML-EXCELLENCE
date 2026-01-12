@@ -4,108 +4,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Characteristic Equation - Phase 1.2.3.02</title>
+    <title>04.02 Char Equation - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_01_eigen_basics.html">01. Definition & Intuition</a></li>
-            <li><a href="04_02_char_equation.html" class="active">02. Characteristic Equation</a></li>
-            <li><a href="04_03_finding_eigen.html">03. Finding Eigen (2x2, 3x3)</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_01_eigen_basics.html" class="nav-link">01. Eigen Basics</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">02. Char Equation</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Characteristic Equation
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 02. The Polynomial
         </div>
 
-        <header>
-            <h1>02. The Characteristic Equation</h1>
-            <p class="subtitle">Unlocking the hidden eigenvalues.</p>
+        <header class="page-header">
+            <div class="badge">Module 02</div>
+            <h1>Characteristic Equation</h1>
+            <p class="lead-text"> \( \det(A - \lambda I) = 0 \). How we actually find the eigenvalues mathematically.
+            </p>
         </header>
 
-        <section>
-            <h2>1. Deriving the Solution</h2>
-            <p>From the definition \(\mathbf{A}\mathbf{v} = \lambda\mathbf{v}\), we can subtract \(\lambda\mathbf{v}\)
-                from both sides:</p>
-            <div class="math-block">
-                $$ \mathbf{A}\mathbf{v} - \lambda\mathbf{v} = 0 $$
-                $$ (\mathbf{A} - \lambda\mathbf{I})\mathbf{v} = 0 $$
-            </div>
-            <p>For a non-zero solution \(\mathbf{v}\) to exist, the matrix \((\mathbf{A} - \lambda\mathbf{I})\)
-                <strong>must be singular</strong> (non-invertible). This means its determinant must be zero.
-            </p>
+        <!-- VISUAL DIAGRAM: CHAR EQ -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Finding Lambda</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    Start["Equation: Ax = &lambda;x"]
+    Rearrange["Rearrange: (A - &lambda;I)x = 0"]
+    nonZero["Requirement: x &ne; 0"]
+    
+    Singular["Conclusion: (A - &lambda;I) must be Singular"]
+    DetZero["Determinant is Zero: det(A - &lambda;I) = 0"]
+    Solve["Solve Polynomial for &lambda;"]
+    
+    Start --> Rearrange --> nonZero --> Singular --> DetZero --> Solve
 
-            <div class="math-block" style="border: 2px solid var(--accent); border-radius: 8px; padding: 1rem;">
-                $$ \det(\mathbf{A} - \lambda\mathbf{I}) = 0 $$
+    style DetZero fill:#dcfce7,stroke:#16a34a
+    style Solve fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
-            <p>This is the <strong>Characteristic Equation</strong>. Expanding this determinant results in a
-                polynomial in \(\lambda\) of degree \(n\), called the <strong>Characteristic Polynomial</strong>.</p>
         </section>
 
-        <section>
-            <h2>2. Solving for \(\lambda\)</h2>
-            <div class="module-card">
-                <h3>Example: 2x2 Matrix</h3>
-                <p>Let \(\mathbf{A} = \begin{bmatrix} a & b \\ c & d \end{bmatrix}\). The equation is:</p>
+        <!-- 1. DEFINITION: THE DERIVATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Logic</h2>
+                <p>If \( (A - \lambda I) \mathbf{x} = \mathbf{0} \) has a non-trivial solution (where \( \mathbf{x} \neq
+                    0 \)), then the matrix \( A - \lambda I \) <strong>cannot be invertible</strong>.</p>
+                <p>Non-invertible matrices have a determinant of zero.</p>
                 <div class="math-block">
-                    $$ \begin{vmatrix} a-\lambda & b \\ c & d-\lambda \end{vmatrix} = 0 $$
-                    $$ (a-\lambda)(d-\lambda) - bc = 0 $$
-                    $$ \lambda^2 - (a+d)\lambda + (ad-bc) = 0 $$
+                    $$ \det(A - \lambda I) = 0 $$
                 </div>
-                <p>Note: The middle term \((a+d)\) is the <strong>Trace</strong> and the last term is the
-                    <strong>Determinant</strong>!
+                <p>This expands into a polynomial of degree \( n \). The roots of this polynomial are the eigenvalues.
                 </p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Determinant and Trace Property</h2>
-            <p>For any \(n \times n\) matrix:</p>
-            <ul class="topic-list">
-                <li class="topic-item"><strong>Sum of Eigenvalues:</strong> \(\sum \lambda_i = \text{Tr}(\mathbf{A})\)
-                </li>
-                <li class="topic-item"><strong>Product of Eigenvalues:</strong> \(\prod \lambda_i = \det(\mathbf{A})\)
-                </li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>4. Python: Symbolic Solving</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
-
-# Define matrix symbolically
-lam = sp.symbols('lambda')
-A = sp.Matrix([[4, 2], [1, 3]])
-
-# Characteristic Polynomial
-char_poly = A.charpoly(lam)
-print(f"Char Poly: {char_poly.as_expr()}")
-
-# Solve for Eigenvalues
-eigenvals = sp.solve(char_poly, lam)
-print(f"Eigenvalues: {eigenvals}")</code></pre>
+        <!-- 2. AI APPLICATION: STABILITY ANALYSIS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. System Roots</h2>
+                <p>In Control Theory and RNNs, the eigenvalues of the state transition matrix determine if gradients
+                    explode or vanish.</p>
+                <p>If any root \( |\lambda| > 1 \), the system is unstable (explodes). The characteristic equation
+                    allows us to analyze stability without simulating the system forever.</p>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Symbolic Solution</h2>
+                <p>Using SymPy to find the exact polynomial.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">from sympy import Matrix, Symbol, eye
+
+l = Symbol('lambda')
+A = Matrix([
+    [3, 1],
+    [1, 3]
+])
+
+# Create (A - lambda*I)
+M = A - l * eye(2)
+
+# Compute Determinant (Characteristic Polynomial)
+char_poly = M.det()
+
+print(f"Characteristic Poly: {char_poly}")
+# Results in lambda^2 - 6*lambda + 8
+
+# Roots
+roots = alg_roots = char_poly.nroots()
+print(f"Eigenvalues: {roots}")
+# Should be 2 and 4
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>35.05 Chinese Remainder Theorem - Number Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.11.2 Equations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="35_04_congruences_linear_equations.html" class="nav-link">04.
+                                Congruences & Equations</a></li>
+                        <li class="nav-item"><a href="35_05_chinese_remainder_theorem.html" class="nav-link active">05.
+                                Chinese Remainder Theorem</a></li>
+                        <li class="nav-item"><a href="35_06_fermat_euler_theorem.html" class="nav-link">06. Fermat's &
+                                Euler's Theorems</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Number Theory</span>
+                    <span class="badge secondary">Parallel Modular Systems</span>
+                </div>
+                <h1>Chinese Remainder Theorem (CRT)</h1>
+                <p class="lead-text">Decomposing the Large into the Small. A structural theorem that allows us to break
+                    down arithmetic on huge integers into independent, parallel operations on smaller primes.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Isomorphism</h3>
+                    <p>
+                        CRT states that if we have a set of pairwise coprime integers $n_1, n_2, \dots, n_k$, then
+                        knowing a number $x$ modulo their product $N$ is <strong>equivalent</strong> to knowing $x$
+                        modulo each $n_i$ individually.
+                    </p>
+                    <div class="math-box">
+                        $$ \mathbb{Z}_N \cong \mathbb{Z}_{n_1} \times \mathbb{Z}_{n_2} \times \dots \times
+                        \mathbb{Z}_{n_k} $$
+                    </div>
+                </div>
+
+                <h2>1. Theorem Statement</h2>
+                <p>Let $n_1, \dots, n_k$ be integers greater than 1, which are pairwise coprime (i.e., $gcd(n_i, n_j) =
+                    1$ for all $i \neq j$). Let $N = n_1 \times \dots \times n_k$.</p>
+                <p>Then, for any given sequence of integers $a_1, \dots, a_k$, there exists a unique integer $x$ modulo
+                    $N$ satisfying the system of simultaneous congruences:</p>
+                <div class="math-box">
+                    $$
+                    \begin{cases}
+                    x \equiv a_1 \pmod{n_1} \\
+                    x \equiv a_2 \pmod{n_2} \\
+                    \vdots \\
+                    x \equiv a_k \pmod{n_k}
+                    \end{cases}
+                    $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Constructive Proof & Algorithm</h2>
+                <p>We don't just know $x$ exists; we can build it. The formula is a weighted sum of the remainders.</p>
+                <ol class="step-list">
+                    <li><strong>Compute Partial Products:</strong> Let $N_i = N / n_i$. This is the product of all
+                        moduli except $n_i$.</li>
+                    <li><strong>Find Modular Inverses:</strong> Since $N_i$ and $n_i$ share no factors, $gcd(N_i, n_i) =
+                        1$. We can find the inverse $y_i$ such that:
+                        $$ N_i y_i \equiv 1 \pmod{n_i} $$
+                    </li>
+                    <li><strong>Construct Solution:</strong> The solution is given by:
+                        $$ x = \sum_{i=1}^{k} a_i N_i y_i \pmod N $$
+                    </li>
+                </ol>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Cryptography</span>
+                    <span class="ml-badge">Optimization</span>
+                    <h3>Application: Accelerated RSA Decryption</h3>
+                    <p>In standard RSA, decryption requires computing $c^d \pmod N$, where $N$ is a huge 2048-bit
+                        number. This is computationally expensive.</p>
+                    <p>However, the owner of the private key knows the factors $p$ and $q$ of $N$. Using CRT, they can:
+                    </p>
+                    <ul class="dense-list">
+                        <li>Compute $m_1 = c^{d \pmod{p-1}} \pmod p$ (which is much smaller/faster).</li>
+                        <li>Compute $m_2 = c^{d \pmod{q-1}} \pmod q$.</li>
+                        <li>Combine $m_1$ and $m_2$ using CRT to get the original message $m$.</li>
+                    </ul>
+                    <p><strong>Impact:</strong> This technique makes RSA decryption approximately <strong>4 times
+                            faster</strong>, which is critical for SSL/TLS handshakes on servers handling millions of
+                        connections.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Visualizing Residue Systems</h2>
+                <div class="mermaid">
+                    graph TD
+                    BigNum[Large Integer X in Z_N] -- "Decompose" --> Residues
+                    subgraph Residues [Residue Number System]
+                    direction LR
+                    R1[x mod n1]
+                    R2[x mod n2]
+                    R3[x mod n3]
+                    end
+                    R1 -- "Independent arithmetic" --> Op1[Result 1]
+                    R2 -- "Independent arithmetic" --> Op2[Result 2]
+                    R3 -- "Independent arithmetic" --> Op3[Result 3]
+                    Op1 --> Combine
+                    Op2 --> Combine
+                    Op3 --> Combine
+                    Combine[Recombine via CRT] --> Final[Final Result in Z_N]
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">
+                    Operations in the Residue Number System (RNS) are "carry-free" between moduli, allowing massive
+                    parallelism in specialized hardware.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

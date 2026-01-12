@@ -4,95 +4,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Block Matrices - Phase 1.2.2.27</title>
+    <title>03.27 Block Matrices - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_26_jordan_form.html">26. Jordan Form</a></li>
-            <li><a href="03_27_block_matrices.html" class="active">27. Block Matrices</a></li>
-            <li><a href="03_28_kronecker.html">28. Kronecker Product</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Block Matrices
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>27. Block & Partitioned Matrices</h1>
-            <p class="subtitle">Treating sub-grids as single entities.</p>
-        </header>
-
-        <section>
-            <h2>1. Anatomy of Partitioning</h2>
-            <p>A large matrix can be partitioned into smaller blocks. This notation is essential for expressing
-                complex neural architectural units.</p>
-            <div class="math-block">
-                $$ \mathbf{M} = \begin{bmatrix} \mathbf{A} & \mathbf{B} \\ \mathbf{C} & \mathbf{D} \end{bmatrix} $$
-            </div>
-            <p>Matrix multiplication can be performed on these blocks as if they were scalars, provided their
-                dimensions are compatible.</p>
-        </section>
-
-        <section>
-            <h2>2. Hardware & AI Performance</h2>
-            <div class="module-card">
-                <h3>Cache-Aware Computing</h3>
-                <p>CPUs and GPUs don't multiply whole matrices at once. They use <strong>Tiled Matrix
-                        Multiplication</strong>,
-                    breaking matrices into "blocks" that fit into <strong>L1/L2 Cache</strong> or GPU <strong>Shared
-                        Memory</strong>.
-                    This reduces the "Memory Wall" bottleneck.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>STRASSEN Algorithm:</strong> A recursive block-multiplication method
-                        that is faster than the standard \( O(n^3) \) for very large matrices.</li>
-                    <li class="topic-item"><strong>Architecture Design:</strong> Multi-head attention in Transformers is
-                        computed by partitioning a hidden state matrix into smaller "head" blocks.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_26_jordan_form.html" class="nav-link">26. Jordan Form</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">27. Block Matrices</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 27. Divide and Conquer
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 27</div>
+            <h1>Block Matrices</h1>
+            <p class="lead-text"> Treating sub-matrices as single numbers. The key to large-scale efficiency.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: BLOCK -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Partitioning</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    Big["Big Matrix A"]
+    
+    subgraph Blocks
+        A11["A11 (Top Left)"]
+        A12["A12 (Top Right)"]
+        A21["A21 (Bottom Left)"]
+        A22["A22 (Bottom Right)"]
+    end
+    
+    Big --> A11
+    Big --> A12
+    Big --> A21
+    Big --> A22
+    
+    subgraph Ops
+        Mult["Block Multiplication"]
+        Inv["Block Inversion (Schur Complement)"]
+    end
+    
+    Blocks --> Mult
+    Blocks --> Inv
+
+    style Mult fill:#dcfce7,stroke:#16a34a
+    style Inv fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
         </section>
 
-        <section>
-            <h2>3. Python: Stacking and Partitioning</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 1. DEFINITION: ALGEBRA OF BLOCKS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Block Multiplication</h2>
+                <p>If partitions act compatibly (dimensions match), we can multiply block matrices exactly like 2x2
+                    scalars:</p>
+                <div class="math-block">
+                    $$ \begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} X \\ Y \end{bmatrix} =
+                    \begin{bmatrix} AX + BY \\ CX + DY \end{bmatrix} $$
+                </div>
+                <p>This allows parallel processing of huge matrices.</p>
+            </div>
+        </section>
 
+        <!-- 2. AI APPLICATION: ATTENTION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Multi-Head Attention</h2>
+                <p>In Transformers, the weight matrices are huge. We process "Heads" separately.</p>
+                <p>This is effectively Block Diagonal multiplication. We compute \( Q_i K_i^T \) for each head \( i \)
+                    independently, which is mathematically partitioning the large embedding space into blocks.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Block Construction</h2>
+                <p>Using NumPy to build block matrices directly.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Define small blocks
 A = np.ones((2, 2))
 B = np.zeros((2, 2))
-C = np.zeros((2, 2))
-D = np.eye(2)
+C = np.eye(2)
+D = np.full((2, 2), 7)
 
-# Create a Block Matrix
-M = np.block([
+# Assemble Block Matrix
+# [[A, B],
+#  [C, D]]
+Block = np.block([
     [A, B],
     [C, D]
 ])
 
-print(f"Block Matrix M:\n{M}")
+print("Block Matrix (4x4):")
+print(Block)
 
-# Slice (Partition)
-block_top_left = M[:2, :2]</code></pre>
+# Schur Complement Example S = D - C A^-1 B
+# Since B is zero, S = D
+print("\nSchur Complement (should be 7s):")
+S = D - C @ np.linalg.inv(A) @ B
+print(S)
+</code></pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

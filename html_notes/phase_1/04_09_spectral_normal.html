@@ -4,95 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectral Theorem (Normal) - Phase 1.2.3.09</title>
+    <title>04.09 Spectral Normal - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_08_spectral_symmetric.html">08. Spectral Theorem (Sym)</a></li>
-            <li><a href="04_09_spectral_normal.html" class="active">09. Spectral Theorem (Normal)</a></li>
-            <li><a href="04_10_rayleigh_quotient.html">10. Rayleigh Quotient</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Spectral Theorem (Normal)
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>09. Spectral Theorem (Normal Matrices)</h1>
-            <p class="subtitle">Unitary diagonalization for complex spaces.</p>
-        </header>
-
-        <section>
-            <h2>1. What is a Normal Matrix?</h2>
-            <p>A square matrix \(\mathbf{A}\) is <strong>Normal</strong> if it commutes with its conjugate transpose:
-            </p>
-            <div class="math-block">
-                $$ \mathbf{A}\mathbf{A}^H = \mathbf{A}^H\mathbf{A} $$
-            </div>
-            <p>This category is broad and includes **Symmetric, Skew-symmetric, Orthogonal, Unitary, and Hermitian**
-                matrices.</p>
-        </section>
-
-        <section>
-            <h2>2. The Unitary Theorem</h2>
-            <p>A matrix \(\mathbf{A}\) is unitarily diagonalizable if and only if it is normal. This means:</p>
-            <div class="math-block">
-                $$ \mathbf{A} = \mathbf{UDU}^H $$
-            </div>
-            <p>Where \(\mathbf{U}\) is a <strong>Unitary Matrix</strong> (\(\mathbf{U}^H\mathbf{U} = \mathbf{I}\)).
-                Unlike the real symmetric case, its eigenvalues can be <strong>Complex numbers</strong>.</p>
-        </section>
-
-        <section>
-            <h2>3. AI Relevance</h2>
-            <div class="module-card">
-                <h3>Rotation & Energy Conservation</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Orthogonal Layers:</strong> Weight matrices that are normal
-                        (specifically orthogonal) prevent gradients from exploding or vanishing by preserving the norm
-                        of the vector during the forward pass.</li>
-                    <li class="topic-item"><strong>FFT (Fast Fourier Transform):</strong> The core of Signal Processing
-                        and Audio AI. The DFT matrix is a complex normal matrix.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_08_spectral_symmetric.html" class="nav-link">08. Symmetric
+                            Spectral</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">09. Normal Spectral</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>4. Python: Complex Eigenvalues</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 09. General Orthogonality
+        </div>
 
-# A Skew-Symmetric Matrix (Normal)
-A = np.array([[0, 1], [-1, 0]])
+        <header class="page-header">
+            <div class="badge">Module 09</div>
+            <h1>Normal Matrices</h1>
+            <p class="lead-text"> \( A A^H = A^H A \). The condition for complex unitary diagonalization.</p>
+        </header>
 
-# Check if Normal
-print(f"A @ A.T == A.T @ A? {np.allclose(A @ A.T, A.T @ A)}")
+        <!-- VISUAL DIAGRAM: NORMAL -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Family Tree</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    Normal["Normal Matrix (Commutes with Adjoint)"]
+    
+    Symmetric["Symmetric/Hermitian (Real Eigs)"]
+    Skew["Skew-Symmetric (Imaginary Eigs)"]
+    Ortho["Orthogonal/Unitary (Eigs |z|=1)"]
+    
+    Normal --> Symmetric
+    Normal --> Skew
+    Normal --> Ortho
+    
+    Thm["Unitarily Diagonalizable: A = U D U^H"]
+    
+    Normal -.-> Thm
 
-# Eigenvalues are purely imaginary!
-eigenvals = np.linalg.eigvals(A)
-print(f"Eigenvalues: {eigenvals}") # [0+1j, 0-1j]</code></pre>
+    style Thm fill:#dcfce7,stroke:#16a34a
+    style Normal fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION: NORMALITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>A matrix \( A \) is <strong>Normal</strong> if it commutes with its conjugate transpose:</p>
+                <div class="math-block">
+                    $$ A A^H = A^H A $$
+                </div>
+                <p>If \( A \) is Normal, it has a complete set of orthonormal eigenvectors, even if the eigenvalues are
+                    complex.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: RNN DYNAMICS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Orthogonal Initialization</h2>
+                <p>Unitary (or Orthogonal) matrices are Normal.</p>
+                <p>Initializing RNN weights with Orthogonal matrices preserves the gradient norm over time (because \(
+                    |\lambda|=1 \)), preventing both explosion and vanishing gradients during early training.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Checking Normality</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# A Skew-Symmetric Matrix (Normal, but not Symmetric)
+A = np.array([
+    [0, -1],
+    [1, 0]
+])
+
+AH = A.conjugate().T
+
+# Check Commutativity
+commutator = A @ AH - AH @ A
+is_normal = np.allclose(commutator, 0)
+print(f"Is Normal? {is_normal}")
+print(f"Norm of Commutator: {np.linalg.norm(commutator)}")
+
+# Eigen decomposition
+# Results will be complex (+- i), but vectors will be orthogonal
+vals, vecs = np.linalg.eig(A)
+
+print(f"\nEigenvalues: {vals}")
+# [0+1j, 0-1j]
+
+# Check orthogonality of eigenvectors
+dot = np.vdot(vecs[:,0], vecs[:,1]) # Use vdot for complex vectors!
+print(f"Dot Product: {dot:.2e}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

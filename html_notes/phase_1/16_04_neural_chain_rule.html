@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.04 Neural Chain Rule - Calculus for ML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.9 Calculus for ML</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="16_01_loss_optimization.html" class="nav-link">01. Loss
+                                Optimization</a></li>
+                        <li class="nav-item"><a href="16_04_neural_chain_rule.html" class="nav-link active">04. Neural
+                                Chain Rule</a></li>
+                        <li class="nav-item"><a href="16_07_numerical_diff.html" class="nav-link">07. Numerical Diff</a>
+                        </li>
+                        <li class="nav-item"><a href="16_08_automatic_diff.html" class="nav-link">08. Autodiff
+                                Basics</a></li>
+                        <li class="nav-item"><a href="16_09_comp_graphs.html" class="nav-link">09. Comp Graphs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">ML Calc 1.9</span>
+                    <span class="badge secondary">Backprop Core</span>
+                </div>
+                <h1>The Neural Chain Rule</h1>
+                <p class="lead-text">Propagating blame backwards through layers.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Nested Functions</h3>
+                    <p>
+                        A Neural Network is just a massive composite function:
+                        \[ y = f_3(f_2(f_1(x))) \]
+                    </p>
+                    <p>
+                        To find how the output changes w.r.t input (or weights), we multiply the derivatives of each
+                        layer:
+                        \[ \frac{dy}{dx} = f_3' \cdot f_2' \cdot f_1' \]
+                        This multiplication of gradients is <strong>Backpropagation</strong>.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        X[Input x] -->|w1| Hidden[Hidden h]
+                        Hidden -->|w2| Output[Output y]
+
+                        Output -.->|dy/dw2| Grad2[Grad Layer 2]
+                        Grad2 -.->|dy/dh * dh/dw1| Grad1[Grad Layer 1]
+
+                        style Grad1 fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Vanishing Gradients</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Multiplying Small Numbers</h3>
+                    <p>
+                        If we have a deep network (100 layers), we multiply 100 derivatives.
+                        If these derivatives are small (e.g., Sigmoid max deriv is 0.25), then \(0.25^{100} \approx 0\).
+                    </p>
+                    <p>
+                        The gradient vanishes, and the front layers stop learning. This is why <strong>ReLU</strong> (deriv = 1) and
+                        <strong>Residual Connections</strong> (addition instead of mult) were invented.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Manual Backprop</h2>
+                <div class="code-header">chain_rule.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Simple Chain: z = f(y), y = g(x) -> z = (3x + 1)^2
+# x=2
+x = 2.0
+
+# Forward
+y = 3 * x + 1  # y = 7
+z = y ** 2     # z = 49
+
+# Backward
+dz_dy = 2 * y      # 14
+dy_dx = 3          # 3
+
+dz_dx = dz_dy * dy_dx # 14 * 3 = 42
+
+print(f"Gradient at x=2: {dz_dx}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="16_01_loss_optimization.html" class="footer-link">← Prev: Loss Functions</a>
+                        <span class="separator">|</span>
+                        <a href="16_07_numerical_diff.html" class="footer-link">Next: Numerical Diff →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,74 +9,78 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.3 Applications of Derivs</li>
-            <li><a href="17_01_critical_points.html">01. Critical Points</a></li>
-            <li><a href="17_02_first_deriv_test.html">02. 1st Deriv Test</a></li>
-            <li><a href="17_03_second_deriv_test.html">03. 2nd Deriv Test</a></li>
-            <li><a href="17_04_concavity_inflection.html">04. Concavity</a></li>
-            <li><a href="17_05_curve_sketching.html">05. Curve Sketching</a></li>
-            <li><a href="17_06_optimization_applied.html" class="active">06. Optimization</a></li>
-            <hr>
-            <li class="nav-label">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.3 Deriv Apps</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="17_06_optimization_applied.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Optimization
+            <a href="../index.html">Syllabus</a> &gt; 17_06_optimization_applied.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 17_06</div>
             <h1>06. Applied Optimization</h1>
-            <p class="subtitle">Finding the "Best" solution under constraints.</p>
+            <p class="lead-text">Finding the "Best" solution under constraints.</p>
         </header>
 
-        <section>
-            <h2>1. The Goal</h2>
-            <p>Optimization is the process of finding the maximum or minimum value of a function that represents a
+        
+
+
+
+<section>
+<h2>1. The Goal</h2>
+<p>Optimization is the process of finding the maximum or minimum value of a function that represents a
                 real-world quantity (cost, profit, distance, time).</p>
-        </section>
-
-        <section class="module-card">
-            <h2>2. The Workflow</h2>
-            <ol>
-                <li>Define the <strong>Objective Function</strong> (the thing you want to maximize/minimize).</li>
-                <li>Identify the <strong>Constraints</strong> (rules that limit your variables).</li>
-                <li>Substitute constraints into the objective function to reduce it to <strong>one variable</strong>.
+</section>
+<section class="module-card">
+<h2>2. The Workflow</h2>
+<ol>
+<li>Define the <strong>Objective Function</strong> (the thing you want to maximize/minimize).</li>
+<li>Identify the <strong>Constraints</strong> (rules that limit your variables).</li>
+<li>Substitute constraints into the objective function to reduce it to <strong>one variable</strong>.
                 </li>
-                <li>Find the critical points and verify using the 1st or 2nd derivative test.</li>
-            </ol>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Hyperparameter Tuning</h2>
-            <div class="module-card">
-                <h3>Minimizing the Meta-Loss</h3>
-                <p>In <strong>AutoML</strong> and <strong>Neural Architecture Search (NAS)</strong>, we don't just
+<li>Find the critical points and verify using the 1st or 2nd derivative test.</li>
+</ol>
+</section>
+<section>
+<h2>3. AI/ML Connection: Hyperparameter Tuning</h2>
+<div class="module-card">
+<h3>Minimizing the Meta-Loss</h3>
+<p>In <strong>AutoML</strong> and <strong>Neural Architecture Search (NAS)</strong>, we don't just
                     optimize weights—we optimize the model itself. For example, "What is the optimal number of layers
                     that maximizes accuracy while staying under 1GB of GPU memory?"</p>
-                <p>This is a classical applied optimization problem. We have an objective (Accuracy) and a constraint
+<p>This is a classical applied optimization problem. We have an objective (Accuracy) and a constraint
                     (Memory). Using calculus-based optimization (or its discrete equivalents in Bayesian Optimization),
                     AI systems can automatically "tune" themselves to find the best possible configuration for a given
                     hardware limit.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Maximize Area with Fixed Perimeter</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># Perimeter P = 2w + 2h = 100
+</div>
+</section>
+<section>
+<h2>4. Python: Maximize Area with Fixed Perimeter</h2>
+<div class="code-block">
+<pre><code class="language-python"># Perimeter P = 2w + 2h = 100
 # Find dimensions to maximize Area A = w * h
 # Constraint: h = 50 - w
 # Objective: A = w * (50 - w) = 50w - w^2
@@ -94,13 +97,14 @@ height = 50 - width
 
 print(f"Optimal Dimensions: {width} x {height}")
 print(f"Max Area: {width * height}")</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.11 Polynomial Regression - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_10_multicollinearity.html" class="nav-link">10.
+                                Multicollinearity</a></li>
+                        <li class="nav-item"><a href="27_11_polynomial_regression.html" class="nav-link active">11.
+                                Polynomial Regression</a></li>
+                        <li class="nav-item"><a href="27_12_log_transform_regression.html" class="nav-link">12. Log
+                                Transform Regression</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Non-Linearity</span>
+                </div>
+                <h1>Polynomial Regression</h1>
+                <p class="lead-text">Converting a linear engine into a curve-generating machine by treating powers of X
+                    as new features.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Big Secret</h3>
+                    <p>
+                        Polynomial Regression is still <strong>Linear Regression</strong>.
+                        <br><br>
+                        Wait, what? Yes! It is linear in the <strong>parameters (\(\beta\))</strong>, even if it is non-linear in the
+                        <strong>features (\(X\))</strong>. This means we can still use OLS and the Normal Equation to solve it.
+                    </p>
+                </div>
+
+                <h2>1. The Equation</h2>
+                <div class="math-box">
+                    $$ Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \beta_3 X^3 + ... + \epsilon $$
+                </div>
+                <p>
+                    We treat \(X^2\) and \(X^3\) as if they were independent features like "Height" and "Weight".
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Degree Dilemma</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Degree 1 (Linear)</h4>
+                        <p><strong>High Bias:</strong> The model is too simple. It misses the curve. Underfitting.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Degree 2-3</h4>
+                        <p><strong>The Sweet Spot:</strong> Captures real-world patterns (like acceleration or growth decay).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Degree 10+</h4>
+                        <p><strong>High Variance:</strong> The model wiggles through every single data point. It learns the noise.
+                            Overfitting.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Feature Expansion</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Feature Eng</span>
+                    <span class="ml-badge">Deep Learning</span>
+                    <h3>Why we still care</h3>
+                    <p>
+                        In scikit-learn, we use `PolynomialFeatures()` to pre-process data. Why?
+                    </p>
+                    <ul>
+                        <li><strong>Taylor Series:</strong> Almost any smooth curve can be approximated by a polynomial if the degree
+                            is high enough. This is how we teach basic linear models to handle complex geometry.</li>
+                        <li><strong>Support Vector Machines (SVM):</strong> The "Polynomial Kernel" in SVMs is essentially doing this
+                            feature expansion in a high-dimensional space without actually calculating the squares
+                            (Kernel Trick).</li>
+                        <li><strong>Deep Learning:</strong> A single neuron with a non-linear activation (like ReLU) is essentially a
+                            piece-wise polynomial. Neural networks are essentially massive, flexible polynomial engines.
+                        </li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Warning:</strong> Polynomials explode at the edges! While they fit the training data well, their
+                        predictions for values outside the original range (Extrapolation) are often wildly wrong.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

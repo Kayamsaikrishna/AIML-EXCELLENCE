@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15.01 Neural ODEs & Intro - Differential Equations</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.8 Differential Equations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="15_01_ode_intro.html" class="nav-link active">01. Neural ODEs &
+                                Intro</a></li>
+                        <li class="nav-item"><a href="15_02_first_order_odes.html" class="nav-link">02. First-Order
+                                ODEs</a></li>
+                        <li class="nav-item"><a href="15_03_second_order_odes.html" class="nav-link">03. Second-Order
+                                ODEs</a></li>
+                        <li class="nav-item"><a href="15_04_homo_nonhomo.html" class="nav-link">04. Homogeneous Eqs</a>
+                        </li>
+                        <li class="nav-item"><a href="15_05_ode_ml_apps.html" class="nav-link">05. Diffusion Models</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">DiffEq 1.8</span>
+                    <span class="badge secondary">Continuous Depth</span>
+                </div>
+                <h1>Differential Equations & Neural ODEs</h1>
+                <p class="lead-text">What if a Neural Network had infinite layers?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Limit of ResNets</h3>
+                    <p>
+                        A Residual Network (ResNet) updates its state like this:
+                        \[ \mathbf{h}_{t+1} = \mathbf{h}_t + f(\mathbf{h}_t, \theta_t) \]
+                        This looks exactly like Euler's Method for solving a differential equation!
+                        \[ \frac{d\mathbf{h}}{dt} = f(\mathbf{h}(t), t, \theta) \]
+                    </p>
+                    <p>
+                        <strong>Neural ODEs</strong> treat the "depth" of the network as a continuous time variable
+                        \(t\).
+                        Instead of distinct layers, we have a continuous flow governed by an ODE, which we solve using a
+                        black-box ODE solver.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Continuous Depth</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why does this matter?</h3>
+                    <p>
+                        1. <strong>Parameter Efficiency:</strong> The function \(f\) (the dynamics) is shared across all
+                        "time". A 1000-layer equivalent network might use the same parameters as a 1-layer network, just
+                        integrated longer.
+                    </p>
+                    <p>
+                        2. <strong>Adaptive Computation:</strong> We can trade precision for speed. If we just want a
+                        rough answer, the ODE solver takes fewer steps. For high precision, it takes more.
+                    </p>
+                    <p>
+                        3. <strong>Reversibility:</strong> ODEs can be solved backwards in time. This allows for
+                        constant-memory backpropagation (no need to store activations!).
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Input[Input x] -->|Standard ResNet| Layer1 --> Layer2 --> Layer3 --> Output
+                        Input -->|Neural ODE| ODESolver[ODE Solver (Runge-Kutta)]
+                        ODESolver -->|Integrate f(h,t)| Output[Output y]
+
+                        style ODESolver fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Euler's Method (The Basic ResNet)</h2>
+                <div class="code-header">neural_ode_dummy.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# A simple dynamic system: dh/dt = -0.5 * h
+# True solution: h(t) = h0 * e^(-0.5t)
+
+def dynamics(h):
+    return -0.5 * h
+
+def solve_ode(h0, steps, dt):
+    trajectory = [h0]
+    h = h0
+    for _ in range(steps):
+        # Update rule: h_{t+1} = h_t + dt * f(h_t)
+        dh = dynamics(h)
+        h = h + dt * dh
+        trajectory.append(h)
+    return trajectory
+
+# "Forward Pass"
+path = solve_ode(h0=10.0, steps=20, dt=0.5)
+
+print(f"Final State: {path[-1]:.4f}")
+print("This discrete path is exactly what a ResNet computes!")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="../index.html" class="footer-link">← Syllabus</a>
+                        <span class="separator">|</span>
+                        <a href="15_02_first_order_odes.html" class="footer-link">Next: First Order ODEs →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

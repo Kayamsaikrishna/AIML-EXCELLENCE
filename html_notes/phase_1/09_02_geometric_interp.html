@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.02 Geometric Interpretation - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_01_derivative_defn.html" class="nav-link">01. Derivative
+                                Definition</a></li>
+                        <li class="nav-item"><a href="09_02_geometric_interp.html" class="nav-link active">02. Geometric
+                                Interpretation</a></li>
+                        <li class="nav-item"><a href="09_03_diff_notation.html" class="nav-link">03. Notation
+                                (Leibniz/Lagrange)</a></li>
+                        <li class="nav-item"><a href="09_04_basic_rules.html" class="nav-link">04. Basic Power Rules</a>
+                        </li>
+                        <li class="nav-item"><a href="09_05_sum_diff_rules.html" class="nav-link">05. Sum & Difference
+                                Rules</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Linearization</span>
+                </div>
+                <h1>Geometric Interpretation</h1>
+                <p class="lead-text">If you zoom in enough, everything looks like a line. This simple fact allows us to
+                    conquer complexity.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Local Linearity</h3>
+                    <p>
+                        The most profound insight of calculus is that <strong>curved functions act like straight lines
+                            locally</strong>. The line that best mimics the curve at a specific point is the Tangent
+                        Line.
+                    </p>
+                </div>
+
+                <h2>1. The Tangent Line Equation</h2>
+                <div class="glass-card">
+                    <p>
+                        The derivative \(f'(a)\) gives us the <strong>Slope</strong> of the tangent line at \(x = a\).
+                        Using the point-slope form \(y - y_1 = m(x - x_1)\), we get the equation of the linear
+                        approximation:
+                    </p>
+                    <div class="math-block">
+                        \[ L(x) = f(a) + f'(a)(x - a) \]
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Curve[Curved Function f] -- Point a --> Slope[Slope f' a]
+                        Slope -- Point a, f a --> Line[Tangent Line]
+                        Line --> Approx[Local Linear Approx L]
+                        style Line fill:#63b3ed,stroke:#2b6cb0
+                    </div>
+                    <div class="caption">The curve is complex; the line is simple. Near 'a', they are twins.</div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Manifold Hypothesis</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Gradient Descent Works</h3>
+                    <p>
+                        A Neural Network's Loss Function is a wildly complex, high-dimensional surface ("Manifold"). It
+                        has hills, valleys, and twists.
+                    </p>
+                    <p>
+                        However, Gradient Descent relies on the fact that at any tiny specific point, the surface looks
+                        like a tilted flat sheet (a <strong>Hyperplane</strong>).
+                    </p>
+                    <div class="math-block">
+                        \[ \Delta \text{Loss} \approx \nabla \text{Loss} \cdot \Delta \text{Weights} \]
+                    </div>
+                    <p>
+                        Because the surface is locally linear, we can just "slide downhill" along the steepest slope. If
+                        calculus didn't imply local linearity, simple optimization algorithms would fail.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Constructing the Tangent</h2>
+                <div class="code-header">tangent_line.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def f(x):
+    # A simple parabola
+    return x**2 - 2*x + 1
+
+def df_analytical(x):
+    # Derivative is 2x - 2
+    return 2*x - 2
+
+def get_tangent_line_func(x_point):
+    # Creates the linear function L(x) = f(a) + f'(a)(x-a)
+    slope = df_analytical(x_point)
+    y_point = f(x_point)
+    
+    # Return a lambda function for the line
+    return lambda x: y_point + slope * (x - x_point), slope
+
+# Analyze at x=3
+a = 3.0
+tangent_line, slope = get_tangent_line_func(a)
+
+print(f"Function f(x) = x^2 - 2x + 1")
+print(f"At x={a}:")
+print(f"  True value f({a}) = {f(a)}")
+print(f"  Slope f'({a}) = {slope}")
+print(f"  Tangent Equation: y = {f(a)} + {slope}(x - {a})")
+
+# Test Approximation
+x_near = 3.01
+true_val = f(x_near)
+approx_val = tangent_line(x_near)
+
+print(f"\nChecking Approximation at x={x_near}:")
+print(f"  True Value: {true_val:.6f}")
+print(f"  Linear Approx: {approx_val:.6f}")
+print(f"  Difference: {abs(true_val - approx_val):.8f}")
+# The difference is on the order of (dx)^2, extremely small!</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_01_derivative_defn.html" class="footer-link">← Prev: Definition</a>
+                        <span class="separator">|</span>
+                        <a href="09_03_diff_notation.html" class="footer-link">Next: Notation →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

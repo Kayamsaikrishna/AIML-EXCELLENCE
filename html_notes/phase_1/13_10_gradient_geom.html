@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Geometry - Phase 1.3.6.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_10_gradient_geom.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_10_gradient_geom.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_10</div>
+            <h1>10. Geometric Interpretation of Gradient</h1>
+            <p class="lead-text">The compass that always points to the peak.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Direction of Steepest Ascent</h2>
+<p>The <strong>Gradient Vector</strong> \(\nabla f(a, b)\) has two critical geometric properties at any
+                point \((a, b)\):</p>
+<ul class="topic-list">
+<li><strong>Direction:</strong> It points in the direction where the function \(f\) increases most
+                    rapidly.</li>
+<li><strong>Magnitude:</strong> Its length \(|\nabla f|\) is the <i>maximum rate of increase</i> at that
+                    point.</li>
+</ul>
+</section>
+<section class="module-card">
+<h2>2. Orthogonality to Level Curves</h2>
+<p>A beautiful theorem in calculus states that the gradient \(\nabla f(a, b)\) is <strong>always
+                    perpendicular</strong> (orthogonal) to the level curve \(f(x, y) = k\) that passes through \((a,
+                b)\). This means if you move along a contour of constant altitude, you are moving perpendicular to the
+                steepest path up or down.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Gradient Descent vs. Ascent</h2>
+<div class="module-card">
+<h3>Policy Gradients</h3>
+<p>In <strong>Reinforcement Learning</strong>, we want to maximize our performance (Reward). We use
+                    <strong>Gradient Ascent</strong> to move the model's weights in the direction of \(\nabla
+                    J(\theta)\) to find the "Peak" of performance. </p>
+<p>In standard <strong>Deep Learning</strong>, we want to minimize Error. We take steps in the direction
+                    of \(-\nabla L\), which is <strong>Steepest Descent</strong>. The geometric guarantee that the
+                    gradient points towards the quickest change is what allows AI to "Converge" on solutions. If the
+                    math wasn't geometrically consistent, AI models would just wander aimlessly in the feature space
+                    instead of improving.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Visualizing Perpendicularity</h2>
+<div class="code-block">
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-2, 2, 100)
+y = np.linspace(-2, 2, 100)
+X, Y = np.meshgrid(x, y)
+Z = X**2 + Y**2 # Levels are circles
+
+plt.contour(X, Y, Z, levels=[1, 4, 9])
+# Vector at (1, 1). Gradient of x^2+y^2 is [2x, 2y] = [2, 2]
+plt.quiver(1, 1, 2, 2, color='red', scale=10)
+plt.title("Gradient (Red) is perpendicular to Contours")
+plt.show()</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

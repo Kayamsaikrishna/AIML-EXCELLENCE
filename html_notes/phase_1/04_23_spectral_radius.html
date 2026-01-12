@@ -4,93 +4,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectral Radius - Phase 1.2.3.23</title>
+    <title>04.23 Spectral Radius - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_22_quadratic_forms.html">22. Quadratic Forms</a></li>
-            <li><a href="04_23_spectral_radius.html" class="active">23. Spectral Radius</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_01_matrix_basics.html">← Back to Matrices</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_22_quadratic_forms.html" class="nav-link">22. Quadratic Forms</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">23. Spectral Radius</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Spectral Radius
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 23. The Limit
         </div>
 
-        <header>
-            <h1>23. Spectral Radius (\(\rho\))</h1>
-            <p class="subtitle">The limit of growth in linear systems.</p>
+        <header class="page-header">
+            <div class="badge">Module 23</div>
+            <h1>Spectral Radius</h1>
+            <p class="lead-text"> \( \rho(A) \). The speed limit of convergence.</p>
         </header>
 
-        <section>
-            <h2>1. The Definition</h2>
-            <p>The <strong>Spectral Radius</strong> of a matrix \(\mathbf{A}\) is the maximum absolute value of its
-                eigenvalues:</p>
-            <div class="math-block">
-                $$ \rho(\mathbf{A}) = \max \{ |\lambda_1|, |\lambda_2|, \dots, |\lambda_n| \} $$
-            </div>
-        </section>
+        <!-- VISUAL DIAGRAM: SPECTRAL RADIUS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Circle of Convergence</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Iter["Iteration x_{k+1} = A x_k"]
+    
+    subgraph Spectrum
+        Eigs["Eigenvalues on Complex Plane"]
+        Radius["Max Absolute Value |&lambda;_max|"]
+    end
+    
+    Iter --> Eigs
+    Eigs -- "Defined by" --> Radius
+    
+    Radius -- "rho < 1" --> Stable["System Decays to 0 (Stable)"]
+    Radius -- "rho > 1" --> Unstable["System Explodes (Unstable)"]
+    Radius -- "rho = 1" --> Osc["Oscillates / Marginal"]
 
-        <section>
-            <h2>2. The Convergence Theorem</h2>
-            <div class="module-card">
-                <h3>Will it explode?</h3>
-                <p>For any iterative process \(\mathbf{x}_{k+1} = \mathbf{A}\mathbf{x}_k\), the vector \(\mathbf{x}_k\)
-                    will converge to zero for any initial vector if and only if:</p>
-                <div class="math-block">
-                    $$ \rho(\mathbf{A}) < 1 $$ </div>
-                        <p>If \(\rho(\mathbf{A}) > 1\), the system will blow up to infinity. This is the primary concern
-                            when designing <strong>Recurrent Neural Networks (RNNs)</strong> and <strong>Echo State
-                                Networks</strong>.</p>
+    style Stable fill:#dcfce7,stroke:#16a34a
+    style Unstable fill:#fee2e2,stroke:#b91c1c
+                    </pre>
                 </div>
-        </section>
-
-        <section>
-            <h2>3. Normalization in AI</h2>
-            <p>In <strong>Weight Normalization</strong> or <strong>Spectral Normalization</strong> (used in GANs), we
-                literally divide the weight matrix by its spectral radius (or its spectral norm, which is roughly
-                related) to ensure the mapping is <strong>Lipschitz Continuous</strong>. This prevents gradients from
-                wildly fluctuating.</p>
-        </section>
-
-        <section>
-            <h2>4. Python: Checking RNN Growth</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-# A small RNN weight matrix
-W = np.random.randn(5, 5) * 0.5 
-
-# Compute Spectral Radius
-rho = np.max(np.abs(np.linalg.eigvals(W)))
-
-print(f"Spectral Radius: {rho:.3f}")
-if rho > 1:
-    print("Warning: Activations may explode!")
-else:
-    print("System is contractive (Stable).")</code></pre>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION: LARGEST MAGNITUDE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>The Spectral Radius \( \rho(A) \) is the maximum absolute value of the eigenvalues of \( A \).</p>
+                <div class="math-block">
+                    $$ \rho(A) = \max_i | \lambda_i | $$
+                </div>
+                <p><strong>Gelfand's Formula</strong>: \( \rho(A) = \lim_{k \to \infty} ||A^k||^{1/k} \). It dictates
+                    the long-term behavior of matrix powers.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: GRADIENT EXPLOSION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. RNN Stability</h2>
+                <p>In Recurrent Neural Networks, gradients typically involve terms like \( W^T W^T \dots W^T \)
+                    (backprop through time).</p>
+                <p>If \( \rho(W) > 1 \), gradients grow exponentially (Exploding Gradients). If \( \rho(W) < 1 \), they
+                        shrink exponentially (Vanishing Gradients). "Echo State Networks" explicitly force \( \rho(W) <
+                        1 \) to ensure memory stability.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Testing Stability</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Unstable Matrix
+A_unstable = np.array([
+    [1.1, 0],
+    [0, 0.9]
+])
+rho = np.max(np.abs(np.linalg.eigvals(A_unstable)))
+print(f"Spectral Radius A: {rho}")
+
+# Simulate
+x = np.array([1.0, 1.0])
+for i in range(20):
+    x = A_unstable @ x
+print(f"State after 20 steps (Unstable): {x.round(2)}")
+# x[0] grows, x[1] shrinks
+
+# Scaled Stable Matrix
+A_stable = A_unstable / (rho + 0.1) # Force rho < 1
+rho_stable = np.max(np.abs(np.linalg.eigvals(A_stable)))
+print(f"\nScaled Spectral Radius: {rho_stable:.2f}")
+
+x = np.array([1.0, 1.0])
+for i in range(20):
+    x = A_stable @ x
+print(f"State after 20 steps (Stable): {x.round(2)}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

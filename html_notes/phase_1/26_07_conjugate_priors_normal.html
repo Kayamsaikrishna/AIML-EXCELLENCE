@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.07 Conjugate Priors: Normal - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_06_conjugate_priors_concept.html" class="nav-link">06.
+                                Conjugate Priors Concept</a></li>
+                        <li class="nav-item"><a href="26_07_conjugate_priors_normal.html" class="nav-link active">07.
+                                Conjugate Priors Normal</a></li>
+                        <li class="nav-item"><a href="26_08_conjugate_priors_gamma.html" class="nav-link">08. Conjugate
+                                Priors Gamma</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Gaussian Updates</span>
+                </div>
+                <h1>Conjugate Priors: Normal</h1>
+                <p class="lead-text">Updating your belief about a continuous value using Gaussian evidence.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Precision Rule</h3>
+                    <p>
+                        In Bayesian Normal updates, we don't think in "Variance" (\(\sigma^2\)); we think in
+                        <strong>Precision</strong> (\(\tau = 1/\sigma^2\)).
+                        <br><br>
+                        <strong>Rule:</strong> The Posterior Precision is simply the sum of the Prior Precision and the Data
+                        Precision.
+                    </p>
+                </div>
+
+                <h2>1. The Formula (Known Variance \(\sigma^2\))</h2>
+                <p>
+                    Suppose your Prior is \(\mathcal{N}(\mu_0, \tau_0)\) and you observe a single data point \(x\) from
+                    \(\mathcal{N}(\mu, \sigma^2)\).
+                </p>
+                <div class="math-box">
+                    $$ \mu_{post} = \frac{\tau_0 \mu_0 + \tau_{data} x}{\tau_0 + \tau_{data}} $$
+                    $$ \tau_{post} = \tau_0 + \tau_{data} $$
+                </div>
+                <p>
+                    The Posterior Mean is a <strong>Weighted Average</strong>. If you are very sure of your prior (\(\tau_0\) is
+                    huge), the mean barely moves. If the data is super precise (\(\tau_{data}\) is huge), the mean jumps
+                    to the data.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Sensor Fusion</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Robotics</span>
+                    <span class="ml-badge">IoT</span>
+                    <h3>Combining GPS and IMU</h3>
+                    <p>
+                        A self-driving car needs to know its exact position (\(x\)).
+                        - <strong>Prior (IMU/Dead Reckoning):</strong> "I think I'm at 100m, but my sensors are drifting (\(\sigma
+                        \approx 5m\))."
+                        - <strong>Data (GPS):</strong> "GPS says 105m, but it's noisy (\(\sigma \approx 10m\))."
+                    </p>
+                    <p>
+                        <strong>The Bayesian Solution:</strong> The car performs a <strong>Normal-Normal update</strong> (the heart of a **Kalman
+                        Filter**). Because both information sources are "Normal," the car mathematically combines them
+                        to get a position that is more accurate than either sensor alone.
+                    </p>
+                    <div class="insight-box">
+                        This is why your phone's location "snaps" to the road. It's merging a Prior (you were on the
+                        road 1 second ago) with New Data (noisy GPS) using Bayesian Normal updates.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

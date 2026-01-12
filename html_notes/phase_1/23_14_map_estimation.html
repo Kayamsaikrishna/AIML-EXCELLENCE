@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.14 MAP Estimation - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_13_sufficient_statistics.html" class="nav-link">13. Sufficient
+                                Statistics</a></li>
+                        <li class="nav-item"><a href="23_14_map_estimation.html" class="nav-link active">14. Map
+                                Estimation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Bayesian Bridge</span>
+                </div>
+                <h1>Maximum A Posteriori (MAP)</h1>
+                <p class="lead-text">Combining the evidence of the data with our prior knowledge of the world.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Bayesian Upgrade</h3>
+                    <p>
+                        <strong>MLE</strong> asks: "What \(\theta\) makes the data most likely?"
+                        <br>
+                        <strong>MAP</strong> asks: "What \(\theta\) is most likely, given the data AND what I believed before seeing
+                        the data?"
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    Using Bayes' Rule:
+                    $$ P(\theta \mid \text{Data}) \propto P(\text{Data} \mid \theta) P(\theta) $$
+                    $$ \hat{\theta}_{MAP} = \text{arg max}_{\theta} \left[ \ln L(\text{Data} \mid \theta) + \ln
+                    P(\theta) \right] $$
+                </div>
+                <p>
+                    MAP is just MLE plus an extra term based on your <strong>Prior</strong> distribution.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Uniform Priors</h2>
+                <p>
+                    If you use a <strong>Flat (Uniform) Prior</strong> (meaning you think all values of \(\theta\) are equally
+                    likely), then MAP gives the exact same result as MLE. MLE is essentially MAP with a "don't care"
+                    attitude about the prior.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: L2 Regularization</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Regularization</span>
+                    <h3>Weight Decay is MAP</h3>
+                    <p>
+                        When we add an L2 penalty term \(\lambda ||w||^2\) to our loss function, we are performing MAP
+                        estimation with a <strong>Gaussian Prior</strong> centered at zero.
+                    </p>
+                    <p>
+                        Our "Prior" is the belief that small weights are more likely than large weights.
+                        - The Likelihood term (\(L\)) wants to fit the data perfectly.
+                        - The Prior term (\(P\)) wants to keep weights small.
+                        - The model settles on the <strong>Posterior Mode</strong> (The MAP estimate) which balances these two
+                        forces.
+                    </p>
+                    <p>
+                        Similarly, <strong>L1 Regularization (Lasso)</strong> is MAP estimation with a <strong>Laplace Prior</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary of Estimation Methods</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Philosophy</th>
+                            <th>ML Equivalent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MoM</td>
+                            <td>Match simple stats</td>
+                            <td>Initialization</td>
+                        </tr>
+                        <tr>
+                            <td>MLE</td>
+                            <td>Likelihood of observed data</td>
+                            <td>BCE / MSE Loss</td>
+                        </tr>
+                        <tr>
+                            <td>MAP</td>
+                            <td>Likelihood + Prior knowledge</td>
+                            <td>Regularization (L1/L2)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

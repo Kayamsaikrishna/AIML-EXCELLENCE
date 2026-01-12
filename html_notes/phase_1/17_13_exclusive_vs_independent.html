@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.13 Exclusive vs Independent - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_12_independence.html" class="nav-link">12. Independence</a>
+                        </li>
+                        <li class="nav-item"><a href="17_13_exclusive_vs_independent.html" class="nav-link active">13.
+                                Exclusive vs Indep</a></li>
+                        <li class="nav-item"><a href="17_14_counting_principles.html" class="nav-link">14. Counting</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Common Pitfall</span>
+                </div>
+                <h1>Exclusive vs Independent</h1>
+                <p class="lead-text">They are opposites, not synonyms.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Difference</h3>
+                    <p>
+                        <strong>Mutually Exclusive:</strong> Can't happen together. \(P(A \cap B) = 0\).
+                        Example: Coin landing on Heads AND Tails.
+                    </p>
+                    <p>
+                        <strong>Independent:</strong> One doesn't affect the other. \(P(A \cap B) = P(A)P(B)\).
+                        Example: Coin 1 Heads AND Coin 2 Heads.
+                    </p>
+                    <div class="alert alert-warning">
+                        If \(P(A) > 0\) and \(P(B) > 0\), Mutually Exclusive events are <strong>never</strong>
+                        independent! Knowing A happened forces B to not happen.
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Feature Engineering</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Feature Construction</h3>
+                    <p>
+                        When creating features, we often create exclusive categories (Day of Week).
+                        But we want our input features to be relatively <strong>independent</strong> so the model learns diverse
+                        signals.
+                        Highly correlated (dependent) features cause <strong>Multicollinearity</strong>, creating unstable gradients
+                        in Linear Regression and Neural Nets.
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Exclusive[Exclusive: No Intersection]
+                        Independent[Independent: Intersection = Product]
+
+                        Exclusive --x Independent
+
+                        style Exclusive fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_12_independence.html" class="footer-link">← Prev: Independence</a>
+                        <span class="separator">|</span>
+                        <a href="17_14_counting_principles.html" class="footer-link">Next: Counting →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.02 Marginal Distributions - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_01_joint_dist.html" class="nav-link">01. Joint Dist</a></li>
+                        <li class="nav-item"><a href="21_02_marginal_dist.html" class="nav-link active">02. Marginal
+                                Dist</a></li>
+                        <li class="nav-item"><a href="21_03_conditional_dist.html" class="nav-link">03. Conditional
+                                Dist</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Shadow</span>
+                </div>
+                <h1>Marginal Distributions</h1>
+                <p class="lead-text">Compressing the joint distribution to isolate a single variable's behavior.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Projection and Shadows</h3>
+                    <p>
+                        Imagine a 3D object casting a 2D shadow on a wall. The 3D object is the <strong>Joint
+                            Distribution</strong> (all features combined). The 2D shadow is the <strong>Marginal
+                            Distribution</strong> (looking at one feature while ignoring the rest).
+                        <br><br>
+                        "Marginal" comes from the practice of writing the row/column totals in the
+                        <strong>margins</strong> of a probability table.
+                    </p>
+                </div>
+
+                <h2>1. Discrete Case: Summing Out</h2>
+                <div class="math-box">
+                    Given a joint PMF \(p(x, y)\), the marginal PMF of \(X\) is:
+                    $$ p_X(x) = \sum_y p(x, y) $$
+                </div>
+                <p>
+                    <strong>Intuition:</strong> To find the probability that \(X = 2\), you look at the row where
+                    \(X=2\) and add up the probabilities for all possible \(Y\) values in that row. You are effectively
+                    "averaging out" the influence of \(Y\).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Continuous Case: Integrating Out</h2>
+                <div class="math-box">
+                    Given a joint PDF \(f(x, y)\), the marginal PDF of \(X\) is:
+                    $$ f_X(x) = \int_{-\infty}^{\infty} f(x, y) \, dy $$
+                </div>
+                <p>
+                    <strong>Visual:</strong> If you have a 3D "mountain" of joint density, the marginal PDF is what you
+                    see when you look at the mountain from the side (the profile or silhouette). Integration collapses
+                    the volume along one axis onto the other.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Latent Variables & GMMs</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Clustering</span>
+                    <span class="ml-badge">Hidden Markov Models</span>
+                    <h3>Marginalizing Latent Variables</h3>
+                    <p>
+                        In models like <strong>Gaussian Mixture Models (GMMs)</strong>, we assume our data \(X\) is generated by some
+                        unobserved "latent" variable \(Z\) (which cluster the point belongs to).
+                    </p>
+                    <p>
+                        The likelihood of our data \(P(X)\) is actually a <strong>Marginal Probability</strong>:
+                        $$ P(X) = \sum_z P(X, Z) = \sum_z P(X \mid Z) P(Z) $$
+                        We often marginalize out these hidden variables to find the overall distribution of the observed
+                        data.
+                    </p>
+                </div>
+
+                <h3>Dimensionality Reduction</h3>
+                <p>
+                    Technically, ignoring a column in your pandas dataframe is a form of marginalization. You are
+                    deciding to look at the distribution of 'Price' without conditioning it on 'Location' or 'Size'.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. The Marginalization Trick</h2>
+                <p>
+                    A beautiful property of the <strong>Multivariate Normal Distribution</strong> is that its marginals are always
+                    Normal. If you have a 100-dimensional Gaussian and you only look at one dimension, that dimension is
+                    a simple 1D Gaussian. This is NOT true for all distributions!
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

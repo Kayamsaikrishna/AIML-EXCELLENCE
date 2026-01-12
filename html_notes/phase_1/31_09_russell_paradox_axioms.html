@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31.09 Russell's Paradox & Axioms - Set Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.7.3 Foundation & Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="31_08_cantor_diagonal_argument.html" class="nav-link">08. Cantor's
+                                Argument</a></li>
+                        <li class="nav-item"><a href="31_09_russell_paradox_axioms.html" class="nav-link active">09.
+                                Russell's Paradox</a></li>
+                        <li class="nav-item"><a href="31_10_set_theory_in_data_ml.html" class="nav-link">10. Set Theory
+                                in ML</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Logic Case</span>
+                    <span class="badge secondary">Paradox</span>
+                </div>
+                <h1>Russell's Paradox & Axiomatic Sets</h1>
+                <p class="lead-text">Breaking the Rules. Discovering the limits of "Naive" set theory and how a single
+                    logical contradiction forced the creation of modern, rigorous mathematics.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Barber's Dilemma</h3>
+                    <p>
+                        In early set theory, you could define a set using any criteria. Bertrand Russell broke this with
+                        a simple question: "Does the set of all sets that do not contain themselves contain itself?"
+                    </p>
+                    <ul>
+                        <li>If it <strong>does</strong>, then by definition, it <strong>doesn't</strong>.</li>
+                        <li>If it <strong>doesn't</strong>, then by definition, it <strong>must</strong>.</li>
+                    </ul>
+                    <p>This is a fundamental logical deadlock.</p>
+                </div>
+
+                <h2>1. The Rise of Zermelo-Fraenkel (ZF)</h2>
+                <p>To fix the paradox, mathematicians created <strong>Axioms</strong> — rules that prevent you from building
+                    "monstrous" sets. Instead of defining sets from the bottom up (Naive), we define what sets are
+                    *allowed* to do.</p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Axiom of Comprehension</h4>
+                        <p>You can't just group "everything." You can only create a subset from an already existing set.
+                        </p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Axiom of Power Set</h4>
+                        <p>Explicitly gives us permission to create the set of all subsets.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Axiom of Selection</h4>
+                        <p>Prevents the "Set of all sets" from existing.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Axiom of Choice (AC)</h2>
+                <p>One of the most controversial rules. It says that if you have a collection of non-empty sets, you can
+                    always pick exactly one element from each set, even if there's no specific "rule" for how to pick
+                    them.</p>
+                <div class="example-box">
+                    <p><strong>The Banach-Tarski Paradox:</strong> With the Axiom of Choice, you can mathematically take
+                        a solid sphere, cut it into 5 pieces, and reassemble them into two solid spheres identical to
+                        the first. Logic is truly strange.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">AI Safety</span>
+                    <span class="ml-badge">Programming</span>
+                    <h3>Why Axioms matter in AI</h3>
+                    <ul>
+                        <li><strong>Type Systems:</strong> In languages like Haskell or TypeScript, "Sets of Types" follow similar
+                            axiomatic rules. Preventing a type from "containing itself" in a way that recurses
+                            infinitely is a direct application of fixing Russell's Paradox.</li>
+                        <li><strong>Self-Improving AI:</strong> If an AI model tries to define "intelligence" or its own "utility
+                            function," it can fall into recursive paradoxes. Formalizing the AI's goals using axiomatic
+                            set theory helps prevent infinite loops or logical collapse in agentic systems.</li>
+                        <li><strong>Formal Verification:</strong> When we use tools like <strong>Coq</strong> or <strong>Lean</strong> to prove that an AI's
+                            code is correct, we are working directly within an axiomatic set-theoretic framework.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Evolutionary Path</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Naive Set Theory: Anything goes] --> B[Russell's Paradox: Contradiction!]
+                    B --> C[Standard Axioms: ZFC]
+                    C --> D[Standard Math & CS Foundations]
+                    D --> E[Formal AI Verification]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

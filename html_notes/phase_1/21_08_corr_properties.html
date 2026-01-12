@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.08 Correlation Properties - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_07_correlation.html" class="nav-link">07. Correlation</a></li>
+                        <li class="nav-item"><a href="21_08_corr_properties.html" class="nav-link active">08. Corr
+                                Properties</a></li>
+                        <li class="nav-item"><a href="21_09_spearman_rank.html" class="nav-link">09. Spearman Rank</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Guardrails</span>
+                </div>
+                <h1>Properties of Correlation</h1>
+                <p class="lead-text">Understanding the boundaries and behavior of the linear coefficient.</p>
+            </header>
+
+            <section class="content-block">
+                <h2>1. The Bounds: \([-1, 1]\)</h2>
+                <div class="math-box">
+                    For any Random Variables \(X\) and \(Y\):
+                    $$ -1 \le \text{Corr}(X, Y) \le 1 $$
+                </div>
+                <p>
+                    <strong>Why?</strong> This is a direct result of the <strong>Cauchy-Schwarz Inequality</strong>. It
+                    ensures that the covariance cannot exceed the spread of the individual variables.
+                </p>
+                <div class="insight-box">
+                    <h3>Deep Intuition</h3>
+                    <p>
+                        In Linear Algebra, the correlation is actually the <strong>Cosine of the angle</strong> between two centered
+                        vectors.
+                        <br>
+                        - If \(\rho = 1\), the vectors point in the same direction (angle = 0°).
+                        <br>
+                        - If \(\rho = 0\), the vectors are orthogonal (angle = 90°).
+                        <br>
+                        - If \(\rho = -1\), the vectors point in opposite directions (angle = 180°).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Invariance to Linear Scaling</h2>
+                <div class="math-box">
+                    $$ \text{Corr}(aX + b, cY + d) = \text{Corr}(X, Y) $$
+                    (Assuming \(a, c > 0\))
+                </div>
+                <p>
+                    <strong>ML Impact:</strong> This is a huge property. It means that whether you measure temperature
+                    in Celsius or Fahrenheit, or height in inches or meters, the correlation coefficient stays
+                    <strong>identical</strong>.
+                    <br><br>
+                    Unlike covariance, correlation doesn't care about your units. It only cares about the
+                    <em>pattern</em>.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Symmetry</h2>
+                <p>
+                    $$ \rho_{X,Y} = \rho_{Y,X} $$
+                    Correlation is a shared property. It doesn't imply that \(X\) causes \(Y\) or \(Y\) causes \(X\). It
+                    only measures their relationship in a symmetric way.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Zero Correlation vs. Independence</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Statistics</span>
+                    <span class="ml-badge">Caveats</span>
+                    <h3>The Trap</h3>
+                    <p>
+                        Independence implies zero correlation.
+                        <br>
+                        <strong>Zero correlation does NOT imply independence.</strong>
+                    </p>
+                    <p>
+                        If \(X \sim \text{Uniform}(-1, 1)\) and \(Y = X^2\), they are purely dependent (if you know
+                        \(X\), you know \(Y\) exactly). But their Pearson correlation is <strong>0</strong> because the
+                        relationship is non-linear (it wraps back on itself).
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

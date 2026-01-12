@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.21 Linear Approximation - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_18_rolles_theorem.html" class="nav-link">18. Rolle's
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="09_19_lhopital.html" class="nav-link">19. L'Hopital's Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="09_20_related_rates.html" class="nav-link">20. Related Rates</a>
+                        </li>
+                        <li class="nav-item"><a href="09_21_linear_approx.html" class="nav-link active">21. Linear
+                                Approximation</a></li>
+                        <li class="nav-item"><a href="09_22_newtons_method.html" class="nav-link">22. Newton's
+                                Method</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Simplicity</span>
+                </div>
+                <h1>Linear Approximation</h1>
+                <p class="lead-text">Locally, the world is flat. This simple lie allows Gradient Descent to work.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Tangent Line Estimate</h3>
+                    <p>
+                        Complex curves are hard. Straight lines are easy. Differentiation allows us to replace a
+                        complicated function \(f(x)\) with a simple linear function \(L(x)\) as long as we don't move
+                        too far from our starting point.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="glass-card">
+                    <p>
+                        The Linearization \(L(x)\) of \(f\) at \(a\) is:
+                    </p>
+                    <div class="math-block">
+                        \[ L(x) = f(a) + f'(a)(x - a) \]
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <p><strong>The Differential Form:</strong></p>
+                    <p>Let \(dx\) be a small change in input. The approximate change in output \(dy\) is:</p>
+                    <div class="math-block">
+                        \[ dy = f'(x) dx \]
+                    </div>
+                    <p>This \(dy\) is the rise of the tangent line, while \(\Delta y\) is the rise of the actual curve.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Start[Current Point a] -->|Calc Slope| Tangent[Slope f'a]
+                        Tangent -->|Project Forward| Pred[Prediction L x]
+                        Pred -->|Compare| Actual[Actual f x]
+
+                        Context[Error = |L x - f x| grows as (x-a)^2]
+                        style Context fill:#2d3748,color:white,border:0
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Why Gradient Descent works</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The "Trust Region"</h3>
+                    <p>
+                        Gradient Descent Update: \( \theta_{new} = \theta_{old} - \alpha \nabla J(\theta) \)
+                    </p>
+                    <p>
+                        This formula is derived by minimizing the <strong>Linear Approximation</strong> of the Loss
+                        Function.
+                        We assume:
+                        \[ J(\theta_{new}) \approx J(\theta_{old}) + \nabla J \cdot (\theta_{new} - \theta_{old}) \]
+                    </p>
+                    <p>
+                        <strong>The Learning Rate (\(\alpha\)):</strong> This controls how far we trust this linear
+                        approximation.
+                    <ul>
+                        <li><strong>Too small:</strong> We trust it, but move painfully slow.</li>
+                        <li><strong>Too large:</strong> We step outside the region where the curve looks like a line.
+                            The approximation fails, and loss actually increases (divergence).</li>
+                    </ul>
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Breaking the Approximation</h2>
+                <div class="code-header">linear_breakdown.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def f(x):
+    return x**2 # A simple curve
+
+def L(x, a):
+    # L(x) = f(a) + f'(a)(x-a)
+    slope = 2*a
+    return f(a) + slope * (x - a)
+
+a = 2.0 # Approximation point
+print(f"Approximating x^2 at a={a}")
+print("-" * 50)
+print(f"{'Step Size dx':<15} | {'Actual f(a+dx)':<18} | {'Linear L(a+dx)':<18} | {'Error'}")
+print("-" * 50)
+
+steps = [0.01, 0.1, 1.0, 5.0]
+
+for dx in steps:
+    x_new = a + dx
+    actual = f(x_new)
+    pred = L(x_new, a)
+    error = abs(actual - pred)
+    print(f"{dx:<15} | {actual:.4f}             | {pred:.4f}             | {error:.4f}")
+
+print("-" * 50)
+print("Notice how error explodes as step size increases. This is why high learning rates kill training.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_20_related_rates.html" class="footer-link">← Prev: Related Rates</a>
+                        <span class="separator">|</span>
+                        <a href="09_22_newtons_method.html" class="footer-link">Next: Newton's Method →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

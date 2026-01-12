@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.10 Credible vs Confidence - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_09_bayesian_workflow.html" class="nav-link">09. Bayesian
+                                Workflow</a></li>
+                        <li class="nav-item"><a href="26_10_credible_vs_confidence.html" class="nav-link active">10.
+                                Credible Vs Confidence</a></li>
+                        <li class="nav-item"><a href="26_11_bayesian_point_estimates.html" class="nav-link">11. Bayesian
+                                Point Estimates</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Intuition Check</span>
+                </div>
+                <h1>Credible vs. Confidence Intervals</h1>
+                <p class="lead-text">They look the same on a plot, but they mean completely different things to your
+                    brain.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Interpretation War</h3>
+                    <p>
+                        Almost everyone misinterprets a Frequentist <strong>Confidence Interval</strong>. Ironically, they
+                        misinterpret it as a <strong>Bayesian Credible Interval</strong>.
+                    </p>
+                </div>
+
+                <h2>1. The Comparison</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-card border-frequentist">
+                        <h4>Confidence Interval (Frequentist)</h4>
+                        <p><strong>Definition:</strong> "If I repeat this experiment 100 times, 95 of the resulting intervals will
+                            capture the true value."</p>
+                        <p><strong>The Truth:</strong> Once the data is collected, the interval is fixed. The probability that the
+                            truth is inside that *specific* interval is either <strong>0 or 1</strong> (we just don't know which).
+                        </p>
+                        <p><strong>Focus:</strong> The Procedure, not the Outcome.</p>
+                    </div>
+                    <div class="comparison-card border-bayesian">
+                        <h4>Credible Interval (Bayesian)</h4>
+                        <p><strong>Definition:</strong> "There is a 95% probability that the true parameter lies within this
+                            interval."</p>
+                        <p><strong>The Truth:</strong> This is what most people *want* to say. It treats the parameter as a random
+                            variable and the interval as the home of its probability mass.</p>
+                        <p><strong>Focus:</strong> The Outcome, based on the current data.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Two Types of Credible Intervals</h2>
+                <p>
+                    Because Bayesian posteriors can be weirdly shaped (not just symmetric bells), we have two ways to
+                    define the 95% zone:
+                </p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Equal-Tailed Interval</h4>
+                        <p>Leaves 2.5% in each tail. Simple, but can include low-probability regions if the distribution
+                            is skewed.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Highest Density Interval (HDI)</h4>
+                        <p>The "narrowest" possible interval that contains 95% of the mass. Every point inside the HDI
+                            has a higher probability density than any point outside it.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Intuitive Reporting</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Product Management</span>
+                    <span class="ml-badge">Dashboards</span>
+                    <h3>Why Stakeholders Love Bayes</h3>
+                    <p>
+                        If you tell a CEO: "Our model's accuracy is 85%, and the 95% Confidence Interval is [82%, 88%],"
+                        they will ask: "So you're saying there's a 95% chance it's between 82 and 88?"
+                    </p>
+                    <p>
+                        - <strong>Frequentist Answer:</strong> "Well, technically no. If we ran the entire world 100 times..." (Ceo
+                        stops listening).
+                        - <strong>Bayesian Answer:</strong> "Yes, exactly. Based on our evidence, we are 95% certain the real
+                        performance is in that range."
+                    </p>
+                    <p>
+                        <strong>Credible Intervals</strong> align with how humans actually think and make decisions. In
+                        mission-critical ML (finance, medical diagnosis, autonomous safety), being able to give a direct
+                        probability of the result is far more valuable than a procedure-based frequency check.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

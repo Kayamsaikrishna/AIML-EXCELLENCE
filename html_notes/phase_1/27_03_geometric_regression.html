@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.03 Geometric Regression - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_02_ols_mechanics.html" class="nav-link">02. OLS Mechanics</a>
+                        </li>
+                        <li class="nav-item"><a href="27_03_geometric_regression.html" class="nav-link active">03.
+                                Geometric Regression</a></li>
+                        <li class="nav-item"><a href="27_04_multiple_linear_regression.html" class="nav-link">04.
+                                Multiple Linear Regression</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Linear Algebra</span>
+                </div>
+                <h1>Geometric Interpretation of Regression</h1>
+                <p class="lead-text">Viewing regression not as a formula, but as a projection of truth onto a simpler
+                    plane.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Shadow on the Plane</h3>
+                    <p>
+                        Imagine your Data is a vector in N-dimensional space.
+                        <br><br>
+                        A Linear Model only allows for a "subset" of that space (a line or a plane). Regression is the
+                        process of finding the point in that plane that is <strong>closest</strong> to the original vector.
+                    </p>
+                </div>
+
+                <h2>1. The Orthogonality Condition</h2>
+                <div class="math-box">
+                    $$ \hat{\mathbf{y}} = \text{proj}_{\text{Col}(\mathbf{X})} \mathbf{y} $$
+                </div>
+                <p>
+                    For the distance to be minimized, the <strong>Residual Vector</strong> (\(\mathbf{y} - \hat{\mathbf{y}}\)) must
+                    be <strong>orthogonal</strong> (at 90 degrees) to every column in the input matrix \(\mathbf{X}\).
+                </p>
+                <div class="math-box">
+                    $$ \mathbf{X}^T (\mathbf{y} - \mathbf{X}\hat{\beta}) = 0 $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Manifold Learning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Representation</span>
+                    <span class="ml-badge">Geometry</span>
+                    <h3>Why Projections Matter</h3>
+                    <p>
+                        Geometric regression is the simplest form of <strong>Dimensionality Reduction</strong>.
+                    </p>
+                    <p>
+                        When we project data onto a line, we are saying that only 1 dimension matters. Modern ML takes
+                        this further:
+                        - <strong>PCA:</strong> Projects data onto the directions of maximum variance.
+                        - <strong>Autoencoders:</strong> Project high-dimensional data (like images) onto a non-linear "latent"
+                        manifold.
+                    </p>
+                    <p>
+                        Understanding that regression is an "Orthogonal Projection" helps you visualize why
+                        high-dimensional features (Multicollinearity) cause issues: when two input vectors are nearly
+                        identical, the plane they form is thin and "wobbly," making the projection (the prediction)
+                        extremely unstable.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

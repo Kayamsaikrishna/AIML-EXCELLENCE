@@ -4,95 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gauss-Jordan - Phase 1.2.2.19</title>
+    <title>03.19 Gauss-Jordan - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_18_gaussian_elimination.html">18. Gaussian Elimination</a></li>
-            <li><a href="03_19_gauss_jordan.html" class="active">19. Gauss-Jordan</a></li>
-            <li><a href="03_20_elementary_matrices.html">20. Elementary Matrices</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_18_gaussian_elimination.html" class="nav-link">18. Gaussian
+                            Elim</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">19. Gauss-Jordan</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Gauss-Jordan
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 19. The Full Solution
         </div>
 
-        <header>
-            <h1>19. Gauss-Jordan Elimination</h1>
-            <p class="subtitle">Complete reduction to the identity matrix.</p>
+        <header class="page-header">
+            <div class="badge">Module 19</div>
+            <h1>Gauss-Jordan</h1>
+            <p class="lead-text"> Going all the way to Identity. The most robust (but expensive) way to solve systems.
+            </p>
         </header>
 
-        <section>
-            <h2>1. The Backward Pass</h2>
-            <p>Gauss-Jordan extends Gaussian elimination by reducing the matrix all the way to
-                <strong>Reduced Row Echelon Form (RREF)</strong>. This means eliminating entries both
-                <em>below</em> and <em>above</em> each pivot.
-            </p>
+        <!-- VISUAL DIAGRAM: JORDAN -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Backward Elimination</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Matrix in REF (Upper Tri)"]
+    
+    subgraph Backward
+        Norm["Normalize Pivots to 1"]
+        Clear["Clear Above Pivots"]
+    end
+    
+    Output["Matrix in RREF (Identity-ish)"]
+    
+    Input --> Norm
+    Norm --> Clear
+    Clear --> Output
 
-            <div class="module-card">
-                <h3>Visual Transition</h3>
-                <div class="math-block">
-                    $$ [\mathbf{A}] \xrightarrow{\text{Gaussian}} [REF] \xrightarrow{\text{Jordan}} [RREF] $$
+    style Output fill:#dcfce7,stroke:#16a34a
+    style Clear fill:#fefe93,stroke:#d97706
+                    </pre>
                 </div>
             </div>
         </section>
 
-        <section>
-            <h2>2. Applications in Matrix Logic</h2>
-            <div class="module-card">
-                <h3>The Dual Purpose</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Direct Solving:</strong> The solution to \( \mathbf{Ax} = \mathbf{b}
-                        \) can be read directly from the augmented column of a RREF matrix.</li>
-                    <li class="topic-item"><strong>Inverse Calculation:</strong> Reducing \( [\mathbf{A} | \mathbf{I}]
-                        \) to \( [\mathbf{I} | \mathbf{A}^{-1}] \).</li>
-                </ul>
-                <p><strong>Note:</strong> While manual calculation stops here, AI frameworks use Gauss-Jordan logic to
-                    implement
-                    numerical solvers and find the rank of a matrix reliably.</p>
+        <!-- 1. DEFINITION: THE DIFFERENCE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Gaussian vs Gauss-Jordan</h2>
+                <div class="columns">
+                    <div class="col">
+                        <h3>Gaussian</h3>
+                        <p>Stops at <strong>REF</strong> (Upper Triangular).</p>
+                        <p>Requires back-substitution to solve.</p>
+                        <p>Faster ($2/3 n^3$ flops).</p>
+                    </div>
+                    <div class="col">
+                        <h3>Gauss-Jordan</h3>
+                        <p>Goes to <strong>RREF</strong> (Diagonal/Identity).</p>
+                        <p>Solution is immediately visible.</p>
+                        <p>Slower ($n^3$ flops). Used for Inversion.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Full Reduction</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-def gauss_jordan(A):
-    n = A.shape[0]
-    # Reduce to RREF
-    for i in range(n):
-        A[i] = A[i] / A[i, i] # Normalize pivot to 1
-        for j in range(n):
-            if i != j:
-                A[j] -= A[j, i] * A[i]
-    return A
-
-A = np.array([[2, 1], [1, 3]], dtype=float)
-rref = gauss_jordan(A)
-print(f"RREF (Identity for non-singular):\n{rref}")</code></pre>
+        <!-- 2. AI APPLICATION: STABLE SOLVERS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Numerical Stability</h2>
+                <p>Naive Gauss-Jordan is <strong>unstable</strong> if pivots are very small (division by near-zero).</p>
+                <p>Real-world solvers use <strong>Partial Pivoting</strong>: we verify the best pivot (largest absolute
+                    value) in the column and Swap rows to bring it to the top before eliminating.</p>
             </div>
         </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. SciPy Solver</h2>
+                <p>The standard way to solve.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import scipy.linalg as la
+
+# A random system
+A = np.random.rand(100, 100)
+b = np.random.rand(100)
+
+# 1. Using LU (Gaussian under the hood) - The Fast Way
+lu, piv = la.lu_factor(A)
+x = la.lu_solve((lu, piv), b)
+
+# 2. Using Inverse (Gauss-Jordan) - The Slow Way
+# x = inv(A) @ b
+# NEVER DO THIS IN PRODUCTION CODE (Unless for theory)
+
+print(f"Solution shape: {x.shape}")
+print(f"Check Error: {np.linalg.norm(A @ x - b):.2e}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

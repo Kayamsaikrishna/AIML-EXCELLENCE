@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.04 Posterior Distribution - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_03_likelihood_function.html" class="nav-link">03. Likelihood
+                                Function</a></li>
+                        <li class="nav-item"><a href="26_04_posterior_distribution.html" class="nav-link active">04.
+                                Posterior Distribution</a></li>
+                        <li class="nav-item"><a href="26_05_bayes_theorem_parameters.html" class="nav-link">05. Bayes
+                                Theorem Parameters</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">The Updated Belief</span>
+                </div>
+                <h1>Posterior Distribution</h1>
+                <p class="lead-text">The compromise between what you thought before and what the data tells you now.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Bayes' Theorem for Models</h3>
+                    <div class="math-box">
+                        $$ P(\theta|D) = \frac{P(D|\theta) P(\theta)}{P(D)} $$
+                    </div>
+                    <p>
+                        - <strong>\(P(\theta|D)\):</strong> Posterior (Our goal).
+                        - <strong>\(P(D|\theta)\):</strong> Likelihood (Data fit).
+                        - <strong>\(P(\theta)\):</strong> Prior (Our guess).
+                        - <strong>\(P(D)\):</strong> Marginal Likelihood (Evidence).
+                    </p>
+                </div>
+
+                <h2>1. The Balancing Act</h2>
+                <p>
+                    The Posterior is always a weighted average of the Prior and the Likelihood.
+                </p>
+                <ul>
+                    <li>If the Data is <strong>Weak</strong> (unclear), the Posterior stays close to the <strong>Prior</strong>.</li>
+                    <li>If the Data is <strong>Strong</strong> (massive evidence), the Posterior gets pulled away from the prior and
+                        follows the <strong>Likelihood</strong>.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Marginal Likelihood Trap</h2>
+                <p>
+                    The denominator \(P(D)\) is the probability of the data under *all possible* parameter values.
+                </p>
+                <div class="math-box">
+                    $$ P(D) = \int P(D|\theta) P(\theta) d\theta $$
+                </div>
+                <p>
+                    <strong>This integral is the "Big Boss" of Bayesian stats.</strong> For simple models, we can solve it. For
+                    complex models (like Deep Learning), this integral is impossible to compute. This is why we use
+                    tricks like <strong>MCMC</strong> or <strong>Variational Inference</strong> to find the posterior without ever knowing
+                    \(P(D)\).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Online Learning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Stream Processing</span>
+                    <span class="ml-badge">Ops</span>
+                    <h3>Sequential Bayesian Updating</h3>
+                    <p>
+                        One of the most powerful features of the Bayesian paradigm is that today's <strong>Posterior</strong> becomes
+                        tomorrow's <strong>Prior</strong>.
+                    </p>
+                    <div class="diagram-container">
+                        <div class="mermaid">
+                            graph LR
+                            A[Day 1 Prior] -->|Data 1| B[Day 1 Posterior]
+                            B --> C[Day 2 Prior]
+                            C -->|Data 2| D[Day 2 Posterior]
+                            D --> E[And so on...]
+                        </div>
+                    </div>
+                    <p>
+                        This allows for <strong>Online Learning</strong>. You don't need to retrain your model on the entire history
+                        of data every night. You just update your "Belief" (weights) using the new batch of data. This
+                        is how <strong>CTR (Click-Through-Rate) predictors</strong> in ad-tech work, updating millions of times per
+                        hour as users click on banners.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -4,100 +4,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Norms - Phase 1.2.2.30</title>
+    <title>03.30 Matrix Norms - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_29_hadamard.html">29. Hadamard Product</a></li>
-            <li><a href="03_30_matrix_norms.html" class="active">30. Matrix Norms</a></li>
-            <li><a href="03_31_condition_number.html">31. Condition Number</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_29_hadamard.html" class="nav-link">29. Hadamard</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">30. Matrix Norms</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Norms
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 30. Magnitude
         </div>
 
-        <header>
-            <h1>30. Matrix Norms</h1>
-            <p class="subtitle">Measuring the magnitude of a linear transformation.</p>
+        <header class="page-header">
+            <div class="badge">Module 30</div>
+            <h1>Matrix Norms</h1>
+            <p class="lead-text"> \( ||A|| \). Defining the "size" or "max stretch" of a transformation.</p>
         </header>
 
-        <section>
-            <h2>1. Common Norms</h2>
-            <div class="module-card">
-                <h3>Frobenius Norm (\( ||\mathbf{A}||_F \))</h3>
-                <p>The matrix equivalent of the Euclidean norm for vectors. It is the square root of the sum of the
-                    squares of all elements.</p>
-                <div class="math-block">
-                    $$ ||\mathbf{A}||_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2} $$
+        <!-- VISUAL DIAGRAM: NORMS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Ways to Measure</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Matrix["Matrix A"]
+    
+    subgraph VectorView
+        Frob["Frobenius Norm (Sqrt Sum of Squares)"]
+    end
+    
+    subgraph OperatorView
+        Spec["Spectral Norm (Max Stretch/Singular Value)"]
+    end
+    
+    Matrix --> Frob
+    Matrix --> Spec
+    
+    Spec --> Lipschitz["Lipschitz Constant (Stability)"]
+
+    style Lipschitz fill:#dcfce7,stroke:#16a34a
+    style Spec fill:#fefe93,stroke:#d97706
+                    </pre>
                 </div>
-                <p><strong>AI Use:</strong> Used in <strong>Weight Decay</strong> (L2 Regularization) to penalize
-                    large layer weights and prevent overfitting.</p>
             </div>
+        </section>
 
-            <div class="module-card">
-                <h3>Spectral Norm (\( ||\mathbf{A}||_2 \))</h3>
-                <p>The maximum "amplification" a matrix can provide to a vector. It equals the largest singular value
-                    (\( \sigma_{max} \)).</p>
+        <!-- 1. DEFINITION: TYPES OF NORMS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definitions</h2>
+                <p><strong>Frobenius Norm:</strong> Treat matrix like a long vector and take Euclidean norm.</p>
                 <div class="math-block">
-                    $$ ||\mathbf{A}||_2 = \sigma_{max}(\mathbf{A}) $$
+                    $$ ||A||_F = \sqrt{\sum |a_{ij}|^2} $$
                 </div>
-                <p><strong>AI Use:</strong> <strong>Spectral Normalization</strong> is used in GANs to stabilize
-                    training
-                    by ensuring the Discriminator is Lipschitz continuous.</p>
+                <p><strong>Operator (Spectral) Norm:</strong> The maximum factor the matrix can stretch a vector.</p>
+                <div class="math-block">
+                    $$ ||A||_2 = \max_{x \neq 0} \frac{||Ax||}{||x||} = \sigma_{\max}(A) $$
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2>2. Importance in AI Generalization</h2>
-            <div class="module-card">
-                <h3>The Complexity Budget</h3>
-                <p>Large matrix norms often correlate with high model complexity. By constraining the norms of weight
-                    matrices, we force the model to learn smoother, more generalizable functions rather than
-                    memorizing noise.</p>
+        <!-- 2. AI APPLICATION: LIPSCHITZ CONTINUITY -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. GAN Stability</h2>
+                <p>In Generative Adversarial Networks (WGAN-GP), we need the Discriminator to be 1-Lipschitz.</p>
+                <p>This means the gradient norm must be bounded. This is strictly related to the Spectral Norm of the
+                    weight matrices. <strong>Spectral Normalization</strong> enforces this by dividing Weights by their
+                    spectral norm \( W_{new} = W / \sigma(W) \).</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Calculating Norms</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Calculating Strech</h2>
+                <p>Comparing Frobenius vs Spectral.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
-W = np.random.randn(512, 1024)
+A = np.array([
+    [1, 100],
+    [0, 1]
+])
 
-# Frobenius Norm (Default)
-fro_norm = np.linalg.norm(W)
+# Frobenius: sqrt(1+10000+0+1) ~ 100
+norm_f = np.linalg.norm(A, 'fro')
 
-# Spectral Norm (Max Singular Value)
-spectral_norm = np.linalg.norm(W, ord=2)
+# Spectral: Max Singular Value
+# It will be slightly larger than 100
+norm_2 = np.linalg.norm(A, 2)
 
-# Max Absolute Row Sum (L-infinity norm)
-inf_norm = np.linalg.norm(W, ord=np.inf)
+print(f"Frobenius Norm: {norm_f:.2f}")
+print(f"Spectral Norm:  {norm_2:.2f}")
 
-print(f"Frobenius: {fro_norm:.2f}")
-print(f"Spectral: {spectral_norm:.2f}")</code></pre>
+# Spectral tells us the worst-case amplification
+v = np.array([0, 1])
+print(f"Stretch on [0, 1]: {np.linalg.norm(A @ v)}") 
+# 100.04 -> Matches Spectral
+</code></pre>
+                </div>
             </div>
         </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06.01 Transform Basics - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.5 Linear Transforms</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#" class="nav-link active">01. Transform Basics</a></li>
+                    <li class="nav-item"><a href="06_02_transform_matrix.html" class="nav-link">02. The Matrix</a></li>
+                    <li class="nav-item"><a href="06_03_kernel_image.html" class="nav-link">03. Kernel & Image</a></li>
+                    <li class="nav-item"><a href="06_04_rank_nullity_v2.html" class="nav-link">04. Rank-Nullity</a></li>
+                    <li class="nav-item"><a href="06_05_isomorphisms.html" class="nav-link">05. Isomorphisms</a></li>
+                    <li class="nav-item"><a href="06_06_cob_transforms.html" class="nav-link">06. Change of Basis</a>
+                    </li>
+                    <li class="nav-item"><a href="06_07_composition_inverse.html" class="nav-link">07. Composition</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 01. The Function
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 01</div>
+            <h1>Linear Transformations</h1>
+            <p class="lead-text"> \( T(u+v) = T(u) + T(v) \). Preserving the grid structure.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: LINEARITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Linearity</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Vector Space V"]
+    Output["Vector Space W"]
+    Map["Map T: V -> W"]
+    
+    Input -- "T" --> Output
+    
+    subgraph Properties
+        Add["Additivity: T(u+v) = Tu + Tv"]
+        Hom["Homogeneity: T(cu) = cTu"]
+        Origin["T(0) = 0"]
+    end
+    
+    Map -- "Must Satisfy" --> Properties
+    
+    Properties -- "Geometric Effect" --> Grid["Lines remain Lines. Parallel remains Parallel. Origin fixed."]
+
+    style Grid fill:#dcfce7,stroke:#16a34a
+    style Add fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: THE RULES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>A function \( T: V \to W \) is a <strong>Linear Transformation</strong> if it satisfies two
+                    conditions for all vectors \( u, v \) and scalar \( c \):</p>
+                <ol>
+                    <li>\( T(u + v) = T(u) + T(v) \) (Preserves Addition)</li>
+                    <li>\( T(cu) = cT(u) \) (Preserves Scaling)</li>
+                </ol>
+                <p>Or combined: \( T(c_1 u + c_2 v) = c_1 T(u) + c_2 T(v) \).</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: ACTIVATION FUNCTIONS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Why We Need Non-Linearity</h2>
+                <p>If Neural Networks only consisted of Linear Transformations (matrices), deep networks would collapse
+                    into a single linear layer: \( W_2(W_1 x) = (W_2 W_1)x = W_{new} x \).</p>
+                <p>To learn complex patterns, we introduce <strong>Non-Linear</strong> activation functions (ReLU,
+                    Sigmoid). These violate the linearity properties (e.g., \( \text{ReLU}(-x) \neq -\text{ReLU}(x) \)),
+                    allowing the network to fold space in complex ways.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Checking Linearity</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def T_linear(v):
+    # A rotation matrix (Linear)
+    theta = np.pi / 4
+    R = np.array([[np.cos(theta), -np.sin(theta)],
+                  [np.sin(theta),  np.cos(theta)]])
+    return R @ v
+
+def T_nonlinear(v):
+    # Adding a constant bias shifts origin (Not Linear!)
+    # T(0) != 0
+    return v + np.array([1, 1])
+
+# Test Vectors
+u = np.array([1, 0])
+v = np.array([0, 1])
+c = 2
+
+# Check Additivity for T_linear
+print(f"Linear Additivity Holds: {np.allclose(T_linear(u+v), T_linear(u)+T_linear(v))}")
+# Check Homogeneity for T_linear
+print(f"Linear Scaling Holds: {np.allclose(T_linear(c*u), c*T_linear(u))}")
+
+# Check T_nonlinear
+print(f"Non-Linear Additivity Holds: {np.allclose(T_nonlinear(u+v), T_nonlinear(u)+T_nonlinear(v))}")
+# Fails because (u+v)+b != (u+b) + (v+b) = u+v+2b
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

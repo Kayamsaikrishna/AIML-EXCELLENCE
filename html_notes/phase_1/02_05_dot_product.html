@@ -4,100 +4,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dot Product - Phase 1.2.5</title>
+    <title>02.05 Dot Product Theory - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_01_vector_basics.html">01. Vector Basics</a></li>
-            <li><a href="02_02_vector_geometry.html">02. Geometry</a></li>
-            <li><a href="02_03_vector_ops.html">03. Operations</a></li>
-            <li><a href="02_04_scalar_mult.html">04. Scalar Mult</a></li>
-            <li><a href="02_05_dot_product.html" class="active">05. Dot Product</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_04_scalar_mult.html" class="nav-link">04. Scalar Mult</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">05. Dot Product Theory</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Dot Product
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 05. Dot Product Theory
         </div>
 
-        <header>
-            <h1>05. Dot Product (Scalar Product)</h1>
-            <p class="subtitle">Measuring alignment and similarity.</p>
+        <header class="page-header">
+            <div class="badge">Module 05</div>
+            <h1>The Cauchy-Schwarz Inequality</h1>
+            <p class="lead-text"> \( |\mathbf{u} \cdot \mathbf{v}| \le ||\mathbf{u}|| ||\mathbf{v}|| \). The rigorous
+                proof that similarity is bounded, and why correlation sits between -1 and 1.</p>
         </header>
 
-        <section>
-            <h2>1. Algebraic Definition</h2>
-            <p>The dot product takes two vectors of the same dimension and returns a single number (a scalar).</p>
+        <!-- VISUAL DIAGRAM: PROJECTION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Bounds of Reality</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    VecU["Vector u"]
+    VecV["Vector v"]
+    
+    subgraph Operation
+        Dot["u . v"]
+        Prod["||u|| ||v||"]
+    end
+    
+    subgraph Theorem
+        CS["Cauchy-Schwarz"]
+        Bound["|Dot| <= Prod"]
+    end
+    
+    subgraph AI [Statistics]
+        Corr["Correlation r"]
+        Range["[-1, +1]"]
+    end
 
-            <div class="math-block">
-                $$ \mathbf{u} \cdot \mathbf{v} = \sum_{i=1}^n u_i v_i = u_1 v_1 + u_2 v_2 + \dots + u_n v_n $$
+    VecU --> Dot
+    VecV --> Dot
+    
+    Dot --> CS
+    Prod --> CS
+    CS --> Bound
+    
+    Bound --> Corr
+    Corr --> Range
+
+    style CS fill:#dcfce7,stroke:#16a34a
+    style Range fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
             </div>
+        </section>
 
-            <div class="module-card">
-                <h3>Key Properties</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Commutative:</strong> \( \mathbf{u} \cdot \mathbf{v} = \mathbf{v}
-                        \cdot \mathbf{u} \).</li>
-                    <li class="topic-item"><strong>Distributive:</strong> \( \mathbf{u} \cdot (\mathbf{v} + \mathbf{w})
-                        = \mathbf{u} \cdot \mathbf{v} + \mathbf{u} \cdot \mathbf{w} \).</li>
-                    <li class="topic-item"><strong>Magnitude Relation:</strong> \( \mathbf{u} \cdot \mathbf{u} =
-                        \|\mathbf{u}\|^2 \).</li>
-                </ul>
+        <!-- 1. CAUCHY-SCHWARZ INEQUALITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Most Important Inequality in Math</h2>
+                <p>The absolute value of the dot product can never exceed the product of the magnitudes.</p>
+                <div class="math-block">
+                    $$ |\mathbf{u} \cdot \mathbf{v}| \le ||\mathbf{u}|| ||\mathbf{v}|| $$
+                </div>
+                <p>Equality holds ONLY if \( \mathbf{u} \) and \( \mathbf{v} \) are parallel (linearly dependent).</p>
+                <p><strong>Correction:</strong> This inequality is why "Cosine Similarity" \(
+                    \frac{\mathbf{u}\cdot\mathbf{v}}{||\mathbf{u}|| ||\mathbf{v}||} \) is mathematically guaranteed to
+                    be between -1.0 and 1.0.</p>
             </div>
         </section>
 
-        <section>
-            <h2>2. The Core of Transformers</h2>
-            <div class="module-card">
-                <h3>Dot Product Attention</h3>
-                <p>Modern Large Language Models (LLMs) like GPT-4 work by calculating "Attention". When a query vector
-                    \(Q\) meets a key vector \(K\), their <strong>Dot Product</strong> determines how much "Attention"
-                    to pay to that specific word.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>High Dot Product:</strong> Signals strong relevance or semantic
-                        similarity.</li>
-                    <li class="topic-item"><strong>Efficiency:</strong> Dot products are extremely fast to compute on
-                        GPUs, making them the engine of modern AI.</li>
-                </ul>
+        <!-- 2. AI APPLICATION: CORRELATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Pearson Correlation</h2>
+                <p>In Data Science, Correlation is just the Cosine Similarity of <strong>Centered Vectors</strong> (Mean
+                    = 0).</p>
+                <p>When training a model to output a score (e.g. Tanh activation), we rely on Cauchy-Schwarz logic to
+                    ensure our bounded outputs map correctly to bounded targets.</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Vectorized Dot Product</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Verification</h2>
+                <p>Checking the inequality for random high-dimensional vectors.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
-u = np.array([1, 2, 3])
-v = np.array([4, 5, 6])
+# Random Vectors in 100-dim space
+u = np.random.randn(100)
+v = np.random.randn(100)
 
-# Algebraic calculation
-dot_algebraic = np.dot(u, v) # (1*4 + 2*5 + 3*6) = 32
+# 1. Dot Product
+dot_val = np.abs(np.dot(u, v))
 
-# Alternative syntax (The AI/ML standard)
-dot_standard = u @ v 
+# 2. Product of Norms
+norm_prod = np.linalg.norm(u) * np.linalg.norm(v)
 
-print(f"Dot Product result: {dot_standard}")</code></pre>
+print(f"|u . v| : {dot_val:.4f}")
+print(f"||u||*||v|| : {norm_prod:.4f}")
+
+if dot_val <= norm_prod:
+    print("Cauchy-Schwarz holds.")
+else:
+    print("Math is broken.")
+</code></pre>
+                </div>
             </div>
         </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

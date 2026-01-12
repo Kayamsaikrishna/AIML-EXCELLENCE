@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.05 Gamma Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_04_exponential.html" class="nav-link">04. Exponential</a></li>
+                        <li class="nav-item"><a href="20_05_gamma_dist.html" class="nav-link active">05. Gamma Dist</a>
+                        </li>
+                        <li class="nav-item"><a href="20_06_beta_dist.html" class="nav-link">06. Beta Dist</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Sum</span>
+                </div>
+                <h1>The Gamma Distribution</h1>
+                <p class="lead-text">Waiting for the \(k\)-th event to occur.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Sum of Exponentials</h3>
+                    <p>
+                        Just as the Negative Binomial is the sum of Geometric variables, the <strong>Gamma
+                            Distribution</strong> is the sum of independent Exponential variables.
+                        <br><br>
+                        If we wait for one bus, it's Exponential. If we wait for the 5th bus to arrive, the total time
+                        follows a Gamma distribution.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    \(X \sim \text{Gamma}(\alpha, \beta)\) where \(\alpha\) is the <strong>shape</strong> and \(\beta\)
+                    is the <strong>rate</strong> (or \(\theta = 1/\beta\) is the scale).
+                    $$ f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x} $$
+                    for \(x > 0\).
+                </div>
+                <p>
+                    <strong>Key Players:</strong>
+                <ul>
+                    <li>\(\alpha\): The number of events we are waiting for.</li>
+                    <li>\(\Gamma(\alpha)\): The <strong>Gamma Function</strong>. It is a continuous version of the
+                        factorial: \(\Gamma(n) = (n-1)!\) for integers.</li>
+                </ul>
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Shape and Scale</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A["Shape (α)"] -->|α = 1| B[Exponential Distribution]
+                        A -->|α &lt; 1| C[Highly Skewed (Peak at 0)] A -->|α > 1| D[Peak Moves away from 0]
+                            A -->|α → ∞| E[Approaches Normal Distribution]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Moments</h2>
+                <ul>
+                    <li><strong>Mean:</strong> \(E[X] = \frac{\alpha}{\beta}\).</li>
+                    <li><strong>Variance:</strong> \(\text{Var}(X) = \frac{\alpha}{\beta^2}\).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>4. ML Connection: Conjugate Priors</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Bayesian ML</span>
+                    <span class="ml-badge">Regularization</span>
+                    <h3>The Gamma Prior</h3>
+                    <p>
+                        In Bayesian statistics, we need to choose a "prior" distribution to represent our belief about a
+                        parameter before seeing data.
+                    </p>
+                    <p>
+                        The Gamma distribution is the <strong>Conjugate Prior</strong> for the rate parameter
+                        \(\lambda\) of a Poisson distribution. This means if you start with a Gamma prior and observe
+                        Poisson data, your "posterior" (updated belief) is <em>also</em> a Gamma distribution. This
+                        makes the math extremely efficient.
+                    </p>
+                </div>
+
+                <h3>Precision in Linear Models</h3>
+                <p>
+                    In some advanced linear models, instead of fixing the noise variance \(\sigma^2\), we model the
+                    "precision" \(\tau = 1/\sigma^2\) as a Gamma-distributed random variable.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -4,179 +4,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polynomial Division - Phase 1.1.10</title>
+    <title>01.10 Polynomial Division - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html" class="active">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_09_polynomials.html" class="nav-link">09. Polynomials</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">10. Division</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Polynomial Division
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 10. Polynomial Division
         </div>
 
-        <header>
-            <h1>10. Polynomial Division & The Residual</h1>
-            <p class="subtitle">Breaking down complexity. From Long Division to ResNets and CRCs.</p>
+        <header class="page-header">
+            <div class="badge">Module 10</div>
+            <h1>Polynomial Division & Error Codes</h1>
+            <p class="lead-text">From Long Division to Synthetic Division. How computers use "Binary Polynomial
+                Division" (CRC) to detect corrupted data.</p>
         </header>
 
-        <!-- 1. BASICS -->
-        <section id="basics">
-            <h2>1. The Algorithm</h2>
-            <p>Division is finding how many times one signal "fits" into another, and what is left over.</p>
-            <div class="math-block">
-                $$ \underbrace{P(x)}_{\text{Dividend}} = \underbrace{D(x)}_{\text{Divisor}} \cdot
-                \underbrace{Q(x)}_{\text{Quotient}} + \underbrace{R(x)}_{\text{Remainder}} $$
-            </div>
+        <!-- VISUAL DIAGRAM: DIVISION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Breaking Down Complexity</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+flowchart TD
+    Num["Numerator P(x)"]
+    Den["Denominator D(x)"]
+    
+    Num --> Div["Division Process"]
+    Den --> Div
+    
+    Div --> Quotient["Quotient Q(x)"]
+    Div --> Remainder["Remainder R(x)"]
 
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Engineering Application: CRC Checks</h3>
-                    <p>When you download a file, your computer performs Poly Division (over binary fields). The file is
-                        a massive polynomial. The "Checksum" is the <strong>Remainder</strong>.</p>
-                    <p>If the calculated remainder doesn't match the sent remainder, the file is corrupted.</p>
+    subgraph Methods
+        Long["Long Division (General)"]
+        Synth["Synthetic Division (Fast)"]
+    end
+    
+    subgraph Apps
+        Factor["Facoring Roots"]
+        CRC["Cyclic Redundancy Check (CRC)"]
+        Hash["Hashing Function"]
+    end
+    
+    Methods --> Div
+    Div --> Apps
+
+    style CRC fill:#fef3c7,stroke:#d97706
+    style Hash fill:#fce7f3,stroke:#db2777
+                    </pre>
                 </div>
             </div>
         </section>
 
-        <!-- 2. AI CONTEXT -->
-        <section id="ai-context">
-            <h2>2. The Residual Connection (ResNet)</h2>
-            <p>In Deep Learning, we realized that trying to learn a completely new function \( H(x) \) is hard. Instead,
-                we try to learn the <strong>Remainder</strong> (Residual).</p>
-            <div class="math-block">
-                $$ y = x + F(x) $$
+        <!-- 1. BASICS OF DIVISION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Division Algorithm</h2>
+                <p>Just like numbers, polynomials satisfy:</p>
+                <div class="math-block">
+                    $$ P(x) = D(x) \cdot Q(x) + R(x) $$
+                </div>
+                <p>Where \( Q(x) \) is the quotient and \( R(x) \) is the remainder (degree less than \( D(x) \)).</p>
+
+                <h3>Synthetic Division</h3>
+                <p>A shortcut method used when dividing by linear terms \( (x - c) \). It's essentially <strong>matrix
+                        vector multiplication</strong> disguised as arithmetic.</p>
             </div>
-            <p>Here, \( F(x) \) is learning "what is missing" from \( x \) to get to the answer. It is effectively
-                learning the remainder function.</p>
+        </section>
 
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <!-- SVG: ResNet Block -->
-                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Input Line -->
-                    <line x1="50" y1="150" x2="150" y2="150" stroke="#0f172a" stroke-width="2" />
-                    <text x="40" y="155" text-anchor="end" font-weight="bold">x</text>
+        <!-- 2. CRC IN COMPUTING -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Real World App: CRC Checksums</h2>
+                <p>When you download a file, how does the computer know it's not corrupted?</p>
+                <p>It treats the bits as coefficients of a massive polynomial.</p>
 
-                    <!-- Split -->
-                    <circle cx="150" cy="150" r="5" fill="#0f172a" />
-
-                    <!-- Skip Connection (Identity) -->
-                    <path d="M 150 150 Q 300 50 450 150" fill="none" stroke="#64748b" stroke-width="2"
-                        stroke-dasharray="5,5" />
-                    <text x="300" y="80" text-anchor="middle" fill="#64748b" font-weight="bold">Identity
-                        (Divisor)</text>
-
-                    <!-- F(x) Block (The Remainder Learner) -->
-                    <rect x="200" y="130" width="100" height="40" rx="5" fill="#3b82f6" />
-                    <text x="250" y="155" text-anchor="middle" fill="white" font-weight="bold">Layers F(x)</text>
-
-                    <line x1="150" y1="150" x2="200" y2="150" stroke="#0f172a" stroke-width="2" />
-                    <line x1="300" y1="150" x2="450" y2="150" stroke="#0f172a" stroke-width="2" />
-
-                    <!-- Addition -->
-                    <circle cx="450" cy="150" r="15" fill="#e2e8f0" stroke="#0f172a" stroke-width="2" />
-                    <text x="450" y="155" text-anchor="middle" font-weight="bold">+</text>
-
-                    <!-- Output -->
-                    <line x1="465" y1="150" x2="550" y2="150" stroke="#0f172a" stroke-width="2" />
-                    <text x="560" y="155" text-anchor="start" font-weight="bold">y = x + F(x)</text>
-                </svg>
-                <div style="margin-top: 0.5rem; color: #64748b; font-size: 0.9rem;">
-                    Figure 1: A ResNet Block. The skip connection passes \( x \) (like a divisor), and the layers learn
-                    to add a "Remainder" \( F(x) \) to refine it.
+                <div class="deep-dive-box">
+                    <h4 class="deep-dive-title">Binary Polynomial Arithmetic</h4>
+                    <p>Message bits `1101` become \( x^3 + x^2 + 1 \). We divide this message polynomial by a standard
+                        "Generator Polynomial" (using XOR for subtraction).</p>
+                    <p>The <strong>Remainder</strong> is the Checksum.</p>
+                    <ul>
+                        <li>Sender sends: Message + Remainder.</li>
+                        <li>Receiver divides by Generator. If Remainder is <strong>Zero</strong>, data is valid.</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Coding Divisibility</h2>
-            <p>We use Numpy to handle polynomial coefficients.</p>
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Polynomial Division in Python</h2>
+                <p>Using NumPy for polynomial algebra.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Numpy: Polynomial Operations</div>
-                <pre><code class="language-python">import numpy as np
+# P(x) = x^3 - 2x^2 - 4   (Coeffs: [1, -2, 0, -4])
+Numerator = [1, -2, 0, -4]
 
-# P(x) = x^2 - 5x + 6 (Roots are 2, 3)
-# Represented as [1, -5, 6]
-P = np.array([1, -5, 6])
+# D(x) = x - 3           (Coeffs: [1, -3])
+Denominator = [1, -3]
 
-# D(x) = x - 2
-D = np.array([1, -2])
+# Perform Division
+quotient, remainder = np.polydiv(Numerator, Denominator)
 
-# Divide P(x) / D(x)
-quotient, remainder = np.polydiv(P, D)
+print(f"Quotient Coeffs: {quotient}")    # [1. 1. 3.] -> x^2 + x + 3
+print(f"Remainder Coeffs: {remainder}")  # [5.] 
 
-print(f"Quotient: {quotient}")  # Output: [1, -3] -> (x - 3)
-print(f"Remainder: {remainder}") # Output: [0] -> Evaluates to 0
-
-# If remainder is 0, then D(x) is a Factor of P(x).
-# This confirms the Factor Theorem!</code></pre>
+# Verification: (x-3)(x^2 + x + 3) + 5
+# = x^3 + x^2 + 3x - 3x^2 - 3x - 9 + 5
+# = x^3 - 2x^2 - 4. Correct!
+</code></pre>
+                </div>
             </div>
         </section>
 
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

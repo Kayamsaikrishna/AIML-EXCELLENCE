@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.05 Constrained Optimization - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_03_2d_deriv_test.html" class="nav-link">03. 2nd Derivative
+                                Test</a></li>
+                        <li class="nav-item"><a href="14_04_saddle_points.html" class="nav-link">04. Saddle Points</a>
+                        </li>
+                        <li class="nav-item"><a href="14_05_constrained_opt.html" class="nav-link active">05.
+                                Constrained Opt</a></li>
+                        <li class="nav-item"><a href="14_06_lagrange_multipliers.html" class="nav-link">06. Lagrange
+                                Multipliers</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">The Fence</span>
+                </div>
+                <h1>Constrained Optimization</h1>
+                <p class="lead-text">Maximizing success within the boundaries of reality.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The General Problem</h3>
+                    <p>
+                        Most optimization problems are not free-roaming. We want to find the best parameters
+                        \(\mathbf{x}\) subject to limits.
+                    </p>
+                    <div class="math-block">
+                        $$
+                        \begin{aligned}
+                        &\text{minimize} && f(\mathbf{x}) \\
+                        &\text{subject to} && g_i(\mathbf{x}) = 0 \quad \text{(Equality Constraints)} \\
+                        & && h_j(\mathbf{x}) \le 0 \quad \text{(Inequality Constraints)}
+                        \end{aligned}
+                        $$
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Regularization</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Hard vs. Soft Constraints</h3>
+                    <p>
+                        In deep learning, we rarely use "Hard" constraints (like \(|\mathbf{w}| < 1\)) directly because
+                            they are hard to differentiate through. Instead, we turn them into "Soft" constraints by
+                            adding a penalty term to the loss function. </p>
+                            <p>
+                                For example, L2 Regularization (Weight Decay) is actually a solution to:
+                                <br><strong>"Minimize Loss subject to ||w||² < C"</strong>.
+                                        <br>By using Lagrange Multipliers, this becomes:
+                                        <br><strong>"Minimize Loss + λ||w||²"</strong>.
+                            </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Unconstrained[Free Optimization] -->|Add Constraint| Bounded[Bounded Region]
+                        Bounded -->|Lagrange| Dual[Dual Problem]
+                        Dual -->|Approximation| Regularization[Regularization Term]
+
+                        style Regularization fill:#2b6cb0,stroke:#4299e1
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Parameter Clipping</h2>
+                <div class="code-header">projected_gradient.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# A simple way to enforce constraints is "Projected Gradient Descent".
+# After every update step, we "clip" the parameters to stay inside the box.
+
+def projected_gradient_descent(start_x, learning_rate, steps):
+    x = start_x
+    path = [x]
+    
+    for _ in range(steps):
+        # 1. Gradient Step (Minimize x^2)
+        grad = 2 * x
+        x = x - learning_rate * grad
+        
+        # 2. Projection Step (Constraint: -1 <= x <= 1)
+        x = np.clip(x, -1, 1)
+        
+        path.append(x)
+    return path
+
+# Start far outside the box
+start = 5.0
+path = projected_gradient_descent(start, 0.5, 5)
+
+print(f"Path: {path}")
+# Notice it quickly hits 1.0 and stays there. 
+# The constraint 'activates'.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="14_04_saddle_points.html" class="footer-link">← Prev: Saddle Points</a>
+                        <span class="separator">|</span>
+                        <a href="14_06_lagrange_multipliers.html" class="footer-link">Next: Lagrange Multipliers →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

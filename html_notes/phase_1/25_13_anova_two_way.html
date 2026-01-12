@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.13 ANOVA (Two-Way) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_12_anova_one_way.html" class="nav-link">12. Anova One Way</a>
+                        </li>
+                        <li class="nav-item"><a href="25_13_anova_two_way.html" class="nav-link active">13. Anova Two
+                                Way</a></li>
+                        <li class="nav-item"><a href="25_14_chi_square_independence.html" class="nav-link">14. Chi
+                                Square Independence</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Interactions</span>
+                </div>
+                <h1>ANOVA (Two-Way)</h1>
+                <p class="lead-text">Studying how two different categorical variables affect a single outcome, and
+                    whether they work together.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Beyond One Factor</h3>
+                    <p>
+                        A Two-way ANOVA answers three questions at once:
+                        1. <strong>Main Effect of Factor A:</strong> Does A matter?
+                        2. <strong>Main Effect of Factor B:</strong> Does B matter?
+                        3. <strong>Interaction Effect (A x B):</strong> Does the effect of A depend on the level of B?
+                    </p>
+                </div>
+
+                <h2>1. The Concept of Interaction</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Factor 1: Dataset Augmentation]
+                        B[Factor 2: Model Size]
+                        A & B --> C{Performance}
+                        C --> D[Interaction: Does Augmentation help Big models more than Small models?]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Hyperparameter Tuning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Ops</span>
+                    <h3>The Optimization Matrix</h3>
+                    <p>
+                        You are researching the best training setup.
+                        - <strong>Factor A (Optimizer):</strong> SGD, Adam, RMSProp.
+                        - <strong>Factor B (Learning Rate):</strong> 1e-1, 1e-2, 1e-3.
+                    </p>
+                    <p>
+                        You train 3 runs for every combination (3x3 grid = 9 cells, 27 runs total).
+                        A <strong>Two-Way ANOVA</strong> tells you:
+                        - "Adam is generally better than SGD (Main Effect A)."
+                        - "1e-2 is generally better than 1e-1 (Main Effect B)."
+                        - <strong>CRITICAL:</strong> "Adam performs best at 1e-3, while SGD performs best at 1e-1 (Interaction
+                        Effect)."
+                    </p>
+                    <p>
+                        Finding the interaction effect is the key to deep learning success, as hyperparameters rarely
+                        work in isolation.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Visualizing Interaction</h2>
+                <p>
+                    If the lines on a plot of Group Means are <strong>Parallel</strong>, there is NO interaction.
+                    If the lines <strong>Cross</strong> or diverge, an interaction exists.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

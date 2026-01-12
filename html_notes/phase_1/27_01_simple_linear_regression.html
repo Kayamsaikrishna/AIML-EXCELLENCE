@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.01 Simple Linear Regression - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_01_simple_linear_regression.html" class="nav-link active">01.
+                                Simple Linear Regression</a></li>
+                        <li class="nav-item"><a href="27_02_ols_mechanics.html" class="nav-link">02. OLS Mechanics</a>
+                        </li>
+                        <li class="nav-item"><a href="27_03_geometric_regression.html" class="nav-link">03. Geometric
+                                Regression</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Linearity</span>
+                </div>
+                <h1>Simple Linear Regression (SLR)</h1>
+                <p class="lead-text">Finding the "Line of Best Fit" to describe the relationship between one input and
+                    one output.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Identity of Regression</h3>
+                    <p>
+                        Regression asks a simple question: <strong>"How much does Y change if X moves by one unit?"</strong>
+                        <br><br>
+                        It is the foundation of all supervised learning. Every Neural Network is just thousands of
+                        regressions stacked on top of each other.
+                    </p>
+                </div>
+
+                <h2>1. The Regression Equation</h2>
+                <div class="math-box">
+                    $$ Y = \beta_0 + \beta_1 X + \epsilon $$
+                </div>
+                <p>
+                    Where:
+                    - <strong>\(Y\)</strong>: Dependent Variable (Target).
+                    - <strong>\(X\)</strong>: Independent Variable (Feature).
+                    - <strong>\(\beta_0\)</strong>: Intercept (Where the line hits the Y-axis).
+                    - <strong>\(\beta_1\)</strong>: Slope (The "weight" or "impact" of X).
+                    - <strong>\(\epsilon\)</strong>: Error (The noise/residuals that the line can't explain).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Interpretation of Coefficients</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>The Intercept (\(\beta_0\))</h4>
+                        <p>The value of Y when X is zero. Useful in some contexts (e.g., base salary), but sometimes
+                            nonsensical (e.g., height of a person with zero age).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>The Slope (\(\beta_1\))</h4>
+                        <p>The change in Y for a 1-unit increase in X. This is the <strong>Signal</strong> we care about in Machine
+                            Learning.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: The Simplest Model</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Interpretability</span>
+                    <h3>The Baseline Standard</h3>
+                    <p>
+                        Before you use a Transformer or a Gradient Boosted Tree, you should ALWAYS run a Simple Linear
+                        Regression.
+                    </p>
+                    <p>
+                        - <strong>Benchmark:</strong> If a single line gives you 80% accuracy, is it worth adding the complexity of a
+                        Neural Network for the extra 2%?
+                        - <strong>Communication:</strong> It's easy to explain to a manager: "For every $1 spent on ads, we get $4 in
+                        revenue." You can't say that easily with a Black Box model.
+                    </p>
+                    <div class="insight-box">
+                        In many industries (Insurance, Finance), "Simple" is often better than "Accurate" because of
+                        legal requirements for <strong>Explainable AI (XAI)</strong>.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

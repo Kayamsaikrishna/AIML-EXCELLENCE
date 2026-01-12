@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02.01 Vectors & Scalars - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#" class="nav-link active">01. Vectors & Scalars</a></li>
+                    <li class="nav-item"><a href="02_02_vector_operations.html" class="nav-link">02. Vector Ops</a></li>
+                    <li class="nav-item"><a href="02_03_linear_combinations.html" class="nav-link">03. Linear Combos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 01. Vectors & Scalars
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 01</div>
+            <h1>Vectors, Scalars & Feature Spaces</h1>
+            <p class="lead-text">They aren't just arrows. In AI, Vectors are the language of meaning, representing
+                everything from pixels to semantic concepts in high-dimensional space.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: VECTOR DEFINITION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: What is a Vector?</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    subgraph Physics [Physics Definition]
+        Arrow["geometric object"]
+        Mag["Magnitude"]
+        Dir["Direction"]
+    end
+
+    subgraph CS [CS Definition]
+        Arr["Array / List"]
+        Index["Ordered Elements"]
+        Mem["Contiguous Memory"]
+    end
+
+    subgraph AI [AI Definition]
+        Feat["Feature Vector"]
+        Point["Point in Latent Space"]
+        Sem["Semantic Meaning"]
+    end
+
+    Arrow --> Mag
+    Arrow --> Dir
+    
+    Arr --> Index
+    Arr --> Mem
+    
+    Feat --> Point
+    Point --> Sem
+
+    style Feat fill:#dbeafe,stroke:#2563eb
+    style Point fill:#dcfce7,stroke:#16a34a
+    style Sem fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITIONS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Three Perspectives</h2>
+                <p>Depending on who you ask, a vector is:</p>
+                <ul>
+                    <li><strong>Physics:</strong> An arrow in space. Properties: Length and Direction. Invariant to
+                        coordinate systems.</li>
+                    <li><strong>Computer Science:</strong> An ordered list of numbers. <code>[1.5, 3.2, -0.9]</code>.
+                    </li>
+                    <li><strong>Machine Learning:</strong> A <em>Feature Vector</em>. Each dimension represents a
+                        distinct attribute of an entity.</li>
+                </ul>
+
+                <div class="math-block">
+                    $$ \mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} \in \mathbb{R}^n $$
+                </div>
+
+                <h3>The Scalar</h3>
+                <p>A <strong>Scalar</strong> is a single number value that "scales" a vector. In AI, loss values and
+                    learning rates are scalars.</p>
+            </div>
+        </section>
+
+        <!-- 2. HIGH DIMENSIONAL SPACES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>2. High-Dimensional Feature Spaces</h2>
+                <p>We rarely work in 2D or 3D. We work in \(\mathbb{R}^{d}\) where \(d\) can be thousands.</p>
+
+                <div class="deep-dive-box">
+                    <h4 class="deep-dive-title">Case Study: The "House" Vector</h4>
+                    <p>Imagine a house represented as a vector in \(\mathbb{R}^4\):</p>
+                    <div class="math-block">
+                        $$ \mathbf{x}_{house} = \begin{bmatrix} 2500 \text{ (sq ft)} \\ 4 \text{ (bedrooms)} \\ 2010
+                        \text{ (year)} \\ 1 \text{ (has pool?)} \end{bmatrix} $$
+                    </div>
+                    <p>This house is a single point in a 4-dimensional space. "Similar" houses are points that are close
+                        together in this space.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. WORD EMBEDDINGS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #7c3aed;">
+                <h2>3. Word Embeddings (NLP)</h2>
+                <p>The most famous vectors in AI are <strong>Word Embeddings</strong> (e.g., Word2Vec, GloVe, GPT
+                    activations).</p>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    King["King"]
+    Man["Man"]
+    Woman["Woman"]
+    Queen["Queen"]
+
+    King -->|"- Man"| NoGender["Royal Concept"]
+    NoGender -->|"+ Woman"| Queen
+
+    style King fill:#fef3c7,stroke:#d97706
+    style Queen fill:#fce7f3,stroke:#db2777
+                    </pre>
+                </div>
+                <p>These vectors capture semantic meaning. The famous arithmetic holds:</p>
+                <div class="math-block">
+                    $$ \vec{v}_{King} - \vec{v}_{Man} + \vec{v}_{Woman} \approx \vec{v}_{Queen} $$
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>4. Vectors in Python (NumPy & PyTorch)</h2>
+                <p>Numpy arrays are the standard implementation of vectors.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import torch
+import matplotlib.pyplot as plt
+
+# 1. Defining Vectors
+v_row = np.array([1, 2, 3])          # Shape (3,)
+v_col = np.array([[1], [2], [3]])    # Shape (3, 1)
+
+print(f"Row Vector Shape: {v_row.shape}")
+print(f"Col Vector Shape: {v_col.shape}")
+
+# 2. Scaling (Scalar Multiplication)
+alpha = 0.5
+v_scaled = alpha * v_row 
+print(f"Scaled: {v_scaled}") # [0.5, 1.0, 1.5]
+
+# 3. AI Example: Random Embedding
+# A random vector of dimension 512 (like in GPT-2 small)
+gpt_vector = torch.randn(512)
+print(f"Embedding Norm (Length): {torch.norm(gpt_vector):.4f}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

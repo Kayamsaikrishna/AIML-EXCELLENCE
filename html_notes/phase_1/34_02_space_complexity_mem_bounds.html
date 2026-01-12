@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>34.02 Space Complexity & Memory Bounds - Complexity Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.10.1 Complexity Core</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="34_01_time_complexity_big_o.html" class="nav-link">01. Time
+                                Complexity & Big O</a></li>
+                        <li class="nav-item"><a href="34_02_space_complexity_mem_bounds.html"
+                                class="nav-link active">02. Space Complexity</a></li>
+                        <li class="nav-item"><a href="34_03_complexity_classes_p_np.html" class="nav-link">03.
+                                Complexity Classes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Complexity Theory</span>
+                    <span class="badge secondary">Memory Wall</span>
+                </div>
+                <h1>Space Complexity & Memory Bounds</h1>
+                <p class="lead-text">Measuring Memory Consumption. Analyzing how much RAM or GPU VRAM is required to
+                    store model weights, activation maps, and intermediate states.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The VRAM Paradox</h3>
+                    <p>
+                        In deep learning, we often have enough time to train a model, but not enough memory. **Space
+                        Complexity** defines the total amount of auxiliary space required by an algorithm as a function
+                        of the input size. In AI, this is often the #1 bottleneck for "Mega-models."
+                    </p>
+                </div>
+
+                <h2>1. Auxiliary vs. Total Space</h2>
+                <ul>
+                    <li><strong>Total Space:</strong> The memory for input data + the memory needed for computation.</li>
+                    <li><strong>Auxiliary Space:</strong> The extra or temporary space used by the algorithm (e.g., buffers, stacks,
+                        recursion state).</li>
+                </ul>
+                <div class="math-box">
+                    $$ \text{Space Complexity} = O(\text{Input Size}) + O(\text{Auxiliary Workspace}) $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Memory Scaling in ML</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Parameter Storage</h4>
+                        <p>A model with 7B parameters using 16-bit floats requires \((7 \times 10^9 \times 2)\) bytes
+                            \(\approx 14\) GB just to sit in memory. This is <strong>\(O(P)\)</strong> space where \(P\) is
+                            parameters.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Activations (The Hidden Cost)</h4>
+                        <p>During training, we must store the output of every neuron for the backward pass. For a layer
+                            of size \(N\) and batch size \(B\), we need <strong>\(O(B \cdot N)\)</strong> space. This "Activation
+                            Memory" is often larger than the model itself!</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>KV Cache (Inference)</h4>
+                        <p>In LLM inference, we cache previous token attentions. This grows linearly with sequence
+                            length: <strong>\(O(L \cdot d_{model} \cdot n_{layers})\)</strong>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Ops</span>
+                    <span class="ml-badge">Hardware</span>
+                    <h3>Managing the Memory Wall</h3>
+                    <ul>
+                        <li><strong>Gradient Checkpointing:</strong> Trading time for space. Instead of storing all activations
+                            (\(O(N)\)), we store only every few layers and recompute the rest (\(O(\sqrt{N})\)).</li>
+                        <li><strong>Mixed Precision (FP16/BF16/INT8):</strong> Reducing the bytes-per-parameter to halve or quarter
+                            the space complexity of model weights.</li>
+                        <li><strong>Data Parallelism (DP):</strong> Splitting the <strong>Linear Space</strong> requirement of batches across
+                            multiple GPUs.</li>
+                        <li><strong>Zero Redundancy Optimizer (ZeRO):</strong> Partitioning model states across GPUs so that each
+                            node only stores a fraction of the parameters, gradients, and optimizer states.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. In-Place Algorithms</h2>
+                <p>An algorithm is <strong>In-Place</strong> if it uses \(O(1)\) (constant) auxiliary space. In AI, this is rare
+                    because every operation (Matrix Mult) usually results in a new tensor. Library optimizations (like
+                    PyTorch's `inplace=True`) are efforts to turn \(O(N)\) operations into \(O(1)\) auxiliary ones.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

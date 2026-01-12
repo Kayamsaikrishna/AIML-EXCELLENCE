@@ -4,102 +4,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Power Iteration - Phase 1.2.3.11</title>
+    <title>04.11 Power Iteration - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_10_rayleigh_quotient.html">10. Rayleigh Quotient</a></li>
-            <li><a href="04_11_power_iteration.html" class="active">11. Power Iteration</a></li>
-            <li><a href="04_12_qr_algorithm.html">12. QR Algorithm</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_10_rayleigh_quotient.html" class="nav-link">10. Rayleigh
+                            Quotient</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">11. Power Iteration</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Power Iteration
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 11. The Dominant Force
         </div>
 
-        <header>
-            <h1>11. Power Iteration Method</h1>
-            <p class="subtitle">The scalable way to find the dominant eigenvector.</p>
+        <header class="page-header">
+            <div class="badge">Module 11</div>
+            <h1>Power Iteration</h1>
+            <p class="lead-text"> \( x_{k+1} = A x_k \). How Google finds the most important website in the world.</p>
         </header>
 
-        <section>
-            <h2>1. The Problem: Matrices are too big</h2>
-            <p>For a matrix like the Google Link Graph (billions of nodes), we cannot compute
-                \(\det(\mathbf{A} - \lambda\mathbf{I}) = 0\). Instead, we use an iterative approach that only
-                requires matrix-vector multiplication.</p>
+        <!-- VISUAL DIAGRAM: POWER METHOD -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Pull of Lambda Max</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Random["Random Vector x0"]
+    Ax["Apply A (Multiply)"]
+    Norm["Normalize"]
+    
+    Loop["Repeat k times"]
+    
+    Random --> Ax --> Norm --> Loop
+    Loop --> Ax
+    
+    Loop -- "Converges to" --> Eigen["Dominant Eigenvector v1"]
+    
+    Eigen -- "Why?" --> Explanation["Direction of Max Stretch overpowers all others"]
+
+    style Eigen fill:#dcfce7,stroke:#16a34a
+    style Explanation fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
         </section>
 
-        <section>
-            <h2>2. The Algorithm</h2>
-            <div class="module-card">
+        <!-- 1. DEFINITION: REPEATED MULTIPLICATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Algorithm</h2>
+                <p>To find the eigenvector corresponding to the largest eigenvalue \( |\lambda_1| > |\lambda_2| \dots
+                    \):</p>
                 <ol>
-                    <li>Start with a random vector \(\mathbf{b}_0\).</li>
-                    <li>Repeatedly multiply by \(\mathbf{A}\): \(\mathbf{b}_{k+1} =
-                        \frac{\mathbf{A}\mathbf{b}_k}{||\mathbf{A}\mathbf{b}_k||}\).</li>
+                    <li>Start with random \( b_0 \).</li>
+                    <li>Iterate: \( b_{k+1} = \frac{A b_k}{||A b_k||} \).</li>
+                    <li>Converges to \( v_1 \).</li>
                 </ol>
-                <p>As \(k \to \infty\), \(\mathbf{b}_k\) converges to the eigenvector associated with the
-                    <strong>largest eigenvalue</strong> (\(\lambda_{max}\)).
-                </p>
-            </div>
-            <div class="math-block">
-                $$ \mathbf{b}_k \approx \mathbf{v}_1 $$
             </div>
         </section>
 
-        <section>
-            <h2>3. Why it works</h2>
-            <p>Any random vector can be written as a linear combination of eigenvectors. When we multiply by
-                \(\mathbf{A}\) repeatedly, the component along the largest eigen-direction grows geometrically
-                faster than all other components (\(\lambda_1^k \gg \lambda_2^k\)).</p>
+        <!-- 2. AI APPLICATION: PAGERANK -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. PageRank</h2>
+                <p>The entire web can be modeled as a Markov Chain transition matrix \( M \).</p>
+                <p>The "Importance" of websites is simply the <strong>Principal Eigenvector</strong> of \( M \). Since
+                    the web has billions of pages, direct diagonalization is impossible. Power Iteration (simulating a
+                    random surfer) is the only scalable way to solve it.</p>
+            </div>
         </section>
 
-        <section>
-            <h2>4. Python: Dominant Eigen Discovery</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Implementing PageRank (Toy Example)</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
-def power_iteration(A, num_simulations: int):
-    # Random initial vector
+def power_iteration(A, num_simulations=10):
+    # Ideally choose a random vector
+    # To decrease the chance that it is orthogonal to the eigenvector
     b_k = np.random.rand(A.shape[1])
 
     for _ in range(num_simulations):
-        # Calculate the matrix-by-vector product
+        # calculate the matrix-by-vector product Ab
         b_k1 = np.dot(A, b_k)
 
-        # Re-normalize
-        b_k = b_k1 / np.linalg.norm(b_k1)
+        # calculate the norm
+        b_k1_norm = np.linalg.norm(b_k1)
 
-    return b_k
+        # re normalize the vector
+        b_k = b_k1 / b_k1_norm
 
-A = np.array([[0.5, 0.5], [0.2, 0.8]])
-v1 = power_iteration(A, 100)
+    # Rayleigh Quotient to find Lambda
+    mu = np.dot(b_k.T, np.dot(A, b_k)) / np.dot(b_k.T, b_k)
+    return b_k, mu
 
-print(f"Largest Eigenvector estimate:\n{v1}")
-# Verify with linalg.eig
+# Matrix A
+A = np.array([
+    [0.5, 0.5],
+    [0.2, 0.8]
+])
+
+eigenvec, eigenval = power_iteration(A, 50)
+print(f"Dominant Eigenvalue: {eigenval:.4f}")
+print(f"Dominant Eigenvector: {eigenvec.round(4)}")
+
+# Verify with NumPy
 vals, vecs = np.linalg.eig(A)
-print(f"Actual Principal Vector:\n{vecs[:, np.argmax(vals)]}")</code></pre>
+print(f"NumPy Max Val: {np.max(vals)}")
+</code></pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

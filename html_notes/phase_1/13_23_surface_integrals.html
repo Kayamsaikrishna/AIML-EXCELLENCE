@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13.23 Surface Integrals - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_22_greens_theorem.html" class="nav-link">22. Green's
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_23_surface_integrals.html" class="nav-link active">23. Surface
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_24_stokes_theorem.html" class="nav-link">24. Stokes'
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_32_divergence_theorem.html" class="nav-link">25. Divergence
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_33_curl_divergence.html" class="nav-link">26. Curl &
+                                Divergence</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Flux</span>
+                </div>
+                <h1>Surface Integrals</h1>
+                <p class="lead-text">Flowing through a 3D boundary.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">From Lines to Sheets</h3>
+                    <p>
+                        A <strong>Line Integral</strong> sums a field along a path. A <strong>Surface Integral</strong> sums a field across a
+                        surface \( S \) (like a balloon skin).
+                        The most common type is the <strong>Flux Integral</strong>:
+                        \[ \Phi = \iint_S \vec{F} \cdot d\vec{S} = \iint_S \vec{F} \cdot \vec{n} \, dA \]
+                        This measures the total "amount" of field \( \vec{F} \) passing *through* the surface. \(
+                        \vec{n} \) is the normal vector pointing outward.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Diffusion Models</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Probability Flux</h3>
+                    <p>
+                        In <strong>Diffusion Models</strong> (like Stable Diffusion), we model the "flow" of probability density from
+                        a clean image to pure noise (forward process) and back (reverse diffusion).
+                        Imagine the probability distribution of all possible images as a cloud in high-dimensional
+                        space.
+                    </p>
+                    <p>
+                        The <strong>Probability Flux</strong> describes how this cloud moves and expands over time. To ensure the
+                        model is valid, we must ensure that the total probability "mass" is conserved. Calculating the
+                        <strong>Surface Integral</strong> of the probability flux across boundaries allows researchers to derive the
+                        Ordinary Differential Equations (ODEs) used for fast sampling (e.g., DDIM samplers).
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Image[Data Distribution] -->|Diffusion Flux| Noise[Gaussian Noise]
+                        Flux[Probability Flux] -->|Surface Integral| Conservation[Mass Conservation]
+                        Conservation -->|Derive| ODE[Sampling ODEs]
+
+                        style Flux fill:#f6ad55,stroke:#c05621
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Flux Calculation</h2>
+                <div class="code-header">surface_flux.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+# Field F = < x, y, z > (Radial Outflow)
+# Surface: Sphere of radius 2
+# Parametrization: r(u, v) = < 2sin(u)cos(v), 2sin(u)sin(v), 2cos(u) >
+# u in [0, pi], v in [0, 2pi]
+
+u, v = sp.symbols('u v')
+r = 2
+x = r * sp.sin(u) * sp.cos(v)
+y = r * sp.sin(u) * sp.sin(v)
+z = r * sp.cos(u)
+
+R = sp.Matrix([x, y, z])
+F = sp.Matrix([x, y, z]) # The field at the surface
+
+# Calculate Normal Vector n = dR/du x dR/dv
+Ru = sp.diff(R, u)
+Rv = sp.diff(R, v)
+n = Ru.cross(Rv)
+
+# Flux = Integral(F . n) du dv
+integrand = F.dot(n)
+# Simplify integrand before integrating (it will be huge)
+integrand = sp.simplify(integrand) 
+# Should be 4*sin(u) * r * r -> something like that. Actually 4*sin(u)*4 = 16sin(u)
+
+flux = sp.integrate(sp.integrate(integrand, (v, 0, 2*sp.pi)), (u, 0, sp.pi))
+
+print(f"Calculated Flux: {flux}")
+# Expected: 4 * pi * r^3 = 32pi for vector field <x,y,z>
+# Wait, Divergence Theorem: Div(F)=3. Vol=4/3 pi r^3. Flux=3 * Vol = 4 pi r^3.
+# Correct result: 32 * pi.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_22_greens_theorem.html" class="footer-link">← Prev: Green's Theorem</a>
+                        <span class="separator">|</span>
+                        <a href="13_24_stokes_theorem.html" class="footer-link">Next: Stokes' Theorem →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

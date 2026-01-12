@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limits & Continuity (Multi) - Phase 1.3.6.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_05_multi_limits.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_05_multi_limits.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_05</div>
+            <h1>05. Limits and Continuity in Multiple Variables</h1>
+            <p class="lead-text">Approaching from all directions.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Challenge of Infinity</h2>
+<p>In 1D calculus, you can only approach a point from the left or right. In 2D+, there are
+                <strong>infinite</strong> possible paths (straight lines, parabolas, spirals) to reach a point \((a,
+                b)\). For a limit to exist, the function must approach the <i>same value</i> from <strong>every possible
+                    path</strong>.</p>
+<div class="math-block">
+                $$ \lim_{(x,y) \to (a,b)} f(x, y) = L $$
+            </div>
+</section>
+<section class="module-card">
+<h2>2. Proving Non-Existence</h2>
+<p>The easiest way to show a limit <i>doesn't</i> exist is to find two paths that yield different results.
+                Common test paths include:</p>
+<ul class="topic-list">
+<li>Along the x-axis (\(y=0\))</li>
+<li>Along the y-axis (\(x=0\))</li>
+<li>Along the line \(y=mx\)</li>
+<li>Along the parabola \(y=x^2\)</li>
+</ul>
+</section>
+<section>
+<h2>3. AI/ML Connection: The Continuity of Learning</h2>
+<div class="module-card">
+<h3>Gradient Explosions</h3>
+<p>Most AI algorithms rely on <strong>Gradient Descent</strong>, which assumes the Loss Function is
+                    <strong>Continuous</strong> and <strong>Smooth</strong>. If the loss function has a "Jump
+                    Discontinuity" (a sudden wall), the gradient becomes infinite, and the AI's weights will "Explode"
+                    to NaN (Not a Number).</p>
+<p>This is why we prefer <strong>ReLU</strong> or <strong>Sigmoid</strong> activations. While ReLU has a
+                    "kink" at zero, it is still continuous. If we used a "Step Function" (which has a discontinuity), we
+                    couldn't use backpropagation because the limit of the derivative doesn't exist at the step.
+                    Multivariable continuity ensures that a small change in weights always leads to a predictable, small
+                    change in error.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Path Sensitivity</h2>
+<div class="code-block">
+<pre><code class="language-python"># Function: f(x, y) = (xy) / (x^2 + y^2)
+# Does the limit exist at (0, 0)?
+
+def f(x, y):
+    if x == 0 and y == 0: return None
+    return (x * y) / (x**2 + y**2)
+
+# Path 1: y = 0
+print(f"Path y=0: {f(0.1, 0)}") # Result: 0.0
+
+# Path 2: y = x
+print(f"Path y=x: {f(0.1, 0.1)}") # Result: (0.1*0.1)/(0.1^2 + 0.1^2) = 0.5
+
+# Since 0.0 != 0.5, the limit DOES NOT EXIST.</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

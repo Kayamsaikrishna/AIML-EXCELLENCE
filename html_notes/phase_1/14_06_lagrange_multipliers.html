@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.06 Lagrange Multipliers - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_05_constrained_opt.html" class="nav-link">05. Constrained
+                                Opt</a></li>
+                        <li class="nav-item"><a href="14_06_lagrange_multipliers.html" class="nav-link active">06.
+                                Lagrange Multipliers</a></li>
+                        <li class="nav-item"><a href="14_07_kkt_conditions.html" class="nav-link">07. KKT Conditions</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">The Dual</span>
+                </div>
+                <h1>Lagrange Multipliers</h1>
+                <p class="lead-text">Converting Hard Constraints into solvable equations.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Geometric Intuition</h3>
+                    <p>
+                        We want to maximize \(f(x,y)\) subject to \(g(x,y)=c\).
+                        Imagine hiking on a mountain (\(f\)) but you must stay on a specific trail (\(g=c\)).
+                        The highest point on the trail occurs where the <strong>trail runs parallel to the contour lines</strong> of
+                        the mountain.
+                    </p>
+                    <p>
+                        Mathematically, this means their Normal Vectors (Gradients) are parallel:
+                    </p>
+                    <div class="math-block">
+                        $$ \nabla f = \lambda \nabla g $$
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Primal[Primal Problem: Min f s.t. g=0] -->|Define Lagrangian| L[L = f - λg]
+                        L -->|Solve ∇L=0| Critical[Critical Points of L]
+                        Critical -->|Find λ| Solution[Optimal x*, λ*]
+
+                        Solution -->|λ measures| Sensitivity[Price of Constraint]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Support Vector Machines (SVM)</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Power of the Dual</h3>
+                    <p>
+                        In SVMs, we want to find the widest street separation between classes.
+                        This is a constrained quadratic problem. By forming the Lagrangian and solving the **Dual
+                        Problem**, we get a solution that depends only on dot products \(x_i \cdot x_j\).
+                    </p>
+                    <p>
+                        This "Kernel Trick" allows infinite-dimensional classification efficiently.
+                        The Lagrange Multipliers \(\alpha_i\) tell us <strong>how important</strong> each data point is.
+                        If \(\alpha_i > 0\), that point is a <strong>Support Vector</strong> (holding up the margin).
+                        If \(\alpha_i = 0\), the point is irrelevant.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Solving with Scipy</h2>
+                <div class="code-header">lagrange_solve.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from scipy.optimize import minimize
+
+# Objective: Minimize x^2 + y^2 (Distance to origin)
+# Constraint: x + y = 1
+
+def f(x):
+    return x[0]**2 + x[1]**2
+
+# Constraint form: g(x) = 0
+def constraint(x):
+    return x[0] + x[1] - 1
+
+cons = {'type': 'eq', 'fun': constraint}
+
+# Run Optimizer
+res = minimize(f, [2.0, 2.0], constraints=cons)
+
+print(f"Optimal Solution: {res.x}") # Should be [0.5, 0.5]
+print(f"Optimal Value: {res.fun}")
+
+# Note: The 'lambda' multiplier is hidden inside the solver's logic.
+# Geometrically, at (0.5, 0.5):
+# Grad f = [1, 1]
+# Grad g = [1, 1]
+# They are parallel!</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="14_05_constrained_opt.html" class="footer-link">← Prev: Constrained Opt</a>
+                        <span class="separator">|</span>
+                        <a href="14_07_kkt_conditions.html" class="footer-link">Next: KKT Conditions →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

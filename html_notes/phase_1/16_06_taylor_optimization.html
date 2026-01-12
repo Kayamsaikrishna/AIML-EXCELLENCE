@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taylor Approximation in Optimization - Phase 1.3.9.6</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.9 ML Opt</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="16_06_taylor_optimization.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 16_06_taylor_optimization.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 23_06</div>
+            <h1>06. Taylor Approximation in Optimization</h1>
+            <p class="lead-text">Approximating the locally complex with the simple.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Local Quadratic Approximation</h2>
+<p>Optimization algorithms often approximate the loss function locally using a <strong>Taylor
+                    Polynomial</strong>. A first-order approximation leads to Gradient Descent, while a second-order
+                (quadratic) approximation leads to <strong>Newton's Method</strong>.</p>
+<div class="math-block">
+                $$ J(\theta + \Delta\theta) \approx J(\theta) + \nabla J(\theta)^T \Delta\theta +
+                \frac{1}{2}\Delta\theta^T \mathbf{H} \Delta\theta $$
+            </div>
+</section>
+<section class="module-card">
+<h2>2. Newton's Method</h2>
+<p>By finding the stationary point of the quadratic approximation, we get the Newton update rule:</p>
+<div class="math-block">
+                $$ \theta_{t+1} = \theta_t - \mathbf{H}^{-1} \nabla J(\theta_t) $$
+            </div>
+<p>This takes a much more direct "jump" toward the minimum than gradient descent, but requires calculating
+                and inverting the Hessian matrix.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Second-Order Optimizers</h2>
+<div class="module-card">
+<h3>L-BFGS and Beyond</h3>
+<p>Calculus teaches us that first-order methods (Gradient Descent) are robust but slow, while
+                    second-order methods (Newton's) are fast but computationally expensive (inverting a $10^9 \times
+                    10^9$ matrix is impossible). </p>
+<p>AI Research bridges this gap with <strong>Quasi-Newton methods</strong> like <strong>L-BFGS</strong>.
+                    These algorithms use Taylor-based logic to "Estimate" the Hessian without ever actually calculating
+                    it. This is deep calculus in action: using the history of gradients to build a mental map of the
+                    function's curvature. Understanding Taylor approximations allows you to choose the right optimizer
+                    for different problem scales—from small datasets where L-BFGS dominates, to massive LLMs where we
+                    stick to first-order Adam. </p>
+</div>
+</section>
+<section>
+<h2>4. Python: Second-Order Logic</h2>
+<div class="code-block">
+<pre><code class="language-python"># For a simple scalar function f(x) = x^4
+# f'(x) = 4x^3, f''(x) = 12x^2
+
+x = 2
+gradient = 4 * (x**3)
+hessian = 12 * (x**2)
+
+# Newton Step: x = x - (f'/f'')
+x_new = x - (gradient / hessian)
+print(f"Jumped from 2 to {x_new:.4f}")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

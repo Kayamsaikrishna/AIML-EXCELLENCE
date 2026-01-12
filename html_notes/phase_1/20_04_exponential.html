@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.04 Exponential Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_03_standard_normal.html" class="nav-link">03. Standard
+                                Normal</a></li>
+                        <li class="nav-item"><a href="20_04_exponential.html" class="nav-link active">04.
+                                Exponential</a></li>
+                        <li class="nav-item"><a href="20_05_gamma_dist.html" class="nav-link">05. Gamma Dist</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Decay</span>
+                </div>
+                <h1>The Exponential Distribution</h1>
+                <p class="lead-text">Modeling the time between independent events.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Continuous Wait</h3>
+                    <p>
+                        The Exponential distribution is the continuous sibling of the Geometric distribution. While
+                        Geometric models the number of *discrete* trials, Exponential models the *amount* of time or
+                        space.
+                        <br><br>
+                        It is the only continuous distribution with the <strong>Memoryless Property</strong>.
+                    </p>
+                </div>
+
+                <h2>1. Definition and PDF</h2>
+                <div class="math-box">
+                    A Random Variable \(X\) follows an Exponential distribution with rate parameter \(\lambda > 0\):
+                    $$ X \sim \text{Exp}(\lambda) $$
+                    The Probability Density Function (PDF) is:
+                    $$ f(x) = \begin{cases} \lambda e^{-\lambda x} & x \ge 0 \\ 0 & x < 0 \end{cases} $$ </div>
+                        <p>
+                            Where \(\lambda\) is the average number of events per unit time (same as Poisson).
+                        </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Cumulative Distribution Function (CDF)</h2>
+                <p>The probability that an event happens <em>before</em> time \(x\):</p>
+                <div class="math-box">
+                    $$ F(x) = P(X \le x) = 1 - e^{-\lambda x} $$
+                </div>
+                <p>
+                    <strong>Survival Function:</strong> The probability that an event has NOT happened yet by time
+                    \(x\):
+                    $$ S(x) = P(X > x) = e^{-\lambda x} $$
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Moments</h2>
+                <ul>
+                    <li><strong>Mean:</strong> \(E[X] = \frac{1}{\lambda}\).
+                        <br>If buses arrive at a rate of 2 per hour (\(\lambda=2\)), the average wait is 0.5 hours.
+                    </li>
+                    <li><strong>Variance:</strong> \(\text{Var}(X) = \frac{1}{\lambda^2}\).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>4. The Memoryless Property</h2>
+                <div class="math-box">
+                    $$ P(X > s + t \mid X > s) = P(X > t) $$
+                </div>
+                <p>
+                    <strong>Deep Intuition:</strong> Suppose you are waiting for a radioactive atom to decay. If you've
+                    already waited 100 years and it hasn't decayed, the probability that it decays in the <em>next</em>
+                    5 minutes is exactly the same as if you had just started watching it.
+                </p>
+                <div class="warning-box">
+                    <strong>Real World vs. Theory:</strong> Human mortality is NOT memoryless (we age). If you are 80,
+                    the probability of living another 20 years is much lower than if you are 20. But for technical
+                    failures like lightbulbs or computer parts (before they start wearing out), the Exponential model is
+                    a decent approximation.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>5. ML Connection: Survival Analysis</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Predictive Maintenance</span>
+                    <span class="ml-badge">Churn Prediction</span>
+                    <h3>Modeling Time-to-Event</h3>
+                    <p>
+                        In ML, we often predict the time until an event occurs:
+                    <ul>
+                        <li><strong>Churn:</strong> How many days until a user cancels their subscription?</li>
+                        <li><strong>Finance:</strong> How long until a loan defaults?</li>
+                        <li><strong>Health:</strong> How long until a patient relapses?</li>
+                    </ul>
+                    </p>
+                    <p>
+                        The Exponential distribution is the baseline model for these tasks. However, its memoryless
+                        property is often too restrictive, leading to the use of the <strong>Weibull
+                            Distribution</strong> (coming later), which allows the failure rate to increase or decrease
+                        over time.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

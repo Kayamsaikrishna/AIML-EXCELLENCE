@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.19 Taylor's Remainder Theorem - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_15_radius_interval.html" class="nav-link">15. Radius &
+                                Interval</a></li>
+                        <li class="nav-item"><a href="12_16_taylor_polynomials.html" class="nav-link">16. Taylor
+                                Polynomials</a></li>
+                        <li class="nav-item"><a href="12_17_maclaurin_series.html" class="nav-link">17. Maclaurin
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_18_common_taylor.html" class="nav-link">18. Common
+                                Expansions</a></li>
+                        <li class="nav-item"><a href="12_19_taylor_remainder.html" class="nav-link active">19. Taylor
+                                Remainder</a></li>
+                        <li class="nav-item"><a href="12_20_taylor_applications.html" class="nav-link">20. Taylor
+                                Applications</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Error Analysis</span>
+                </div>
+                <h1>Taylor's Remainder Theorem</h1>
+                <p class="lead-text">Exactly how wrong is your approximation?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Cost of Simplicity</h3>
+                    <p>
+                        When we replace a function \(f(x)\) with a polynomial \(P_n(x)\), we introduce an error called
+                        the <strong>Remainder</strong> \(R_n(x)\).
+                        Lagrange's form of the remainder tells us exactly how big this error might be:
+                    </p>
+                    <p>
+                        \[ R_n(x) = \frac{f^{(n+1)}(z)}{(n+1)!} (x - a)^{n+1} \]
+                    </p>
+                    <p>
+                        where \(z\) is some unknown point between \(a\) and \(x\). This formula allows us to calculate
+                        the <strong>Maximum Error Bound</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Safety Guarantees</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Certified Robustness</h3>
+                    <p>
+                        In safety-critical AI (like <strong>Autonomous Vehicles</strong> or <strong>Robotic Surgery</strong>), "good enough" isn't
+                        enough. We need guarantees.
+                    </p>
+                    <p>
+                        If an AI controller uses a linear approximation (Taylor degree 1) to predict a car's trajectory
+                        for the next 0.5 seconds, we MUST know the worst-case deviation.
+                        Using the Remainder Theorem, engineers can prove that the car's actual position will not deviate
+                        more than \( \epsilon \) meters from the predicted path.
+                        Without this calculus-based guarantee, we cannot legally deploy control algorithms in the real
+                        world.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Linear[Linear Prediction] --> Action[Steering Command]
+                        Action --> RealWorld[Real Car Movement]
+                        Linear --> Remainder{Check Remainder Bound}
+                        Remainder -->|Error &lt; Safety Margin| Safe[Execute] Remainder -->|Error > Safety Margin|
+                            Unsafe[Emergency Brake]
+
+                            style Safe fill:#48bb78,stroke:#2f855a
+                            style Unsafe fill:#f56565,stroke:#c53030
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Calculating Max Error</h2>
+                <div class="code-header">error_bound.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import math
+
+# Approximating sin(0.5) using 3rd degree Maclaurin polynomial
+# Remainder R_3 depends on 4th derivative of sin(x), which is sin(x).
+# Max value of sin(z) is 1.
+
+x_val = 0.5
+n = 3
+max_deriv = 1.0 # |sin(z)| <= 1
+
+error_bound = (max_deriv / math.factorial(n + 1)) * (x_val**(n + 1))
+
+print(f"Approximation: {x_val - x_val**3/6:.6f}")
+print(f"Actual sin(0.5): {math.sin(0.5):.6f}")
+print(f"Max Possible Error: {error_bound:.6f}")
+# The actual error is always less than the theoretical bound.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_18_common_taylor.html" class="footer-link">← Prev: Common Expansions</a>
+                        <span class="separator">|</span>
+                        <a href="12_20_taylor_applications.html" class="footer-link">Next: Applications →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

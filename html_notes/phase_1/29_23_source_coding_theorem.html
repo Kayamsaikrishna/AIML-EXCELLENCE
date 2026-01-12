@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.23 Source Coding Theorem - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.4 Advanced Concepts</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_22_channel_capacity.html" class="nav-link">22. Channel
+                                Capacity</a></li>
+                        <li class="nav-item"><a href="29_23_source_coding_theorem.html" class="nav-link active">23.
+                                Source Coding Theorem</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Compression</span>
+                    <span class="badge secondary">Limits</span>
+                </div>
+                <h1>Source Coding Theorem</h1>
+                <p class="lead-text">The Ultimate Squeeze. Shannon's First Theorem proves that Entropy is the physical
+                    floor for how small we can compress any piece of information without losing it.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Hard Floor of Reality</h3>
+                    <p>
+                        Can you compress a movie into a single bit? No. But why? Shannon proved that every source of
+                        information has a "density" called <strong>Entropy (\(H\))</strong>. If you try to represent a source using
+                        fewer than \(H\) bits per symbol, you are guaranteed to lose information.
+                    </p>
+                </div>
+
+                <h2>1. The Fundamental Limit</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>The Theorem Statement</h4>
+                        <p>For any discrete memoryless source with entropy \(H(X)\), there exists a coding scheme that
+                            can represent the source with an average length \(L\), such that:</p>
+                        <div class="math-box">$$ H(X) \le L < H(X) + \epsilon $$</div>
+                                <p>where \(\epsilon\) can be made arbitrarily small by encoding larger blocks of
+                                    symbols.</p>
+                        </div>
+                        <div class="topic-card">
+                            <h4>Lossless vs. Lossy</h4>
+                            <p>This theorem applies to <strong>Lossless</strong> compression (like ZIP files). It tells us the
+                                theoretical limit of perfection. If you want to compress more, you must move to
+                                <strong>Lossy</strong> compression (JPEG, MP3), where you intentionally throw away entropy.</p>
+                        </div>
+                    </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Redundancy: The Enemy of Efficiency</h2>
+                <p>
+                    Most data we interact with is highly redundant. English text is about 4.7 bits per character if we
+                    assume letters are independent, but its true entropy (considering context and grammar) is closer to
+                    <strong>1 bit per character</strong>.
+                </p>
+                <div class="mermaid">
+                    graph TD
+                    A[Raw Data] --> B{Calculate Entropy}
+                    B --> C[Identify Redundancy]
+                    C --> D[Apply Source Coding]
+                    D --> E[Compressed Data: Near Entropy Limit]
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">LLMs</span>
+                    <span class="ml-badge">Tokenization</span>
+                    <h3>Coding in Modern AI</h3>
+                    <p>
+                        The Source Coding Theorem is the invisible hand behind how AI "perceives" the world:
+                    </p>
+                    <ul>
+                        <li><strong>Byte Pair Encoding (BPE):</strong> Sub-word tokenizers used in models like GPT-4 are essentially
+                            source coders. They identify frequent patterns (merges) to represent common strings with
+                            single tokens, reducing the "description length" of the text and staying close to the
+                            entropy limit.</li>
+                        <li><strong>Model Compression:</strong> When we <strong>Prune</strong> or <strong>Quantize</strong> a neural network, we are trying to
+                            find a more efficient code for the model's weights. We are essentially saying: "The original
+                            32-bit floats have too much redundancy; we can reach the same 'intelligence' using only 4
+                            bits."</li>
+                        <li><strong>Autoencoders:</strong> The bottleneck layer in an autoencoder is a physical manifestation of
+                            source coding. It forces the network to find the "entropy-minimal" representation of the
+                            input data.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Logical Map</h2>
+                <div class="mermaid">
+                    mindmap
+                    root((Source Coding))
+                    Theoretical Goal
+                    Minimize L
+                    Approach H(X)
+                    Techniques
+                    Block Coding
+                    Variable Length
+                    Constraint
+                    Kraft Inequality
+                    Lossless Requirement
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

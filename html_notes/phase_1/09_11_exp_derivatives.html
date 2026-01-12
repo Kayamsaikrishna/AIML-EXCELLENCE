@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.11 Exponential Derivatives - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_10_trig_derivatives.html" class="nav-link">10. Trig
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_11_exp_derivatives.html" class="nav-link active">11.
+                                Exponential Derivatives</a></li>
+                        <li class="nav-item"><a href="09_12_log_derivatives.html" class="nav-link">12. Logarithmic
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_13_inv_trig_derivatives.html" class="nav-link">13. Inverse
+                                Trig</a></li>
+                        <li class="nav-item"><a href="09_14_hyperbolic_derivatives.html" class="nav-link">14. Hyperbolic
+                                (Tanh)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Special Number e</span>
+                </div>
+                <h1>Exponential Derivatives</h1>
+                <p class="lead-text">"I am my own derivative." — The number e.<br>The only function that describes its
+                    own rate of change.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Natural Rate</h3>
+                    <p>
+                        The number \(e\) (2.718...) isn't arbitrary. It's the unique base where the slope of the curve
+                        \(y=e^x\) is exactly equal to its height \(y\). If you own \(e^x\) dollars, your interest
+                        payment is exactly \(e^x\) dollars/year.
+                    </p>
+                </div>
+
+                <h2>1. The Formulae</h2>
+                <div class="glass-card">
+                    <p><strong>Natural Exponential:</strong></p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx}[e^x] = e^x \]
+                    </div>
+                    <p>With Chain Rule (Common in ML):</p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx}[e^{g(x)}] = e^{g(x)} \cdot g'(x) \]
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <p><strong>General Exponential (Base a):</strong></p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx}[a^x] = a^x \ln(a) \]
+                    </div>
+                    <p><em>(Since \(a^x\) grows faster or slower than \(e^x\), we need the scaling factor
+                            \(\ln(a)\).)</em></p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Func[Function: e^x]
+                        Deriv[Derivative: e^x]
+                        Slope[Slope = Height]
+
+                        Func -->|Differentiate| Deriv
+                        Deriv -->|Equals| Func
+                        Func --> Slope
+
+                        style Func fill:#63b3ed,stroke:#2b6cb0
+                        style Deriv fill:#63b3ed,stroke:#2b6cb0
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Sigmoid Shortcut</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Vanishing Gradients</h3>
+                    <p>
+                        The exponential is the core of the Sigmoid activation function \(\sigma(x) =
+                        \frac{1}{1+e^{-x}}\).
+                        Its derivative has a beautiful property:
+                        \[ \sigma'(x) = \sigma(x) \cdot (1 - \sigma(x)) \]
+                    </p>
+                    <p>
+                        <strong>Why this matters:</strong>
+                        1. <strong>Speed</strong>: We don't need to recompute exponentials during backprop; we usually
+                        just reuse the forward pass output.
+                        2. <strong>Vanishing Gradient</strong>: Notice the term \(\sigma(x)(1-\sigma(x))\). The maximum
+                        value of this is \(0.25\) (at x=0). This means every time we backprop through a Sigmoid layer,
+                        we lose 75% of our error signal. This is why deep networks couldn't be trained until ReLU came
+                        along!
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Visualizing the Gradient Vanish</h2>
+                <div class="code-header">sigmoid_vanish.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def sigmoid_derivative(x):
+    s = sigmoid(x)
+    return s * (1 - s)
+
+x_vals = np.linspace(-10, 10, 200)
+y_vals = sigmoid(x_vals)
+grad_vals = sigmoid_derivative(x_vals)
+
+print("Sigmoid(0):", sigmoid(0))         # 0.5
+print("Derivative(0):", sigmoid_derivative(0)) # 0.25 (Max)
+
+print("Sigmoid(5):", sigmoid(5))         # ~0.99
+print("Derivative(5):", sigmoid_derivative(5)) # ~0.006 (Tiny!)
+
+# Note: In a real notebook, we would plot this.
+# You would see the bell-shaped derivative curve peaking at 0.25,
+# and crushing to zero for large inputs (saturation).
+</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_10_trig_derivatives.html" class="footer-link">← Prev: Trig Derivatives</a>
+                        <span class="separator">|</span>
+                        <a href="09_12_log_derivatives.html" class="footer-link">Next: Log Derivatives →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

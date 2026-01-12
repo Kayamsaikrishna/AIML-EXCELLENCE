@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11.08 Trig Substitution - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.4 Integration</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="11_01_antiderivatives.html" class="nav-link">01.
+                                Antiderivatives</a></li>
+                        <li class="nav-item"><a href="11_02_indefinite_integrals.html" class="nav-link">02. Indefinite
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="11_03_definite_integrals.html" class="nav-link">03. Definite
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="11_04_ftc.html" class="nav-link">04. FTC</a></li>
+                        <li class="nav-item"><a href="11_05_substitution.html" class="nav-link">05. Substitution
+                                Rule</a></li>
+                        <li class="nav-item"><a href="11_06_by_parts.html" class="nav-link">06. Integration by Parts</a>
+                        </li>
+                        <li class="nav-item"><a href="11_07_trig_integrals.html" class="nav-link">07. Trig Integrals</a>
+                        </li>
+                        <li class="nav-item"><a href="11_08_trig_substitution.html" class="nav-link active">08. Trig
+                                Substitution</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.4</span>
+                    <span class="badge secondary">Geometry</span>
+                </div>
+                <h1>Trigonometric Substitution</h1>
+                <p class="lead-text">Turning square roots into circles.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Hidden Circle</h3>
+                    <p>
+                        Algebra hates square roots like \(\sqrt{1-x^2}\). But Trigonometry loves them, because they
+                        represent the sides of a right triangle. We map the algebraic problem to a geometric one.
+                    </p>
+                </div>
+
+                <h2>1. The Mapping</h2>
+                <div class="glass-card">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Expression</th>
+                                <th>Substitution</th>
+                                <th>Identity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>\(\sqrt{a^2 - x^2}\)</td>
+                                <td>\(x = a \sin \theta\)</td>
+                                <td>\(1 - \sin^2 = \cos^2\)</td>
+                            </tr>
+                            <tr>
+                                <td>\(\sqrt{a^2 + x^2}\)</td>
+                                <td>\(x = a \tan \theta\)</td>
+                                <td>\(1 + \tan^2 = \sec^2\)</td>
+                            </tr>
+                            <tr>
+                                <td>\(\sqrt{x^2 - a^2}\)</td>
+                                <td>\(x = a \sec \theta\)</td>
+                                <td>\(\sec^2 - 1 = \tan^2\)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Algebra[Algebraic Integral] -->|Sub x -> theta| Trig[Trig Integral]
+                        Trig -->|Solve| TrigSol[Solution in theta]
+                        TrigSol -->|Reference Triangle| Final[Solution in x]
+
+                        style TrigSol fill:#ed64a6,stroke:#97266d
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: High-Dimensional Spheres</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Curse of Dimensionality</h3>
+                    <p>
+                        AI models operate in high-dimensional spaces (d > 1000). To understand distances in these
+                        spaces, we need to integrate over the volume of a hypersphere.
+                    </p>
+                    <p>
+                        The math of <strong>Trig Substitution</strong> generalizes to \(N\)-dimensions (using spherical
+                        coordinates). It leads to the counter-intuitive result that in high dimensions, most of the
+                        volume of a sphere is concentrated near the surface (the "shell").
+                    </p>
+                    <p>
+                        This geometric fact explains why <strong>L2 Normalization</strong> (projecting vectors onto the
+                        unit sphere) is so effective in stabilizing Neural Networks (BatchNorm/LayerNorm).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Solving the Circle</h2>
+                <div class="code-header">circle_area.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+a = sp.Symbol('a', positive=True)
+
+# Integral for Area of upper semi-circle: sqrt(a^2 - x^2)
+f = sp.sqrt(a**2 - x**2)
+
+# SymPy can solve this directly
+result = sp.integrate(f, x)
+
+print(f"Indefinite Integral: {result}")
+# The result involves asin(x/a), confirming the trig sub relationship.
+
+# Definite Integral for full circle area (2 * integral -a to a)
+area = sp.integrate(f, (x, -a, a))
+print(f"Area of Semi-Circle: {area}")
+print(f"Full Circle Area: {2*area}") # pi * a^2</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="11_07_trig_integrals.html" class="footer-link">← Prev: Trig Integrals</a>
+                        <span class="separator">|</span>
+                        <a href="11_09_partial_fractions.html" class="footer-link">Next: PFD & Improper →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

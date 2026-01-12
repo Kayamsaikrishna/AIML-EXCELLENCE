@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.02 First Derivative Test - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.3 Applications</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="10_01_extrema.html" class="nav-link">01. Critical Points</a></li>
+                        <li class="nav-item"><a href="10_02_first_deriv_test.html" class="nav-link active">02. First
+                                Deriv Test</a></li>
+                        <li class="nav-item"><a href="10_03_concavity.html" class="nav-link">03. Concavity</a></li>
+                        <li class="nav-item"><a href="10_04_second_deriv_test.html" class="nav-link">04. Second Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_05_curve_sketching.html" class="nav-link">05. Curve
+                                Sketching</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Classification</span>
+                </div>
+                <h1>The First Derivative Test</h1>
+                <p class="lead-text">Is it a Hill or a Valley? Ask the slopes around it.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Reading the Signs</h3>
+                    <p>
+                        A zero derivative just means "flat". To know if you're at the top or bottom, check the path you
+                        just walked (left) and the path ahead (right).
+                    </p>
+                </div>
+
+                <h2>1. The Test Logic</h2>
+                <div class="glass-card">
+                    <p>Let \(c\) be a critical point. Check signs of \(f'(x)\):</p>
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Left of c</th>
+                                <th>Right of c</th>
+                                <th>Conclusion</th>
+                                <th>Shape</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Positive (+)</td>
+                                <td>Negative (-)</td>
+                                <td><strong>Local Maximum</strong></td>
+                                <td>Up then Down (Peak)</td>
+                            </tr>
+                            <tr>
+                                <td>Negative (-)</td>
+                                <td>Positive (+)</td>
+                                <td><strong>Local Minimum</strong></td>
+                                <td>Down then Up (Valley)</td>
+                            </tr>
+                            <tr>
+                                <td>Same Sign</td>
+                                <td>Same Sign</td>
+                                <td>Neither</td>
+                                <td>Shelf (Inflection)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        StartCheck[Check neighbors of c] --> Left{f' left > 0?}
+                        Left -->|Yes| CheckRight{f' right &lt; 0?} CheckRight -->|Yes| Max[Local Maximum]
+                            CheckRight -->|No| Unknown[Neither/Inflection]
+
+                            Left -->|No| CheckRight2{f' right > 0?}
+                            CheckRight2 -->|Yes| Min[Local Minimum]
+
+                            style Max fill:#f56565
+                            style Min fill:#48bb78
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Momentum</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Overshooting the Minimum</h3>
+                    <p>
+                        In SGD with <strong>Momentum</strong>, the optimizer "remembers" the previous gradients.
+                        When approaching a minimum:
+                    </p>
+                    <ul>
+                        <li>On the left, the gradient is negative (pushing right).</li>
+                        <li>After crossing the minimum, the gradient becomes positive (pushing left).</li>
+                    </ul>
+                    <p>
+                        This "sign flip" is the signal to the optimizer that it has overshot the target. Advanced
+                        optimizers use this information to dampen velocity. The First Derivative Test explains
+                        <strong>why</strong> gradients flip signs at the optimal point.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: The Sign Chart</h2>
+                <div class="code-header">sign_chart_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def f_prime(x):
+    # Derivative of x^3 - 3x is 3x^2 - 3
+    # Critical points at x = 1, -1
+    return 3*x**2 - 3
+
+crit_points = [-1, 1]
+epsilon = 0.1
+
+print(f"{'Point':<10} | {'Left Slope':<12} | {'Right Slope':<12} | {'Result'}")
+print("-" * 50)
+
+for c in crit_points:
+    left_sign = np.sign(f_prime(c - epsilon))
+    right_sign = np.sign(f_prime(c + epsilon))
+    
+    if left_sign > 0 and right_sign < 0:
+        res = "MAX (Peak)"
+    elif left_sign < 0 and right_sign > 0:
+        res = "MIN (Valley)"
+    else:
+        res = "Inflection"
+        
+    print(f"{c:<10} | {left_sign:<12} | {right_sign:<12} | {res}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="10_01_extrema.html" class="footer-link">← Prev: Extrema</a>
+                        <span class="separator">|</span>
+                        <a href="10_03_concavity.html" class="footer-link">Next: Concavity →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

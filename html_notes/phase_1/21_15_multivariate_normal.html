@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.15 Multivariate Normal Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_14_vector_rvs.html" class="nav-link">14. Vector RVs</a></li>
+                        <li class="nav-item"><a href="21_15_multivariate_normal.html" class="nav-link active">15.
+                                Multivar Normal</a></li>
+                        <li class="nav-item"><a href="21_16_conditional_gaussian.html" class="nav-link">16. Cond.
+                                Gaussian</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Workhorse</span>
+                </div>
+                <h1>The Multivariate Normal (Gaussian)</h1>
+                <p class="lead-text">Generalizing the bell curve to $n$ dimensions.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Most Important Distribution in ML</h3>
+                    <p>
+                        The Multivariate Normal (MVN) is unique because it is completely defined by just two parameters:
+                        a <strong>Mean Vector</strong> \(\mu\) and a <strong>Covariance Matrix</strong> \(\Sigma\).
+                        <br><br>
+                        It is the "Gold Standard" because of its elegant mathematical properties:
+                        - Marginals are Gaussian.
+                        - Conditionals are Gaussian.
+                        - Linear combinations are Gaussian.
+                    </p>
+                </div>
+
+                <h2>1. The Joint PDF</h2>
+                <div class="math-box">
+                    For \(\mathbf{x} \in \mathbb{R}^k\):
+                    $$ f(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^k |\Sigma|}} \exp\left( -\frac{1}{2} (\mathbf{x}-\mu)^\top
+                    \Sigma^{-1} (\mathbf{x}-\mu) \right) $$
+                </div>
+                <p>
+                    <strong>The Quadratic Form:</strong> The term in the exponent \((\mathbf{x}-\mu)^\top \Sigma^{-1}
+                    (\mathbf{x}-\mu)\) is the squared <strong>Mahalanobis Distance</strong>. This term determines the
+                    shape of the "ellipsoid" of density.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Types of Covariance Matrices</h2>
+                <div class="two-col-grid">
+                    <div class="concept-card">
+                        <h3>Spherical (\(\Sigma = \sigma^2 \mathbf{I}\))</h3>
+                        <p>All features have same variance and zero correlation. Contours are circles/spheres.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>Diagonal (\(\Sigma = \text{diag}(\sigma_i^2)\))</h3>
+                        <p>Features have different variances but zero correlation. Contours are axis-aligned ellipses.
+                        </p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>Full (\(\Sigma\) is dense)</h3>
+                        <p>Features are correlated. Contours are rotated ellipses.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Gaussian Processes & VAEs</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Bayesian ML</span>
+                    <span class="ml-badge">Generative</span>
+                    <h3>Gaussian Processes (GPs)</h3>
+                    <p>
+                        A GP is just a Multivariate Normal over an <em>infinite</em> number of variables. We use it for
+                        non-parametric regression where we want to express uncertainty about the entire function shape,
+                        not just a single value.
+                    </p>
+                </div>
+
+                <h3>Variational Autoencoders</h3>
+                <p>
+                    In VAEs, we force the "Latent Space" to follow a Multivariate Normal distribution (usually a
+                    Standard Gaussian with \(\mu = \mathbf{0}, \Sigma = \mathbf{I}\)). This ensures the latent space is
+                    continuous and structured, allowing us to sample new data by just picking points from the bell
+                    curve.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Sampling: The Reparameterization Trick</h2>
+                <p>
+                    How do we sample from \(\mathcal{N}(\mu, \Sigma)\) in a way that is differentiable?
+                    <br>
+                    1. Sample \(\epsilon \sim \mathcal{N}(\mathbf{0}, \mathbf{I})\).
+                    <br>
+                    2. Use the <strong>Cholesky Decomposition</strong> \(\Sigma = \mathbf{L}\mathbf{L}^\top\).
+                    <br>
+                    3. Result: \(\mathbf{x} = \mu + \mathbf{L}\epsilon\).
+                    <br><br>
+                    This is the trick that made VAEs trainable with backpropagation!
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

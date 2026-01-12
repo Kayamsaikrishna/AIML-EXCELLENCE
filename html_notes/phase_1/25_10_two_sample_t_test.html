@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.10 Two-Sample T-Test - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_09_z_test_proportions.html" class="nav-link">09. Z Test
+                                Proportions</a></li>
+                        <li class="nav-item"><a href="25_10_two_sample_t_test.html" class="nav-link active">10. Two
+                                Sample T Test</a></li>
+                        <li class="nav-item"><a href="25_11_paired_t_test.html" class="nav-link">11. Paired T Test</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Group Comparison</span>
+                </div>
+                <h1>Two-Sample T-Test</h1>
+                <p class="lead-text">Comparing the means of two independent groups to see if they come from the same
+                    underlying reality.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Question</h3>
+                    <p>
+                        "Does Group A behave differently than Group B?"
+                        <br><br>
+                        - <strong>Independent:</strong> The people in Group A have no relationship with the people in Group B.
+                    </p>
+                </div>
+
+                <h2>1. The Test Statistic (Equal Variance)</h2>
+                <div class="math-box">
+                    $$ t = \frac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} $$
+                    $$ s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2} $$
+                </div>
+                <ul>
+                    <li>\(s_p\): <strong>Pooled Standard Deviation</strong>. We combine the noise of both groups to get a more stable
+                        estimate.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Welch's T-test (Unequal Variance)</h2>
+                <p>
+                    If the groups have very different sample sizes or spreads, we skip "pooling" and use **Welch's
+                    T-test**. This is the <u>default</u> in modern software like `scipy.stats` because it is more
+                    robust.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: A/B Testing</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Product ML</span>
+                    <span class="ml-badge">Experimentation</span>
+                    <h3>Model A vs. Model B</h3>
+                    <p>
+                        You have two model versions deployed in an <strong>A/B test</strong>.
+                        - <strong>Group A (Control):</strong> Users see current recommendations.
+                        - <strong>Group B (Experiment):</strong> Users see Neural-Collaborative Filtering.
+                    </p>
+                    <p>
+                        <strong>The Metric:</strong> Average session duration (in seconds).
+                        1. Collect data for 1000 users in each group.
+                        2. Run a <strong>Two-Sample T-test</strong>.
+                    </p>
+                    <p>
+                        If the T-test returns a P-value of 0.001, you have scientific proof that the new model has
+                        changed user behavior. It's not just a lucky day; the new algorithm is significantly better at
+                        keeping users on the app.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

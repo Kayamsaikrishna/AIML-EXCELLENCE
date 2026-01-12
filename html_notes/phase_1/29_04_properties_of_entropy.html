@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.04 Properties of Entropy - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.1 Entropy</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_03_differential_entropy.html" class="nav-link">03. Differential
+                                Entropy</a></li>
+                        <li class="nav-item"><a href="29_04_properties_of_entropy.html" class="nav-link active">04.
+                                Properties of Entropy</a></li>
+                        <li class="nav-item"><a href="29_05_joint_entropy.html" class="nav-link">05. Joint Entropy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Info Theory</span>
+                    <span class="badge secondary">Math Laws</span>
+                </div>
+                <h1>Properties of Entropy</h1>
+                <p class="lead-text">Universal Truths of Uncertainty. The mathematical axioms that define how
+                    "Information" behaves across systems.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Concave Nature of Knowledge</h3>
+                    <p>
+                        Entropy is fundamentally <strong>concave</strong>. This means that mixing two different sources of
+                        information always increases (or keeps constant) the total uncertainty.
+                        <br><br>
+                        "A little bit of two different rumors is more confusing than a lot of just one."
+                    </p>
+                </div>
+
+                <h2>1. Core Mathematical Properties</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Concavity</h4>
+                        <p>For any two distributions \(p\) and \(q\) and \(\lambda \in [0, 1]\):</p>
+                        <div class="math-box">
+                            $$ H(\lambda p + (1-\lambda)q) \ge \lambda H(p) + (1-\lambda) H(q) $$
+                        </div>
+                        <p>This ensures that optimization problems involving entropy are generally stable and
+                            well-behaved.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Non-negativity & Bounds</h4>
+                        <p>For a discrete random variable \(X\) with \(n\) outcomes:</p>
+                        <div class="math-box">
+                            $$ 0 \le H(X) \le \log_2 n $$
+                        </div>
+                        <p>\(H=0\) means certainty. \(H=\log n\) means uniform ignorance.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Grouping Rule</h4>
+                        <p>Entropy is additive across splits. If you group outcomes into subgroups, the total entropy is
+                            the entropy of the subgroups plus the weighted entropy within each subgroup.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Interaction Laws</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Independence Additivity</h4>
+                        <p>If \(X\) and \(Y\) are independent random variables:</p>
+                        <div class="math-box">
+                            $$ H(X, Y) = H(X) + H(Y) $$
+                        </div>
+                        <p>Knowing one tells you absolutely nothing about the other.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Conditioning Reduces Entropy</h4>
+                        <p>A fundamental theorem of Information Theory:</p>
+                        <div class="math-box">
+                            $$ H(X|Y) \le H(X) $$
+                        </div>
+                        <p><strong>"Information can never hurt."</strong> Knowing \(Y\) will either help you predict \(X\) or change
+                            nothing, but it will never make you more uncertain.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Optimization</span>
+                    <span class="ml-badge">ELBO</span>
+                    <h3>The Logic of the ELBO</h3>
+                    <p>
+                        In <strong>Variational Inference</strong>, we want to find a simple distribution \(q\) that approximates a
+                        complex one \(p\). We use <strong>Jensen's Inequality</strong>, which relies on the concave property of the
+                        Logarithm (and thus Entropy):
+                    </p>
+                    <div class="math-box">
+                        $$ \log E[X] \ge E[\log X] $$
+                    </div>
+                    <p>
+                        This allows us to construct the <strong>Evidence Lower Bound (ELBO)</strong>, which is the foundational loss
+                        function for Variational Autoencoders (VAEs). We optimize a "lower bound" because calculating
+                        the direct log-likelihood is often mathematically impossible.
+                    </p>
+                    <div class="insight-box">
+                        <strong>Why Stability Matters:</strong> Because entropy is concave, gradient descent won't get "confused" by
+                        local spikes in uncertainty during training—it will always try to move toward the smoothed
+                        maximum or minimum.
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Property Map</h2>
+                <div class="mermaid">
+                    mindmap
+                    root((Entropy Properties))
+                    Bounds
+                    Min: 0
+                    Max: log n
+                    Optimization
+                    Concavity
+                    Continuity
+                    Relationships
+                    H(X,Y) = H(X) + H(Y|X)
+                    Conditioning reduces H
+                    Units
+                    Bits (binary)
+                    Nats (natural)
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

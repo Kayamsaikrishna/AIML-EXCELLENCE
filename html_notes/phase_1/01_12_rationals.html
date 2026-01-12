@@ -4,167 +4,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rational Expressions - Phase 1.1.12</title>
+    <title>01.12 Rational Functions - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html" class="active">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_11_theorems.html" class="nav-link">11. Theorems</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">12. Rationals</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Rational Expressions
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 12. Rational Functions
         </div>
 
-        <header>
-            <h1>12. Rational Expressions & Asymptotes</h1>
-            <p class="subtitle">Division is dangerous. Handling infinite explosions in math and code.</p>
+        <header class="page-header">
+            <div class="badge">Module 12</div>
+            <h1>Rational Functions & Stability</h1>
+            <p class="lead-text">Ratio of two polynomials. When functions blow up (Vertical Asymptotes) and how "Poles"
+                determine system stability.</p>
         </header>
 
-        <!-- 1. BASICS -->
-        <section id="basics">
-            <h2>1. The DenominatorTrap</h2>
-            <div class="math-block">
-                $$ f(x) = \frac{P(x)}{Q(x)} $$
-            </div>
-            <p>The domain of a rational function excludes any \( x \) where \( Q(x) = 0 \). At these points, the
-                function creates a <strong>Vertical Asymptote</strong> (it shoots to \( \infty \)).</p>
+        <!-- VISUAL DIAGRAM: ASYMPTOTES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Singularity</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Func["Rational Function R(x) = P(x)/Q(x)"]
+    
+    subgraph Behavior
+        Hole["Removable Discontinuity"]
+        Vert["Vertical Asymptote (Pole)"]
+        Horiz["Horizontal Asymptote (Limit)"]
+    end
+    
+    subgraph Apps [AI & Engineering]
+        Stability["System Stability"]
+        Loss["Gradient Explosion"]
+        Approx["Pade Approximation"]
+    end
 
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Engineering Context</h3>
-                    <p>In Control Systems, poles (zeros of the denominator) determine stability. If a pole lies in the
-                        Right Half Plane, the system explodes (unstable oscillation).</p>
+    Func -->|"Q(a)=0, P(a)!=0"| Vert
+    Func -->|"Degree P = Degree Q"| Horiz
+    
+    Vert --> Stability
+    Vert --> Loss
+    Horiz --> Approx
+
+    style Vert fill:#fef2f2,stroke:#ef4444
+    style Stability fill:#dbeafe,stroke:#2563eb
+                    </pre>
                 </div>
-            </div>
-
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <!-- SVG: Hyperbola 1/x -->
-                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Axis -->
-                    <line x1="300" y1="50" x2="300" y2="250" stroke="#64748b" stroke-width="2" stroke-dasharray="5,5" />
-                    <!-- Asymptote -->
-                    <line x1="50" y1="150" x2="550" y2="150" stroke="#64748b" stroke-width="2" />
-
-                    <!-- Hyperbola -->
-                    <path d="M 310 50 Q 320 140 550 145" fill="none" stroke="#ef4444" stroke-width="3" />
-                    <path d="M 50 155 Q 280 160 290 250" fill="none" stroke="#ef4444" stroke-width="3" />
-
-                    <text x="310" y="40" fill="#ef4444" font-weight="bold">Explosion!</text>
-                    <text x="310" y="270" text-anchor="middle" font-weight="bold">x -> 0</text>
-                </svg>
             </div>
         </section>
 
-        <!-- 2. AI CONTEXT -->
-        <section id="ai-context">
-            <h2>2. Numerical Stability & Epsilon</h2>
-            <p>In Deep Learning, we divide frequently: Batch Normalization, Softmax, standardizing images. </p>
-            <p>If the denominator (variance) is zero, the gradient becomes <code>NaN</code> (Not a Number), and the
-                training crashes.</p>
-
-            <div class="module-card">
-                <h3 class="module-title">The Solution: Epsilon (\( \epsilon \))</h3>
-                <p>We add a tiny constant (usually `1e-5` or `1e-8`) to safe-guard the division.</p>
+        <!-- 1. DEFINITIONS: POLES & ZEROS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Poles and Zeros</h2>
                 <div class="math-block">
-                    $$ \hat{x} = \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}} $$
+                    $$ R(x) = \frac{P(x)}{Q(x)} = k \frac{(x-z_1)\dots}{(x-p_1)\dots} $$
                 </div>
-                <p>This prevents the asymptote. It turns the "infinite explosion" into a "large but finite number".</p>
+                <ul>
+                    <li><strong>Zeros (\(z_i\)):</strong> Where numerator is 0. Function value is 0.</li>
+                    <li><strong>Poles (\(p_i\)):</strong> Where denominator is 0. Function goes to \( \pm \infty \).
+                    </li>
+                </ul>
+
+                <h3>AI Relevance: Gradient Explosion</h3>
+                <p>If your loss function involves division (e.g., standardizing by variance \( \sigma^2 \)), calculating
+                    gradients near \( \sigma \approx 0 \) causes a "Pole" in the gradient landscape. We add \( \epsilon
+                    \) (epsilon) to avoid this singularity.</p>
+                <div class="math-block">
+                    $$ \text{BatchNorm}(x) = \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}} $$
+                </div>
             </div>
         </section>
 
-        <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Coding Numerical Stability</h2>
-            <p>Demonstrating the crash and the fix.</p>
+        <!-- 2. PADÉ APPROXIMANT -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f43f5e;">
+                <h2>2. Padé Approximant</h2>
+                <p>Often better than Taylor Series.</p>
+                <p>A Taylor Series uses a polynomial to approximate a function. A Padé Approximant uses a
+                    <strong>Rational Function</strong>. This allows it to model poles and singularities that Taylor
+                    Series cannot.</p>
+            </div>
+        </section>
 
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Numpy: Handling Division by Zero</div>
-                <pre><code class="language-python">import numpy as np
+        <!-- 3. PYTHON VISUALIZATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Visualizing a Pole</h2>
+                <p>Plotting \( 1/x \) to see the explosion.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
 
-# Scenario: Image variances. One pixel is completely black (variance=0).
-variance = np.array([0.5, 1.2, 0.0, 0.9])
-
-# FAILED Normalization
-try:
-    inv_std = 1.0 / np.sqrt(variance)
-    print(f"Unsafe: {inv_std}")
-except Exception as e:
-    print("Crash!") 
-# Numpy actually returns [1.41, 0.91, Inf, 1.05]
-# 'Inf' will turn into 'NaN' as soon as you multiply it by 0.
-
-# SAFE Normalization (Batch Norm style)
+# Avoid 0 to prevent true math error, but get close
+x = np.linspace(-2, 2, 100)
+# Add epsilon
 epsilon = 1e-5
-safe_inv_std = 1.0 / np.sqrt(variance + epsilon)
+y = 1 / (x + epsilon) 
 
-print(f"Safe: {safe_inv_std}")
-# Output: [1.414, 0.912, 316.22, 1.054]
-# Index 2 is now 316 (large) instead of Infinity. Manageable.</code></pre>
+print("At x=0, value explodes to:", 1/epsilon)
+# This mimics 'Gradient Explosion' in RNNs/Training
+</code></pre>
+                </div>
             </div>
         </section>
 
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

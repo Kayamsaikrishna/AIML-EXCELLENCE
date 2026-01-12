@@ -4,112 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cross Product Geom - Phase 1.2.8</title>
+    <title>02.08 Geometric Cross Product - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_07_cross_product.html">07. Cross Product</a></li>
-            <li><a href="02_08_cross_product_geom.html" class="active">08. Cross Product Geom</a></li>
-            <li><a href="02_09_triple_scalar.html">09. Triple Scalar Product</a></li>
-            <li><a href="10_triple_vector.html">10. Triple Vector Product</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Cross Product Geom
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>08. Geometric Interpretation of Cross Product</h1>
-            <p class="subtitle">Area, volume, and handedness.</p>
-        </header>
-
-        <section>
-            <h2>1. Area of the Parallelogram</h2>
-            <p>The <strong>magnitude</strong> of the cross product \( \|\mathbf{u} \times \mathbf{v}\| \) is equal to
-                the area of the parallelogram formed by the two vectors.</p>
-
-            <div class="visual-diagram">
-                <svg width="400" height="250" viewBox="0 0 400 250" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Parallelogram area -->
-                    <path d="M 50 200 L 250 200 L 300 100 L 100 100 Z" fill="#bfdbfe" opacity="0.5" stroke="#3b82f6"
-                        stroke-dasharray="2" />
-                    <!-- u and v -->
-                    <line x1="50" y1="200" x2="250" y2="200" stroke="#1e40af" stroke-width="3"
-                        marker-end="url(#arrow-dark)" />
-                    <line x1="50" y1="200" x2="100" y2="100" stroke="#1e40af" stroke-width="3"
-                        marker-end="url(#arrow-dark)" />
-                    <text x="150" y="220" fill="#1e40af">u</text>
-                    <text x="60" y="150" fill="#1e40af">v</text>
-                    <text x="170" y="140" fill="#1d4ed8" font-weight="bold">Area = ||u x v||</text>
-
-                    <defs>
-                        <marker id="arrow-dark" markerWidth="8" markerHeight="8" refX="7" refY="3" orientation="auto">
-                            <path d="M0,0 L0,6 L8,3 z" fill="#1e40af" />
-                        </marker>
-                    </defs>
-                </svg>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. The Right-Hand Rule</h2>
-            <div class="module-card">
-                <h3>Orientation & Spin</h3>
-                <p>The direction of the cross product vector is determined by the <strong>Right-Hand Rule</strong>. Curl
-                    your fingers from \( \mathbf{u} \) to \( \mathbf{v} \); your thumb points to \( \mathbf{u} \times
-                    \mathbf{v} \).
-                </p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Positive Orientation:</strong> Essential for consistent physics
-                        engines in reinforcement learning simulations.</li>
-                    <li class="topic-item"><strong>Handedness:</strong> AI for 3D modeling must strictly adhere to
-                        either Left-Handed or Right-Handed coordinate systems to avoid mirroring errors.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_07_cross_product.html" class="nav-link">07. Cross Product</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">08. Geometric Meaning</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Calculating Projection Area</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 08. Area & Determinants
+        </div>
 
-# Area of a triangle in 3D
-p1 = np.array([0, 0, 0])
-p2 = np.array([1, 2, 0])
-p3 = np.array([2, 0, 0])
+        <header class="page-header">
+            <div class="badge">Module 08</div>
+            <h1>Area and The Jacobian</h1>
+            <p class="lead-text">Measuring Space. How the cross product tells us how much we are "stretching" the fabric
+                of reality.</p>
+        </header>
 
-v1 = p2 - p1
-v2 = p3 - p1
+        <!-- VISUAL DIAGRAM: AREA -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Spanning Space</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    VecA["Vector A"]
+    VecB["Vector B"]
+    
+    subgraph Geometry
+        Parallelogram["Parallelogram Span"]
+        Area["Area = ||A x B||"]
+    end
+    
+    subgraph Algorithm
+        Det["Determinant"]
+        Jacobian["Jacobian (Change of Variables)"]
+    end
+    
+    VecA --> Parallelogram
+    VecB --> Parallelogram
+    Parallelogram --> Area
+    
+    Area -.-> Det
+    Det --> Jacobian
 
-# Magnitude of cross product = Area of parallelogram
-area_p = np.linalg.norm(np.cross(v1, v2))
-
-# Area of triangle = Half of parallelogram
-area_t = area_p / 2
-
-print(f"Triangle Area: {area_t}") # Output: 2.0</code></pre>
+    style Area fill:#dcfce7,stroke:#16a34a
+    style Jacobian fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. THE MAGNITUDE IS AREA -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Area of the Parallelogram</h2>
+                <p>The length of the cross product vector is exactly equal to the area of the parallelogram formed by \(
+                    \mathbf{a} \) and \( \mathbf{b} \).</p>
+                <div class="math-block">
+                    $$ \text{Area} = ||\mathbf{a} \times \mathbf{b}|| = ||\mathbf{a}|| ||\mathbf{b}|| \sin \theta $$
+                </div>
+                <p>If the vectors are parallel (\( \theta = 0 \)), the area is 0 (it collapses to a line).</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: JACOBIAN -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The Jacobian Determinant</h2>
+                <p>When we transform probability distributions (like in <strong>Normalizing Flows</strong> or VAEs), we
+                    warp space. To verify the probability sum stays 1.0, we divide by the "change in volume".</p>
+                <p>In 2D, this "change in area" is exactly the magnitude of the cross product (or determinant) of the
+                    transformation matrix columns.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Calculating Area</h2>
+                <p>Finding the area of a triangle (half a parallelogram).</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Triangle vertices
+A = np.array([0, 0, 0])
+B = np.array([3, 0, 0])
+C = np.array([0, 4, 0])
+
+# Edge Vectors
+AB = B - A
+AC = C - A
+
+# Cross Product
+cross_prod = np.cross(AB, AC)
+area_parallelogram = np.linalg.norm(cross_prod)
+area_triangle = 0.5 * area_parallelogram
+
+print(f"Area of Triangle: {area_triangle}") 
+# 0.5 * 3 * 4 = 6.0
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

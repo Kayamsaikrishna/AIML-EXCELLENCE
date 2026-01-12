@@ -4,97 +4,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invertibility - Phase 1.2.2.9</title>
+    <title>03.09 Invertibility - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_08_inverse.html">08. Inverse Matrices</a></li>
-            <li><a href="03_09_invertibility.html" class="active">09. Invertibility Conditions</a></li>
-            <li><a href="03_10_inverse_methods.html">10. Inverse Methods</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_08_inverse.html" class="nav-link">08. Inverse</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">09. Invertibility</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Invertibility
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 09. Singularity
         </div>
 
-        <header>
-            <h1>09. Conditions for Invertibility</h1>
-            <p class="subtitle">When can we undo a transformation?</p>
+        <header class="page-header">
+            <div class="badge">Module 09</div>
+            <h1>The Information Trap</h1>
+            <p class="lead-text"> When dimensions collapse. A singular matrix is a black hole for data.</p>
         </header>
 
-        <section>
-            <h2>1. The Non-Singular Threshold</h2>
-            <p>A matrix \( \mathbf{A} \) is invertible if and only if it satisfies the following equivalent conditions:
-            </p>
-            <div class="module-card">
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Determinant:</strong> \( \text{det}(\mathbf{A}) \neq 0 \). (The
-                        transformation doesn't collapse the space).</li>
-                    <li class="topic-item"><strong>Rank:</strong> It is <strong>Full Rank</strong> (\(
-                        \text{rank}(\mathbf{A}) = n \)).</li>
-                    <li class="topic-item"><strong>Independence:</strong> All columns (and rows) are linearly
-                        independent.</li>
-                    <li class="topic-item"><strong>Null Space:</strong> The only vector \( \mathbf{x} \) such that \(
-                        \mathbf{Ax} = 0 \) is the zero vector \( \mathbf{x} = 0 \).</li>
+        <!-- VISUAL DIAGRAM: INVERTIBILITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Tests for Existence</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Matrix["Matrix A (Square)"]
+    
+    subgraph Tests
+        Det["Determinant != 0"]
+        Rank["Full Rank (n)"]
+        Null["Null Space = {0}"]
+        Eig["0 is NOT an eigenvalue"]
+    end
+    
+    subgraph Status
+        Invert["Invertible (Non-Singular)"]
+        Sing["Singular (Non-Invertible)"]
+    end
+    
+    Matrix --> Det
+    Matrix --> Rank
+    
+    Det -- "Yes" --> Invert
+    Det -- "No" --> Sing
+    
+    Sing --> Collapse["Collapses Dimensions"]
+    Invert --> Preserve["Preserves Information"]
+
+    style Invert fill:#dcfce7,stroke:#16a34a
+    style Sing fill:#fee2e2,stroke:#b91c1c
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: THE INVERTIBLE MATRIX THEOREM -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Big Theorem</h2>
+                <p>All the following statements are equivalent. If one is true, they are <strong>all</strong> true:</p>
+                <ul>
+                    <li>\( A \) is invertible.</li>
+                    <li>\( A \) is row-equivalent to \( I \) (Full Rank).</li>
+                    <li>\( A\mathbf{x} = \mathbf{0} \) has only the trivial solution.</li>
+                    <li>The determinant \( \det(A) \neq 0 \).</li>
+                    <li>The columns of \( A \) form a basis for \( \mathbb{R}^n \).</li>
                 </ul>
             </div>
         </section>
 
-        <section>
-            <h2>2. Singularity in Data Science</h2>
-            <div class="module-card">
-                <h3>Multi-Collinearity and Redundant Features</h3>
-                <p>If you have a dataset where one feature is a linear combination of others (e.g., "Weight in kg" and
-                    "Weight in lbs"), the resulting matrix \( \mathbf{X}^T\mathbf{X} \) becomes
-                    <strong>Singular</strong>
-                    (determinant = 0).</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Model Failure:</strong> The computer cannot calculate \(
-                        (\mathbf{X}^T\mathbf{X})^{-1} \), throwing a "Singular Matrix" error.</li>
-                    <li class="topic-item"><strong>Low-Rank Approximation:</strong> Sometimes we intentionally make
-                        matrices non-invertible to compress data (PCA).</li>
+        <!-- 2. AI APPLICATION: CONDITION NUMBER -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Condition Number</h2>
+                <p>In AI, exact singularity is rare (due to noise). But "near singularity" is common and dangerous.</p>
+                <p>The <strong>Condition Number</strong> \( \kappa(A) = ||A|| \cdot ||A^{-1}|| \) tells us how close we
+                    are to singularity.</p>
+                <ul>
+                    <li>Small \( \kappa \): Stable.</li>
+                    <li>Large \( \kappa \): Ill-conditioned. Small input errors explode (Ex: Exploding Gradients).</li>
                 </ul>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Checking for Singularity</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Testing Solvability</h2>
+                <p>Checking Rank and Condition Number.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
-# Singular Matrix (Rows are dependent)
-A = np.array([[1, 2], [2, 4]]) 
+# A Nearly Singular Matrix (Cols are almost parallel)
+A = np.array([
+    [1, 1],
+    [1, 1.00000001]
+])
 
 det = np.linalg.det(A)
 rank = np.linalg.matrix_rank(A)
+cond = np.linalg.cond(A)
 
-print(f"Determinant: {det}") # Output: 0
-print(f"Rank: {rank}")       # Output: 1 (Not Full Rank)
+print(f"Determinant: {det:.10f}") # Non-zero, technically invertible
+print(f"Rank: {rank}")
+print(f"Condition Number: {cond:.2e}") 
+# ~2e8! Huge. This system is numerically unstable.
 
-if det == 0:
-    print("Matrix is Singular (Not Invertible)")</code></pre>
+# If we try to solve Ax = b, errors will be massive.
+b = np.array([2, 2])
+x = np.linalg.solve(A, b)
+print(f"Solution: {x}")
+</code></pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

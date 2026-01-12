@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30.07 Indirect Proofs - Logic & Proofs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.6.2 Proof Techniques</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="30_06_direct_proof_counterexamples.html" class="nav-link">06.
+                                Direct Proof & Counterexamples</a></li>
+                        <li class="nav-item"><a href="30_07_proof_by_contradiction.html" class="nav-link active">07.
+                                Proof by Contradiction</a></li>
+                        <li class="nav-item"><a href="30_08_mathematical_induction.html" class="nav-link">08.
+                                Mathematical Induction</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Proofs</span>
+                    <span class="badge secondary">Indirect</span>
+                </div>
+                <h1>Indirect Proof: Contradiction & Contraposition</h1>
+                <p class="lead-text">Reductio ad Absurdum. When a straight path is blocked, we prove the truth by
+                    showing that the alternatives lead to a world of impossible madness.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Indirect Advantage</h3>
+                    <p>
+                        Sometimes proving \(P \rightarrow Q\) directly is hard. <strong>Indirect proofs</strong> give us two clever
+                        detours:
+                    </p>
+                    <ul>
+                        <li><strong>Contraposition:</strong> Prove that "Not Q" implies "Not P". This is logically identical to the
+                            original statement.</li>
+                        <li><strong>Contradiction:</strong> Assume the statement is <strong>False</strong>, and show that this assumption breaks
+                            the laws of math. Since math can't be broken, the original statement must have been
+                            <strong>True</strong>.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Proof by Contraposition</h2>
+                <div class="math-box">
+                    $$ (P \rightarrow Q) \equiv (\neg Q \rightarrow \neg P) $$
+                </div>
+                <p><strong>Example:</strong> Prove that if \(n^2\) is even, then \(n\) is even.</p>
+                <ol>
+                    <li>Assume the opposite of the conclusion: \(n\) is <strong>odd</strong>.</li>
+                    <li>Then \(n = 2k + 1\).</li>
+                    <li>\(n^2 = (2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1\).</li>
+                    <li>This means \(n^2\) is <strong>odd</strong> (\(\neg P\)).</li>
+                    <li>By contraposition, if \(n^2\) is even, \(n\) must be even. \(\square\)</li>
+                </ol>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Proof by Contradiction</h2>
+                <p>One of the most powerful tools in history. Used to prove things that "don't exist" or are irrational.
+                </p>
+                <div class="example-box">
+                    <p><strong>Example:</strong> Prove that \(\sqrt{2}\) is irrational.</p>
+                    <ol>
+                        <li>Assume \(\sqrt{2}\) <strong>is</strong> rational (Assume \(\neg S\)).</li>
+                        <li>Then \(\sqrt{2} = a/b\) in lowest terms.</li>
+                        <li>\(2 = a^2/b^2 \rightarrow a^2 = 2b^2\). This means \(a\) is even.</li>
+                        <li>If \(a\) is even, \(a = 2k\), so \(a^2 = 4k^2\).</li>
+                        <li>\(4k^2 = 2b^2 \rightarrow b^2 = 2k^2\). This means \(b\) is also even.</li>
+                        <li><strong>Contradiction:</strong> If both \(a\) and \(b\) are even, the fraction was not in lowest terms!
+                            \(\therefore\) Our assumption was wrong. \(\sqrt{2}\) is irrational. \(\square\)</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Cybersecurity</span>
+                    <span class="ml-badge">Complexity</span>
+                    <h3>Why AI needs Contradiction</h3>
+                    <ul>
+                        <li><strong>Complexity Lower Bounds:</strong> In Computer Science, we prove that certain problems (like the
+                            Halting Problem) are <strong>undecidable</strong> using proof by contradiction. We assume a machine
+                            exists that solves it, move logically, and reach an impossible paradox.</li>
+                        <li><strong>Zero-Knowledge Proofs (ZKP):</strong> In blockchain and private AI, ZKPs rely on the idea that if
+                            a person didn't know the secret, the probability of them passing the challenge is zero. If
+                            they pass, the assumption they were lying leads to a contradiction.</li>
+                        <li><strong>Security Verification:</strong> To prove a system is "secure," we often prove that "If an
+                            adversary can break the system, they could also solve a known impossible math problem."
+                            Since they can't solve the problem, they can't break the system.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Workflow: Strategy Choice</h2>
+                <div class="mermaid">
+                    graph LR
+                    A{Prove P → Q} --> B[Direct Path Hard?]
+                    B -- Yes --> C{Is conclusion negative?}
+                    C -- Yes --> D[Try Contraposition]
+                    B -- No detours left --> E[Assume ¬Conclusion]
+                    E --> F[Look for Contradiction]
+                    F -- Found --> G[Statement Proven!]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05.01 Systems Intro - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.4 Systems of Equations</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#" class="nav-link active">01. Systems Intro</a></li>
+                    <li class="nav-item"><a href="05_02_homogeneous.html" class="nav-link">02. Homogeneous</a></li>
+                    <li class="nav-item"><a href="05_03_solution_spaces.html" class="nav-link">03. Solution Spaces</a>
+                    </li>
+                    <li class="nav-item"><a href="05_04_solutions_types.html" class="nav-link">04. Solutions Types</a>
+                    </li>
+                    <li class="nav-item"><a href="05_05_least_squares.html" class="nav-link">05. Least Squares</a></li>
+                    <li class="nav-item"><a href="05_06_determinacy.html" class="nav-link">06. Determinacy</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 01. Intersections
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 01</div>
+            <h1>Systems of Linear Equations</h1>
+            <p class="lead-text"> \( Ax = b \). The central problem of Linear Algebra.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: ROW VS COLUMN -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Two Perspectives</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    System["System Ax = b"]
+    
+    subgraph Row["Row Picture"]
+        Lines["Intersection of Lines/Planes"]
+        Constraint["Constraint Satisfaction"]
+    end
+    
+    subgraph Col["Column Picture"]
+        Combo["Linear Combination of Columns"]
+        Span["Is b in the Span of Columns?"]
+    end
+    
+    System --> Row
+    System --> Col
+    
+    Row --> Solution["Geometric Point"]
+    Col --> Solution["Vector Weights x"]
+
+    style Solution fill:#dcfce7,stroke:#16a34a
+    style Col fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Form</h2>
+                <p>A system of \( m \) linear equations with \( n \) variables can be written compactly as a matrix
+                    multiplication:</p>
+                <div class="math-block">
+                    $$ A \mathbf{x} = \mathbf{b} $$
+                </div>
+                <ul>
+                    <li>\( A \): Coefficient Matrix (\( m \times n \)).</li>
+                    <li>\( \mathbf{x} \): Vector of unknowns (\( n \times 1 \)).</li>
+                    <li>\( \mathbf{b} \): Constant vector (\( m \times 1 \)).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: NEURAL NETWORKS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The Forward Pass</h2>
+                <p>A single layer of a fully connected Neural Network is essentially a linear system (followed by a
+                    non-linearity):</p>
+                <div class="math-block">
+                    $$ \mathbf{z} = W \mathbf{x} + \mathbf{b} $$
+                </div>
+                <p>Here, we aren't "solving" for \( x \) (we know the input), but rather computing the linear
+                    transformation. However, training the network involves solving for the weights \( W \) that satisfy
+                    the data equations.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Visualizing Intersections</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# System:
+# 1x + 1y = 5
+# 2x - 1y = 1
+
+# Matrix Form
+A = np.array([[1, 1], [2, -1]])
+b = np.array([5, 1])
+
+# Solve
+x = np.linalg.solve(A, b)
+print(f"Intersection Point: {x}")
+
+# Visualization (Row Picture)
+x_vals = np.linspace(0, 5, 100)
+# Line 1: y = 5 - x
+y1 = 5 - x_vals
+# Line 2: y = 2x - 1
+y2 = 2 * x_vals - 1
+
+plt.figure(figsize=(6,6))
+plt.plot(x_vals, y1, label='x + y = 5')
+plt.plot(x_vals, y2, label='2x - y = 1')
+plt.scatter(x[0], x[1], color='red', zorder=5, label='Solution')
+plt.grid(True)
+plt.legend()
+plt.title("Row Picture: Intersection of Lines")
+plt.show() # In a notebook this would display
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

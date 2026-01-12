@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.15 Triple Integrals - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_11_jacobian_matrix.html" class="nav-link">11. Jacobian
+                                Matrix</a></li>
+                        <li class="nav-item"><a href="13_12_total_derivative.html" class="nav-link">12. Total
+                                Derivative</a></li>
+                        <li class="nav-item"><a href="13_13_double_integrals_rect.html" class="nav-link">13. Double
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_14_double_integrals_general.html" class="nav-link">14. Iterated
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_15_triple_integrals.html" class="nav-link active">15. Triple
+                                Integrals</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Volumes</span>
+                </div>
+                <h1>Triple Integrals</h1>
+                <p class="lead-text">Thinking in 3D voxels.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Adding up Volumetric Density</h3>
+                    <p>
+                        A <strong>Triple Integral</strong> \( \iiint_E f(x, y, z) \, dV \) sums up a quantity over a 3D solid region
+                        \( E \).
+                        If \( f(x, y, z) = 1 \), it simply calculates the <strong>Volume</strong> of the region.
+                        If \( f \) represents density (mass per unit volume), it calculates <strong>Total Mass</strong>.
+                    </p>
+                    <p>
+                        The bounds of integration can be complex, requiring careful definition of surfaces:
+                        \[ \int_{x=a}^b \int_{y=g_1(x)}^{g_2(x)} \int_{z=u_1(x,y)}^{u_2(x,y)} f(x,y,z) \, dz \, dy \, dx
+                        \]
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Volumetric Rendering (NeRF)</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Neural Radiance Fields</h3>
+                    <p>
+                        <strong>NeRF (Neural Radiance Fields)</strong> technology reconstructs 3D scenes from 2D images.
+                        To render a pixel, the AI shoots a "ray" into the 3D scene. Along this ray, it queries a neural
+                        network for the density \( \sigma \) and color \( c \) at every point.
+                    </p>
+                    <p>
+                        The final pixel color is calculated by a <strong>Volume Integral</strong> (approximate triple integral) along
+                        the ray:
+                        \[ C(r) = \int_{t_n}^{t_f} T(t) \sigma(r(t)) c(r(t), d) \, dt \]
+                        This is essentially summing up the light emitted by particles along the ray, accounting for
+                        occlusion (transmittance \( T \)). Understanding triple integrals is key to understanding how
+                        these 3D neural networks "see" the world.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Ray[Camera Ray] -->|Sample Points| P1(Point 1)
+                        Ray --> P2(Point 2)
+                        Ray --> P3(Point 3)
+                        P1 -->|Query Neural Net| Color1[Density/Color 1]
+                        P2 -->|Query Neural Net| Color2[Density/Color 2]
+                        P3 -->|Query Neural Net| Color3[Density/Color 3]
+                        Color1 --> Integral[Volumetric Integration]
+                        Color2 --> Integral
+                        Color3 --> Integral
+                        Integral --> Pixel[Final Pixel Color]
+
+                        style Integral fill:#ed8936,stroke:#c05621
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Computing Box Volume</h2>
+                <div class="code-header">triple_int.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">from scipy.integrate import tplquad
+
+# Integrate f(x, y, z) = x*y*z over the unit cube [0,1]^3
+f = lambda z, y, x: x * y * z
+
+# tplquad arguments: f, x_min, x_max, y_min_func, y_max_func, z_min_func, z_max_func
+val, err = tplquad(f, 
+                   0, 1, 
+                   lambda x: 0, lambda x: 1, 
+                   lambda x,y: 0, lambda x,y: 1)
+
+print(f"Integral Result: {val:.4f}")
+print(f"Error Estimate:  {err:.4e}")
+
+# Manual verification:
+# Int(x) from 0-1 = 1/2
+# Int(y) from 0-1 = 1/2
+# Int(z) from 0-1 = 1/2
+# Total = 1/8 = 0.1250</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_14_double_integrals_general.html" class="footer-link">← Prev: Iterated</a>
+                        <span class="separator">|</span>
+                        <a href="13_16_change_variables.html" class="footer-link">Next: Change Vars →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

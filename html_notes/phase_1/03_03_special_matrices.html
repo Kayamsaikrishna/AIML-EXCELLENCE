@@ -4,104 +4,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Matrices - Phase 1.2.2.3</title>
+    <title>03.03 Special Matrices - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_02_matrix_types.html">02. Matrix Types</a></li>
-            <li><a href="03_03_special_matrices.html" class="active">03. Special Matrices</a></li>
-            <li><a href="03_04_matrix_ops.html">04. Matrix Ops</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_02_matrix_types.html" class="nav-link">02. Matrix Types</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">03. Special Matrices</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Special Matrices
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 03. Special Forms
         </div>
 
-        <header>
-            <h1>03. Diagonal, Triangular, and Symmetric Matrices</h1>
-            <p class="subtitle">Structured matrices for efficient computation.</p>
+        <header class="page-header">
+            <div class="badge">Module 03</div>
+            <h1>The VIPs</h1>
+            <p class="lead-text"> Symmetric, Orthogonal, Skew. Structural properties that dictate behavior.</p>
         </header>
 
-        <section>
-            <h2>1. Definitions & Visuals</h2>
-            <div class="module-card">
-                <h3>Symmetric Matrix (\( \mathbf{A} = \mathbf{A}^T \))</h3>
-                <p>The elements are mirrored across the main diagonal. \( a_{ij} = a_{ji} \).</p>
-                <div class="math-block">
-                    $$ \begin{bmatrix} 1 & \color{blue}{2} & \color{red}{3} \\ \color{blue}{2} & 5 & \color{green}{6} \\
-                    \color{red}{3} & \color{green}{6} & 9 \end{bmatrix} $$
+        <!-- VISUAL DIAGRAM: SPECIAL TYPES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Reflection & Rotation</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Matrix["Square Matrix A"]
+    
+    subgraph Types
+        Sym["Symmetric: A = A^T"]
+        Skew["Skew-Symmetric: A = -A^T"]
+        Ortho["Orthogonal: A^T A = I"]
+    end
+    
+    subgraph Properties
+        RealEig["Real Eigenvalues (Sym)"]
+        Rot["Rotation/Reflection (Ortho)"]
+        Preserve["Preserves Norm (Ortho)"]
+    end
+    
+    Matrix --> Sym
+    Matrix --> Skew
+    Matrix --> Ortho
+    
+    Sym --> RealEig
+    Ortho --> Rot
+    Ortho --> Preserve
+
+    style Sym fill:#dcfce7,stroke:#16a34a
+    style Ortho fill:#fefe93,stroke:#d97706
+                    </pre>
                 </div>
-                <p><strong>AI Use:</strong> The <strong>Covariance Matrix</strong> and the <strong>Hessian
-                        Matrix</strong> (used in optimization) are always symmetric.</p>
             </div>
+        </section>
 
-            <div class="module-card">
-                <h3>Diagonal Matrix</h3>
-                <p>All non-diagonal elements are zero. Multiplying by a diagonal matrix is a simple element-wise
-                    scaling.</p>
+        <!-- 1. DEFINITION: SYMMETRIC MATRIX -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Symmetric Matrices</h2>
+                <p>A matrix is symmetric if it equals its transpose: \( A = A^T \).</p>
                 <div class="math-block">
-                    $$ \begin{bmatrix} w_1 & 0 & 0 \\ 0 & w_2 & 0 \\ 0 & 0 & w_3 \end{bmatrix} $$
+                    $$ A = \begin{bmatrix} 1 & \color{blue}{7} & \color{red}{3} \\ \color{blue}{7} & 4 &
+                    \color{green}{5} \\ \color{red}{3} & \color{green}{5} & 9 \end{bmatrix} $$
+                </div>
+                <p><strong>Importance:</strong> They ALWAYS have real eigenvalues and orthogonal eigenvectors.
+                    Covariance, Hessian, and Distance matrices are all symmetric.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: ORTHOGONAL MATRICES -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Orthogonal Matrices</h2>
+                <p>A matrix \( Q \) is orthogonal if its columns are orthonormal unit vectors.</p>
+                <div class="math-block">
+                    $$ Q^T Q = I \implies Q^{-1} = Q^T $$
+                </div>
+                <p>Multiplying by \( Q \) is just a <strong>Rotation</strong> (or reflection). It never stretches or
+                    shrinks the vector ($ ||Qx|| = ||x|| $). This is crucial for numerical stability in algorithms (like
+                    QR decomposition in RNNs).</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Rotation Matrix</h2>
+                <p>Creating an Orthogonal matrix that rotates space.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Rotation by 45 degrees
+theta = np.radians(45)
+c, s = np.cos(theta), np.sin(theta)
+
+Q = np.array([
+    [c, -s],
+    [s, c]
+])
+
+print("Rotation Matrix Q:")
+print(Q)
+
+# Check Orthogonality: Q.T @ Q should be Identity
+check = np.dot(Q.T, Q)
+print(f"\nQ^T * Q:\n{check.round(2)}")
+
+# Apply to vector [1, 0]
+v = np.array([1, 0])
+v_rot = np.dot(Q, v)
+print(f"\nRotated Vector: {v_rot}")
+# Should be [0.707, 0.707]
+</code></pre>
                 </div>
             </div>
-
-            <div class="module-card">
-                <h3>Triangular Matrices</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Upper Triangular (U):</strong> Elements below the diagonal are zero.
-                    </li>
-                    <li class="topic-item"><strong>Lower Triangular (L):</strong> Elements above the diagonal are zero.
-                    </li>
-                </ul>
-                <p><strong>AI Use:</strong> These are the output of <strong>LU Decomposition</strong>, used to solve
-                    linear systems efficiently.</p>
-            </div>
         </section>
 
-        <section>
-            <h2>2. Skew-Symmetric Matrices (\( \mathbf{A} = -\mathbf{A}^T \))</h2>
-            <p>Diagonal elements must be zero. They represent infinitesimal rotations in physics engines for robotics.
-            </p>
-        </section>
-
-        <section>
-            <h2>3. Python: Working with Structure</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-# Create a Symmetric Matrix
-A = np.array([[1, 2], [2, 5]])
-is_symmetric = np.allclose(A, A.T)
-
-# Extract Diagonal
-diag = np.diag(A)
-
-# Create Triangular matrices
-U = np.triu(A)
-L = np.tril(A)
-
-print(f"Upper Triangular:\n{U}")</code></pre>
-            </div>
-        </section>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

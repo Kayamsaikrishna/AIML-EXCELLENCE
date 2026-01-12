@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Jacobian Matrix - Phase 1.3.5.13</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_15_jacobian_matrix.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_15_jacobian_matrix.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_15</div>
+            <h1>13. The Jacobian Matrix</h1>
+            <p class="lead-text">The complete picture of multi-dimensional change.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Definition</h2>
+<p>While the Gradient (\(\nabla f\)) is for scalar functions, the <strong>Jacobian</strong> is for
+                <strong>vector-valued</strong> functions \(\mathbf{f}(\mathbf{x})\). If you map \(n\) inputs to \(m\)
+                outputs, the Jacobian is an \(m \times n\) matrix of all first-order partial derivatives:</p>
+<div class="math-block">
+                $$ \mathbf{J} = \begin{bmatrix} \frac{\partial f_1}{\partial x_1} &amp; \dots &amp; \frac{\partial f_1}{\partial
+                x_n} \\ \vdots &amp; \ddots &amp; \vdots \\ \frac{\partial f_m}{\partial x_1} &amp; \dots &amp; \frac{\partial
+                f_m}{\partial x_n} \end{bmatrix} $$
+            </div>
+</section>
+<section class="module-card">
+<h2>2. Local Linearization</h2>
+<p>The Jacobian acts as the <strong>best linear approximation</strong> of a complex transformation at a
+                specific point. It scales, rotates, and shears the local space around the point. The
+                <strong>determinant</strong> of the Jacobian (\(|J|\)) tells you the local "volume expansion factor" of
+                the transformation.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: ROBOTICS &amp; Flows</h2>
+<div class="module-card">
+<h3>Kinematics &amp; Reparameterization</h3>
+<p>In <strong>Robotics AI</strong>, the Jacobian maps the velocity of the robot's joints to the velocity
+                    of its hand (the end-effector). This allows the AI to calculate exactly how fast to turn a motor to
+                    move a tool in a straight line. </p>
+<p>In <strong>Generative AI (Normalizing Flows)</strong>, the Jacobian is used to transform simple noise
+                    into complex data. To calculate the probability of the generated data, we must divide by the
+                    Jacobian determinant to "account for the stretching of space". Jacobian-based regularization is also
+                    used to make Neural Networks more <strong>Resilient</strong>—forced to have a small Jacobian, the
+                    model becomes less sensitive to tiny, noisy changes in input.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Jacobian Calculation</h2>
+<div class="code-block">
+<pre><code class="language-python"># Example: Polar Coordinate transformation
+# f1 = r * cos(theta), f2 = r * sin(theta)
+
+import sympy as sp
+r, theta = sp.symbols('r theta')
+
+f1 = r * sp.cos(theta)
+f2 = r * sp.sin(theta)
+
+# Matrix([f1, f2]).jacobian([r, theta])
+jacobian_matrix = sp.Matrix([f1, f2]).jacobian([r, theta])
+
+print(f"Jacobian Matrix:\n{jacobian_matrix}")
+print(f"Jacobian Determinant: {sp.simplify(jacobian_matrix.det())}")
+# Determinant = r (The famous scaling factor for polar integration)</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

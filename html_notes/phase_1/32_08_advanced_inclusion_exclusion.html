@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32.08 Inclusion-Exclusion - Combinatorics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.8.3 Advanced Counting</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="32_07_stars_and_bars_distribution.html" class="nav-link">07. Stars
+                                & Bars</a></li>
+                        <li class="nav-item"><a href="32_08_advanced_inclusion_exclusion.html"
+                                class="nav-link active">08. Inclusion-Exclusion</a></li>
+                        <li class="nav-item"><a href="32_09_derangements_pigeonhole.html" class="nav-link">09.
+                                Pigeonhole Principle</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Combinatorics</span>
+                    <span class="badge secondary">Overlaps</span>
+                </div>
+                <h1>Advanced Inclusion-Exclusion</h1>
+                <p class="lead-text">Correcting the Over-count. A systematic method to count the union of multiple sets
+                    by adding, then subtracting, then adding back the various intersections.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Correction Cycle</h3>
+                    <p>
+                        When we want to find the total items in three sets \(A \cup B \cup C\), we can't just add them.
+                        Why? Because the items in \(A \cap B\) have been counted twice. But if we subtract them, we
+                        might over-correct for the items in \(A \cap B \cap C\). The Principle of Inclusion-Exclusion
+                        (PIE) provides the definitive formula for this correction.
+                    </p>
+                </div>
+
+                <h2>1. The Fundamental Formula</h2>
+                <div class="math-box">
+                    $$ |A \cup B \cup C| = |A| + |B| + |C| - (|A \cap B| + |A \cap C| + |B \cap C|) + |A \cap B \cap C|
+                    $$
+                </div>
+                <p>For \(n\) sets, the signs alternate: add individuals, subtract doubles, add triples, subtract
+                    quadruples...</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Counting via Complement</h2>
+                <p>PIE is most powerful when used to count items with <strong>no properties</strong> (Derangements or failures).</p>
+                <div class="math-box">
+                    $$ N(\text{none}) = N - \sum|A_i| + \sum|A_i \cap A_j| - ... $$
+                </div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> In a group of 100 students, 30 like Python, 25 like Java, 20 like C++,
+                        10 like Py+Java, 8 like Java+C++, 5 like Py+C++, and 2 like all three. How many like at least
+                        one?</p>
+                    <p>\( 30+25+20 - (10+8+5) + 2 = 75 - 23 + 2 = 54 \).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Metric Engineering</span>
+                    <span class="ml-badge">Search Queries</span>
+                    <h3>PIE in AI & Data Science</h3>
+                    <ul>
+                        <li><strong>Multi-Label Classification:</strong> When a model predicts multiple tags (e.g., "sunny" and
+                            "warm"), measuring the "True Reach" of the labels requires PIE to avoid double-counting
+                            overlapping regions in the label space.</li>
+                        <li><strong>Database Query Optimization:</strong> When a query spans multiple filters (WHERE age > 20 OR city
+                            = 'NY'), the optimizer uses inclusion-exclusion on metadata statistics to estimate the size
+                            of the result set.</li>
+                        <li><strong>Diverse Ensembles:</strong> In bagging/pasting, we want models that make different errors. PIE
+                            helps us calculate the coverage of an ensemble — the total set of samples that at least one
+                            model handles correctly.</li>
+                        <li><strong>Text Retrieval (Overlap):</strong> When calculating the Jaccard similarity or overlap between
+                            documents, we are essentially performing a 2-set inclusion-exclusion operation.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Venn Correction Flow</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Sum Individual Sets] --> B[Subtract Overlaps]
+                    B --> C[Add Triple Intersections]
+                    C --> D[Subtract Quadruple Intersections]
+                    D --> E["Final Union Count"]
+                    style A fill:#a8e6cf,stroke:#333
+                    style B fill:#ffd3b6,stroke:#333
+                    style C fill:#a8e6cf,stroke:#333
+                    style D fill:#ffd3b6,stroke:#333
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

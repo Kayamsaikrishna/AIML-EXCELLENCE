@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.14 Vector Random Variables - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_13_total_variance.html" class="nav-link">13. Total Variance</a>
+                        </li>
+                        <li class="nav-item"><a href="21_14_vector_rvs.html" class="nav-link active">14. Vector RVs</a>
+                        </li>
+                        <li class="nav-item"><a href="21_15_multivariate_normal.html" class="nav-link">15. Multivar
+                                Normal</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Feature Vector</span>
+                </div>
+                <h1>Vector Random Variables</h1>
+                <p class="lead-text">Scaling probability theory to handle arrays of variables simultaneously.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Thinking in Tensors</h3>
+                    <p>
+                        In ML, we don't process numbers one by one. We process <strong>Feature Verticals</strong>
+                        (columns) and <strong>Sample Vectors</strong> (rows).
+                        <br><br>
+                        A <strong>Random Vector</strong> \(\mathbf{X}\) is simply a collection of random variables mapped into a
+                        single mathematical object. This allows us to use Linear Algebra to solve probability problems.
+                    </p>
+                </div>
+
+                <h2>1. Notation</h2>
+                <div class="math-box">
+                    A random vector \(\mathbf{X}\) in \(\mathbb{R}^n\) is:
+                    $$ \mathbf{X} = \begin{bmatrix} X_1 \\ X_2 \\ \vdots \\ X_n \end{bmatrix} $$
+                    Its <strong>Mean Vector</strong> is:
+                    $$ E[\mathbf{X}] = \mu = \begin{bmatrix} E[X_1] \\ E[X_2] \\ \vdots \\ E[X_n] \end{bmatrix} $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Linear Transformations</h2>
+                <div class="math-box">
+                    If \(\mathbf{Y} = \mathbf{A}\mathbf{X} + \mathbf{b}\), then:
+                    <ul>
+                        <li>\(E[\mathbf{Y}] = \mathbf{A}E[\mathbf{X}] + \mathbf{b}\)</li>
+                        <li>\(\Sigma_{\mathbf{Y}} = \mathbf{A} \Sigma_{\mathbf{X}} \mathbf{A}^\top\)</li>
+                    </ul>
+                </div>
+                <p>
+                    <strong>Why is the transpose there?</strong> The covariance matrix is a 2nd-order object. When you
+                    multiply a vector by a matrix \(\mathbf{A}\), its variance (or "spread volume") scales by the
+                    squared magnitude of the transformation. \(\mathbf{A}\dots\mathbf{A}^\top\) is the matrix version of
+                    squaring.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Neural Network Activations</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Activations</span>
+                    <h3>Propagating Uncertainty</h3>
+                    <p>
+                        Every layer in a Neural Network is a transformation of a random vector:
+                        $$ \mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b}) $$
+                        To prevent <strong>Vanishing or Exploding Gradients</strong>, we need to ensure that the
+                        variance of the random vector \(\mathbf{h}\) stays within a reasonable range throughout the deep
+                        network.
+                    </p>
+                    <p>
+                        This is the core motivation behind <strong>Xavier/He Initialization</strong> and <strong>Batch
+                            Normalization</strong>—carefully controlling the mean and covariance of these
+                        high-dimensional hidden vectors.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Dot Products and Projections</h2>
+                <p>
+                    When we take a dot product \(\mathbf{w}^\top\mathbf{x}\) (a single neuron's calculation), we are
+                    projecting a multi-dimensional random vector onto a 1D scalar line.
+                    <br>
+                    The variance of this scalar is:
+                    $$ \text{Var}(\mathbf{w}^\top\mathbf{x}) = \mathbf{w}^\top \Sigma_{\mathbf{x}} \mathbf{w} $$
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

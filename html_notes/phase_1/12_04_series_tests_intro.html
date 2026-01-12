@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.04 Infinite Series Intro - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_01_sequence_convergence.html" class="nav-link">01. Sequence
+                                Convergence</a></li>
+                        <li class="nav-item"><a href="12_02_sequence_limits.html" class="nav-link">02. Sequence
+                                Limits</a></li>
+                        <li class="nav-item"><a href="12_03_bounded_monotonic.html" class="nav-link">03. Bounded &
+                                Monotonic</a></li>
+                        <li class="nav-item"><a href="12_04_series_tests_intro.html" class="nav-link active">04.
+                                Infinite Series</a></li>
+                        <li class="nav-item"><a href="12_05_geometric_series.html" class="nav-link">05. Geometric &
+                                P-Series</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Series</span>
+                </div>
+                <h1>Infinite Series</h1>
+                <p class="lead-text">Adding up forever.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Sequence vs Series</h3>
+                    <p>
+                        A <strong>Sequence</strong> is a list: \(1, \frac{1}{2}, \frac{1}{4}, \dots\)<br>
+                        A <strong>Series</strong> is the sum of that list: \(1 + \frac{1}{2} + \frac{1}{4} + \dots\)
+                    </p>
+                    <p>
+                        Does the sum blow up to infinity, or does it settle on a finite number? This is the question of
+                        <strong>Convergence</strong>.
+                    </p>
+                </div>
+
+                <h2>1. Partial Sums</h2>
+                <div class="glass-card">
+                    <p>
+                        We cannot actually add infinite numbers. Instead, we look at the sequence of <strong>Partial Sums</strong>
+                        \(S_k\).
+                    </p>
+                    <p>
+                        \[ S_k = \sum_{n=1}^{k} a_n \]
+                    </p>
+                    <p>
+                        If the sequence of partial sums \(\{S_k\}\) converges to a limit \(S\), then the series
+                        converges to \(S\).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Cumulative Reward</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Reinforcement Learning</h3>
+                    <p>
+                        In RL, an agent (like a robot or game player) receives rewards \(R_t\) at each time step. The
+                        <strong>Return</strong> \(G_t\) is the total accumulated reward from now until the end of time.
+                    </p>
+                    <p>
+                        \[ G_t = R_{t+1} + R_{t+2} + R_{t+3} + \dots \]
+                    </p>
+                    <p>
+                        If the task never ends (infinite horizon), this sum could be infinite. To ensure it converges,
+                        we discount future rewards, turning it into a <strong>Geometric Series</strong> (covered in the next module).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Calculating Partial Sums</h2>
+                <div class="code-header">partial_sums.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Series: Sum(1 / 2^n) = 1/2 + 1/4 + 1/8 ...
+# We expect this to sum to 1.
+
+partial_sum = 0
+for n in range(1, 15):
+    term = 1 / (2**n)
+    partial_sum += term
+    print(f"n={n:2} | Term: {term:.6f} | Partial Sum: {partial_sum:.6f}")
+
+# Output shows Partial Sum approaching 1.0</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_03_bounded_monotonic.html" class="footer-link">← Prev: Monotonic</a>
+                        <span class="separator">|</span>
+                        <a href="12_05_geometric_series.html" class="footer-link">Next: Geometric →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

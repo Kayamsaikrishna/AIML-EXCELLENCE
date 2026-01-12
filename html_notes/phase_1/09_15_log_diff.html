@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.15 Logarithmic Differentiation - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_11_exp_derivatives.html" class="nav-link">11. Exponential
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_12_log_derivatives.html" class="nav-link">12. Logarithmic
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_13_inv_trig_derivatives.html" class="nav-link">13. Inverse
+                                Trig</a></li>
+                        <li class="nav-item"><a href="09_14_hyperbolic_derivatives.html" class="nav-link">14. Hyperbolic
+                                (Tanh)</a></li>
+                        <li class="nav-item"><a href="09_15_log_diff.html" class="nav-link active">15. Logarithmic
+                                Diff</a></li>
+                        <li class="nav-item"><a href="09_16_higher_order.html" class="nav-link">16. Higher Order
+                                Derivatives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Simplification</span>
+                </div>
+                <h1>Logarithmic Differentiation</h1>
+                <p class="lead-text">Don't suffer through the Product Rule 50 times. Turn the product into a sum first.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Log-First" Strategy</h3>
+                    <p>
+                        Some functions are just too messy to differentiate directly (e.g., \(x^x\)). By taking the
+                        Natural Log of both sides <strong>before</strong> differentiating, we use the property \(\ln(ab)
+                        = \ln a + \ln b\) to smash products into sums, and \(\ln(a^n) = n \ln a\) to pull exponents
+                        down.
+                    </p>
+                </div>
+
+                <h2>1. The Four-Step Process</h2>
+                <div class="glass-card">
+                    <ol class="step-list">
+                        <li><strong>Log Both Sides:</strong> Take \(\ln(y) = \ln(f(x))\).</li>
+                        <li><strong>Expand:</strong> Use log laws to simplify the right side.</li>
+                        <li><strong>Differentiate:</strong> Remember LHS becomes \(\frac{1}{y} \frac{dy}{dx}\).</li>
+                        <li><strong>Solve:</strong> Multiply by \(y\) to isolate \(\frac{dy}{dx}\).</li>
+                    </ol>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Mess[Messy Function y] -->|Take Ln| LogY[ln y = Expanded Sums]
+                        LogY -->|Differentiate| Implicit[y'/y = Simple Derivatives]
+                        Implicit -->|Multiply by y| Result[y' = y * Simple Derivatives]
+
+                        style Mess fill:#f56565,stroke:#c53030
+                        style Result fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Maximizing Likelihood</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Products Kill Gradients</h3>
+                    <p>
+                        In Bayes Nets or Language Models, the probability of a sequence is the product of token
+                        probabilities:
+                        \[ P(\text{sentence}) = P(w_1) \cdot P(w_2) \cdot ... \cdot P(w_n) \]
+                    </p>
+                    <p>
+                        Differentiating a product of 100 terms would require a Product Rule with 100 components. It's a
+                        nightmare. Even worse, multiplying 100 small numbers results in <strong>Numerical
+                            Underflow</strong> (the computer thinks it's zero).
+                    </p>
+                    <p>
+                        However, if we Maximize the <strong>Log-Likelihood</strong>:
+                        \[ \ln P = \ln P(w_1) + \ln P(w_2) + ... \]
+                        The derivative is just the sum of individual derivatives. This is computationally stable and
+                        trivial to parallelize.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Solving the Unsolvable</h2>
+                <div class="code-header">x_power_x.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+f = x**x # Direct Power rule fails (base is not constant). Direct Exp rule fails (exponent is not variable-only).
+
+# 1. Manual Log Differentiation
+# ln(y) = x * ln(x)
+# y'/y = 1*ln(x) + x*(1/x) = ln(x) + 1
+# y' = y * (ln(x) + 1)
+manual_deriv = f * (sp.log(x) + 1)
+
+# 2. Automated SymPy
+auto_deriv = sp.diff(f, x)
+
+print(f"Function: {f}")
+print(f"Manual Deriv: {manual_deriv}")
+print(f"Auto Deriv:   {auto_deriv}")
+
+# Verify
+if sp.simplify(manual_deriv - auto_deriv) == 0:
+    print("\n✅ Log-Diff matches SymPy.")
+else:
+    print("❌ Discrepancy found.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_14_hyperbolic_derivatives.html" class="footer-link">← Prev: Hyperbolic Tanh</a>
+                        <span class="separator">|</span>
+                        <a href="09_16_higher_order.html" class="footer-link">Next: Higher Order →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

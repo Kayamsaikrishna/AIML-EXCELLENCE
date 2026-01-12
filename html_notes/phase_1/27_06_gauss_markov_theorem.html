@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.06 Gauss-Markov Theorem - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_05_hat_matrix_projections.html" class="nav-link">05. Hat Matrix
+                                Projections</a></li>
+                        <li class="nav-item"><a href="27_06_gauss_markov_theorem.html" class="nav-link active">06. Gauss
+                                Markov Theorem</a></li>
+                        <li class="nav-item"><a href="27_07_residual_analysis.html" class="nav-link">07. Residual
+                                Analysis</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">The Blue Proof</span>
+                </div>
+                <h1>Gauss-Markov Theorem</h1>
+                <p class="lead-text">Proving that OLS is the "Best Linear Unbiased Estimator" (B.L.U.E.) under specific
+                    conditions.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>What is "Best"?</h3>
+                    <p>
+                        In statistics, "Best" simply means <strong>Efficiency</strong>. An estimator is Best if it has the **lowest
+                        possible variance** among all unbiased linear estimators.
+                    </p>
+                </div>
+
+                <h2>1. The 5 Core Assumptions</h2>
+                <p>For the theorem to hold, the world must look like this:</p>
+                <div class="math-box">
+                    1. <strong>Linearity:</strong> The relationship is theoretically linear. <br>
+                    2. <strong>Full Rank:</strong> No independent variable is a perfect combo of others (No multicollinearity). <br>
+                    3. <strong>Exogeneity:</strong> \(E[\epsilon | X] = 0\). The error is random, not correlated with features. <br>
+                    4. <strong>Homoscedasticity:</strong> Var(\(\epsilon\)) is constant. The noise doesn't grow as X grows. <br>
+                    5. <strong>No Autocorrelation:</strong> Errors are independent of each other (Critical for Time Series).
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. BLUE Explained</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Best</h4>
+                        <p>Minimum variance (Tightest interval).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Linear</h4>
+                        <p>A linear combination of the data (\(\mathbf{y}\)).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Unbiased</h4>
+                        <p>On average, it gets the true parameters exactly right (\(E[\hat{\beta}] = \beta\)).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Estimator</h4>
+                        <p>A mathematical rule applied to data.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Why we optimize Bias vs Variance</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Optimization</span>
+                    <h3>The End of BLUE</h3>
+                    <p>
+                        In modern Machine Learning, we often <strong>Reject</strong> BLUE.
+                    </p>
+                    <p>
+                        Wait, why? Because Gauss-Markov only says OLS is best among <strong>unbiased</strong> estimators.
+                        In ML (Random Forests, XGBoost, Neural Nets), we often introduce a little bit of <strong>Bias</strong>
+                        (Regularization) because it drastically reduces <strong>Variance</strong>.
+                    </p>
+                    <p>
+                        The Gauss-Markov theorem is the "Golden Age" of classic stats, but ML is about searching for the
+                        <strong>Minimum MSE</strong> (Mean Squared Error), which can often be found by a biased model that
+                        generalizes better to new data than a BLUE model.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

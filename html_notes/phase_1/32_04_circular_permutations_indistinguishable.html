@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32.04 Circular & Special Permutations - Combinatorics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.8.1 Counting Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="32_03_combinations_selections.html" class="nav-link">03.
+                                Combinations</a></li>
+                        <li class="nav-item"><a href="32_04_circular_permutations_indistinguishable.html"
+                                class="nav-link active">04. Circular Permutations</a></li>
+                        <li class="nav-item"><a href="32_05_binomial_coefficients_pascal.html" class="nav-link">05.
+                                Binomial Coefficients</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Combinatorics</span>
+                    <span class="badge secondary">Special Cases</span>
+                </div>
+                <h1>Circular & Indistinguishable Permutations</h1>
+                <p class="lead-text">Rotational and Frequency Logic. Understanding how the symmetry of a circle or the
+                    lack of distinction between items collapses the total number of arrangements.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Breaking Symmetry</h3>
+                    <p>
+                        In a linear arrangement, "1, 2, 3" is different from "2, 3, 1." But in a **Circular
+                        Permutation**, if we rotate the table, those are the same arrangement. To count correctly, we
+                        must fix one person in place to break the rotational symmetry.
+                    </p>
+                </div>
+
+                <h2>1. Circular Permutations</h2>
+                <div class="math-box">
+                    $$ N = (n-1)! $$
+                </div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> How many ways can 6 people sit around a circular table?</p>
+                    <p>\( (6-1)! = 5! = 120 \). (Normally, 6 people linearly would be 720 ways).</p>
+                </div>
+                <div class="topic-card">
+                    <h4>Necklace Problem</h4>
+                    <p>If the arrangement can also be flipped (like a bead on a string), the clockwise and
+                        counter-clockwise arrangements are identical. We divide by 2: \( \frac{(n-1)!}{2} \).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Indistinguishable Objects (Multiset Permutations)</h2>
+                <p>
+                    How many ways can we arrange \(n\) items if some of them are copies of the same thing?
+                </p>
+                <div class="math-box">
+                    $$ N = \frac{n!}{n_1! n_2! ... n_k!} $$
+                </div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> In a binary string of length 10 with 7 zeros and 3 ones, how many
+                        arrangements exist?</p>
+                    <p>\( \frac{10!}{7! 3!} = 120 \). (This is exactly the same as \(\binom{10}{3}\)).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Computer Vision</span>
+                    <span class="ml-badge">Search Space</span>
+                    <h3>Why Symmetry matters in AI</h3>
+                    <ul>
+                        <li><strong>Rotational Invariance:</strong> In Image Processing (CNNs), we want our model to recognize a cat
+                            regardless of how it's rotated. Circular symmetry in data augmentation (rotating an image)
+                            is a way of telling the model "these permutations are identical."</li>
+                        <li><strong>Permutation Invariant Networks:</strong> In Graph Neural Networks (GNNs), the order of the
+                            neighbors doesn't matter. The model must treat all permutations of the neighbor set as
+                            indistinguishable.</li>
+                        <li><strong>State Space Pruning:</strong> When searching for solutions (AlphaGo, Chess solvers), we use
+                            <strong>Symmetry Breaking</strong> to avoid searching rotated or mirrored versions of the same board
+                            position, saving massive amounts of computation.</li>
+                        <li><strong>Data Compression:</strong> Huffman coding and other algorithms use the frequency of symbols
+                            (Indistinguishable Objects) to optimize the bit-length of the representation.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Symmetry Breaking Workflow</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Start Arrangement] --> B{Linear or Circular?}
+                    B -- Linear --> C[No Symmetry]
+                    B -- Circular --> D[Fix 1 element: (n-1)!]
+                    D --> E{Transparent/Flipable?}
+                    E -- Yes --> F[Divide by 2]
+                    C --> G[Result]
+                    F --> G
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

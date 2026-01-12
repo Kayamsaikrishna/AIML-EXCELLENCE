@@ -4,100 +4,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pseudoinverse - Phase 1.2.3.16</title>
+    <title>04.16 Pseudoinverse - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_15_svd_apps.html">15. SVD Applications</a></li>
-            <li><a href="04_16_pseudoinverse.html" class="active">16. Pseudoinverse</a></li>
-            <li><a href="04_17_pca_derivation.html">17. PCA Derivation</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_15_svd_apps.html" class="nav-link">15. SVD Apps</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">16. Pseudoinverse</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Pseudoinverse
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 16. The Best Fit
         </div>
 
-        <header>
-            <h1>16. Moore-Penrose Pseudoinverse</h1>
-            <p class="subtitle">Inverting the un-invertible.</p>
+        <header class="page-header">
+            <div class="badge">Module 16</div>
+            <h1>Moore-Penrose Inverse</h1>
+            <p class="lead-text"> \( A^+ \). Inverting the non-invertible.</p>
         </header>
 
-        <section>
-            <h2>1. The Problem: Rectangular Systems</h2>
-            <p>In Linear Regression, we often have \(\mathbf{y} = \mathbf{Xw}\) where \(\mathbf{X}\) is \(m \times n\)
-                (more data than features). There is no standard inverse if \(m \neq n\). We need a "best fit" inverse.
-            </p>
-        </section>
+        <!-- VISUAL DIAGRAM: PSEUDOINVERSE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Solving the Impossible</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Problem["System Ax = b"]
+    
+    subgraph Cases
+        Case1["Rectangular (Tall/Fat)"]
+        Case2["Singular Square"]
+        Case3["Invertible"]
+    end
+    
+    Problem --> Cases
+    
+    Case1 -- "Use A+" --> Solution["x = A+ b"]
+    Case2 -- "Use A+" --> Solution
+    Case3 -- "Use A-1" --> Exact["x = A-1 b"]
+    
+    Solution -- "Tall Matrix" --> LeastSq["Least Squares Solution"]
+    Solution -- "Fat Matrix" --> MinNorm["Minimum Norm Solution"]
 
-        <section>
-            <h2>2. The SVD Solution</h2>
-            <p>The pseudoinverse \(\mathbf{A}^+\) is elegantly defined using the components of SVD:</p>
-            <div class="math-block">
-                $$ \mathbf{A}^+ = \mathbf{V}\Sigma^+\mathbf{U}^T $$
-            </div>
-            <p>Where \(\Sigma^+\) is obtained by taking the reciprocal of every non-zero entry on the diagonal
-                of \(\Sigma\) and then transposing the matrix.</p>
-
-            <div class="module-card">
-                <h3>Numerical Stability</h3>
-                <p>In practice, we only take the reciprocal of singular values that are larger than a small epsilon
-                    (\(\text{rel\_tol}\)). Small singular values are usually noise; reciprocating them would blow
-                    up the inverse and cause massive numerical errors.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>3. AI Application: Least Squares</h2>
-            <p>The closed-form solution to the Normal Equation in Linear Regression is:</p>
-            <div class="math-block">
-                $$ \mathbf{w} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} $$
-            </div>
-            <p>Numerically, we prefer using the Pseudoinverse directly: \(\mathbf{w} = \mathbf{X}^+\mathbf{y}\).
-                This is more robust to redundant (linearly dependent) features.</p>
-        </section>
-
-        <section>
-            <h2>4. Python: Comparing Inverses</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-# A non-square matrix (Rank deficient)
-A = np.array([[1, 2], [2, 4]]) # Col 2 is exactly 2*Col 1
-
-# Standard inverse fails
-try:
-    np.linalg.inv(A)
-except np.linalg.LinAlgError:
-    print("Standard inverse failed (Singular matrix)")
-
-# Pseudoinverse succeeds
-A_pinv = np.linalg.pinv(A)
-print(f"Pseudoinverse:\n{A_pinv}")
-
-# Property: A @ A_pinv @ A should be A
-print(f"A_pinv property check: {np.allclose(A @ A_pinv @ A, A)}")</code></pre>
+    style Solution fill:#dcfce7,stroke:#16a34a
+    style Problem fill:#e0e7ff,stroke:#3730a3
+                    </pre>
+                </div>
             </div>
         </section>
+
+        <!-- 1. DEFINITION: SVD FORMULA -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>For any matrix \( A = U \Sigma V^T \), the Pseudoinverse \( A^+ \) is:</p>
+                <div class="math-block">
+                    $$ A^+ = V \Sigma^+ U^T $$
+                </div>
+                <p>Where \( \Sigma^+ \) is formed by taking the reciprocal of non-zero singular values and transposing.
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: LINEAR REGRESSION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Linear Regression</h2>
+                <p>The solution to Ordinary Least Squares (finding weights \( w \) to minimize \( ||Xw - y||^2 \)) is:
+                </p>
+                <div class="math-block">
+                    $$ w = (X^T X)^{-1} X^T y $$
+                </div>
+                <p>This \( (X^T X)^{-1} X^T \) term <strong>is</strong> the Pseudoinverse of \( X \) (specifically
+                    clearly defined when columns are independent). In practice, we just calculate \( w = X^+ y \).</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. NumPy pinv</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# A "Tall" matrix (Overdetermined system)
+# 3 equations, 2 unknowns
+X = np.array([
+    [1, 1],
+    [1, 2],
+    [1, 3]
+])
+y = np.array([6, 9, 12]) 
+# y = 3x + 3 roughly
+
+# Solve using Pseudoinverse
+X_pinv = np.linalg.pinv(X)
+w = X_pinv @ y
+
+print("Weights (intercept, slope):")
+print(w.round(2))
+
+# Verify with Least Squares
+w_lstsq, res, rank, s = np.linalg.lstsq(X, y, rcond=None)
+print("\nNumPy lstsq weights:")
+print(w_lstsq.round(2))
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

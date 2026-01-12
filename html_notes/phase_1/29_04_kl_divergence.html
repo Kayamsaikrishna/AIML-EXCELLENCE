@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KL Divergence - Phase 1.5.7.4</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_04_kl_divergence.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_04_kl_divergence.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_04</div>
+            <h1>04. KL Divergence (Relative Entropy)</h1>
+            <p class="lead-text">Measuring the friction between reality and the model.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Non-Symmetric Distance</h2>
+<p><strong>KL Divergence $D_{KL}(P || Q)$</strong> measures how one probability distribution $Q$ (the model)
+                diverges from a second, expected probability distribution $P$ (the truth/data). It is often called the
+                "Relative Entropy." </p>
+<div class="math-block">
+                $$ D_{KL}(P || Q) = \sum_{i} P(i) \log \frac{P(i)}{Q(i)} $$
+            </div>
+<p>Crucially, $D_{KL}(P || Q) \neq D_{KL}(Q || P)$. It is not a true "Distance" in the Euclidean sense, but
+                a measure of "Information Loss." </p>
+</section>
+<section class="module-card">
+<h2>2. Gibbs' Inequality</h2>
+<p>$D_{KL}(P || Q) \ge 0$, with equality ONLY if $P = Q$. This ensures that as we minimize the divergence,
+                we are guaranteed to be making the model more like the real data.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: VAE Objectives and Bayesian Matching</h2>
+<div class="module-card">
+<h3>The Regularizer of Intelligence</h3>
+<p>In AI, KL Divergence is the cornerstone of <strong>Variational Autoencoders (VAEs)**. </strong></p>
+<p>In a <strong>VAE</strong>, we don't just want the encoder to produce numbers; we want the distribution of those
+                    numbers (the Latent Space) to look like a standard Gaussian. We add a <strong>KL Penalty</strong> to the loss
+                    function that measures the divergence between our latent distribution and the normal distribution.
+                    Without KL, the model would simply "Memorize" the data. With KL, the model is forced to
+                    "Generalize," creating a smooth latent space where we can interpolate between images. In
+                    <strong>Reinforcement Learning (PPO)**, we use KL divergence to ensure the "New Policy" doesn't
+                        drift too far from the "Old Policy" in a single step, preventing the AI from "Catastrophically
+                        Forgetting" everything it learned. It is the invisible leash that keeps AI models stable. </strong></p>
+</div>
+</section>
+<section>
+<h2>4. Python: KL Divergence Implementation</h2>
+<div class="code-block">
+<pre><code class="language-python">import numpy as np
+from scipy.special import rel_entr
+
+# Truth distribution
+p = np.array([0.4, 0.6])
+# Model prediction
+q = np.array([0.5, 0.5])
+
+# Calculate KL(P || Q)
+kl_val = np.sum(rel_entr(p, q))
+
+print(f"Information Loss: {kl_val:.4f} nats")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

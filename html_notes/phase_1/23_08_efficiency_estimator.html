@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.08 Efficiency & Cramer-Rao Bound - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_07_consistency_inference.html" class="nav-link">07. Consistency
+                                Inference</a></li>
+                        <li class="nav-item"><a href="23_08_efficiency_estimator.html" class="nav-link active">08.
+                                Efficiency Estimator</a></li>
+                        <li class="nav-item"><a href="23_09_method_of_moments.html" class="nav-link">09. Method Of
+                                Moments</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">The Physical Limit</span>
+                </div>
+                <h1>Efficiency & Cramer-Rao Bound</h1>
+                <p class="lead-text">Proving that there is a mathematical speed limit on how fast we can learn.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Minimum Variance</h3>
+                    <p>
+                        Some estimators are "tighter" than others. <strong>Efficiency</strong> measures how close an estimator's
+                        variance is to the theoretical minimum possible variance.
+                    </p>
+                </div>
+
+                <h2>1. Cramer-Rao Lower Bound (CRLB)</h2>
+                <div class="math-box">
+                    For any unbiased estimator \(\hat{\theta}\):
+                    $$ \text{Var}(\hat{\theta}) \ge \frac{1}{I(\theta)} $$
+                    Where \(I(\theta)\) is the <strong>Fisher Information</strong>.
+                </div>
+                <p>
+                    This is like a "Uncertainty Principle" for statistics. It says that no matter how clever your
+                    algorithm is, you can't have a variance lower than this bound.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. MVUE</h2>
+                <p>
+                    The <strong>Minimum Variance Unbiased Estimator (MVUE)</strong> is the estimator that achieves this lower bound
+                    exactly. If you find the MVUE, you have found the "perfect" algorithm for that parameter.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Learning Efficiency</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Foundational</span>
+                    <span class="ml-badge">Sample Complexity</span>
+                    <h3>Sample-Efficient Learning</h3>
+                    <p>
+                        In deep learning, we often talk about "Sample Efficiency"—how much data a model needs before it
+                        performs well.
+                        A sample-efficient model is one that extracts the maximum possible information from every
+                        training example, nearing the CRLB.
+                    </p>
+                </div>
+
+                <h3>Optimization Speed</h3>
+                <p>
+                    Second-order optimization methods (like Natural Gradient Descent) use the Fisher Information
+                    directly to adjust the learning rate. By accounting for the geometry of the parameter space, they
+                    can approach the limit of efficiency faster than pure SGD.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Data] --> B[Inefficient Estimator]
+                        A --> C[Efficient Estimator]
+                        B --> D[Loose / High Variance]
+                        C --> E[Tight / Min Variance]
+                        E --> F[Cramer-Rao Bound]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

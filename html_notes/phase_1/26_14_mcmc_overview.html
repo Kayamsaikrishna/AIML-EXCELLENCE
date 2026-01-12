@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.14 MCMC Overview - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_13_bayes_factors.html" class="nav-link">13. Bayes Factors</a>
+                        </li>
+                        <li class="nav-item"><a href="26_14_mcmc_overview.html" class="nav-link active">14. Mcmc
+                                Overview</a></li>
+                        <li class="nav-item"><a href="26_15_gibbs_sampling.html" class="nav-link">15. Gibbs Sampling</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Inference Engine</span>
+                </div>
+                <h1>MCMC (Markov Chain Monte Carlo)</h1>
+                <p class="lead-text">Exploring the world of probability by wandering through it, so you don't have to
+                    solve impossible integrals.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Problem of the Denominator</h3>
+                    <p>
+                        In Bayes' Theorem, the bottom term \(P(D)\) is a multi-dimensional integral that grows
+                        exponentially with the number of features. For a model with 1,000 weights, you'd need a
+                        1,000-dimensional integral.
+                        <br><br>
+                        <strong>MCMC</strong> says: "Forget the integral. I'll just draw a million samples from the posterior. The
+                        histogram of those samples IS the answer I'm looking for."
+                    </p>
+                </div>
+
+                <h2>1. The Two Halves of MCMC</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Monte Carlo</h4>
+                        <p>Solving complex problems by repeated random sampling. If you want to know the area of a
+                            circle, throw 1,000 darts at a square and count the hits.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Markov Chain</h4>
+                        <p>A sequence where the next step depends ONLY on the current step. This allows the sampler to
+                            "wander" towards high-probability regions and spend more time there.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. How it works (Simplified)</h2>
+                <div class="math-box">
+                    1. Start at a random location in parameter space. <br>
+                    2. Suggest a "jump" to a nearby location. <br>
+                    3. If the new spot has higher probability, <strong>Move there</strong>. <br>
+                    4. If the new spot has lower probability, <strong>Maybe move there</strong> (probabilistically). <br>
+                    5. Repeat thousands of times.
+                </div>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Start] --> B[Current Spot]
+                        B --> C[Suggest Move]
+                        C -->|High Prob| D[Accept]
+                        C -->|Low Prob| E{Random Toss}
+                        E -->|Heads| D
+                        E -->|Tails| B
+                        D --> B
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Bayesian Neural Networks (BNNs)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Uncertainty</span>
+                    <h3>Modeling Weight Clouds</h3>
+                    <p>
+                        In a standard Neural Network, a weight \(w_{12}\) is a single number (e.g., 0.5).
+                    </p>
+                    <p>
+                        In a <strong>Bayesian NN</strong>, that weight is a "cloud" of possible values. To train such a network, we
+                        use MCMC (or its faster variants like <strong>HMC</strong>) to sample these clouds.
+                    </p>
+                    <p>
+                        When we make a prediction, we don't pass the input through the network once. We pass it through
+                        <strong>100 times</strong>, each time using a different sample of weights from our MCMC "belief." If the 100
+                        outputs are all consistent, the model is sure. If the 100 outputs are wildly different, the
+                        model is effectively saying: "I have no idea what this image is." This is critical for **Medical
+                        AI** and <strong>Self-Driving Cars</strong>.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

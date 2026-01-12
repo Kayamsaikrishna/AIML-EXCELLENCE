@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.03 Backpropagation Math - Calculus for ML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.9 Calculus for ML</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="16_02_gradient_descent_variants.html" class="nav-link">02. GD
+                                Variants</a></li>
+                        <li class="nav-item"><a href="16_03_backpropagation_math.html" class="nav-link active">03.
+                                Backpropagation Math</a></li>
+                        <li class="nav-item"><a href="16_04_neural_chain_rule.html" class="nav-link">04. Neural Chain
+                                Rule</a></li>
+                        <li class="nav-item"><a href="16_05_loss_convexity_ml.html" class="nav-link">05. Loss
+                                Convexity</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">ML Calc 1.9</span>
+                    <span class="badge secondary">Matrix Calc</span>
+                </div>
+                <h1>Backpropagation Math</h1>
+                <p class="lead-text">The "Error Signal" passing protocol.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Backward Pass</h3>
+                    <p>
+                        We define the "Error Signal" (or adjoint) at layer \(l\) as:
+                        \[ \delta^l = \frac{\partial L}{\partial z^l} \]
+                        Backpropagation is a recursive algorithm to compute \(\delta^l\) from \(\delta^{l+1}\):
+                        \[ \delta^l = (\mathbf{W}^{l+1})^T \delta^{l+1} \odot \sigma'(z^l) \]
+                    </p>
+                    <p>
+                        Once we have the error signal \(\delta^l\), the gradient for the weights is simply the outer
+                        product:
+                        \[ \frac{\partial L}{\partial \mathbf{W}^l} = \delta^l (\mathbf{a}^{l-1})^T \]
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Efficiency</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Backprop?</h3>
+                    <p>
+                        If we used finite differences (perturbing each weight one by one), calculating gradients for 1
+                        billion weights would take <strong>1 billion forward passes</strong>.
+                    </p>
+                    <p>
+                        Backpropagation computes <strong>ALL</strong> gradients in just <strong>ONE forward pass + ONE backward pass</strong>.
+                        It is O(1) relative to the number of parameters per pass. This efficiency is the only reason
+                        Deep Learning is possible.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Numpy Backprop</h2>
+                <div class="code-header">numpy_backprop.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# A simple 2-layer network backpass
+# y = W2 * ReLU(W1 * x)
+
+N, Din, H, Dout = 64, 1000, 100, 10
+x = np.random.randn(N, Din)
+y = np.random.randn(N, Dout)
+w1 = np.random.randn(Din, H)
+w2 = np.random.randn(H, Dout)
+
+# Forward
+h = x.dot(w1)
+h_relu = np.maximum(h, 0)
+y_pred = h_relu.dot(w2)
+loss = np.square(y_pred - y).sum()
+
+# Backward
+grad_y_pred = 2.0 * (y_pred - y)
+grad_w2 = h_relu.T.dot(grad_y_pred)
+grad_h_relu = grad_y_pred.dot(w2.T)
+grad_h = grad_h_relu.copy()
+grad_h[h < 0] = 0 # Derivative of ReLU
+grad_w1 = x.T.dot(grad_h)
+
+print(" Gradients Computed!")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="16_02_gradient_descent_variants.html" class="footer-link">← Prev: GD Variants</a>
+                        <span class="separator">|</span>
+                        <a href="16_04_neural_chain_rule.html" class="footer-link">Next: Neural Chain Rule →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

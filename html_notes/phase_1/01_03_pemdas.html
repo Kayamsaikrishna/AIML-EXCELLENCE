@@ -4,243 +4,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order of Operations - Phase 1.1.3</title>
+    <title>01.03 Order of Operations - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged, will be maintained by global script/manual check later) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html" class="active">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_01_number_systems.html" class="nav-link">01. Number Systems</a>
+                    </li>
+                    <li class="nav-item"><a href="01_02_operations.html" class="nav-link">02. Operations</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">03. Order of Ops</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Order of Operations
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 03. Order of Operations
         </div>
 
-        <header>
-            <h1>3. Order of Operations & Computation Graphs</h1>
-            <p class="subtitle">PEMDAS isn't just a school rule. It is the <strong>Execution Schedule</strong> of every
-                Neural Network ever built.</p>
+        <header class="page-header">
+            <div class="badge">Module 03</div>
+            <h1>Order of Operations & Computational Graphs</h1>
+            <p class="lead-text">From High School PEMDAS to the Directed Acyclic Graphs (DAGs) that power PyTorch and
+                TensorFlow.</p>
         </header>
 
-        <!-- 1. THE BASICS -->
-        <section id="theory">
-            <h2>1. The Algorithmic Hierarchy (PEMDAS/BODMAS)</h2>
-            <p>Mathematics is a language. Like any language, it needs grammar to avoid ambiguity. Strict rules dictate
-                which operations happen first.</p>
+        <!-- VISUAL DIAGRAM: PEMDAS PYRAMID -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">1. The Hierarchy of Precedence</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph BT
+    subgraph Tier1 [Rank 1: The Wrapper]
+        P["Parentheses ()"]
+    end
 
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">The Hierarchy</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><strong>1. Parentheses (Groups):</strong> \( (a+b) \). This overrides
-                            everything. In Code, we use parentheses to force priority.</li>
-                        <li class="topic-item"><strong>2. Exponents (Power):</strong> \( x^2, \sqrt{x} \).
-                            Nonlinearities happen here.</li>
-                        <li class="topic-item"><strong>3. Multiplication / Division:</strong> \( a \cdot b, a/b \).
-                            These essentially modify "Units" or "Scale".</li>
-                        <li class="topic-item"><strong>4. Addition / Subtraction:</strong> \( a + b, a - b \). These
-                            accumulate values.</li>
-                    </ul>
-                </div>
+    subgraph Tier2 [Rank 2: The Power]
+        E["Exponents (^)"]
+        R["Roots (√)"]
+    end
 
-                <div class="module-card">
-                    <h3 class="module-title">Why it Matters: The "Ambiguity" Bug</h3>
-                    <p>Consider the expression: <strong>\( 2 + 3 \times 4 \)</strong>.</p>
-                    <ul>
-                        <li>If Left-to-Right: \( (2+3) \times 4 = 20 \). (Wrong)</li>
-                        <li>If PEMDAS: \( 2 + (3 \times 4) = 14 \). (Correct)</li>
-                    </ul>
-                    <p>In AI, a single misplaced parenthesis during the "Loss Calculation" step can cause the gradient
-                        to flow to the wrong weights, meaning the AI learns nothing.</p>
+    subgraph Tier3 [Rank 3: The Scale]
+        M["Multiplication (×)"]
+        D["Division (÷)"]
+    end
+
+    subgraph Tier4 [Rank 4: The Offset]
+        A["Addition (+)"]
+        S["Subtraction (-)"]
+    end
+
+    A --> M
+    M --> E
+    E --> P
+
+    style P fill:#fecaca,stroke:#ef4444
+    style E fill:#fde047,stroke:#eab308
+    style M fill:#86efac,stroke:#22c55e
+    style A fill:#bfdbfe,stroke:#3b82f6
+                    </pre>
                 </div>
             </div>
         </section>
 
-        <!-- 2. COMPUTATION GRAPHS -->
-        <section id="graphs">
-            <h2>2. The Engineering View: Computation Graphs</h2>
-            <p>Deep Learning frameworks like PyTorch and TensorFlow don't see equations as text strings. They see them
-                as <strong>Directed Acyclic Graphs (DAGs)</strong>. The "Order of Operations" determines the topology of
-                this graph.</p>
+        <!-- 2. COMPUTATION GRAPHS (DAGs) -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>2. The Computation Graph (DAG)</h2>
+                <p>Deep Learning frameworks do not solve equations linearly. They construct a <strong>Directed Acyclic
+                        Graph</strong> where nodes are operations (Add, Mul) and edges are tensors.</p>
 
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <!-- SVG: Comp Graph for y = ReLU(Wx + b) -->
-                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Definitions -->
-                    <defs>
-                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"
-                            markerUnits="strokeWidth">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
-                        </marker>
-                    </defs>
+                <div class="deep-dive-box">
+                    <h4 class="deep-dive-title">Topological Sort</h4>
+                    <p>To execute a DAG, the engine (PyTorch/XLA) performs a <strong>Topological Sort</strong>. This
+                        ensures that a node is only executed after all its dependencies are computed.</p>
+                    <p><strong>Kahn's Algorithm Complexity:</strong> \( O(V + E) \)</p>
+                </div>
 
-                    <!-- Nodes -->
-                    <!-- Inputs -->
-                    <circle cx="50" cy="100" r="30" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" />
-                    <text x="50" y="105" text-anchor="middle" font-weight="bold" font-family="monospace">x</text>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+flowchart LR
+    X((Input x)) --> Mul[MatMul]
+    W((Weights W)) --> Mul
+    Mul --> Add[Add]
+    B((Bias b)) --> Add
+    Add --> Act[ReLU]
+    Act --> Y((Output y))
 
-                    <circle cx="50" cy="200" r="30" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" />
-                    <text x="50" y="205" text-anchor="middle" font-weight="bold" font-family="monospace">W</text>
+    subgraph Forward [Step 1: Forward Pass]
+    Mul
+    Add
+    Act
+    end
 
-                    <!-- Mul -->
-                    <rect x="150" y="130" width="60" height="40" rx="5" fill="#3b82f6" />
-                    <text x="180" y="155" text-anchor="middle" fill="white" font-weight="bold">Mul</text>
-                    <text x="180" y="125" text-anchor="middle" fill="#3b82f6" font-size="0.8rem">Priority 1</text>
+    subgraph Backward [Step 2: Autograd]
+    Act -.->|Gradient| Add
+    Add -.->|Gradient| Mul
+    end
 
-                    <!-- Bias -->
-                    <circle cx="250" cy="250" r="30" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" />
-                    <text x="250" y="255" text-anchor="middle" font-weight="bold" font-family="monospace">b</text>
-
-                    <!-- Add -->
-                    <rect x="300" y="130" width="60" height="40" rx="5" fill="#10b981" />
-                    <text x="330" y="155" text-anchor="middle" fill="white" font-weight="bold">Add</text>
-                    <text x="330" y="125" text-anchor="middle" fill="#10b981" font-size="0.8rem">Priority 2</text>
-
-                    <!-- ReLU -->
-                    <rect x="420" y="130" width="80" height="40" rx="5" fill="#8b5cf6" />
-                    <text x="460" y="155" text-anchor="middle" fill="white" font-weight="bold">ReLU</text>
-                    <text x="460" y="125" text-anchor="middle" fill="#8b5cf6" font-size="0.8rem">Output</text>
-
-                    <!-- Edges -->
-                    <path d="M 80 100 L 140 140" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"
-                        fill="none" />
-                    <path d="M 80 200 L 140 160" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"
-                        fill="none" />
-
-                    <path d="M 210 150 L 290 150" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"
-                        fill="none" />
-
-                    <path d="M 275 235 L 310 170" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"
-                        fill="none" />
-
-                    <path d="M 360 150 L 410 150" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"
-                        fill="none" />
-
-                </svg>
-                <div style="margin-top: 0.5rem; color: #64748b; font-size: 0.9rem;">
-                    Figure 1: The Forward Pass of a Neuron. <strong>Mul</strong> must happen before <strong>Add</strong>
-                    for the graph to wire correctly.
+    style Mul fill:#e0e7ff,stroke:#6366f1
+    style Add fill:#dcfce7,stroke:#22c55e
+    style Act fill:#f3e8ff,stroke:#a855f7
+                    </pre>
                 </div>
             </div>
+        </section>
 
-            <div class="deep-dive-box">
-                <h3 class="deep-dive-title">The Engineering Application: Forward & Backward Pass</h3>
-                <p>Every time you train a model, two things happen:</p>
-                <ol>
-                    <li><strong>Forward Pass (Execution):</strong> PyTorch runs the graph in PEMDAS order (Inputs ->
-                        Outputs). Computing the loss.</li>
-                    <li><strong>Backward Pass (Autograd):</strong> PyTorch runs the graph in <strong>Reverse</strong>
-                        order (Output -> Input) to calculate gradients.</li>
-                </ol>
-                <p>If the Order of Operations is wrong in the Forward Pass, the shape of the graph is wrong, and the
-                    Backward Pass calculates "gradients of nonsense".</p>
+        <!-- 3. AUTOGRAD: THE MATH -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Automatic Differentiation (Autograd)</h2>
+                <p>Backward propagation is simply the "Order of Operations" applied in reverse using the <strong>Chain
+                        Rule</strong>.</p>
+
+                <div class="math-block">
+                    $$ \text{Forward: } y = f(g(x)) $$
+                    $$ \text{Backward: } \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} $$
+                    $$ \text{where } u = g(x) $$
+                </div>
+
+                <h3>Building Autograd from Scratch</h3>
+                <p>A miniature implementation of a `Value` class that builds a graph dynamically (like PyTorch).</p>
+                <div class="code-block">
+                    <pre><code class="language-python">class Value:
+    def __init__(self, data, _children=(), _op=''):
+        self.data = data
+        self.grad = 0.0
+        self._backward = lambda: None
+        self._prev = set(_children)
+        self._op = _op
+
+    def __add__(self, other):
+        out = Value(self.data + other.data, (self, other), '+')
+        
+        def _backward():
+            # Chain Rule for Addition: Gradient distributes equally
+            self.grad += out.grad
+            other.grad += out.grad
+        out._backward = _backward
+        return out
+
+    def __mul__(self, other):
+        out = Value(self.data * other.data, (self, other), '*')
+        
+        def _backward():
+            # Chain Rule for Multiplication: Swap values
+            self.grad += other.data * out.grad
+            other.grad += self.data * out.grad
+        out._backward = _backward
+        return out
+
+    def backward(self):
+        # Topological Sort to ensure correct order
+        topo = []
+        visited = set()
+        def build_topo(v):
+            if v not in visited:
+                visited.add(v)
+                for child in v._prev:
+                    build_topo(child)
+                topo.append(v)
+        build_topo(self)
+        
+        self.grad = 1.0 # Seed gradient
+        for node in reversed(topo):
+            node._backward()
+
+# Usage
+x = Value(2.0)
+y = Value(3.0)
+z = x * y + x # z = 2*3 + 2 = 8
+z.backward()
+
+print(f"x.grad: {x.grad}") # dz/dx = y + 1 = 4
+</code></pre>
+                </div>
             </div>
         </section>
 
-        <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Coding the Graph</h2>
-            <p>Let's see how PyTorch builds this graph implicitly based on the order of your Python code.</p>
-
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// PyTorch: Building the Graph</div>
-                <pre><code class="language-python">import torch
-
-# 1. Define the Leaves of the graph (Inputs)
-x = torch.tensor([2.0], requires_grad=True)
-W = torch.tensor([3.0], requires_grad=True)
-b = torch.tensor([5.0], requires_grad=True)
-
-# 2. Forward Pass (Building the Graph)
-# Python respects PEMDAS here: W * x is calculated first, then b is added.
-z = W * x + b  
-# z = (3 * 2) + 5 = 11
-
-# 3. Activation (Next node)
-y = torch.relu(z)
-# y = 11
-
-print(f"Output: {y.item()}")
-
-# 4. Backward Pass (Traversing the graph)
-y.backward()
-
-# 5. Gradients
-print(f"Grad W: {W.grad}") # dy/dW = x = 2
-print(f"Grad x: {x.grad}") # dy/dx = W = 3
-print(f"Grad b: {b.grad}") # dy/db = 1</code></pre>
-            </div>
-
-            <div class="module-card">
-                <h3 class="module-title">The "Leaf" Metaphor</h3>
-                <p>In the code above, `x`, `W`, and `b` are called <strong>Leaf Nodes</strong>. They have no parents in
-                    the graph. The operation nodes (`*`, `+`) are internal nodes.</p>
-                <p>When you call `backward()`, the gradients flow from the Root (`y`) all the way down to the Leaves.
-                </p>
-            </div>
-        </section>
-
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08.06 Limit Laws & Properties - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.1 Limits & Continuity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="08_01_limits_intuition.html" class="nav-link">01. Limits
+                                Intuition</a></li>
+                        <li class="nav-item"><a href="08_02_limits_formal.html" class="nav-link">02. Formal
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_03_limits_onesided.html" class="nav-link">03. One-Sided
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_04_limits_at_infinity.html" class="nav-link">04. Limits at
+                                Infinity</a></li>
+                        <li class="nav-item"><a href="08_05_limits_infinite.html" class="nav-link">05. Infinite
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_06_limit_laws.html" class="nav-link active">06. Limit Laws &
+                                Properties</a></li>
+                        <li class="nav-item"><a href="08_07_continuity_defn.html" class="nav-link">07. Continuity
+                                Definition</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Algebra</span>
+                </div>
+                <h1>Limit Laws & Properties</h1>
+                <p class="lead-text">Why solve hard limits from scratch when you can break them into easier pieces? The
+                    algebraic toolkit for limit evaluation.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Modular Mathematics</h3>
+                    <p>
+                        In Computer Science, we break complex functions into subroutines. In Math, Limit Laws allow us
+                        to do the same. If we know the limit of \(f(x)\) and \(g(x)\), we instantly know the limit of
+                        \(f(x) + g(x)\), \(f(x)/g(x)\), or \(\sqrt{f(x)}\) without re-doing the epsilon-delta proof.
+                    </p>
+                </div>
+
+                <h2>1. The Big Six Laws</h2>
+                <div class="glass-card">
+                    <p>Assume \(\lim_{x \to a} f(x) = L\) and \(\lim_{x \to a} g(x) = M\) (both are finite).</p>
+                    <div class="two-col-grid">
+                        <div>
+                            <h4>1. Sum/Difference</h4>
+                            <div class="math-block">
+                                \[ \lim(f \pm g) = L \pm M \]
+                            </div>
+                        </div>
+                        <div>
+                            <h4>2. Product</h4>
+                            <div class="math-block">
+                                \[ \lim(f \cdot g) = L \cdot M \]
+                            </div>
+                        </div>
+                        <div>
+                            <h4>3. Constant Multiple</h4>
+                            <div class="math-block">
+                                \[ \lim(c \cdot f) = c \cdot L \]
+                            </div>
+                        </div>
+                        <div>
+                            <h4>4. Quotient</h4>
+                            <div class="math-block">
+                                \[ \lim\left(\frac{f}{g}\right) = \frac{L}{M} \quad (M \neq 0) \]
+                            </div>
+                        </div>
+                        <div>
+                            <h4>5. Power</h4>
+                            <div class="math-block">
+                                \[ \lim[f(x)]^n = L^n \]
+                            </div>
+                        </div>
+                        <div>
+                            <h4>6. Root</h4>
+                            <div class="math-block">
+                                \[ \lim\sqrt[n]{f(x)} = \sqrt[n]{L} \]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Direct Substitution</h2>
+                <p>
+                    For "nice" functions (polynomials, rational functions strictly inside their domain), limit
+                    evaluation simplifies to just plugging in the number.
+                </p>
+                <div class="definition-box">
+                    <h3>The Substitution Property</h3>
+                    <p>If \(f(x)\) is continuous at \(x=a\), then:</p>
+                    <div class="math-block">
+                        \[ \lim_{x \to a} f(x) = f(a) \]
+                    </div>
+                </div>
+                <div class="example-box">
+                    <h4>Example</h4>
+                    <p>$$ \lim_{x \to 2} (3x^2 + 5x - 1) = 3(2)^2 + 5(2) - 1 = 12 + 10 - 1 = 21 $$</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. AI/ML Application: Computational Graphs</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Backpropagation is Limit Laws in Action</h3>
+                    <p>
+                        Modern AI frameworks (PyTorch, TensorFlow) view models as <strong>Computational Graphs</strong>.
+                        We care about the derivative of the loss \( \mathcal{L} \). The derivative is a limit.
+                    </p>
+                    <div class="mermaid-container">
+                        <div class="mermaid">
+                            graph TD
+                            X[Input x] --> Node1(f_x)
+                            X --> Node2(g_x)
+                            Node1 --> Sum((+))
+                            Node2 --> Sum
+                            Sum --> Out[Output y]
+                            style Sum fill:#f6e05e,stroke:#d69e2e
+                        </div>
+                        <div class="caption">Graph for y = f(x) + g(x).</div>
+                    </div>
+                    <p>
+                        Since differentiation is a linear operator (derived from the Sum and Constant limit laws):
+                        \[ \frac{d}{dx}(f(x) + g(x)) = \frac{df}{dx} + \frac{dg}{dx} \]
+                        The framework computes gradients for each node independently and sums them up. Without the
+                        <strong>Sum Law of Limits</strong>, we couldn't modularize backpropagation; we'd have to solve
+                        the limit for the entire massive network at once.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Python: Symbolic Limit Solving</h2>
+                <p>While numerical methods approximate, libraries like SymPy use algebraic rules to find
+                    exact/analytical limits.</p>
+                <div class="code-header">symbolic_limits.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">from sympy import Symbol, limit, sin, oo
+
+x = Symbol('x')
+
+# Case 1: Complex Rational Function (Direct Substitution fails due to 0/0)
+# f(x) = (x^2 + 3x + 2) / (x + 1)
+# Factor numerator: (x+1)(x+2). The (x+1) cancels.
+f = (x**2 + 3*x + 2) / (x + 1)
+
+lim_val = limit(f, x, -1)
+print(f"Limit of ({f}) as x -> -1 is: {lim_val}")
+# SymPy uses algebraic simplification rules internally to find this.
+
+# Case 2: Trigonometric Limit (Squeeze Theorem logic needed)
+# f(x) = sin(x)/x as x -> 0 (Should be 1)
+g = sin(x)/x
+lim_trig = limit(g, x, 0)
+print(f"Limit of sin(x)/x as x -> 0 is: {lim_trig}")
+
+# Case 3: Limits at Infinity
+h = (2*x**2 + 5)/(3*x**2 + 1)
+lim_inf = limit(h, x, oo)
+print(f"Limit of rational function at infinity: {lim_inf}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="08_05_limits_infinite.html" class="footer-link">← Prev: Infinite Limits</a>
+                        <span class="separator">|</span>
+                        <a href="08_07_continuity_defn.html" class="footer-link">Next: Continuity Definition →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

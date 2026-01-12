@@ -4,173 +4,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linear Equations - Phase 1.1.3</title>
+    <title>01.04 Linear Equations - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">? Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_01_number_systems.html" class="nav-link">01. Number Systems</a>
+                    </li>
+                    <li class="nav-item"><a href="01_02_operations.html" class="nav-link">02. Operations</a></li>
+                    <li class="nav-item"><a href="01_03_pemdas.html" class="nav-link">03. Order of Ops</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">04. Linear Equations</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Linear Equations
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 04. Linear Equations
         </div>
 
-        <header>
-            <h1>Linear Equations & Inequalities</h1>
-            <p class="subtitle">The humble line is the most important shape in the universe. If you understand \(y = mx
-                + b\), you understand 80% of Machine Learning.</p>
+        <header class="page-header">
+            <div class="badge">Module 04</div>
+            <h1>Linear Equations & The Universal Approximation</h1>
+            <p class="lead-text">From the humble line \( y = mx + b \) to the Hyperplanes that slice high-dimensional
+                space in Deep Learning.</p>
         </header>
 
-        <!-- 1. The Linear Model -->
-        <section id="basics">
-            <h2>1. The Fundamental Unit: \(y = mx + b\)</h2>
-            <p>Every complex Deep Learning model is just billions of these little lines stacked on top of each other.
-            </p>
+        <!-- VISUAL DIAGRAM: LINEARITY MAP -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    subgraph Math [The Equation]
+        Input["x: Input Variable"]
+        Weight["m: Slope (Weight)"]
+        Bias["b: Intercept (Bias)"]
+        Output["y: Output Target"]
+    end
 
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">Anatomy of the "Neuron"</h3>
-                </div>
-                <div style="display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 300px;">
-                        <ul class="topic-list" style="grid-template-columns: 1fr;">
-                            <li class="topic-item"><strong>m (Slope):</strong> Ideally, this is "Weight" (\(w\)). It
-                                tells the AI how important the input is. High slope = strong reaction.</li>
-                            <li class="topic-item"><strong>x (Input):</strong> The data point (e.g., pixel brightness).
-                            </li>
-                            <li class="topic-item"><strong>b (y-intercept):</strong> Ideally, this is "Bias". It allows
-                                the neuron to fire even if input is zero.</li>
-                        </ul>
-                    </div>
-                    <div style="flex: 1; min-width: 300px; text-align: center;">
-                        <!-- SVG: Slope and Bias -->
-                        <svg width="350" height="250" viewBox="0 0 350 250"
-                            style="background: #f8fafc; border-radius: 8px;">
-                            <!-- Grid -->
-                            <line x1="20" y1="220" x2="330" y2="220" stroke="#cbd5e1" stroke-width="2" />
-                            <line x1="40" y1="20" x2="40" y2="240" stroke="#cbd5e1" stroke-width="2" />
+    subgraph AI [The Neuron]
+        Pixel["Pixel Intensity"]
+        Importance["Feature Importance"]
+        Activation["Threshold Shift"]
+        Prediction["Class Score"]
+    end
 
-                            <!-- Line 1: Basic -->
-                            <line x1="40" y1="220" x2="240" y2="20" stroke="#3b82f6" stroke-width="3" />
-                            <text x="250" y="30" fill="#3b82f6" font-weight="bold">y = x (Weight = 1)</text>
+    Input --> Mult["Multiply (*)"]
+    Weight --> Mult
+    Mult --> Add["Add (+)"]
+    Bias --> Add
+    Add --> Output
 
-                            <!-- Line 2: Bias Shift -->
-                            <line x1="40" y1="150" x2="200" y2="20" stroke="#ef4444" stroke-dasharray="5,5"
-                                stroke-width="3" />
-                            <circle cx="40" cy="150" r="5" fill="#ef4444" />
-                            <text x="50" y="150" fill="#ef4444" font-weight="bold">Bias (+offset)</text>
-                        </svg>
-                        <p style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">Visualizing Weight (Angle) vs
-                            Bias (Shift)</p>
-                    </div>
-                </div>
-            </div>
+    Input -.-> Pixel
+    Weight -.-> Importance
+    Bias -.-> Activation
+    Output -.-> Prediction
 
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; margin-top: 2rem; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// PyTorch: The Linear Layer is just mx + b</div>
-                <pre><code class="language-python">import torch.nn as nn
-
-# In Math:   y = m * x + b
-# In Code:   Linear(in_features, out_features, bias=True)
-
-# Create a single "neuron" (1 input, 1 output)
-neuron = nn.Linear(in_features=1, out_features=1)
-
-# Inspect the parameters
-print(f"Slope (Weight): {neuron.weight.item()}")
-print(f"Intercept (Bias): {neuron.bias.item()}")
-
-# This is literally just slope-intercept form!</code></pre>
-            </div>
-        </section>
-
-        <!-- 2. Systems of Equations -->
-        <section id="systems">
-            <h2>2. Systems of Equations: Intersection = Solution</h2>
-            <p>Solving a system of equations means finding the point where two truths exist simultaneously.</p>
-            <div class="math-block">
-                $$ y = 2x + 1 $$
-                $$ y = -x + 4 $$
-            </div>
-
-            <div class="module-card">
-                <h3 class="module-title">AI Insight: "Training" is just solving a Massive System</h3>
-                <p>Imagine you have 10,000 data points (images of cats). You want <strong>ONE</strong> line (classifier)
-                    that satisfies all of them correctly.</p>
-                <p>Usually, <strong>no such single line exists</strong> for complex data. So, instead of an "Exact
-                    Solution" (Algebra), we find the "Best Approximate Solution" (Optimization/Calculus).</p>
-
-                <div class="ai-insight-box">
-                    <div class="ai-insight-title">Overdetermined Systems</div>
-                    <p>In Algebra, if you have 2 variables ($x, y$) and 3 equations, the system is
-                        <strong>Overdetermined</strong> (likely no solution).
-                    </p>
-                    <p>In AI, we have 100 variables (weights) and 1,000,000 equations (images). We are
-                        <em>massively</em> overdetermined. We use <strong>Least Squares Regression</strong> to find the
-                        line that minimizes the total error distance.
-                    </p>
+    style Math fill:#f0f9ff,stroke:#0ea5e9
+    style AI fill:#fdf4ff,stroke:#d946ef
+                    </pre>
                 </div>
             </div>
         </section>
 
-        <!-- 3. Inequalities -->
-        <!-- Inequalities and Absolute Value moved to their own files (01_05 and 01_06) -->
+        <!-- 1. DEFINITION: LINEAR VS AFFINE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Linear vs. Affine Transformations</h2>
+                <p>Strictly speaking, \( f(x) = mx + b \) is <strong>NOT</strong> linear if \( b \neq 0 \). It is
+                    <strong>Affine</strong>.</p>
+
+                <div class="math-block">
+                    $$ \text{Linearity requires: } f(x+y) = f(x) + f(y) $$
+                    $$ \text{Check: } m(x+y)+b \neq (mx+b) + (my+b) = m(x+y) + 2b $$
+                </div>
+
+                <h3>Why this matters</h3>
+                <p>In Deep Learning, we call them "Linear Layers" (`nn.Linear`), but they perform Affine
+                    transformations. The bias \( b \) allows the hyperplane to shift away from the origin, which is
+                    crucial for fitting data that isn't centered at zero.</p>
+            </div>
+        </section>
+
+        <!-- 2. THE GEOMETRY OF AI -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>2. Hyperplanes in High Dimensions</h2>
+                <p>A single linear equation describes a <strong>Hyperplane</strong>. In 2D, it's a line. In 3D, a plane.
+                    In 1000D (Embedding Space), it's a 999D flat surface.</p>
+
+                <div class="deep-dive-box">
+                    <h4 class="deep-dive-title">Universal Approximation Theorem</h4>
+                    <p>Why do we care about lines? Because <strong>Neural Networks are universal function
+                            approximators</strong>.</p>
+                    <p>The theorem states that a network with just one hidden layer (and non-linear activations) can
+                        approximate <em>any</em> continuous function to arbitrary precision.</p>
+                    <div class="math-block">
+                        $$ F(x) = \sum_{i=1}^N v_i \cdot \sigma(w_i x + b_i) $$
+                    </div>
+                    <p>Essentially, by summing enough "bent lines" (ReLUs) or "steps" (Sigmoids), we can construct any
+                        curve in the universe.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. CODE IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Implementing `nn.Linear` from Scratch</h2>
+                <p>Let's peek under the hood of PyTorch's fundamental building block.</p>
+                <pre><code class="language-python">import torch
+import math
+
+class MyLinear:
+    def __init__(self, in_features, out_features):
+        # 1. Initialize Weights (Shape: out x in)
+        # We use Kaiming Initialization logic here roughly
+        std = 1.0 / math.sqrt(in_features)
+        self.weight = torch.randn(out_features, in_features) * std
+        self.bias = torch.randn(out_features) * std
+
+    def forward(self, x):
+        # x shape: [Batch, in_features]
+        # y = xW^T + b
+        return x @ self.weight.T + self.bias
+
+# Verification
+x = torch.randn(10, 5) # Batch of 10, 5 features each
+layer = MyLinear(5, 2) # Map 5 -> 2 dimensions
+y = layer.forward(x)
+
+print(f"Input Shape: {x.shape}")   # [10, 5]
+print(f"Output Shape: {y.shape}")  # [10, 2]
+print(f"Sample Output:\n{y[0]}")
+</code></pre>
+            </div>
+        </section>
+
+        <!-- 4. SOLVING STRATEGIES VISUALIZED -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>4. The Logic of Solving</h2>
+                <p>Solving for \( x \) is the "Inverse" of the forward pass.</p>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+flowchart TD
+    Start["Equation: 3x + 5 = 11"] --> Step1["Isolate Term with x"]
+    Step1 --> Action1["Subtract 5 from both sides (Inverse of +5)"]
+    Action1 --> State1["3x = 6"]
+    State1 --> Step2["Isolate x"]
+    Step2 --> Action2["Divide by 3 (Inverse of *3)"]
+    Action2 --> Sol["x = 2"]
+    Sol --> Verify["Check: 3(2)+5 = 11? Yes."]
+
+    style Sol fill:#bbf,stroke:#00f,stroke-width:2px
+                    </pre>
+                </div>
+            </div>
+        </section>
 
         <footer>
             <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>

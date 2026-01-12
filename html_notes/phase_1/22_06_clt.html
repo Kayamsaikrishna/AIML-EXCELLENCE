@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.06 Central Limit Theorem - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_05_strong_lln.html" class="nav-link">05. Strong LLN</a></li>
+                        <li class="nav-item"><a href="22_06_clt.html" class="nav-link active">06. CLT</a></li>
+                        <li class="nav-item"><a href="22_07_conv_probability.html" class="nav-link">07. Conv (Prob)</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The King of Stats</span>
+                </div>
+                <h1>Central Limit Theorem (CLT)</h1>
+                <p class="lead-text">Why almost everything becomes a Bell Curve if you sum enough of it.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Universal Attractor</h3>
+                    <p>
+                        The Laws of Large Numbers tell us where the average <em>goes</em> (the mean). The **Central
+                        Limit Theorem** tells us the <em>shape</em> of the fluctuations around that mean.
+                        <br><br>
+                        "Sum a million dice rolls, or a million coin flips, or a million heights—the result is always a
+                        Normal Distribution."
+                    </p>
+                </div>
+
+                <h2>1. The Formal Statement</h2>
+                <div class="math-box">
+                    Let \(X_1, X_2, \dots, X_n\) be i.i.d. with mean \(\mu\) and finite variance \(\sigma^2\).
+                    As \(n \to \infty\), the sample mean \(\bar{X}_n\) converges in distribution to:
+                    $$ \bar{X}_n \xrightarrow{d} \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right) $$
+                    Standardized form:
+                    $$ Z_n = \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} \xrightarrow{d} \mathcal{N}(0, 1) $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Key Requirements</h2>
+                <ul>
+                    <li><strong>Independent:</strong> The variables shouldn't influence each other.</li>
+                    <li><strong>Finite Variance:</strong> This is why the <strong>Cauchy Distribution</strong> breaks the CLT—it has
+                        infinite variance, so its sums never become Normal.</li>
+                    <li><strong>Identically Distributed:</strong> (Though there are "Generalized" CLTs that relax this).
+                    </li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Error Analysis & Confidence</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Statistical ML</span>
+                    <span class="ml-badge">Hypothesis Testing</span>
+                    <h3>Confidence Intervals</h3>
+                    <p>
+                        When we evaluate a model on a test set of size \(n\), the average accuracy we get is a "sample
+                        mean".
+                        The CLT allows us to say: **"The error of my estimate is Normally distributed around the true
+                        accuracy."**
+                    </p>
+                    <p>
+                        This is how we calculate <strong>95% Confidence Intervals</strong>. If we know the variance, we know that the
+                        "True" accuracy is within \(\pm 1.96 \sigma/\sqrt{n}\) of our measured accuracy.
+                    </p>
+                </div>
+
+                <h3>Parameter Estimation</h3>
+                <p>
+                    In Neural Networks, the sum of many weights and inputs at a single neuron often follows a Normal
+                    distribution due to the CLT. This is why <strong>Gaussian Initialization</strong> works so well—it
+                    prepares the network layers for the distribution they will naturally gravitate towards.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. The Power of Square Root $n$</h2>
+                <p>
+                    Notice the \(\sqrt{n}\) in the denominator. This is the <strong>Rate of Convergence</strong>.
+                </p>
+                <ul>
+                    <li>If you want to make your error 10 times smaller, you need 100 times more data.</li>
+                    <li>This "law of diminishing returns" is why collecting massive datasets is often necessary for
+                        high-precision scientific ML.</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

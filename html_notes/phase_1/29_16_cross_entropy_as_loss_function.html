@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.16 Cross-Entropy as Loss Function - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.3 Divergences</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_15_cross_entropy_definition.html" class="nav-link">15.
+                                Cross-Entropy Definition</a></li>
+                        <li class="nav-item"><a href="29_16_cross_entropy_as_loss_function.html"
+                                class="nav-link active">16. Cross-Entropy as Loss Function</a></li>
+                        <li class="nav-item"><a href="29_17_kl_divergence_definition.html" class="nav-link">17. KL
+                                Divergence Definition</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Deep Learning</span>
+                    <span class="badge secondary">Optimization</span>
+                </div>
+                <h1>Cross-Entropy as Loss Function</h1>
+                <p class="lead-text">The "Oracle's Whip." Why Cross-Entropy is the most effective way to punish a model
+                    for being wrong.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Beyond Squared Errors</h3>
+                    <p>
+                        In Regression, we use Mean Squared Error (MSE). But in Classification, MSE is dangerous. If a
+                        model predicts a probability of 0.0001 for the correct class, MSE only produces a small error
+                        (\(\sim 1\)). Cross-Entropy, however, produces an <strong>Infinite</strong> error (\(-\log 0 \to \infty\)),
+                        forcing the model to fix its mistake immediately.
+                    </p>
+                </div>
+
+                <h2>1. The Binary Case (Binary Cross-Entropy)</h2>
+                <p>For binary classification (0 or 1), the loss function is:</p>
+                <div class="math-box">
+                    $$ \mathcal{L} = - [y \log \hat{y} + (1-y) \log(1-\hat{y})] $$
+                </div>
+                <ul>
+                    <li><strong>When \(y=1\):</strong> Loss is \(-\log \hat{y}\). If the model predicts \(\hat{y}=0\), the penalty is
+                        huge.</li>
+                    <li><strong>When \(y=0\):</strong> Loss is \(-\log(1-\hat{y})\). If the model predicts \(\hat{y}=1\), the penalty
+                        is huge.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Cross-Entropy vs. MSE Gradients</h2>
+                <p>One of the biggest advantages of Cross-Entropy combined with a Sigmoid/Softmax activation is the
+                    <strong>Gradient Flow</strong>.</p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>The MSE Trap</h4>
+                        <p>In MSE, the gradient contains a term \(\hat{y}(1-\hat{y})\). If the model is confidently
+                            wrong (e.g., \(\hat{y}=0.999\) but \(y=0\)), the gradient becomes near-zero, and the model
+                            stops learning!</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>The Cross-Entropy Cleanliness</h4>
+                        <p>In Cross-Entropy, the sigmoid derivative cancels out perfectly, leaving a simple gradient:
+                        </p>
+                        <div class="math-box">
+                            $$ \frac{\partial \mathcal{L}}{\partial w} = x(\hat{y} - y) $$
+                        </div>
+                        <p>The error is linear to the mistake. No saturation, no slowing down.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Categorical Cross-Entropy (Multi-class)</h2>
+                <p>When using Softmax for multiple classes, the log-likelihood over all classes \(C\) is:</p>
+                <div class="math-box">
+                    $$ \mathcal{L}_{CCE} = - \sum_{i=1}^C y_i \log \hat{y}_i $$
+                </div>
+                <p>
+                    Because \(y\) is a "One-Hot" vector, this effectively ignores all predicted probabilities <strong>except</strong>
+                    for the one belonging to the true class. It pushes the model to put 100% of its probability mass
+                    into that single bucket.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Weighting</span>
+                    <h3>Combatting Imbalance</h3>
+                    <p>
+                        If 99% of your data is "Normal" and 1% is "Fraud," a standard Cross-Entropy loss will ignore the
+                        fraud. To fix this, we use <strong>Weighted Cross-Entropy</strong>:
+                    </p>
+                    <div class="math-box">
+                        $$ \mathcal{L} = - [w_{fraud} \cdot y \log \hat{y} + w_{normal} \cdot (1-y) \log(1-\hat{y})] $$
+                    </div>
+                    <p>
+                        By setting \(w_{fraud} = 100\), we force the model to treat a single fraud mistake as seriously
+                        as 100 normal mistakes. This is the cornerstone of engineering robust classifiers for
+                        real-world, messy data.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. The Feedback Loop</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Model Output] --> B[Softmax / Sigmoid]
+                    B --> C[Probability Distribution]
+                    C --> D{Compare to Target}
+                    D -- Log Surprise --> E[Cross-Entropy Loss]
+                    E -- Backprop --> F[Weights Updated]
+                    F --> A
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

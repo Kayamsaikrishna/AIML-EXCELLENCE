@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.05 Complement Rule - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_04_prob_properties.html" class="nav-link">04. Prob
+                                Properties</a></li>
+                        <li class="nav-item"><a href="17_05_complement_rule.html" class="nav-link active">05. Complement
+                                Rule</a></li>
+                        <li class="nav-item"><a href="17_06_addition_rule_exclusive.html" class="nav-link">06. Addition
+                                Rule</a></li>
+                        <li class="nav-item"><a href="17_07_general_addition_rule.html" class="nav-link">07. Gen.
+                                Addition Rule</a></li>
+                        <li class="nav-item"><a href="17_08_multiplication_rule.html" class="nav-link">08.
+                                Multiplication</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Inversion</span>
+                </div>
+                <h1>The Complement Rule</h1>
+                <p class="lead-text">Sometimes it's easier to count what didn't happen.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Not" Logic</h3>
+                    <p>
+                        For any event \(A\), the probability of "Not A" (denoted \(A^c\) or \(A'\)) is:
+                        \[ P(A^c) = 1 - P(A) \]
+                    </p>
+                    <p>
+                        This is useful when calculating \(P(A)\) directly is hard, but calculating "None of the above"
+                        is easy.
+                        Example: "At least one server fails" = 1 - "All servers work".
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Dropout</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Survival Probability</h3>
+                    <p>
+                        In <strong>Dropout</strong> regularization, each neuron has a probability \(p\) of being
+                        "dropped" (set to zero).
+                        The probability of a neuron <i>surviving</i> (being kept/active) is \(1-p\).
+                    </p>
+                    <p>
+                        We use this complement probability to scale the activations during testing, ensuring the
+                        expected value remains consistent with training.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Birthday Problem</h2>
+                <div class="code-header">birthday_paradox.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Prob that in room of N people, at least 2 share a birthday.
+# P(Share) = 1 - P(No One Shares)
+
+def p_share(n):
+    # P(No Share) = 365/365 * 364/365 * ... 
+    p_no_share = 1.0
+    for i in range(n):
+        p_no_share *= (365 - i) / 365
+    return 1 - p_no_share
+
+print(f"Room of 23 people: {p_share(23):.4f}")
+# Result is > 0.5!</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_04_prob_properties.html" class="footer-link">← Prev: Properties</a>
+                        <span class="separator">|</span>
+                        <a href="17_06_addition_rule_exclusive.html" class="footer-link">Next: Addition Rule →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

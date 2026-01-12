@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.10 Laplace Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_09_f_distribution.html" class="nav-link">09. F-Distribution</a>
+                        </li>
+                        <li class="nav-item"><a href="20_10_laplace_dist.html" class="nav-link active">10. Laplace
+                                Dist</a></li>
+                        <li class="nav-item"><a href="20_11_cauchy_dist.html" class="nav-link">11. Cauchy Dist</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Sharp</span>
+                </div>
+                <h1>The Laplace Distribution</h1>
+                <p class="lead-text">The "Double Exponential": A sharper, peakier alternative to Gaussian.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Peakiness and Robustness</h3>
+                    <p>
+                        The Laplace distribution looks like two exponential distributions back-to-back. Compared to the
+                        Normal distribution, it has a sharper peak at the mean and heavier tails.
+                        <br><br>
+                        While the Gaussian is associated with <strong>L2 distance</strong> (squared), the Laplace is associated with
+                        <strong>L1 distance</strong> (absolute value).
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    A Random Variable \(X\) follows a Laplace distribution with mean \(\mu\) and scale \(b > 0\):
+                    $$ f(x) = \frac{1}{2b} \exp\left( -\frac{|x-\mu|}{b} \right) $$
+                </div>
+                <ul>
+                    <li>The term \(|x-\mu|\) creates the "V" shape in the exponent.</li>
+                    <li>Unlike the Gaussian which drops off as \(x^2\), the Laplace drops off as \(|x|\).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Moments</h2>
+                <ul>
+                    <li><strong>Mean:</strong> \(E[X] = \mu\).</li>
+                    <li><strong>Variance:</strong> \(\text{Var}(X) = 2b^2\).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: L1 Regularization (Lasso)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Regularization</span>
+                    <h3>Why L1 leads to Sparsity?</h3>
+                    <p>
+                        In Linear Regression, <strong>L1 Regularization (Lasso)</strong> adds a penalty term
+                        proportional to the absolute values of the weights: \(\lambda \sum |w_i|\).
+                    </p>
+                    <p>
+                        From a Bayesian perspective, this is equivalent to assuming a <strong>Laplace Prior</strong> on the weights.
+                        <br>
+                        Because the Laplace distribution is extremely "pointy" at zero, the optimization process is
+                        strongly encouraged to set many weights exactly to zero.
+                        <br><br>
+                        <strong>Gaussian Prior (L2)</strong> \(\to\) Small weights but rarely zero.
+                        <br>
+                        <strong>Laplace Prior (L1)</strong> \(\to\) Sparse weights (mostly zero).
+                    </p>
+                </div>
+
+                <h3>MAE vs. MSE</h3>
+                <p>
+                    Minimizing the <strong>Mean Absolute Error (MAE)</strong> is equivalent to Maximum Likelihood Estimation where
+                    the errors follow a Laplace distribution. This makes MAE more robust to outliers than MSE.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Differential Privacy</h2>
+                <p>
+                    The Laplace distribution is the crown jewel of <strong>Differential Privacy</strong>. To protect personal data,
+                    we add "Laplace Noise" to query results. The scale of the noise is proportional to the "sensitivity"
+                    of the query (how much one person can change the result).
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

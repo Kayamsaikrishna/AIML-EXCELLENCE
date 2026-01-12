@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.07 Correlation - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_06_covariance.html" class="nav-link">06. Covariance</a></li>
+                        <li class="nav-item"><a href="21_07_correlation.html" class="nav-link active">07.
+                                Correlation</a></li>
+                        <li class="nav-item"><a href="21_08_corr_properties.html" class="nav-link">08. Corr
+                                Properties</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Strength</span>
+                </div>
+                <h1>Correlation (Pearson's \(r\))</h1>
+                <p class="lead-text">Measuring the strength and direction of linear relationships on a universal scale.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Normalized Covariance</h3>
+                    <p>
+                        Correlation is simply <strong>Covariance divided by the product of Standard Deviations</strong>.
+                        <br><br>
+                        This "normalization" removes the units and constrains the value to exactly between <strong>-1
+                            and 1</strong>. This makes it a universal yardstick for how closely two variables follow a
+                        straight line.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    $$ \rho_{X,Y} = \text{Corr}(X, Y) = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y} $$
+                </div>
+                <ul>
+                    <li>\(\rho = 1\): Perfect positive linear relationship.</li>
+                    <li>\(\rho = -1\): Perfect negative linear relationship.</li>
+                    <li>\(\rho = 0\): No linear relationship.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Visualizing Strength</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A["Perfect (+1)"] --> B["Strong (+0.8)"]
+                        B --> C["Weak (+0.3)"]
+                        C --> D["None (0.0)"]
+                        D --> E["Weak (-0.3)"]
+                        style A fill:#00ff00,stroke:#333,stroke-width:2px
+                        style D fill:#cccccc,stroke:#333,stroke-width:2px
+                        style E fill:#ff6666,stroke:#333,stroke-width:2px
+                    </div>
+                </div>
+                <p>
+                    <strong>Key Insight:</strong> Correlation only measures <strong>Linear</strong> relationships. Two
+                    variables could have a perfect parabolic relationship (\(Y=X^2\)) and still have a correlation of
+                    zero!
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Feature Engineering</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">EDA</span>
+                    <span class="ml-badge">Supervised</span>
+                    <h3>The Correlation Heatmap</h3>
+                    <p>
+                        During <strong>Exploratory Data Analysis (EDA)</strong>, we look at the correlation matrix
+                        between features and the target variable.
+                        <br><br>
+                        - <strong>Predictive Power:</strong> High correlation between a feature and the target means the feature is
+                        likely very useful for the model.
+                        <br>
+                        - <strong>Multicollinearity:</strong> High correlation <em>between</em> two features suggests redundancy. If
+                        Feature A and Feature B are 0.99 correlated, keeping both might hurt the stability of your
+                        Linear Regression coefficients.
+                    </p>
+                </div>
+
+                <h3>Feature Selection</h3>
+                <p>
+                    Oftentimes, we drop features that have very low correlation with the target to reduce noise and
+                    speed up training. However, be careful: some features only become useful in <em>combination</em>
+                    with others (interaction effects).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Python: The Heatmap</h2>
+                <div class="code-playground">
+                    <div class="code-header">Python: Visualizing Correlations</div>
+                    <pre><code class="language-python">
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Sample DataFrame
+data = pd.DataFrame({
+    'Income': [50, 60, 80, 110, 120],
+    'Spending': [20, 25, 30, 45, 50],
+    'Age': [25, 30, 45, 50, 60]
+})
+
+# Compute Correlation Matrix
+corr_matrix = data.corr()
+
+# Plot Heatmap
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
+plt.show()
+                    </code></pre>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

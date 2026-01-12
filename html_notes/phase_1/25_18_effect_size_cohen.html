@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.18 Effect Size: Cohen's d - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_17_non_parametric_kruskal.html" class="nav-link">17. Non
+                                Parametric Kruskal</a></li>
+                        <li class="nav-item"><a href="25_18_effect_size_cohen.html" class="nav-link active">18. Effect
+                                Size Cohen</a></li>
+                        <li class="nav-item"><a href="25_19_multiple_testing_bonferroni.html" class="nav-link">19.
+                                Multiple Testing</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Practical Impact</span>
+                </div>
+                <h1>Effect Size (Cohen's d)</h1>
+                <p class="lead-text">Measuring the "bigness" of a discovery. Significance tells you if it's real; effect
+                    size tells you if it's worth it.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The P-value Trap</h3>
+                    <p>
+                        With enough data (e.g., \(n = 1,000,000\)), almost <em>any</em> tiny difference becomes
+                        "Statistically Significant" (\(P < 0.05\)). But is a 0.0001% increase in revenue worth a 50%
+                            increase in GPU cost? <br><br>
+                            <strong>Effect Size</strong> helps you answer that.
+                    </p>
+                </div>
+
+                <h2>1. Cohen's d Formula</h2>
+                <div class="math-box">
+                    $$ d = \frac{\bar{x}_1 - \bar{x}_2}{s_p} $$
+                </div>
+                <p>It measures how many <strong>Standard Deviations</strong> the two groups are apart.</p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A["d = 0.2"] --> B["Small Effect (Hard to see)"]
+                        C["d = 0.5"] --> D["Medium Effect"]
+                        E["d = 0.8"] --> F["Large Effect (Obvious)"]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Significance vs. Effect Size</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Statistical Significance (P)</th>
+                            <th>Effect Size (d)</th>
+                            <th>Interpretation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Large \(n\), Tiny diff</td>
+                            <td><strong>YES</strong></td>
+                            <td><strong>NO</strong></td>
+                            <td>"Technically real, but useless."</td>
+                        </tr>
+                        <tr>
+                            <td>Small \(n\), Large diff</td>
+                            <td><strong>NO</strong></td>
+                            <td><strong>YES</strong></td>
+                            <td>"Promising, but need more data."</td>
+                        </tr>
+                        <tr>
+                            <td>Large \(n\), Large diff</td>
+                            <td><strong>YES</strong></td>
+                            <td><strong>YES</strong></td>
+                            <td>"The Holy Grail of discovery."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Feature Importance</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Product</span>
+                    <h3>Practical Significance in A/B Tests</h3>
+                    <p>
+                        A company tests a new recommender system.
+                        - <strong>P-value:</strong> 0.004 (Extremely Significant).
+                        - <strong>Effect Size (Cohen's d):</strong> 0.02 (Extremely Tiny).
+                    </p>
+                    <p>
+                        The product manager decides <strong>NOT</strong> to deploy. Why? Because the difference, while "real," is so
+                        small that the extra maintenance cost of the new model outweighs the tiny lift in performance.
+                    </p>
+                    <p>
+                        In your ML reports, always include <strong>Cohen's d</strong> or <strong>R-squared</strong> alongside P-values to avoid
+                        building models that solve "statistically real" but "practically invisible" problems.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

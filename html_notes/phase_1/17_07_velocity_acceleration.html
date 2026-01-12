@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,78 +9,81 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.3 Applications of Derivs</li>
-            <li><a href="17_01_critical_points.html">01. Critical Points</a></li>
-            <li><a href="17_02_first_deriv_test.html">02. 1st Deriv Test</a></li>
-            <li><a href="17_03_second_deriv_test.html">03. 2nd Deriv Test</a></li>
-            <li><a href="17_04_concavity_inflection.html">04. Concavity</a></li>
-            <li><a href="17_05_curve_sketching.html">05. Curve Sketching</a></li>
-            <li><a href="17_06_optimization_applied.html">06. Optimization</a></li>
-            <li><a href="17_07_velocity_acceleration.html" class="active">07. Velocity & Accel</a></li>
-            <hr>
-            <li class="nav-label">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.3 Deriv Apps</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="17_07_velocity_acceleration.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Velocity & Accel
+            <a href="../index.html">Syllabus</a> &gt; 17_07_velocity_acceleration.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 17_07</div>
             <h1>07. Velocity and Acceleration (Applied)</h1>
-            <p class="subtitle">The calculus of motion.</p>
+            <p class="lead-text">The calculus of motion.</p>
         </header>
 
-        <section>
-            <h2>1. The Motion Chain</h2>
-            <p>Calculus allows us to move between levels of physical description through differentiation.</p>
-            <ol class="topic-list">
-                <li><strong>Position \(s(t)\):</strong> Where the object is.</li>
-                <li><strong>Velocity \(v(t) = s'(t)\):</strong> How fast its position is changing (speed + direction).
-                </li>
-                <li><strong>Acceleration \(a(t) = v'(t) = s''(t)\):</strong> How fast its velocity is changing.</li>
-                <li><strong>Jerk \(j(t) = a'(t)\):</strong> How quickly its acceleration changes (crucial for comfort in
-                    self-driving cars).</li>
-            </ol>
-        </section>
+        
 
-        <section class="module-card">
-            <h2>2. Speed vs. Velocity</h2>
-            <p>Remember that Velocity is a vector (has direction). <strong>Speed</strong> is the absolute value of
+
+
+<section>
+<h2>1. The Motion Chain</h2>
+<p>Calculus allows us to move between levels of physical description through differentiation.</p>
+<ol class="topic-list">
+<li><strong>Position \(s(t)\):</strong> Where the object is.</li>
+<li><strong>Velocity \(v(t) = s'(t)\):</strong> How fast its position is changing (speed + direction).
+                </li>
+<li><strong>Acceleration \(a(t) = v'(t) = s''(t)\):</strong> How fast its velocity is changing.</li>
+<li><strong>Jerk \(j(t) = a'(t)\):</strong> How quickly its acceleration changes (crucial for comfort in
+                    self-driving cars).</li>
+</ol>
+</section>
+<section class="module-card">
+<h2>2. Speed vs. Velocity</h2>
+<p>Remember that Velocity is a vector (has direction). <strong>Speed</strong> is the absolute value of
                 velocity: \(\text{Speed} = |v(t)|\). A particle is moving faster when its speed is increasing, which
                 happens when velocity and acceleration have the <strong>same sign</strong>.</p>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Robotics & Trajectory Prediction</h2>
-            <div class="module-card">
-                <h3>The Kalman Filter</h3>
-                <p>In <strong>Robotics</strong> and <strong>Drone Control</strong>, we use AI to predict where a moving
+</section>
+<section>
+<h2>3. AI/ML Connection: Robotics &amp; Trajectory Prediction</h2>
+<div class="module-card">
+<h3>The Kalman Filter</h3>
+<p>In <strong>Robotics</strong> and <strong>Drone Control</strong>, we use AI to predict where a moving
                     object will be in the next 100 milliseconds. Models like the <strong>Kalman Filter</strong> rely on
                     these derivatives. By knowing the current position, velocity, and acceleration, the AI can
                     "extrapolate" the path even if the sensors are temporarily blocked by noise.</p>
-                <p>Furthermore, in <strong>Self-Driving Cars</strong>, we optimize the "Jerk" (the 3rd derivative). A
+<p>Furthermore, in <strong>Self-Driving Cars</strong>, we optimize the "Jerk" (the 3rd derivative). A
                     path that is mathematically optimal but has high jerk would be extremely uncomfortable for human
                     passengers, making higher-order calculus essential for human-centric AI design.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Simulating Gravity</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># s(t) = -4.9t^2 + 20t + 5
+</div>
+</section>
+<section>
+<h2>4. Python: Simulating Gravity</h2>
+<div class="code-block">
+<pre><code class="language-python"># s(t) = -4.9t^2 + 20t + 5
 # Ground hit: solve s(t) = 0
 # Velocity at hit: v(t_hit)
 
@@ -96,13 +98,14 @@ impact_v = v.subs(t, t_hit)
 
 print(f"Time of impact: {t_hit:.2f} s")
 print(f"Impact Velocity: {impact_v:.2f} m/s")</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

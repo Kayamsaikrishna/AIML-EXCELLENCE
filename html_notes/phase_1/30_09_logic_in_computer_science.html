@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30.09 Logic in Computer Science - Logic & Proofs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.6.3 Synthesis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="30_08_mathematical_induction.html" class="nav-link">08.
+                                Mathematical Induction</a></li>
+                        <li class="nav-item"><a href="30_09_logic_in_computer_science.html" class="nav-link active">09.
+                                Logic in CS</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Applications</span>
+                    <span class="badge secondary">Computing</span>
+                </div>
+                <h1>Logic in Computer Science</h1>
+                <p class="lead-text">From Thought to Silicon. How the abstract rules of formal logic provide the
+                    blueprints for hardware, the constraints for software, and the reasoning for Artificial
+                    Intelligence.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Great Convergence</h3>
+                    <p>
+                        In 1937, Claude Shannon realized that Boolean algebra could be used to describe electrical
+                        switching circuits. This transformed logic from a branch of philosophy into the fundamental
+                        language of the digital age.
+                    </p>
+                </div>
+
+                <h2>1. Logic Gates: Physical Truth</h2>
+                <p>
+                    Every processor in the world is built from billions of tiny switches (transistors) arranged as
+                    <strong>Logic Gates</strong>.
+                </p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>AND Gate (\(\land\))</h4>
+                        <p>Output is high (1) only if both inputs are high. Used for conditional checks.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>NOT Gate (\(\neg\))</h4>
+                        <p>Inverts the signal. Smallest unit of digital control.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>XOR Gate (\(\oplus\))</h4>
+                        <p>Foundation of arithmetic; used to build binary adders.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. SAT Solvers: Automated Logic</h2>
+                <p>
+                    A <strong>Boolean Satisfiability (SAT) Solver</strong> is an algorithm that takes a complex logical expression
+                    and tries to find a combination of T/F values that makes the whole thing true.
+                </p>
+                <ul>
+                    <li><strong>NP-Completeness:</strong> SAT was the first problem proven to be NP-complete (hardest for a computer
+                        to solve).</li>
+                    <li><strong>Modern Speed:</strong> Despite being hard, modern "CDCL" solvers can solve expressions with millions
+                        of variables in seconds.</li>
+                    <li><strong>Application:</strong> They are used to verify that software drivers don't crash and that hardware
+                        layouts are physically possible.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">AI Safety</span>
+                    <span class="ml-badge">Expert Systems</span>
+                    <h3>Logic & The Future of AI</h3>
+                    <p>
+                        While Deep Learning is probabilistic, the "Next Frontier" is <strong>Neuro-symbolic AI</strong>, which
+                        combines the learning power of Neural Networks with the logical rigor of Propositional and
+                        Predicate Logic.
+                    </p>
+                    <ul>
+                        <li><strong>Consistency:</strong> Using formal logic to "verify" that an LLM output doesn't contradict
+                            established physical laws.</li>
+                        <li><strong>Explainability:</strong> If an AI makes a decision using a logical inference chain (Modus
+                            Ponens), we can trace exactly *why* it did so.</li>
+                        <li><strong>Constraint-based Learning:</strong> Training neural networks with a "Logic Loss" that penalizes
+                            the model if its outputs violate logical invariants (e.g., \(P \land \neg P\)).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Computational Stack</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Abstract Logic: P → Q] --> B[Boolean Algebra]
+                    B --> C[Logic Gates: NAND, NOR]
+                    C --> D[Hardware: CPU/GPU]
+                    D --> E[Compiler: If/Else/While]
+                    E --> F[AI Application]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.02 Parameter Space - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_01_pop_vs_sample.html" class="nav-link">01. Pop Vs Sample</a>
+                        </li>
+                        <li class="nav-item"><a href="23_02_parameter_space.html" class="nav-link active">02. Parameter
+                                Space</a></li>
+                        <li class="nav-item"><a href="23_03_statistics_estimators.html" class="nav-link">03. Statistics
+                                Estimators</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">The Playground</span>
+                </div>
+                <h1>Parameter Space (\(\Theta\))</h1>
+                <p class="lead-text">The universe of all possible values that a population parameter can take.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Where Truth Lives</h3>
+                    <p>
+                        A model is usually defined by a set of parameters (\(\theta\)). The <strong>Parameter Space</strong> is the
+                        geometric space containing every valid combination of those parameters.
+                        <br><br>
+                        "If you are looking for the needle (the truth), the Parameter Space is the haystack."
+                    </p>
+                </div>
+
+                <h2>1. Defining Constraints</h2>
+                <div class="math-box">
+                    $$ \theta \in \Theta $$
+                </div>
+                <ul>
+                    <li><strong>Normal Distribution:</strong> \(\mu \in \mathbb{R}\), \(\sigma^2 \in (0, \infty)\).</li>
+                    <li><strong>Bernoulli Distribution:</strong> \(p \in [0, 1]\).</li>
+                    <li><strong>Poisson Distribution:</strong> \(\lambda \in (0, \infty)\).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Hypothesis Space</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Optimization</span>
+                    <h3>Weight Space</h3>
+                    <p>
+                        In a Neural Network with 1 million weights, the Parameter Space is \(\mathbb{R}^{1,000,000}\).
+                        Training a model is effectively a <strong>Global Search</strong> through this massive parameter
+                        space to find the "best" \(\theta\).
+                    </p>
+                    <p>
+                        <strong>Constraints matter:</strong> If we use a Sigmoid activation, we are restricting our model's "output
+                        space" to \((0, 1)\). If we use Weight Decay (L2), we are effectively "shrinking" the accessible
+                        volume of the parameter space to keep weights small.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Identifiability</h2>
+                <p>
+                    A model is <strong>Identifiable</strong> if different parameters always lead to different distributions.
+                    - If two different values of \(\theta\) produce the exact same data distribution, the model is
+                    unidentifiable.
+                    - <strong>Translation in ML:</strong> If your loss surface has a flat "plateau" where different weights give the
+                    same error, your parameters are not uniquely identifiable.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

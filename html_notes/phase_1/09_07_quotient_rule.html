@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.07 The Quotient Rule - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_06_product_rule.html" class="nav-link">06. The Product Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="09_07_quotient_rule.html" class="nav-link active">07. The Quotient
+                                Rule</a></li>
+                        <li class="nav-item"><a href="09_08_chain_rule.html" class="nav-link">08. The Chain Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="09_09_implicit_diff.html" class="nav-link">09. Implicit
+                                Differentiation</a></li>
+                        <li class="nav-item"><a href="09_10_trig_derivatives.html" class="nav-link">10. Trig
+                                Derivatives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Ratios</span>
+                </div>
+                <h1>The Quotient Rule</h1>
+                <p class="lead-text">How to differentiate a competition between two forces (Numerator vs Denominator).
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Lo-D-Hi" Mnemonic</h3>
+                    <p>
+                        This rule is notoriously hard to remember because order matters (subtraction). Memorize this
+                        chant:
+                        <br>
+                        <strong>"Low D-High minus High D-Low, over the square of what's below."</strong>
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="glass-card">
+                    <p>
+                        For two differentiable functions \(u(x)\) (High) and \(v(x)\) (Low):
+                    </p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx} \left[ \frac{u(x)}{v(x)} \right] = \frac{v(x)u'(x) - u(x)v'(x)}{[v(x)]^2} \]
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Ratio[Ratio u / v]
+                        Diff[Differentiate]
+                        Top[Numerator Term]
+                        Bottom[Denominator Term]
+
+                        Ratio --> Diff
+                        Diff --> Top
+                        Diff --> Bottom
+
+                        Top -->|v * u'| Positive[Growth from Top]
+                        Top -->|u * v'| Negative[Drag from Bottom]
+                        Positive -- Subtract --> FinalTop
+                        Negative -- Subtract --> FinalTop
+
+                        Bottom --> Square[v Squared]
+
+                        FinalTop -- Divide --> Result
+                        Square -- By --> Result
+
+                        style Positive fill:#48bb78,stroke:#2f855a
+                        style Negative fill:#f56565,stroke:#c53030
+                    </div>
+                    <div class="caption">Growth on top adds to the rate. Growth on bottom subtracts from the rate.</div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Softmax Gradient</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Softmax is Hard</h3>
+                    <p>
+                        The <strong>Softmax</strong> activation function turns logits into probabilities:
+                        \[ p_i = \frac{e^{z_i}}{\sum e^{z_j}} \]
+                    </p>
+                    <p>
+                        When we maximize the probability of the correct class (via Log-Likelihood), we need the gradient
+                        of this ratio.
+                    </p>
+                    <ul>
+                        <li>If \(i = j\): The term \(e^{z_i}\) is in both numerator and denominator.</li>
+                        <li>If \(i \ne j\): The term \(e^{z_j}\) is only in the denominator.</li>
+                    </ul>
+                    <p>
+                        The Quotient Rule derived the famous Jacobian matrix for Softmax:
+                        \[ \frac{\partial p_i}{\partial z_j} = p_i(\delta_{ij} - p_j) \]
+                        This clean result comes purely from applying "Lo-D-Hi" and simplifying.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Quotient Logic</h2>
+                <div class="code-header">quotient_rule_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+
+# Define u (High) and v (Low) for the Sigmoid function
+# Sigmoid = 1 / (1 + e^-x)
+u = 1
+v = 1 + sp.exp(-x)
+
+# 1. Quotient Rule Formula
+# (v * u' - u * v') / v^2
+u_prime = sp.diff(u, x) # 0
+v_prime = sp.diff(v, x) # -e^-x
+formula_res = (v * u_prime - u * v_prime) / v**2
+
+# 2. Direct Differentiation
+direct_res = sp.diff(u/v, x)
+
+print(f"Sigmoid Derivative (Formula): {sp.simplify(formula_res)}")
+print(f"Sigmoid Derivative (Direct):  {sp.simplify(direct_res)}")
+
+# Show that Sigmoid derivative is s(1-s)
+sigmoid = u/v
+magic_property = sigmoid * (1 - sigmoid)
+print(f"Sigmoid Property s(1-s):      {sp.simplify(magic_property)}")
+
+if sp.simplify(direct_res - magic_property) == 0:
+    print("\n✅ Verified: The Quotient Rule confirms the Sigmoid derivative property.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_06_product_rule.html" class="footer-link">← Prev: Product Rule</a>
+                        <span class="separator">|</span>
+                        <a href="09_08_chain_rule.html" class="footer-link">Next: Chain Rule →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.15 Chi-Square Goodness of Fit - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_14_chi_square_independence.html" class="nav-link">14. Chi
+                                Square Independence</a></li>
+                        <li class="nav-item"><a href="25_15_chi_square_goodness_fit.html" class="nav-link active">15.
+                                Chi Square Goodness Fit</a></li>
+                        <li class="nav-item"><a href="25_16_non_parametric_wilcoxon.html" class="nav-link">16. Non
+                                Parametric Wilcoxon</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Modeling</span>
+                </div>
+                <h1>Chi-Square (\(\chi^2\)) Goodness of Fit</h1>
+                <p class="lead-text">Testing if your observed sample "fits" a specific theoretical distribution (like a
+                    fair die or a Poisson spread).</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Distribution Matcher</h3>
+                    <p>
+                        Does my data follow the pattern I think it does?
+                        - <strong>Null Hypothesis (\(H_0\)):</strong> The data fits the specified distribution.
+                        - <strong>Alternative (\(H_a\)):</strong> The data does NOT fit the distribution.
+                    </p>
+                </div>
+
+                <h2>1. The Test Statistic</h2>
+                <div class="math-box">
+                    $$ \chi^2 = \sum \frac{(O - E)^2}{E} $$
+                    $$ df = k - 1 $$
+                </div>
+                <ul>
+                    <li>\(k\): Number of categories.</li>
+                    <li>\(E\): Calculated based on the hypothesized percentages.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Cluster Analysis</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Unsupervised</span>
+                    <span class="ml-badge">Validation</span>
+                    <h3>Do clusters match reality?</h3>
+                    <p>
+                        You run <strong>K-Means Clustering</strong> on customer data. Based on historical research, you expect 50%
+                        "Budget," 30% "Mid," and 20% "Premium" customers.
+                    </p>
+                    <p>
+                        <strong>The Test:</strong>
+                        1. Count how many users K-Means assigned to each group.
+                        2. Calculate the Expected counts (\(N \times 0.5\), \(N \times 0.3\), etc.).
+                        3. Perform a <strong>Goodness of Fit</strong> test.
+                    </p>
+                    <p>
+                        If the P-value is very small, it means your K-Means model is creating clusters that
+                        significantly deviate from the known business segments. This might mean your features are wrong
+                        or the customer behavior has shifted drastically!
+                    </p>
+                </div>
+
+                <h3>Synthetic Data Evaluation</h3>
+                <p>
+                    In Generative AI (GANs), you use this test to see if the categorical distribution of your "Fake"
+                    data matches the categorical distribution of the "Real" training data. If they match (\(P > 0.05\)),
+                    the generator is doing a good job!
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

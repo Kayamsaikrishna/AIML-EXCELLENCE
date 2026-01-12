@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15.02 First-Order ODEs - Differential Equations</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.8 Differential Equations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="15_01_ode_intro.html" class="nav-link">01. Neural ODEs & Intro</a>
+                        </li>
+                        <li class="nav-item"><a href="15_02_first_order_odes.html" class="nav-link active">02.
+                                First-Order ODEs</a></li>
+                        <li class="nav-item"><a href="15_03_second_order_odes.html" class="nav-link">03. Second-Order
+                                ODEs</a></li>
+                        <li class="nav-item"><a href="15_04_homo_nonhomo.html" class="nav-link">04. Homogeneous Eqs</a>
+                        </li>
+                        <li class="nav-item"><a href="15_05_ode_ml_apps.html" class="nav-link">05. Diffusion Models</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">DiffEq 1.8</span>
+                    <span class="badge secondary">Fundamentals</span>
+                </div>
+                <h1>First-Order ODEs</h1>
+                <p class="lead-text">Modeling rates of change in simple systems.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Separation & Integration</h3>
+                    <p>
+                        A first-order ODE involves \(y' = \frac{dy}{dt}\) and \(y\).
+                        The simplest method to solve them is <strong>Separable Equations</strong>:
+                        \[ \frac{dy}{dt} = g(t)h(y) \Rightarrow \int \frac{1}{h(y)} dy = \int g(t) dt \]
+                    </p>
+                    <p>
+                        For linear first-order equations \(y' + p(t)y = g(t)\), we use an <strong>Integrating Factor</strong> \(I(t)
+                        = e^{\int p(t) dt}\) to turn the LHS into a product rule derivative.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Optimization Flow</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Gradient Flow</h3>
+                    <p>
+                        Gradient Descent with an infinitely small learning rate is actually a First-Order ODE known as
+                        <strong>Gradient Flow</strong>:
+                        \[ \frac{d\mathbf{w}}{dt} = - \nabla L(\mathbf{w}) \]
+                    </p>
+                    <p>
+                        By studying the behavior of this differential equation, we can prove convergence properties of
+                        Neural Networks even in non-convex settings (like the "Neural Tangent Kernel" regime).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Vector Fields</h2>
+                <div class="code-header">vector_field_plot.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# ODE: y' = y - t
+# Defines a "slope" at every point (t, y)
+
+t = np.linspace(-2, 2, 20)
+y = np.linspace(-2, 2, 20)
+T, Y = np.meshgrid(t, y)
+
+dT = np.ones(T.shape) # Move 1 unit in time
+dY = Y - T           # Change in y
+
+# Normalize arrows
+N = np.sqrt(dT**2 + dY**2)
+dT, dY = dT/N, dY/N
+
+plt.figure(figsize=(8, 6))
+plt.quiver(T, Y, dT, dY, color='#4fd1c5')
+plt.title("Slope Field for y' = y - t")
+plt.xlabel("t")
+plt.ylabel("y")
+plt.grid(True, alpha=0.3)
+# To solve the ODE is to "follow the arrows"
+plt.show()</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="15_01_ode_intro.html" class="footer-link">← Prev: Neural ODEs</a>
+                        <span class="separator">|</span>
+                        <a href="15_03_second_order_odes.html" class="footer-link">Next: Second Order ODEs →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

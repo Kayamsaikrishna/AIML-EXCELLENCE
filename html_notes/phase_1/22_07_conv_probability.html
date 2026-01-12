@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.07 Convergence in Probability - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_06_clt.html" class="nav-link">06. CLT</a></li>
+                        <li class="nav-item"><a href="22_07_conv_probability.html" class="nav-link active">07. Conv
+                                (Prob)</a></li>
+                        <li class="nav-item"><a href="22_08_conv_distribution.html" class="nav-link">08. Conv (Dist)</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Consistency</span>
+                </div>
+                <h1>Convergence in Probability (\(P\))</h1>
+                <p class="lead-text">Formalizing the idea that outliers vanish as data points accumulate.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Vanishing Error</h3>
+                    <p>
+                        A sequence of random variables \(X_n\) converges in probability to \(X\) if the probability of
+                        them being "different" than \(X\) (by any amount \(\epsilon\)) goes to zero.
+                        <br><br>
+                        Notation: \(X_n \xrightarrow{P} X\)
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    For every \(\epsilon > 0 \):
+                    $$ \lim_{n \to \infty} P(|X_n - X| \ge \epsilon) = 0 $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Consistent Estimators</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Statistics</span>
+                    <span class="ml-badge">Inference</span>
+                    <h3>The Accuracy of Estimates</h3>
+                    <p>
+                        In ML, an estimator \(\hat{\theta}_n\) (like the weights of your model trained on \(n\) samples)
+                        is called <strong>Consistent</strong> if it converges in probability to the true parameter
+                        \(\theta^*\).
+                        <br><br>
+                        Consistency is the absolute minimum requirement for any valid statistical algorithm. If your
+                        model isn't consistent, even having infinite data wouldn't guarantee you find the right answer.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Properties</h2>
+                <ul>
+                    <li>If \(X_n \xrightarrow{P} X\) and \(Y_n \xrightarrow{P} Y\), then \(X_n + Y_n \xrightarrow{P} X +
+                        Y\).</li>
+                    <li>If \(g\) is a continuous function, then \(g(X_n) \xrightarrow{P} g(X)\).</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

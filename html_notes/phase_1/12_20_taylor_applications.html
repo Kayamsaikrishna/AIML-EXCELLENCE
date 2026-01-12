@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.20 Applications of Taylor Series - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_15_radius_interval.html" class="nav-link">15. Radius &
+                                Interval</a></li>
+                        <li class="nav-item"><a href="12_16_taylor_polynomials.html" class="nav-link">16. Taylor
+                                Polynomials</a></li>
+                        <li class="nav-item"><a href="12_17_maclaurin_series.html" class="nav-link">17. Maclaurin
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_18_common_taylor.html" class="nav-link">18. Common
+                                Expansions</a></li>
+                        <li class="nav-item"><a href="12_19_taylor_remainder.html" class="nav-link">19. Taylor
+                                Remainder</a></li>
+                        <li class="nav-item"><a href="12_20_taylor_applications.html" class="nav-link active">20. Taylor
+                                Applications</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">The Swiss Army Knife</span>
+                </div>
+                <h1>Applications of Taylor Series</h1>
+                <p class="lead-text">Solving the unsolvable.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Beyond Arithmetic</h3>
+                    <p>
+                        Taylor Series allows us to do three magical things:
+                    <ol>
+                        <li><strong>Integrate Impossible Functions:</strong> \( \int e^{-x^2} dx \) has no elementary
+                            solution. But we can integrate its series term-by-term.</li>
+                        <li><strong>Solve Complex Limits:</strong> When L'Hopital's rule fails or is too messy, Taylor
+                            series turns transcendental functions into simple polynomials.</li>
+                        <li><strong>Complex Numbers:</strong> Prove Euler's Formula \( e^{ix} = \cos x + i \sin x \) by
+                            comparing their series.</li>
+                    </ol>
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The RBF Kernel</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Infinite Dimensional Space</h3>
+                    <p>
+                        Support Vector Machines (SVMs) use the <strong>RBF Kernel</strong> to measure similarity:
+                        \[ K(x, y) = e^{-\gamma ||x - y||^2} \]
+                    </p>
+                    <p>
+                        If we expand this using Taylor Series, we get an infinite sum of polynomial features.
+                        This mathematically proves that the RBF Kernel is equivalent to mapping your data into an
+                        <strong>Infinite Dimensional Feature Space</strong>.
+                        This "infinite capacity" allows RBF-SVMs to learn incredibly complex, non-linear boundaries that
+                        simple logistic regression can never see.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        LowDim[Low Dimensional Data] --> Kernel[RBF Kernel]
+                        Kernel -->|Taylor Expansion| Infinite[Infinite Feature Space]
+                        Infinite -->|Linear Separator| Hyperplane[Hyperplane Separation]
+                        Hyperplane -->|Project Back| Boundary[Highly Non-Linear Boundary]
+
+                        style Infinite fill:#9f7aea,stroke:#6b46c1
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Integrating the Gaussian</h2>
+                <div class="code-header">gaussian_integral.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import math
+
+# Integrating e^(-x^2) from 0 to 1.
+# Taylor Series of e^(-x^2): 1 - x^2 + x^4/2 - x^6/6 ...
+# Integral: x - x^3/3 + x^5/10 - x^7/42 ...
+
+def erf_approx(limit, terms=10):
+    val = 0
+    for n in range(terms):
+        numerator = ((-1)**n) * (limit**(2*n+1))
+        denominator = math.factorial(n) * (2*n + 1)
+        val += numerator / denominator
+    return val
+
+print(f"Approx Integral (0 to 1): {erf_approx(1):.6f}")
+# This result is crucial for Normal Distribution tables (Statistics)!</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_19_taylor_remainder.html" class="footer-link">← Prev: Remainder</a>
+                        <span class="separator">|</span>
+                        <a href="../index.html" class="footer-link">Back to Index ⌂</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

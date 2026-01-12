@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.20 False Discovery Rate (FDR) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_19_multiple_testing_bonferroni.html" class="nav-link">19.
+                                Multiple Testing</a></li>
+                        <li class="nav-item"><a href="25_20_false_discovery_rate.html" class="nav-link active">20. False
+                                Discovery Rate</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Big Data</span>
+                </div>
+                <h1>False Discovery Rate (FDR)</h1>
+                <p class="lead-text">A modern, smarter way to handle multiple tests by controlling the *proportion* of
+                    errors rather than banning them entirely.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Pragmatic View</h3>
+                    <p>
+                        Bonferroni is so strict that it often "throws the baby out with the bathwater."
+                        <br><br>
+                        <strong>FDR</strong> says: "I know some of my discoveries will be mistakes. I just want to ensure that only
+                        5% of my <em>significant findings</em> are mistakes."
+                    </p>
+                </div>
+
+                <h2>1. The Benjamini-Hochberg (BH) Procedure</h2>
+                <div class="math-box">
+                    1. Sort all P-values from smallest to largest (\(P_{(1)}, P_{(2)}, \dots, P_{(m)}\)).
+                    2. For each P-value, calculate the threshold: \( \frac{i}{m} \times Q \).
+                    3. Find the largest \(i\) such that \(P_{(i)} \le \frac{i}{m} Q \).
+                    4. Reject all hypotheses from 1 to \(i\).
+                </div>
+                <p>(\(Q\) is your target FDR, usually 0.05).</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. FDR vs. Bonferroni</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Bonferroni</th>
+                            <th>FDR (BH)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Goal</td>
+                            <td>Zero False Positives Allowed.</td>
+                            <td>Keep False Positives to 5% of "Selected" items.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Power</strong></td>
+                            <td><strong>Low</strong> (Very conservative).</td>
+                            <td><strong>High</strong> (Finds more real effects).</td>
+                        </tr>
+                        <tr>
+                            <td>Best For</td>
+                            <td>Critical trials (Medicine).</td>
+                            <td>Exploratory Big Data (ML features).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Modern Feature Selection</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Big Data</span>
+                    <h3>High-Dimensional Discovery</h3>
+                    <p>
+                        In many ML tasks, you have 10,000 features.
+                        - If you use <strong>Alpha=0.05</strong>, you get 500 noise features.
+                        - If you use <strong>Bonferroni</strong>, you get 0 features (too strict).
+                    </p>
+                    <p>
+                        <strong>FDR</strong> is the balance. If you select 100 features using FDR, you can be reasonably sure that
+                        ~95 of them are truly related to the target, and only 5 are accidental noise. This is the
+                        standard in <strong>Omics</strong>, <strong>Marketing propensity models</strong>, and <strong>Econometrics</strong>.
+                    </p>
+                </div>
+
+                <h3>Model-Based FDR</h3>
+                <p>
+                    Techniques like the <strong>Knockoff Filter</strong> extend FDR to complex neural networks, allowing us to prove
+                    which inputs the model is "actually" using while controlling the false discovery rate.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>Module 25 Recap Diagram</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Hypothesis Testing] --> B[Foundations]
+                        A --> C[Parametric Tests]
+                        A --> D[Categorical Tests]
+                        A --> E[Non-Parametric Tests]
+                        A --> F[Advanced Issues]
+                        B --> B1[Type I/II Error]
+                        B --> B2[Power]
+                        C --> C1[Z-Test/T-Test]
+                        C --> C2[ANOVA]
+                        D --> D1["Chi-Square (Independence/Fit)"]
+                        E --> E1[Wilcoxon/Kruskal]
+                        F --> F1[Effect Size]
+                        F --> F2[Multiple Testing Bonferroni/FDR]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

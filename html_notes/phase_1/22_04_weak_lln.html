@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.04 Weak Law of Large Numbers - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_03_chernoff_bound.html" class="nav-link">03. Chernoff Bound</a>
+                        </li>
+                        <li class="nav-item"><a href="22_04_weak_lln.html" class="nav-link active">04. Weak LLN</a></li>
+                        <li class="nav-item"><a href="22_05_strong_lln.html" class="nav-link">05. Strong LLN</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Consistency</span>
+                </div>
+                <h1>Weak Law of Large Numbers (WLLN)</h1>
+                <p class="lead-text">Proving that averages eventually stop fluctuating and settle on the truth.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Stability of Averages</h3>
+                    <p>
+                        The WLLN states that if you take the average of many independent trials, the result is
+                        "probably" very close to the true theoretical average (the expectation).
+                        <br><br>
+                        "The more data you have, the less your average jumps around."
+                    </p>
+                </div>
+
+                <h2>1. The Formal Statement</h2>
+                <div class="math-box">
+                    Let \(X_1, X_2, \dots, X_n\) be i.i.d. random variables with mean \(\mu\). Let \(\bar{X}_n =
+                    \frac{1}{n} \sum X_i\).
+                    Then for any \(\epsilon > 0 \):
+                    $$ \lim_{n \to \infty} P(|\bar{X}_n - \mu| \ge \epsilon) = 0 $$
+                </div>
+                <p>
+                    This is called <strong>Convergence in Probability</strong>. It means that as \(n\) grows, the chance
+                    of the sample mean being "far" (by even a tiny amount \(\epsilon\)) from the true mean drops to
+                    zero.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Simple Proof (using Chebyshev)</h2>
+                <p>
+                    Recall Chebyshev: \(P(|\bar{X}_n - \mu| \ge \epsilon) \le
+                    \frac{\text{Var}(\bar{X}_n)}{\epsilon^2}\).
+                    <br>
+                    Since \(\text{Var}(\bar{X}_n) = \frac{\sigma^2}{n}\), the bound becomes
+                    \(\frac{\sigma^2}{n\epsilon^2}\).
+                    <br><br>
+                    As \(n \to \infty\), this bound clearly goes to <strong>0</strong>.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Unbiased Estimators</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Optimization</span>
+                    <span class="ml-badge">Estimation</span>
+                    <h3>Why More Data is Always Better</h3>
+                    <p>
+                        Most ML metrics (like Accuracy, MSE, or Cross-Entropy) are calculated as averages over the
+                        dataset.
+                        <br><br>
+                        The WLLN guarantees that the <strong>Training Loss</strong> we calculate on 1 million samples is a
+                        <strong>consistent estimator</strong> of the true population loss. This gives us the
+                        mathematical "permission" to optimize on a finite sample and expect the results to generalize.
+                    </p>
+                </div>
+
+                <h3>Batch Size Intuition</h3>
+                <p>
+                    In Stochastic Gradient Descent (SGD), using a larger batch size gives you a "weaker" fluctuation in
+                    the gradient estimate. This is the WLLN in action—larger batches drive the noise in the gradient
+                    down towards the "true" gradient direction.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Visualization</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Sample size n=10] --> B[High Variance]
+                        B --> C[Average shifts a lot]
+                        D[Sample size n=1Million] --> E[Low Variance]
+                        E --> F[Average is stable at Expectation]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

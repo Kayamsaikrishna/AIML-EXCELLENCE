@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19.05 Hypergeometric Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.3 Discrete Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="19_04_neg_binomial.html" class="nav-link">04. Neg Binomial</a>
+                        </li>
+                        <li class="nav-item"><a href="19_05_hypergeometric.html" class="nav-link active">05.
+                                Hypergeometric</a></li>
+                        <li class="nav-item"><a href="19_06_poisson.html" class="nav-link">06. Poisson</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Finite Population</span>
+                </div>
+                <h1>The Hypergeometric Distribution</h1>
+                <p class="lead-text">Sampling <strong>without</strong> replacement. The Deck of Cards scenario.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Why Binomial isn't enough</h3>
+                    <p>
+                        The Binomial distribution assumes trials are <strong>independent</strong> (e.g., flipping a
+                        coin, or drawing a card and putting it back).
+                        <br><br>
+                        But what if you draw a card and <em>keep</em> it? The probabilities change! The probability of
+                        drawing an Ace changes from 4/52 to 3/51.
+                        <br>
+                        When the population is small and we sample without replacement, we use the
+                        <strong>Hypergeometric Distribution</strong>.
+                    </p>
+                </div>
+
+                <h2>1. The Setup</h2>
+                <ul>
+                    <li>Population size: \(N\)</li>
+                    <li>Total Successes in population: \(K\)</li>
+                    <li>Sample size (draws): \(n\)</li>
+                    <li>Number of observed successes: \(k\) (The Random Variable)</li>
+                </ul>
+
+                <div class="math-box">
+                    The PMF is formed by combinatorics (choose logic):
+                    $$ P(X=k) = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}} $$
+                    <br>
+                    <strong>Logic:</strong>
+                    <ul>
+                        <li>\(\binom{K}{k}\): Choose \(k\) successes from the \(K\) available.</li>
+                        <li>\(\binom{N-K}{n-k}\): Choose the remaining \(n-k\) failures from the \(N-K\) available.</li>
+                        <li>\(\binom{N}{n}\): Total ways to choose any \(n\) items.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Goodness of Fit & Testing</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Statistics</span>
+                    <span class="ml-badge">Fisher's Exact Test</span>
+                    <h3>Fisher's Exact Test</h3>
+                    <p>
+                        In A/B testing or biological studies, we often have a 2x2 contingency table (e.g., Treated vs
+                        Placebo, Cured vs Not Cured) with small sample sizes.
+                    </p>
+                    <p>
+                        To calculate if the treatment had a significant effect, we can't assume a normal approximation.
+                        We assume fixed marginal totals and calculate the exact probability of observing such an extreme
+                        distribution of outcomes. This probability follows the Hypergeometric distribution.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Large Population Limit</h2>
+                <p>
+                    If the population \(N\) is huge relative to the sample \(n\) (e.g., \(N=1,000,000\), \(n=100\)),
+                    removing one item barely changes the probabilities.
+                </p>
+                <div class="warning-box">
+                    As \(N \to \infty\), Hypergeometric \(\to\) <strong>Binomial</strong>.
+                    <br>
+                    We act as if we are sampling with replacement because the "without replacement" effect is
+                    negligible.
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

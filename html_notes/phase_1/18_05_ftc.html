@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,70 +9,80 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.4 Integration</li>
-            <li><a href="18_04_riemann_definite.html">04. Riemann Sums</a></li>
-            <li><a href="18_05_ftc.html" class="active">05. FTC</a></li>
-            <li><a href="18_06_area_volume.html">06. Area & Volume</a></li>
-            <li class="nav-label">1.3.3 Applications</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.4 Integration</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="18_05_ftc.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; FTC
+            <a href="../index.html">Syllabus</a> &gt; 18_05_ftc.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 18_05</div>
             <h1>05. The Fundamental Theorem of Calculus</h1>
-            <p class="subtitle">The bridge between slope and area.</p>
+            <p class="lead-text">The bridge between slope and area.</p>
         </header>
 
-        <section>
-            <h2>1. Part 1: The Accumulation Function</h2>
-            <p>If \(g(x) = \int_a^x f(t) dt\), then \(g'(x) = f(x)\).</p>
-            <div class="math-block">
+        
+
+
+
+<section>
+<h2>1. Part 1: The Accumulation Function</h2>
+<p>If \(g(x) = \int_a^x f(t) dt\), then \(g'(x) = f(x)\).</p>
+<div class="math-block">
                 $$ \frac{d}{dx} \left[ \int_a^x f(t) dt \right] = f(x) $$
             </div>
-            <p>Interpretation: The rate at which area accumulates is equal to the value of the function.</p>
-        </section>
-
-        <section>
-            <h2>2. Part 2: The Evaluation Theorem</h2>
-            <div class="math-block" style="font-size: 1.5rem;">
+<p>Interpretation: The rate at which area accumulates is equal to the value of the function.</p>
+</section>
+<section>
+<h2>2. Part 2: The Evaluation Theorem</h2>
+<div class="math-block" style="font-size: 1.5rem;">
                 $$ \int_a^b f(x) dx = F(b) - F(a) $$
             </div>
-            <p>Where \(F\) is any antiderivative of \(f\). This allows us to find exact areas without
+<p>Where \(F\) is any antiderivative of \(f\). This allows us to find exact areas without
                 summing infinite rectangles.</p>
-        </section>
-
-        <section>
-            <h2>3. AI Connection: Cumulative Distribution Functions (CDF)</h2>
-            <div class="module-card">
-                <h3>Probability Accumulation</h3>
-                <p>In Statistics, a **CDF** \(\Phi(x)\) gives the probability that \(X \le x\).
-                    As an AI researcher, if you have the **PDF** (Probability Density Function) \(p(x)\),
+</section>
+<section>
+<h2>3. AI Connection: Cumulative Distribution Functions (CDF)</h2>
+<div class="module-card">
+<h3>Probability Accumulation</h3>
+<p>In Statistics, a <strong>CDF</strong> \(\Phi(x)\) gives the probability that \(X \le x\).
+                    As an AI researcher, if you have the <strong>PDF</strong> (Probability Density Function) \(p(x)\),
                     FTC tells you that:
                     $$ \Phi(x) = \int_{-\infty}^x p(t) dt $$
                     And more importantly, the density is the derivative of the accumulation: \(p(x) = \Phi'(x)\).
                     This identity is used every time an AI samples from a distribution using
                     <strong>Inverse Transform Sampling</strong>.
                 </p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Verifying FTC</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>4. Python: Verifying FTC</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 x = sp.Symbol('x')
 f = sp.sin(x)
@@ -89,13 +98,14 @@ check = F.subs(x, sp.pi) - F.subs(x, 0)
 
 print(f"Area via integration tool: {area}")
 print(f"Area via F(b) - F(a):      {check}")</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
-
 </html>

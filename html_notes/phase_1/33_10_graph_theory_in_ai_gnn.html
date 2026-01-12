@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>33.10 Graph Theory in AI - Graph Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.9.4 Synthesis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="33_09_network_flow_max_cut.html" class="nav-link">09. Network
+                                Flow</a></li>
+                        <li class="nav-item"><a href="33_10_graph_theory_in_ai_gnn.html" class="nav-link active">10.
+                                Graph Theory in AI</a></li>
+                        <li class="nav-item"><a href="33_11_graph_theory_synthesis.html" class="nav-link">11. Graph
+                                Theory Synthesis</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Graph Theory</span>
+                    <span class="badge secondary">Deep Learning</span>
+                </div>
+                <h1>Graph Theory in AI (GNNs & Beyond)</h1>
+                <p class="lead-text">From Adjacency to Intelligence. Exploring how modern AI systems leverage structural
+                    priors to learn from complex, non-Euclidean data.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Non-Euclidean Frontier</h3>
+                    <p>
+                        Standard Deep Learning (CNNs, RNNs) works on grids or sequences. But the world is a graph.
+                        <strong>Graph Neural Networks (GNNs)</strong> allow models to learn directly from the topology of molecules,
+                        social networks, and recommendation graphs by generalizing convolution to arbitrary connections.
+                    </p>
+                </div>
+
+                <h2>1. Google's PageRank</h2>
+                <p>The algorithm that built the web. It treats every webpage as a node and every hyperlink as a directed
+                    edge. The importance (rank) of a node is determined by the rank of the nodes pointing to it.</p>
+                <div class="math-box">
+                    $$ PR(u) = \frac{1-d}{N} + d \sum_{v \in B_u} \frac{PR(v)}{L(v)} $$
+                </div>
+                <p>Where \(d\) is a "damping factor" (probability of jumping to a random page). This is fundamentally an
+                    <strong>Eigenvector Centrality</strong> problem on a giant adjacency matrix.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Graph Neural Networks (GNNs)</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Message Passing (MPNNs)</h4>
+                        <p>Every node updates its hidden state by "aggregating" information from its immediate
+                            neighbors. After \(k\) layers, a node has information from its \(k\)-hop neighborhood.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Node Embeddings</h4>
+                        <p>Converting a node's structural and feature-based identity into a dense vector (like Word2Vec,
+                            but for Graphs). Famous examples: <strong>Node2Vec</strong>, <strong>GraphSAGE</strong>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Bio-ML</span>
+                    <span class="ml-badge">Recommender</span>
+                    <h3>Why AI researchers study Graphs</h3>
+                    <ul>
+                        <li><strong>Drug Discovery:</strong> Molecules are graphs. GNNs predict if a "graph" (molecule) is toxic or
+                            can bind to a specific protein (another graph).</li>
+                        <li><strong>Dynamic Routing:</strong> AI for traffic prediction (Google Maps) uses graph theory to predict
+                            flow and congestion on the global road graph.</li>
+                        <li><strong>Knowledge Representation:</strong> LLMs are increasingly being augmented with **Knowledge Graphs
+                            (RAG)** to provide factual, structured context that a "bag of words" approach misses.</li>
+                        <li><strong>Causal Inference:</strong> Causal models are represented as <strong>Directed Acyclic Graphs (DAGs)</strong>.
+                            Understanding graph structure is the only way to answer "Why" something happened.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Message Passing Visualization</h2>
+                <div class="mermaid">
+                    graph LR
+                    A((Target Node))
+                    B((Neighbor 1)) --- A
+                    C((Neighbor 2)) --- A
+                    D((Neighbor 3)) --- A
+                    style A fill:#ff9999,stroke:#333
+                    subgraph Aggregate ["Information Flow"]
+                    B -- "Message" --> A
+                    C -- "Message" --> A
+                    D -- "Message" --> A
+                    end
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

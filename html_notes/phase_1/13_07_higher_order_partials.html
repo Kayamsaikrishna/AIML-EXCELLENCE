@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Higher Partial Derivatives - Phase 1.3.5.4</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_07_higher_order_partials.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_07_higher_order_partials.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_07</div>
+            <h1>04. Higher-Order Partial Derivatives</h1>
+            <p class="lead-text">Exploring curvature in multiple directions.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Iterative Differentiation</h2>
+<p>Just as in single-variable calculus, we can take the derivative of a derivative. In two variables, there
+                are four possible second-order partial derivatives:</p>
+<div class="math-block">
+<ul>
+<li>\(f_{xx} = \frac{\partial^2 f}{\partial x^2}\)</li>
+<li>\(f_{yy} = \frac{\partial^2 f}{\partial y^2}\)</li>
+<li>\(f_{xy} = \frac{\partial^2 f}{\partial y \partial x}\) (Mixed Partial)</li>
+<li>\(f_{yx} = \frac{\partial^2 f}{\partial x \partial y}\) (Mixed Partial)</li>
+</ul>
+</div>
+</section>
+<section class="module-card">
+<h2>2. Clairaut's Theorem</h2>
+<p>This theorem states that for most well-behaved (smooth) functions, the order of differentiation does not
+                matter for mixed partials:</p>
+<div class="math-block">
+                $$ f_{xy} = f_{yx} $$
+            </div>
+<p>This symmetry is a foundational property used to speed up calculations in numerical software.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: The Hessian Matrix</h2>
+<div class="module-card">
+<h3>The Shape of the Loss Landscape</h3>
+<p>In AI, the second-order partial derivatives are organized into a square matrix called the
+                    <strong>Hessian Matrix</strong> (\(H\)). While the 1st derivative (gradient) tells you the direction
+                    of the hill, the Hessian tells you about its <strong>Curvature</strong>. </p>
+<p>If \(f_{xx}\) is positive, the loss function is "curving up" in the \(x\) direction. If the mixed
+                    partial \(f_{xy}\) is large, it means the features \(x\) and \(y\) are highly
+                    <strong>inter-dependent</strong>. Using the Hessian allows for "Second-Order" optimizers that can
+                    identify sharp cliffs and safely navigate around them, or identify saddle points which 1st-order
+                    methods would fail to escape.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Calculating the Hessian</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
+
+w1, w2 = sp.symbols('w1 w2')
+loss = w1**2 + 5*w1*w2 + w2**2
+
+# Calculate all 2nd order partials
+hessian = sp.hessian(loss, (w1, w2))
+
+print(f"Hessian Matrix:\n{hessian}")
+# Output: Matrix([[2, 5], [5, 2]])</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

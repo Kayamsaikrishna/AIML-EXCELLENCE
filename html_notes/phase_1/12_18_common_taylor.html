@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.18 Common Taylor Expansions - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_15_radius_interval.html" class="nav-link">15. Radius &
+                                Interval</a></li>
+                        <li class="nav-item"><a href="12_16_taylor_polynomials.html" class="nav-link">16. Taylor
+                                Polynomials</a></li>
+                        <li class="nav-item"><a href="12_17_maclaurin_series.html" class="nav-link">17. Maclaurin
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_18_common_taylor.html" class="nav-link active">18. Common
+                                Expansions</a></li>
+                        <li class="nav-item"><a href="12_19_taylor_remainder.html" class="nav-link">19. Taylor
+                                Remainder</a></li>
+                        <li class="nav-item"><a href="12_20_taylor_applications.html" class="nav-link">20. Taylor
+                                Applications</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Lookup Table</span>
+                </div>
+                <h1>Common Taylor Expansions</h1>
+                <p class="lead-text">The standard toolkit for efficient math.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Big Five"</h3>
+                    <p>These are the expansions every engineer should recognize on sight:</p>
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>Function</th>
+                                <th>Series</th>
+                                <th>Converges For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>\( e^x \)</td>
+                                <td>\( 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} \dots \)</td>
+                                <td>All \(x\)</td>
+                            </tr>
+                            <tr>
+                                <td>\( \sin x \)</td>
+                                <td>\( x - \frac{x^3}{3!} + \frac{x^5}{5!} \dots \)</td>
+                                <td>All \(x\)</td>
+                            </tr>
+                            <tr>
+                                <td>\( \cos x \)</td>
+                                <td>\( 1 - \frac{x^2}{2!} + \frac{x^4}{4!} \dots \)</td>
+                                <td>All \(x\)</td>
+                            </tr>
+                            <tr>
+                                <td>\( \ln(1+x) \)</td>
+                                <td>\( x - \frac{x^2}{2} + \frac{x^3}{3} \dots \)</td>
+                                <td>\( |x| < 1 \)</td>
+                            </tr>
+                            <tr>
+                                <td>\( \frac{1}{1-x} \)</td>
+                                <td>\( 1 + x + x^2 + x^3 \dots \)</td>
+                                <td>\( |x| < 1 \)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Embedded AI & Fast Math</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Cheat Code</h3>
+                    <p>
+                        When you run a neural network on a microcontroller (e.g., a smartwatch or IoT sensor), CPU
+                        cycles are precious.
+                        Calculating `exp()` or `sin()` takes hundreds of cycles.
+                    </p>
+                    <p>
+                        Engineers use these Taylor look-up tables (or truncated polynomials) to implement <strong>Fast Math</strong>
+                        libraries.
+                        Instead of a full IEEE floating-point exponent, the chip might just compute \(1 + x + 0.5x^2\).
+                        This is how AI vision models can run on low-power battery devices.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Implementing Fast Exp</h2>
+                <div class="code-header">fast_exp.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import math
+
+def fast_exp(x, order=3):
+    # Approximates e^x using first few Taylor terms
+    val = 0
+    for n in range(order):
+        val += (x**n) / math.factorial(n)
+    return val
+
+val = 1.0 # e^1
+true_e = math.e
+
+print(f"Order 2: {fast_exp(val, 2):.4f} (Error: {true_e - fast_exp(val, 2):.4f})")
+print(f"Order 4: {fast_exp(val, 4):.4f} (Error: {true_e - fast_exp(val, 4):.4f})")
+print(f"Order 6: {fast_exp(val, 6):.4f} (Error: {true_e - fast_exp(val, 6):.4f})")
+# Convergence is incredibly fast for e^x.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_17_maclaurin_series.html" class="footer-link">← Prev: Maclaurin</a>
+                        <span class="separator">|</span>
+                        <a href="12_19_taylor_remainder.html" class="footer-link">Next: Remainder →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

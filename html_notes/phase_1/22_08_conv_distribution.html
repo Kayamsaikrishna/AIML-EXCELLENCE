@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.08 Convergence in Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_07_conv_probability.html" class="nav-link">07. Conv (Prob)</a>
+                        </li>
+                        <li class="nav-item"><a href="22_08_conv_distribution.html" class="nav-link active">08. Conv
+                                (Dist)</a></li>
+                        <li class="nav-item"><a href="22_09_conv_almost_sure.html" class="nav-link">09. Conv (A.S.)</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Shape</span>
+                </div>
+                <h1>Convergence in Distribution (\(D\))</h1>
+                <p class="lead-text">When the CDF of a sequence approaches the CDF of a target distribution.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Stabilizing the Bell Curve</h3>
+                    <p>
+                        Convergence in distribution is "weakest" form of convergence. It doesn't say the individual
+                        values \(X_n\) get close to \(X\). It just says the <strong>population statistics</strong>
+                        (probabilities, percentiles) of \(X_n\) look exactly like the population statistics of \(X\).
+                        <br><br>
+                        Notation: \(X_n \xrightarrow{d} X\)
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    $$ \lim_{n \to \infty} F_n(x) = F(x) $$
+                    for all \(x\) where \(F(x)\) is continuous.
+                    (\(F_n\) and \(F\) are Cumulative Distribution Functions).
+                </div>
+                <p>
+                    The <strong>Central Limit Theorem</strong> is the most famous example of convergence in distribution. We don't
+                    say the average hits the mean exactly; we say the <em>histogram</em> of thousands of averages looks
+                    like a Normal Distribution.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Asymptotic Normality</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Statistical Inference</span>
+                    <h3>Why we can use Z-tests</h3>
+                    <p>
+                        Many ML estimators are <strong>Asymptotically Normal</strong>. This means that as the dataset grows, the
+                        distribution of the "Error" (\(\hat{\theta} - \theta^*\)) starts looking like a bell curve.
+                    </p>
+                    <p>
+                        This allows us to perform hypothesis tests. If we know the errors are approximately Normal, we
+                        can determine if a new model's performance improvement is "statistically significant" or just
+                        random noise from the tail of the bell curve.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Heirarchy of Convergence</h2>
+                <p>
+                    Convergence in Distribution is the easiest to satisfy.
+                </p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Almost Surely] --> B[Probability]
+                        B --> C[Distribution]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

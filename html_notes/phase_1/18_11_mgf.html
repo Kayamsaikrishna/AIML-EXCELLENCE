@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.11 Moment Generating Functions (MGF) - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.2 Random Variables</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="18_10_moments.html" class="nav-link">10. Moments</a></li>
+                        <li class="nav-item"><a href="18_11_mgf.html" class="nav-link active">11. MGF</a></li>
+                        <li class="nav-item"><a href="18_12_characteristic_fns.html" class="nav-link">12. Char. Fns</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Fingerprint</span>
+                </div>
+                <h1>Moment Generating Functions (MGF)</h1>
+                <p class="lead-text">Encoding the distribution into a function.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Definition</h3>
+                    <p>
+                        The MGF \(M_X(t)\) is defined as the expected value of \(e^{tX}\):
+                        \[ M_X(t) = E[e^{tX}] \]
+                        Why care? Because if you take the \(n\)-th derivative of \(M_X(t)\) at \(t=0\), you get the
+                        \(n\)-th moment \(E[X^n]\)!
+                        \[ M_X^{(n)}(0) = E[X^n] \]
+                        Also, if two RVs have the same MGF, they have the <strong>same distribution</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Sums of RVs</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Convolution</h3>
+                    <p>
+                        Determining the distribution of a sum of independent variables \(Z = X + Y\) is hard (requires
+                        convolution).
+                        But with MGFs, it's just multiplication!
+                        \[ M_{X+Y}(t) = M_X(t) \cdot M_Y(t) \]
+                        Disadvantage: MGFs don't always exist (e.g., Cauchy distribution). That's why we use
+                        Characteristic Functions instead.
+                    </p>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="18_10_moments.html" class="footer-link">← Prev: Moments</a>
+                        <span class="separator">|</span>
+                        <a href="18_12_characteristic_fns.html" class="footer-link">Next: Char. Fns →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

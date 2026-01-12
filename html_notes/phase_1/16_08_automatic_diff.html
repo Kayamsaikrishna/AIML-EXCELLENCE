@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.08 Automatic Differentiation - Calculus for ML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.9 Calculus for ML</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="16_07_numerical_diff.html" class="nav-link">07. Numerical Diff</a>
+                        </li>
+                        <li class="nav-item"><a href="16_08_automatic_diff.html" class="nav-link active">08. Autodiff
+                                Basics</a></li>
+                        <li class="nav-item"><a href="16_09_comp_graphs.html" class="nav-link">09. Comp Graphs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">ML Calc 1.9</span>
+                    <span class="badge secondary">The Magic</span>
+                </div>
+                <h1>Automatic Differentiation (Autodiff)</h1>
+                <p class="lead-text">Neither Symbolic nor Numeric. It's Computational.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Third Way</h3>
+                    <p>
+                        We know two ways to get derivatives:
+                        1. <strong>Symbolic:</strong> (Mathematica/SymPy) Manipulate formulas. Gets incredibly messy with loops and
+                        branches.
+                        2. <strong>Numeric:</strong> (Finite Diff) Approximate with \(h\). Slow and inaccurate.
+                    </p>
+                    <p>
+                        <strong>Autodiff</strong> is the technique used by PyTorch and TensorFlow. It tracks every operation (add,
+                        multiply, sin) performed on a variable and builds a tape. Then, it replays the tape backwards to
+                        compute exact gradients using the Chain Rule. It supports if-statements, loops, and recursion
+                        natively.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Forward vs Reverse Mode</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Reverse Mode is King</h3>
+                    <p>
+                        <strong>Forward Mode</strong> computes gradients w.r.t one input at a time. Good if Inputs <<
+                            Outputs. <strong>Reverse Mode (Backprop)</strong> computes gradients w.r.t all inputs in one
+                            go. Good if Inputs >> Outputs.
+                    </p>
+                    <p>
+                        Since Neural Networks map millions of inputs (pixels/weights) to 1 output (Loss), **Reverse Mode
+                        Autodiff** is the only viable option.
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Inputs -->|Forward Pass| Op1 --> Op2 --> Loss
+                        Loss -.->|Reverse Pass| dOp2 -.-> dOp1 -.-> dInputs
+
+                        style Loss fill:#c05621,stroke:#ed8936
+                        style dInputs fill:#2f855a,stroke:#48bb78
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: PyTorch Autodiff</h2>
+                <div class="code-header">autograd_demo.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import torch
+
+# Create a tensor and say "Watch this"
+x = torch.tensor(3.0, requires_grad=True)
+w = torch.tensor(2.0, requires_grad=True)
+b = torch.tensor(1.0, requires_grad=True)
+
+# Define computational graph
+y = w * x + b
+loss = y ** 2
+
+# Calculating gradients is magical
+loss.backward()
+
+# dLoss/dw = 2*y * x = 2*(7)*3 = 42
+print(f"dL/dw: {w.grad}") 
+print(f"dL/db: {b.grad}")
+print(f"dL/dx: {x.grad}")
+# Exact values, no approximation.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="16_07_numerical_diff.html" class="footer-link">← Prev: Numerical Diff</a>
+                        <span class="separator">|</span>
+                        <a href="16_09_comp_graphs.html" class="footer-link">Next: Computation Graphs →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

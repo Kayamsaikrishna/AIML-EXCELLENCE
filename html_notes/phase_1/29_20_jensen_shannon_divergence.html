@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.20 Jensen-Shannon Divergence - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.3 Divergences</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_18_properties_of_kl_divergence.html" class="nav-link">18.
+                                Properties of KL Divergence</a></li>
+                        <li class="nav-item"><a href="29_19_kl_in_variational_inference.html" class="nav-link">19. KL in
+                                Variational Inference</a></li>
+                        <li class="nav-item"><a href="29_20_jensen_shannon_divergence.html" class="nav-link active">20.
+                                Jensen-Shannon Divergence</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Generative AI</span>
+                    <span class="badge secondary">Simmetry</span>
+                </div>
+                <h1>Jensen-Shannon Divergence</h1>
+                <p class="lead-text">Healing the Asymmetry. A smoothed, symmetric version of KL divergence that provides
+                    a true distance metric and powers original GAN training.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Problem with KL</h3>
+                    <p>
+                        KL Divergence is powerful, but it has two major flaws for certain AI tasks:
+                    </p>
+                    <ul>
+                        <li><strong>Asymmetry:</strong> It's hard to visualize a "space" where the distance from A to B differs from
+                            B to A.</li>
+                        <li><strong>Instability:</strong> If two distributions don't overlap, KL can become infinite, causing
+                            training gradients to explode.</li>
+                    </ul>
+                </div>
+
+                <h2>1. The Definition</h2>
+                <p>
+                    Jensen-Shannon Divergence (JSD) averages the KL divergence between \(P\) and an "average"
+                    distribution \(M\), and \(Q\) and that same average.
+                </p>
+                <div class="math-box">
+                    $$ JSD(P \| Q) = \frac{1}{2} D_{KL}(P \| M) + \frac{1}{2} D_{KL}(Q \| M) $$
+                    $$ \text{where } M = \frac{1}{2}(P + Q) $$
+                </div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Symmetry</h4>
+                        <p>Unlike KL, JSD is perfectly symmetric. \(JSD(P \| Q) = JSD(Q \| P)\). This makes it feel much
+                            more like a physical distance.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Boundedness</h4>
+                        <p>JSD is always bounded between 0 and 1 (if using base 2 logs). It never explodes to infinity,
+                            even if the distributions have zero overlap.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">GANs</span>
+                    <span class="ml-badge">Nash Equilibrium</span>
+                    <h3>The Original GAN Loss</h3>
+                    <p>
+                        In Ian Goodfellow's original GAN paper, he showed that the min-max game played by the Generator
+                        and Discriminator is mathematically equivalent to minimizing the <strong>Jensen-Shannon Divergence</strong>
+                        between the real data distribution and the generated distribution.
+                    </p>
+                    <div class="math-box">
+                        $$ \min_G \max_D V(D, G) \equiv \min_G JSD(P_{data} \| P_{generator}) $$
+                    </div>
+                    <p>
+                        However, even though JSD is bounded, it still suffers from <strong>vanishing gradients</strong> if the
+                        distributions are too far apart (disjoint supports). This insight led to the development of the
+                        Wasserstein Distance.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. KL vs. JSD</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>KL Divergence</th>
+                            <th>JS Divergence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Symmetry</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Bounded</td>
+                            <td>No (\([0, \infty)\))</td>
+                            <td>Yes (\([0, 1]\))</td>
+                        </tr>
+                        <tr>
+                            <td>Metric</td>
+                            <td>No</td>
+                            <td>\(\sqrt{JSD}\) is a metric</td>
+                        </tr>
+                        <tr>
+                            <td>ML Usage</td>
+                            <td>VAEs, Decision Trees</td>
+                            <td>GANs, Style Transfer</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Logical Structure</h2>
+                <div class="mermaid">
+                    graph LR
+                    P[Distribution P] --> M[Midpoint M]
+                    Q[Distribution Q] --> M
+                    P -- KL --> M
+                    Q -- KL --> M
+                    M -- Sum & Average --> JSD[JS Divergence]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

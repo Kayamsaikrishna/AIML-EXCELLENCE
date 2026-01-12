@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.01 Outcomes & Sample Spaces - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_01_exp_outcomes_sample.html" class="nav-link active">01.
+                                Outcomes & Spaces</a></li>
+                        <li class="nav-item"><a href="17_02_events_event_spaces.html" class="nav-link">02. Events &
+                                Algebra</a></li>
+                        <li class="nav-item"><a href="17_03_kolmogorov_axioms.html" class="nav-link">03. Kolmogorov
+                                Axioms</a></li>
+                        <li class="nav-item"><a href="17_04_prob_properties.html" class="nav-link">04. Prob
+                                Properties</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Universe</span>
+                </div>
+                <h1>Outcomes & Sample Spaces</h1>
+                <p class="lead-text">Defining the set of all possibilities.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Experiment</h3>
+                    <p>
+                        In Probability, an <strong>Experiment</strong> is any process with an uncertain result (e.g., rolling a die,
+                        training a model).
+                    </p>
+                    <p>
+                        The <strong>Sample Space</strong> (\(\Omega\)) is the set of all possible outcomes.
+                    <ul>
+                        <li><strong>Discrete:</strong> Coin flip \(\Omega = \{H, T\}\).</li>
+                        <li><strong>Continuous:</strong> Temperature \(\Omega = \mathbb{R}\).</li>
+                    </ul>
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: The Latent Space</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">High-Dimensional Spaces</h3>
+                    <p>
+                        In Generative AI (GANs, VAEs), the sample space \(\Omega\) is the "Latent Space" (usually a
+                        high-dimensional box or sphere).
+                        Every point \(z \in \Omega\) corresponds to a possible image the model can generate.
+                    </p>
+                    <p>
+                        Sampling from this space effectively means picking a random "possibility" from the universe of
+                        all images.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Sampling</h2>
+                <div class="code-header">sample_space.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Discrete Sample Space (Die Roll)
+omega_discrete = [1, 2, 3, 4, 5, 6]
+outcome = np.random.choice(omega_discrete)
+print(f"Discrete Outcome: {outcome}")
+
+# Continuous Sample Space (Uniform [0, 1])
+# Omega = All real numbers between 0 and 1
+omega_continuous = np.random.uniform(0, 1)
+print(f"Continuous Outcome: {omega_continuous:.4f}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="../index.html" class="footer-link">← Syllabus</a>
+                        <span class="separator">|</span>
+                        <a href="17_02_events_event_spaces.html" class="footer-link">Next: Events & Algebra →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

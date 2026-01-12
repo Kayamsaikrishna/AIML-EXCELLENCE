@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32.05 Binomial Coefficients & Pascal - Combinatorics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.8.2 Binomial Logic</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="32_04_circular_permutations_indistinguishable.html"
+                                class="nav-link">04. Circular Permutations</a></li>
+                        <li class="nav-item"><a href="32_05_binomial_coefficients_pascal.html"
+                                class="nav-link active">05. Binomial Coefficients</a></li>
+                        <li class="nav-item"><a href="32_06_binomial_multinomial_theorems.html" class="nav-link">06.
+                                Multinomial Theorems</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Combinatorics</span>
+                    <span class="badge secondary">Patterns</span>
+                </div>
+                <h1>Binomial Coefficients & Pascal's Triangle</h1>
+                <p class="lead-text">Complexity from Simplicity. Exploring the universal triangle where every number is
+                    the sum of its parents — a structure that appears in everything from probability to deep learning
+                    geometry.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Recursive Nature of Choice</h3>
+                    <p>
+                        The number of ways to pick a team (\(\binom{n}{r}\)) can be calculated directly. But it also has
+                        a recursive secret: To pick \(r\) people from \(n\), you either pick the first person (then you
+                        need \(r-1\) more from the remaining \(n-1\)) OR you don't pick the first person (then you need
+                        to pick all \(r\) from the remaining \(n-1\)).
+                    </p>
+                </div>
+
+                <h2>1. Pascal's Identity</h2>
+                <div class="math-box">
+                    $$ \binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r} $$
+                </div>
+                <p>This simple addition is the engine that builds Pascal's Triangle.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Pascal's Triangle</h2>
+                <p>A geometric arrangement of binomial coefficients. Each row \(n\) represents the coefficients of the
+                    expansion \((x+y)^n\).</p>
+                <div class="example-box">
+                    <pre
+                        style="text-align: center; font-family: 'Courier New', Courier, monospace; background: transparent; color: var(--text-primary);">
+            1
+           1 1
+          1 2 1
+         1 3 3 1
+        1 4 6 4 1
+                    </pre>
+                </div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Row Sum</h4>
+                        <p>The sum of all entries in row \(n\) is \(2^n\). This is because the total number of subsets
+                            of a set of size \(n\) is \(2^n\).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Symmetry</h4>
+                        <p>The triangle is perfectly symmetrical because \(\binom{n}{r} = \binom{n}{n-r}\).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Probability</span>
+                    <span class="ml-badge">Neural Nets</span>
+                    <h3>The Triangle in AI</h3>
+                    <ul>
+                        <li><strong>Bernoulli Trials:</strong> The rows of Pascal's triangle tell us the "likelihood" of different
+                            outcomes in binary trials (like flipping coins). Row 4: 1, 4, 6, 4, 1. If you flip 4 coins,
+                            there are 6 ways to get exactly 2 heads.</li>
+                        <li><strong>CNN Receptive Fields:</strong> When you stack convolutional layers, the "weight" that different
+                            input pixels have on the final output often follows a distribution that resembles a row in
+                            Pascal's triangle (approaching a Gaussian curve).</li>
+                        <li><strong>Attention Span:</strong> In some specialized Attention mechanisms, weights are distributed using
+                            binomial coefficients to penalize tokens that are too far away from the center.</li>
+                        <li><strong>Overfitting:</strong> When a model memorizes "too many" patterns (\(2^n\) combinations), it is
+                            exploring the total sum of Pascal's row. Regularization helps keep the model focused on the
+                            "middle" coefficients where the most general features live.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Binomial Recursive Flow</h2>
+                <div class="mermaid">
+                    graph TD
+                    A["C(n, r)"] --> B["C(n-1, r-1)"]
+                    A --> C["C(n-1, r)"]
+                    B --> D["...Base Cases: C(k, 0) = 1"]
+                    C --> D
+                    subgraph Recursion ["Pascal's Identity"]
+                    B
+                    C
+                    end
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

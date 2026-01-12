@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.08 Time Series Components - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.13 Time Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_07_anova_in_experimental.html" class="nav-link">← Back to Exp
+                                Design</a></li>
+                        <li class="nav-item"><a href="28_08_timeseries_components.html" class="nav-link active">08. Time
+                                Series Components</a></li>
+                        <li class="nav-item"><a href="28_09_stationarity_unit_root.html" class="nav-link">09.
+                                Stationarity Unit Root</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Forecasting</span>
+                </div>
+                <h1>Time Series Components</h1>
+                <p class="lead-text">Decomposing the past to predict the future. The four pillars that make up any
+                    temporal signal.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Anatomy of Time</h3>
+                    <p>
+                        A Time Series is not just a bunch of numbers in order. It is a "Layer Cake" of different
+                        temporal effects stacked on top of each other.
+                        <br><br>
+                        To forecast accurately, we first have to "unbake" the cake and identify each layer.
+                    </p>
+                </div>
+
+                <h2>1. The Four Pillars</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Trend (\(T\))</h4>
+                        <p>The long-term upward or downward movement (e.g., global population growth). It’s the "Story"
+                            the data tells over years.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Seasonality (\(S\))</h4>
+                        <p>A repeating pattern over a fixed period (e.g., high ice cream sales every July). It’s about
+                            the "Calendar".</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Cyclicity (\(C\))</h4>
+                        <p>Long-term fluctuations that are NOT periodic (e.g., economic recessions). They are
+                            unpredictable in duration.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>4. Irregularity / Noise (\(I\))</h4>
+                        <p>Random errors, shocks, or outliers. This is the part we can't explain.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Additive vs. Multiplicative</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Additive Model</h4>
+                        <p>\( Y = T + S + C + I \)</p>
+                        <p>Used when the seasonal variation is <strong>constant</strong> regardless of the trend. (e.g., Always +100
+                            sales in December).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Multiplicative Model</h4>
+                        <p>\( Y = T \times S \times C \times I \)</p>
+                        <p>Used when seasonality <strong>grows</strong> with the trend. (e.g., Sales grow by 20% every December, so
+                            the raw peak gets bigger as the company grows).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Feature Extraction</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Feature Eng</span>
+                    <h3>Turning Time into Features</h3>
+                    <p>
+                        Classical models (like ARIMA) handle components internally. Modern ML models (like XGBoost or
+                        LSTMs) need you to feed them these components as features.
+                    </p>
+                    <ul>
+                        <li><strong>Extraction:</strong> We create "Date Features" like `is_weekend`, `month_sin`, `day_of_year`.
+                            These explicitly tell the model about the <strong>Seasonality</strong> component.</li>
+                        <li><strong>De-trending:</strong> Before feeding data into a Neural Network, we often "De-trend" it by
+                            subtracting the mean or using differencing. This makes the data <strong>Stationary</strong>, which is
+                            easier for the network to learn.</li>
+                        <li><strong>STL Decomposition:</strong> `Seasonal-Trend decomposition using LOESS` is a standard
+                            pre-processing tool. It splits your data into three separate signals. You can then use a
+                            different model to predict each signal (e.g., a Linear model for Trend and a XGBoost for the
+                            Residuals).</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Pro-Tip:</strong> If your time series plot looks like a "Fan" (the squiggles get bigger as you go
+                        right), it's <strong>Multiplicative</strong>. Take the <strong>Log</strong> of the data to convert it into an <strong>Additive</strong>
+                        model!
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.12 Total Derivative - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_10_multi_implicit_diff.html" class="nav-link">10. Implicit
+                                Diff</a></li>
+                        <li class="nav-item"><a href="13_11_jacobian_matrix.html" class="nav-link">11. Jacobian
+                                Matrix</a></li>
+                        <li class="nav-item"><a href="13_12_total_derivative.html" class="nav-link active">12. Total
+                                Derivative</a></li>
+                        <li class="nav-item"><a href="13_13_double_integrals_rect.html" class="nav-link">13. Double
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_14_double_integrals_general.html" class="nav-link">14. Iterated
+                                Integrals</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Sensitivity</span>
+                </div>
+                <h1>The Total Derivative</h1>
+                <p class="lead-text">Summing up every ripple.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Differential</h3>
+                    <p>
+                        The <strong>Total Derivative</strong> (or Total Differential \( dz \)) answers: "If I change everything
+                        slightly, how much does the output change?"
+                        \[ dz = \frac{\partial f}{\partial x} dx + \frac{\partial f}{\partial y} dy + \dots \]
+                    </p>
+                    <p>
+                        Unlike a partial derivative (which holds things constant), the total derivative allows
+                        everything to move at once. It essentially defines the <strong>Local Linear Approximation</strong> of the
+                        function:
+                        \[ f(x+dx, y+dy) \approx f(x, y) + dz \]
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Differential Privacy</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Robustness & Privacy</h3>
+                    <p>
+                        In <strong>Differential Privacy</strong>, we ask: "If I change ONE user's record (a small \( dx \)), how much
+                        does the model's output change (\( dz \))?"
+                    </p>
+                    <p>
+                        If the <strong>Total Derivative</strong> of the model with respect to the input data is bounded (small), the
+                        model is "Stable" and "Private".
+                        A large total derivative means the model is "Overfitting" to specific data points (memorizing
+                        them). If removing one user causes the model's prediction to swing wildly, that user's privacy
+                        is compromised.
+                        Techniques like <strong>Gradient Clipping</strong> essentially put a leash on the total derivative to force
+                        stability.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Sensitivity Check</h2>
+                <div class="code-header">total_differential.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x, y = sp.symbols('x y')
+# Model: f = 3x^2 + 5y
+f = 3*x**2 + 5*y
+
+# Current State
+x0, y0 = 10, 2
+# Small perturbations (e.g., measurement noise)
+dx, dy = 0.01, -0.01
+
+# Calculate Total Differential
+df_dx = sp.diff(f, x) # 6x
+df_dy = sp.diff(f, y) # 5
+
+total_diff = df_dx * dx + df_dy * dy
+sensitivity = total_diff.subs({x: x0, y: y0})
+
+print(f"Predicted Change (dz): {sensitivity:.4f}")
+
+# Compare with actual change
+exact = f.subs({x: x0+dx, y: y0+dy}) - f.subs({x: x0, y: y0})
+print(f"Actual Change:         {exact:.4f}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_11_jacobian_matrix.html" class="footer-link">← Prev: Jacobian</a>
+                        <span class="separator">|</span>
+                        <a href="13_13_double_integrals_rect.html" class="footer-link">Next: Double Integrals →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

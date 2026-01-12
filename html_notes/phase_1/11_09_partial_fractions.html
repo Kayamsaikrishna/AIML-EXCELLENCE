@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11.09 Partial Fractions - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.4 Integration</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="11_06_by_parts.html" class="nav-link">06. Integration by Parts</a>
+                        </li>
+                        <li class="nav-item"><a href="11_07_trig_integrals.html" class="nav-link">07. Trig Integrals</a>
+                        </li>
+                        <li class="nav-item"><a href="11_08_trig_substitution.html" class="nav-link">08. Trig
+                                Substitution</a></li>
+                        <li class="nav-item"><a href="11_09_partial_fractions.html" class="nav-link active">09. Partial
+                                Fractions</a></li>
+                        <li class="nav-item"><a href="11_10_improper.html" class="nav-link">10. Improper Integrals</a>
+                        </li>
+                        <li class="nav-item"><a href="11_11_numerical.html" class="nav-link">11. Numerical Methods</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.4</span>
+                    <span class="badge secondary">Decomposition</span>
+                </div>
+                <h1>Partial Fraction Decomposition</h1>
+                <p class="lead-text">Breaking big problems into small, solvable ones.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Factor and Conquer</h3>
+                    <p>
+                        Integration is linear: \(\int (A+B) = \int A + \int B\). We use PFD to turn a complicated
+                        rational function \(\frac{P(x)}{Q(x)}\) (which is hard to integrate) into a sum of simple terms
+                        like \(\frac{A}{x-r}\) (which integrate easily to logs).
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="glass-card">
+                    <p>
+                        If the denominator \(Q(x)\) factors into \((x-r)(x-s)\), we write:
+                        \[ \frac{1}{(x-r)(x-s)} = \frac{A}{x-r} + \frac{B}{x-s} \]
+                    </p>
+                    <p><strong>The Solution Strategy:</strong></p>
+                    <ol class="step-list">
+                        <li>Factor the denominator completely.</li>
+                        <li>Set up the decomposition with unknown constants \(A, B, C...\).</li>
+                        <li>Multiply by the denominator to clear fractions.</li>
+                        <li>Solve for constants by plugging in roots or equating coefficients.</li>
+                    </ol>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Complex[Rational Function P/Q] -->|Factor Q| Factors[Factors: x-a, x-b]
+                        Factors -->|Setup| Decomp[Sum of A/x-a + B/x-b]
+                        Decomp -->|Solve Constants| Solved[Specific Sum]
+                        Solved -->|Integrate Terms| Logs[Sum of ln |x-r|]
+
+                        style Logs fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Control & Lapalce</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Linear Time-Invariant Systems</h3>
+                    <p>
+                        In <strong>Robotics and Control Theory</strong>, we analyze stability in the "Laplace Domain".
+                        A robot arm's movement is described by a transfer function \(H(s) = \frac{N(s)}{D(s)}\).
+                    </p>
+                    <p>
+                        To find out how the arm moves over time (Inverse Laplace Transform), we MUST use <strong>Partial
+                            Fraction Decomposition</strong>.
+                        Each term \(\frac{A}{s-p}\) corresponds to a decaying exponential \(e^{pt}\).
+                        PFD tells us exactly which "poles" (eigenvalues) are driving the system's behavior—whether it
+                        will stabilize or oscillate uncontrollably.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Decomposition</h2>
+                <div class="code-header">pfd_solver.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+# Complex rational function
+rational_func = 1 / (x**2 - 5*x + 6)
+
+# 1. Decompose (Algebraic Step)
+# This splits it into A/(x-3) + B/(x-2)
+decomposed = sp.apart(rational_func)
+print(f"Decomposed: {decomposed}")
+# Output: 1/(x-3) - 1/(x-2)
+
+# 2. Integrate
+integral = sp.integrate(decomposed, x)
+print(f"Integral: {integral}")
+# Output: log(x-3) - log(x-2)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="11_08_trig_substitution.html" class="footer-link">← Prev: Trig Sub</a>
+                        <span class="separator">|</span>
+                        <a href="11_10_improper.html" class="footer-link">Next: Improper Integrals →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

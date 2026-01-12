@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31.10 Set Theory in Data & ML - Set Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.7.4 Synthesis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="31_09_russell_paradox_axioms.html" class="nav-link">09. Russell's
+                                Paradox</a></li>
+                        <li class="nav-item"><a href="31_10_set_theory_in_data_ml.html" class="nav-link active">10. Set
+                                Theory in ML</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Applications</span>
+                    <span class="badge secondary">Data Systems</span>
+                </div>
+                <h1>Set Theory in Data & Machine Learning</h1>
+                <p class="lead-text">Connecting Theory to Practice. How the fundamental concepts of collections and
+                    mappings provide the architectural blueprint for modern data pipelines and neural representations.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Ubiquity of Sets</h3>
+                    <p>
+                        Whether you are selecting features, joining datasets, or mapping inputs to labels, you are
+                        performing set-theoretic operations. Set theory isn't just a branch of math; it's the invisible
+                        infrastructure of information science.
+                    </p>
+                </div>
+
+                <h2>1. Relational Algebra: The Engine of Data</h2>
+                <p>Modern databases (SQL) are built on <strong>Codd's Relational Model</strong>, which is pure set theory. Tables are
+                    <strong>relations</strong>, and queries are <strong>operations</strong> on those relations.</p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Selection (\(\sigma\))</h4>
+                        <p>Filtering rows based on a condition. (Set-builder notation).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Projection (\(\pi\))</h4>
+                        <p>Selecting specific columns (dimensions) from the Cartesian product.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Joins (\(\bowtie\))</h4>
+                        <p>A restricted Cartesian product filtered by an intersection of keys.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Set Embeddings & Representations</h2>
+                <p>In Deep Learning, we often need to represent a <strong>set of items</strong> (like a bag of words or a point
+                    cloud) as a single vector.</p>
+                <ul>
+                    <li><strong>Permutation Invariance:</strong> A true set representation must be "order-independent." If we change
+                        the order of points in a point cloud, the representation shouldn't change.</li>
+                    <li><strong>Deep Sets:</strong> A neural architecture designed to process sets by applying a shared
+                        transformation to each element and then "aggregating" them (using a sum or mean, which are
+                        commutative operations).</li>
+                    <li><strong>Pooling:</strong> Operations like `GlobalAveragePooling` are essentially set aggregators that
+                        collapse a set of feature maps into a single description.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Loss Functions</span>
+                    <span class="ml-badge">Segmentation</span>
+                    <h3>The Set-Based Objective</h3>
+                    <p>
+                        We often use set theory to measure how close a model's output is to the truth.
+                    </p>
+                    <ul>
+                        <li><strong>Dice Coefficient:</strong> Used in medical image segmentation to measure the overlap between two
+                            sets (Pixels). It is the set-theoretic equivalent of the F1-score.</li>
+                        <li><strong>Contrastive Learning:</strong> Modern AI (like CLIP) learns by making synonymous pairs have high
+                            "similarity" (Intersection) and non-synonymous pairs have low similarity.</li>
+                        <li><strong>Zero-Shot Learning:</strong> We map an image set and a text set into a <strong>Joint Embedding Space</strong>
+                            (Cartesian product) and find the best mapping between them.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Implementation Workflow</h2>
+                <div class="mermaid">
+                    graph LR
+                    D1[Raw Data Segment A]
+                    D2[Raw Data Segment B]
+                    D1 -- "Inner Join" --> S1[Common Features]
+                    D2 -- "Set Difference" --> S2[Unique Features]
+                    S1 & S2 -- "Union" --> FF[Final Feature Set]
+                    FF -- "Functional Mapping" --> M[ML Model]
+                    M -- "Range Projection" --> P[Predictions]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

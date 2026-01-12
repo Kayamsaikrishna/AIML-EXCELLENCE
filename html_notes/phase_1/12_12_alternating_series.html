@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.12 Alternating Series - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_11_integral_test.html" class="nav-link">11. Integral Test</a>
+                        </li>
+                        <li class="nav-item"><a href="12_12_alternating_series.html" class="nav-link active">12.
+                                Alternating Series</a></li>
+                        <li class="nav-item"><a href="12_13_abs_cond_convergence.html" class="nav-link">13. Abs & Cond
+                                Conv</a></li>
+                        <li class="nav-item"><a href="12_14_power_series.html" class="nav-link">14. Power Series</a>
+                        </li>
+                        <li class="nav-item"><a href="12_15_radius_interval.html" class="nav-link">15. Radius &
+                                Interval</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Oscillations</span>
+                </div>
+                <h1>Alternating Series & Leibniz Test</h1>
+                <p class="lead-text">Convergence through cancellation.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Tug of War</h3>
+                    <p>
+                        An alternating series flips signs every time: positive, negative, positive...
+                        \[ \sum (-1)^{n+1} a_n = a_1 - a_2 + a_3 - a_4 \dots \]
+                    </p>
+                    <p>
+                        <strong>Leibniz Test (AST):</strong> The series converges simply if:
+                    <ol>
+                        <li>The terms are decreasing: \(a_{n+1} \leq a_n\).</li>
+                        <li>The limit is zero: \(\lim_{n \to \infty} a_n = 0\).</li>
+                    </ol>
+                    </p>
+                    <p>
+                        This is easier to satisfy than positive convergence because the terms "cancel" each other out.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Momentum & Oscillations</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Damping the Swing</h3>
+                    <p>
+                        In <strong>Stochastic Gradient Descent (SGD)</strong>, the optimizer often overshoots the minimum. We step
+                        too far left, then correct and step right, creating an <strong>alternating path</strong>.
+                    </p>
+                    <p>
+                        If the Learning Rate is too high, the oscillations grow (Divergence). If we use a **Learning
+                        Rate Scheduler** (decaying the learning rate), we satisfy the Leibniz condition: the steps get
+                        smaller and approach zero.
+                        This ensures that the "Series of Updates" converges to a specific set of weights, stabilizing
+                        the model.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Start[Start Training] --> Update[Update Weights]
+                        Update --> Check{Overshoot?}
+                        Check -->|Yes| Correct[Correction Step (-)]
+                        Correct --> Next[Next Step (+)]
+                        Next --> Decay[Decay Learning Rate]
+                        Decay --> Limit{Step -> 0?}
+                        Limit -->|Yes| Converge[Model Converges]
+                        Limit -->|No| Diverge[Model Explodes]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Alternating Harmonic Sum</h2>
+                <div class="code-header">alternating.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Alternating Harmonic Series: 1 - 1/2 + 1/3 - 1/4 ...
+# Unlike the regular Harmonic Series (which diverges), this converges to ln(2).
+
+n_terms = 1000
+alt_sum = 0
+for n in range(1, n_terms + 1):
+    term = 1/n
+    if n % 2 == 0:
+        alt_sum -= term
+    else:
+        alt_sum += term
+
+print(f"Sum (n={n_terms}): {alt_sum:.6f}")
+print(f"Target (ln 2): {np.log(2):.6f}")
+# Convergence is slow but guaranteed.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_11_integral_test.html" class="footer-link">← Prev: Integral Test</a>
+                        <span class="separator">|</span>
+                        <a href="12_13_abs_cond_convergence.html" class="footer-link">Next: Abs Conv →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

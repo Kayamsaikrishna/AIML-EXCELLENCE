@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.13 Total Variance - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_12_iterated_expectations.html" class="nav-link">12. Iterated
+                                Exp</a></li>
+                        <li class="nav-item"><a href="21_13_total_variance.html" class="nav-link active">13. Total
+                                Variance</a></li>
+                        <li class="nav-item"><a href="21_14_vector_rvs.html" class="nav-link">14. Vector RVs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Eve's Law</span>
+                </div>
+                <h1>The Law of Total Variance</h1>
+                <p class="lead-text">Breaking down total uncertainty into two distinct sources.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Where does Variance come from?</h3>
+                    <p>
+                        The total variation in a variable \(X\) can be split into two parts:
+                        <br>
+                        1. <strong>Within-Group Variance:</strong> The average spread <em>inside</em> each group.
+                        <br>
+                        2. <strong>Between-Group Variance:</strong> The spread <em>between</em> the group averages.
+                    </p>
+                </div>
+
+                <h2>1. The Formula (EVVE)</h2>
+                <div class="math-box">
+                    $$ \text{Var}(X) = E[\text{Var}(X|Y)] + \text{Var}(E[X|Y]) $$
+                </div>
+                <ul>
+                    <li>\(E[\text{Var}(X|Y)]\): The <strong>Noise</strong> (residual variance that \(Y\) cannot
+                        explain).</li>
+                    <li>\(\text{Var}(E[X|Y])\): The <strong>Signal</strong> (variance explained by the relationship
+                        between \(X\) and \(Y\)).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Intuitive Example: Exam Scores</h2>
+                <p>Imagine students in two different cities, A and B, taking the same exam.</p>
+                <ul>
+                    <li>The <strong>Total Variance</strong> in scores across all students is influenced by:
+                        <ul>
+                            <li>The average difference between City A and City B (Between-group).</li>
+                            <li>The individual differences between students <em>within</em> City A (Within-group).</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Bias-Variance Decomposition</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Generalization</span>
+                    <span class="ml-badge">Optimization</span>
+                    <h3>Why Models Fail</h3>
+                    <p>
+                        In ML, we decompose the total error of a model into:
+                        - <strong>Bias:</strong> Error from the $E[X|Y]$ part (getting the mean wrong).
+                        - <strong>Variance:</strong> Error from the individual fluctuations (getting the spread around the mean
+                        wrong).
+                    </p>
+                    <p>
+                        The Law of Total Variance is the mathematical "grandfather" of the Bias-Variance tradeoff. It
+                        tells us that even the "perfect" model will still have an error equal to the <strong>Irreducible
+                            Noise</strong> ($E[\text{Var}(X|Y)]$), which represents information missing from the
+                        features.
+                    </p>
+                </div>
+
+                <h3>Analysis of Variance (ANOVA)</h3>
+                <p>
+                    ANOVA is a statistical test that literally uses this law to check if group means are different. If
+                    the "Between-group" variance is much larger than the "Within-group" variance, we conclude that the
+                    grouping variable \(Y\) has a significant effect on \(X\).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Visualization</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A["Total Variance Var(X)"] --> B["Explained: Var(E[X|Y])"]
+                        A --> C["Unexplained: E(Var[X|Y])"]
+                        B --> D["Signal"]
+                        C --> E["Noise"]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

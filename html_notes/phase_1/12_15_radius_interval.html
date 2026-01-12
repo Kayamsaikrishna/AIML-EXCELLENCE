@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.15 Radius & Interval of Convergence - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_11_integral_test.html" class="nav-link">11. Integral Test</a>
+                        </li>
+                        <li class="nav-item"><a href="12_12_alternating_series.html" class="nav-link">12. Alternating
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_13_abs_cond_convergence.html" class="nav-link">13. Abs & Cond
+                                Conv</a></li>
+                        <li class="nav-item"><a href="12_14_power_series.html" class="nav-link">14. Power Series</a>
+                        </li>
+                        <li class="nav-item"><a href="12_15_radius_interval.html" class="nav-link active">15. Radius &
+                                Interval</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">The Safe Zone</span>
+                </div>
+                <h1>Interval of Convergence</h1>
+                <p class="lead-text">Finding where the proxy logic holds true.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Radius (R)</h3>
+                    <p>
+                        A Power Series doesn't always work for every \(x\). There is a specific domain where it is
+                        valid.
+                        We find this "Safe Zone" using the Ratio Test.
+                    </p>
+                    <p>
+                        \[ \lim_{n \to \infty} \left| \frac{c_{n+1} (x-a)^{n+1}}{c_n (x-a)^n} \right| < 1 \] </p>
+                            <p>
+                                This inequality solves for \( |x-a| < R \). This \(R\) is the **Radius of Convergence**.
+                                    Inside this radius, the series is a perfect copy of the function. Outside, it is
+                                    nonsense. </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Kernel Methods & Infinite Features</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Kernel Trick</h3>
+                    <p>
+                        In <strong>Support Vector Machines (SVMs)</strong>, we use the "Kernel Trick" to map data into infinite
+                        dimensions:
+                        \[ K(x,y) = e^{-\gamma ||x-y||^2} \quad \text{(RBF Kernel)} \]
+                    </p>
+                    <p>
+                        We can view this kernel as a Power Series expansion (dot products of infinite feature vectors).
+                        The convergence of this series is crucial. Because the exponential function has an **Infinite
+                        Radius of Convergence** (\(R = \infty\)), the RBF Kernel works for ANY data input, no matter how
+                        far from the origin.
+                        If we used a kernel based on a function with a finite radius (like a geometric series), the
+                        model would fail for outliers.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Input[Data Point x] --> Kernel[Kernel Function K]
+                        Kernel --> Series[Power Series Expansion]
+                        Series --> Check{Inside Radius R?}
+                        Check -->|Yes| Valid[Valid Infinite Feature Map]
+                        Check -->|No| Invalid[Model Collapse]
+
+                        style Valid fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Finding the Radius</h2>
+                <div class="code-header">radius_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+# Series: x^n / n (Logarithmic series approximation)
+# Ratio Test limit: |x| < 1 implies R=1.
+
+x, n = sp.symbols('x n')
+term = x**n / n
+next_term = x**(n+1) / (n+1)
+
+ratio = sp.Abs(next_term / term)
+limit_ratio = sp.limit(ratio, n, sp.oo)
+
+print(f"Ratio Limit: {limit_ratio}")
+# Output: |x|
+# Condition: |x| < 1 -> Interval (-1, 1)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_14_power_series.html" class="footer-link">← Prev: Power Series</a>
+                        <span class="separator">|</span>
+                        <a href="12_16_taylor_polynomials.html" class="footer-link">Next: Taylor Poly →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.11 Bayesian Point Estimates - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_10_credible_vs_confidence.html" class="nav-link">10. Credible
+                                Vs Confidence</a></li>
+                        <li class="nav-item"><a href="26_11_bayesian_point_estimates.html" class="nav-link active">11.
+                                Bayesian Point Estimates</a></li>
+                        <li class="nav-item"><a href="26_12_bayesian_hypothesis_testing.html" class="nav-link">12.
+                                Bayesian Hypothesis Testing</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">MAP Inference</span>
+                </div>
+                <h1>Bayesian Point Estimates</h1>
+                <p class="lead-text">Converting a "cloud of probability" into a single decision or prediction.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Choice of Best</h3>
+                    <p>
+                        Bayesians usually prefer the whole distribution, but sometimes you just need <strong>one number</strong>
+                        (e.g., what weight should I put in this CSV?).
+                        <br><br>
+                        Which number you pick depends on what you are afraid of (your <strong>Loss Function</strong>).
+                    </p>
+                </div>
+
+                <h2>1. The Big Three</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Estimate</th>
+                            <th>Mathematical Definition</th>
+                            <th>Loss Function Minimized</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Posterior Mean</strong></td>
+                            <td>\( E[\theta | D] \)</td>
+                            <td><strong>L2 Loss</strong> (Squared Error)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Posterior Median</strong></td>
+                            <td>Value where \( P(\theta < val)=0.5 \)</td>
+                            <td><strong>L1 Loss</strong> (Absolute Error)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Posterior Mode (MAP)</strong></td>
+                            <td>\(\text{argmax}_{\theta} P(\theta|D)\)</td>
+                            <td><strong>0-1 Loss</strong> (Accuracy)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Deep Dive: MAP Estimation</h2>
+                <p>
+                    <strong>MAP (Maximum A Posteriori)</strong> is the most common Bayesian bridge to classical ML.
+                </p>
+                <div class="math-box">
+                    $$ \theta_{MAP} = \text{argmax}_{\theta} [ \log P(D|\theta) + \log P(\theta) ] $$
+                </div>
+                <p>
+                    It's just Maximum Likelihood (MLE) with an extra "Prior" term added.
+                    - If the Prior is "Flat" (Uniform), <strong>MAP = MLE</strong>.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: L2 Regularization (Ridge)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Regularization</span>
+                    <h3>Why Ridge is Bayesian</h3>
+                    <p>
+                        In Ridge Regression, we minimize:
+                        $$ \text{Loss} = \sum (y - \hat{y})^2 + \lambda \sum w^2 $$
+                    </p>
+                    <p>
+                        Where did that \(\lambda \sum w^2\) come from? It's not just "magic magic to stop overfitting."
+                        <br><br>
+                        Mathematically, this is exactly the <strong>MAP Estimate</strong> of a model where the Prior distribution of
+                        the weights is a <strong>Normal distribution</strong> \(\mathcal{N}(0, 1/\lambda)\).
+                        - <strong>Frequentist:</strong> "I'm punishing large weights."
+                        - <strong>Bayesian:</strong> "I'm assuming (Prior) that weights are small and centered at zero."
+                    </p>
+                    <p>
+                        Similarly, <strong>Lasso (L1) Regularization</strong> is the MAP estimate with a <strong>Laplace Prior</strong>.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

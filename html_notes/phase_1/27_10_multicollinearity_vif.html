@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multicollinearity & VIF - Phase 1.5.5.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">Unknown Pillar</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="27_10_multicollinearity_vif.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 27_10_multicollinearity_vif.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 34_10</div>
+            <h1>10. Multicollinearity & VIF</h1>
+            <p class="lead-text">When your features are echoing each other.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. What is Multicollinearity?</h2>
+<p><strong>Multicollinearity</strong> occurs when features in a regression model are highly correlated with
+                each other. This is a problem because the model can no longer distinguish the individual effect of each
+                variable. It's like having two people shouting the same thing—you can't tell who is more important.</p>
+</section>
+<section class="module-card">
+<h2>2. VIF (Variance Inflation Factor)</h2>
+<p>VIF measures how much the variance of a coefficient is inflated due to multicollinearity. For a feature
+                $X_j$:</p>
+<div class="math-block">
+                $$ VIF_j = \frac{1}{1 - R_j^2} $$
+            </div>
+<p>where $R_j^2$ is the R-squared obtained by regressing $X_j$ against all other features. </p>
+<ul class="topic-list">
+<li><strong>VIF = 1:</strong> No correlation.</li>
+<li><strong>VIF &gt; 5 or 10:</strong> High multicollinearity. The feature is redundant.</li>
+</ul>
+</section>
+<section>
+<h2>3. AI/ML Connection: Feature Selection and Stability</h2>
+<div class="module-card">
+<h3>Numerical Stability in Large Models</h3>
+<p>In AI, Multicollinearity is the enemy of <strong>Model Generalization**. </strong></p>
+<p>If features are redundant, the matrix $(X^T X)$ becomes almost singular (un-invertible). This leads
+                    to <strong>Exploding Gradients</strong> and unstable weights. In <strong>AutoML Pipelines**, VIF is used to
+                        automatically drop redundant variables before training. It saves computational power and
+                        prevents the AI from "Over-reliance" on specific feature groups. It is also critical in
+                        <strong>Model Explainability (XAI)**: if VIF is high, your SHAP values will be misleading
+                            because the importance is split randomly between redundant features. Dropping high-VIF
+                            features results in a <strong>Sparse, Robust Model</strong> that is easier for humans to trust and
+                            cheaper to run in production. </strong></strong></p>
+</div>
+</section>
+<section>
+<h2>4. Python: Calculating VIF</h2>
+<div class="code-block">
+<pre><code class="language-python">from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+# Calculate VIF for each feature
+vif_data = pd.DataFrame()
+vif_data["feature"] = X.columns
+vif_data["VIF"] = [variance_inflation_factor(X.values, i) 
+                   for i in range(len(X.columns))]
+
+print(vif_data)
+# If any VIF &gt; 10, consider dropping that feature!</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

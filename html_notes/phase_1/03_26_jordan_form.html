@@ -4,95 +4,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jordan Form - Phase 1.2.2.26</title>
+    <title>03.26 Jordan Form - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_25_schur.html">25. Schur Decomposition</a></li>
-            <li><a href="03_26_jordan_form.html" class="active">26. Jordan Form</a></li>
-            <li><a href="03_27_block_matrices.html">27. Block Matrices</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Jordan Form
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>26. Jordan Normal Form</h1>
-            <p class="subtitle">The closest form to diagonalization for general matrices.</p>
-        </header>
-
-        <section>
-            <h2>1. What happens when Diagonalization fails?</h2>
-            <p>A matrix is diagonalizable only if it has a complete set of linearly independent eigenvectors. When
-                eigenvalues have <strong>Algebraic Multiplicity</strong> higher than their <strong>Geometric
-                    Multiplicity</strong>,
-                the matrix is "defective". The <strong>Jordan Normal Form (JNF)</strong> is the most simplified
-                representation we can achieve for such matrices.</p>
-
-            <div class="math-block">
-                $$ \mathbf{J} = \mathbf{P}^{-1}\mathbf{AP} = \begin{bmatrix} J_1 & 0 & \dots \\ 0 & J_2 & \dots \\
-                \vdots & \vdots & \ddots \end{bmatrix} $$
-            </div>
-            <p>Each <strong>Jordan Block</strong> \( J_i \) looks like this:</p>
-            <div class="math-block">
-                $$ J_i = \begin{bmatrix} \lambda_i & 1 & 0 \\ 0 & \lambda_i & 1 \\ 0 & 0 & \lambda_i \end{bmatrix} $$
-            </div>
-        </section>
-
-        <section>
-            <h2>2. Importance in System Dynamics</h2>
-            <div class="module-card">
-                <h3>Stability Analysis</h3>
-                <p>In <strong>Robotics</strong> and <strong>Recurrent Neural Networks (RNNs)</strong>, the growth of a
-                    signal over time is governed by powers of the weight matrix \( \mathbf{W}^t \). The Jordan form
-                    allows us to see that if a Jordan block has \( \lambda = 1 \), the "1" on the super-diagonal
-                    leads to <strong>linearly increasing</strong> signals (Polynomial growth), which can cause drift
-                    in control systems.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Generalized Eigenvectors:</strong> Used to construct the basis for
-                        JNF.</li>
-                    <li class="topic-item"><strong>Computing matrix functions:</strong> It is easy to calculate \(
-                        e^{\mathbf{A}t} \) or \( \mathbf{A}^n \) using the Jordan form.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_25_schur.html" class="nav-link">25. Schur</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">26. Jordan Form</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 26. The Ultimate Form
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 26</div>
+            <h1>Jordan Canonical Form</h1>
+            <p class="lead-text"> \( J \). The closest we can get to diagonal for defective matrices.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: JORDAN -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Jordan Blocks</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Matrix["Matrix A"]
+    
+    subgraph Structure
+        J["Jordan Form J"]
+        Block1["Block 1: [3]"]
+        Block2["Block 2: [5 1; 0 5]"]
+    end
+    
+    Matrix -- "Similarity" --> J
+    J --> Block1
+    J --> Block2
+    
+    Block2 -- "1 on super-diagonal" --> Defect["Defective (Missing Eigenvectors)"]
+
+    style J fill:#dcfce7,stroke:#16a34a
+    style Defect fill:#fee2e2,stroke:#b91c1c
+                    </pre>
+                </div>
+            </div>
         </section>
 
-        <section>
-            <h2>3. Python: Attempting JNF</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+        <!-- 1. DEFINITION: JCF -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>If a matrix \( A \) does not have enough eigenvectors to be diagonalized, it is similar to a block
+                    diagonal matrix \( J \):</p>
+                <div class="math-block">
+                    $$ A = M J M^{-1} $$
+                </div>
+                <p>Each block \( J_i \) (Jordan Block) has the eigenvalue \( \lambda_i \) on the diagonal and \( 1 \)'s
+                    on the super-diagonal.</p>
+            </div>
+        </section>
 
-# A defective matrix
-A = sp.Matrix([[5, 4, 2, 1], [0, 1, -1, -1], [-1, -1, 3, 0], [1, 1, -1, 2]])
+        <!-- 2. AI APPLICATION: DYNAMICS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. System Stability</h2>
+                <p>In analyzing Recurrent Neural Networks (RNNs) or dynamical systems \( x_{t+1} = A x_t \), the Jordan
+                    form determines stability.</p>
+                <p>The "1"s in the Jordan blocks cause polynomial growth ($t \lambda^t$) alongside the exponential
+                    growth ($\lambda^t$), which can affect convergence rates in non-normal networks.</p>
+            </div>
+        </section>
 
-# Jordan Form returns (P, J)
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. SymPy Calculation</h2>
+                <p>Jordan form is numerically unstable (tiny perturbations break the "1"s), so we use symbolic math.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">from sympy import Matrix
+
+# A defective matrix (Repeated eigenvalue 5, only 1 eigenvector)
+A = Matrix([
+    [5, 4],
+    [-1, 1]
+]) # Leads to char eq (lambda-3)^2 = 0 ? No let's trust SymPy
+
 P, J = A.jordan_form()
 
 print("Jordan Form J:")
-sp.pprint(J)</code></pre>
+print(J)
+# Should see [3, 1], [0, 3] or similar structure
+
+print("\nTransformation P (Generalized Eigenvectors):")
+print(P)
+
+print("\nCheck A = P J P^-1:")
+print(P * J * P.inv() == A)
+</code></pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.12 ANOVA (One-Way) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_11_paired_t_test.html" class="nav-link">11. Paired T Test</a>
+                        </li>
+                        <li class="nav-item"><a href="25_12_anova_one_way.html" class="nav-link active">12. Anova One
+                                Way</a></li>
+                        <li class="nav-item"><a href="25_13_anova_two_way.html" class="nav-link">13. Anova Two Way</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">F-Test</span>
+                </div>
+                <h1>ANOVA (One-Way)</h1>
+                <p class="lead-text">Comparing three or more groups simultaneously to avoid the trap of multiple
+                    testing.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Why not just do many T-tests?</h3>
+                    <p>
+                        If you have 5 models and you compare every pair (10 tests), your chance of a False Positive
+                        (Type I Error) skyrockets from 5% to ~40%!
+                        <br><br>
+                        <strong>ANOVA</strong> (Analysis of Variance) tests all groups at once with a single P-value.
+                    </p>
+                </div>
+
+                <h2>1. The Logic</h2>
+                <div class="math-box">
+                    $$ F = \frac{\text{Variance BETWEEN Groups}}{\text{Variance WITHIN Groups}} $$
+                </div>
+                <p>
+                    - If the groups are far apart (High Between) and tight inside (Low Within), the \(F\)-score is high.
+                    - High \(F\) = Reject the Null (There is a difference somewhere).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The ANOVA Table</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Sum of Squares</th>
+                            <th>df</th>
+                            <th>Mean Square</th>
+                            <th>F</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Between</strong></td>
+                            <td>SSB</td>
+                            <td>k - 1</td>
+                            <td>MSB = SSB/df</td>
+                            <td><strong>MSB / MSW</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Within</strong></td>
+                            <td>SSW</td>
+                            <td>N - k</td>
+                            <td>MSW = SSW/df</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>(\(k\) = number of groups, \(N\) = total sample size).</p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Comparing Architectures</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Validation</span>
+                    <h3>Which Model Structure is Best?</h3>
+                    <p>
+                        You are testing 4 different neural architectures:
+                        1. CNN
+                        2. ResNet
+                        3. Vision Transformer (ViT)
+                        4. MLP-Mixer
+                    </p>
+                    <p>
+                        You run 10 training sessions for each (accounting for weight init randomness).
+                        - <strong>Null Hypothesis (\(H_0\)):</strong> All 4 architectures have the same mean accuracy.
+                        - <strong>Alternative (\(H_a\)):</strong> At least ONE architecture is different.
+                    </p>
+                    <p>
+                        Running an <strong>ANOVA</strong> allows you to say "Yes, there is a statistically significant difference
+                        between these four methods" without cheating the P-value by doing 6 individual pair-wise
+                        comparisons.
+                    </p>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Note:</strong> ANOVA only tells you that *a difference exists*. It doesn't tell you *which* group is
+                    different. For that, you need a follow-up <strong>Tukey Post-Hoc Test</strong>.
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

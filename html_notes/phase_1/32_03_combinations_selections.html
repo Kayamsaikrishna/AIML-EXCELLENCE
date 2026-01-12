@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32.03 Combinations - Combinatorics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.8.1 Counting Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="32_02_permutations_arrangements.html" class="nav-link">02.
+                                Permutations</a></li>
+                        <li class="nav-item"><a href="32_03_combinations_selections.html" class="nav-link active">03.
+                                Combinations</a></li>
+                        <li class="nav-item"><a href="32_04_circular_permutations_indistinguishable.html"
+                                class="nav-link">04. Circular Permutations</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Combinatorics</span>
+                    <span class="badge secondary">Groups</span>
+                </div>
+                <h1>Combinations & Selection</h1>
+                <p class="lead-text">Choosing, Not Arranging. Defining the number of ways to pick a subset where the
+                    order doesn't matter — the mathematical engine of probability and sampling.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Grouping Logic</h3>
+                    <p>
+                        A <strong>Combination</strong> is a selection of items where the order of choosing does not matter. If you
+                        are picking a team of 3 from 10 people, picking (A, B, C) is exactly the same as picking (C, B,
+                        A). Unlike permutations, we divide out the redundant orderings.
+                    </p>
+                </div>
+
+                <h2>1. The Formula \(C(n, r)\)</h2>
+                <p>
+                    Known as "n choose r."
+                </p>
+                <div class="math-box">
+                    $$ C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!} $$
+                </div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> In a deck of 52 cards, how many different 5-card poker hands can you
+                        have?</p>
+                    <p>Order doesn't matter. This is \(\binom{52}{5} = \frac{52 \times 51 \times 50 \times 49 \times
+                        48}{5 \times 4 \times 3 \times 2 \times 1} = 2,598,960\).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Fundamental Identities</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Symmetry</h4>
+                        <p>Choosing \(r\) items is the same as *leaving behind* \(n-r\) items.</p>
+                        <div class="math-box">\( \binom{n}{r} = \binom{n}{n-r} \)</div>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Boundary Cases</h4>
+                        <p>There is only 1 way to pick everything, and 1 way to pick nothing.</p>
+                        <div class="math-box">\( \binom{n}{0} = \binom{n}{n} = 1 \)</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Probability</span>
+                    <span class="ml-badge">Evaluation</span>
+                    <h3>Why Combinations matter in AI</h3>
+                    <ul>
+                        <li><strong>k-Fold Cross-Validation:</strong> When we split data into \(k\) folds, we are choosing 1 fold for
+                            testing and \(k-1\) for training. There are \(\binom{k}{1}\) ways to choose the test fold.
+                        </li>
+                        <li><strong>Hyperparameter Combinations:</strong> The total number of points in a <strong>Grid Search</strong> is a
+                            product of choices, but if we are selecting a "subset" of relevant features, we are using
+                            combinations.</li>
+                        <li><strong>Bernoulli Trials:</strong> The probability of exactly \(k\) successes in \(n\) trials (Binomial
+                            Distribution) is scaled by \(\binom{n}{k}\). This is fundamental to understanding error
+                            rates in classification.</li>
+                        <li><strong>Ensemble Methods:</strong> If you have 10 models and you want to build a "voting ensemble" of any
+                            3, you have \(\binom{10}{3} = 120\) possible ensembles.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Combination Workflow</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Total Items n] --> B[Choose r items]
+                    B --> C[Order Matters?]
+                    C -- Yes --> P["P(n,r) = n! / (n-r)!"]
+                    C -- No --> K["C(n,r) = P(n,r) / r!"]
+                    K --> Final["Number of unique subsets"]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

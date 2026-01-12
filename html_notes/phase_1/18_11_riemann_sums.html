@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,76 +9,81 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.4 Integration</li>
-            <li><a href="18_10_improper_integrals.html">10. Improper Integrals</a></li>
-            <li><a href="18_11_riemann_sums.html" class="active">11. Riemann Sums</a></li>
-            <li><a href="18_12_ftc.html">12. FTC</a></li>
-            <li><a href="18_13_integral_props.html">13. Integral Props</a></li>
-            <li><a href="18_14_avg_value.html">14. Average Value</a></li>
-            <hr>
-            <li class="nav-label">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.4 Integration</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="18_11_riemann_sums.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Riemann Sums
+            <a href="../index.html">Syllabus</a> &gt; 18_11_riemann_sums.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 18_11</div>
             <h1>11. Riemann Sums & Definite Integrals</h1>
-            <p class="subtitle">Approximating area with rectangles.</p>
+            <p class="lead-text">Approximating area with rectangles.</p>
         </header>
 
-        <section>
-            <h2>1. The Riemann Definition</h2>
-            <p>A <strong>Definite Integral</strong> \(\int_{a}^{b} f(x) dx\) represents the signed area under a curve.
+        
+
+
+
+<section>
+<h2>1. The Riemann Definition</h2>
+<p>A <strong>Definite Integral</strong> \(\int_{a}^{b} f(x) dx\) represents the signed area under a curve.
                 We define it as the limit of a <strong>Riemann Sum</strong> as the number of sub-intervals (\(n\)) goes
                 to infinity:</p>
-            <div class="math-block">
+<div class="math-block">
                 $$ \int_{a}^{b} f(x) dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i) \Delta x $$
             </div>
-            <p>Where \(\Delta x = \frac{b-a}{n}\) is the width of each strip.</p>
-        </section>
-
-        <section class="module-card">
-            <h2>2. Over and Under Estimates</h2>
-            <ul class="topic-list">
-                <li><strong>Left Riemann Sum:</strong> Uses the left endpoint of each strip.</li>
-                <li><strong>Right Riemann Sum:</strong> Uses the right endpoint.</li>
-                <li><strong>Midpoint Rule:</strong> Often the most accurate simple approximation.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Numerical Integration & Histograms</h2>
-            <div class="module-card">
-                <h3>Discrete Real-World Data</h3>
-                <p>Computers cannot truly perform "limits to infinity". When an AI processes data from a sensor (like a
+<p>Where \(\Delta x = \frac{b-a}{n}\) is the width of each strip.</p>
+</section>
+<section class="module-card">
+<h2>2. Over and Under Estimates</h2>
+<ul class="topic-list">
+<li><strong>Left Riemann Sum:</strong> Uses the left endpoint of each strip.</li>
+<li><strong>Right Riemann Sum:</strong> Uses the right endpoint.</li>
+<li><strong>Midpoint Rule:</strong> Often the most accurate simple approximation.</li>
+</ul>
+</section>
+<section>
+<h2>3. AI/ML Connection: Numerical Integration &amp; Histograms</h2>
+<div class="module-card">
+<h3>Discrete Real-World Data</h3>
+<p>Computers cannot truly perform "limits to infinity". When an AI processes data from a sensor (like a
                     heart rate monitor), it receives discrete samples. Calculating the "Total energy" or "Area" of that
                     signal is essentially a <strong>Riemann Sum</strong>.</p>
-                <p>Furthermore, and most importantly, <strong>Histograms</strong> are physical Riemann Sums. If you
+<p>Furthermore, and most importantly, <strong>Histograms</strong> are physical Riemann Sums. If you
                     normalize a histogram so its total area is 1, you have created a discrete probability distribution.
                     Understanding Riemann sums allows AI researchers to convert real-world "binned" data into smooth
                     mathematical functions using Kernel Density Estimation (KDE).</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Manual Riemann Sum Implementation</h2>
-            <div class="code-block">
-                <pre><code class="language-python">def riemann_sum(f, a, b, n):
+</div>
+</section>
+<section>
+<h2>4. Python: Manual Riemann Sum Implementation</h2>
+<div class="code-block">
+<pre><code class="language-python">def riemann_sum(f, a, b, n):
     dx = (b - a) / n
     total_area = 0
     for i in range(n):
@@ -91,13 +95,14 @@
 # Analytical solution is 1/3 = 0.333
 ans = riemann_sum(lambda x: x**2, 0, 1, 1000)
 print(f"Approx Area (1000 rectangles): {ans:.6f}")</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

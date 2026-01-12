@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.12 Iterated Expectations - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_11_precision_matrix.html" class="nav-link">11. Precision
+                                Matrix</a></li>
+                        <li class="nav-item"><a href="21_12_iterated_expectations.html" class="nav-link active">12.
+                                Iterated Exp</a></li>
+                        <li class="nav-item"><a href="21_13_total_variance.html" class="nav-link">13. Total Variance</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Adam's Law</span>
+                </div>
+                <h1>The Law of Iterated Expectations</h1>
+                <p class="lead-text">Simplifying complex averages by breaking them into nested stages.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Average of Averages</h3>
+                    <p>
+                        Suppose you want to find the average height of a person in the world. You could:
+                        <br>
+                        1. Calculate the average height in each country.
+                        <br>
+                        2. Take the weighted average of those country-wide averages.
+                        <br><br>
+                        The result is exactly the same as if you measured every person individually. This is **Adam's
+                        Law**: <strong>The expectation of a conditional expectation is the global expectation.</strong>
+                    </p>
+                </div>
+
+                <h2>1. The Formula (The Tower Property)</h2>
+                <div class="math-box">
+                    $$ E[X] = E[ \, E[X|Y] \, ] $$
+                </div>
+                <p>
+                    <strong>Calculation Steps:</strong>
+                    1. Find \(E[X|Y=y]\) (this is a <em>function</em> of \(y\)).
+                    2. Take the expectation of that function with respect to the distribution of \(Y\).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Why is this useful?</h2>
+                <p>
+                    Oftentimes, \(X\) is very complex, but it becomes simple if we know some "state" \(Y\).
+                    <br>
+                    <strong>Example:</strong> Finding the expected number of clicks on an ad.
+                    - If user is "Interested" (\(Y=1\)), \(E[X|Y=1] = 0.5\).
+                    - If user is "Not Interested" (\(Y=0\)), \(E[X|Y=0] = 0.01\).
+                    - Global Average = (Prob Interested \(\times\) 0.5) + (Prob Not Interested \(\times\) 0.01).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Hierarchical Models</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Bayesian ML</span>
+                    <span class="ml-badge">Ensembles</span>
+                    <h3>Boosting and Aggregation</h3>
+                    <p>
+                        In <strong>Hierarchical Bayesian Models</strong>, we assume parameters \(\theta\) themselves are
+                        random variables drawn from a hyper-distribution.
+                    </p>
+                    <p>
+                        To find the expected performance of a model across all possible datasets, we often use the Law
+                        of Iterated Expectations to average over the datasets first, then over the hyper-parameters.
+                    </p>
+                </div>
+
+                <h3>Stochastic Processes</h3>
+                <p>
+                    In Reinforcement Learning, the <strong>Bellman Equation</strong> is an application of iterated
+                    expectations. The value of a state is the expected reward plus the expected value of the
+                    <em>next</em> state, conditional on the action taken.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Visualization</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A["Joint Distribution P(X, Y)"] --> B["Cond. Expectation E(X|Y)"]
+                        B --> C["Averaging over Y"]
+                        C --> D["Global Expectation E(X)"]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

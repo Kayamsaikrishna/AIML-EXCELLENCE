@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.14 Weibull Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_13_pareto_dist.html" class="nav-link">13. Pareto Dist</a></li>
+                        <li class="nav-item"><a href="20_14_weibull_dist.html" class="nav-link active">14. Weibull
+                                Dist</a></li>
+                        <li class="nav-item"><a href="20_15_dirichlet_dist.html" class="nav-link">15. Dirichlet Dist</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Life Cycle</span>
+                </div>
+                <h1>The Weibull Distribution</h1>
+                <p class="lead-text">Generalizing the Exponential distribution into the world of aging and mechanical
+                    failure.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Beyond Memorylessness</h3>
+                    <p>
+                        The Exponential distribution assumes a constant failure rate (memoryless). But in real life,
+                        things age.
+                        <br>
+                        A lightbulb is more likely to fail as it gets older (<strong>Aging</strong>).
+                        <br>
+                        A software system is more likely to crash in its first hour before settling (\*\*Infant
+                        Mortality\*\*).
+                        <br><br>
+                        The <strong>Weibull Distribution</strong> uses a shape parameter \(k\) to model these changing rates.
+                    </p>
+                </div>
+
+                <h2>1. Definition and PDF</h2>
+                <div class="math-box">
+                    \(X \sim \text{Weibull}(\lambda, k)\) where \(\lambda > 0\) is the scale and \(k > 0\) is the
+                    <strong>shape</strong>.
+                    $$ f(x) = \frac{k}{\lambda} \left(\frac{x}{\lambda}\right)^{k-1} e^{-(x/\lambda)^k} $$
+                    for \(x \ge 0\).
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Hazard Function (The Failure Rate)</h2>
+                <p>The "Hazard" is the instantaneous probability of failing *now*, given you have survived until now.
+                </p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[k &lt; 1] -->|Hazard Decreases| B[Early Failure / Learning / Burning-in]
+                            C[k = 1] -->|Hazard Constant| D[Exponential Distribution / Random Chance]
+                            E[k > 1] -->|Hazard Increases| F[Aging / Wear-out]
+                    </div>
+                </div>
+                <ul>
+                    <li>If \(k = 2\), the rate increases linearly with time (Rayleigh Distribution).</li>
+                    <li>If \(k = 3.4\), the Weibull looks strikingly like a Normal distribution.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Reliability Engineering</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Predictive Maintenance</span>
+                    <span class="ml-badge">Systems</span>
+                    <h3>Modeling Time-to-Failure</h3>
+                    <p>
+                        In IoT and Industrial AI, we predict the <strong>Remaining Useful Life (RUL)</strong> of engines/batteries.
+                    </p>
+                    <p>
+                        Because hardware inevitably wears out, we fit a Weibull distribution to the historical lifespan
+                        of parts. This allows us to calculate the probability of failure in the next 24 hours and
+                        schedule maintenance before a catastrophic breakdown occurs.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Extreme Value Theory</h2>
+                <p>
+                    The Weibull is one of the three distributions that arise in <strong>Extreme Value Theory</strong>. It models the
+                    distribution of the <em>minimum</em> of a large number of independent samples.
+                    <br>
+                    "A chain is only as strong as its weakest link." If links have i.i.d. strengths, the strength of the
+                    chain follows a Weibull distribution.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

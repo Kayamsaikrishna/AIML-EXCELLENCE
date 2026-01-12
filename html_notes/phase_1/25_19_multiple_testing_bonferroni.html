@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.19 Multiple Testing (Bonferroni) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_18_effect_size_cohen.html" class="nav-link">18. Effect Size
+                                Cohen</a></li>
+                        <li class="nav-item"><a href="25_19_multiple_testing_bonferroni.html"
+                                class="nav-link active">19. Multiple Testing</a></li>
+                        <li class="nav-item"><a href="25_20_false_discovery_rate.html" class="nav-link">20. False
+                                Discovery Rate</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Alpha Inflation</span>
+                </div>
+                <h1>Multiple Testing Correction</h1>
+                <p class="lead-text">Guarding against the "look-elsewhere effect" where you find a discovery just by
+                    asking too many questions.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Problem: Alpha Inflation</h3>
+                    <p>
+                        If you test one hypothesis at \(\alpha = 0.05\), you have a 5% chance of a False Positive.
+                        <br>
+                        If you test <strong>100</strong> hypotheses, your chance of at least ONE False Positive is:
+                        <br>
+                        \(1 - (0.95)^{100} = \mathbf{99.4\%}\)
+                    </p>
+                    <p>
+                        Discovery is almost guaranteed, but it's pure garbage!
+                    </p>
+                </div>
+
+                <h2>1. The Bonferroni Correction</h2>
+                <div class="math-box">
+                    $$ \alpha_{new} = \frac{\alpha_{old}}{m} $$
+                </div>
+                <ul>
+                    <li>\(m\): Total number of tests performed.</li>
+                </ul>
+                <p>
+                    If you conduct 20 tests, your new significance threshold is \(0.05 / 20 = \mathbf{0.0025}\). You now
+                    require much stronger evidence for any single discovery to be counted.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Pros and Cons</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Pros</h4>
+                        <ul>
+                            <li>Very simple to calculate.</li>
+                            <li>Extremely conservative (strictly controls Type I error).</li>
+                            <li>The "Gold Standard" for medical trials.</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Cons</h4>
+                        <ul>
+                            <li><strong>Low Power:</strong> It makes it so hard to "Reject" that you often miss real discoveries.
+                            </li>
+                            <li>Assumes tests are independent (rarely true in ML features).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Feature Selection</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Genomics</span>
+                    <h3>Curse of Categorical Features</h3>
+                    <p>
+                        In Bioinformatics, we test 20,000 genes to see which ones cause cancer.
+                    </p>
+                    <p>
+                        Without Bonferroni, we would find 1,000 genes "Significantly" linked to cancer by pure chance
+                        (\(20,000 \times 0.05\)). These are False Discoveries!
+                    </p>
+                    <p>
+                        By applying Bonferroni (\(0.05 / 20000\)), we ensure that the genes we pick are actually
+                        meaningful. In generic ML, if you are doing <strong>Univariate Feature Selection</strong> on 500 features,
+                        you MUST apply a correction, otherwise your model will be built on ghosts.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

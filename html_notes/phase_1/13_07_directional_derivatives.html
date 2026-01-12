@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.07 Directional Derivatives - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_06_gradient_vectors.html" class="nav-link">06. Gradient
+                                Vectors</a></li>
+                        <li class="nav-item"><a href="13_07_directional_derivatives.html" class="nav-link active">07.
+                                Directional Derivs</a></li>
+                        <li class="nav-item"><a href="13_08_tangent_planes_approx.html" class="nav-link">08. Tangent
+                                Planes</a></li>
+                        <li class="nav-item"><a href="13_09_multi_chain_rule.html" class="nav-link">09. Chain Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="13_10_multi_implicit_diff.html" class="nav-link">10. Implicit
+                                Diff</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Slopes</span>
+                </div>
+                <h1>Directional Derivatives</h1>
+                <p class="lead-text">Slope in any direction.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Beyond X and Y</h3>
+                    <p>
+                        Partial derivatives (\( f_x, f_y \)) only tell you the slope if you move strictly East or North.
+                        What if you want to walk North-East (45°)?
+                        The <strong>Directional Derivative</strong> \( D_{\mathbf{u}}f \) gives the rate of change in the direction
+                        of any unit vector \( \mathbf{u} \).
+                    </p>
+                    <p>
+                        It is simply the dot product of the Gradient and the Direction:
+                        \[ D_{\mathbf{u}}f = \nabla f \cdot \mathbf{u} = |\nabla f| |\mathbf{u}| \cos \theta \]
+                        Since \( \mathbf{u} \) is a unit vector, this is maximized when \( \cos \theta = 1 \) (moving in
+                        gradient direction) and zero when \( \cos \theta = 0 \) (moving along level curve).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Adversarial Attacks</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Finding the Weakest Spot</h3>
+                    <p>
+                        In <strong>Adversarial Machine Learning</strong>, we want to trick a neural network into misclassifying an
+                        image (e.g., calling a Panda a Gibbon) by changing the pixels as little as possible.
+                    </p>
+                    <p>
+                        The attacker calculates the <strong>Directional Derivative</strong> of the Loss Function with respect to the
+                        input pixels. They look for the direction where the error *increases the fastest* (the gradient
+                        of the input).
+                        By adding a tiny amount of noise in this specific direction (Fast Gradient Sign Method), we can
+                        push the image across the decision boundary.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Calculating Arbitrary Slopes</h2>
+                <div class="code-header">directional_slope.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Function: f(x, y) = x^2 * y
+# Gradient: <2xy, x^2>
+def grad_f(x, y):
+    return np.array([2*x*y, x**2])
+
+# Point of interest
+x0, y0 = 1, 2
+
+# Direction: vector <3, 4>
+v = np.array([3, 4])
+# MUST normalize to unit vector u!
+u = v / np.linalg.norm(v)
+
+gradient = grad_f(x0, y0) # <4, 1>
+slope = np.dot(gradient, u)
+
+print(f"Gradient at (1,2): {gradient}")
+print(f"Unit Direction u: {u}")
+print(f"Slope (Directional Deriv): {slope}")
+# Expected: <4, 1> dot <0.6, 0.8> = 2.4 + 0.8 = 3.2</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_06_gradient_vectors.html" class="footer-link">← Prev: Gradients</a>
+                        <span class="separator">|</span>
+                        <a href="13_08_tangent_planes_approx.html" class="footer-link">Next: Tangent Planes →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

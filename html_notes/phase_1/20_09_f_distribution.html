@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.09 F-Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_08_chi_square.html" class="nav-link">08. Chi-Square</a></li>
+                        <li class="nav-item"><a href="20_09_f_distribution.html" class="nav-link active">09.
+                                F-Distribution</a></li>
+                        <li class="nav-item"><a href="20_10_laplace_dist.html" class="nav-link">10. Laplace Dist</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Ratio</span>
+                </div>
+                <h1>The F-Distribution (Fisher-Snedecor)</h1>
+                <p class="lead-text">Comparing variances: When one spread is bigger than another.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Ratio of Chi-Squares</h3>
+                    <p>
+                        The F-distribution is what you get when you take the ratio of two independent Chi-Square
+                        variables, each divided by its degrees of freedom.
+                        <br><br>
+                        It is named after Sir Ronald Fisher and George Snedecor.
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    Let \(U \sim \chi^2(d_1)\) and \(V \sim \chi^2(d_2)\) be independent.
+                    $$ X = \frac{U/d_1}{V/d_2} \sim F(d_1, d_2) $$
+                </div>
+                <ul>
+                    <li>\(d_1\): Numerator degrees of freedom.</li>
+                    <li>\(d_2\): Denominator degrees of freedom.</li>
+                    <li>Values are non-negative (\(x \ge 0\)).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Feature Selection & ANOVA</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Statistics</span>
+                    <span class="ml-badge">ANOVA</span>
+                    <h3>Analysis of Variance (ANOVA)</h3>
+                    <p>
+                        Suppose you are testing 3 different marketing strategies. You want to know if their mean
+                        conversion rates are significantly different.
+                    </p>
+                    <p>
+                        Instead of comparing means directly, ANOVA compares the <strong>variance between groups</strong>
+                        to the <strong>variance within groups</strong>.
+                        <br><br>
+                        If the "between" variance is much larger than the "within" variance (leading to a high
+                        F-statistic), it implies the group means are not all equal.
+                    </p>
+                </div>
+
+                <h3>F-Test in Feature Selection</h3>
+                <p>
+                    In Linear Regression, the <strong>F-statistic</strong> is used to test if the model explained a significant
+                    portion of the variance compared to a model with no features. High F-score = Good features!
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Relation to t-Distribution</h2>
+                <p>
+                    A squared t-distribution variable is an F-distribution variable!
+                </p>
+                $$ (t_{\nu})^2 = F(1, \nu) $$
+                <p>This shows the deep interconnection between these "sampling distributions". They all come from the
+                    same Gaussian family.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

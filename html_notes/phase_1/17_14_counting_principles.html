@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.14 Counting Principles - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_13_exclusive_vs_independent.html" class="nav-link">13.
+                                Exclusive vs Indep</a></li>
+                        <li class="nav-item"><a href="17_14_counting_principles.html" class="nav-link active">14.
+                                Counting Principles</a></li>
+                        <li class="nav-item"><a href="17_15_permutations.html" class="nav-link">15. Permutations</a>
+                        </li>
+                        <li class="nav-item"><a href="17_16_combinations.html" class="nav-link">16. Combinations</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Combinatorics</span>
+                </div>
+                <h1>Counting Principles</h1>
+                <p class="lead-text">How large is the space?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Multiplication Principle</h3>
+                    <p>
+                        If experiment 1 has \(n_1\) outcomes and experiment 2 has \(n_2\) outcomes, the total number of
+                        combined outcomes is \(n_1 \times n_2\).
+                    </p>
+                    <p>
+                        This explains why high-dimensional spaces are huge.
+                        A 100x100 binary image has \(2^{10,000}\) possible states. This is <strong>Combinatorial Explosion</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Grid Search</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Hyperparameter Space</h3>
+                    <p>
+                        Searching for optimal hyperparameters is a counting problem.
+                        If you have 3 params with 5, 5, and 10 options respectively, you have \(5 \times 5 \times 10 =
+                        250\) combinations to test.
+                        Adding one more param with 10 options makes it 2500.
+                        This is why we prefer <strong>Random Search</strong> or <strong>Bayesian Optimization</strong> over exhaustive Grid
+                        Search.
+                    </p>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_13_exclusive_vs_independent.html" class="footer-link">← Prev: Excl vs Indep</a>
+                        <span class="separator">|</span>
+                        <a href="17_15_permutations.html" class="footer-link">Next: Permutations →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

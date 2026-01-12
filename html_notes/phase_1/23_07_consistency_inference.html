@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.07 Consistency in Inference - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_06_mse.html" class="nav-link">06. Mse</a></li>
+                        <li class="nav-item"><a href="23_07_consistency_inference.html" class="nav-link active">07.
+                                Consistency Inference</a></li>
+                        <li class="nav-item"><a href="23_08_efficiency_estimator.html" class="nav-link">08. Efficiency
+                                Estimator</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Large Sample Truth</span>
+                </div>
+                <h1>Consistency in Inference</h1>
+                <p class="lead-text">Does your estimator eventually hit the bullseye if given infinite data?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Minimum Requirement</h3>
+                    <p>
+                        An estimator \(\hat{\theta}_n\) is <strong>Consistent</strong> if it converges in probability to the true
+                        parameter \(\theta\) as the sample size \(n\) goes to infinity.
+                        <br><br>
+                        Consistency is the "bare minimum" for any serious algorithm. If your model doesn't find the
+                        truth even with infinite data, it is fundamentally broken.
+                    </p>
+                </div>
+
+                <h2>1. Formal Definition</h2>
+                <div class="math-box">
+                    $$ \hat{\theta}_n \xrightarrow{P} \theta $$
+                    Technically: \(\lim_{n \to \infty} P(|\hat{\theta}_n - \theta| < \epsilon)=1\) for any \(\epsilon>
+                        0\).
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Consistency vs. Unbiasedness</h2>
+                <ul>
+                    <li><strong>Unbiasedness</strong> is about the <strong>Average</strong> of the estimator for a fixed \(n\).</li>
+                    <li><strong>Consistency</strong> is about the <strong>Convergence</strong> of the estimator as \(n \to \infty\).</li>
+                </ul>
+                <div class="insight-box">
+                    <h3>The Difference</h3>
+                    <p>
+                        An estimator can be biased but consistent. For example, dividing sample variance by \(n\) is
+                        biased, but as \(n \to \infty\), the difference between \(n\) and \(n-1\) vanishes, making the
+                        estimator consistent.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Asymptotic Correctness</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Foundational</span>
+                    <span class="ml-badge">Convergence</span>
+                    <h3>Why "Big Data" Solves Overfitting</h3>
+                    <p>
+                        Most Machine Learning models (like Logistic Regression or SVMs) are <strong>Consistent</strong>. This means
+                        that in the limit of infinite data, they will recover the "True" decision boundary.
+                    </p>
+                    <p>
+                        Overfitting is a finite-sample problem. As you add more data, the "Variance" component of the
+                        MSE drops to zero (due to consistency), and you are left with only the "Bias" (the error
+                        inherent in your choice of model architecture).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary of Estimator Qualities</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Quality</th>
+                            <th>Focus</th>
+                            <th>Metric</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Unbiased</td>
+                            <td>Accuracy (on average)</td>
+                            <td>\(E[\hat{\theta}] = \theta\)</td>
+                        </tr>
+                        <tr>
+                            <td>Efficient</td>
+                            <td>Precision (tightness)</td>
+                            <td>Smallest Variance</td>
+                        </tr>
+                        <tr>
+                            <td>Consistent</td>
+                            <td>Reliability (limit)</td>
+                            <td>\(\hat{\theta} \to \theta\)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

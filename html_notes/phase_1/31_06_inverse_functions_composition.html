@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31.06 Composition & Inverses - Set Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.7.1 Theory of Sets</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="31_05_functions_mappings.html" class="nav-link">05. Functions &
+                                Mappings</a></li>
+                        <li class="nav-item"><a href="31_06_inverse_functions_composition.html"
+                                class="nav-link active">06. Composition & Inverses</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Operations</span>
+                    <span class="badge secondary">Inversion</span>
+                </div>
+                <h1>Inverse Functions & Composition</h1>
+                <p class="lead-text">Chains of Reason. Combining simple mappings to build complex logic and finding the
+                    way back home through the power of inversion.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Feedback Loop</h3>
+                    <p>
+                        Functions are the building blocks of algorithms. <strong>Composition</strong> is the act of piping output to
+                        input. <strong>Inverses</strong> are the act of undoing a calculation. Together, they define the flow and
+                        recoverability of information.
+                    </p>
+                </div>
+
+                <h2>1. Function Composition (\(f \circ g\))</h2>
+                <p>
+                    Applying one function after another. The range of the first must be a subset of the domain of the
+                    second.
+                </p>
+                <div class="math-box">\( (f \circ g)(x) = f(g(x)) \)</div>
+                <p><strong>Note:</strong> Composition is NOT commutative. \(f(g(x)) \neq g(f(x))\) in most cases. The
+                    order matters!</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Inverse Functions (\(f^{-1}\))</h2>
+                <p>
+                    A function \(f^{-1}\) that "undoes" \(f\). If \(f\) maps \(x\) to \(y\), then \(f^{-1}\) maps \(y\)
+                    back to \(x\).
+                </p>
+                <div class="math-box">\( f^{-1}(f(x)) = x \text{ and } f(f^{-1}(y)) = y \)</div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Existence</h4>
+                        <p>A function has an inverse <strong>if and only if</strong> it is <strong>Bijective</strong> (One-to-One and Onto).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Symmetry</h4>
+                        <p>The graph of \(f^{-1}\) is the reflection of the graph of \(f\) across the line \(y = x\).
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Encryption</span>
+                    <h3>Why Logic matters in AI</h3>
+                    <ul>
+                        <li><strong>The Chain Rule:</strong> Backpropagation (the engine of Deep Learning) is practically an
+                            application of the derivative of <strong>composed functions</strong>. By chaining layers, we build
+                            complex mappings, and by using the chain rule, we flow gradients backward.</li>
+                        <li><strong>Reversible Computing:</strong> Some neural architectures (like RevNets) use strictly invertible
+                            functions for each layer. This allows them to store only the final output and "uncompute"
+                            layers in reverse to save memory during training.</li>
+                        <li><strong>Cryptography:</strong> RSA encryption relies on the fact that while some functions are easy to
+                            compute (multiplying two large primes), their inverses (factoring the result) are
+                            practically impossible. This is a "One-Way Function."</li>
+                        <li><strong>Word Embeddings:</strong> When we perform "Vector Arithmetic" like *King - Man + Woman = Queen*,
+                            we are essentially traversing a composition of relations in the vector space.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Composition & Inverse Flow</h2>
+                <div class="mermaid">
+                    graph LR
+                    X[Input x] -- "g(x)" --> Y[Intermediate y]
+                    Y -- "f(y)" --> Z[Output z]
+                    Z -. "f⁻¹(z)" .-> Y
+                    Y -. "g⁻¹(y)" .-> X
+                    subgraph Forward ["Function Composition"]
+                    X
+                    Y
+                    Z
+                    end
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

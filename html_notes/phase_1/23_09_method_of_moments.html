@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.09 Method of Moments - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_08_efficiency_estimator.html" class="nav-link">08. Efficiency
+                                Estimator</a></li>
+                        <li class="nav-item"><a href="23_09_method_of_moments.html" class="nav-link active">09. Method
+                                Of Moments</a></li>
+                        <li class="nav-item"><a href="23_10_mle_intro.html" class="nav-link">10. Mle Intro</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Direct Matching</span>
+                </div>
+                <h1>Method of Moments (MoM)</h1>
+                <p class="lead-text">A simple, intuitive way to estimate parameters by forcing the data's "moments" to
+                    match the model's "moments".</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Intuition</h3>
+                    <p>
+                        "If the average height in my sample is 5.8 feet, I will assume the average height in the
+                        population is also 5.8 feet."
+                        <br><br>
+                        MoM generalizes this: To find \(k\) unknown parameters, you set up \(k\) equations matching the
+                        sample mean, sample variance, etc., to their theoretical formulas.
+                    </p>
+                </div>
+
+                <h2>1. The Process</h2>
+                <div class="math-box">
+                    Set the \(k\)-th sample moment equal to the \(k\)-th theoretical moment:
+                    $$ \frac{1}{n} \sum X_i^k = E[X^k] $$
+                </div>
+                <p>
+                    <strong>Example: Gamma Distribution</strong>
+                    - Mean: \(E[X] = \alpha \beta\)
+                    - Variance: \(E[X^2] - (E[X])^2 = \alpha \beta^2\)
+                    <br>
+                    You calculate the sample mean and variance, then solve for \(\alpha\) and \(\beta\).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Pros and Cons</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Advantages</h4>
+                        <ul>
+                            <li>Extremely simple to calculate.</li>
+                            <li>Does not require calculating complex likelihoods.</li>
+                            <li>Good for "Rough Estimates".</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Disadvantages</h4>
+                        <ul>
+                            <li>Usually <strong>not efficient</strong> (wider variance than MLE).</li>
+                            <li>Estimates can sometimes be impossible (e.g., negative variance).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Initialization</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">GMMs</span>
+                    <h3>The Speed-accuracy Tradeoff</h3>
+                    <p>
+                        In complex models like <strong>Gaussian Mixture Models (GMMs)</strong>, finding the perfect parameters via
+                        MLE takes many iterations of Expectation-Maximization.
+                    </p>
+                    <p>
+                        Data scientists often use the <strong>Method of Moments</strong> to get a <em>"good enough"</em> starting
+                        point for the parameters. These rough estimates are then used to initialize the more intensive
+                        MLE or gradient descent processes, ensuring faster convergence.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

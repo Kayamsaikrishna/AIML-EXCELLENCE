@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.07 CI for Difference in Means - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_06_ci_proportion.html" class="nav-link">06. CI Proportion</a>
+                        </li>
+                        <li class="nav-item"><a href="24_07_ci_difference_means.html" class="nav-link active">07. CI
+                                Difference Means</a></li>
+                        <li class="nav-item"><a href="24_08_sample_size_determination.html" class="nav-link">08. Sample
+                                Size</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Comparative Stats</span>
+                </div>
+                <h1>CI for Difference in Means</h1>
+                <p class="lead-text">Answering the question: "Is the difference between these two groups real, or just
+                    noise?"</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Delta (\(\Delta\))</h3>
+                    <p>
+                        In ML, we rarely care about a single model in isolation. We care if <strong>Model B</strong> is better than
+                        <strong>Model A</strong>.
+                        By building a confidence interval for the <em>difference</em> \(\mu_1 - \mu_2\), we can prove if
+                        one genuinely outperforms the other.
+                    </p>
+                </div>
+
+                <h2>1. Independent Samples</h2>
+                <div class="math-box">
+                    $$ (\bar{x}_1 - \bar{x}_2) \pm t^* \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}} $$
+                </div>
+                <p>
+                    Used when the two groups are unrelated (e.g., users in New York vs. users in London).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The "Does it contain Zero?" Test</h2>
+                <div class="insight-box">
+                    <h3>The Golden Rule</h3>
+                    <p>
+                        If the Confidence Interval for the difference <strong>contains zero</strong> (e.g., \([-1.5,
+                        3.2]\)), we conclude there is <strong>No Significant Difference</strong>.
+                        - It's possible for \(\bar{x}_1\) to be slightly larger than \(\bar{x}_2\), but the range shows
+                        the true difference could easily be zero.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: A/B Testing</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Product</span>
+                    <span class="ml-badge">A/B Testing</span>
+                    <h3>The Multi-Armed Bandit Start</h3>
+                    <p>
+                        Most modern recommendation systems start with an A/B test.
+                        - Group A: Control (Old Model).
+                        - Group B: Treatment (New Model).
+                    </p>
+                    <p>
+                        If the 95% CI for the difference in Click-Through Rate (CTR) is <strong>[0.02, 0.05]</strong>, we are 95%
+                        confident that the new model causes at least a 2% increase in clicks.
+                        Because the entire interval is <strong>above zero</strong>, we "Push to Production".
+                    </p>
+                </div>
+
+                <h3>Paired T-Tests (Model Comparison)</h3>
+                <p>
+                    If you run Model A and Model B on the <strong>exact same validation set</strong>, the samples are
+                    not independent—they are "Paired". This allows for a much tighter confidence interval because it
+                    cancels out the shared difficulty of specific examples.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.09 Convergence Almost Surely - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_08_conv_distribution.html" class="nav-link">08. Conv (Dist)</a>
+                        </li>
+                        <li class="nav-item"><a href="22_09_conv_almost_sure.html" class="nav-link active">09. Conv
+                                (A.S.)</a></li>
+                        <li class="nav-item"><a href="22_10_slutsky_theorem.html" class="nav-link">10. Slutsky's Thm</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Total Convergence</span>
+                </div>
+                <h1>Convergence Almost Surely (a.s.)</h1>
+                <p class="lead-text">The strongest form of probabilistic convergence: The whole path converges.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>No Turning Back</h3>
+                    <p>
+                        Convergence Almost Surely means that if you look at the <em>entire sequence</em> of random
+                        variables, that sequence converges to a limit with probability 1.
+                        <br><br>
+                        "The tail of the sequence will eventually enter a tiny \(\epsilon\)-neighborhood around the
+                        limit and <strong>never leave it again</strong>."
+                        <br><br>
+                        Notation: \(X_n \xrightarrow{a.s.} X\)
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    $$ P\left( \{ \omega : \lim_{n \to \infty} X_n(\omega) = X(\omega) \} \right) = 1 $$
+                </div>
+                <p>
+                    Contrast this with convergence in probability:
+                    - <strong>In Probability:</strong> The probability of being far away at a specific time \(n\) is small.
+                    - <strong>Almost Surely:</strong> Eventually, the <em>limit</em> of the values is correct for almost every
+                    universe.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: SDG Convergence</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Optimization</span>
+                    <span class="ml-badge">SGD</span>
+                    <h3>Finding the Global Minimum</h3>
+                    <p>
+                        In deep learning, we want to prove that <strong>Stochastic Gradient Descent (SGD)</strong> will eventually
+                        reach the minimum of the loss function.
+                    </p>
+                    <p>
+                        The standard convergence proofs for SGD (using the Robbins-Monro conditions) show that the
+                        weights \(\theta_t\) converge <strong>Almost Surely</strong> to the optimal weights \(\theta^*\).
+                        <br><br>
+                        This is why we decay the learning rate over time—it "freezes" the fluctuations of the stochastic
+                        gradients, allowing the sequence to settle into a stable point according to the SLLN/S.A.
+                        principles.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Key Differences</h2>
+                <p>If \(X_n\) converges to \(X\) almost surely, it <em>also</em> converges in probability and in
+                    distribution. The reverse is not always true.</p>
+                <div class="insight-box">
+                    <h3>The Counter-Example</h3>
+                    <p>
+                        Imagine a variable that is normally zero, but has a 1-in-\(n\) chance of spiking to 100.
+                        - This converges <strong>In Probability</strong> to zero because the chance of a spike vanishes.
+                        - It does <strong>NOT</strong> converge Almost Surely because, given enough time, the spikes
+                        keep happening (infinitely often), even if they get farther apart.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

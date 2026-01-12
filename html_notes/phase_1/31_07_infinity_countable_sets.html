@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31.07 Infinite Sets & Countability - Set Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.7.2 Infinite Aggregates</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="31_06_inverse_functions_composition.html" class="nav-link">06.
+                                Composition & Inverses</a></li>
+                        <li class="nav-item"><a href="31_07_infinity_countable_sets.html" class="nav-link active">07.
+                                Infinite Sets & Countability</a></li>
+                        <li class="nav-item"><a href="31_08_cantor_diagonal_argument.html" class="nav-link">08. Cantor's
+                                Argument</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Infinity</span>
+                    <span class="badge secondary">Cardinals</span>
+                </div>
+                <h1>Infinite Sets & Countability</h1>
+                <p class="lead-text">Comparing the Endless. Proving that not all infinities are created equal and
+                    discovering the smallest "size" of infinity that defines the range of digital computers.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Countability Test</h3>
+                    <p>
+                        How do you compare two infinite sets? You try to find a <strong>Bijection</strong> (Perfect Pairing) between
+                        them. If you can pair every element of set \(A\) with every element of set \(B\) with none left
+                        over, they have the same size (Cardinality), even if one seems "bigger" at first glance.
+                    </p>
+                </div>
+
+                <h2>1. Countably Infinite Sets</h2>
+                <p>
+                    A set is <strong>Countable</strong> if it has the same cardinality as the set of Natural Numbers \(\mathbb{N} =
+                    \{1, 2, 3, ...\}\). Its cardinality is denoted by \(\aleph_0\) (Aleph-null).
+                </p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Hilbert's Hotel</h4>
+                        <p>Even if an infinite hotel is full, you can fit more people. If an infinite bus arrives, just
+                            move person \(n\) to room \(2n\). This proves the Integers (\(\mathbb{Z}\)) have the same
+                            size as Natural Numbers.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>The Paradox of Parts</h4>
+                        <p>In the infinite world, a proper subset can have the same size as the whole set. Example: The
+                            set of even numbers is "just as big" as the set of all integers.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Are Fractions Bigger?</h2>
+                <p>
+                    Surprisingly, the set of all Rational Numbers (\(\mathbb{Q}\)) is also <strong>Countable</strong>.
+                </p>
+                <div class="example-box">
+                    <p>By arranging fractions in a 2D grid and snaking through them diagonally, we can list every single
+                        fraction in order (1st, 2nd, 3rd...). If you can list them, they are countable. \(\therefore
+                        |\mathbb{Q}| = \aleph_0\).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Computing</span>
+                    <span class="ml-badge">Precision</span>
+                    <h3>Why Infinity matters in CS</h3>
+                    <ul>
+                        <li><strong>Computable Numbers:</strong> There are only a <strong>Countable</strong> number of computer programs (since
+                            every program is a finite string of bits). This means there are only a countable number of
+                            tasks a computer can *ever* perform.</li>
+                        <li><strong>The Floating Point Trap:</strong> Computers struggle with Real Numbers (\(\mathbb{R}\)) because
+                            there are <strong>Uncountably</strong> many of them. We are forced to use "Floating Point"
+                            approximations, which are discrete (countable) subsets of the reals. This is the source of
+                            all numerical instability in AI training.</li>
+                        <li><strong>Hashing:</strong> When we hash infinite potential strings into a finite bit-space (e.g.,
+                            SHA-256), a "Collision" is mathematically guaranteed. We are mapping an infinite set to a
+                            finite one.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Cardinality Map</h2>
+                <div class="mermaid">
+                    graph TD
+                    F[Finite Sets] --> C[Countably Infinite: ℵ₀]
+                    C --> N[Natural Numbers ℕ]
+                    C --> Z[Integers ℤ]
+                    C --> Q[Rationals ℚ]
+                    C --> B[All Binary Strings]
+                    C --> U["Uncountable Sets: 𝔠 (The Continuum)"]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

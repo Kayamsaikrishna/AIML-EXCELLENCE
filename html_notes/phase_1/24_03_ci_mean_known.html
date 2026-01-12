@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.03 CI for Mean (Known Variance) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_02_ci_concept.html" class="nav-link">02. Confidence
+                                Intervals</a></li>
+                        <li class="nav-item"><a href="24_03_ci_mean_known.html" class="nav-link active">03. CI Mean
+                                Known</a></li>
+                        <li class="nav-item"><a href="24_04_ci_mean_unknown.html" class="nav-link">04. CI Mean
+                                Unknown</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Z-Interval</span>
+                </div>
+                <h1>CI for Mean (Known \(\sigma\))</h1>
+                <p class="lead-text">Calculated when we already know the variability of the population (or have a very
+                    large sample).</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Rule of Two</h3>
+                    <p>
+                        For a Normal distribution, ~95% of the data falls within 1.96 standard deviations of the mean.
+                        We use this fact to build our interval "around" our sample lucky guess.
+                    </p>
+                </div>
+
+                <h2>1. The formula</h2>
+                <div class="math-box">
+                    $$ \bar{x} \pm z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right) $$
+                </div>
+                <ul>
+                    <li>\(\bar{x}\): Sample Mean.</li>
+                    <li>\(z_{\alpha/2}\): Critical value from the Z-table (Standard Normal).</li>
+                    <li>\(\sigma / \sqrt{n}\): The Standard Error.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Common Critical Values (\(z^*\))</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Confidence Level</th>
+                            <th>Alpha (\(\alpha\))</th>
+                            <th>Critical Value (\(z^*\))</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>90%</td>
+                            <td>0.10</td>
+                            <td>1.645</td>
+                        </tr>
+                        <tr>
+                            <td>95%</td>
+                            <td>0.05</td>
+                            <td>1.96</td>
+                        </tr>
+                        <tr>
+                            <td>99%</td>
+                            <td>0.01</td>
+                            <td>2.576</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Large Sample Limits</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Central Limit Theorem</span>
+                    <h3>Gaussian Assumption in Big Data</h3>
+                    <p>
+                        In deep learning, we often have millions of samples (\(n \to \infty\)). Because of the Central
+                        Limit Theorem, the distribution of our "Mean Loss" or "Mean Accuracy" will be almost perfectly
+                        Normal.
+                    </p>
+                    <p>
+                        In these cases, we can use the <strong>Z-Interval</strong> even if we don't know the exact population
+                        variance, because the sample variance (\(s\)) becomes an extremely precise substitute for
+                        \(\sigma\).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary Diagram</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Sample Mean] --> B[Z-Interval]
+                        C[Sigma Known / n Large] --> B
+                        D[95% Confidence] --> E[1.96 SE on each side]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

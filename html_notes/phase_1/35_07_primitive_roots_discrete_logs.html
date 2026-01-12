@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>35.07 Primitive Roots & Discrete Logs - Number Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.11.2 Equations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="35_06_fermat_euler_theorem.html" class="nav-link">06. Fermat's &
+                                Euler's Theorems</a></li>
+                        <li class="nav-item"><a href="35_07_primitive_roots_discrete_logs.html"
+                                class="nav-link active">07. Primitive Roots</a></li>
+                        <li class="nav-item"><a href="35_08_number_theory_synthesis.html" class="nav-link">08. Module
+                                Synthesis</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Number Theory</span>
+                    <span class="badge secondary">Cryptographic Hardness</span>
+                </div>
+                <h1>Primitive Roots & Discrete Logs</h1>
+                <p class="lead-text">The Generators of Chaos. Understanding how simple modular exponentiation creates
+                    the "one-way functions" that secure the entire internet.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Primitive Root</h3>
+                    <p>
+                        A primitive root modulo $n$ is an integer $g$ such that every number coprime to $n$ can be
+                        expressed as a power of $g$. In group theory terms, $g$ is a <strong>generator</strong> of the
+                        multiplicative group $\mathbb{Z}_n^*$.
+                    </p>
+                    <div class="math-box">
+                        $$ \{ g^1, g^2, \dots, g^{\phi(n)} \} \equiv \mathbb{Z}_n^* \pmod n $$
+                    </div>
+                </div>
+
+                <h2>1. Order and Generators</h2>
+                <p>The <strong>order</strong> of an element $a$ modulo $n$ is the smallest positive integer $k$ such
+                    that $a^k \equiv 1 \pmod n$.</p>
+                <ul class="dense-list">
+                    <li>By Euler's Theorem, the order always divides $\phi(n)$.</li>
+                    <li>If the order is exactly $\phi(n)$, then $a$ is a <strong>primitive root</strong>.</li>
+                    <li><strong>Example (Mod 7):</strong>
+                        <ul>
+                            <li>$2^1=2, 2^2=4, 2^3=1$. Order = 3. Not a primitive root.</li>
+                            <li>$3^1=3, 3^2=2, 3^3=6, 3^4=4, 3^5=5, 3^6=1$. Order = 6. Primitive root!</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Discrete Logarithm Problem (DLP)</h2>
+                <p>This is the cornerstone of modern cryptography. Given a prime $p$, a primitive root $g$, and a value
+                    $h$, finding $x$ such that:</p>
+                <div class="math-box">
+                    $$ g^x \equiv h \pmod p $$
+                </div>
+                <p>This is called the <strong>Discrete Logarithm</strong> of $h$ base $g$.</p>
+                <div class="alert-box">
+                    <strong>Asymmetry:</strong>
+                    Computation is easy ($O(\log x)$ using Modular Exponentiation).
+                    Inversion is hard (Subject of intense cryptoanalysis, roughly exponential time for general groups).
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Cryptography</span>
+                    <span class="ml-badge">Key Exchange</span>
+                    <h3>Application: Diffie-Hellman Key Exchange</h3>
+                    <p>How do two AI agents (or browsers) agree on a secret key over an insecure channel? They use the
+                        hardness of DLP.</p>
+                    <ol class="step-list">
+                        <li><strong>Setup:</strong> Publicly agree on large prime $p$ and generator $g$.</li>
+                        <li><strong>Alice:</strong> Picks secret $a$, sends $A = g^a \pmod p$.</li>
+                        <li><strong>Bob:</strong> Picks secret $b$, sends $B = g^b \pmod p$.</li>
+                        <li><strong>Secret:</strong> Alice computes $S = B^a = (g^b)^a = g^{ab}$. Bob computes $S = A^b
+                            = (g^a)^b = g^{ab}$.</li>
+                    </ol>
+                    <p>An eavesdropper sees $g, p, A, B$ but cannot feasibly compute $g^{ab}$ without solving the
+                        Discrete Log problem to find $a$ or $b$. This enables <strong>Secure Multi-Party
+                            Computation</strong> and privacy-preserving AI training.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Visualizing Cycles</h2>
+                <div class="mermaid">
+                    graph LR
+                    subgraph Generator [g=3 mod 7 (Primitive Root)]
+                    direction TB
+                    G1((3)) --> G2((2)) --> G6((6)) --> G4((4)) --> G5((5)) --> G3((1)) --> G1
+                    end
+                    subgraph NonGen [g=2 mod 7 (Not Primitive)]
+                    direction TB
+                    N1((2)) --> N2((4)) --> N3((1)) --> N1
+                    end
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">
+                    Left: A primitive root visits every node in the group before returning to 1. Right: A non-primitive
+                    root gets stuck in a smaller subgroup cycle.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

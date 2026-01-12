@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.05 Geometric & P-Series - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_01_sequence_convergence.html" class="nav-link">01. Sequence
+                                Convergence</a></li>
+                        <li class="nav-item"><a href="12_02_sequence_limits.html" class="nav-link">02. Sequence
+                                Limits</a></li>
+                        <li class="nav-item"><a href="12_03_bounded_monotonic.html" class="nav-link">03. Bounded &
+                                Monotonic</a></li>
+                        <li class="nav-item"><a href="12_04_series_tests_intro.html" class="nav-link">04. Infinite
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_05_geometric_series.html" class="nav-link active">05. Geometric
+                                & P-Series</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Standard Series</span>
+                </div>
+                <h1>Geometric & P-Series</h1>
+                <p class="lead-text">The "Hello World" of Infinite Sums.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Geometric Series</h3>
+                    <p>
+                        A series where each term is a constant multiple \(r\) of the previous one.
+                        \[ S = a + ar + ar^2 + ar^3 + \dots = \sum_{n=0}^{\infty} ar^n \]
+                    </p>
+                    <p>
+                        <strong>Convergence Rule:</strong> It converges if and only if **\(|r| < 1\)**.<br>
+                            <strong>Sum Formula:</strong> \( S = \frac{a}{1 - r} \)
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Discount Factors</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Gamma < 1?</h3>
+                            <p>
+                                In <strong>Reinforcement Learning</strong>, we use a discount factor \(\gamma\) (gamma) to value
+                                future rewards. The total value is:
+                                \[ G_t = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \]
+                            </p>
+                            <p>
+                                This is a geometric series with ratio \(r = \gamma\).
+                                If \(\gamma = 1\), the agent values eternity equally, and the sum might explode
+                                (diverge).
+                                If \(\gamma < 1\) (e.g., 0.99), the sum is guaranteed to be finite (converge), allowing
+                                    stable learning. The mathematical necessity of \(|r| < 1\) is why we discount the
+                                    future in AI. </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        R0[Reward Now] -->|gamma| R1[Reward t+1]
+                        R1 -->|gamma| R2[Reward t+2]
+                        R2 -->|gamma| Rinf[...]
+
+                        style R0 fill:#4299e1,stroke:#2b6cb0
+                        style Rinf fill:#a0aec0,stroke:#718096,stroke-dasharray: 5 5
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Summing the Series</h2>
+                <div class="code-header">geometric_sum.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Function to calc geometric sum
+def geometric_sum(a, r, n_terms):
+    return sum([a * (r**i) for i in range(n_terms)])
+
+# RL Example: Reward = 1, Discount = 0.9
+a = 1
+r = 0.9
+true_sum = a / (1 - r) # 1 / 0.1 = 10
+
+computed_sum = geometric_sum(a, r, 100)
+
+print(f"Sum Formula: {true_sum}")
+print(f"Computed (100 terms): {computed_sum}")
+# Output: 10.0 vs 9.9997...</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_04_series_tests_intro.html" class="footer-link">← Prev: Series Intro</a>
+                        <span class="separator">|</span>
+                        <a href="12_06_p_series.html" class="footer-link">Next: P-Series →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

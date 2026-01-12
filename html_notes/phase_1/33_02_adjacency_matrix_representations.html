@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>33.02 Graph Representations - Graph Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.9.1 Graph Fundamentals</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="33_01_graph_definitions_types.html" class="nav-link">01. Graph
+                                Definitions</a></li>
+                        <li class="nav-item"><a href="33_02_adjacency_matrix_representations.html"
+                                class="nav-link active">02. Representations</a></li>
+                        <li class="nav-item"><a href="33_03_paths_cycles_connectivity.html" class="nav-link">03.
+                                Connectivity</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Graph Theory</span>
+                    <span class="badge secondary">Data Structures</span>
+                </div>
+                <h1>Graph Representations</h1>
+                <p class="lead-text">From Topology to Bitmaps. How we store and manipulate graphs in computer memory —
+                    balancing space complexity with lookup speed.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Matrix vs. List</h3>
+                    <p>
+                        A graph is a mathematical ideal. In a computer, it must be a data structure. The choice between
+                        a <strong>Matrix</strong> (dense) and a <strong>List</strong> (sparse) defines the efficiency of every algorithm from
+                        PageRank to Pathfinding.
+                    </p>
+                </div>
+
+                <h2>1. Adjacency Matrix (\(A\))</h2>
+                <p>An \(n \times n\) matrix where \(A_{ij} = 1\) if there is an edge between \(i\) and \(j\), and \(0\)
+                    otherwise.</p>
+                <div class="math-box">
+                    $$ A = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix} $$
+                </div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Symmetry</h4>
+                        <p>For undirected graphs, the Adjacency Matrix is always symmetric (\(A = A^T\)).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Pros & Cons</h4>
+                        <p><strong>Pros:</strong> \(O(1)\) edge lookup. <strong>Cons:</strong> \(O(V^2)\) space —
+                            wasteful for sparse graphs.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Adjacency List</h2>
+                <p>An array of lists. Index \(i\) contains a list of all neighbors of vertex \(i\).</p>
+                <div class="example-box">
+                    <pre><code class="language-python"># Example List representation
+graph = {
+    'A': ['B'],
+    'B': ['A', 'C'],
+    'C': ['B']
+}</code></pre>
+                </div>
+                <div class="topic-card">
+                    <h4>Space Complexity</h4>
+                    <p>\(O(V + E)\). This is the gold standard for real-world networks (like the internet or social
+                        media) where most people are only connected to a tiny fraction of the whole.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Optimization</span>
+                    <h3>Representations in AI</h3>
+                    <ul>
+                        <li><strong>Adjacency Matrix Powers:</strong> In Graph Neural Networks, calculating the matrix power \(A^k\)
+                            tells us about the connectivity of nodes \(k\) hops away. This is the heart of "Message
+                            Passing" mechanisms.</li>
+                        <li><strong>Sparse Tensors:</strong> Modern deep learning libraries (PyTorch Geometric, DGL) use sparse
+                            matrix formats (COO, CSR) for Adjacency Lists to perform high-speed tensor operations on
+                            giant graphs.</li>
+                        <li><strong>Attention Matrices:</strong> In Transformers, the Self-Attention matrix is essentially a
+                            *weighted complete graph* Adjacency Matrix, where every token (node) has a connection to
+                            every other token.</li>
+                        <li><strong>Laplacian Matrix (\(L = D - A\)):</strong> Used in Spectral Clustering and Graph Signal
+                            Processing to identify clusters and smooth features across a graph.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Representation Choice Workflow</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Start Graph Implementation] --> B{Graph Density?}
+                    B -- Dense (Edges ~ V^2) --> C[Adjacency Matrix]
+                    B -- Sparse (Edges &lt;&lt; V^2) --> D[Adjacency List]
+                        C --> E[Fast Edge Lookup / Tensor Ops]
+                        D --> F[Memory Efficient / Large Scale]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

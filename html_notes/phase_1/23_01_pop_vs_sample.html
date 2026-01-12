@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.01 Population vs Sample - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_01_pop_vs_sample.html" class="nav-link active">01. Pop Vs
+                                Sample</a></li>
+                        <li class="nav-item"><a href="23_02_parameter_space.html" class="nav-link">02. Parameter
+                                Space</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Inference</span>
+                </div>
+                <h1>Population vs. Sample</h1>
+                <p class="lead-text">Understanding the bridge between what we see (data) and what truly exists (truth).
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Big Picture</h3>
+                    <p>
+                        In probability, we assume we know the "rules" (the distribution) and predict the outcomes. In
+                        <strong>Statistics</strong>, we see the outcomes and try to guess the rules. This is called
+                        Inference.
+                    </p>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Population</h4>
+                        <ul>
+                            <li>The entire group of interest (e.g., all humans, all possible credit card transactions).
+                            </li>
+                            <li>Represented by <strong>Parameters</strong> (\(\mu\), \(\sigma^2\), \(\theta\)).</li>
+                            <li>Usually infinite or unobservable.</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Sample</h4>
+                        <ul>
+                            <li>A subset of the population (our dataset).</li>
+                            <li>Represented by <strong>Statistics</strong> (\(\bar{X}\), \(s^2\), \(\hat{\theta}\)).</li>
+                            <li>Observable and finite.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>1. The Goal of Inference</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        Truth[Population - Parameters] -- Random Sampling --> Data[Sample - Statistics]
+                        Data -- Inference/ML --> Truth
+                    </div>
+                </div>
+                <p>
+                    The "Statisticians's Dream" is to build a bridge from the right side back to the left side with as
+                    little error as possible.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Generalization</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Foundational</span>
+                    <span class="ml-badge">Dataset Design</span>
+                    <h3>Training Set vs. The Real World</h3>
+                    <p>
+                        In ML, your <strong>Training Set</strong> is the sample. The "Real World" is the population.
+                    </p>
+                    <p>
+                        If your training set is not representative of the population (e.g., you train a face detector
+                        only on one ethnicity), you have <strong>Sampling Bias</strong>. No amount of training will make the model
+                        generalize well because the sample doesn't contain the truth of the population.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Notations Comparison</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Concept</th>
+                            <th>Population (Parameter)</th>
+                            <th>Sample (Statistic)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mean</td>
+                            <td>\(\mu\)</td>
+                            <td>\(\bar{x}\) or \(\hat{\mu}\)</td>
+                        </tr>
+                        <tr>
+                            <td>Variance</td>
+                            <td>\(\sigma^2\)</td>
+                            <td>\(s^2\) or \(\hat{\sigma}^2\)</td>
+                        </tr>
+                        <tr>
+                            <td>Size</td>
+                            <td>\(N\) (or \(\infty\))</td>
+                            <td>\(n\)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

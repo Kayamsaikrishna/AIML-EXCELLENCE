@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.11 Precision Matrix - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_10_covariance_matrix.html" class="nav-link">10. Covariance
+                                Matrix</a></li>
+                        <li class="nav-item"><a href="21_11_precision_matrix.html" class="nav-link active">11. Precision
+                                Matrix</a></li>
+                        <li class="nav-item"><a href="21_12_iterated_expectations.html" class="nav-link">12. Iterated
+                                Exp</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Inverse</span>
+                </div>
+                <h1>The Precision Matrix (\(\Theta\) or \(\Omega\))</h1>
+                <p class="lead-text">Uncovering direct dependencies by inverting the covariance matrix.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Direct vs. Indirect Connection</h3>
+                    <p>
+                        The <strong>Covariance Matrix</strong> tells us if variables move together. But this can be misleading.
+                        <br><br>
+                        If \(X\) affects \(Y\), and \(Y\) affects \(Z\), then \(X\) and \(Z\) will have a positive
+                        covariance. They *seem* related, but only because of \(Y\).
+                        <br><br>
+                        The <strong>Precision Matrix</strong> (Inverse of Covariance) measures <strong>Partial
+                            Correlation</strong>—the relationship between two variables after controlling for all other
+                        variables in the dataset.
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    $$ \Theta = \Sigma^{-1} $$
+                    If the matrix entry \(\Theta_{ij} = 0\), it means variables \(X_i\) and \(X_j\) are **conditionally
+                    independent** given all other variables.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Partial Correlation</h2>
+                <p>
+                    Precision matrix elements can be converted to Partial Correlation coefficients.
+                    <br>
+                    A non-zero entry in the Precision matrix represents a "direct" edge in a probabilistic graph.
+                </p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A((X)) --- B((Y))
+                        B --- C((Z))
+                        style A fill:#444,stroke:#fff
+                        style B fill:#444,stroke:#fff
+                        style C fill:#444,stroke:#fff
+                    </div>
+                    <p class="text-sm">In the example above, the Covariance Matrix would show a relation between X and
+                        Z. The Precision Matrix would show 0 between X and Z, indicating they only interact through Y.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Gaussian Markov Random Fields (GMRF)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Computer Vision</span>
+                    <h3>Sparse Precision Matrices</h3>
+                    <p>
+                        In many physical systems or images, variables only interact with their "neighbors" (Spatial
+                        locality).
+                    </p>
+                    <p>
+                        If we model an image as a Gaussian process, the Precision Matrix will be <strong>Sparse</strong>
+                        (mostly zeros).
+                        - Local connections (neighboring pixels) are non-zero.
+                        - Global connections (pixels on opposite sides) are zero.
+                    </p>
+                    <p>
+                        Exploiting this sparsity is crucial for efficient computation in <strong>Graph Neural Networks</strong> and
+                        <strong>MRF-based image segmentation</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Regularization: Graphical Lasso</h2>
+                <p>
+                    When we have many features but few samples, many covariances might look non-zero just by chance.
+                    <br>
+                    We use the <strong>Graphical Lasso</strong> algorithm to force small entries in the Precision Matrix to zero (L1
+                    regularization), resulting in a clean, interpretable sparse graph of direct dependencies.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

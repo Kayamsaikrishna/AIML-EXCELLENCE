@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11.13 Volumes of Revolution - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.4 Integration</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="11_09_partial_fractions.html" class="nav-link">09. Partial
+                                Fractions</a></li>
+                        <li class="nav-item"><a href="11_10_improper.html" class="nav-link">10. Improper Integrals</a>
+                        </li>
+                        <li class="nav-item"><a href="11_11_numerical.html" class="nav-link">11. Numerical Methods</a>
+                        </li>
+                        <li class="nav-item"><a href="11_12_area.html" class="nav-link">12. Area Between Curves</a></li>
+                        <li class="nav-item"><a href="11_13_volumes.html" class="nav-link active">13. Volumes of
+                                Revolution</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.4</span>
+                    <span class="badge secondary">3D Calculus</span>
+                </div>
+                <h1>Volumes of Revolution</h1>
+                <p class="lead-text">From 2D curves to 3D objects.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Slicing the Space</h3>
+                    <p>
+                        Just as area is a sum of thin rectangles, volume is a sum of thin 3D slices. If we rotate a
+                        function \(f(x)\) around an axis, the slices become circles ("disks").
+                    </p>
+                </div>
+
+                <h2>1. The Disk Method</h2>
+                <div class="glass-card">
+                    <p>
+                        To find the volume formed by rotating the area under \(f(x)\) around the x-axis:
+                        \[ V = \int_a^b \pi [f(x)]^2 dx \]
+                    </p>
+                    <p>
+                        Why? Because the area of each circular slice is \(\pi r^2\), where the radius \(r = f(x)\).
+                        Summing these areas (\(\int A(x) dx\)) gives Volume.
+                    </p>
+                    <p><strong>Washer Method:</strong> If there is a hole (outer graph \(R\), inner graph \(r\)):
+                        \[ V = \int \pi (R^2 - r^2) dx \]</p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Curve[2D Curve f x] -->|Rotate around Axis| Solid[3D Solid]
+                        Solid -->|Slice| Disks[Infinite Disks]
+                        Disks -->|Sum Volumes| Integral[Integral pi f^2 dx]
+
+                        style Integral fill:#ed64a6,stroke:#97266d
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: NeRFs & 3D Vision</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Neural Radiance Fields</h3>
+                    <p>
+                        In <strong>NeRFs (Neural Radiance Fields)</strong>, an AI model learns to represent a 3D scene
+                        as a continuous function \(F(x, y, z) \to (Color, Density)\).
+                    </p>
+                    <p>
+                        To render a 2D image from this 3D model, the AI performs <strong>Volumetric Rendering</strong>, which is
+                        mathematically identical to a line integral of density along a viewing ray.
+                        While NeRFs integrate along a line, Rotational Volumes are the foundational geometric concept
+                        for 3D generative models that create symmetrical objects (like vases or faces) from a single
+                        profile curve.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Volume of a Paraboloid</h2>
+                <div class="code-header">volume_calc.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+
+# Function: y = sqrt(x)
+# Rotate around x-axis from 0 to 4
+# This creates a "Paraboloid" (like a satellite dish)
+
+radius = sp.sqrt(x)
+# Disk Area = pi * r^2 = pi * x
+disk_area = sp.pi * radius**2
+
+volume = sp.integrate(disk_area, (x, 0, 4))
+
+print(f"Volume of Paraboloid: {volume}")
+# Output: 8*pi</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="11_12_area.html" class="footer-link">← Prev: Area</a>
+                        <span class="separator">|</span>
+                        <a href="../index.html" class="footer-link">Syllabus →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

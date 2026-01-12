@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.11 Properties of MLE - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_10_mle_intro.html" class="nav-link">10. Mle Intro</a></li>
+                        <li class="nav-item"><a href="23_11_mle_properties.html" class="nav-link active">11. Mle
+                                Properties</a></li>
+                        <li class="nav-item"><a href="23_12_fisher_information.html" class="nav-link">12. Fisher
+                                Information</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">The Gold Standard</span>
+                </div>
+                <h1>Properties of MLE</h1>
+                <p class="lead-text">Why MLE is the most widely used estimation method in science and engineering.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Winning Streak</h3>
+                    <p>
+                        Under very general conditions (regularity), MLE achieves nearly every desirable property an
+                        estimator can have.
+                    </p>
+                </div>
+
+                <h2>1. The Four Pillars</h2>
+                <ul>
+                    <li><strong>Consistency:</strong> As \(n \to \infty\), \(\hat{\theta}_{MLE} \xrightarrow{P} \theta\). It always
+                        finds the truth eventually.</li>
+                    <li><strong>Asymptotic Normality:</strong> For large \(n\), the distribution of the estimator becomes Normal.
+                        This allows for Z-tests even if the original data was very non-normal.</li>
+                    <li><strong>Asymptotic Efficiency:</strong> As \(n \to \infty\), MLE achieves the <strong>Cramer-Rao Lower Bound</strong>. It
+                        is the most precise estimator possible in the limit.</li>
+                    <li><strong>Invariance:</strong> If \(\hat{\theta}\) is the MLE for \(\theta\), then \(g(\hat{\theta})\) is the
+                        MLE for \(g(\theta)\). (Calculus magic!)</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Note on Bias</h2>
+                <div class="warning-box">
+                    <strong>MLE is NOT always unbiased!</strong>
+                    For example, the MLE for variance is \(\frac{1}{n} \sum (x_i - \bar{x})^2\), which we know is
+                    biased. However, it is <strong>Consistent</strong>, meaning the bias disappears as \(n\) grows.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Transfer Learning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Fine-tuning</span>
+                    <h3>Invariance in Action</h3>
+                    <p>
+                        The Invariance property of MLE is what allows us to transform model parameters without losing
+                        their optimal "likelihood" status.
+                    </p>
+                    <p>
+                        If we train a model to predict Log-Odds (\(z\)), we can pass those through a Sigmoid to get
+                        probabilities (\(p\)). Because of MLE Invariance, the \(p\) we get is automatically the Maximum
+                        Likelihood estimate for the probability. We don't need to re-train the model to "switch units".
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

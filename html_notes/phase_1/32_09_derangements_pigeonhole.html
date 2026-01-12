@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32.09 Derangements & Pigeonhole - Combinatorics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.8.3 Advanced Counting</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="32_08_advanced_inclusion_exclusion.html" class="nav-link">08.
+                                Inclusion-Exclusion</a></li>
+                        <li class="nav-item"><a href="32_09_derangements_pigeonhole.html" class="nav-link active">09.
+                                Pigeonhole Principle</a></li>
+                        <li class="nav-item"><a href="32_10_generating_functions_intuition.html" class="nav-link">10.
+                                Generating Functions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Combinatorics</span>
+                    <span class="badge secondary">Logic Proofs</span>
+                </div>
+                <h1>Derangements & The Pigeonhole Principle</h1>
+                <p class="lead-text">Guaranteed Collisions and Absolute Chaos. Using simple numerical constraints to
+                    prove that certain patterns must exist, and calculating the probability that everything is in the
+                    wrong place.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Power of Constraint</h3>
+                    <p>
+                        Some truths are true simply because there isn't enough room for them to be false. If you have 10
+                        pigeons and only 9 holes, at least one hole *must* contain at least two pigeons. This seemingly
+                        trivial fact is the foundation of complex existence proofs in computer science.
+                    </p>
+                </div>
+
+                <h2>1. The Pigeonhole Principle (PHP)</h2>
+                <div class="math-box">
+                    If \(n > mk\), then at least one pigeonhole must contain at least \(k+1\) pigeons.
+                </div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> In a city with 1 million people, are there at least two people with the
+                        exact same number of hairs on their head?</p>
+                    <p>Maximum human head hairs \(\approx 150,000\). Since Population (1M) > Max Hairs (150K), the
+                        answer is a mathematical <strong>YES</strong>.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Derangements (\(!n\))</h2>
+                <p>
+                    A derangement is a permutation where <strong>no element</strong> appears in its original position.
+                </p>
+                <div class="math-box">
+                    $$ !n = n! \sum_{k=0}^{n} \frac{(-1)^k}{k!} $$
+                </div>
+                <p>As \(n \to \infty\), the probability that a random permutation is a derangement approaches
+                    \(\frac{1}{e} \approx 36.8\%\).</p>
+                <div class="example-box">
+                    <p><strong>Example:</strong> 4 students leave their phones in a box. They each pick one at random.
+                        What is the probability that <strong>none</strong> of them gets their own phone?</p>
+                    <p>\(!4 = 4! (1 - 1 + 1/2 - 1/6 + 1/24) = 9\). Total permutations = \(4! = 24\). Probability =
+                        \(9/24 = 37.5\%\).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Hashing</span>
+                    <span class="ml-badge">Cryptography</span>
+                    <h3>The Logic of Collisions in ML</h3>
+                    <ul>
+                        <li><strong>Hash Collisions:</strong> The Pigeonhole Principle explains why hash collisions are inevitable.
+                            If your hash space (e.g., 256 bits) is smaller than the input data space, two different
+                            inputs *must* map to the same hash.</li>
+                        <li><strong>Feature Hashing (Hashing Trick):</strong> In NLP, we often hash words into a fixed-size vector.
+                            PHP tells us how much "information loss" or collision we can expect given the vocabulary
+                            size and vector dimension.</li>
+                        <li><strong>Randomized Algorithms:</strong> Derangements help analyze "Wait Time" and "Failure Rates" in
+                            randomized optimization or shuffling algorithms (like SGD mini-batch sampling).</li>
+                        <li><strong>Adversarial Attacks:</strong> Finding "Universal Adversarial Perturbations" is essentially
+                            finding a point in input space that "pigeonholes" multiple classes into the same error
+                            region.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Proof Visualization</h2>
+                <div class="mermaid">
+                    graph LR
+                    subgraph Pigeons
+                    P1[Pigeon 1]
+                    P2[Pigeon 2]
+                    P3[Pigeon 3]
+                    P4[Pigeon 4]
+                    end
+                    subgraph Holes
+                    H1[Hole A]
+                    H2[Hole B]
+                    H3[Hole C]
+                    end
+                    P1 --> H1
+                    P2 --> H2
+                    P3 --> H3
+                    P4 --> H1
+                    style H1 fill:#ff9999,stroke:#333
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">4 Pigeons into 3 Holes:
+                    Red indicates the guaranteed collision (PHP).</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

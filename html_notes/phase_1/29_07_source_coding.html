@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Source Coding - Phase 1.5.7.7</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_07_source_coding.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_07_source_coding.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_07</div>
+            <h1>07. Source Coding Theorem</h1>
+            <p class="lead-text">Compressing reality into the smallest possible space.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Compression Limit</h2>
+<p><strong>Shannon's First Theorem (Source Coding Theorem)** states that you cannot compress a source with
+                    entropy $H$ to less than $H$ bits per symbol without losing information. It is the fundamental
+                    physical limit of zip files, MP3s, and JPEGs. </strong></p>
+</section>
+<section class="module-card">
+<h2>2. Huffman Coding</h2>
+<p>A practical method of Source Coding where frequently occurring symbols are given shorter codes, and rare
+                symbols are given longer codes. This is why "the" is short in Morse code and common words are
+                prioritized in text-compression algorithms.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Autoencoders and Embedding Spaces</h2>
+<div class="module-card">
+<h3>Learned Compression</h3>
+<p>In AI, an <strong>Autoencoder</strong> is a non-linear version of a Source Coder. </p>
+<p>The <strong>Encoder</strong> "Compresses" high-dimensional pixels into a low-dimensional "Latent Vector." If the
+                    entropy of the data is $H$, and our bottleneck is smaller than $H$, the AI is forced to discard
+                    noise and keep only the essence. In <strong>Natural Language Processing (NLP)**, <strong>Word
+                            Embeddings (Word2Vec)** are essentially compressed representations of the semantic
+                            relationships between words. By understanding source coding, AI engineers can optimize
+                            <strong>Model Distillation**: we are trying to find the "Smallest possible model" that still
+                                contains the "Entropy" of the original knowledge. It is the quest for the most compact
+                                intelligence possible. </strong></strong></strong></p>
+</div>
+</section>
+<section>
+<h2>4. Python: A Simple Compression Concept</h2>
+<div class="code-block">
+<pre><code class="language-python"># Imagine 'AAAAAAB'
+# Naive: 7 symbols * 8 bits = 56 bits
+# Coded: 'A'=0, 'B'=1. Result: 0000001 (7 bits)
+# Information Theory tells us the 'p(A)' and 'p(B)' 
+# determine the minimum message length!</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

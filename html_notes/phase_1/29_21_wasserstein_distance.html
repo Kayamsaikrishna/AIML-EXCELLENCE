@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.21 Wasserstein Distance - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.3 Divergences</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_19_kl_in_variational_inference.html" class="nav-link">19. KL in
+                                Variational Inference</a></li>
+                        <li class="nav-item"><a href="29_20_jensen_shannon_divergence.html" class="nav-link">20.
+                                Jensen-Shannon Divergence</a></li>
+                        <li class="nav-item"><a href="29_21_wasserstein_distance.html" class="nav-link active">21.
+                                Wasserstein Distance</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimal Transport</span>
+                    <span class="badge secondary">Stability</span>
+                </div>
+                <h1>Wasserstein Distance (EMD)</h1>
+                <p class="lead-text">The Earth Mover's Metric. Measuring distance in terms of the work required to
+                    transform one distribution into another, creating the smoothest gradients for AI.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Vanishing Gradient Problem</h3>
+                    <p>
+                        Both KL and JS Divergence fail when distributions don't overlap. Their gradients become zero (or
+                        infinity), and your model stops learning. <strong>Wasserstein Distance</strong> fixes this: even if there is
+                        zero overlap, it provides a linear, meaningful "distance" that tells you exactly how far away
+                        you are.
+                    </p>
+                </div>
+
+                <h2>1. The Intuition: Earth Mover's Distance</h2>
+                <p>
+                    Imagine two distributions are piles of dirt. The Wasserstein distance is the <strong>minimum "cost"</strong> to
+                    move the dirt from pile \(P\) to pile \(Q\).
+                </p>
+                <ul>
+                    <li><strong>Work = Amount of Dirt \(\times\) Distance Moved.</strong></li>
+                    <li>If the piles are far apart, the cost is high. If they are close, the cost is low.</li>
+                </ul>
+                <div class="math-box">
+                    $$ W(P, Q) = \inf_{\gamma \in \Pi(P, Q)} E_{(x,y) \sim \gamma} [\|x - y\|] $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Mathematical Power</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Continuity Everywhere</h4>
+                        <p>Unlike JSD, which jumps to a constant value when distributions are disjoint, Wasserstein is
+                            continuous. This means gradients are always available to guide the model.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Kantorovich-Rubinstein Duality</h4>
+                        <p>Calculating the "infimum" is hard. But we can solve the "dual" problem: finding a function
+                            that maximizes the difference in expected values while being <strong>1-Lipschitz</strong> (smooth).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">WGAN</span>
+                    <span class="ml-badge">Stability</span>
+                    <h3>Wasserstein GANs</h3>
+                    <p>
+                        In a regular GAN, the discriminator outputs a probability. In a <strong>Wasserstein GAN (WGAN)</strong>, the
+                        "critic" outputs a real number and must follow the 1-Lipschitz constraint (often enforced via
+                        weight clipping or gradient penalty).
+                    </p>
+                    <ul>
+                        <li><strong>Benefit 1:</strong> Training is vastly more stable.</li>
+                        <li><strong>Benefit 2:</strong> The loss value of the critic actually correlates with the quality of the
+                            generated images.</li>
+                        <li><strong>Benefit 3:</strong> Prevents "Mode Collapse" much more effectively than JS-based GANs.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Visual Comparison</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Disjoint Distributions] --> B{KL/JS}
+                    A --> C{Wasserstein}
+                    B --> D[Gradient = 0 / Constant]
+                    C --> E[Gradient = Non-Zero / Informative]
+                    D --> F[Model Dies]
+                    E --> G[Model Learns to Overlap]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

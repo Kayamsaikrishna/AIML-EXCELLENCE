@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.08 Variance - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.2 Random Variables</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="18_07_expected_value.html" class="nav-link">07. Expected Value</a>
+                        </li>
+                        <li class="nav-item"><a href="18_08_variance.html" class="nav-link active">08. Variance</a></li>
+                        <li class="nav-item"><a href="18_09_standard_deviation.html" class="nav-link">09. Standard
+                                Dev</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Spread</span>
+                </div>
+                <h1>Variance</h1>
+                <p class="lead-text">Measuring the chaos.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Definition</h3>
+                    <p>
+                        Variance measures how far a set of numbers are spread out from their average value.
+                        \[ Var(X) = E[(X - \mu)^2] \]
+                        Practical computation formula:
+                        \[ Var(X) = E[X^2] - (E[X])^2 \]
+                        It is sensitive to outliers (due to squaring).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Bias-Variance Tradeoff</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Overfitting vs Underfitting</h3>
+                    <p>
+                        The error of an ML model can be decomposed into:
+                        \[ \text{Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Noise} \]
+                    <ul>
+                        <li><strong>High Bias:</strong> Model is too simple (Underfitting). Cannot capture the pattern.
+                        </li>
+                        <li><strong>High Variance:</strong> Model is too complex (Overfitting). Captures the noise.</li>
+                    </ul>
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Complexity[Model Complexity] --> LowVar[Low Variance]
+                        Complexity --> HighBias[High Bias]
+
+                        LowVar --> Underfit[Underfitting]
+                        HighBias --> Underfit
+
+                        Complexity_High[High Complexity] --> HighVar[High Variance]
+                        Complexity_High --> LowBias[Low Bias]
+
+                        HighVar --> Overfit[Overfitting]
+                    </div>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="18_07_expected_value.html" class="footer-link">← Prev: Expected Value</a>
+                        <span class="separator">|</span>
+                        <a href="18_09_standard_deviation.html" class="footer-link">Next: Standard Dev →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

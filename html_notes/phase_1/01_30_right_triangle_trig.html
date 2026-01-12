@@ -4,120 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Right Triangle Trig - Phase 1.1.30</title>
+    <title>01.30 Right Triangle Trig - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.2 Trigonometry</li>
-            <li><a href="01_28_angle_measurement.html">28. Angle Measurement</a></li>
-            <li><a href="01_29_trig_functions.html">29. Trig Functions</a></li>
-            <li><a href="01_30_right_triangle_trig.html" class="active">30. Right Triangle Trig</a></li>
-            <li><a href="01_31_unit_circle.html">31. Unit Circle</a></li>
-            <li><a href="01_32_trig_identities.html">32. Trig Identities</a></li>
-            <li><a href="01_33_sum_diff_formulas.html">33. Sum & Diff Formulas</a></li>
-            <li><a href="01_34_double_half_angle.html">34. Double & Half Angle</a></li>
-            <li><a href="01_35_product_sum_formulas.html">35. Product-Sum Formulas</a></li>
-            <li><a href="01_36_trig_equations.html">36. Trig Equations</a></li>
-            <li><a href="01_37_inverse_trig.html">37. Inverse Trig Functions</a></li>
-            <li><a href="01_38_law_sines_cosines.html">38. Law of Sines & Cosines</a></li>
-            <li><a href="01_39_trig_applications.html">39. Trig Applications</a></li>
-            <li><a href="01_40_polar_coordinates.html">40. Polar Coordinates</a></li>
-            <li><a href="01_41_complex_trig.html">41. Complex Numbers (Trig)</a></li>
-            <li><a href="01_42_de_moivre.html">42. De Moivre's Theorem</a></li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Right Triangle Trig
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>30. Right Triangle Trigonometry</h1>
-            <p class="subtitle">The Geometry of Orthogonality.</p>
-        </header>
-
-        <section>
-            <h2>1. Pythagorean Foundations</h2>
-            <p>Every right triangle follows the rule that defines Euclidean Distance:</p>
-            <div class="math-block">
-                $$ a^2 + b^2 = c^2 $$
-            </div>
-            <p>In terms of Trig Functions:</p>
-            <ul class="topic-list">
-                <li class="topic-item">Side Opposite (\(O\)) = \(H \sin \theta\)</li>
-                <li class="topic-item">Side Adjacent (\(A\)) = \(H \cos \theta\)</li>
-            </ul>
-
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <svg width="400" height="250" viewBox="0 0 400 250" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Triangle -->
-                    <path d="M 100 200 L 300 200 L 300 50 Z" fill="#eff6ff" stroke="#3b82f6" stroke-width="3" />
-                    <!-- Right Angle Mark -->
-                    <path d="M 280 200 L 280 180 L 300 180" fill="none" stroke="#64748b" />
-                    <!-- Labels -->
-                    <text x="200" y="220" text-anchor="middle">Adjacent (A)</text>
-                    <text x="315" y="130" transform="rotate(-90 315 130)" text-anchor="middle">Opposite (O)</text>
-                    <text x="180" y="110" transform="rotate(-37 180 110)" text-anchor="middle">Hypotenuse (H)</text>
-                    <text x="130" y="190">θ</text>
-                </svg>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. Computer Vision & Engineering</h2>
-            <div class="module-card">
-                <h3>Orthogonal Projection</h3>
-                <p>In 3D Computer Vision, we often need to project a 3D point onto a 2D camera plane. This is pure Right
-                    Triangle Trig.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Ray Casting:</strong> To determine if a pixel is occupied, we cast a
-                        ray and use \( \sin \) and \( \cos \) to check intersections.</li>
-                    <li class="topic-item"><strong>L2 Norm:</strong> The standard Euclidean distance used in loss
-                        functions is just the Hypotenuse calculation scaled to \( n \) dimensions.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_29_trig_functions.html" class="nav-link">29. Trig Functions</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">30. Right Triangles</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Euclidean Distance</h2>
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <pre><code class="language-python">import math
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Trig &gt; 30. Right Triangle Trigonometry
+        </div>
 
-# A triangle with base 3 and height 4 (The 3-4-5 Triangle)
-base = 3
-height = 4
+        <header class="page-header">
+            <div class="badge">Module 30</div>
+            <h1>Vectors & Projections</h1>
+            <p class="lead-text">SOH CAH TOA is not just for triangles. It is the language of Vector Decomposition and
+                Coordinate Systems.</p>
+        </header>
 
-# Pythagorean calculation
-hypotenuse = math.sqrt(base**2 + height**2)
+        <!-- VISUAL DIAGRAM: PROJECTION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Decomposing Reality</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Hyp["Hypotenuse (Vector Length r)"]
+    Adj["Adjacent (x-component)"]
+    Opp["Opposite (y-component)"]
+    
+    subgraph SOH_CAH_TOA
+        Sin["Sin = Opp / Hyp"]
+        Cos["Cos = Adj / Hyp"]
+        Tan["Tan = Opp / Adj"]
+    end
+    
+    subgraph AI [Vector Math]
+        Proj["Projection"]
+        Coords["Coordinates (x, y)"]
+        Slope["Gradient/Slope"]
+    end
 
-# Finding the angle (Inverse Trig)
-theta_rad = math.atan2(height, base)
-theta_deg = math.degrees(theta_rad)
+    Hyp --> Sin
+    Hyp --> Cos
+    
+    Sin --> Opp
+    Cos --> Adj
+    
+    Adj --> Proj
+    Opp --> Proj
+    Tan --> Slope
 
-print(f"Hypotenuse: {hypotenuse}") # 5.0
-print(f"Angle: {theta_deg:.2f}°")   # 53.13°</code></pre>
+    style Proj fill:#dcfce7,stroke:#16a34a
+    style Slope fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DECOMPOSITION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Breaking Vectors Down</h2>
+                <p>Any movement in 2D space (Hypotenuse \( r \)) can be broken into two orthogonal movements:</p>
+                <ul>
+                    <li>Horizontal: \( x = r \cos(\theta) \) (Projection onto X)</li>
+                    <li>Vertical: \( y = r \sin(\theta) \) (Projection onto Y)</li>
+                </ul>
+                <p>In Physics Game Engines (Unity/Unreal) and AI Robotics, this is how we update movement.</p>
+            </div>
+        </section>
+
+        <!-- 2. COSINE SIMILARITY EXPLAINED -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The Foundation of Search</h2>
+                <p>The Dot Product is intimately related to the Cosine of the angle.</p>
+                <div class="math-block">
+                    $$ A \cdot B = \|A\| \|B\| \cos(\theta) $$
+                </div>
+                <p>If we normalize vectors (\( \|A\|=1, \|B\|=1 \)), then \( A \cdot B = \cos(\theta) \). This makes
+                    "Right Triangle Trig" the core algorithm for finding similar documents in RAG systems.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Decomposing Movement</h2>
+                <p>Calculating velocity components.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import math
+
+speed = 10.0 # Hypotenuse (m/s)
+angle_deg = 30.0
+angle_rad = math.radians(angle_deg)
+
+# Decompose into x (Adjacent) and y (Opposite)
+vx = speed * math.cos(angle_rad)
+vy = speed * math.sin(angle_rad)
+
+print(f"Velocity Vector: [{vx:.2f}, {vy:.2f}]")
+# Check Pythagoras
+check_speed = math.sqrt(vx**2 + vy**2)
+print(f"Verified Speed: {check_speed:.2f}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

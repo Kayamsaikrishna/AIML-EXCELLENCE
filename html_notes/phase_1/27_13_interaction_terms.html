@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.13 Interaction Terms - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_12_log_transform_regression.html" class="nav-link">12. Log
+                                Transform Regression</a></li>
+                        <li class="nav-item"><a href="27_13_interaction_terms.html" class="nav-link active">13.
+                                Interaction Terms</a></li>
+                        <li class="nav-item"><a href="27_14_weighted_least_squares.html" class="nav-link">14. Weighted
+                                Least Squares</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Feature Interaction</span>
+                </div>
+                <h1>Interaction Terms</h1>
+                <p class="lead-text">Modeling "It Depends". When the impact of Feature A changes based on the value of
+                    Feature B.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Synergy Effect</h3>
+                    <p>
+                        Does "Exercise" make you lose weight? <strong>It depends</strong> on your "Diet".
+                        <br><br>
+                        If we model them separately, we miss the magic. An interaction term (\(X_1 \times X_2\))
+                        captures the synergy where the combination is greater (or less) than the sum of its parts.
+                    </p>
+                </div>
+
+                <h2>1. The Equation</h2>
+                <div class="math-box">
+                    $$ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \epsilon $$
+                </div>
+                <p>
+                    - <strong>\(\beta_1\)</strong>: The "Main Effect" of \(X_1\).
+                    - <strong>\(\beta_3\)</strong>: The "Interaction Effect". It tells us how the slope of \(X_1\) changes as \(X_2\)
+                    changes.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Common Scenarios</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Condition x Continuous</h4>
+                        <p>Is the effect of "Education" on "Salary" different for "Men" vs "Women"? <br> Here, Gender
+                            (Binary) interacts with Years of Schooling (Continuous).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Continuous x Continuous</h4>
+                        <p>Advertising on "TV" and "Radio". Does spending on Radio make TV ads more effective? (The
+                            Synergy Effect).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Cross-Features</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Ads/Recs</span>
+                    <h3>The Power of Cross-Products</h3>
+                    <p>
+                        In modern Recommender Systems (like YouTube or Amazon), interaction terms are the "Secret
+                        Sauce".
+                    </p>
+                    <ul>
+                        <li><strong>Recommender Systems:</strong> Simply knowing a user likes "Action Movies" and "Tom Cruise" isn't
+                            enough. The model needs an interaction term `User_Likes_Action * Actor_is_Tom_Cruise` to
+                            represent that specific preference.</li>
+                        <li><strong>Wide & Deep Models:</strong> Google famously uses "Wide" parts (Interaction terms) to memorize
+                            specific feature combinations and "Deep" parts (Neural Networks) to generalize.</li>
+                        <li><strong>Decision Trees:</strong> Random Forests and XGBoost are <strong>Interaction Machines</strong>. A tree split on
+                            X after a split on Y is naturally modeling an interaction. Linear regression needs us to
+                            manually create these (\(X \times Y\)), but Trees find them automatically.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Warning:</strong> If you add an interaction term (\(X_1 \times X_2\)), you <strong>MUST</strong> include the
+                        individual terms (\(X_1\) and \(X_2\)) as well, even if they aren't significant. This is the
+                        <strong>Hierarchical Principle</strong>.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

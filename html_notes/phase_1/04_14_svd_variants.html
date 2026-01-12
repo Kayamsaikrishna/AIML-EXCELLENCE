@@ -4,113 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVD Variants - Phase 1.2.3.14</title>
+    <title>04.14 SVD Variants - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_13_svd_theory.html">13. SVD Theory</a></li>
-            <li><a href="04_14_svd_variants.html" class="active">14. SVD Variants</a></li>
-            <li><a href="04_15_svd_apps.html">15. SVD Applications</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_13_svd_theory.html" class="nav-link">13. SVD Theory</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">14. SVD Variants</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; SVD Variants
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 14. Flavors of SVD
         </div>
 
-        <header>
-            <h1>14. Full vs. Compact vs. Truncated SVD</h1>
-            <p class="subtitle">Optimizing memory and complexity in AI pipelines.</p>
+        <header class="page-header">
+            <div class="badge">Module 14</div>
+            <h1>SVD Variants</h1>
+            <p class="lead-text"> Full, Compact, and Truncated. Choosing what to keep.</p>
         </header>
 
-        <section>
-            <h2>1. The Spectrum of SVD</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Variant</th>
-                        <th>Dimensions (\(\Sigma\))</th>
-                        <th>Best For</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Full SVD</strong></td>
-                        <td>\(m \times n\)</td>
-                        <td>Theoretical proofs and small matrices.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Compact SVD</strong></td>
-                        <td>\(r \times r\)</td>
-                        <td>Removing explicitly dependent zero-rows/cols.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Truncated SVD</strong></td>
-                        <td>\(k \times k\)</td>
-                        <td><strong>Data Compression / Denoising</strong>.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+        <!-- VISUAL DIAGRAM: VARIANTS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Cutting the Fat</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    subgraph Full
+        A1[U n*n]
+        B1[Sigma n*m]
+        C1[Vt m*m]
+    end
+    
+    subgraph Compact
+        A2[U n*r]
+        B2[Sigma r*r]
+        C2[Vt r*m]
+    end
+    
+    subgraph Truncated
+        A3[U n*k]
+        B3[Sigma k*k]
+        C3[Vt k*m]
+    end
+    
+    Full -- "Remove Zeros" --> Compact
+    Compact -- "Keep top k only" --> Truncated
+    
+    Truncated --> Approx["Best Rank-k Approx"]
 
-        <section>
-            <h2>2. Truncated SVD: The Best Approximation</h2>
-            <div class="module-card">
-                <h3>Eckart-Young Theorem</h3>
-                <p>If you want to represent a massive matrix using only \(k\) columns, the best possible approximation
-                    (in terms of Frobenius norm) is obtained by taking the largest \(k\) singular values and vectors
-                    from the SVD.</p>
-                <div class="math-block">
-                    $$ \hat{\mathbf{A}} = \sum_{i=1}^k \sigma_i \mathbf{u}_i \mathbf{v}_i^T $$
+    style Truncated fill:#dcfce7,stroke:#16a34a
+    style Full fill:#fefe93,stroke:#d97706
+                    </pre>
                 </div>
-                <p>This effectively <strong>filters out noise</strong>, as noise usually resides in the low-magnitude
-                    singular values.</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Memory Savings</h2>
-            <p>Storing a \(1000 \times 1000\) image takes 1M parameters. If we truncate to \(k=50\), we only store
-                \( (50 \times 1000) + 50 + (50 \times 1000) \approx 100k \) parameters. A **10x compression**!</p>
-        </section>
-
-        <section>
-            <h2>4. Python: Image Compression Simulation</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-# A large synthetic data matrix
-A = np.random.randn(500, 500)
-
-U, s, Vt = np.linalg.svd(A)
-
-# Truncate to k = 20
-k = 20
-A_approx = U[:, :k] @ np.diag(s[:k]) @ Vt[:k, :]
-
-print(f"Full storage: {A.size}")
-print(f"Compressed storage (approx): {U[:, :k].size + k + Vt[:k, :].size}")</code></pre>
+        <!-- 1. DEFINITION: THE TYPES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definitions</h2>
+                <ul>
+                    <li><strong>Full SVD:</strong> The mathematical definition. \( U \) is fully square \( n \times n
+                        \). Contains Null Space basis vectors.</li>
+                    <li><strong>Compact SVD:</strong> Only keeps non-zero singular values. \( U \) is \( n \times r \)
+                        where \( r \) is rank. Lossless compression.</li>
+                    <li><strong>Truncated SVD:</strong> Only keeps the top \( k \) singular values. Lossy compression,
+                        but the "optimal" lossy compression (Eckart-Young Theorem).</li>
+                </ul>
             </div>
         </section>
+
+        <!-- 2. AI APPLICATION: DIMENSION REDUCTION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Truncated SVD for NLP</h2>
+                <p>In LSA (Latent Semantic Analysis), we have a Term-Document matrix. We use Truncated SVD to project
+                    this sparse, high-dimensional matrix into a dense, low-dimensional "Concept Space".</p>
+                <p>Synonyms mapping to similar concepts is solved by this truncation.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Truncated SVD in Sklearn</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from sklearn.decomposition import TruncatedSVD
+
+# Large matrix
+X = np.random.rand(10, 10)
+
+# Keep only top 2 components
+# This implicitly computes the k=2 Truncated SVD
+svd = TruncatedSVD(n_components=2)
+X_reduced = svd.fit_transform(X)
+
+print(f"Original Shape: {X.shape}")
+print(f"Reduced Shape: {X_reduced.shape}")
+
+print(f"Explained Variance Ratio: {svd.explained_variance_ratio_}")
+# Shows how much info we kept
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.02 Test Stat & Critical Value - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_01_null_alt_hypothesis.html" class="nav-link">01. Null & Alt
+                                Hypothesis</a></li>
+                        <li class="nav-item"><a href="25_02_test_stat_crit_val.html" class="nav-link active">02. Test
+                                Stat Crit Val</a></li>
+                        <li class="nav-item"><a href="25_03_type1_type2_errors.html" class="nav-link">03. Type 1 & 2
+                                Errors</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">The Bar</span>
+                </div>
+                <h1>Test Statistics & Critical Values</h1>
+                <p class="lead-text">Converting raw data into a standardized score and comparing it against a threshold
+                    of "doubt."</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Standardized Score</h3>
+                    <p>
+                        A <strong>Test Statistic</strong> aggregates your sample data into a single number that measures how far your
+                        observation deviates from the Null Hypothesis.
+                        <br><br>
+                        Common formats: \(Z\)-score (large \(n\)), \(T\)-score (small \(n\)), \(\chi^2\)-score
+                        (categorical).
+                    </p>
+                </div>
+
+                <h2>1. The Critical Value (\(z^*\), \(t^*\))</h2>
+                <p>
+                    The <strong>Critical Value</strong> is the "line in the sand." It is the threshold that defines the **Rejection
+                    Region**.
+                    - If your Test Statistic > Critical Value, you reject the Null.
+                    - It is determined by your chosen <strong>Significance Level (\(\alpha\))</strong>.
+                </p>
+                <div class="math-box">
+                    $$ \text{Test Statistic} = \frac{\text{Observed} - \text{Expected}}{\text{Standard Error}} $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Rejection Regions</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Hypothesis Test] --> B[Left-Tailed]
+                        A --> C[Right-Tailed]
+                        A --> D[Two-Tailed]
+                        B --> B1["Reject if Test Stat &lt; -Critical Value"] C --> C1["Reject if Test Stat > Critical
+                            Value"]
+                            D --> D1["Reject if |Test Stat| > Critical Value"]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Thresholding</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Anomaly Detection</span>
+                    <span class="ml-badge">Cybersecurity</span>
+                    <h3>Detecting Intrusion</h3>
+                    <p>
+                        In Network Security ML, we define a "Null Hypothesis" that user traffic is normal.
+                        <br>
+                        - <strong>Test Statistic:</strong> The distance of a current packet from the cluster of normal behavior
+                        (e.g., Mahalanobis distance).
+                        - <strong>Critical Value:</strong> The "Alert Threshold."
+                    </p>
+                    <p>
+                        If a specific request's distance exceeds the <strong>Critical Value</strong>, the system "Rejects the Null"
+                        and flags the request as a potential hack. Choosing the right Critical Value is the difference
+                        between a secure system and one that constantly gives annoying false alarms.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

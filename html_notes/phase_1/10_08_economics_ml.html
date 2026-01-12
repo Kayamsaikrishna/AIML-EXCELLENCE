@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.08 Marginal Analysis - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.3 Applications</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="10_01_extrema.html" class="nav-link">01. Critical Points</a></li>
+                        <li class="nav-item"><a href="10_02_first_deriv_test.html" class="nav-link">02. First Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_03_concavity.html" class="nav-link">03. Concavity</a></li>
+                        <li class="nav-item"><a href="10_04_second_deriv_test.html" class="nav-link">04. Second Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_05_curve_sketching.html" class="nav-link">05. Curve
+                                Sketching</a></li>
+                        <li class="nav-item"><a href="10_06_optimization.html" class="nav-link">06. Optimization</a>
+                        </li>
+                        <li class="nav-item"><a href="10_07_physics_apps.html" class="nav-link">07. Motion Physics</a>
+                        </li>
+                        <li class="nav-item"><a href="10_08_economics_ml.html" class="nav-link active">08. Cost &
+                                Marginal</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Economics</span>
+                </div>
+                <h1>Marginal Analysis & Cost Functions</h1>
+                <p class="lead-text">"Marginal" is just economist-speak for "Derivative".</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Cost of One More</h3>
+                    <p>
+                        In economics, we care about the cost to produce <i>the next unit</i>. In ML, we care about the
+                        error contributed by <i>the next sample</i>. The math is identical.
+                    </p>
+                </div>
+
+                <h2>1. Definitions</h2>
+                <div class="glass-card">
+                    <ul class="topic-list">
+                        <li><strong>Cost Function \(C(x)\):</strong> Total cost to produce \(x\) units.</li>
+                        <li><strong>Marginal Cost \(C'(x) \approx C(x+1) - C(x)\):</strong> Cost of the next unit.</li>
+                        <li><strong>Revenue \(R(x)\):</strong> Income from \(x\) units.</li>
+                        <li><strong>Marginal Revenue \(MR = R'(x)\):</strong> Income from next unit.</li>
+                        <li><strong>Profit Max Rule:</strong> Profit is maxed when \(MR = MC\) (Marginal Revenue =
+                            Marginal Cost).</li>
+                    </ul>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Production[Production x] --> Cost[Total Cost C]
+                        Production --> Revenue[Total Revenue R]
+                        Cost -->|Deriv| MC[Marginal Cost]
+                        Revenue -->|Deriv| MR[Marginal Revenue]
+
+                        Diff[MR - MC] -->|Zero?| ProfitMax[Max Profit!]
+
+                        style ProfitMax fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Gradient Boosting</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Fitting the Residuals</h3>
+                    <p>
+                        In <strong>Gradient Boosting Machines (XGBoost, LightGBM)</strong>, we train models
+                        sequentially.
+                    </p>
+                    <p>
+                        The first tree makes predictions. The second tree doesn't predict the target; it predicts the
+                        <strong>Gradient of the Loss Function</strong> (the "Marginal Error") left over by the first
+                        tree.
+                    </p>
+                    <p>
+                        Consider the Loss \(L(y, \hat{y})\). The "Marginal Cost" of adding a new tree \(f_2\) is how
+                        much it reduces \(L\). We explicitly train \(f_2\) to follow the negative gradient \( -
+                        \frac{\partial L}{\partial \hat{y}} \). This is Marginal Analysis applied to function
+                        approximation!
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Profit Maximization</h2>
+                <div class="code-header">profit_max.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x') # Units produced
+
+# Cost: Fixed $1000 + $10 per unit + complexity cost x^2/100
+C = 1000 + 10*x + 0.01*x**2
+
+# Price: Demand curve p(x) = 50 - 0.1x (Price drops as supply increases)
+p = 50 - 0.1*x
+# Revenue = Price * Quantity
+R = p * x
+
+# Profit = R - C
+P = R - C
+
+# Marginal Analysis
+MC = sp.diff(C, x)
+MR = sp.diff(R, x)
+
+print(f"Marginal Cost: {MC}")
+print(f"Marginal Revenue: {MR}")
+
+# Solve MR = MC
+optimal_x = sp.solve(MR - MC, x)[0]
+max_profit = P.subs(x, optimal_x)
+
+print(f"Optimal Production: {optimal_x:.2f} units")
+print(f"Max Profit: ${max_profit:.2f}")
+
+# Verify 2nd Derivative for max
+P_double_prime = sp.diff(P, x, 2)
+print(f"Concavity: {P_double_prime} (<0 means Max)")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="10_07_physics_apps.html" class="footer-link">← Prev: Physics</a>
+                        <span class="separator">|</span>
+                        <a href="../phase_1/11_01_antiderivatives.html" class="footer-link">Next: Module 11 →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

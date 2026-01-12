@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>34.09 Complexity in Deep Learning Scaling - Complexity Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.10.3 Scaling Laws</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="34_08_randomized_algorithms_ai.html" class="nav-link">08.
+                                Randomized Algorithms AI</a></li>
+                        <li class="nav-item"><a href="34_09_complexity_deep_learning_scaling.html"
+                                class="nav-link active">09. Scaling Complexity</a></li>
+                        <li class="nav-item"><a href="34_10_complexity_theory_synthesis.html" class="nav-link">10.
+                                Complexity Synthesis</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Complexity Theory</span>
+                    <span class="badge secondary">Scaling Laws</span>
+                </div>
+                <h1>Complexity in Deep Learning Scaling</h1>
+                <p class="lead-text">Predicting the Future. Understanding the mathematical relationship between model
+                    size, data volume, and compute budget—the drivers of the LLM revolution.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Chinchilla Moment</h3>
+                    <p>
+                        In 2022, DeepMind discovered that most models were "over-parameterized" but "under-trained."
+                        <strong>Complexity in Scaling</strong> is the study of how to distribute a fixed "compute budget" (FLOPs)
+                        between model parameters and training data to achieve minimal loss.
+                    </p>
+                </div>
+
+                <h2>1. The Chinchilla Scaling Law</h2>
+                <p>The optimal relationship between parameters ($N$) and data size ($D$) given a fixed compute budget
+                    ($C$):</p>
+                <div class="math-box">
+                    $$ C \approx 6ND $$
+                    $$ L(N, D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta} $$
+                </div>
+                <p>Where $L$ is the loss, and $\alpha, \beta$ are scaling exponents. For Transformer models, research
+                    suggests that $N$ and $D$ should be scaled equally (e.g., doubling compute means increasing both
+                    parameters and data by $\approx 41\%$).</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Computational Complexity of Scaling</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>FLOPs (Floating Point Operations)</h4>
+                        <p>A measure of total "work." Training a GPT-3 class model (175B) takes roughly $3.14 \times
+                            10^{23}$ FLOPs. Scaling to a 10T model would require an orders-of-magnitude leap in energy
+                            and hardware.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Training Throughput</h4>
+                        <p>Scaling complexity isn't just about total work, but how much work can be done *in parallel*.
+                            Amdahl's Law and Communication Complexity define the limits of parallel scaling.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Future Tech</span>
+                    <h3>The Limits of Growth</h3>
+                    <ul>
+                        <li><strong>Data Exhaustion:</strong> We are approaching the limit of high-quality human text data on the
+                            web. Scaling complexity is shifting from $O(D)$ (more data) to $O(I)$ (more
+                            iterations/synthetic data).</li>
+                        <li><strong>Inference Cost:</strong> While scaling parameters improves accuracy, it increases inference
+                            latency ($O(P)$). This is why techniques like <strong>MoE (Mixture of Experts)</strong> are popular—they
+                            scale parameters while keeping "active" compute constant.</li>
+                        <li><strong>Energy Complexity:</strong> Training giant models consumes MegaWatts of power. The complexity of
+                            AI is increasingly being measured in <strong>Joules per Token</strong>.</li>
+                        <li><strong>Emergent Abilities:</strong> Research suggests that certain capabilities (like logic or coding)
+                            only "emerge" once the complexity (compute/parameters) crosses a specific threshold.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Scaling Visualization</h2>
+                <div class="mermaid">
+                    graph TD
+                    C[Fixed Compute Budget] --> P[Model Parameters N]
+                    C --> D[Training Data D]
+                    P & D --> L[Final Loss / Intelligence]
+                    style L fill:#a8e6cf,stroke:#333
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">The balancing act of
+                    scaling variables for optimal AI performance.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

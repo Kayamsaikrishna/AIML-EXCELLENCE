@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.08 Convexity - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_06_lagrange_multipliers.html" class="nav-link">06. Lagrange
+                                Multipliers</a></li>
+                        <li class="nav-item"><a href="14_07_kkt_conditions.html" class="nav-link">07. KKT Conditions</a>
+                        </li>
+                        <li class="nav-item"><a href="14_08_convexity.html" class="nav-link active">08. Convexity</a>
+                        </li>
+                        <li class="nav-item"><a href="14_09_global_local.html" class="nav-link">09. Global/Local
+                                Optima</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">The Safe Zone</span>
+                </div>
+                <h1>Convex Sets & Functions</h1>
+                <p class="lead-text">Why linear regression works every time, but neural networks don't.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Definition</h3>
+                    <p>
+                        A function \(f\) is <strong>Convex</strong> if the line segment connecting any two points on the graph lies
+                        <strong>above</strong> the graph.
+                        Intuitively, it means the function is bowl-shaped everywhere.
+                    </p>
+                    <div class="math-block">
+                        $$ f(\lambda x + (1-\lambda)y) \le \lambda f(x) + (1-\lambda)f(y) $$
+                    </div>
+                    <p>
+                        If \(f\) is convex, then <strong>every local minimum is a Global Minimum</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Optimization Gap</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Convex vs. Non-Convex</h3>
+                    <p>
+                        <strong>Linear Regression, Logistic Regression, and SVMs</strong> have Convex loss functions.
+                        This is why we blindly run optimizers on them; we know they will find the perfect answer.
+                    </p>
+                    <p>
+                        <strong>Deep Neural Networks</strong> are highly <strong>Non-Convex</strong>. They have hills, valleys, and
+                        saddle points.
+                        However, modern research (like <strong>ResNets</strong> with skip connections) shows that adding certain
+                        architectural features "smooths" the landscape, making it behave *almost* like a convex function
+                        locally, which allows SGD to succeed.
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Start[Model Arch] -->|Simple| Convex[Convex Loss]
+                        Start -->|Deep/Complex| NonConvex[Non-Convex Loss]
+
+                        Convex -->|Run SGD| Global[Global Minimum Guaranteed]
+                        NonConvex -->|Run SGD| Local[Local Minimum / Saddle]
+
+                        Local -->|Add Skip Connections| Smooth[Smoother Landscape]
+                        Smooth -->|Better Chance| GoodOptimum[Good Generalization]
+
+                        style Convex fill:#2f855a,stroke:#48bb78
+                        style NonConvex fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Checking Convexity</h2>
+                <div class="code-header">convexity_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Check Jensen's Inequality: f(E[x]) <= E[f(x)]
+# Let f(x) = x^2 (Convex)
+
+x = np.random.uniform(-5, 5, 1000)
+f_x = x**2
+
+E_x = np.mean(x)
+val_of_mean = E_x**2
+
+mean_of_vals = np.mean(f_x)
+
+print(f"f(E[x]): {val_of_mean:.4f}")
+print(f"E[f(x)]: {mean_of_vals:.4f}")
+
+if val_of_mean <= mean_of_vals:
+    print("Jensen's Inequality Holds (Likely Convex)")
+else:
+    print("Function is Non-Convex")
+
+# This inequality is fundamental in Variational Autoencoders (ELBO).
+# The 'Evidence Lower Bound' comes directly from Jensen's Inequality.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="14_07_kkt_conditions.html" class="footer-link">← Prev: KKT Conditions</a>
+                        <span class="separator">|</span>
+                        <a href="14_09_global_local.html" class="footer-link">Next: Global/Local →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

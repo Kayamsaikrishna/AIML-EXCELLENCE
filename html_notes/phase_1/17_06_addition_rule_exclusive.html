@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.06 Addition Rule (Exclusive) - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_05_complement_rule.html" class="nav-link">05. Complement
+                                Rule</a></li>
+                        <li class="nav-item"><a href="17_06_addition_rule_exclusive.html" class="nav-link active">06.
+                                Addition Rule</a></li>
+                        <li class="nav-item"><a href="17_07_general_addition_rule.html" class="nav-link">07. Gen.
+                                Addition Rule</a></li>
+                        <li class="nav-item"><a href="17_08_multiplication_rule.html" class="nav-link">08.
+                                Multiplication</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Disjoint</span>
+                </div>
+                <h1>Addition Rule (Mutually Exclusive)</h1>
+                <p class="lead-text">Summing probabilities of separate paths.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Or Logic</h3>
+                    <p>
+                        Two events \(A\) and \(B\) are <strong>Mutually Exclusive</strong> (Disjoint) if they cannot happen at the
+                        same time (\(A \cap B = \emptyset\)).
+                        In this case:
+                        \[ P(A \text{ or } B) = P(A \cup B) = P(A) + P(B) \]
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: One-Hot Encoding</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Categorical Distributions</h3>
+                    <p>
+                        In multi-class classification (e.g., ImageNet), classes are typically treated as mutually
+                        exclusive. An image is EITHER a "Cat" OR a "Dog" (not both).
+                        The probabilities output by Softmax sum to 1.
+                        \( P(\text{Object}) = P(\text{Cat}) + P(\text{Dog}) + \dots \)
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Image --> Classifier
+                        Classifier -->|0.7| Cat
+                        Classifier -->|0.3| Dog
+
+                        Cat -.->|Mutually Exclusive| Dog
+
+                        style Cat fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Disjoint Sum</h2>
+                <div class="code-header">disjoint_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Rolling a Die
+# A = {1, 2}, B = {3, 4}
+# A and B share no elements. They are Disjoint.
+
+P_A = 2/6
+P_B = 2/6
+
+P_A_or_B = P_A + P_B
+print(f"P(1, 2, 3, or 4): {P_A_or_B:.4f}")
+# 4/6 = 0.6667</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_05_complement_rule.html" class="footer-link">← Prev: Complement</a>
+                        <span class="separator">|</span>
+                        <a href="17_07_general_addition_rule.html" class="footer-link">Next: Inclusion-Exclusion →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Fields - Phase 1.3.6.10</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_26_line_integrals.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_26_line_integrals.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_26</div>
+            <h1>10. Vector Fields & Line Integrals</h1>
+            <p class="lead-text">Integrating along a path through a "windy" space.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Vector Fields</h2>
+<p>A vector field \(\vec{F}(x, y)\) assigns a vector to every point in space. Think of it as a map of wind
+                speeds or gravitational pull.</p>
+</section>
+<section class="module-card">
+<h2>2. Line Integrals of Vector Fields</h2>
+<p>A <strong>Line Integral</strong> calculates how much the field "helps" or "hinders" you as you move along
+                a curve \(C\). This is the definition of <strong>Work</strong> (\(W\)):</p>
+<div class="math-block">
+                $$ W = \int_{C} \vec{F} \cdot d\vec{r} = \int_{a}^{b} \vec{F}(\vec{r}(t)) \cdot \vec{r}'(t) dt $$
+            </div>
+<p>It is the integral of the dot product of the force and the direction of travel.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Policy Gradients &amp; Drift</h2>
+<div class="module-card">
+<h3>Movement through Weight Space</h3>
+<p>An AI model training over time is a "particle" moving through a high-dimensional vector field of
+                    gradients. The <strong>Line Integral</strong> of the model's trajectory tells us the "Total Energy"
+                    or "Total Learning" the model has performed. </p>
+<p>In <strong>Reinforcement Learning</strong>, we measure "Policy Drift". If an AI agent's behavior
+                    changes too much along a path, it might become unstable. Researchers use line integrals to calculate
+                    the "Cumulative Violation" of constraints along the agent's path. If the line integral of the
+                    "Reward Field" along the path is high, the AI's training is considered efficient and successful.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Work along a Parabolic Path</h2>
+<div class="code-block">
+<pre><code class="language-python"># Field F = <y, -x=""> (A vortex)
+# Path r(t) = <t, t^2=""> from t=0 to 1
+# dr/dt = &lt;1, 2t&gt;
+# F dot dr/dt = (t^2 * 1) + (-t * 2t) = -t^2
+
+import sympy as sp
+t = sp.Symbol('t')
+work = sp.integrate(-t**2, (t, 0, 1))
+
+print(f"Total Work along path: {work}") # -1/3</t,></y,></code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

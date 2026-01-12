@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>35.06 Fermat's & Euler's Theorems - Number Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.11.2 Equations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="35_05_chinese_remainder_theorem.html" class="nav-link">05. Chinese
+                                Remainder Theorem</a></li>
+                        <li class="nav-item"><a href="35_06_fermat_euler_theorem.html" class="nav-link active">06.
+                                Fermat's & Euler's Theorems</a></li>
+                        <li class="nav-item"><a href="35_07_primitive_roots_discrete_logs.html" class="nav-link">07.
+                                Primitive Roots</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Number Theory</span>
+                    <span class="badge secondary">Public Key Foundations</span>
+                </div>
+                <h1>Fermat's & Euler's Theorems</h1>
+                <p class="lead-text">The Power of Powers. The fundamental theorems that describe the cyclic structure of
+                    modular exponentiation, forming the mathematical bedrock of RSA encryption.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Fermat's Little Theorem</h3>
+                    <p>
+                        If $p$ is a prime number and $a$ is an integer not divisible by $p$, then:
+                    </p>
+                    <div class="math-box">
+                        $$ a^{p-1} \equiv 1 \pmod p $$
+                    </div>
+                    <p><strong>Intuition:</strong> Raising numbers to the power of "prime minus one" resets them to 1.
+                        This is a specific case of Euler's Theorem.</p>
+                </div>
+
+                <h2>1. Euler's Totient Function $\phi(n)$</h2>
+                <p>To generalize Fermat's theorem to composite numbers, we need to count how many integers are coprime
+                    to $n$.</p>
+                <div class="math-box">
+                    $$ \phi(n) = | \{ k \in \{1,\dots,n\} : gcd(k, n) = 1 \} | $$
+                </div>
+                <ul class="dense-list">
+                    <li>If $p$ is prime: $\phi(p) = p - 1$.</li>
+                    <li>If $n = p \times q$ (product of distinct primes): $\phi(n) = (p-1)(q-1)$.</li>
+                    <li>This multiplicative property is what allows us to compute $\phi(N)$ easily if we know the
+                        factors, but makes it impossible if we don't.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Euler's Totient Theorem</h2>
+                <p>For any integers $a$ and $n$ such that $gcd(a, n) = 1$:</p>
+                <div class="math-box">
+                    $$ a^{\phi(n)} \equiv 1 \pmod n $$
+                </div>
+                <p>This theorem implies that exponents work "modulo $\phi(n)$". If we want to compute $a^x \pmod n$, we
+                    can reduce the exponent: $x \equiv x' \pmod{\phi(n)}$.</p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Cryptography</span>
+                    <span class="ml-badge">Key Generation</span>
+                    <h3>Application: RSA Key Generation</h3>
+                    <p>RSA relies entirely on Euler's Theorem. Here is the logic:</p>
+                    <ol class="step-list">
+                        <li><strong>Choose Primes:</strong> Pick large primes $p, q$. Compute $N = pq$.</li>
+                        <li><strong>Compute Totient:</strong> $\phi(N) = (p-1)(q-1)$.</li>
+                        <li><strong>Public Key ($e$):</strong> Choose $e$ coprime to $\phi(N)$ (often 65537).</li>
+                        <li><strong>Private Key ($d$):</strong> Solve $ed \equiv 1 \pmod{\phi(N)}$.</li>
+                    </ol>
+                    <p><strong>Effect:</strong> Encryption is $c = m^e$. Decryption is $c^d = (m^e)^d = m^{ed}$. Since
+                        $ed = 1 + k\phi(N)$, by Euler's Theorem:</p>
+                    <p style="text-align: center;">$m^{ed} = m^{1 + k\phi(N)} = m^1 \cdot (m^{\phi(N)})^k \equiv m \cdot
+                        1^k \equiv m \pmod N$.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Randomized Algorithms: Primality Testing</h2>
+                <div class="mermaid">
+                    graph TD
+                    Start[Input: Large Odd Integer n] --> Pick[Pick random 'a' &lt; n] Pick --> Test{"Is a^(n-1) ≡ 1
+                    (mod
+                    n)?"}
+                    Test -- No --> Composite[Result: COMPOSITE (Definitely)]
+                    Test -- Yes --> Prob[Result: PROBABLY PRIME]
+                    Prob --> Pick
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">
+                    The Fermat Primality Test. If the equality fails, the number is definitely composite. If it holds,
+                    it is likely prime (though "Carmichael numbers" are rare exceptions). This is the basis for the
+                    Miller-Rabin test used in standard libraries.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

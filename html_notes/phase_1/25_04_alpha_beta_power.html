@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.04 Alpha, Beta & Power - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_03_type1_type2_errors.html" class="nav-link">03. Type 1 & 2
+                                Errors</a></li>
+                        <li class="nav-item"><a href="25_04_alpha_beta_power.html" class="nav-link active">04. Alpha
+                                Beta Power</a></li>
+                        <li class="nav-item"><a href="25_05_p_value_computation.html" class="nav-link">05. P Value
+                                Computation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Sensitivity</span>
+                </div>
+                <h1>Alpha, Beta & Power</h1>
+                <p class="lead-text">Quantifying the strength of your statistical lens: how clearly can you see a real
+                    effect?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Big Three</h3>
+                    <ul>
+                        <li><strong>\(\alpha\) (Alpha):</strong> The probability of a Type I error. Your tolerance for being a "false
+                            alarm."</li>
+                        <li><strong>\(\beta\) (Beta):</strong> The probability of a Type II error. Your chance of being "blind" to a
+                            real discovery.</li>
+                        <li><strong>Power (\(1 - \beta\)):</strong> The probability of correctly rejecting a false Null. This is the
+                            <strong>Sensitivity</strong> of your test.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>1. What Affects Power?</h2>
+                <p>
+                    A high-power test is one that almost never misses a real effect. You increase Power by:
+                </p>
+                <ol>
+                    <li><strong>Increasing Sample Size (\(n\)):</strong> More data gives clearer evidence.</li>
+                    <li><strong>Increasing Alpha (\(\alpha\)):</strong> Being more liberal with discovery makes you miss fewer real
+                        ones (but increases false alarms).</li>
+                    <li><strong>Effect Size:</strong> Large differences (like a 50% performance boost) are easy to see; small
+                        differences (0.5% boost) require a very "powerful" lens.</li>
+                    <li><strong>Reducing Noise:</strong> Lower variance (\(\sigma\)) makes the signal pop out.</li>
+                </ol>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Balancing Act</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Low Alpha 0.01] -->|Hard to Reject| B[Low Type I Error]
+                        B -->|Consecutive Effect| C[High Beta / Low Power]
+                        D[High Alpha 0.10] -->|Easy to Reject| E[High Discovery Rate]
+                        E -->|Consecutive Effect| F[High Power / High Type I Error]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: SOTA Benchmarking</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Product</span>
+                    <span class="ml-badge">Research</span>
+                    <h3>Why "Slightly Better" isn't "Significantly Better"</h3>
+                    <p>
+                        In many ML competitions, people chase "0.1% improvement." If your test doesn't have enough
+                        <strong>Power</strong>, you can't tell if that 0.1% is real or just a lucky test set split.
+                    </p>
+                    <p>
+                        <strong>Underpowered Studies:</strong> If you only test your "Groundbreaking" model on 10 images, your Power
+                        is effectively zero. Even if the model is genuinely 2x better, the test lacks the resolution to
+                        prove it. This is why reviewers demand large test sets and cross-validation—to ensure the study
+                        has enough <strong>Power</strong> to be believable.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

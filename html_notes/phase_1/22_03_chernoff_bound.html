@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.03 Chernoff Bound - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_02_chebyshev_inequality.html" class="nav-link">02. Chebyshev
+                                Ineq</a></li>
+                        <li class="nav-item"><a href="22_03_chernoff_bound.html" class="nav-link active">03. Chernoff
+                                Bound</a></li>
+                        <li class="nav-item"><a href="22_04_weak_lln.html" class="nav-link">04. Weak LLN</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Exponential Decay</span>
+                </div>
+                <h1>The Chernoff Bound</h1>
+                <p class="lead-text">Achieving exponential sharpness by looking at all moments simultaneously.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Tightest Ceiling</h3>
+                    <p>
+                        Markov uses the 1st moment (mean). Chebyshev uses the 2nd moment (variance). <strong>Chernoff Bound</strong>
+                        uses the <strong>Moment Generating Function</strong> (all moments!).
+                        <br><br>
+                        While Chebyshev gives a decay of \(1/k^2\) (polynomial), Chernoff gives a decay that is
+                        <strong>exponential</strong> (\(e^{-k}\)). This is a "game changer" for proving that systems are
+                        reliable.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    For a random variable \(X\) and constant \(a\):
+                    $$ P(X \ge a) \le \min_{t > 0} \frac{E[e^{tX}]}{e^{ta}} $$
+                </div>
+                <p>
+                    By choosing the optimal \(t\), we find the sharpest possible bound. For sums of independent
+                    variables (like coin flips), this bound is incredibly powerful.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Chernoff for Bernoulli Sums</h2>
+                <div class="insight-box">
+                    <h3>Concentration of Measure</h3>
+                    <p>
+                        If you flip a fair coin 10,000 times, the probability that the number of heads differs from
+                        5,000 by more than 5% is virtually zero.
+                        <br><br>
+                        Chernoff proves that as you add more independent variables, the distribution "concentrates"
+                        extremely tightly around the mean.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: PAC Learning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Theory</span>
+                    <span class="ml-badge">Generalization</span>
+                    <h3>Probably Approximately Correct (PAC)</h3>
+                    <p>
+                        In Machine Learning theory, we want to know: "How many samples \(n\) do I need to be 99% sure
+                        that my model's error is less than 1%?"
+                    </p>
+                    <p>
+                        The Chernoff bound is the main tool used to derive these sample complexity bounds. It tells us
+                        that the probability of the model being "unlucky" (getting a training error that is far from the
+                        true test error) drops <strong>exponentially</strong> with the number of training samples.
+                        <br><br>
+                        This is why ML works—we don't need infinite data to get high confidence; we just need "enough"
+                        for the exponential decay to take over.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary of Tail Bounds</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Bound</th>
+                            <th>Information Used</th>
+                            <th>Decay Speed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Markov</td>
+                            <td>Mean</td>
+                            <td>Slow (\(1/k\))</td>
+                        </tr>
+                        <tr>
+                            <td>Chebyshev</td>
+                            <td>Mean + Variance</td>
+                            <td>Medium (\(1/k^2\))</td>
+                        </tr>
+                        <tr>
+                            <td>Chernoff</td>
+                            <td>MGF (All moments)</td>
+                            <td>Fast (\(e^{-k}\))</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

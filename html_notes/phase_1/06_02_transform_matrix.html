@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06.02 Transform Matrix - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.5 Linear Transforms</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="06_01_transform_basics.html" class="nav-link">01. Transform Basics</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">02. The Matrix</a></li>
+                    <li class="nav-item"><a href="06_03_kernel_image.html" class="nav-link">03. Kernel & Image</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 02. Representation
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 02</div>
+            <h1>The Matrix of the Transformation</h1>
+            <p class="lead-text"> \( A = [ T(e_1) \dots T(e_n) ] \). Where the basis vectors go.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: BASIS TRACKING -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Track the Basis</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    Basis["Basis Vectors e_1, e_2"]
+    Transform["Apply T"]
+    Images["Images T(e_1), T(e_2)"]
+    
+    Basis -- "T" --> Images
+    
+    Images -- "Stack as Columns" --> Matrix["Matrix A"]
+    
+    Matrix -- "Ax" --> Result["T(x)"]
+    
+    Note["If you know where basis goes, you know everything."]
+
+    style Matrix fill:#dcfce7,stroke:#16a34a
+    style Images fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: CONSTRUCTION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Construction</h2>
+                <p>Every linear transformation \( T: \mathbb{R}^n \to \mathbb{R}^m \) can be represented by a unique \(
+                    m \times n \) matrix \( A \).</p>
+                <p>To find \( A \), simply apply \( T \) to the standard basis vectors \( e_1, \dots, e_n \). The
+                    results form the columns of \( A \).</p>
+                <div class="math-block">
+                    $$ A = \begin{bmatrix} | & & | \\ T(e_1) & \dots & T(e_n) \\ | & & | \end{bmatrix} $$
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: CONVOLUTIONS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Convolution as Matrix Mult</h2>
+                <p>Even complex operations like Image Convolution are linear transformations. A \( 3 \times 3 \)
+                    convolution on a \( 10 \times 10 \) image can be represented as a massive sparse matrix
+                    multiplication (Toeplitz Matrix) acting on the flattened image vector.</p>
+                <p>This is why GPUs (matrix multipliers) are so good at training CNNs.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Building the Matrix</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Define a transformation T: Shear
+# x -> x + y
+# y -> y
+def T_shear(v):
+    x, y = v
+    return np.array([x + y, y])
+
+# Basis Vectors
+e1 = np.array([1, 0])
+e2 = np.array([0, 1])
+
+# Apply T to basis
+Te1 = T_shear(e1) # Becomes [1, 0]
+Te2 = T_shear(e2) # Becomes [1, 1]
+
+# Construct Matrix A
+A = np.column_stack((Te1, Te2))
+print("Transformation Matrix A:\n", A)
+
+# Verify
+v = np.array([2, 3])
+Tv_func = T_shear(v)
+Tv_mat = A @ v
+print(f"Function Result: {Tv_func}")
+print(f"Matrix Result:   {Tv_mat}")
+# Match confirmed
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

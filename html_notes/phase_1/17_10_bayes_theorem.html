@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.10 Bayes' Theorem - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_09_conditional_prob.html" class="nav-link">09. Conditional
+                                Prob</a></li>
+                        <li class="nav-item"><a href="17_10_bayes_theorem.html" class="nav-link active">10. Bayes
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="17_11_law_total_prob.html" class="nav-link">11. Total Prob</a>
+                        </li>
+                        <li class="nav-item"><a href="17_12_independence.html" class="nav-link">12. Independence</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Inference</span>
+                </div>
+                <h1>Bayes' Theorem</h1>
+                <p class="lead-text">Prior + Likelihood = Posterior.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Flipping Conditional Probabilities</h3>
+                    <p>
+                        Bayes' Theorem allows us to reverse the condition: if we know \(P(B|A)\), how do we find
+                        \(P(A|B)\)?
+                        \[ P(A|B) = \frac{P(B|A) P(A)}{P(B)} \]
+                    </p>
+                    <ul>
+                        <li><strong>\(P(A)\) Prior:</strong> Belief before seeing data.</li>
+                        <li><strong>\(P(B|A)\) Likelihood:</strong> How probable is evidence \(B\) if \(A\) is true?
+                        </li>
+                        <li><strong>\(P(B)\) Evidence:</strong> Total probability of observing \(B\).</li>
+                        <li><strong>\(P(A|B)\) Posterior:</strong> Belief after seeing data.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Bayesian Inference</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Parameter Estimation</h3>
+                    <p>
+                        In Machine Learning, we want \(P(\text{Model} | \text{Data})\).
+                        We calculate it by:
+                        \[ P(\theta | X) \propto P(X | \theta) P(\theta) \]
+                        This combines the <strong>Fit</strong> (Likelihood) with <strong>Regularization</strong> (Prior).
+                        L2 Regularization (Weight Decay) is mathematically equivalent to a Gaussian Prior on the
+                        weights!
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Medical Test</h2>
+                <div class="code-header">bayes_solver.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Disease Rate (Prior) P(D) = 0.01
+# Test Accuracy (Likelihood):
+# P(Pos | D) = 0.99 (True Positive)
+# P(Pos | No D) = 0.05 (False Positive)
+
+# Question: If Test is Positive, what is prob of Disease? P(D | Pos)
+
+p_d = 0.01
+p_nod = 0.99
+p_pos_given_d = 0.99
+p_pos_given_nod = 0.05
+
+# Law of Total Prob for Evidence P(Pos)
+p_pos = (p_pos_given_d * p_d) + (p_pos_given_nod * p_nod)
+
+# Bayes
+p_d_given_pos = (p_pos_given_d * p_d) / p_pos
+
+print(f"Prob of Disease given Positive Test: {p_d_given_pos:.4f}")
+# Result is only ~16%! (Base rate fallacy)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_09_conditional_prob.html" class="footer-link">← Prev: Conditional Prob</a>
+                        <span class="separator">|</span>
+                        <a href="17_11_law_total_prob.html" class="footer-link">Next: Law of Total Prob →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -4,243 +4,617 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - AI/ML Hub</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>AI/ML Hub - Curriculum</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap"
         rel="stylesheet">
+
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Inter", sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Header styles */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            font-size: 1.5rem;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #2563eb;
+        }
+        
+        .nav-link.active {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+            opacity: 0.08;
+        }
+        
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.1);
+            color: #2563eb;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+        
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 3rem 2rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Horizontal curriculum grid */
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+            margin: 0 auto;
+            max-width: calc(100% - 2rem);
+        }
+        
+        .curriculum-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .curriculum-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-image {
+            height: 180px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .card-content {
+            padding: 1.75rem;
+        }
+        
+        .card-number {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.1);
+            color: #2563eb;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+        }
+        
+        .card-description {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Footer styles */
+        .main-footer {
+            background: #f8fafc;
+            color: #64748b;
+            padding: 3rem 2rem 2rem;
+            margin-top: 5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #2563eb;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            width: 100%;
+            color: #94a3b8;
+        }
+        
+        /* Unique images for each phase - Updated with diverse, topic-specific images */
+        .img-p1 { background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800'); } /* Math equations on blackboard */
+        .img-p2 { background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=800'); } /* Code on screen */
+        .img-p3 { background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800'); } /* Data pipelines/server racks */
+        .img-p4 { background-image: url('https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?auto=format&fit=crop&q=80&w=800'); } /* Charts and analytics */
+        .img-p5 { background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800'); } /* Neural network visualization */
+        .img-p6 { background-image: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800'); } /* Camera/vision technology */
+        .img-p7 { background-image: url('https://images.unsplash.com/photo-1516192518150-0d8fee5425e3?auto=format&fit=crop&q=80&w=800'); } /* Books/text/language */
+        .img-p8 { background-image: url('https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&q=80&w=800'); } /* Robot/automation */
+        .img-p9 { background-image: url('https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&q=80&w=800'); } /* AI generated art */
+        .img-p10 { background-image: url('https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&q=80&w=800'); } /* DevOps/containers */
+        .img-p11 { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800'); } /* Cloud computing */
+        .img-p12 { background-image: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800'); } /* AI brain concept */
+        .img-p13 { background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800'); } /* Medical/healthcare tech */
+        .img-p14 { background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800'); } /* Research/lab */
+        .img-p15 { background-image: url('https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&q=80&w=800'); } /* Development tools */
+        .img-p16 { background-image: url('https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=800'); } /* Advanced mathematics */
+        .img-p17 { background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800'); } /* Quantum/emerging tech */
+        .img-p18 { background-image: url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&q=80&w=800'); } /* Ethics/balance */
+        .img-p19 { background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800'); } /* Projects/planning */
+        .img-p20 { background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800'); } /* Community/teamwork */
+        
+        /* Responsive adjustments */
+        @media (max-width: 1100px) {
+            .curriculum-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .nav-menu {
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .curriculum-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-    <nav class="top-nav">
-        <div class="nav-content-wrapper">
-            <span class="nav-logo">AI/ML Engineering Hub</span>
-            <a href="index.html" class="nav-link-back">← Back to Landing</a>
+    <!-- Header with horizontal layout -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">🤖</span>
+                <span>AI/ML Engineering Hub</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#curriculum" class="nav-link">Curriculum</a>
+                <a href="#resources" class="nav-link">Resources</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#community" class="nav-link">Community</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <section class="curriculum-section" id="curriculum">
-        <div class="section-container">
-            <div class="section-header">
-                <h2>The Curriculum Map</h2>
-                <p style="color: #64748b;">Select a Phase to begin your deep dive.</p>
-            </div>
-
-            <div class="phases-grid">
-                <!-- Phase 1 -->
-                <a href="phase_1/index.html" class="phase-card p1">
-                    <div class="card-visual visual-p1"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 1</span>
-                        <div class="phase-title">Mathematical Foundations</div>
-                        <div class="phase-desc">Number Systems, Linear Algebra, Probability, and Calculus.</div>
-                    </div>
-                </a>
-
-                <!-- ... grid items ... -->
-
-                <!-- Phase 2 -->
-                <a href="phase_2/index.html" class="phase-card p2">
-                    <div class="card-visual visual-p2"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 2</span>
-                        <div class="phase-title">Programming Foundations</div>
-                        <div class="phase-desc">Python optimization, Data Structures, and Algorithmic Thinking.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 3 -->
-                <a href="phase_3/index.html" class="phase-card p3">
-                    <div class="card-visual visual-p3"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 3</span>
-                        <div class="phase-title">Data Handling & Processing</div>
-                        <div class="phase-desc">Pandas, SQL, ETL Pipelines, and Vector Databases.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 4 -->
-                <a href="phase_4/index.html" class="phase-card p4">
-                    <div class="card-visual visual-p4"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 4</span>
-                        <div class="phase-title">Classic Machine Learning</div>
-                        <div class="phase-desc">Regression, Classification, SVMs, and Ensemble Methods.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 5 -->
-                <a href="phase_5/index.html" class="phase-card p5">
-                    <div class="card-visual visual-p5"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 5</span>
-                        <div class="phase-title">Deep Learning Foundations</div>
-                        <div class="phase-desc">Neural Networks, Backprop, Optimizers, and Regularization.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 6 -->
-                <a href="phase_6/index.html" class="phase-card p6">
-                    <div class="card-visual visual-p6"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 6</span>
-                        <div class="phase-title">Computer Vision</div>
-                        <div class="phase-desc">CNNs, Object Detection, Segmentation, and Vision Transformers.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 7 -->
-                <a href="phase_7/index.html" class="phase-card p7">
-                    <div class="card-visual visual-p7"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 7</span>
-                        <div class="phase-title">Natural Language Processing</div>
-                        <div class="phase-desc">RNNs, Transformers (BERT/GPT), and LLM Architecture.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 8 -->
-                <a href="phase_8/index.html" class="phase-card p8">
-                    <div class="card-visual visual-p8"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 8</span>
-                        <div class="phase-title">Reinforcement Learning</div>
-                        <div class="phase-desc">Q-Learning, Policy Gradients, PPO, and Multi-Agent Systems.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 9 -->
-                <a href="phase_9/index.html" class="phase-card p9">
-                    <div class="card-visual visual-p9"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 9</span>
-                        <div class="phase-title">Specialized AI Topics</div>
-                        <div class="phase-desc">GANs, Time Series, Graph NNs, and Recommender Systems.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 10 -->
-                <a href="phase_10/index.html" class="phase-card p10">
-                    <div class="card-visual visual-p10"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 10</span>
-                        <div class="phase-title">MLOps & Production</div>
-                        <div class="phase-desc">Docker, Kubernetes, CI/CD for ML, and Model Monitoring.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 11 -->
-                <a href="phase_11/index.html" class="phase-card p11">
-                    <div class="card-visual visual-p11"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 11</span>
-                        <div class="phase-title">Cloud Platforms & Big Data</div>
-                        <div class="phase-desc">AWS SageMaker, Azure ML, Spark, and Distributed Training.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 12 -->
-                <a href="phase_12/index.html" class="phase-card p12">
-                    <div class="card-visual visual-p12"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 12</span>
-                        <div class="phase-title">Advanced Topics & Research</div>
-                        <div class="phase-desc">Meta-Learning, Neuromorphic Computing, and SOTA Papers.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 13 -->
-                <a href="phase_13/index.html" class="phase-card p13">
-                    <div class="card-visual visual-p13"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 13</span>
-                        <div class="phase-title">Domain Applications</div>
-                        <div class="phase-desc">AI in Healthcare, Finance, Robotics, and Gaming.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 14 -->
-                <a href="phase_14/index.html" class="phase-card p14">
-                    <div class="card-visual visual-p14"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 14</span>
-                        <div class="phase-title">Research Skills & Career</div>
-                        <div class="phase-desc">Writing Papers, Reading Research, and Interview Prep.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 15 -->
-                <a href="phase_15/index.html" class="phase-card p15">
-                    <div class="card-visual visual-p15"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 15</span>
-                        <div class="phase-title">Tools Reference</div>
-                        <div class="phase-desc">PyTorch, TensorFlow, HuggingFace, and LangChain.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 16 -->
-                <a href="phase_16/index.html" class="phase-card p16">
-                    <div class="card-visual visual-p16"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 16</span>
-                        <div class="phase-title">Advanced Math for AI</div>
-                        <div class="phase-desc">Information Theory, Topology, and Advanced Optimization.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 17 -->
-                <a href="phase_17/index.html" class="phase-card p17">
-                    <div class="card-visual visual-p17"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 17</span>
-                        <div class="phase-title">Emerging Technologies</div>
-                        <div class="phase-desc">Quantum ML, Edge AI, and Federated Learning.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 18 -->
-                <a href="phase_18/index.html" class="phase-card p18">
-                    <div class="card-visual visual-p18"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 18</span>
-                        <div class="phase-title">Ethics & Responsible AI</div>
-                        <div class="phase-desc">Bias, Fairness, Explainability (XAI), and Safety.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 19 -->
-                <a href="phase_19/index.html" class="phase-card p19">
-                    <div class="card-visual visual-p19"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 19</span>
-                        <div class="phase-title">Practical Projects</div>
-                        <div class="phase-desc">End-to-End Capstone Projects and Portfolio Building.</div>
-                    </div>
-                </a>
-
-                <!-- Phase 20 -->
-                <a href="phase_20/index.html" class="phase-card p20">
-                    <div class="card-visual visual-p20"></div>
-                    <div class="card-content">
-                        <span class="phase-num">Phase 20</span>
-                        <div class="phase-title">Resources & Community</div>
-                        <div class="phase-desc">Datasets, Forums, Conferences, and Continuous Learning.</div>
-                    </div>
-                </a>
-
+    <!-- Hero section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">Curriculum 2026</span>
+            <h1 class="hero-title">Master AI/ML From Fundamentals to Production</h1>
+            <p class="hero-subtitle">A comprehensive learning pathway designed to take you from mathematical foundations to cutting-edge AI applications. Build expertise with hands-on projects and industry best practices.</p>
+            
+            <div class="hero-actions">
+                <a href="#curriculum" class="btn btn-primary">Explore Curriculum</a>
             </div>
         </div>
     </section>
 
-    <footer class="site-footer">
+    <!-- Main Content with Curriculum Grid -->
+    <main class="main-content" id="curriculum">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Learning Pathway</h2>
+                <p class="section-subtitle">Master AI/ML through our structured curriculum designed to take you from foundational concepts to advanced implementations.</p>
+            </div>
+            
+            <div class="curriculum-grid">
+            
+            <a href="phase_1/index.html" class="curriculum-card">
+                <div class="card-image img-p1"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 01</span>
+                    <div class="card-title">Mathematical Foundations</div>
+                    <div class="card-description">Number Systems, Linear Algebra, Probability, and Calculus optimization.
+                    </div>
+                </div>
+            </a>
+
+            <a href="phase_2/index.html" class="curriculum-card">
+                <div class="card-image img-p2"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 02</span>
+                    <div class="card-title">Programming Foundations</div>
+                    <div class="card-description">Python memory model, Data Structures, and Algorithmic Thinking.</div>
+                </div>
+            </a>
+
+            <a href="phase_3/index.html" class="curriculum-card">
+                <div class="card-image img-p3"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 03</span>
+                    <div class="card-title">Data Engineering</div>
+                    <div class="card-description">Pandas, SQL/NoSQL, ETL Pipelines, and Vector Databases.</div>
+                </div>
+            </a>
+
+            <a href="phase_4/index.html" class="curriculum-card">
+                <div class="card-image img-p4"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 04</span>
+                    <div class="card-title">Classic Machine Learning</div>
+                    <div class="card-description">Regression, SVMs, Trees, and Ensemble Learning methods.</div>
+                </div>
+            </a>
+
+            <a href="phase_5/index.html" class="curriculum-card">
+                <div class="card-image img-p5"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 05</span>
+                    <div class="card-title">Deep Learning Core</div>
+                    <div class="card-description">Perceptrons, Backpropagation, Optimizers, and Regularization.</div>
+                </div>
+            </a>
+
+            <a href="phase_6/index.html" class="curriculum-card">
+                <div class="card-image img-p6"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 06</span>
+                    <div class="card-title">Computer Vision</div>
+                    <div class="card-description">CNNs, ResNets, Object Detection (YOLO), and Segmentation.</div>
+                </div>
+            </a>
+
+            <a href="phase_7/index.html" class="curriculum-card">
+                <div class="card-image img-p7"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 07</span>
+                    <div class="card-title">NLP & Transformers</div>
+                    <div class="card-description">Attention mechanisms, BERT, GPT, and Tokenization strategies.</div>
+                </div>
+            </a>
+
+            <a href="phase_8/index.html" class="curriculum-card">
+                <div class="card-image img-p8"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 08</span>
+                    <div class="card-title">Reinforcement Learning</div>
+                    <div class="card-description">Markov Decision Processes, Q-Learning, and Policy Gradients.</div>
+                </div>
+            </a>
+
+            <a href="phase_9/index.html" class="curriculum-card">
+                <div class="card-image img-p9"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 09</span>
+                    <div class="card-title">Generative AI</div>
+                    <div class="card-description">VAEs, GANs, Diffusion Models, and Image Synthesis.</div>
+                </div>
+            </a>
+
+            <a href="phase_10/index.html" class="curriculum-card">
+                <div class="card-image img-p10"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 10</span>
+                    <div class="card-title">MLOps & Production</div>
+                    <div class="card-description">Docker, Kubernetes, CI/CD, and Model Monitoring.</div>
+                </div>
+            </a>
+
+            <a href="phase_11/index.html" class="curriculum-card">
+                <div class="card-image img-p11"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 11</span>
+                    <div class="card-title">Cloud & Big Data</div>
+                    <div class="card-description">AWS SageMaker, Distributed Training, and SparkML.</div>
+                </div>
+            </a>
+
+            <a href="phase_12/index.html" class="curriculum-card">
+                <div class="card-image img-p12"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 12</span>
+                    <div class="card-title">Meta-Learning</div>
+                    <div class="card-description">Few-Shot Learning, Neural Architecture Search, and AutoML.</div>
+                </div>
+            </a>
+
+            <a href="phase_13/index.html" class="curriculum-card">
+                <div class="card-image img-p13"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 13</span>
+                    <div class="card-title">Applied AI Domains</div>
+                    <div class="card-description">Healthcare AI, FinTech, and Robotics integration.</div>
+                </div>
+            </a>
+
+            <a href="phase_14/index.html" class="curriculum-card">
+                <div class="card-image img-p14"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 14</span>
+                    <div class="card-title">Research Methodology</div>
+                    <div class="card-description">Reading Papers, Writing Abstracts, and Academic Rigor.</div>
+                </div>
+            </a>
+
+            <a href="phase_15/index.html" class="curriculum-card">
+                <div class="card-image img-p15"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 15</span>
+                    <div class="card-title">Tool Masterclass</div>
+                    <div class="card-description">Advanced PyTorch, TensorFlow XLA, and ONNX Runtime.</div>
+                </div>
+            </a>
+
+            <a href="phase_16/index.html" class="curriculum-card">
+                <div class="card-image img-p16"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 16</span>
+                    <div class="card-title">Advanced Math</div>
+                    <div class="card-description">Topology, Differential Geometry, and Information Theory.</div>
+                </div>
+            </a>
+
+            <a href="phase_17/index.html" class="curriculum-card">
+                <div class="card-image img-p17"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 17</span>
+                    <div class="card-title">Emerging Tech</div>
+                    <div class="card-description">Quantum Machine Learning and Neuromorphic Computing.</div>
+                </div>
+            </a>
+
+            <a href="phase_18/index.html" class="curriculum-card">
+                <div class="card-image img-p18"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 18</span>
+                    <div class="card-title">Ethics & Safety</div>
+                    <div class="card-description">Bias mitigation, Explainability (XAI), and AI Alignment.</div>
+                </div>
+            </a>
+
+            <a href="phase_19/index.html" class="curriculum-card">
+                <div class="card-image img-p19"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 19</span>
+                    <div class="card-title">Capstone Projects</div>
+                    <div class="card-description">End-to-End system design and portfolio implementation.</div>
+                </div>
+            </a>
+
+            <a href="phase_20/index.html" class="curriculum-card">
+                <div class="card-image img-p20"></div>
+                <div class="card-content">
+                    <span class="card-number">Phase 20</span>
+                    <div class="card-title">Community & Growth</div>
+                    <div class="card-description">Contributing to Open Source and Continuous Learning.</div>
+                </div>
+            </a>
+
+        </div>
+        </div>
+    </main>
+    
+    <!-- Footer with horizontal layout -->
+    <footer class="main-footer">
         <div class="footer-content">
-            <span class="footer-brand">AI/ML Engineering Hub</span>
-            <span class="footer-tagline">Architecting the future of intelligence.</span>
-            &copy; 2026 Kayam Sai Krishna. All rights reserved.
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#curriculum">Curriculum</a>
+                <a href="#resources">Resources</a>
+                <a href="#projects">Projects</a>
+                <a href="#community">Community</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kayam Sai Krishna. All rights reserved.</p>
+                <p style="margin-top: 0.5rem;">Architecting the future of intelligence.</p>
+            </div>
         </div>
     </footer>
 

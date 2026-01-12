@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.01 Null & Alternative Hypothesis - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_01_null_alt_hypothesis.html" class="nav-link active">01. Null &
+                                Alt Hypothesis</a></li>
+                        <li class="nav-item"><a href="25_02_test_stat_crit_val.html" class="nav-link">02. Test Stat Crit
+                                Val</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Scientific Method</span>
+                </div>
+                <h1>Null & Alternative Hypothesis</h1>
+                <p class="lead-text">Setting the stage for a statistical "trial" where we decide which explanation for
+                    the data is more likely.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Philosophical Stance</h3>
+                    <p>
+                        In Statistics, we start by assuming the "boring" explanation is true. We only change our minds
+                        if the evidence (data) is overwhelmingly against it.
+                    </p>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Null Hypothesis (\(H_0\))</h4>
+                        <ul>
+                            <li>The "Status Quo" or "Boring" view.</li>
+                            <li>Assumes <strong>no effect</strong>, <strong>no difference</strong>, or <strong>no change</strong>.</li>
+                            <li>Example: "The new model is NOT better than the old one."</li>
+                            <li>Symbol: \(H_0: \mu_1 = \mu_2\)</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Alternative Hypothesis (\(H_a\) or \(H_1\))</h4>
+                        <ul>
+                            <li>The researcher's claim or "Exciting" view.</li>
+                            <li>Assumes there <strong>is</strong> an effect or difference.</li>
+                            <li>Example: "The new model IS better than the old one."</li>
+                            <li>Symbol: \(H_1: \mu_1 \neq \mu_2\) (or \(>\) or \(<\)).< /li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>1. The Two Outcomes</h2>
+                <div class="warning-box">
+                    <strong>IMPORTANT TERMINOLOGY:</strong>
+                    Statisticians never say they "Accept the Null Hypothesis".
+                    <br><br>
+                    You only have two valid conclusions:
+                    <ol>
+                        <li><strong>Reject the Null:</strong> We found enough evidence for the Alternative.</li>
+                        <li><strong>Fail to Reject the Null:</strong> We didn't find enough evidence to change our minds. (This
+                            doesn't mean the Null is true, just that we haven't proven it's false).</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Model Testing</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Research</span>
+                    <span class="ml-badge">Evaluation</span>
+                    <h3>The Innovation Barrier</h3>
+                    <p>
+                        When a PhD student claims a new neural architecture is faster than the SOTA (State of the Art):
+                    </p>
+                    <ul>
+                        <li>\(H_0\): The mean inference time of New Arch \(\ge\) Mean inference time of SOTA.</li>
+                        <li>\(H_a\): The mean inference time of New Arch \(<\) Mean inference time of SOTA.</li>
+                    </ul>
+                    <p>
+                        The burden of proof is on the student. If the data is only <em>slightly</em> faster, they "Fail
+                        to Reject the Null"—the difference might just be random noise in the GPU hardware.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Workflow of a Test</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A["State H0 and Ha"] --> B["Choose Significance Level (Alpha)"]
+                        B --> C["Collect Data & Compute Test Statistic"]
+                        C --> D["Calculate P-Value"]
+                        D --> E{"P-Value &lt; Alpha?"} E -->|Yes| F["Reject H0 (Significant)"]
+                            E -->|No| G["Fail to Reject H0 (Not Significant)"]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

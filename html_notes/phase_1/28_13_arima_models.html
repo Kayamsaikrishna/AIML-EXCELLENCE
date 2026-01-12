@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.13 ARIMA Models - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.13 Time Series Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_12_acf_pacf_autocorrelation.html" class="nav-link">12. ACF/PACF
+                                & Autocorrelation</a></li>
+                        <li class="nav-item"><a href="28_13_arima_models.html" class="nav-link active">13. ARIMA
+                                Models</a></li>
+                        <li class="nav-item"><a href="28_14_sarima_seasonal.html" class="nav-link">14. SARIMA
+                                (Seasonal)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Forecasting</span>
+                </div>
+                <h1>ARIMA Models</h1>
+                <p class="lead-text">Autoregressive Integrated Moving Average. The "All-in-One" solution for time-series
+                    forecasting.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Modular Forecasting Machine</h3>
+                    <p>
+                        ARIMA is not one model; it is a blend of three separate mathematical components. By tuning its
+                        three parameters <strong>\((p, d, q)\)</strong>, you can model almost any industrial time series.
+                    </p>
+                </div>
+
+                <h2>1. The Three Components</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>AR (Autoregressive) - \(p\)</h4>
+                        <p>Uses the relationship between an observation and a number of lagged observations. <br>
+                            *Equation:* \( Y_t = \phi_1 Y_{t-1} + ... + \epsilon_t \)</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>I (Integrated) - \(d\)</h4>
+                        <p>The number of times the raw observations are differenced to make the series <strong>Stationary</strong>.
+                            <br> (Subtracting previous values from current values).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>MA (Moving Average) - \(q\)</h4>
+                        <p>Uses the dependency between an observation and a residual error from a moving average model
+                            applied to lagged observations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Box-Jenkins Method</h2>
+                <p>How to find the perfect \((p, d, q)\) for your data:</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Plot Data] --> B{Stationary?}
+                        B -- No --> C[Difference Data (d=1 or 2)]
+                        C --> B
+                        B -- Yes --> D[Examine ACF and PACF]
+                        D --> E[Identify p and q]
+                        E --> F[Estimate Parameters]
+                        F --> G[Diagnostic Check (Residuals)]
+                        G --> H[Forecast]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Baseline Benchmarking</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Monitoring</span>
+                    <h3>Why ARIMA is your "Standard"</h3>
+                    <p>
+                        In the world of time series, a simple ARIMA model is surprisingly hard to beat.
+                    </p>
+                    <ul>
+                        <li><strong>The Baseline Rule:</strong> Before you deploy a massive Transformer or an LSTM for forecasting,
+                            you MUST run an ARIMA model. If the Transformer only gives you 1% more accuracy, it's not
+                            worth the technical debt.</li>
+                        <li><strong>Small Data:</strong> ARIMA excels when you have limited data (e.g., only 50 historical points).
+                            Deep Learning models usually fail or overfit in these scenarios.</li>
+                        <li><strong>Explainability:</strong> If a manager asks "Why did the forecast drop?", you can point to the AR
+                            coefficient. You can't do that easily with a Black-Box model.</li>
+                        <li><strong>Hybrid Models:</strong> Some of the most accurate modern systems use <strong>ARIMA-LSTM hybrids</strong>. They
+                            use ARIMA to model the linear part of the signal and the LSTM to model the non-linear
+                            "residual" errors.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Fact:</strong> ARIMA assumes the data is <strong>Linear</strong>. If your data has complex non-linear
+                        swings (like Crypto prices or viral social media trends), ARIMA will often produce a flat
+                        horizontal line for its forecast. That's your cue to switch to Deep Learning.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.01 Functions of Several Variables - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_01_multi_functions.html" class="nav-link active">01. Several
+                                Variables</a></li>
+                        <li class="nav-item"><a href="13_02_multi_domain_limit.html" class="nav-link">02. Domain &
+                                Limits</a></li>
+                        <li class="nav-item"><a href="13_03_level_curves_surfaces.html" class="nav-link">03. Level
+                                Curves</a></li>
+                        <li class="nav-item"><a href="13_04_partial_derivatives.html" class="nav-link">04. Partial
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="13_05_higher_order_partials.html" class="nav-link">05.
+                                Higher-Order Partials</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">High Dimensions</span>
+                </div>
+                <h1>Functions of Several Variables</h1>
+                <p class="lead-text">Welcome to the Hyperspace.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Beyond the Number Line</h3>
+                    <p>
+                        In single-variable calculus, a function \( f(x) \) maps one number to another: \( \mathbb{R} \to
+                        \mathbb{R} \).
+                        In <strong>Multivariable Calculus</strong>, a function maps a vector of inputs to an output:
+                        \[ f: \mathbb{R}^n \to \mathbb{R} \]
+                        or even to another vector:
+                        \[ f: \mathbb{R}^n \to \mathbb{R}^m \]
+                    </p>
+                    <p>
+                        Understanding these mappings is crucial because modern datasets are never just single numbers;
+                        they are rows of data with dozens or thousands of columns (features).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Loss Landscape</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Billion-Dimensional Function</h3>
+                    <p>
+                        A Neural Network is essentially a massive multivariable function:
+                        \[ \mathcal{L}(w_1, w_2, \dots, w_n) \]
+                    </p>
+                    <p>
+                        Here, the inputs aren't \(x\) and \(y\), but the <strong>weights</strong> of the network. If GPT-4 has 1.76
+                        trillion parameters, then its Loss Function is a surface in <strong>1.76 trillion-dimensional space</strong>.
+                        Training the AI means finding the lowest point (valley) on this unimaginably complex surface.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Inputs[Input Features x1, x2...] --> Model[Neural Network f(x; w)]
+                        Weights[Weights w1, w2... w_n] --> Model
+                        Model --> Output[Prediction y_hat]
+                        Output --> Loss[Loss Function L(y, y_hat)]
+                        Loss -->|Backprop| Gradients[Update w]
+
+                        style Weights fill:#f56565,stroke:#c53030
+                        style Loss fill:#ed8936,stroke:#c05621
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Visualizing 3D Landscapes</h2>
+                <div class="code-header">plot_surface.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Define a function of two variables: z = x^2 + y^2 - cos(x*y*5)
+# This creates a "bumpy bowl" shape, similar to non-convex loss functions
+def f(x, y):
+    return 0.5 * (x**2 + y**2) - 0.5 * np.cos(5 * x * y)
+
+x = np.linspace(-2, 2, 100)
+y = np.linspace(-2, 2, 100)
+X, Y = np.meshgrid(x, y)
+Z = f(X, Y)
+
+fig = plt.figure(figsize=(10, 6))
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(X, Y, Z, cmap='plasma', alpha=0.8)
+ax.set_title("Visualizing a Non-Convex Loss Surface")
+plt.show()</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="../index.html" class="footer-link">← Syllabus</a>
+                        <span class="separator">|</span>
+                        <a href="13_02_multi_domain_limit.html" class="footer-link">Next: Domain & Limits →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

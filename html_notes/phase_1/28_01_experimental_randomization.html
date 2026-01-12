@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.01 Experimental Randomization - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.12 Experimental Design</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_01_experimental_randomization.html" class="nav-link active">01.
+                                Experimental Randomization</a></li>
+                        <li class="nav-item"><a href="28_02_factorial_designs.html" class="nav-link">02. Factorial
+                                Designs</a></li>
+                        <li class="nav-item"><a href="28_03_blocking_confounding.html" class="nav-link">03. Blocking &
+                                Confounding</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Causality</span>
+                </div>
+                <h1>Experimental Randomization</h1>
+                <p class="lead-text">The "Great Equalizer". How random assignment turns a messy collection of data into
+                    a scientific proof of causality.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Correlation vs. Causality</h3>
+                    <p>
+                        In observational data, we see patterns. But those patterns are often "noisy" with hidden
+                        variables.
+                        <br><br>
+                        <strong>Randomization</strong> is the process that washes away these hidden variables (Confounders) so that
+                        the ONLY difference between Group A and Group B is the one thing we changed.
+                    </p>
+                </div>
+
+                <h2>1. The Random Assignment Rule</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Random Sampling vs. Random Assignment</h4>
+                        <p><strong>Random Sampling:</strong> Picking who gets to be in the study (Ensures <strong>External Validity</strong> -
+                            generalizes to the world). <br> <strong>Random Assignment:</strong> Deciding who gets the Treatment vs.
+                            the Control (Ensures <strong>Internal Validity</strong> - proves the treatment works).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>The Logic of Balance</h4>
+                        <p>By using a coin flip, we ensure that both groups have the same average age, same average
+                            income, and even same average "hidden" traits (like willpower or genetics).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Process Flow</h2>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Population] --> B[Sample]
+                        B --> C{Randomization}
+                        C --> D[Group A: Treatment]
+                        C --> E[Group B: Control]
+                        D --> F[Measure Outcome]
+                        E --> G[Measure Outcome]
+                        F --> H[Compare Delta]
+                        G --> H
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Randomized Controlled Trials (RCT)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Product ML</span>
+                    <span class="ml-badge">A/B Testing</span>
+                    <h3>The Gold Standard of Feature Launches</h3>
+                    <p>
+                        In Machine Learning, we often assume the data is "given." But in Product Engineering, we
+                        <strong>create</strong> the data through RCTs (A/B Tests).
+                    </p>
+                    <ul>
+                        <li><strong>Selection Bias:</strong> If you only show a "New Premium Filter" to users who are already
+                            spending a lot of time on your app, the filter will look successful. But is it the filter,
+                            or just the fact that they were already heavy users? Randomization solves this.</li>
+                        <li><strong>Washout Periods:</strong> In ML pipelines, randomization ensures that "Model Drift" or "Temporal
+                            Effects" don't skew the results of a new model deployment.</li>
+                        <li><strong>Simulation:</strong> In Reinforcement Learning (RL), randomization (as in <strong>Epsilon-Greedy</strong>) is
+                            essential to explore the environment without getting trapped in a local biased loop.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Statistical Secret:</strong> Randomization doesn't mean the groups will be *identical*. It means the
+                        differences between them are <strong>Random Static</strong>, which allows us to use <strong>Standard Error</strong> to
+                        calculate if the result is "Real" or "Luck".
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

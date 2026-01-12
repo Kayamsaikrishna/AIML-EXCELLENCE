@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.16 Conditional Gaussian Distributions - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_15_multivariate_normal.html" class="nav-link">15. Multivar
+                                Normal</a></li>
+                        <li class="nav-item"><a href="21_16_conditional_gaussian.html" class="nav-link active">16. Cond.
+                                Gaussian</a></li>
+                        <li class="nav-item"><a href="21_17_correlation_causation.html" class="nav-link">17. Corr vs
+                                Causation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Bayesian Update</span>
+                </div>
+                <h1>Conditional Gaussian Distributions</h1>
+                <p class="lead-text">Predicting the unknown based on the known, using the most elegant math in
+                    probability.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Predictive Power of Gaussians</h3>
+                    <p>
+                        If we have a joint Gaussian distribution over two sets of variables, \(\mathbf{x}_1\) and
+                        \(\mathbf{x}_2\), and we observe the value of \(\mathbf{x}_2\), what is our new belief about
+                        \(\mathbf{x}_1\)?
+                        <br><br>
+                        The answer is <strong>another Gaussian</strong>. The mean shifts based on the correlation, and
+                        the variance <em>shrinks</em> because we now have more information.
+                    </p>
+                </div>
+
+                <h2>1. The Schur Complement Formula</h2>
+                <div class="math-box">
+                    Let \(\mathbf{x} = [\mathbf{x}_1, \mathbf{x}_2]^\top \sim \mathcal{N}(\mu, \Sigma)\) with:
+                    $$ \Sigma = \begin{bmatrix} \Sigma_{11} & \Sigma_{12} \\ \Sigma_{21} & \Sigma_{22} \end{bmatrix} $$
+                    The conditional distribution \(P(\mathbf{x}_1 \mid \mathbf{x}_2)\) is Gaussian with:
+                    <ul>
+                        <li><strong>Mean:</strong> \(\mu_{1|2} = \mu_1 + \Sigma_{12}\Sigma_{22}^{-1}(\mathbf{x}_2 -
+                            \mu_2)\)</li>
+                        <li><strong>Covariance:</strong> \(\Sigma_{1|2} = \Sigma_{11} -
+                            \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}\)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Intuition</h2>
+                <ul>
+                    <li><strong>The Mean Shift:</strong> If \(X_1\) and \(X_2\) are highly correlated, seeing a large
+                        values of \(X_2\) "drags" the expected value of \(X_1\) higher.</li>
+                    <li><strong>The Variance Reduction:</strong> Notice that \(\Sigma_{1|2}\) is the original variance
+                        <em>minus</em> a term. Knowledge of \(X_2\) always makes our prediction of \(X_1\) more certain
+                        (or at worst, doesn't change it).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Kalman Filters & Bayesian Regression</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Robotics</span>
+                    <span class="ml-badge">Time Series</span>
+                    <h3>Kalman Filters</h3>
+                    <p>
+                        A Kalman filter tracks the state of a system (like a self-driving car) over time. Every time we
+                        get a sensor reading (observation), we perform a <strong>Conditional Gaussian update</strong>.
+                    </p>
+                    <p>
+                        - <strong>Prediction:</strong> Project the previous state forward (Normal distribution).
+                        <br>
+                        - <strong>Correction:</strong> Condition the prediction on the new measurement.
+                        The formulas above are exactly how a car "merges" its internal movement model with its GPS
+                        readings to find its precise location.
+                    </p>
+                </div>
+
+                <h3>Bayesian Linear Regression</h3>
+                <p>
+                    In Bayesian regression, we treat the weight vector \(\mathbf{w}\) as a random variable. After seeing
+                    training data, we compute the conditional distribution of the weights given the data. This allows
+                    the model to say "I think the slope is 2.5, but I'm ±0.4 certain."
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary Table</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Resulting Distribution</th>
+                            <th>ML Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Marginalization</td>
+                            <td>Gaussian</td>
+                            <td>Ignoring noisy features.</td>
+                        </tr>
+                        <tr>
+                            <td>Conditioning</td>
+                            <td>Gaussian</td>
+                            <td>Making a prediction.</td>
+                        </tr>
+                        <tr>
+                            <td>Linear Combo</td>
+                            <td>Gaussian</td>
+                            <td>Affine layers in NNs.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

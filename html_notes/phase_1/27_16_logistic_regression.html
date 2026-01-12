@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.16 Logistic Regression - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_15_glm_link_functions.html" class="nav-link">15. GLM & Link
+                                Functions</a></li>
+                        <li class="nav-item"><a href="27_16_logistic_regression.html" class="nav-link active">16.
+                                Logistic Regression</a></li>
+                        <li class="nav-item"><a href="27_17_leverage_influence.html" class="nav-link">17. Leverage &
+                                Influence</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Binary Classification</span>
+                </div>
+                <h1>Logistic Regression</h1>
+                <p class="lead-text">Predicting the probability of an event happening. The "S-Curve" that powers
+                    everything from Spam filters to Ad-clicks.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Regression for Labels</h3>
+                    <p>
+                        "Regression" is in the name, but it's used for <strong>Classification</strong>.
+                        <br><br>
+                        Why? Because it first calculates a continuous score (Log-Odds) and then maps it to a probability
+                        between 0 and 1 using the <strong>Sigmoid Function</strong>.
+                    </p>
+                </div>
+
+                <h2>1. The Sigmoid Function</h2>
+                <div class="math-box">
+                    $$ P(Y=1) = \sigma(z) = \frac{1}{1 + e^{-z}} $$
+                    $$ \text{where } z = \beta_0 + \beta_1 X_1 + ... + \beta_p X_p $$
+                </div>
+                <div class="insight-box" style="border-left-color: var(--secondary);">
+                    - If <strong>\(z\)</strong> is very large, \(P\) approaches 1.
+                    - If <strong>\(z\)</strong> is very small (negative), \(P\) approaches 0.
+                    - If <strong>\(z = 0\)</strong>, \(P = 0.5\). This is the <strong>Decision Boundary</strong>.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Interpretability: Log-Odds</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Intuition</h4>
+                        <p>We don't talk about \(P\) directly in the linear part. We talk about <strong>Odds</strong>:
+                            \(\frac{P}{1-P}\).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>The Slope (\(\beta_1\))</h4>
+                        <p>A 1-unit increase in X increases the <strong>Log-Odds</strong> by \(\beta_1\). To get the "Odds Ratio", we
+                            use \(e^{\beta_1}\).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Decision Boundaries</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Foundations</span>
+                    <h3>The simplest Neural Network</h3>
+                    <p>
+                        A Logistic Regression is exactly the same thing as a **Perceptron with a Sigmoid activation
+                        function and Cross-Entropy loss**.
+                    </p>
+                    <ul>
+                        <li><strong>Linear Decision Boundary:</strong> In its raw form, Logistic Regression can only separate classes
+                            with a straight line (Hyperplane). To handle "moons" or "xor" shapes, you need Polynomial
+                            features or Neural Networks.</li>
+                        <li><strong>Calibration:</strong> Unlike SVMs, Logistic Regression gives you **well-calibrated
+                            probabilities**. If the model says 0.8 probability, it actually means 8 out of 10 similar
+                            cases will be positive. This is crucial for medical and financial risk modeling.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Fact:</strong> Logistic Regression doesn't have a closed-form solution like OLS. We use
+                        <strong>Maximum Likelihood Estimation (MLE)</strong> and solve it using <strong>Gradient Descent</strong> or Newton's
+                        Method.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

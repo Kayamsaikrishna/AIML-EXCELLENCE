@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>34.03 Complexity Classes (P, NP, EXP) - Complexity Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.10.1 Complexity Core</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="34_02_space_complexity_mem_bounds.html" class="nav-link">02. Space
+                                Complexity</a></li>
+                        <li class="nav-item"><a href="34_03_complexity_classes_p_np.html" class="nav-link active">03.
+                                Complexity Classes</a></li>
+                        <li class="nav-item"><a href="34_04_np_completeness_reductions.html" class="nav-link">04.
+                                NP-Completeness</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Complexity Theory</span>
+                    <span class="badge secondary">The Hierarchy</span>
+                </div>
+                <h1>Complexity Classes: P, NP & EXP</h1>
+                <p class="lead-text">Sorting the Unsolvable. Categorizing problems based on the resources required to
+                    solve them vs. the resources required to verify a solution.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Decision Problems</h3>
+                    <p>
+                        Complexity theory usually deals with <strong>Decision Problems</strong>—questions with a Yes/No answer. Even
+                        complex AI tasks (like "Find the best weight") can be phrased as a decision ("Is there a weight
+                        set with loss < 0.01?"). </p>
+                </div>
+
+                <h2>1. The Class P (Polynomial Time)</h2>
+                <p>Problems that can be <strong>solved</strong> in polynomial time \(O(n^k)\). These are considered
+                    "tractable" or "efficiently solvable."</p>
+                <div class="example-box">
+                    <ul>
+                        <li>Sorting an array.</li>
+                        <li>Finding the shortest path (Dijkstra).</li>
+                        <li>Matrix multiplication.</li>
+                        <li><strong>AI Inference:</strong> Running a forward pass of a fixed-size neural network.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Class NP (Nondeterministic Polynomial)</h2>
+                <p>Problems where a proposed solution can be <strong>verified</strong> in polynomial time, even if
+                    finding the solution is hard.</p>
+                <div class="math-box">
+                    If P is the set of "Easy to Solve" problems, NP is the set of "Easy to Check" problems.
+                </div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>P vs NP</h4>
+                        <p>The greatest unsolved question in CS: Is every problem that can be verified quickly also
+                            solvable quickly? (Most believe \(P \neq NP\)).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>EXP (Exponential Time)</h4>
+                        <p>Problems that require \(O(2^{n^k})\) to solve. Example: Brute-forcing a 256-bit encryption
+                            key or solving a perfect game of Chess.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Optimization</span>
+                    <span class="ml-badge">LLM</span>
+                    <h3>The Computational Reality of AI</h3>
+                    <ul>
+                        <li><strong>Global Optimization:</strong> Finding the *absolute minimum* loss for a deep neural network is
+                            generally <strong>NP-Hard</strong>. This is why we use Stochastic Gradient Descent (SGD) to find *local*
+                            minima—which is in <strong>P</strong>.</li>
+                        <li><strong>Hyperparameter Search:</strong> Finding the optimal set of parameters from a combinatorial space
+                            is often an <strong>EXP</strong> or <strong>NP</strong> problem. We "approximate" it with Bayesian Optimization or
+                            Random Search.</li>
+                        <li><strong>Constraint Satisfaction:</strong> Many AI logic puzzles are in <strong>NP</strong>. We use heuristics (A*,
+                            branching) to solve them in "reasonable" time despite the theoretical worst-case.</li>
+                        <li><strong>Verification of Proofs:</strong> AI agents like *AlphaProof* or *Lean-based* models operate in
+                            the realm of verification—checking if a mathematical step is valid (P) while searching for
+                            the next step (NP).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Complexity Venn Diagram</h2>
+                <div class="mermaid">
+                    graph TD
+                    EXP[EXP: Hardest]
+                    NP[NP: Easy to Check]
+                    P[P: Easy to Solve]
+                    EXP --- NP
+                    NP --- P
+                    style P fill:#a8e6cf,stroke:#333
+                    style NP fill:#ffd3b6,stroke:#333
+                    style EXP fill:#ff9999,stroke:#333
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">Visualizing the nested
+                    hierarchy of complexity classes (Assumes P != NP != EXP).</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

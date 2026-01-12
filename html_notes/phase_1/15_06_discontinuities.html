@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,78 +9,87 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.1 Limits & Continuity</li>
-            <li><a href="15_05_continuity.html">05. Continuity Def</a></li>
-            <li><a href="15_06_discontinuities.html" class="active">06. Discontinuities</a></li>
-            <li><a href="15_07_ivt.html">07. IVT</a></li>
-            <li class="nav-label">1.2.6 AI/ML Apps</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.1 Limits</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="15_06_discontinuities.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Discontinuities
+            <a href="../index.html">Syllabus</a> &gt; 15_06_discontinuities.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 15_06</div>
             <h1>06. Types of Discontinuities</h1>
-            <p class="subtitle">Where the line breaks.</p>
+            <p class="lead-text">Where the line breaks.</p>
         </header>
 
-        <section>
-            <h2>1. Removable Discontinuity ("Holes")</h2>
-            <p>Occurs when the limit exists but does not equal the function value (or the value is undefined).</p>
-            <div class="math-block">
+        
+
+
+
+<section>
+<h2>1. Removable Discontinuity ("Holes")</h2>
+<p>Occurs when the limit exists but does not equal the function value (or the value is undefined).</p>
+<div class="math-block">
                 $$ f(x) = \frac{x^2 - 1}{x - 1} $$
             </div>
-            <p>At \(x=1\), there is a hole. We can "remove" it by defining \(f(1) = 2\).</p>
-        </section>
-
-        <section>
-            <h2>2. Jump Discontinuity</h2>
-            <p>Occurs when the left-hand and right-hand limits exist but are different.</p>
-            <div class="module-card">
-                <p>Example: **The Step Function** (used in early Perceptrons).</p>
-                <div style="text-align: center;">
-                    <svg width="200" height="100">
-                        <line x1="0" y1="90" x2="100" y2="90" stroke="white" stroke-width="2" />
-                        <line x1="100" y1="90" x2="100" y2="20" stroke="white" stroke-dasharray="2" />
-                        <line x1="100" y1="20" x2="200" y2="20" stroke="var(--accent)" stroke-width="2" />
-                        <circle cx="100" cy="90" r="4" fill="none" stroke="white" />
-                        <circle cx="100" cy="20" r="4" fill="var(--accent)" />
-                    </svg>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>3. Infinite Discontinuity</h2>
-            <p>Occurs when at least one of the one-sided limits is \(\pm \infty\). (Vertical Asymptote).</p>
-        </section>
-
-        <section>
-            <h2>4. AI Insight: Why we hate Jumps</h2>
-            <div class="module-card">
-                <p>The **Relu** activation \(max(0, x)\) is continuous BUT has a "kink" at 0 (discontinuous derivative).
+<p>At \(x=1\), there is a hole. We can "remove" it by defining \(f(1) = 2\).</p>
+</section>
+<section>
+<h2>2. Jump Discontinuity</h2>
+<p>Occurs when the left-hand and right-hand limits exist but are different.</p>
+<div class="module-card">
+<p>Example: <strong>The Step Function</strong> (used in early Perceptrons).</p>
+<div style="text-align: center;">
+<svg height="100" width="200">
+<line stroke="white" stroke-width="2" x1="0" x2="100" y1="90" y2="90"></line>
+<line stroke="white" stroke-dasharray="2" x1="100" x2="100" y1="90" y2="20"></line>
+<line stroke="var(--accent)" stroke-width="2" x1="100" x2="200" y1="20" y2="20"></line>
+<circle cx="100" cy="90" fill="none" r="4" stroke="white"></circle>
+<circle cx="100" cy="20" fill="var(--accent)" r="4"></circle>
+</svg>
+</div>
+</div>
+</section>
+<section>
+<h2>3. Infinite Discontinuity</h2>
+<p>Occurs when at least one of the one-sided limits is \(\pm \infty\). (Vertical Asymptote).</p>
+</section>
+<section>
+<h2>4. AI Insight: Why we hate Jumps</h2>
+<div class="module-card">
+<p>The <strong>Relu</strong> activation \(max(0, x)\) is continuous BUT has a "kink" at 0 (discontinuous derivative).
                     However, jump discontinuities (like the Step function) are far worse because the
-                    gradient is **Zero everywhere** except at the jump, where it is undefined. This "zero-gradient
+                    gradient is <strong>Zero everywhere</strong> except at the jump, where it is undefined. This "zero-gradient
                     problem" effectively kills backpropagation.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>5. Finding Discontinuities with Python</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>5. Finding Discontinuities with Python</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 x = sp.Symbol('x')
 f = (x**2 - 1) / (x - 1)
@@ -91,14 +99,15 @@ problem_pts = sp.solve(sp.denom(f), x)
 
 for pt in problem_pts:
     lim = sp.limit(f, x, pt)
-    print(f"At x={pt}, Limit={lim} -> Removable Hole!")</code></pre>
-            </div>
-        </section>
+    print(f"At x={pt}, Limit={lim} -&gt; Removable Hole!")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
-
 </html>

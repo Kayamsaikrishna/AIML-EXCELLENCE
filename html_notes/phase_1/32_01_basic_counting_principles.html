@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32.01 Basic Counting Principles - Combinatorics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.8.1 Counting Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="32_01_basic_counting_principles.html" class="nav-link active">01.
+                                Basic Counting Principles</a></li>
+                        <li class="nav-item"><a href="32_02_permutations_arrangements.html" class="nav-link">02.
+                                Permutations</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Combinatorics</span>
+                    <span class="badge secondary">Fundamentals</span>
+                </div>
+                <h1>Basic Counting Principles</h1>
+                <p class="lead-text">Counting without Enumerating. The fundamental rules of Sum and Product that allow
+                    us to calculate the size of massive search spaces without ever seeing the individual items.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Combinatorial Explosion</h3>
+                    <p>
+                        In AI, we often deal with search spaces so large they exceed the number of atoms in the
+                        universe. Understanding the rules of counting allows us to reason about the feasibility of an
+                        algorithm before we write a single line of code.
+                    </p>
+                </div>
+
+                <h2>1. The Product Rule (Multiplication Principle)</h2>
+                <p>
+                    If a task can be broken down into a sequence of steps, and there are \(n_1\) ways to do step 1,
+                    \(n_2\) ways to do step 2, and so on... then the total number of ways to complete the task is the
+                    <strong>product</strong>.
+                </p>
+                <div class="math-box">$$ N = n_1 \times n_2 \times ... \times n_k $$</div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> A password consists of 3 lowercase letters followed by 2 digits. How
+                        many possibilities?</p>
+                    <p>Steps: L1(26) × L2(26) × L3(26) × D1(10) × D2(10) = \(26^3 \times 10^2 = 1,757,600\).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Sum Rule (Addition Principle)</h2>
+                <p>
+                    If a task can be done in either of two ways (that cannot be done at the same time), and there are
+                    \(n_1\) ways to do it the first way and \(n_2\) ways to do it the second... the total number of ways
+                    is the <strong>sum</strong>.
+                </p>
+                <div class="math-box">$$ N = n_1 + n_2 $$</div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> A student can choose a project from List A (10 topics) OR List B (15
+                        topics). Total choices = \(10 + 15 = 25\).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Architecture</span>
+                    <h3>Why Counting matters in AI</h3>
+                    <ul>
+                        <li><strong>Parameter Counting:</strong> In a Transformer layer, the number of weights in the query
+                            projection is (Embedding Dimension) × (Head Dimension) × (Number of Heads). This is the
+                            Product Rule in action.</li>
+                        <li><strong>Hyperparameter Search:</strong> If you have 3 choices for learning rate, 4 choices for batch
+                            size, and 2 choices for optimizer... you have \(3 \times 4 \times 2 = 24\) possible
+                            configurations to test (Grid Search).</li>
+                        <li><strong>State Space Complexity:</strong> In games like Chess or Go, the branching factor (number of legal
+                            moves) multiplied by the depth of the game defines the "Game Tree Complexity." We use
+                            counting to prove that brute-force search is impossible, necessitating techniques like
+                            Reinforcement Learning.</li>
+                        <li><strong>Data Augmentation:</strong> If we apply 5 independent augmentations (Rotate, Flip, Crop, Color,
+                            Noise) to an image dataset, we are multiplying our effective dataset size by \(2^5 = 32\).
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Counting Workflow</h2>
+                <div class="mermaid">
+                    graph LR
+                    A{Define Task} --> B[Sequential?]
+                    A --> C[Mutually Exclusive?]
+                    B -- Yes --> D[Product Rule: n₁ × n₂]
+                    C -- Yes --> E[Sum Rule: n₁ + n₂]
+                    D --> F[Total Combinations]
+                    E --> F
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

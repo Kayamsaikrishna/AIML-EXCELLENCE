@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.24 Huffman Coding - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.4 Advanced Concepts</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_22_channel_capacity.html" class="nav-link">22. Channel
+                                Capacity</a></li>
+                        <li class="nav-item"><a href="29_23_source_coding_theorem.html" class="nav-link">23. Source
+                                Coding Theorem</a></li>
+                        <li class="nav-item"><a href="29_24_huffman_coding.html" class="nav-link active">24. Huffman
+                                Coding</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Algorithms</span>
+                    <span class="badge secondary">Greedy</span>
+                </div>
+                <h1>Huffman Coding</h1>
+                <p class="lead-text">Optimal Efficiency. The elegant algorithm that builds a bridge between probability
+                    and data structure, ensuring that frequent events get the shortest descriptions.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Language of the Frequent</h3>
+                    <p>
+                        In common English, 'E' is the most frequent letter. 'Z' is one of the rarest. In a standard
+                        computer code (ASCII), both take 8 bits. Huffman coding says: Let's give 'E' 3 bits and 'Z' 12
+                        bits. On average, the whole book becomes much smaller.
+                    </p>
+                </div>
+
+                <h2>1. The Huffman Algorithm</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Count Frequencies</h4>
+                        <p>Start with a list of all symbols and their probabilities (or frequencies).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Build the Tree</h4>
+                        <p>Repeatedly take the two symbols with the lowest probabilities, merge them into a new node
+                            with their sum, and put it back in the list.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Assign Bits</h4>
+                        <p>Once you have a single root, assign '0' to the left branch and '1' to the right branch. The
+                            path from root to leaf is the symbol's code.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Implementation (Python)</h2>
+                <pre><code class="language-python">import heapq
+from collections import Counter
+
+def huffman_encode(data):
+    # Calculate frequencies
+    freq = Counter(data)
+    # Create priority queue of (freq, symbol)
+    heap = [[f, [s, ""]] for s, f in freq.items()]
+    heapq.heapify(heap)
+
+    while len(heap) > 1:
+        lo = heapq.heappop(heap)
+        hi = heapq.heappop(heap)
+        # Add 0 to low frequency branch, 1 to high
+        for pair in lo[1:]:
+            pair[1] = '0' + pair[1]
+        for pair in hi[1:]:
+            pair[1] = '1' + pair[1]
+        heapq.heappush(heap, [lo[0] + hi[0]] + lo[1:] + hi[1:])
+
+    return sorted(heapq.heappop(heap)[1:], key=lambda p: (len(p[-1]), p))
+
+# Example: "BEEP"
+# Result: {'E': '0', 'B': '10', 'P': '11'}
+</code></pre>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Efficient AI</span>
+                    <span class="ml-badge">Deep Compression</span>
+                    <h3>Why AI Researchers Love Huffman</h3>
+                    <p>
+                        Modern LLMs and Vision models are massive (billions of parameters). Keeping them in RAM is a
+                        nightmare.
+                    </p>
+                    <ul>
+                        <li><strong>Model Weight Compression:</strong> In papers like *Deep Compression* (Han et al.), researchers
+                            first <strong>Prune</strong> the weights, then <strong>Quantize</strong> them into shared values, and finally apply
+                            <strong>Huffman Coding</strong> to the index map. This can shrink a model by 35x-50x with ZERO loss in
+                            accuracy.</li>
+                        <li><strong>Data Preprocessing:</strong> Huffman is a core component of JPEG, MP3, and many other data
+                            formats that supply the raw data for AI models.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Visual Summary</h2>
+                <div class="mermaid">
+                    graph TD
+                    Root((1.0)) --> L((0.6))
+                    Root --> R((0.4))
+                    L -- 0 --> A[Symbol A: p=0.6]
+                    R -- 1 --> RChild((0.4))
+                    RChild -- 10 --> B[Symbol B: p=0.25]
+                    RChild -- 11 --> C[Symbol C: p=0.15]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

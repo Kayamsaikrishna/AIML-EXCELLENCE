@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02.26 Linear Systems - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_25_transpose.html" class="nav-link">25. Transpose</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">26. Linear Systems</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 26. Solving Systems
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 26</div>
+            <h1>The Solver</h1>
+            <p class="lead-text"> \( A\mathbf{x} = \mathbf{b} \). Gaussian Elimination: the algorithm that runs the
+                world.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: ELIMINATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Strategy</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    System["System Ax = b"]
+    
+    subgraph Algorithm
+        RowOps["Row Operations"]
+        Pivot["Pivoting (Swap Rows)"]
+        Elim["Elimination (Make Zeros)"]
+    end
+    
+    subgraph Goal
+        Triangle["Upper Triangle U"]
+        BackSub["Back Substitution"]
+        Solution["Vector x"]
+    end
+    
+    System --> Pivot
+    Pivot --> Elim
+    Elim --> Triangle
+    
+    Triangle --> BackSub
+    BackSub --> Solution
+
+    style Triangle fill:#dcfce7,stroke:#16a34a
+    style Solution fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: ROW OPERATIONS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Gaussian Elimination</h2>
+                <p>To solve a system, we systematically subtract multiples of one row from another to introduce
+                    <strong>Zeros</strong> below the diagonal.</p>
+                <div class="math-block">
+                    $$ \begin{bmatrix} 2 & 1 \\ 4 & 5 \end{bmatrix} \xrightarrow{R_2 - 2R_1} \begin{bmatrix} 2 & 1 \\ 0
+                    & 3 \end{bmatrix} $$
+                </div>
+                <p>This transforms matrix \( A \) into an Upper Triangular matrix \( U \), which is trivial to solve
+                    from bottom to top (Back Substitution).</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: LU DECOMPOSITION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The LU Factorization</h2>
+                <p>In AI libraries (PyTorch, TensorFlow), we usually store the "steps" of elimination as a Lower
+                    Triangular matrix \( L \).</p>
+                <div class="math-block">
+                    $$ A = LU $$
+                </div>
+                <p>This allows us to solve \( A\mathbf{x} = \mathbf{b} \) in two fast steps: \( L\mathbf{c} = \mathbf{b}
+                    \) (Forward) and \( U\mathbf{x} = \mathbf{c} \) (Backward).</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Decomposing A</h2>
+                <p>Using Scipy to factorize a matrix.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import scipy.linalg
+
+# A Matrix
+A = np.array([
+    [2, 1, 1],
+    [4, 3, 3],
+    [8, 7, 9]
+])
+
+# Perform LU Factorization
+P, L, U = scipy.linalg.lu(A)
+
+print("L (Lower Triangle):")
+print(L)
+# 1s on diagonal, multipliers below.
+
+print("\nU (Upper Triangle):")
+print(U)
+# Pivots on diagonal: [8, 3, 2] (Scipy might reorder rows with P)
+
+# Verify Reconstruction
+Reconstructed = P @ L @ U
+print(f"\nMatch? {np.allclose(A, Reconstructed)}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

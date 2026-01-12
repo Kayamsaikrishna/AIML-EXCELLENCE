@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>f-Divergences - Phase 1.5.7.12</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_12_f_divergences.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_12_f_divergences.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_12</div>
+            <h1>12. f-Divergences</h1>
+            <p class="lead-text">The unified family of statistical distances.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Generalized Formula</h2>
+<p><strong>f-Divergence** is a general framework that encompasses many different ways of measuring the
+                    difference between probability distributions. For a convex function $f$, the f-divergence is: </strong></p>
+<div class="math-block">
+                $$ D_f(P || Q) = \int q(x) f\left(\frac{p(x)}{q(x)}\right) dx $$
+            </div>
+<p>By changing the function $f$, we get different "Distances." </p>
+</section>
+<section class="module-card">
+<h2>2. The Famous Relatives</h2>
+<ul class="topic-list">
+<li><strong>$f(t) = t \log t$:</strong> Yields KL Divergence.</li>
+<li><strong>$f(t) = |t - 1| / 2$:</strong> Yields Total Variation Distance.</li>
+<li><strong>$f(t) = (\sqrt{t} - 1)^2$:</strong> Yields Hellinger Distance.</li>
+<li><strong>$f(t) = (t - 1)^2$:</strong> Yields Pearson $\chi^2$ Divergence.</li>
+</ul>
+</section>
+<section>
+<h2>3. AI/ML Connection: f-GANs and Variational Logic</h2>
+<div class="module-card">
+<h3>Pick Your Poison</h3>
+<p>In AI, f-Divergence allows us to customize how a model learns. </p>
+<p>In <strong>f-GAN Architecture**, we replace the standard GAN loss with different f-divergences. For
+                        example, using <strong>Pearson Divergence</strong> makes the GAN more stable in certain high-dimensional
+                        spaces. In <strong>Variational Inference**, choosing Hellinger distance instead of KL can make
+                            the model more robust to outliers because it "Penalizes" differences in a more balanced way.
+                            By understanding the f-divergence family, AI engineers can choose the "Learning Metric" that
+                            best fits the noise profile of their data. It is the toolkit for **Custom Optimization
+                            Objectives**. </strong></strong></p>
+</div>
+</section>
+<section>
+<h2>4. Mathematical Property</h2>
+<p>All f-divergences satisfy the <strong>Data Processing Inequality**: processing our data (e.g., adding
+                    noise or filtering) can never *increase* the f-divergence between two signals. Information, once
+                    lost, cannot be recovered by further calculation. </strong></p>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

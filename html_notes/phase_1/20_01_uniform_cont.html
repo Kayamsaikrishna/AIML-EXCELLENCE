@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.01 Continuous Uniform Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_01_uniform_cont.html" class="nav-link active">01. Uniform
+                                Cont</a></li>
+                        <li class="nav-item"><a href="20_02_normal_dist.html" class="nav-link">02. Normal Dist</a></li>
+                        <li class="nav-item"><a href="20_03_standard_normal.html" class="nav-link">03. Standard
+                                Normal</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Flatland</span>
+                </div>
+                <h1>Continuous Uniform Distribution</h1>
+                <p class="lead-text">Equal probability density across an interval.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Density Paradox</h3>
+                    <p>
+                        In a discrete uniform distribution, every point has a probability. In a continuous uniform
+                        distribution over \([0, 1]\), the probability of choosing exactly \(0.5\) is
+                        <strong>zero</strong>.
+                        <br><br>
+                        Instead, we talk about <strong>Density</strong>. The density is constant, meaning the
+                        probability of landing in any sub-interval depends only on the interval's <em>length</em>.
+                    </p>
+                </div>
+
+                <h2>1. Definition and PDF</h2>
+                <div class="math-box">
+                    A Random Variable \(X\) follows a Continuous Uniform distribution on \([a, b]\):
+                    $$ X \sim \mathcal{U}(a, b) $$
+                    The Probability Density Function (PDF) is:
+                    $$ f(x) = \begin{cases} \frac{1}{b-a} & \text{for } a \le x \le b \\ 0 & \text{otherwise}
+                    \end{cases} $$
+                </div>
+                <p>
+                    <strong>Area Check:</strong> The area under the PDF is a rectangle with width \((b-a)\) and height
+                    \(\frac{1}{b-a}\).
+                    $$\text{Area} = (b-a) \times \frac{1}{b-a} = 1$$
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Cumulative Distribution Function (CDF)</h2>
+                <p>The probability that \(X\) is less than \(x\):</p>
+                $$ F(x) = \begin{cases} 0 & x < a \\ \frac{x-a}{b-a} & a \le x \le b \\ 1 & x> b \end{cases} $$
+                    <p>This is a straight line increasing from 0 to 1.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Moments</h2>
+                <ul>
+                    <li><strong>Mean:</strong> \(E[X] = \frac{a+b}{2}\).</li>
+                    <li><strong>Variance:</strong> \(\text{Var}(X) = \frac{(b-a)^2}{12}\).</li>
+                </ul>
+                <div class="insight-box">
+                    <h3>Why 12?</h3>
+                    <p>
+                        The number 12 in the denominator comes from the integration of \(x^2\) over the interval,
+                        specifically \(\int_{-1/2}^{1/2} x^2 dx = [x^3/3] = 1/24 - (-1/24) = 1/12\). It’s a geometric
+                        property of the square shape.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. ML Connection: Weight Initialization</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Xavier Init</span>
+                    <h3>He and Xavier Initialization</h3>
+                    <p>
+                        When we start training a Neural Network, we cannot set all weights to zero (Symmetry breaking
+                        problem). We often initialize them with values from a Uniform Distribution.
+                    </p>
+                    <p>
+                        <strong>Xavier Uniform Initialization:</strong>
+                        $$ W \sim \mathcal{U}\left(-\frac{\sqrt{6}}{\sqrt{n_{in} + n_{out}}},
+                        \frac{\sqrt{6}}{\sqrt{n_{in} + n_{out}}}\right) $$
+                        The bounds are specifically chosen so that the variance of the output of the layer matches the
+                        variance of the input, preventing gradients from exploding or vanishing.
+                    </p>
+                </div>
+
+                <h3>Data Augmentation</h3>
+                <p>
+                    In Computer Vision, we often rotate images by a random angle \(\theta \sim \mathcal{U}(-15^\circ,
+                    15^\circ)\). This assumes we have no prior belief that some rotations are more likely than others
+                    within that range.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>5. The Fundamental Theorem of Simulation</h2>
+                <p>
+                    Almost every "random" number generated by a computer starts as a \(\mathcal{U}(0, 1)\) draw.
+                </p>
+                <div class="math-box">
+                    If \(U \sim \mathcal{U}(0, 1)\), and \(F\) is a desired CDF, then \(X = F^{-1}(U)\) has CDF \(F\).
+                </div>
+                <p>This is called <strong>Inverse Transform Sampling</strong>. It allows us to turn a flat uniform
+                    distribution into any complex distribution (Normal, Exponential, etc.) we want.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

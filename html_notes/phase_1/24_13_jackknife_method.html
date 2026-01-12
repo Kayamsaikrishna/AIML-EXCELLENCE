@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.13 The Jackknife Method - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_12_bootstrap_confidence_intervals.html" class="nav-link">12.
+                                Bootstrap CI</a></li>
+                        <li class="nav-item"><a href="24_13_jackknife_method.html" class="nav-link active">13. Jackknife
+                                Method</a></li>
+                        <li class="nav-item"><a href="24_14_standard_errors_bootstrap.html" class="nav-link">14.
+                                Standard Errors Bootstrap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Leave-One-Out</span>
+                </div>
+                <h1>The Jackknife Method</h1>
+                <p class="lead-text">Estimating bias and variance by iteratively removing one data point at a time.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Pre-Bootstrap Tool</h3>
+                    <p>
+                        The Jackknife was created in the 1940s-50s (by Quenouille and Tukey). It is like the Bootstrap's
+                        older, deterministic cousin. Instead of random resampling, it is a systematic "Leave-One-Out"
+                        process.
+                    </p>
+                </div>
+
+                <h2>1. The Process</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Dataset n] --> B[n-1 items Leave out X1]
+                        A --> C[n-1 items Leave out X2]
+                        A --> D[...]
+                        A --> E[n-1 items Leave out Xn]
+                        B & C & D & E --> F[Calculate Statistics]
+                        F --> G[Estimate Bias and Variance]
+                    </div>
+                </div>
+                <p>
+                    Because it's deterministic, you always get the same answer. There is no "random seed" in a
+                    Jackknife.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Jackknife vs. Bootstrap</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Jackknife</th>
+                            <th>Bootstrap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nature</td>
+                            <td>Deterministic (\(n\) samples)</td>
+                            <td>Random (Thousands of samples)</td>
+                        </tr>
+                        <tr>
+                            <td>Primary Use</td>
+                            <td><strong>Bias Reduction</strong></td>
+                            <td>Standard Error / CIs</td>
+                        </tr>
+                        <tr>
+                            <td>Computational</td>
+                            <td>Very fast for small \(n\)</td>
+                            <td>Scaled by iteration count</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: influence Functions</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Robustness</span>
+                    <span class="ml-badge">Interpretability</span>
+                    <h3>Which data point is "Breaking" my model?</h3>
+                    <p>
+                        In modern ML research, we use <strong>Influence Functions</strong> to identify specific training examples
+                        that are responsible for a model's prediction.
+                    </p>
+                    <p>
+                        This is effectively a <strong>Jackknife</strong> for a Neural Network! By approximating what would happen if
+                        we "Leave out" a specific image of a dog from the training set, we can calculate its
+                        <em>Influence</em> on the model's final weights.
+                    </p>
+                    <p>
+                        If the model's performance drastically changes when one specific data point is removed, that
+                        point is "Influential" (and possibly an outlier or a labeling error).
+                    </p>
+                </div>
+
+                <h3>LOOCV (Leave-One-Out Cross-Validation)</h3>
+                <p>
+                    LOOCV is the Jackknife method applied to model validation. It is the most unbiased way to estimate
+                    test error, though it is computationally expensive for large models.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

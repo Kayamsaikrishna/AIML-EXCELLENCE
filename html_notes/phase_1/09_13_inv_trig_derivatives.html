@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.13 Inverse Trig Derivatives - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_10_trig_derivatives.html" class="nav-link">10. Trig
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_11_exp_derivatives.html" class="nav-link">11. Exponential
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_12_log_derivatives.html" class="nav-link">12. Logarithmic
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_13_inv_trig_derivatives.html" class="nav-link active">13.
+                                Inverse Trig</a></li>
+                        <li class="nav-item"><a href="09_14_hyperbolic_derivatives.html" class="nav-link">14. Hyperbolic
+                                (Tanh)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Inversion</span>
+                </div>
+                <h1>Inverse Trig Derivatives</h1>
+                <p class="lead-text">From angles to ratios, and back again. The derivatives turn trigonometry into
+                    algebra.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Algebraic Surprise</h3>
+                    <p>
+                        The derivative of \(\arcsin(x)\) has no trig functions in it. It's purely algebraic:
+                        \(\frac{1}{\sqrt{1-x^2}}\). This happens because of the Pythagorean identity \(sin^2 + cos^2 =
+                        1\).
+                    </p>
+                </div>
+
+                <h2>1. The Big Three</h2>
+                <div class="grid-2x2">
+                    <div class="glass-card">
+                        <h3>Arcsine</h3>
+                        <p>\( \frac{d}{dx}[\arcsin x] = \frac{1}{\sqrt{1-x^2}} \)</p>
+                        <p class="text-sm text-gray-400">Defined only for \(x \in (-1, 1)\)</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Arccosine</h3>
+                        <p>\( \frac{d}{dx}[\arccos x] = \frac{-1}{\sqrt{1-x^2}} \)</p>
+                        <p class="text-sm text-gray-400">Negative of Arcsine</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Arctangent</h3>
+                        <p>\( \frac{d}{dx}[\arctan x] = \frac{1}{1+x^2} \)</p>
+                        <p class="text-sm text-gray-400">Defined for ALL x. Super smooth.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Arc-Co-Functions</h3>
+                        <p>Just add a negative sign to their partners.</p>
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Triangle[Right Triangle hyp=1]
+                        Side[Opposite Side = x]
+                        Angle[Angle = Arcsin x]
+
+                        Triangle --> Side
+                        Triangle --> Angle
+
+                        Side --> Path1[Using Pythagoras: Adj = sqrt 1-x^2]
+                        Angle --> Path2[Derivative involves Secant]
+
+                        Path1 --> Result[Result: 1/sqrt 1-x^2]
+                        Path2 --> Result
+
+                        style Result fill:#f6e05e,stroke:#d69e2e,color:black
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Regression of Angles</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why we love Arctan</h3>
+                    <p>
+                        In Computer Vision (e.g., predicting the rotation of a car in an image), we need to predict an
+                        angle.
+                    </p>
+                    <ul>
+                        <li><strong>Arcsine/Arccosine</strong>: Dangerous. If the model outputs \(1.0001\) (just
+                            slightly out of bounds), the derivative becomes imaginary or undefined (division by zero at
+                            edges). This causes "NaN" (Not a Number) errors to kill your training run.</li>
+                        <li><strong>Arctangent</strong>: Safe. It accepts any real number input \((-\infty, \infty)\)
+                            and maps it to \((-\pi/2, \pi/2)\). Its derivative \(\frac{1}{1+x^2}\) is a beautiful "bell
+                            curve" (Cauchy distribution) that is always finite and positive.</li>
+                    </ul>
+                    <p>
+                        Therefore, we generally use \(\arctan(y/x)\) (or the `atan2` variant) when building loss
+                        functions for angles.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: The Safe Derivative</h2>
+                <div class="code-header">arctan_stability.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def arcsin_deriv(x):
+    # DANGEROUS: Division by zero at x=1 or x=-1
+    if abs(x) >= 1:
+        return float('nan')
+    return 1 / np.sqrt(1 - x**2)
+
+def arctan_deriv(x):
+    # SAFE: Defined everywhere
+    return 1 / (1 + x**2)
+
+# Test at the "Edge of Sanity"
+x_edge = 0.9999
+print(f"Arcsin Deriv at {x_edge}: {arcsin_deriv(x_edge):.4f} (Huge!)")
+print(f"Arctan Deriv at {x_edge}: {arctan_deriv(x_edge):.4f} (Reasonable)")
+
+x_out = 5.0
+print(f"Arcsin Deriv at {x_out}: {arcsin_deriv(x_out)}")  # NaN
+print(f"Arctan Deriv at {x_out}: {arctan_deriv(x_out):.4f}") # 0.0385 (Stable)
+
+print("\nConclusion: Use Arctan for robust angle regression.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_12_log_derivatives.html" class="footer-link">← Prev: Log Derivatives</a>
+                        <span class="separator">|</span>
+                        <a href="09_14_hyperbolic_derivatives.html" class="footer-link">Next: Hyperbolic (Tanh) →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

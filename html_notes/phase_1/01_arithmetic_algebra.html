@@ -1,188 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1.1 Arithmetic & Algebra - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Optional: Add MathJax for rendering math formulas if needed in future, using simple HTML entities for now -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
-                        <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">? Dashboard</a></li>
-            <li style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">1.1 Arithmetic & Algebra</li>
-            
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-            
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-            
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-            
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-            
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-            
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-            
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-            
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
-            <li style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_arithmetic_algebra.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../index.html">Home</a> &gt; <a href="index.html">Phase 1: Mathematical Foundations</a> &gt; 1.1
-            Arithmetic & Algebra
+            <a href="../index.html">Syllabus</a> &gt; 01_arithmetic_algebra.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 01_ar</div>
             <h1>1.1 Arithmetic & Algebra</h1>
-            <p>The fundamental building blocks of mathematical logic. While often overlooked, these concepts form the
+            <p class="lead-text">The fundamental building blocks of mathematical logic. While often overlooked, these concepts form the
                 basis for data representation, loss functions, and model complexity.</p>
         </header>
 
-        <!-- NUMBER SYSTEMS -->
-        <section id="number-systems">
-            <h2>Number Systems</h2>
-            <div class="concept-block">
-                <h3 class="concept-title">Definitions</h3>
-                <ul>
-                    <li><strong>Natural Numbers (\(\mathbb{N}\)):</strong> Counting numbers {1, 2, 3...}. Used for
+        
+
+
+
+
+ NUMBER SYSTEMS 
+<section id="number-systems">
+<h2>Number Systems</h2>
+<div class="concept-block">
+<h3 class="concept-title">Definitions</h3>
+<ul>
+<li><strong>Natural Numbers (\(\mathbb{N}\)):</strong> Counting numbers {1, 2, 3...}. Used for
                         indices and epochs.</li>
-                    <li><strong>Integers (\(\mathbb{Z}\)):</strong> Whole numbers including negative {..., -2, -1, 0, 1,
+<li><strong>Integers (\(\mathbb{Z}\)):</strong> Whole numbers including negative {..., -2, -1, 0, 1,
                         2...}. Used for discrete labels.</li>
-                    <li><strong>Rational Numbers (\(\mathbb{Q}\)):</strong> Fractions p/q.</li>
-                    <li><strong>Real Numbers (\(\mathbb{R}\)):</strong> Include irrationals (pi, e). Represents
+<li><strong>Rational Numbers (\(\mathbb{Q}\)):</strong> Fractions p/q.</li>
+<li><strong>Real Numbers (\(\mathbb{R}\)):</strong> Include irrationals (pi, e). Represents
                         continuous data (weights, gradients).</li>
-                    <li><strong>Complex Numbers (\(\mathbb{C}\)):</strong> a + bi. Used in Fourier Transforms and signal
+<li><strong>Complex Numbers (\(\mathbb{C}\)):</strong> a + bi. Used in Fourier Transforms and signal
                         processing.</li>
-                </ul>
-                <div class="math-block">
+</ul>
+<div class="math-block">
                     \(\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}\)
                 </div>
-            </div>
-
-            <div class="real-world-box">
-                <h4 class="real-world-title">AI/ML Application: Data Types & Tensors</h4>
-                <p>In Machine Learning frameworks like PyTorch or TensorFlow, choosing the right number system is
+</div>
+<div class="real-world-box">
+<h4 class="real-world-title">AI/ML Application: Data Types &amp; Tensors</h4>
+<p>In Machine Learning frameworks like PyTorch or TensorFlow, choosing the right number system is
                     critical for memory and precision.</p>
-                <ul>
-                    <li><strong>Integers (int8, int64):</strong> Used for classification labels (0 = Cat, 1 = Dog).</li>
-                    <li><strong>Real Numbers (float32, float16):</strong> Used for Neural Network weights. "Float16"
+<ul>
+<li><strong>Integers (int8, int64):</strong> Used for classification labels (0 = Cat, 1 = Dog).</li>
+<li><strong>Real Numbers (float32, float16):</strong> Used for Neural Network weights. "Float16"
                         (half-precision) is heavily used in Large Language Models (LLMs) to reduce memory usage without
                         losing significant accuracy.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- EQUATIONS & INEQUALITIES -->
-        <section id="equations">
-            <h2>Linear Equations & Inequalities</h2>
-            <div class="concept-block">
-                <h3 class="concept-title">Linear Equations</h3>
-                <p>An equation of the form \(y = mx + b\).</p>
-                <ul>
-                    <li><strong>Slope (m):</strong> Rate of change.</li>
-                    <li><strong>Intercept (b):</strong> Value when x is 0.</li>
-                </ul>
-            </div>
-
-            <div class="concept-block">
-                <h3 class="concept-title">Inequalities & Absolute Value</h3>
-                <p>Absolute value \(|x|\) measures distance from zero. Inequalities describe regions.</p>
-            </div>
-
-            <div class="real-world-box">
-                <h4 class="real-world-title">AI/ML Application: Linear Regression & SVMs</h4>
-                <p><strong>Linear Regression:</strong> The simplest ML model is literally fitting a linear equation \(y
+</ul>
+</div>
+</section>
+ EQUATIONS & INEQUALITIES 
+<section id="equations">
+<h2>Linear Equations &amp; Inequalities</h2>
+<div class="concept-block">
+<h3 class="concept-title">Linear Equations</h3>
+<p>An equation of the form \(y = mx + b\).</p>
+<ul>
+<li><strong>Slope (m):</strong> Rate of change.</li>
+<li><strong>Intercept (b):</strong> Value when x is 0.</li>
+</ul>
+</div>
+<div class="concept-block">
+<h3 class="concept-title">Inequalities &amp; Absolute Value</h3>
+<p>Absolute value \(|x|\) measures distance from zero. Inequalities describe regions.</p>
+</div>
+<div class="real-world-box">
+<h4 class="real-world-title">AI/ML Application: Linear Regression &amp; SVMs</h4>
+<p><strong>Linear Regression:</strong> The simplest ML model is literally fitting a linear equation \(y
                     = w \cdot x + b\) to data to find the best slope (weight) and intercept (bias).</p>
-                <p><strong>Constraints:</strong> Inequalities are used in optimization constraints (e.g., \( \sum p_i =
+<p><strong>Constraints:</strong> Inequalities are used in optimization constraints (e.g., \( \sum p_i =
                     1 \) for probabilities).</p>
-                <p><strong>L1 Regularization:</strong> Uses the absolute value of weights (\(|w|\)) to force some
+<p><strong>L1 Regularization:</strong> Uses the absolute value of weights (\(|w|\)) to force some
                     feature weights to become exactly zero, effectively doing feature selection.</p>
-            </div>
-        </section>
-
-        <!-- EXPONENTIALS & LOGS -->
-        <section id="exponentials-logs">
-            <h2>Exponentials & Logarithms</h2>
-            <div class="concept-block">
-                <h3 class="concept-title">Concepts</h3>
-                <p><strong>Exponential Growth (\(e^x\)):</strong> Rate of growth proportional to current value.</p>
-                <p><strong>Logarithms (\(\log_b x\)):</strong> The inverse of exponentiation. "To what power must b be
+</div>
+</section>
+ EXPONENTIALS & LOGS 
+<section id="exponentials-logs">
+<h2>Exponentials &amp; Logarithms</h2>
+<div class="concept-block">
+<h3 class="concept-title">Concepts</h3>
+<p><strong>Exponential Growth (\(e^x\)):</strong> Rate of growth proportional to current value.</p>
+<p><strong>Logarithms (\(\log_b x\)):</strong> The inverse of exponentiation. "To what power must b be
                     raised to get x?"</p>
-                <div class="math-block">
-                    \(\ln(e^x) = x\) <br>
+<div class="math-block">
+                    \(\ln(e^x) = x\) <br/>
                     \(\log(ab) = \log a + \log b\) (Turns multiplication into addition)
                 </div>
-            </div>
-
-            <div class="real-world-box">
-                <h4 class="real-world-title">AI/ML Application: Log-Likelihood & Cross-Entropy</h4>
-                <p><strong>Log-Likelihood:</strong> Probabilities are often tiny numbers (e.g., 0.00001). Multiplying
+</div>
+<div class="real-world-box">
+<h4 class="real-world-title">AI/ML Application: Log-Likelihood &amp; Cross-Entropy</h4>
+<p><strong>Log-Likelihood:</strong> Probabilities are often tiny numbers (e.g., 0.00001). Multiplying
                     many tiny probabilities causes "numerical underflow" (computer rounds to 0). By taking the Log, we
                     turn multiplication into addition, keeping numbers manageable.</p>
-                <p><strong>Softmax & Cross-Entropy:</strong> Deep learning classification losses heavily rely on \(-\sum
+<p><strong>Softmax &amp; Cross-Entropy:</strong> Deep learning classification losses heavily rely on \(-\sum
                     y \cdot \log(\hat{y})\).</p>
-            </div>
-        </section>
-
-        <!-- FUNCTIONS -->
-        <section id="functions">
-            <h2>Functions</h2>
-            <div class="concept-block">
-                <h3 class="concept-title">Definitions</h3>
-                <p>A mapping from a Domain (inputs) to a Range (outputs). \(f(x) \rightarrow y\).</p>
-                <ul>
-                    <li><strong>Composition:</strong> \(f(g(x))\) - chaining functions.</li>
-                    <li><strong>Inverse:</strong> \(f^{-1}(y) = x\) - undoing a function.</li>
-                </ul>
-            </div>
-
-            <div class="real-world-box">
-                <h4 class="real-world-title">AI/ML Application: Neural Networks as Universal Function Approximators</h4>
-                <p><strong>Composition:</strong> A Deep Neural Network is essentially a giant composite function: \( y =
+</div>
+</section>
+ FUNCTIONS 
+<section id="functions">
+<h2>Functions</h2>
+<div class="concept-block">
+<h3 class="concept-title">Definitions</h3>
+<p>A mapping from a Domain (inputs) to a Range (outputs). \(f(x) \rightarrow y\).</p>
+<ul>
+<li><strong>Composition:</strong> \(f(g(x))\) - chaining functions.</li>
+<li><strong>Inverse:</strong> \(f^{-1}(y) = x\) - undoing a function.</li>
+</ul>
+</div>
+<div class="real-world-box">
+<h4 class="real-world-title">AI/ML Application: Neural Networks as Universal Function Approximators</h4>
+<p><strong>Composition:</strong> A Deep Neural Network is essentially a giant composite function: \( y =
                     f_3(f_2(f_1(x))) \), where each layer is a function.</p>
-                <p><strong>Activation Functions:</strong> Non-linear functions (ReLU, Sigmoid) applied to outputs to
+<p><strong>Activation Functions:</strong> Non-linear functions (ReLU, Sigmoid) applied to outputs to
                     allow the network to learn complex patterns.</p>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
 
         <footer>
             <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
         </footer>
     </main>
 </body>
-
 </html>
-
-
-
-

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.14 Standard Errors via Bootstrap - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_13_jackknife_method.html" class="nav-link">13. Jackknife
+                                Method</a></li>
+                        <li class="nav-item"><a href="24_14_standard_errors_bootstrap.html" class="nav-link active">14.
+                                Standard Errors Bootstrap</a></li>
+                        <li class="nav-item"><a href="24_15_bias_correction_bootstrap.html" class="nav-link">15. Bias
+                                Correction Bootstrap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Software Stability</span>
+                </div>
+                <h1>Standard Errors via Bootstrap</h1>
+                <p class="lead-text">Using code to calculate the "wiggle room" of any algorithm, no matter how complex.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The End of Calculus?</h3>
+                    <p>
+                        In classic stats, to find the Standard Error of a complex estimator, you had to perform heavy
+                        calculus (Delta Method).
+                        <br><br>
+                        With <strong>Bootstrap Standard Error</strong>, you just run your algorithm 500 times on different resamples
+                        and calculate the Standard Deviation of the outputs.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    $$ SE_{boot} = \sqrt{\frac{1}{B-1} \sum_{b=1}^{B} (\hat{\theta}_b^* - \bar{\hat{\theta}}^*)^2} $$
+                </div>
+                <ul>
+                    <li>\(B\): Number of Bootstrap resamples.</li>
+                    <li>\(\hat{\theta}_b^*\): The statistic calculated from resample \(b\).</li>
+                    <li>\(\bar{\hat{\theta}}^*\): The average of all bootstrap statistics.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Feature Selection Stability</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Interpretability</span>
+                    <h3>Are these features actually important?</h3>
+                    <p>
+                        Imagine you run a Lasso Regression and it says Feature A's weight is 5.0.
+                        Is that 5.0 stable? If you had a different dataset, would it be 0.0?
+                    </p>
+                    <p>
+                        <strong>The Bootstrap Test:</strong>
+                        1. Generate 200 bootstrap versions of your training data.
+                        2. Train the model on each.
+                        3. Record the weight of Feature A for each.
+                        4. Calculate the <strong>Bootstrap Standard Error</strong>.
+                    </p>
+                    <p>
+                        If the weight is 5.0 and the SE is 0.5, the feature is highly reliable. If the weight is 5.0 and
+                        the SE is 6.0, the feature's importance is just a fluke of your specific dataset—it's not a real
+                        signal!
+                    </p>
+                </div>
+
+                <h3>Model Sensitivity</h3>
+                <p>
+                    This is often used for calculating the Standard Error of <strong>Hyperparameters</strong> or the stability of
+                    <strong>Cluster Centroids</strong> in K-Means.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

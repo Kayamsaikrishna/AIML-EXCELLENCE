@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.01 Loss Optimization - Calculus for ML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.9 Calculus for ML</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="16_01_loss_optimization.html" class="nav-link active">01. Loss
+                                Optimization</a></li>
+                        <li class="nav-item"><a href="16_04_neural_chain_rule.html" class="nav-link">04. Neural Chain
+                                Rule</a></li>
+                        <li class="nav-item"><a href="16_07_numerical_diff.html" class="nav-link">07. Numerical Diff</a>
+                        </li>
+                        <li class="nav-item"><a href="16_08_automatic_diff.html" class="nav-link">08. Autodiff
+                                Basics</a></li>
+                        <li class="nav-item"><a href="16_09_comp_graphs.html" class="nav-link">09. Comp Graphs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">ML Calc 1.9</span>
+                    <span class="badge secondary">The Objective</span>
+                </div>
+                <h1>Loss Optimization</h1>
+                <p class="lead-text">Defining what "Learning" actually means mathematically.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Error Landscape</h3>
+                    <p>
+                        In Machine Learning, we define a "Loss Function" \(J(\theta)\) (or \(L(\mathbf{w})\)) that
+                        measures how bad our model is.
+                        Optimization is simply the process of finding the parameters \(\theta\) that minimize this loss:
+                        \[ \theta^* = \arg\min_{\theta} J(\theta) \]
+                    </p>
+                    <p>
+                        This turns a vague problem ("make a good AI") into a pure calculus problem ("find the minimum of
+                        this high-dimensional surface").
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Common Loss Functions</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Regression vs Classification</h3>
+                    <ul>
+                        <li><strong>MSE (Mean Squared Error):</strong> Convex. Used for Regression. \( (y - \hat{y})^2
+                            \). Like a bowl.</li>
+                        <li><strong>Cross-Entropy (Log Loss):</strong> Convex (for Logistic Regression) but Non-Convex
+                            for Neural Nets. Used for Classification. \( -y \log(\hat{y}) \).</li>
+                    </ul>
+                    <p>
+                        Understanding the geometry of these functions helps us choose the right optimizer. MSE is
+                        sensitive to outliers (squaring makes big errors huge), while MAE (Absolute Error) is more
+                        robust.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Visualizing MSE vs MAE</h2>
+                <div class="code-header">loss_viz.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-3, 3, 100)
+mse = x**2
+mae = np.abs(x)
+
+plt.figure(figsize=(8, 5))
+plt.plot(x, mse, label="MSE (Quadratic)", linewidth=2)
+plt.plot(x, mae, label="MAE (Absolute)", linewidth=2, linestyle="--")
+plt.title("Impact of Errors")
+plt.xlabel("Error (Residual)")
+plt.ylabel("Loss Penalty")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+
+# Notice how MSE punishes large errors much more severely than MAE.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="../index.html" class="footer-link">← Syllabus</a>
+                        <span class="separator">|</span>
+                        <a href="16_04_neural_chain_rule.html" class="footer-link">Next: Neural Chain Rule →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.13 Absolute & Conditional Convergence - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_11_integral_test.html" class="nav-link">11. Integral Test</a>
+                        </li>
+                        <li class="nav-item"><a href="12_12_alternating_series.html" class="nav-link">12. Alternating
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_13_abs_cond_convergence.html" class="nav-link active">13. Abs &
+                                Cond Conv</a></li>
+                        <li class="nav-item"><a href="12_14_power_series.html" class="nav-link">14. Power Series</a>
+                        </li>
+                        <li class="nav-item"><a href="12_15_radius_interval.html" class="nav-link">15. Radius &
+                                Interval</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Stability</span>
+                </div>
+                <h1>Absolute vs Conditional Convergence</h1>
+                <p class="lead-text">Does the order of ingredients matter?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Gold Standard</h3>
+                    <ul>
+                        <li><strong>Absolute Convergence:</strong> The series converges even if you make every term
+                            positive (\(\sum |a_n|\)). This is "Robust Convergence".</li>
+                        <li><strong>Conditional Convergence:</strong> The series converges only because of the
+                            cancelling signs. If you took absolute values, it would explode.</li>
+                    </ul>
+                    <p>
+                        <strong>Riemann's Rearrangement Theorem:</strong> If a series is only conditionally convergent,
+                        you can rearrange the terms to make it sum to <i>any number you want</i>! Absolute convergence
+                        guarantees the sum is unique regardless of order.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Permutation Invariance</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Set-Based Learning</h3>
+                    <p>
+                        In modern AI architectures like <strong>Transformers</strong> or <strong>PointNets</strong> (for 3D data), the input is
+                        often a set of items where order shouldn't matter (e.g., a bag of words).
+                        We want the model to be <strong>Permutation Invariant</strong>.
+                    </p>
+                    <p>
+                        This maps mathematically to <strong>Absolute Convergence</strong>. If our aggregation functions (like Sum
+                        Pooling) relied on Conditional Convergence, then shuffling the input data would change the
+                        output result entirely, making the model unstable and useless. We design neural aggregators to
+                        be absolutely convergent (usually by using symmetric functions) to ensure consistency.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Breaking Math by Reordering</h2>
+                <div class="code-header">rearrangement_chaos.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# The Alternating Harmonic series is Conditionally Convergent.
+# Standard Order: 1 - 1/2 + 1/3 - 1/4 ... -> ln(2)
+# Rearranged Order: 1 + 1/3 - 1/2 + 1/5 + 1/7 - 1/4 ... -> 1.5 * ln(2)
+
+def standard_sum(n):
+    return sum(((-1)**(i+1))/i for i in range(1, n+1))
+
+def rearranged_sum(n):
+    # Pattern: Positive, Positive, Negative
+    # Roughly simulates the rearrangement logic
+    val = 0
+    pos_idx = 1
+    neg_idx = 2
+    for _ in range(n // 3):
+        val += 1/pos_idx + 1/(pos_idx+2) - 1/neg_idx
+        pos_idx += 4
+        neg_idx += 2
+    return val
+
+print(f"Standard Sum: {standard_sum(10000):.4f} (Target: {np.log(2):.4f})")
+print(f"Rearranged Sum: {rearranged_sum(10000):.4f} (Target: {1.5*np.log(2):.4f})")
+
+# The sum CHANGED just by reordering!
+# This proves Conditional Convergence is fragile.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_12_alternating_series.html" class="footer-link">← Prev: Alternating</a>
+                        <span class="separator">|</span>
+                        <a href="12_14_power_series.html" class="footer-link">Next: Power Series →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

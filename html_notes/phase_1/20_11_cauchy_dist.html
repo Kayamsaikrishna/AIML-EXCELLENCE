@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.11 Cauchy Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_10_laplace_dist.html" class="nav-link">10. Laplace Dist</a>
+                        </li>
+                        <li class="nav-item"><a href="20_11_cauchy_dist.html" class="nav-link active">11. Cauchy
+                                Dist</a></li>
+                        <li class="nav-item"><a href="20_12_log_normal_dist.html" class="nav-link">12. Log-Normal</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Rebel</span>
+                </div>
+                <h1>The Cauchy Distribution</h1>
+                <p class="lead-text">A distribution so "heavy" it has no mean and no variance.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Pathological Bell Curve</h3>
+                    <p>
+                        The Cauchy distribution looks remarkably like a Normal distribution. However, its tails drop off
+                        extremely slowly (\(1/x^2\) vs \(e^{-x^2}\)).
+                        <br><br>
+                        These "Fat Tails" are so extreme that if you try to calculate the average of a Cauchy variable,
+                        the integral doesn't converge. <strong>Sample means will jump around forever</strong> and never
+                        settle on a single value!
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    A Random Variable \(X\) follows a Cauchy distribution with location \(x_0\) and scale \(\gamma\):
+                    $$ f(x) = \frac{1}{\pi \gamma \left[1 + \left(\frac{x-x_0}{\gamma}\right)^2\right]} $$
+                </div>
+                <p>
+                    <strong>Ratio of Normals:</strong> If \(X, Y \sim \mathcal{N}(0, 1)\) are independent, then their
+                    ratio \(Z = X/Y\) follows a Cauchy distribution.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The "No Moments" Problem</h2>
+                <p>If you take 100 samples and compute the mean, it might be 1.5. If you take 1000 samples, it might
+                    jump to 500 because of a single extreme outlier. The Law of Large Numbers fails here.</p>
+                <ul>
+                    <li><strong>Mean:</strong> Undefined.</li>
+                    <li><strong>Variance:</strong> Undefined (Infinite).</li>
+                    <li><strong>Median:</strong> \(x_0\) (This works!).</li>
+                </ul>
+                <div class="warning-box">
+                    <strong>Central Limit Theorem Alert:</strong> The CLT says sums of variables approach Normal, but
+                    only if the variables have <strong>finite variance</strong>. Cauchy variables break the CLT. Summing
+                    Cauchy variables just gives you a wider Cauchy variable.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Numerical Instability</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Numerical Stability</span>
+                    <h3>The Danger of Division</h3>
+                    <p>
+                        In many Neural Network layers (like Batch Norm or Transformer attention), we divide by a value
+                        (often the standard deviation).
+                    </p>
+                    <p>
+                        If that divisor is close to zero, the result behaves like a draw from a Cauchy distribution.
+                        This creates <strong>massive gradients</strong> that can "explode" the model's weights and halt
+                        training. This is why we always add a small \(\epsilon\) (e.g., \(1e-8\)) to the denominator.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Physics: The Breit-Wigner Form</h2>
+                <p>
+                    In physics, the Cauchy distribution appears as the "Breit-Wigner" or "Lorentzian" distribution,
+                    describing the resonance of particles and the shape of spectral lines in atoms.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.10 Gradient Descent Math - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_09_global_local.html" class="nav-link">09. Global/Local
+                                Optima</a></li>
+                        <li class="nav-item"><a href="14_10_gd_foundation.html" class="nav-link active">10. Gradient
+                                Descent</a></li>
+                        <li class="nav-item"><a href="14_11_newton_multi.html" class="nav-link">11. Newton's Method</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">The Engine</span>
+                </div>
+                <h1>Gradient Descent: The Math</h1>
+                <p class="lead-text">Steepest Descent, Learning Rates, and Convergence.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Update Rule</h3>
+                    <p>
+                        To minimize a differentiable function \(f(\mathbf{w})\), we iteratively move in the direction of
+                        the <strong>negative gradient</strong>.
+                    </p>
+                    <div class="math-block">
+                        $$ \mathbf{w}_{t+1} = \mathbf{w}_t - \eta \nabla f(\mathbf{w}_t) $$
+                    </div>
+                    <p>
+                        Here, \(\eta\) (eta) is the <strong>Learning Rate</strong>. It determines "how big a step" we take.
+                        It is the single most important hyperparameter in Deep Learning.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Backprop Loop</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why it works</h3>
+                    <p>
+                        Through <strong>Taylor Expansion</strong>, we know that for a very small step \(\epsilon\), the
+                        function value decreases most rapidly in the direction of \(-\nabla f\).
+                    </p>
+                    <p>
+                        In Neural Networks, we don't have the full function shape. We only know the slope at our
+                        <i>current</i> location.
+                        Like hiking down a mountain in thick fog, we feel with our feet which way is down, take a step,
+                        and repeat.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Learning Rate Visualization</h2>
+                <div class="code-header">learning_rate_demo.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def train(learning_rate):
+    w = 10.0 # Start
+    path = []
+    for i in range(10):
+        grad = 2 * w
+        w = w - learning_rate * grad
+        path.append(w)
+    return path
+
+# 1. Good LR
+p1 = train(0.1)
+print(f"LR=0.1: {['{:.2f}'.format(x) for x in p1]} (Converges)")
+
+# 2. Too Small LR
+p2 = train(0.001)
+print(f"LR=0.01: {['{:.2f}'.format(x) for x in p2]} (Too Slow)")
+
+# 3. Too Large LR (Exploding Gradient)
+p3 = train(1.1)
+print(f"LR=1.1: {['{:.2f}'.format(x) for x in p3]} (Diverges!)")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="14_09_global_local.html" class="footer-link">← Prev: Global/Local</a>
+                        <span class="separator">|</span>
+                        <a href="14_11_newton_multi.html" class="footer-link">Next: Newton's Method →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

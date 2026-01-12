@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.19 L'Hôpital's Rule - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_16_higher_order.html" class="nav-link">16. Higher Order
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_17_mvt.html" class="nav-link">17. Mean Value Theorem</a></li>
+                        <li class="nav-item"><a href="09_18_rolles_theorem.html" class="nav-link">18. Rolle's
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="09_19_lhopital.html" class="nav-link active">19. L'Hopital's
+                                Rule</a></li>
+                        <li class="nav-item"><a href="09_20_related_rates.html" class="nav-link">20. Related Rates</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Tension</span>
+                </div>
+                <h1>L'Hôpital's Rule</h1>
+                <p class="lead-text">When zero fights zero, who wins? The one with the steeper slope.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Indeterminate Forms</h3>
+                    <p>
+                        In math, \(\frac{0}{0}\) or \(\frac{\infty}{\infty}\) isn't "undefined"—it's a battle.
+                        If the top goes to zero faster, the ratio is 0. If the bottom goes faster, it's infinity. If
+                        they go at the same rate, it's a constant.
+                        L'Hôpital says: <strong>"Look at the derivatives."</strong>
+                    </p>
+                </div>
+
+                <h2>1. The Rule</h2>
+                <div class="glass-card">
+                    <p>
+                        If \(\lim_{x \to c} \frac{f(x)}{g(x)} = \frac{0}{0}\) or \(\frac{\infty}{\infty}\), then:
+                    </p>
+                    <div class="math-block">
+                        \[ \lim_{x \to c} \frac{f(x)}{g(x)} = \lim_{x \to c} \frac{f'(x)}{g'(x)} \]
+                    </div>
+                    <p>
+                        <strong>WARNING:</strong> This is NOT the Quotient Rule. You differentiate the top and bottom
+                        separately!
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Limit[Limit f/g] -->|Check 0/0| Indeterminate{ Is it 0/0?}
+                        Indeterminate -->|Yes| Apply[Differentiate Top and Differentiate Bottom]
+                        Apply --> NewLimit[New Limit f'/g']
+                        NewLimit -->|Still 0/0?| Apply
+                        NewLimit -->|Distinct Value| Result
+                        Indeterminate -->|No| Result[Calculated Value]
+
+                        style Indeterminate fill:#f6e05e,stroke:#d69e2e,color:black
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Numerical Stability</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Avoiding NaN (Not a Number)</h3>
+                    <p>
+                        In deep learning implementations (like TensorFlow/PyTorch), we often encounter functions that
+                        look dangerous at \(x=0\).
+                        Consider the function used in some attention mechanisms: \(\frac{\sin x}{x}\).
+                    </p>
+                    <ul>
+                        <li>At \(x=0\), computer sees \(\frac{0}{0}\) -> <code>NaN</code>. This kills training.</li>
+                    </ul>
+                    <p>
+                        Using L'Hôpital: \(\lim_{x\to 0} \frac{\cos x}{1} = 1\).
+                    </p>
+                    <p>
+                        So in our code, we write a "stable" branch:
+                        <br>
+                        <code>if abs(x) < 1e-6: return 1.0; else: return sin(x)/x</code>.
+                        <br>
+                        Without L'Hôpital, we wouldn't know what value to plug in!
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Rescue</h2>
+                <div class="code-header">lhopital_rescue.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+import numpy as np
+
+x = sp.Symbol('x')
+f = sp.sin(x)
+g = x
+
+# 1. Naive limit attempt
+print(f"Direct Evaluation at 0: {np.sin(0)/0 if 0 != 0 else 'Undefined (0/0)'}")
+
+# 2. Symbolic Limit (Uses L'Hopital internally)
+limit_val = sp.limit(f/g, x, 0)
+print(f"Limit via L'Hôpital: {limit_val}")
+
+# 3. Another Example: (e^x - 1) / x
+h = sp.exp(x) - 1
+limit_exp = sp.limit(h/g, x, 0)
+print(f"Limit of (e^x - 1)/x as x->0: {limit_exp}")
+# Proof: d/dx(e^x -1) = e^x -> e^0 = 1. d/dx(x) = 1. Ratio = 1/1 = 1.
+
+# Practical Code Pattern (Softplus Stability)
+def safe_softplus(x):
+    # log(1 + e^x). For large x, e^x explodes.
+    # We use approximation x for large x.
+    # L'Hopital connects the regimes smoothly.
+    return np.log1p(np.exp(x)) if x < 50 else x</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_18_rolles_theorem.html" class="footer-link">← Prev: Rolle's Theorem</a>
+                        <span class="separator">|</span>
+                        <a href="09_20_related_rates.html" class="footer-link">Next: Related Rates →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

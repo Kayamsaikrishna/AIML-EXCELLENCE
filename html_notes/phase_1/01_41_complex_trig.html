@@ -4,100 +4,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complex Trig - Phase 1.1.41</title>
+    <title>01.41 Complex Trig - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.2 Trigonometry</li>
-            <li><a href="01_28_angle_measurement.html">28. Angle Measurement</a></li>
-            <li><a href="01_29_trig_functions.html">29. Trig Functions</a></li>
-            <li><a href="01_30_right_triangle_trig.html">30. Right Triangle Trig</a></li>
-            <li><a href="01_31_unit_circle.html">31. Unit Circle</a></li>
-            <li><a href="01_32_trig_identities.html">32. Trig Identities</a></li>
-            <li><a href="01_33_sum_diff_formulas.html">33. Sum & Diff Formulas</a></li>
-            <li><a href="01_34_double_half_angle.html">34. Double & Half Angle</a></li>
-            <li><a href="01_35_product_sum_formulas.html">35. Product-Sum Formulas</a></li>
-            <li><a href="01_36_trig_equations.html">36. Trig Equations</a></li>
-            <li><a href="01_37_inverse_trig.html">37. Inverse Trig Functions</a></li>
-            <li><a href="01_38_law_sines_cosines.html">38. Law of Sines & Cosines</a></li>
-            <li><a href="01_39_trig_applications.html">39. Trig Applications</a></li>
-            <li><a href="01_40_polar_coordinates.html">40. Polar Coordinates</a></li>
-            <li><a href="01_41_complex_trig.html" class="active">41. Complex Numbers (Trig)</a></li>
-            <li><a href="01_42_de_moivre.html">42. De Moivre's Theorem</a></li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Complex Numbers
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>41. Complex Numbers (Trigonometric Form)</h1>
-            <p class="subtitle">Placing information on the Complex Plane.</p>
-        </header>
-
-        <section>
-            <h2>1. Euler's Gift</h2>
-            <p>Every complex number \( z = a + bi \) can be written as a Magnitude (\(r\)) and an Angle (\(\theta\)).
-            </p>
-            <div class="math-block">
-                $$ z = r(\cos \theta + i \sin \theta) = r e^{i\theta} $$
-            </div>
-            <p>Magnitude \(r\) is the "Strength" of the signal, and \(\theta\) is its "Phase".</p>
-        </section>
-
-        <section>
-            <h2>2. Complex Valued Neural Networks (CVNNs)</h2>
-            <div class="module-card">
-                <h3>Interference as a Logic Gate</h3>
-                <p>Standard AI uses real numbers. But <strong>Complex Valued Networks</strong> allow neurons to perform
-                    calculations using phase interference. This is incredibly efficient for <strong>Medical Imaging
-                        (MRI)</strong> and <strong>Radio Frequency AI</strong>.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Rotary Attention (RoPE):</strong> As discussed earlier, RoPE is
-                        mathematically a complex multiplication by \( e^{i m \theta} \). It's simpler to implement in
-                        code using real numbers but the logic is pure 100% complex trig.</li>
-                    <li class="topic-item"><strong>Stable Training:</strong> Complex weights can sometimes prevent the
-                        vanishing gradient problem by keeping the magnitude of activations bounded by the unit circle.
-                    </li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_40_polar_coordinates.html" class="nav-link">40. Polar Coords</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">41. Complex Trig</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Complex Rotations</h2>
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <pre><code class="language-python"># complex(a, b) creates a + bi
-z1 = complex(1, 0) # Magnitude 1, Phase 0
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Trig &gt; 41. Complex Numbers & Trig
+        </div>
 
-# A rotation of 90 degrees (i)
-rotation = complex(0, 1) # e^(i * pi/2)
+        <header class="page-header">
+            <div class="badge">Module 41</div>
+            <h1>Euler's Formula</h1>
+            <p class="lead-text"> \( e^{ix} = \cos(x) + i\sin(x) \). The equation that unifies Algebra and Geometry.</p>
+        </header>
 
-z2 = z1 * rotation
-print(f"Result: {z2}") 
-# Output: (0+1j) -> The vector rotated exactly 90 degrees</code></pre>
+        <!-- VISUAL DIAGRAM: COMPLEX PLANE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Rotating Phantom</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Real["Real Axis (Cos)"]
+    Imag["Imaginary Axis (i Sin)"]
+    
+    subgraph Euler
+        Exp["e^iθ (Rotation)"]
+        Unit["Unit Circle"]
+    end
+    
+    subgraph AI [Signal Processing]
+        FFT["Fourier Transform"]
+        Phase["Phase Shift"]
+        RoPE["Rotary Embeddings"]
+    end
+
+    Exp --> Real
+    Exp --> Imag
+    Exp --> Unit
+    
+    Exp --> FFT
+    FFT --> Phase
+    Exp --> RoPE
+
+    style Exp fill:#dcfce7,stroke:#16a34a
+    style RoPE fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. THE MOST BEAUTIFUL EQUATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Introduction</h2>
+                <p>Leonhard Euler discovered that exponential growth in imaginary time is actually circular motion in
+                    real space.</p>
+                <div class="math-block">
+                    $$ e^{i\pi} + 1 = 0 $$
+                </div>
+                <p>This means multiplying by \( e^{i\theta} \) is the same as <strong>Rotating</strong> a vector by
+                    angle \( \theta \).</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: FAST FOURIER TRANSFORM -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. FFT and RoPE</h2>
+                <p>Because \( e^{ix} \) is easy to multiply (add exponents) but \( \sin(x) \) is hard (trig identities),
+                    computers do almost ALL signal processing using Complex Numbers.</p>
+                <p><strong>RoPE (Rotary Positional Embedding)</strong> explicitly defines position as a complex
+                    rotation:</p>
+                <div class="math-block">
+                    $$ f(x, pos) = x \cdot e^{i \cdot pos \cdot \theta} $$
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Complex Rotation</h2>
+                <p>Rotating a point using complex multiplication.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# A point at (1, 0) -> Real number 1 + 0j
+z = 1.0 + 0.0j
+
+# Rotate by 90 degrees (Pi/2)
+theta = np.pi / 2
+rotator = np.exp(1j * theta)
+
+# New Position
+z_new = z * rotator
+
+print(f"Original: {z}")
+print(f"Rotated:  {z_new:.2f}") 
+# 0.00 + 1.00j (Pure Imaginary -> Vertical Up)
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

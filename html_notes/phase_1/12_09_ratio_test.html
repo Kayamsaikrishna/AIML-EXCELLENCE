@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.09 Ratio Test - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_06_p_series.html" class="nav-link">06. P-Series</a></li>
+                        <li class="nav-item"><a href="12_07_comparison_test.html" class="nav-link">07. Comparison
+                                Tests</a></li>
+                        <li class="nav-item"><a href="12_08_limit_comparison.html" class="nav-link">08. Limit
+                                Comparison</a></li>
+                        <li class="nav-item"><a href="12_09_ratio_test.html" class="nav-link active">09. Ratio Test</a>
+                        </li>
+                        <li class="nav-item"><a href="12_10_root_test.html" class="nav-link">10. Root Test</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Tests</span>
+                </div>
+                <h1>The Ratio Test</h1>
+                <p class="lead-text">Measuring the speed of decay.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Exponential Behavior</h3>
+                    <p>
+                        The Ratio Test compares a series to a geometric series by checking the ratio of consecutive
+                        terms:
+                    </p>
+                    <p>
+                        \[ L = \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| \]
+                    </p>
+                    <ul>
+                        <li><strong>\(L < 1\):</strong> Converges Absolutely (Terms shrink fast).</li>
+                        <li><strong>\(L > 1\):</strong> Diverges (Terms grow).</li>
+                        <li><strong>\(L = 1\):</strong> Inconclusive.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Exploding Gradients</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Multiplicative Updates</h3>
+                    <p>
+                        In deep networks (like RNNs), gradients are multiplied at each layer (Backpropagation through
+                        time).
+                        If the "Ratio" of the gradient magnitude from one layer to the next is \(> 1\), the gradient
+                        <strong>Explodes</strong> exponentially.
+                        If the ratio is \(< 1\), it **Vanishes**. </p>
+                            <p>
+                                We want the learning dynamics to be stable. Techniques like <strong>Gradient Clipping</strong> ensure
+                                that the effective ratio stays \( \leq 1 \) to prevent divergence.
+                            </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Ratio Test Logic</h2>
+                <div class="code-header">ratio_test.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Series: n! / 10^n
+# a_n = n! / 10^n
+# a_{n+1} = (n+1)! / 10^(n+1)
+# Ratio = a_{n+1} / a_n = (n+1) / 10
+
+# Limit as n -> inf is Infinity (> 1).
+# Therefore, Series Diverges.
+
+def check_ratio(n):
+    return (n + 1) / 10
+
+print(f"n=5: Ratio {check_ratio(5)}")   # 0.6 (< 1, seems convergent locally)
+print(f"n=9: Ratio {check_ratio(9)}")   # 1.0 (Critical point)
+print(f"n=15: Ratio {check_ratio(15)}") # 1.6 (> 1, Divergent!)
+
+# Factorials eventually beat Exponentials.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_08_limit_comparison.html" class="footer-link">← Prev: Limit Comp</a>
+                        <span class="separator">|</span>
+                        <a href="12_10_root_test.html" class="footer-link">Next: Root Test →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

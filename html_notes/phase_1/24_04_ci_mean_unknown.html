@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.04 CI for Mean (Unknown Variance) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_03_ci_mean_known.html" class="nav-link">03. CI Mean Known</a>
+                        </li>
+                        <li class="nav-item"><a href="24_04_ci_mean_unknown.html" class="nav-link active">04. CI Mean
+                                Unknown</a></li>
+                        <li class="nav-item"><a href="24_05_t_distribution_inference.html" class="nav-link">05. T
+                                Distribution</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">T-Interval</span>
+                </div>
+                <h1>CI for Mean (Unknown \(\sigma\))</h1>
+                <p class="lead-text">How we adjust for the double-uncertainty of not knowing the mean AND not knowing
+                    the variance.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Realistic Case</h3>
+                    <p>
+                        In nearly all real-world Machine Learning problems, we don't know the "True Variance"
+                        (\(\sigma^2\)) of the error. We only have the Sample Variance (\(s^2\)) calculated from our
+                        limited dataset.
+                        <br><br>
+                        Because \(s\) is just an estimate, we must use a slightly <strong>wider</strong> interval to
+                        account for this extra layer of guesswork.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    $$ \bar{x} \pm t_{\alpha/2, n-1} \left( \frac{s}{\sqrt{n}} \right) $$
+                </div>
+                <ul>
+                    <li>\(s\): Sample Standard Deviation.</li>
+                    <li>\(t_{\alpha/2, n-1}\): Critical value from the Student's T-distribution.</li>
+                    <li>\(n-1\): Degrees of Freedom (df).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Degrees of Freedom (df)</h2>
+                <p>
+                    The more data you have, the more you can "trust" your estimate of the variance.
+                    - For small \(n\), the T-distribution has <strong>fat tails</strong> (it expects more outliers
+                    because our variance estimate might be too low).
+                    - As \(n \to \infty\), the T-distribution converges to the Normal (Z) distribution.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Benchmarking Small Models</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Few-Shot Learning</span>
+                    <h3>The Danger of Small Test Sets</h3>
+                    <p>
+                        If you are testing an LLM on a specialized dataset with only 30 examples, you
+                        <strong>cannot</strong> use Z-stats. The uncertainty in your measurement of "Average Pass Rate"
+                        is high.
+                    </p>
+                    <p>
+                        Using the <strong>T-Interval</strong> ensures that your error bars reflect the factual reality: that with
+                        only 30 samples, your estimate of the model's reliability is itself highly variable.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary Chart</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Distribution</th>
+                            <th>ML Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>\(n \ge 30, \sigma\) Known</td>
+                            <td>Z (Normal)</td>
+                            <td>Production monitoring</td>
+                        </tr>
+                        <tr>
+                            <td>\(n < 30\) OR \(\sigma\) Unknown</td>
+                            <td>T (Student's)</td>
+                            <td>Experimentation / R&D</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

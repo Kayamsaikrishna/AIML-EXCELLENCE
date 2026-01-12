@@ -4,95 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Inverse - Phase 1.2.2.8</title>
+    <title>03.08 Inverse - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_07_transpose.html">07. Transpose</a></li>
-            <li><a href="03_08_inverse.html" class="active">08. Inverse Matrices</a></li>
-            <li><a href="03_09_invertibility.html">09. Invertibility</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Inverse
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>08. Inverse Matrices & Properties</h1>
-            <p class="subtitle">The reciprocal of a linear transformation.</p>
-        </header>
-
-        <section>
-            <h2>1. Definition</h2>
-            <p>A square matrix \( \mathbf{A} \) is <strong>Invertible</strong> (or Non-Singular) if there exists a
-                matrix \( \mathbf{A}^{-1} \) such that:</p>
-            <div class="math-block">
-                $$ \mathbf{AA}^{-1} = \mathbf{A}^{-1}\mathbf{A} = \mathbf{I} $$
-            </div>
-
-            <div class="module-card">
-                <h3>Key Properties</h3>
-                <ul class="topic-list">
-                    <li class="topic-item">\( (\mathbf{A}^{-1})^{-1} = \mathbf{A} \).</li>
-                    <li class="topic-item">\( (\mathbf{AB})^{-1} = \mathbf{B}^{-1}\mathbf{A}^{-1} \). (Order is
-                        reversed!)</li>
-                    <li class="topic-item">\( (\mathbf{A}^T)^{-1} = (\mathbf{A}^{-1})^T \).</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_07_transpose.html" class="nav-link">07. Transpose</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">08. Inverse</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>2. The "Closed-Form" Solution in AI</h2>
-            <div class="module-card">
-                <h3>The Normal Equation</h3>
-                <p>In <strong>Linear Regression</strong>, we want to find weights \( \mathbf{w} \) that minimize error.
-                    The exact, non-iterative solution is the <strong>Normal Equation</strong>:</p>
-                <div class="math-block">
-                    $$ \mathbf{w} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} $$
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 08. The Inverse
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 08</div>
+            <h1>The Undo</h1>
+            <p class="lead-text"> \( A^{-1} \). Reversing the transformation. Only square matrices need apply.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: INVERSE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Reversibility</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Vector x"]
+    
+    subgraph Forward
+        A["Matrix A"]
+        Output["Ax"]
+    end
+    
+    subgraph Backward
+        Inv["Inverse A^-1"]
+        Restored["Restored x"]
+    end
+    
+    Input --> A
+    A --> Output
+    
+    Output -- "Undo" --> Inv
+    Inv --> Restored
+    
+    Restored -.->|Must Equal| Input
+
+    style Inv fill:#fefe93,stroke:#d97706
+    style Restored fill:#dcfce7,stroke:#16a34a
+                    </pre>
                 </div>
-                <p><strong>Warning:</strong> Calculating a matrix inverse is computationally expensive (\( O(n^3) \)).
-                    In deep learning, we almost never calculate it directly; we use optimization (Gradient Descent)
-                    instead.</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Numpy Inverse</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 1. DEFINITION: THE IDENTITY LINK -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Definition</h2>
+                <p>The inverse of a square matrix \( A \) is a matrix \( A^{-1} \) such that multiplying them yields the
+                    Identity.</p>
+                <div class="math-block">
+                    $$ A A^{-1} = I \quad \text{and} \quad A^{-1} A = I $$
+                </div>
+                <p>If such a matrix exists, \( A \) is called <strong>Invertible</strong> (or Non-Singular).</p>
+            </div>
+        </section>
 
-A = np.array([[1, 2], [3, 4]])
+        <!-- 2. AI APPLICATION: SOLVING SYSTEMS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Note on Computation</h2>
+                <p>While \( \mathbf{x} = A^{-1} \mathbf{b} \) is the theoretical solution to \( A\mathbf{x} = \mathbf{b}
+                    \), we <strong>rarely</strong> compute \( A^{-1} \) directly in algorithms.</p>
+                <p>Inverting a matrix is computationally expensive ($O(n^3)$) and numerically unstable. We prefer
+                    factorization methods (LU, QR) which "act like" an inverse without explicitly forming the full
+                    matrix.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. NumPy Inversion</h2>
+                <p>Calculating the inverse explicitly.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+A = np.array([
+    [1, 2],
+    [3, 4]
+])
 
 # Compute Inverse
-A_inv = np.linalg.inv(A)
+try:
+    A_inv = np.linalg.inv(A)
+    print("Inverse of A:")
+    print(A_inv)
+    
+    # Verify: A @ A_inv should be Identity
+    I_check = A @ A_inv
+    print(f"\nVerification (Should be I):\n{I_check.round(10)}")
+    
+except np.linalg.LinAlgError:
+    print("Matrix is Singular (Not Invertible)!")
 
-# Verification
-identity = A @ A_inv
-
-print(f"Inverse:\n{A_inv}")
-print(f"Check (Identity):\n{np.round(identity)}")</code></pre>
+# Singular Example
+B = np.array([[1, 2], [2, 4]]) # Cols are dependent
+# np.linalg.inv(B) # This would raise Error
+</code></pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

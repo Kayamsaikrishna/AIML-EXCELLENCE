@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>35.02 GCD & Euclidean Algorithm - Number Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.11.1 Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="35_01_divisibility_primes.html" class="nav-link">01. Divisibility
+                                & Primes</a></li>
+                        <li class="nav-item"><a href="35_02_gcd_euclidean_algorithm.html" class="nav-link active">02.
+                                GCD & Euclidean Algorithm</a></li>
+                        <li class="nav-item"><a href="35_03_lcm_modular_arithmetic.html" class="nav-link">03. LCM &
+                                Modular Arithmetic</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Number Theory</span>
+                    <span class="badge secondary">Algorithms</span>
+                </div>
+                <h1>GCD & The Euclidean Algorithm</h1>
+                <p class="lead-text">Finding Common Ground. Mastery of the mathematical process for identifying the
+                    largest shared factor between two integers—the basis of modular inverses.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Common Factors</h3>
+                    <p>
+                        The <strong>Greatest Common Divisor (GCD)</strong> of two integers $a$ and $b$ is the largest integer $d$
+                        such that $d|a$ and $d|b$. If $gcd(a, b) = 1$, we say $a$ and $b$ are <strong>relatively prime</strong> or
+                        <strong>coprime</strong>.
+                    </p>
+                </div>
+
+                <h2>1. The Euclidean Algorithm</h2>
+                <p>Based on the observation that $gcd(a, b) = gcd(b, a \pmod b)$. We repeat the division algorithm until
+                    the remainder is zero.</p>
+                <div class="math-box">
+                    $$ a = bq_1 + r_1 $$
+                    $$ b = r_1q_2 + r_2 $$
+                    $$ r_1 = r_2q_3 + r_3 $$
+                    $$ \dots $$
+                    $$ r_{n-1} = r_nq_{n+1} + 0 \implies \text{GCD is } r_n $$
+                </div>
+                <p>This algorithm is incredibly efficient, with a time complexity of <strong>$O(\log(\min(a, b)))$</strong>.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Bézout's Identity</h2>
+                <p>For any integers $a$ and $b$, there exist integers $x$ and $y$ such that:</p>
+                <div class="math-box">
+                    $$ ax + by = gcd(a, b) $$
+                </div>
+                <p>The <strong>Extended Euclidean Algorithm</strong> provides a way to calculate these coefficients $x$ and $y$. In
+                    cryptography, this is how we find the <strong>modular multiplicative inverse</strong>.</p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Cryptography</span>
+                    <span class="ml-badge">Hashing</span>
+                    <h3>Why AI researchers use GCD</h3>
+                    <ul>
+                        <li><strong>Modular Inverses:</strong> Calculating $1/a \pmod n$ is required for many secure multi-party
+                            computation (SMPC) protocols used in privacy-preserving AI. This only exists if $gcd(a, n) =
+                            1$.</li>
+                        <li><strong>Coprime Sizing:</strong> When designing hash tables or random sequences, choosing coprime
+                            parameters ensures that the entire space is "covered" before repeating. This helps avoid
+                            cycles in data sampling.</li>
+                        <li><strong>RSA Key Gen:</strong> Generating public and private keys requires selecting an exponent $e$ such
+                            that $gcd(e, \phi(n)) = 1$.</li>
+                        <li><strong>Image Resizing:</strong> Finding the GCD of image dimensions helps determine the "Aspect Ratio"
+                            or the largest possible grid size for tile-based processing.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Algorithm Workflow</h2>
+                <div class="mermaid">
+                    graph TD
+                    Start([Start: gcd a, b]) --> Condition{b == 0?}
+                    Condition -- Yes --> End([Result: a])
+                    Condition -- No --> Step[a = b, b = a % b]
+                    Step --> Condition
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">The recursive structure
+                    of the Euclidean algorithm.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

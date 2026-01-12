@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19.03 Geometric Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.3 Discrete Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="19_01_bernoulli.html" class="nav-link">01. Bernoulli</a></li>
+                        <li class="nav-item"><a href="19_02_binomial.html" class="nav-link">02. Binomial</a></li>
+                        <li class="nav-item"><a href="19_03_geometric.html" class="nav-link active">03. Geometric</a>
+                        </li>
+                        <li class="nav-item"><a href="19_04_neg_binomial.html" class="nav-link">04. Neg Binomial</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Wait</span>
+                </div>
+                <h1>The Geometric Distribution</h1>
+                <p class="lead-text">How many failures before the first success?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Persistence Pays Off</h3>
+                    <p>
+                        Instead of fixing the number of trials (Binomial), what if we fix the goal: "Keep trying until
+                        you get a Success."
+                        <br><br>
+                        This is the <strong>Geometric Distribution</strong>. It models waiting times.
+                    </p>
+                </div>
+
+                <h2>1. Definition and PMF</h2>
+                <div class="math-box">
+                    Let \(X\) be the number of Bernoulli trials needed to get the <strong>first success</strong>.
+                    $$ P(X=k) = (1-p)^{k-1} p $$
+                    for \(k = 1, 2, 3, \dots\)
+                    <br>
+                    <strong>Logic:</strong> You must fail \(k-1\) times (prob \((1-p)^{k-1}\)) and then succeed on the
+                    \(k\)-th try (prob \(p\)).
+                </div>
+                <p class="text-sm">
+                    <em>Note:</em> Sometimes defined as the number of *failures* before success (support starts at 0).
+                    In that case, \(P(Y=k) = (1-p)^k p\). Be careful which definition is being used! We use the "trials
+                    count" definition here (starts at 1).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Moments</h2>
+                <ul>
+                    <li><strong>Expectation:</strong> \(E[X] = \frac{1}{p}\).
+                        <br>If probability of success is 1/10, you expect to wait 10 trials.
+                    </li>
+                    <li><strong>Variance:</strong> \(\text{Var}(X) = \frac{1-p}{p^2}\).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Memoryless Property</h2>
+                <p>
+                    The Geometric distribution is the <strong>only</strong> discrete distribution that is memoryless.
+                </p>
+                $$ P(X > n + k \mid X > n) = P(X > k) $$
+                <p>
+                    <strong>Interpretation:</strong> If you've already flipped the coin 100 times and failed every time,
+                    the probability that you will need 5 more flips is the same as if you were starting from scratch.
+                    The coin has no memory. The past failures don't make a success "due".
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. ML Connection: Reinforcement Learning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">RL</span>
+                    <span class="ml-badge">Grid World</span>
+                    <h3>Grid World Exploration</h3>
+                    <p>
+                        In a simple RL environment, if an agent takes a random action that leads to the goal with
+                        probability \(p\), the number of steps to reach the goal is Geometrically distributed.
+                        <br><br>
+                        This helps in estimating the <strong>time horizon</strong> needed for training episodes. If
+                        \(p\) is very small (sparse rewards), \(E[X] = 1/p\) explodes, making training difficult (the
+                        "Sparse Reward Problem").
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

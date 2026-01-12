@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11.10 Improper Integrals - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.4 Integration</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="11_06_by_parts.html" class="nav-link">06. Integration by Parts</a>
+                        </li>
+                        <li class="nav-item"><a href="11_07_trig_integrals.html" class="nav-link">07. Trig Integrals</a>
+                        </li>
+                        <li class="nav-item"><a href="11_08_trig_substitution.html" class="nav-link">08. Trig
+                                Substitution</a></li>
+                        <li class="nav-item"><a href="11_09_partial_fractions.html" class="nav-link">09. Partial
+                                Fractions</a></li>
+                        <li class="nav-item"><a href="11_10_improper.html" class="nav-link active">10. Improper
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="11_11_numerical.html" class="nav-link">11. Numerical Methods</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.4</span>
+                    <span class="badge secondary">Limits</span>
+                </div>
+                <h1>Improper Integrals</h1>
+                <p class="lead-text">Measuring the infinite.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Infinity as a Limit</h3>
+                    <p>
+                        You can't plug in infinity. An improper integral is simply a definite integral wrapped inside a
+                        limit.
+                        \(\int_1^\infty = \lim_{t \to \infty} \int_1^t\).
+                    </p>
+                </div>
+
+                <h2>1. Types of Improperness</h2>
+                <div class="glass-card">
+                    <ul class="step-list">
+                        <li><strong>Type 1: Infinite Interval</strong>
+                            <br>Example: \(\int_1^\infty \frac{1}{x^2} dx\).
+                            <br>Area extends forever to the right. Does it pinch off fast enough to be finite?
+                        </li>
+                        <li><strong>Type 2: Infinite Discontinuity</strong>
+                            <br>Example: \(\int_0^1 \frac{1}{\sqrt{x}} dx\).
+                            <br>Function shoots to infinity at \(x=0\). Does it hug the y-axis tight enough?
+                        </li>
+                    </ul>
+                    <p>
+                        <strong>Convergent:</strong> Limit exists (finite area).<br>
+                        <strong>Divergent:</strong> Limit is infinite (infinite area).
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Improper[Improper Integral] --> Limit[Replace inf with t]
+                        Limit --> Evaluate[Evaluate Integral 1 to t]
+                        Evaluate --> LimT[Take Limit t -> inf]
+                        LimT -->|Finite| Conv[Converges]
+                        LimT -->|Infinite| Div[Diverges]
+
+                        style Conv fill:#48bb78,stroke:#2f855a
+                        style Div fill:#e53e3e,stroke:#c53030
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Probability Normalization</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Gaussian Integral</h3>
+                    <p>
+                        The most famous improper integral in AI is the area under the Bell Curve (Gaussian).
+                        \[ \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi} \]
+                    </p>
+                    <p>
+                        Since this integral converges to a finite number, we can divide by that number to make the total
+                        area equal to 1. This creates a valid <strong>Probability Distribution</strong>.
+                    </p>
+                    <p>
+                        If this integral diverged, the Normal Distribution wouldn't exist, and 99% of Machine Learning
+                        math (CLT, Diffusion Models, VAEs) would collapse.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Testing Convergence</h2>
+                <div class="code-header">check_convergence.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+
+# 1. Convergent: 1/x^2 (decays fast)
+f1 = 1 / x**2
+# oo is the SymPy symbol for infinity
+res1 = sp.integrate(f1, (x, 1, sp.oo))
+print(f"Area of 1/x^2 (1 to Inf): {res1}")
+# Output: 1
+
+# 2. Divergent: 1/x (decays slow - Harmonic Series analog)
+f2 = 1 / x
+res2 = sp.integrate(f2, (x, 1, sp.oo))
+print(f"Area of 1/x (1 to Inf): {res2}")
+# Output: oo
+
+# 3. Gaussian
+f3 = sp.exp(-x**2)
+res3 = sp.integrate(f3, (x, -sp.oo, sp.oo))
+print(f"Gaussian Area: {res3}")
+# Output: sqrt(pi)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="11_09_partial_fractions.html" class="footer-link">← Prev: PFD</a>
+                        <span class="separator">|</span>
+                        <a href="11_11_numerical.html" class="footer-link">Next: Numerical Methods →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

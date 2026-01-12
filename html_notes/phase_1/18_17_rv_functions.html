@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.17 Functions of RVs - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.2 Random Variables</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="18_14_median_mode.html" class="nav-link">14. Median & Mode</a>
+                        </li>
+                        <li class="nav-item"><a href="18_15_quantiles_percentiles.html" class="nav-link">15.
+                                Quantiles</a></li>
+                        <li class="nav-item"><a href="18_16_rv_transformations.html" class="nav-link">16. RV
+                                Transformations</a></li>
+                        <li class="nav-item"><a href="18_17_rv_functions.html" class="nav-link active">17. RV
+                                Functions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Interactions</span>
+                </div>
+                <h1>Functions of Multiple RVs</h1>
+                <p class="lead-text">What happens when Random Variables interact? Sums, Products, and Maxima.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Combinatorics of Uncertainty</h3>
+                    <p>
+                        Single variables are rare. In ML, we deal with vectors of variables. We compute sums (neurons),
+                        maximums (MaxPooling), and averages (Ensembles).
+                        <br><br>
+                        The key question: If I know how \(X\) behaves and how \(Y\) behaves, how does \(Z = X+Y\)
+                        behave? The answer is often <strong>Convolution</strong>.
+                    </p>
+                </div>
+
+                <h2>1. The Sum of Independent RVs (Convolution)</h2>
+                <div class="math-box">
+                    If \(Z = X + Y\) where \(X\) and \(Y\) are independent continuous RVs:
+                    $$ f_Z(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z-x) \, dx $$
+                    This is the <strong>Convolution</strong> of the two PDFs: \(f_Z = f_X * f_Y\).
+                </div>
+                <p>
+                    <strong>Why?</strong> To get a sum of \(z\), \(X\) can be any value \(x\), but then \(Y\)
+                    <em>must</em> be exactly \(z-x\). We sum (integrate) over all possible \(x\)'s weighting by their
+                    probabilities.
+                </p>
+                <ul>
+                    <li><strong>Sum of Normals:</strong> \(\mathcal{N}(\mu_1, \sigma_1^2) + \mathcal{N}(\mu_2,
+                        \sigma_2^2) = \mathcal{N}(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)\). (The bell curve stays
+                        bell-shaped).</li>
+                    <li><strong>Sum of Uniforms:</strong> Uniform + Uniform = Triangular Distribution.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Max and Min (Order Statistics)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">CNNs</span>
+                    <span class="ml-badge">MaxPooling</span>
+                    <h3>The Geometry of "Max"</h3>
+                    <p>
+                        In Convolutional Neural Networks, <strong>MaxPooling</strong> selects the largest activation in a region. If
+                        inputs are noisy random variables, what is the distribution of the output?
+                    </p>
+                </div>
+
+                <h3>The Logic</h3>
+                <p>Let \(Z = \max(X, Y)\). For \(Z\) to be less than some value \(z\), <strong>BOTH</strong> \(X\) and
+                    \(Y\) must be less than \(z\).</p>
+                $$ F_Z(z) = P(Z \le z) = P(X \le z \text{ AND } Y \le z) $$
+                <p>If independent:</p>
+                $$ F_{max}(z) = F_X(z) \cdot F_Y(z) $$
+
+                <p>
+                    Similarly for Minimum \(W = \min(X, Y)\):
+                    <br>
+                    For \(W > w\), <strong>BOTH</strong> must be \(> w\).
+                    <br>
+                    \(P(W > w) = (1 - F_X(w))(1 - F_Y(w))\).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Ratio Distribution</h2>
+                <p>
+                    \(Z = X/Y\). This is often heavy-tailed (Cauchy Distribution).
+                </p>
+                <div class="warning-box">
+                    <strong>Caution:</strong> Even if \(X\) and \(Y\) are well-behaved Normal variables, their ratio
+                    \(X/Y\) (Cauchy) has <strong>undefined mean and variance</strong>. This is why dividing by learned
+                    weights in Neural Networks can be dangerous without numerical stability terms (epsilon).
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Expectation vs. Function</h2>
+                <p>A classic blunder:</p>
+                $$ E[g(X)] \neq g(E[X]) $$
+                <p>(Unless \(g\) is linear). This is <strong>Jensen's Inequality</strong>.</p>
+                <ul>
+                    <li>\(E[X^2] \neq (E[X])^2\) (Difference is Variance)</li>
+                    <li>\(E[\log(X)] \le \log(E[X])\)</li>
+                </ul>
+                <p class="text-sm">In the EM algorithm (Expectation-Maximization), Jensen's inequality is used to
+                    construct a lower bound on the likelihood.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

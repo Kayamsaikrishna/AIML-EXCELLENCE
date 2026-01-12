@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.05 P-Value Computation - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_04_alpha_beta_power.html" class="nav-link">04. Alpha Beta
+                                Power</a></li>
+                        <li class="nav-item"><a href="25_05_p_value_computation.html" class="nav-link active">05. P
+                                Value Computation</a></li>
+                        <li class="nav-item"><a href="25_06_one_vs_two_tailed.html" class="nav-link">06. One Vs Two
+                                Tailed</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Surprise Metric</span>
+                </div>
+                <h1>P-Value Computation</h1>
+                <p class="lead-text">Measuring how "surprising" your data is, assuming the boring explanation is true.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Correct Meaning</h3>
+                    <p>
+                        A <strong>P-value</strong> is the probability of obtaining test results at least as extreme as the results
+                        actually observed, under the assumption that the <strong>Null Hypothesis is true</strong>.
+                        <br><br>
+                        - **Low P-value (
+                        <0.05):** "Wow, this data would be very rare if nothing was happening. Therefore, something is likely happening (Significant)."
+                            - **High P-value (>0.05):** "Eh, this data is quite common even if nothing is happening. We
+                            can't conclude much."
+                    </p>
+                </div>
+
+                <div class="warning-box">
+                    <strong>WHAT IT IS NOT:</strong>
+                    - It is NOT the probability that the Null is false.
+                    - It is NOT the probability that the Alternative is true.
+                    - It does NOT measure the <em>size</em> of the effect.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>1. Computation Workflow</h2>
+                <div class="math-box">
+                    1. Calculate your <strong>Test Statistic</strong> (e.g., \(z=2.5\)).
+                    2. Look up the area in the <strong>tail(s)</strong> of the relevant distribution.
+                    3. \(P = P(Z > 2.5) \) for a right-tailed test.
+                </div>
+                <p>
+                    Small P-values mean your observed data is way out in the "tails," making it a statistical misfit for
+                    the Null Hypothesis.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Feature Selection</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Interpretability</span>
+                    <h3>The "P-value" of a Feature</h3>
+                    <p>
+                        In Linear/Logistic Regression, Python libraries (like `statsmodels`) provide a P-value for every
+                        feature.
+                        - <strong>\(H_0\):</strong> This feature has NO effect on the target (\(w_i = 0\)).
+                        - <strong>\(H_a\):</strong> This feature DOES have an effect (\(w_i \neq 0\)).
+                    </p>
+                    <p>
+                        If a feature has a P-value of 0.82, it means its relationship with the target is so weak that it
+                        could easily be random noise. We often <strong>Drop</strong> such features to simplify the model and prevent
+                        overfitting.
+                        Usually, we keep features with **P < 0.05**. </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The "P-hacking" Danger</h2>
+                <div class="insight-box">
+                    <h3>The Data Scientist's Sin</h3>
+                    <p>
+                        If you test 100 random features, 5 of them will have P < 0.05 just by pure luck! This is called
+                            **P-hacking**. In ML, this is the same as finding features that look good on one lucky split
+                            of the data but fail on the test set. </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

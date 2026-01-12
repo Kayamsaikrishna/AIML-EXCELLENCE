@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.15 Gibbs Sampling - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_14_mcmc_overview.html" class="nav-link">14. Mcmc Overview</a>
+                        </li>
+                        <li class="nav-item"><a href="26_15_gibbs_sampling.html" class="nav-link active">15. Gibbs
+                                Sampling</a></li>
+                        <li class="nav-item"><a href="26_16_metropolis_hastings.html" class="nav-link">16. Metropolis
+                                Hastings</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Multivariate Sampling</span>
+                </div>
+                <h1>Gibbs Sampling</h1>
+                <p class="lead-text">A "coordinate descent" version of MCMC where you update one variable at a time
+                    while holding the others constant.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Cheat Code</h3>
+                    <p>
+                        Most MCMC algorithms are slow because you have to propose a jump and see if it's "Accepted."
+                        <br><br>
+                        <strong>Gibbs Sampling</strong> is special. It uses <strong>Conditional Distributions</strong>. Because it always samples
+                        exactly from the conditional, every single proposal is <strong>100% Accepted</strong>. Zero waste!
+                    </p>
+                </div>
+
+                <h2>1. The Algorithm</h2>
+                <div class="math-box">
+                    To sample a pair \((\theta_1, \theta_2)\): <br>
+                    1. Fix \(\theta_2\). Sample \(\theta_1\) from \(P(\theta_1 | \theta_2, Data)\). <br>
+                    2. Fix the new \(\theta_1\). Sample \(\theta_2\) from \(P(\theta_2 | \theta_1, Data)\). <br>
+                    3. Repeat.
+                </div>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A["(x0, y0)"] -->|Update x| B["(x1, y0)"]
+                        B -->|Update y| C["(x1, y1)"]
+                        C -->|Update x| D["(x2, y1)"]
+                        D -->|Update y| E["(x2, y2)"]
+                    </div>
+                </div>
+                <p>The sampler moves in an L-shaped "staircase" pattern through the probability space.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. When to use it</h2>
+                <ul>
+                    <li><strong>Pros:</strong> No "tuning" required. High efficiency for conjugate models.</li>
+                    <li><strong>Cons:</strong> Requires you to actually *know* the conditional distributions (math-heavy). If
+                        variables are highly correlated, the staircase becomes very slow.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Restricted Boltzmann Machines (RBM)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Energy Models</span>
+                    <h3>The Heart of Contrastive Divergence</h3>
+                    <p>
+                        In an <strong>RBM</strong> (the building block of Deep Belief Networks), we have <strong>Visible units</strong> (data) and
+                        <strong>Hidden units</strong> (features).
+                    </p>
+                    <p>
+                        Because the hidden units are not connected to each other, given the data, the features are
+                        independent.
+                        1. Sample <strong>Hidden</strong> cells given <strong>Visible</strong> cells.
+                        2. Sample <strong>Visible</strong> cells given <strong>Hidden</strong> cells.
+                    </p>
+                    <p>
+                        This "Gibbs block update" is how RBMs learn to represent images. It's the engine that powers
+                        <strong>Contrastive Divergence (CD-k)</strong>, which was the first practical algorithm for training deep
+                        neural networks in the mid-2000s.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

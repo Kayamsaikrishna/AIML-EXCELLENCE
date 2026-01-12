@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.07 Maximum Entropy Principle - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.1 Entropy</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_06_conditional_entropy.html" class="nav-link">06. Conditional
+                                Entropy</a></li>
+                        <li class="nav-item"><a href="29_07_maximum_entropy_principle.html" class="nav-link active">07.
+                                Maximum Entropy Principle</a></li>
+                        <li class="nav-item"><a href="29_08_entropy_in_machine_learning.html" class="nav-link">08.
+                                Entropy in Machine Learning</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Ethics of Math</span>
+                    <span class="badge secondary">Inference</span>
+                </div>
+                <h1>Maximum Entropy Principle</h1>
+                <p class="lead-text">"The Principle of Least Assumption." If you have to guess, choose the distribution
+                    that is as random as possible while respecting what you already know.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Honest Scientist</h3>
+                    <p>
+                        In 1957, E.T. Jaynes proposed that the most "correct" probability distribution is the one that
+                        maximizes entropy.
+                        <br><br>
+                        Why? Because any distribution with lower entropy would imply you have information or assumptions
+                        that you haven't actually observed. MaxEnt is the mathematical definition of <strong>Objectivity</strong>.
+                    </p>
+                </div>
+
+                <h2>1. The Core Principle</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>"Least Information"</h4>
+                        <p>Subject to known constraints (like mean or variance), the probability distribution that
+                            assumes the <strong>least</strong> additional information is the one where \(H(X)\) is maximized.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Constraints and Resulting Distributions</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Known Constraint</th>
+                            <th>Max Entropy Result</th>
+                            <th>ML Context</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>None (Finite Set)</td>
+                            <td><strong>Uniform Distribution</strong></td>
+                            <td>Starting weights in a NN (Initialization).</td>
+                        </tr>
+                        <tr>
+                            <td>Mean (\(\mu\)) for positive \(X\)</td>
+                            <td><strong>Exponential Distribution</strong></td>
+                            <td>Waiting times, Reliability engineering.</td>
+                        </tr>
+                        <tr>
+                            <td>Mean (\(\mu\)) and Variance (\(\sigma^2\))</td>
+                            <td><strong>Gaussian Distribution</strong></td>
+                            <td>Latent variables in VAEs, Noise modeling.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Maximum Entropy Classifiers</h2>
+                <p>In Machine Learning, a "MaxEnt Classifier" is better known as <strong>Multinomial Logistic Regression</strong>.
+                </p>
+                <div class="math-box">
+                    $$ P(y|x) = \frac{1}{Z(x)} \exp \left( \sum_i w_i f_i(x, y) \right) $$
+                </div>
+                <p>
+                    By choosing this exponential form, we are choosing the distribution with the maximum entropy
+                    consistent with our training features. We don't assume any extra correlations that aren't in the
+                    data.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Regularization</span>
+                    <span class="ml-badge">Exploration</span>
+                    <h3>Why AI needs "Disorder"</h3>
+                    <ul>
+                        <li><strong>Overfitting Prevention:</strong> When we add a penalty for low entropy (or reward for high
+                            entropy) to a loss function, we prevent the model from becoming too "certain" about its
+                            training data. This ensures it generalizes better to new, unseen data.</li>
+                        <li><strong>Policy Exploration:</strong> In Reinforcement Learning, an agent that always takes the "known
+                            best" action stops learning. We enforce a <strong>Maximum Entropy Policy</strong> to ensure the agent
+                            keeps its options open and continues exploring the environment.</li>
+                        <li><strong>Generative Diversity:</strong> In Image Generation, if your model has too low entropy, it will
+                            produce the same few images (Mode Collapse). High entropy ensures a diverse set of creative
+                            outputs.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Logical Decision Flow</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Start Inference] --> B{Any Constraints?}
+                    B -- No --> C[Pick Uniform Distribution]
+                    B -- Yes --> D[Formulate Lagrange Mutlipliers]
+                    D --> E[Max H Subject to Constraints]
+                    E --> F[Result: The Most Honest Distribution]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

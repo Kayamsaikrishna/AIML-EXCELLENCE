@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08.10 Extreme Value Theorem (EVT) - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.1 Limits & Continuity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="08_01_limits_intuition.html" class="nav-link">01. Limits
+                                Intuition</a></li>
+                        <li class="nav-item"><a href="08_02_limits_formal.html" class="nav-link">02. Formal
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_03_limits_onesided.html" class="nav-link">03. One-Sided
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_04_limits_at_infinity.html" class="nav-link">04. Limits at
+                                Infinity</a></li>
+                        <li class="nav-item"><a href="08_05_limits_infinite.html" class="nav-link">05. Infinite
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_06_limit_laws.html" class="nav-link">06. Limit Laws &
+                                Properties</a></li>
+                        <li class="nav-item"><a href="08_07_continuity_defn.html" class="nav-link">07. Continuity
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_08_discontinuities_types.html" class="nav-link">08. Types of
+                                Discontinuities</a></li>
+                        <li class="nav-item"><a href="08_09_ivt.html" class="nav-link">09. Intermediate Value (IVT)</a>
+                        </li>
+                        <li class="nav-item"><a href="08_10_evt.html" class="nav-link active">10. Extreme Value
+                                (EVT)</a></li>
+                        <li class="nav-item"><a href="08_11_squeeze_theorem.html" class="nav-link">11. Squeeze
+                                Theorem</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Optimization</span>
+                </div>
+                <h1>Extreme Value Theorem (EVT)</h1>
+                <p class="lead-text">Does a "best" solution actually exist? The EVT gives us the guarantee that we
+                    aren't chasing ghosts.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Foundation of Optimization</h3>
+                    <p>
+                        Machine Learning is essentially finding the minimum of a function (Loss). But can we be sure a
+                        minimum exists? What if the loss keeps getting smaller forever (like \(1/x\) approaches 0)? The
+                        EVT provides the conditions under which a minimum <strong>must</strong> exist.
+                    </p>
+                </div>
+
+                <h2>1. The Theorem Statement</h2>
+                <div class="glass-card">
+                    <p>
+                        If \(f\) is <strong>continuous</strong> on a <strong>closed interval</strong> \([a, b]\), then
+                        \(f\) attains both an <strong>absolute maximum</strong> and an <strong>absolute minimum</strong>
+                        on that interval.
+                    </p>
+                    <div class="math-block">
+                        \[ \exists c, d \in [a, b] \text{ such that } f(c) \le f(x) \le f(d) \quad \forall x \in [a, b]
+                        \]
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Start((a)) -->|Continuous Curve| Max(Peak)
+                        Max --> Min(Valley)
+                        Min --> End((b))
+                        style Max fill:#48bb78,stroke:#2f855a
+                        style Min fill:#f56565,stroke:#c53030
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Why the Conditions Matter</h2>
+                <div class="two-col-grid">
+                    <div class="feature-box">
+                        <h4>Condition 1: Continuous</h4>
+                        <p>If the function has a hole or asymptote, it might never reach the max/min. </p>
+                        <p><em>Ex:</em> \(1/x\) on \([-1, 1]\) explodes to \(\infty\) at 0.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Condition 2: Closed Interval</h4>
+                        <p>If the interval is open \((0, 1)\), the function limits to the edge but never touches it.</p>
+                        <p><em>Ex:</em> \(f(x)=x\) on \((0, 1)\) has no max. It gets arbitrarily close to 1 (0.9,
+                            0.99...) but never reaches it.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. AI/ML Connection: Regularization & Weights</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why we bound Weights</h3>
+                    <p>
+                        The EVT is crucial for understanding <strong>Regularization</strong>.
+                        We usually minimize Loss \(L(w)\) over the entire real line \( (-\infty, \infty) \). This is an
+                        <em>open</em> interval, so a minimum isn't guaranteed (the weights could explode to infinity to
+                        drive loss to 0).
+                    </p>
+                    <p>
+                        <strong>Weight Decay (L2 Regularization)</strong> effectively constrains the weights to a "ball"
+                        of finite radius (Closed Interval).
+                        \[ ||w||^2 \le C \]
+                        Because the search space is now closed and bounded (a "compact set" in multivariable calculus
+                        terminology), and the Loss function is continuous, the EVT guarantees that a specific, optimal
+                        set of weights \(w^*\) exists. This is why regularized models are more stable.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Python: Searching for Extremes</h2>
+                <div class="code-header">find_extrema.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def analyze_function_on_interval(func, a, b, num_points=10000):
+    # Create the closed interval grid
+    x = np.linspace(a, b, num_points)
+    y = func(x)
+    
+    # Simple Brute Force search (EVT guarantees these exist!)
+    min_idx = np.argmin(y)
+    max_idx = np.argmax(y)
+    
+    min_val = y[min_idx]
+    max_val = y[max_idx]
+    
+    print(f"Stats for f(x) on [{a}, {b}]:")
+    print(f"  Absolute Minimum: {min_val:.4f} at x = {x[min_idx]:.4f}")
+    print(f"  Absolute Maximum: {max_val:.4f} at x = {x[max_idx]:.4f}")
+
+# Example 1: Complex polynomial
+# f(x) = x^4 - 3x^3 + 2 on [-1, 3]
+f1 = lambda x: x**4 - 3*x**3 + 2
+analyze_function_on_interval(f1, -1, 3)
+
+# Example 2: Non-closed interval simulation?
+# f(x) = x on (0, 1) -> effectively [0.0001, 0.9999] numerically
+# The code will find distinct min/max, but mathematically they don't exist in (0,1).
+f2 = lambda x: x
+analyze_function_on_interval(f2, 0.0001, 0.9999)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="08_09_ivt.html" class="footer-link">← Prev: Intermediate Value Thm</a>
+                        <span class="separator">|</span>
+                        <a href="08_11_squeeze_theorem.html" class="footer-link">Next: Squeeze Theorem →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -4,96 +4,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cofactor Expansion - Phase 1.2.2.13</title>
+    <title>03.13 Cofactor Expansion - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_12_det_properties.html">12. Det Properties</a></li>
-            <li><a href="03_13_cofactor_expansion.html" class="active">13. Cofactor Expansion</a></li>
-            <li><a href="03_14_cramers_rule.html">14. Cramer's Rule</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_12_det_properties.html" class="nav-link">12. Det Properties</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">13. Cofactor Expansion</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Cofactor Expansion
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 13. Calculating Volume
         </div>
 
-        <header>
-            <h1>13. Cofactor Expansion (Laplace Expansion)</h1>
-            <p class="subtitle">Recursive breakdown of higher-dimensional determinants.</p>
+        <header class="page-header">
+            <div class="badge">Module 13</div>
+            <h1>Laplace Expansion</h1>
+            <p class="lead-text"> The recursive algorithm. Breaking a big volume into smaller chunks.</p>
         </header>
 
-        <section>
-            <h2>1. Minors and Cofactors</h2>
-            <div class="module-card">
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Minor (\( M_{ij} \)):</strong> The determinant of the sub-matrix
-                        formed by deleting the \( i \)-th row and \( j \)-th column.</li>
-                    <li class="topic-item"><strong>Cofactor (\( C_{ij} \)):</strong> The minor adjusted by a sign: \(
-                        C_{ij} = (-1)^{i+j}M_{ij} \).</li>
-                </ul>
-            </div>
-            <p>The <strong>Laplace Expansion</strong> for row \( i \):</p>
-            <div class="math-block">
-                $$ \text{det}(\mathbf{A}) = \sum_{j=1}^n a_{ij}C_{ij} $$
+        <!-- VISUAL DIAGRAM: COFACTORS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Checkerboard</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Start["Determinant(A)"]
+    
+    subgraph Process
+        PickRow["Pick Row/Column"]
+        Minor["Compute Minors M_ij"]
+        Sign["Apply Sign (-1)^(i+j)"]
+        Sum["Sum a_ij * C_ij"]
+    end
+    
+    Start --> PickRow
+    PickRow --> Minor
+    Minor --> Sign
+    Sign --> Sum
+    
+    Sign --> Checker["+ - + / - + - / + - +"]
+
+    style Sum fill:#dcfce7,stroke:#16a34a
+    style Checker fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2>2. Computational Complexity & Recursion</h2>
-            <div class="module-card">
-                <h3>The O(n!) Trap</h3>
-                <p>While elegant, using Cofactor Expansion for an \( n \times n \) matrix takes <strong>Factorial
-                        Time</strong>.
-                    For a \( 10 \times 10 \) matrix, this is millions of operations. For a \( 100 \times 100 \), it's
-                    physically impossible before the death of the universe.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>AI Practice:</strong> Modern libraries (Numpy, PyTorch) use
-                        <strong>PLU Decomposition</strong> to find determinants in \( O(n^3) \).</li>
+        <!-- 1. DEFINITION: THE FORMULA -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Laplace Expansion</h2>
+                <p>We can compute determinants recursively. For a 3x3, we break it into three 2x2s.</p>
+                <div class="math-block">
+                    $$ \det(A) = \sum_{j=1}^n (-1)^{i+j} a_{ij} \det(M_{ij}) $$
+                </div>
+                <ul>
+                    <li>\( M_{ij} \): The Minor (matrix with row $i$, col $j$ removed).</li>
+                    <li>\( C_{ij} \): The Cofactor (Minor with Sign).</li>
                 </ul>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Recursive Determinant (Educational Only)</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 2. AI APPLICATION: COMPUTATIONAL COMPLEXITY -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Why NOT to use this</h2>
+                <p>This algorithm is \( O(n!) \). For a 20x20 matrix, this would take lifetimes of the universe.</p>
+                <p>In practice, we use <strong>LU Decomposition</strong> ($O(n^3)$) to find determinants using the
+                    product of the diagonal pivots. We learn Lapace only for theoretical understanding (like Cross
+                    Products).</p>
+            </div>
+        </section>
 
-def determinant_recursive(matrix):
-    n = len(matrix)
-    if n == 1: return matrix[0][0]
-    if n == 2: return matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0]
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Recursive Calculation</h2>
+                <p>Just for fun: Implementing Laplace Expansion.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def get_minor(matrix, i, j):
+    # Remove row i and col j
+    return np.delete(np.delete(matrix, i, 0), j, 1)
+
+def laplace_det(matrix):
+    n = matrix.shape[0]
+    # Base case: 2x2
+    if n == 2:
+        return matrix[0,0]*matrix[1,1] - matrix[0,1]*matrix[1,0]
     
     det = 0
+    # Expand along first row (i=0)
     for j in range(n):
-        # Create sub-matrix (Minor)
-        minor = np.delete(np.delete(matrix, 0, axis=0), j, axis=1)
-        det += ((-1)**j) * matrix[0][j] * determinant_recursive(minor)
+        sign = (-1) ** j
+        minor = get_minor(matrix, 0, j)
+        det += sign * matrix[0, j] * laplace_det(minor)
+        
     return det
 
-A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 0]])
-print(f"Recursive Det: {determinant_recursive(A)}")</code></pre>
+A = np.array([
+    [1, 2, 3],
+    [0, 4, 5],
+    [1, 0, 6]
+])
+
+print(f"Manual Recursive Det: {laplace_det(A)}")
+print(f"NumPy Det: {np.linalg.det(A)}")
+</code></pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

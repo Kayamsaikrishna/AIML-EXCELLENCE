@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19.07 Discrete Uniform Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.3 Discrete Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="19_06_poisson.html" class="nav-link">06. Poisson</a></li>
+                        <li class="nav-item"><a href="19_07_discrete_uniform.html" class="nav-link active">07. Discrete
+                                Uniform</a></li>
+                        <li class="nav-item"><a href="19_08_multinomial.html" class="nav-link">08. Multinomial</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Equality</span>
+                </div>
+                <h1>The Discrete Uniform Distribution</h1>
+                <p class="lead-text">When you know nothing, assume everything is equal.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Principle of Insufficient Reason</h3>
+                    <p>
+                        If we have \(N\) possible outcomes and absolutely no reason to favor one over another (a "fair"
+                        die), logic dictates we assign equal probability to each.
+                        <br><br>
+                        This is the <strong>Maximum Entropy</strong> distribution. It assumes the least amount of
+                        information.
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    Let \(X\) take values in the set \(\{a, a+1, \dots, b\}\). The total number of outcomes is \(N = b -
+                    a + 1\).
+                    $$ P(X=k) = \frac{1}{N} $$
+                </div>
+                <p>Example: Rolling a standard 6-sided die. \(P(X=k) = 1/6\) for \(k \in \{1,2,3,4,5,6\}\).</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Moments</h2>
+                <ul>
+                    <li><strong>Mean:</strong> \(E[X] = \frac{a+b}{2}\) (The exact middle).</li>
+                    <li><strong>Variance:</strong> \(\text{Var}(X) = \frac{N^2 - 1}{12}\).
+                        <br><span class="text-sm">(Compare to Continuous Uniform variance
+                            \(\frac{(b-a)^2}{12}\)).</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Initialization & Hashing</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Cryptography</span>
+                    <span class="ml-badge">Hash Maps</span>
+                    <h3>Ideally Uniform</h3>
+                    <p>
+                        <strong>Hash Functions:</strong> A good hash function maps independent inputs to buckets such
+                        that the distribution of items in buckets follows a Discrete Uniform distribution. If it's not
+                        uniform, we get collisions (clustering).
+                    </p>
+                    <p>
+                        <strong>Random Seeds:</strong> When setting a random seed `random.seed(42)`, we are effectively
+                        selecting a starting point in a pseudo-random sequence that approximates a Uniform distribution.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

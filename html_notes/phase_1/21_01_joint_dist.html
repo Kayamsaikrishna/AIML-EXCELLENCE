@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.01 Joint Distributions - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_01_joint_dist.html" class="nav-link active">01. Joint Dist</a>
+                        </li>
+                        <li class="nav-item"><a href="21_02_marginal_dist.html" class="nav-link">02. Marginal Dist</a>
+                        </li>
+                        <li class="nav-item"><a href="21_03_conditional_dist.html" class="nav-link">03. Conditional
+                                Dist</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Big Picture</span>
+                </div>
+                <h1>Joint Distributions</h1>
+                <p class="lead-text">Understanding how multiple random variables behave together.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Beyond One Dimension</h3>
+                    <p>
+                        In the previous modules, we looked at variables in isolation (e.g., just height or just weight).
+                        But in Machine Learning, we deal with <strong>Feature Vectors</strong>.
+                        <br><br>
+                        A data point is rarely a single number; it's a combination of features that are often related.
+                        The <strong>Joint Distribution</strong> captures the probability of all these variables occurring
+                        simultaneously.
+                    </p>
+                </div>
+
+                <h2>1. Discrete Joint PMF</h2>
+                <div class="math-box">
+                    For discrete RVs \(X\) and \(Y\), the Joint Probability Mass Function is:
+                    $$ p(x, y) = P(X = x, Y = y) $$
+                    <strong>Properties:</strong>
+                    <ul>
+                        <li>\(0 \le p(x, y) \le 1\)</li>
+                        <li>\(\sum_x \sum_y p(x, y) = 1\) (The total mass in the grid must sum to 1).</li>
+                    </ul>
+                </div>
+                <p>
+                    <strong>Visualization:</strong> Think of a 2D table where rows are \(X\) values and columns are
+                    \(Y\) values. Each cell contains the probability of that specific pair.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Continuous Joint PDF</h2>
+                <div class="math-box">
+                    For continuous RVs \(X\) and \(Y\), the Joint Probability Density Function is \(f(x, y)\):
+                    $$ P(a \le X \le b, c \le Y \le d) = \int_c^d \int_a^b f(x, y) \, dx \, dy $$
+                    <strong>Properties:</strong>
+                    <ul>
+                        <li>\(f(x, y) \ge 0\)</li>
+                        <li>\(\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) \, dx \, dy = 1\) (Volume under
+                            the surface equals 1).</li>
+                    </ul>
+                </div>
+                <p>
+                    <strong>Visualization:</strong> Instead of a 1D curve, you have a 2D <strong>Surface</strong> (like
+                    a mountain or a bowl) over the \(XY\) plane. The height of the surface at \((x, y)\) is the density.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Joint CDF</h2>
+                <div class="math-box">
+                    The Cumulative Distribution Function for multiple variables:
+                    $$ F(x, y) = P(X \le x, Y \le y) $$
+                </div>
+                <p>This asks: "What is the probability that \(X\) is below a threshold <strong>AND</strong> \(Y\) is
+                    below a threshold?" Geometrically, this is the mass/volume in the bottom-left quadrant starting from
+                    \((x, y)\).</p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. ML Connection: Input Distributions</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Generative Models</span>
+                    <h3>Modeling $P(X)$</h3>
+                    <p>
+                        In Generative AI (VAEs, GANs, Diffusion), our goal is often to learn the <strong>Joint
+                            Distribution</strong> of pixels in an image.
+                    </p>
+                    <p>
+                        Pixels are not independent. If pixel \((i, j)\) is part of a blue sky, its neighbor \((i+1, j)\)
+                        is very likely blue as well. Understanding these joint dependencies is what allows AI to
+                        generate coherent patterns rather than random noise.
+                    </p>
+                </div>
+
+                <h3>Feature Interaction</h3>
+                <p>
+                    In structured data (like a housing dataset), 'Square Footage' and 'Number of Bedrooms' have a strong
+                    joint relationship. A model that understands their joint behavior can better predict the 'Price'
+                    than one that looks at them independently.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>5. Python: Visualizing Joint Density</h2>
+                <div class="code-playground">
+                    <div class="code-header">Python: 2D Density Plot</div>
+                    <pre><code class="language-python">
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Generate correlated data
+mean = [0, 0]
+cov = [[1, 0.8], [0.8, 1]]
+x, y = np.random.multivariate_normal(mean, cov, 5000).T
+
+# Create a Joint Plot
+sns.jointplot(x=x, y=y, kind="kde", color="teal")
+plt.show()
+
+# Observe how the "mountain" is stretched along the diagonal.
+                    </code></pre>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

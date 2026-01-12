@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renyi Entropy - Phase 1.5.7.13</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_13_renyi_entropy.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_13_renyi_entropy.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_13</div>
+            <h1>13. Renyi Entropy</h1>
+            <p class="lead-text">Generalizing uncertainty for sensitive systems.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Alpha Parameter</h2>
+<p><strong>Renyi Entropy ($H_\alpha$)** generalizes Shannon entropy by adding a parameter $\alpha$. As
+                    $\alpha \to 1$, Renyi entropy becomes Shannon entropy. </strong></p>
+<div class="math-block">
+                $$ H_\alpha(X) = \frac{1}{1 - \alpha} \log \left( \sum_{i=1}^n p_i^\alpha \right) $$
+            </div>
+<ul class="topic-list">
+<li><strong>$\alpha = 0$:</strong> Hartley entropy (log of the number of possible outcomes).</li>
+<li><strong>$\alpha = 2$:</strong> Collision entropy (likelyhood of two random samples being the same).
+                </li>
+<li><strong>$\alpha = \infty$:</strong> Min-entropy (focuses only on the most probable outcome).</li>
+</ul>
+</section>
+<section class="module-card">
+<h2>2. Why generalize?</h2>
+<p>Shannon entropy measures the *average* surprise. But in security or privacy, we often care about the
+                *worst-case* surprise ($\alpha = \infty$). Renyi entropy allows us to tune our "Surprise threshold."
+            </p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Differential Privacy and Diversity</h2>
+<div class="module-card">
+<h3>Measuring Information Leakage</h3>
+<p>In AI, <strong>Renyi Differential Privacy (RDP)** is the state-of-the-art for training private
+                        models. </strong></p>
+<p>When training an AI on sensitive medical data, we use Renyi divergence to bound how much a single
+                    patient's data can influence the weights. Higher $\alpha$ values provide tighter bounds on the
+                    "Privacy Budget." In <strong>Reinforcement Learning**, Renyi entropy is used to measure **Strategy
+                        Diversity**: we want the AI to not just find one way to win, but to maintain a distribution of
+                        strategies with specific entropy properties. It allows for a more "Aggressive" exploration than
+                        standard Shannon regularizers. It is the math of <strong>Robustness in Unpredictable Environments</strong>.
+                </strong></p>
+</div>
+</section>
+<section>
+<h2>4. Mathematical Fact</h2>
+<p>$H_\alpha$ is a non-increasing function of $\alpha$. Min-entropy ($H_\infty$) is always less than or
+                equal to Shannon entropy. This proves that the "average" case is always more optimistic than the "worst"
+                case. </p>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

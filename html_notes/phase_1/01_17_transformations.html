@@ -4,170 +4,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Function Transformations - Phase 1.1.17</title>
+    <title>01.17 Transformations - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html" class="active">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_16_functions.html" class="nav-link">16. Functions</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">17. Transforms</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Transformations
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 17. Transformations
         </div>
 
-        <header>
-            <h1>17. Transformations & Augmentation</h1>
-            <p class="subtitle">Shifting, Scaling, and Flipping. Teaching AI Invariance.</p>
+        <header class="page-header">
+            <div class="badge">Module 17</div>
+            <h1>Transformations & Data Augmentation</h1>
+            <p class="lead-text">Shifting, Scaling, and Rotating data. The math behind Preprocessing and Augmentation.
+            </p>
         </header>
 
-        <!-- 1. BASICS -->
-        <section id="basics">
-            <h2>1. The Logic of Movement</h2>
-            <div class="math-block">
-                $$ g(x) = A \cdot f(B(x - C)) + D $$
-            </div>
+        <!-- VISUAL DIAGRAM: AUGMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Modifying Space</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Data["Raw Data (x)"]
+    
+    subgraph Operations [Affine Transforms]
+        Shift["Translation (+ b)"]
+        Scale["Scaling (* w)"]
+        Rotate["Rotation (Matrix)"]
+    end
+    
+    subgraph Impact [AI Goal]
+        Norm["Normalization (Mean=0)"]
+        Aug["Augmentation (Robustness)"]
+        Invariant["Invariance"]
+    end
+    
+    Data --> Shift
+    Data --> Scale
+    
+    Shift --> Norm
+    Scale --> Norm
+    
+    Rotate --> Aug
+    Aug --> Invariant
 
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">The Components</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><strong>C (Horizontal Shift):</strong> Moves graph Left/Right.</li>
-                        <li class="topic-item"><strong>D (Vertical Shift):</strong> Moves graph Up/Down. (Bias in NN).
-                        </li>
-                        <li class="topic-item"><strong>A (Vertical Scaling):</strong> Amplitude. (Weight in NN).</li>
-                        <li class="topic-item"><strong>B (Horizontal Scaling):</strong> Frequency/Speed.</li>
-                    </ul>
+    style Norm fill:#dbeafe,stroke:#2563eb
+    style Aug fill:#fcfeda,stroke:#d97706
+                    </pre>
                 </div>
-            </div>
-
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <!-- SVG: Transformations -->
-                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Axis -->
-                    <line x1="300" y1="280" x2="300" y2="20" stroke="#64748b" stroke-width="1" stroke-dasharray="5,5" />
-                    <line x1="50" y1="150" x2="550" y2="150" stroke="#64748b" stroke-width="1" />
-
-                    <!-- Original (Black) -->
-                    <rect x="250" y="100" width="100" height="100" fill="none" stroke="#0f172a" stroke-width="2" />
-                    <text x="300" y="155" text-anchor="middle" font-weight="bold">f(x)</text>
-
-                    <!-- Shifted & Scaled (Blue) -->
-                    <rect x="400" y="50" width="50" height="50" fill="none" stroke="#3b82f6" stroke-width="2" />
-                    <text x="425" y="80" text-anchor="middle" fill="#3b82f6" font-weight="bold">g(x)</text>
-
-                    <!-- Annotation -->
-                    <path d="M 350 150 Q 375 100 400 75" fill="none" stroke="#64748b" stroke-width="2"
-                        marker-end="url(#arrow)" />
-                    <text x="380" y="180" fill="#64748b">Shift + Scale</text>
-                </svg>
             </div>
         </section>
 
-        <!-- 2. AI CONTEXT -->
-        <section id="ai-context">
-            <h2>2. Data Augmentation</h2>
-            <p>If we want an AI to recognize a "Cat", it should recognize the cat whether it's in the center, the
-                corner, or zoomed in.</p>
-            <p>We <strong>Transformation</strong> the training data randomly so the model learns <strong>Translational
-                    Invariance</strong>.</p>
+        <!-- 1. SHIFT AND SCALE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Vertical & Horizontal Shifts</h2>
+                <p>Functions can be moved around:</p>
+                <ul>
+                    <li>\( f(x) + k \): Shift Up</li>
+                    <li>\( f(x-h) \): Shift Right (Counter-intuitive!)</li>
+                </ul>
 
-            <div class="module-card">
-                <h3 class="module-title">Mathematical Invariance</h3>
-                <p>We want the Neural Network Function \( N(x) \) to satisfy:</p>
+                <h3>AI: Normalization (Z-Score)</h3>
+                <p>We shift data to center it at 0 and scale it to variance 1. This helps Gradient Descent converge
+                    faster.</p>
                 <div class="math-block">
-                    $$ N(\text{Shift}(x)) \approx N(x) $$
+                    $$ x_{norm} = \frac{x - \mu}{\sigma} $$
                 </div>
-                <p>Convolutional Neural Networks (CNNs) have this built-in for small shifts via <strong>Pooling
-                        Layers</strong>.</p>
             </div>
         </section>
 
-        <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Coding Augmentations</h2>
-            <p>PyTorch's `torchvision.transforms` is a library of mathematical functions applied to images.</p>
-
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// PyTorch: Augmentation Pipeline</div>
-                <pre><code class="language-python">import torch
-from torchvision import transforms
-
-# Define a pipeline of transformations
-# 1. Flip Horizontally (Reflection over Y-axis)
-# 2. Random Rotation (Coordinate Rotation matrix)
-# 3. Convert to Tensor (Normalization)
-transform = transforms.Compose([
-    transforms.RandomHorizontalFlip(p=0.5), # f(-x)
-    transforms.RandomRotation(degrees=15),  # Rotation Matrix R
-    transforms.ToTensor()
-])
-
-print("Pipeline Ready. This teaches the model 'Invariance'.")</code></pre>
+        <!-- 2. DATA AUGMENTATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f43f5e;">
+                <h2>2. Transformations as Data Augmentation</h2>
+                <p>In Computer Vision, we artificially expand the dataset by applying random transformations.</p>
+                <ul>
+                    <li><strong>Rotation:</strong> Rotate image by \(\theta\).</li>
+                    <li><strong>Flip:</strong> Reflection across axis.</li>
+                    <li><strong>Shear:</strong> Slanting the image.</li>
+                </ul>
+                <p>This forces the model to learn <strong>Invariant Features</strong> (e.g., a cat is still a cat even
+                    if tilted).</p>
             </div>
         </section>
 
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Implementing Transforms</h2>
+                <p>Using Affine Matrices to rotate points.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+def rotate_point(point, angle_degrees):
+    theta = np.radians(angle_degrees)
+    # Rotation Matrix
+    R = np.array([
+        [np.cos(theta), -np.sin(theta)],
+        [np.sin(theta),  np.cos(theta)]
+    ])
+    return np.dot(R, point)
+
+x = np.array([1, 0]) # Point on X axis
+x_rot = rotate_point(x, 90)
+
+print(f"Original: {x}")
+print(f"Rotated 90 deg: {x_rot}") 
+# Should be close to [0, 1] (allowing for float error)
+
+# Normalization Logic
+data = np.array([10, 20, 30, 40, 50])
+norm_data = (data - np.mean(data)) / np.std(data)
+print(f"Normalized Mean: {np.mean(norm_data):.2f}") # Should be 0.00
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

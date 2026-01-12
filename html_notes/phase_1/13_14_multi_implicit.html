@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implicit Differentiation (Multi) - Phase 1.3.6.14</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_14_multi_implicit.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_14_multi_implicit.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_14</div>
+            <h1>14. Implicit Differentiation for Multiple Variables</h1>
+            <p class="lead-text">Extracting derivatives from hidden relationships.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Multi-D Imperial Rule</h2>
+<p>If you have an equation involving \(x, y, z\) that defines \(z\) implicitly as a function of \(x\) and
+                \(y\), say \(F(x, y, z) = 0\), we can find the partial derivatives of \(z\) without solving for \(z\)
+                explicitly:</p>
+<div class="math-block">
+                $$ \frac{\partial z}{\partial x} = -\frac{F_x}{F_z}, \quad \frac{\partial z}{\partial y} =
+                -\frac{F_y}{F_z} $$
+            </div>
+<p>This is a direct application of the Multivariable Chain Rule. This generalizes the 1D implicit rule
+                (\(dy/dx = -F_x/F_y\)).</p>
+</section>
+<section class="module-card">
+<h2>2. Why it matters</h2>
+<p>In high dimensions, solving for a specific variable is often algebraically impossible. Implicit
+                differentiation allows us to find the "Slope" or "Sensitivity" of a variable even when it is locked
+                inside a complex equation.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Manifold Learning</h2>
+<div class="module-card">
+<h3>Constrained Knowledge</h3>
+<p>In <strong>Manifold Learning</strong> (like Isomap or locally linear embeddings), we assume that
+                    high-dimensional data (like 1024x1024 images) actually lies on a low-dimensional "Sheet" or
+                    <strong>Manifold</strong> defined by hidden equations. </p>
+<p>When an AI tries to find the "Path" along this manifold, it is essentially doing <strong>Implicit
+                        Differentiation</strong>. It doesn't know the exact formula for the data manifold, but it can
+                    calculate the <strong>Tangents</strong> to the data points. By understanding how one pixel changes
+                    "Implicitly" as another changes (while staying on the manifold of "Real Face Images"), the AI can
+                    generate high-quality images that look realistic rather than just random noise.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Symbolic Implicit Checks</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
+
+x, y, z = sp.symbols('x y z')
+# Equation: x^3 + y^3 + z^3 + 6xyz = 1
+F = x**3 + y**3 + z**3 + 6*x*y*z - 1
+
+dz_dx = -sp.diff(F, x) / sp.diff(F, z)
+print(f"Partial of z w.r.t x: {dz_dx}")
+
+# At point (x=0, y=1), we can find the slope of the surface</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

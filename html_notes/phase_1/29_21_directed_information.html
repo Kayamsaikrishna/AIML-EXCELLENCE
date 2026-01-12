@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directed Information - Phase 1.5.7.21</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_21_directed_information.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_21_directed_information.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_21</div>
+            <h1>21. Directed Information</h1>
+            <p class="lead-text">Measuring the arrow of causality.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Beyond Symmetric Correlation</h2>
+<p>Mutual Information $I(X; Y)$ is symmetric—it tells you how much they share, but not who is "leading"
+                whom. <strong>Directed Information $I(X^n \to Y^n)$** measures the information flow from sequence $X$ to
+                    sequence $Y$ over time, without including the common future. </strong></p>
+<p>It is the information-theoretic generalization of <strong>Granger Causality</strong>. </p>
+</section>
+<section class="module-card">
+<h2>2. The Causal Bottleneck</h2>
+<p>Directed information tells you how much information you gain about $Y_t$ by knowing previous $X_{1 \dots
+                t}$, *over and above* what you already knew from $Y_{1 \dots t-1}$. It isolates the unique causal
+                influence of $X$ on $Y$.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Causal discovery and RNN Dynamics</h2>
+<div class="module-card">
+<h3>Who Drives the Signal?</h3>
+<p>In AI, Directed Information is the gold standard for <strong>Causal Discovery in Multi-agent RL** and
+                        <strong>Financial Forecasting</strong>. </strong></p>
+<p>When training a <strong>Multi-agent System</strong>, we use directed information to measure whether Agent A is
+                    influencing Agent B. This allows the AI to learn "Follower" and "Leader" behaviors. In
+                    <strong>Recurrent Neural Networks (RNNs)** and <strong>Transformers</strong>, we use directed info to analyze the
+                        <strong>"Arrow of Information."</strong> Does the model truly rely on the context, or is it just echoing the
+                        most recent token? Recent researchers use <strong>Transfer Entropy** (a form of directed info)
+                            to visualize how gradients flow through time. It is the math that allows us to build
+                            <strong>Explainable AI (XAI)</strong>: we can prove that "Feature X caused Prediction Y" rather than just
+                            showing they are correlated. </strong></strong></p>
+</div>
+</section>
+<section>
+<h2>4. Mathematical Note</h2>
+<p>Directed Information is particularly important in <strong>Human-in-the-loop AI</strong>. We want to maximize the
+                directed information from the human's feedback to the AI's weight updates, ensuring the AI "Listens"
+                rather than just fitting the noise in the rewards. </p>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

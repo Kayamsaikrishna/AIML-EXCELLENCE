@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.17 Non-parametric: Kruskal-Wallis - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_16_non_parametric_wilcoxon.html" class="nav-link">16. Non
+                                Parametric Wilcoxon</a></li>
+                        <li class="nav-item"><a href="25_17_non_parametric_kruskal.html" class="nav-link active">17. Non
+                                Parametric Kruskal</a></li>
+                        <li class="nav-item"><a href="25_18_effect_size_cohen.html" class="nav-link">18. Effect Size
+                                Cohen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Multi-Rank</span>
+                </div>
+                <h1>Kruskal-Wallis H-Test</h1>
+                <p class="lead-text">Comparing three or more independent groups using ranks instead of means.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Robust ANOVA</h3>
+                    <p>
+                        Just as the Wilcoxon is the alternative to the T-test, <strong>Kruskal-Wallis</strong> is the non-parametric
+                        alternative to <strong>One-Way ANOVA</strong>.
+                        <br><br>
+                        It tests if the groups come from the same distribution without assuming that distribution is
+                        Normal.
+                    </p>
+                </div>
+
+                <h2>1. The Logic</h2>
+                <div class="math-box">
+                    1. Combine all data from all groups.
+                    2. <strong>Rank</strong> them from 1 to \(N\).
+                    3. Sum the ranks for each group.
+                    4. Calculate the \(H\) statistic (measures the "gap" between rank sums).
+                </div>
+                <p>
+                    If one group consistently has the largest values in the dataset, its rank sum will be uniquely high,
+                    resulting in a low P-value.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Why choose Kruskal-Wallis?</h2>
+                <ul>
+                    <li><strong>Heteroscedasticity:</strong> Your groups have very different variances.</li>
+                    <li><strong>Skewed Data:</strong> Your data has "Long Tails" (e.g., income, house prices, latency).</li>
+                    <li><strong>Small Datasets:</strong> When you can't verify Normality at all.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Benchmark Aggregation</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Research</span>
+                    <span class="ml-badge">NLP</span>
+                    <h3>Aggregating across heterogeneous tasks</h3>
+                    <p>
+                        You are comparing 3 Large Language Models (GPT-4, Claude 3, Llama 3) across 50 different coding
+                        tasks. Each task has a different difficulty (some take 10s to solve, some take 300s).
+                    </p>
+                    <p>
+                        <strong>The Problem:</strong> You can't just average the times, because the 300s tasks will dominate the
+                        mean, drowning out the performance on the 10s tasks.
+                    </p>
+                    <p>
+                        <strong>The Solution:</strong> Use <strong>Kruskal-Wallis</strong>. It converts the times into <strong>Ranks</strong> within each task.
+                        It doesn't matter if a task took 10s or 300s; being 1st place always gives the best rank. This
+                        provides a fair, robust comparison of the 3 models across the entire suite of tasks.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

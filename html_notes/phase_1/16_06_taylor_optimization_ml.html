@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.06 Taylor Optimization in ML - Calculus for ML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.9 Calculus for ML</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="16_05_loss_convexity_ml.html" class="nav-link">05. Loss
+                                Convexity</a></li>
+                        <li class="nav-item"><a href="16_06_taylor_optimization_ml.html" class="nav-link active">06.
+                                Taylor in ML</a></li>
+                        <li class="nav-item"><a href="16_07_numerical_diff.html" class="nav-link">07. Numerical Diff</a>
+                        </li>
+                        <li class="nav-item"><a href="16_08_automatic_diff.html" class="nav-link">08. Autodiff
+                                Basics</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">ML Calc 1.9</span>
+                    <span class="badge secondary">Approximation</span>
+                </div>
+                <h1>Taylor Optimization in ML</h1>
+                <p class="lead-text">Approximating the loss landscape.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Local Approximations</h3>
+                    <p>
+                        We can approximate the loss function \(L(\mathbf{w})\) around a point \(\mathbf{w}_0\) using
+                        Taylor Series:
+                    </p>
+                    <div class="math-block">
+                        $$ L(\mathbf{w}) \approx L(\mathbf{w}_0) + (\mathbf{w}-\mathbf{w}_0)^T \mathbf{g} +
+                        \frac{1}{2}(\mathbf{w}-\mathbf{w}_0)^T \mathbf{H} (\mathbf{w}-\mathbf{w}_0) $$
+                    </div>
+                    <p>
+                        <strong>Gradient Descent</strong> only uses the first term (Linear Approximation).
+                        <strong>Newton's Method</strong> uses the second term (Quadratic Approximation) to find the
+                        bottom of the "parabola".
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: K-FAC</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Natural Gradients</h3>
+                    <p>
+                        Standard Gradient Descent assumes the geometry of parameter space is Euclidean (Isotropic). It
+                        isn't.
+                        Changing one weight might drastically change the output probability distribution, while changing
+                        another does nothing.
+                    </p>
+                    <p>
+                        <strong>Natural Gradient Descent</strong> uses the <strong>Fisher Information Matrix</strong> (related to the Hessian) to
+                        correct for this curvature.
+                        Methods like <strong>K-FAC</strong> (Kronecker-Factored Approximate Curvature) approximate this term to speed
+                        up training of very deep networks.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: 2nd Order approx</h2>
+                <div class="code-header">taylor_approx.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Approx f(x) = e^x near x=0
+# Taylor: 1 + x + x^2/2
+
+def taylor_exp(x):
+    return 1 + x + (x**2)/2
+
+print(f"e^0.1 real: {np.exp(0.1):.6f}")
+print(f"e^0.1 approx: {taylor_exp(0.1):.6f}")
+# Matches closely! 
+
+# In ML, this tells us how far we can trust the gradient step.
+# If the "Trust Region" is small, we must take small steps.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="16_05_loss_convexity_ml.html" class="footer-link">← Prev: Loss Convexity</a>
+                        <span class="separator">|</span>
+                        <a href="16_07_numerical_diff.html" class="footer-link">Next: Numerical Diff →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

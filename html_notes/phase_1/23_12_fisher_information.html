@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.12 Fisher Information - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_11_mle_properties.html" class="nav-link">11. Mle Properties</a>
+                        </li>
+                        <li class="nav-item"><a href="23_12_fisher_information.html" class="nav-link active">12. Fisher
+                                Information</a></li>
+                        <li class="nav-item"><a href="23_13_sufficient_statistics.html" class="nav-link">13. Sufficient
+                                Statistics</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Inf. Geometry</span>
+                </div>
+                <h1>Fisher Information</h1>
+                <p class="lead-text">Measuring how much information about an unknown parameter is "carried" by the data.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Sharpness of the Peak</h3>
+                    <p>
+                        If the Likelihood function has a very sharp peak at \(\hat{\theta}\), then small changes in the
+                        data would move the peak only slightly. We have high confidence.
+                        <br><br>
+                        If the peak is broad and "flat", then many different values of \(\theta\) are nearly as likely.
+                        We have low confidence.
+                        <br><br>
+                        <strong>Fisher Information</strong> measures this "sharpness" (the negative curvature of the log-likelihood).
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    $$ I(\theta) = -E\left[ \frac{\partial^2}{\partial \theta^2} \ln L(\theta) \right] $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Two Perspectives</h2>
+                <ul>
+                    <li><strong>Variance of the Score:</strong> It is the variance of the first derivative (gradient) of the
+                        log-likelihood.</li>
+                    <li><strong>Negative Curvature:</strong> It is the expected "steepness" of the drop-off from the maximum.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Natural Gradients</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Optimization</span>
+                    <span class="ml-badge">Information Theory</span>
+                    <h3>Natural Gradient Descent (NGD)</h3>
+                    <p>
+                        Standard Gradient Descent takes steps in Euclidean space. But the parameter space of a
+                        probability distribution is "curved".
+                    </p>
+                    <p>
+                        NGD uses the <strong>Fisher Information Matrix</strong> as a metric to scale the gradient steps. It makes
+                        larger steps where the likelihood is flat and smaller, cautious steps where the likelihood is
+                        sharp. This is the foundation of advanced optimizers like <strong>K-FAC</strong>.
+                    </p>
+                </div>
+
+                <h3>Model Sensitivity</h3>
+                <p>
+                    Fisher Information is also used in <strong>Active Learning</strong>. It identifies which new data points would
+                    provide the "most information" (highest increase in Fisher Information) to the current model,
+                    allowing it to learn with fewer labeled examples.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

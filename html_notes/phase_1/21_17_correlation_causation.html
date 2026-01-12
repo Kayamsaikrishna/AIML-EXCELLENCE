@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.17 Correlation vs Causation - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_16_conditional_gaussian.html" class="nav-link">16. Cond.
+                                Gaussian</a></li>
+                        <li class="nav-item"><a href="21_17_correlation_causation.html" class="nav-link active">17. Corr
+                                vs Causation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Great Trap</span>
+                </div>
+                <h1>Correlation vs. Causation</h1>
+                <p class="lead-text">Why statistics can be an excellent servant but a dangerous master.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Common Fallacy</h3>
+                    <p>
+                        "Cum Hoc Ergo Propter Hoc" (With this, therefore because of this).
+                        <br><br>
+                        Just because two variables move together doesn't mean one drives the other. They could be driven
+                        by a <strong>Confounding Variable</strong>, or it could be pure coincidence (Spurious
+                        Correlation).
+                    </p>
+                </div>
+
+                <h2>1. Spurious Correlations</h2>
+                <p>If you search hard enough in a dataset with 1,000 features, you will find some that are 0.99
+                    correlated purely by chance. This is why <strong>p-values</strong> and
+                    <strong>Cross-validation</strong> are critical—to ensure the relationship generalizes.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Simpson's Paradox</h2>
+                <div class="math-box">
+                    A trend appears in several different groups of data but <strong>disappears or reverses</strong> when
+                    these groups are combined.
+                </div>
+                <div class="insight-box">
+                    <h3>Example: The Medical Trial</h3>
+                    <p>
+                        - Hospital A uses Drug X and has a 90% success rate.
+                        - Hospital B uses Drug Y and has an 80% success rate.
+                        <br>
+                        <strong>Combined:</strong> Drug Y looks better.
+                        <br>
+                        <strong>Why?</strong> Hospital B takes the "difficult" cases that are harder to treat. When you
+                        condition on <em>Severity of Case</em>, Drug X is actually better in both groups. Ignoring the
+                        confounder (severity) leads to the wrong conclusion.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Causal Inference</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Product ML</span>
+                    <span class="ml-badge">A/B Testing</span>
+                    <h3>The $do$-calculus</h3>
+                    <p>
+                        Standard Machine Learning only cares about $P(Y \mid X)$. <strong>Causal Inference</strong>
+                        cares about $P(Y \mid do(X))$.
+                    </p>
+                    <p>
+                        If we see that users who use Feature A have higher retention, does Feature A <em>cause</em>
+                        retention? Or do <em>power users</em> just naturally use Feature A?
+                        <br>
+                        If we force a random group to use Feature A (the $do$-operator), and retention goes up,
+                        <strong>then</strong> we have evidence of causation. This is why **Randomized Controlled Trials
+                        (RCTs)** or <strong>A/B Tests</strong> are the gold standard for product decisions.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Causal Graphs (DAGs)</h2>
+                <p>
+                    We represent relationships using Directed Acyclic Graphs.
+                    - <strong>Chain:</strong> \(X \to Y \to Z\) (Indirect effect).
+                    - <strong>Fork:</strong> \(Y \gets X \to Z\) (\(X\) is a confounder).
+                    - <strong>Collider:</strong> \(X \to Y \gets Z\) (Conditioning on \(Y\) creates a fake correlation between \(X\)
+                    and \(Z\)).
+                </p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        X((X)) --> Y((Y))
+                        C((Confounder)) --> X
+                        C --> Y
+                        style C fill:#f96,stroke:#333
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

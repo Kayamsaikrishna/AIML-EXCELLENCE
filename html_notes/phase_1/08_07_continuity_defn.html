@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08.07 Continuity Definition - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.1 Limits & Continuity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="08_01_limits_intuition.html" class="nav-link">01. Limits
+                                Intuition</a></li>
+                        <li class="nav-item"><a href="08_02_limits_formal.html" class="nav-link">02. Formal
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_03_limits_onesided.html" class="nav-link">03. One-Sided
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_04_limits_at_infinity.html" class="nav-link">04. Limits at
+                                Infinity</a></li>
+                        <li class="nav-item"><a href="08_05_limits_infinite.html" class="nav-link">05. Infinite
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_06_limit_laws.html" class="nav-link">06. Limit Laws &
+                                Properties</a></li>
+                        <li class="nav-item"><a href="08_07_continuity_defn.html" class="nav-link active">07. Continuity
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_08_discontinuities_types.html" class="nav-link">08. Types of
+                                Discontinuities</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Stability</span>
+                </div>
+                <h1>Definition of Continuity</h1>
+                <p class="lead-text">Mathematically defining "unbroken" paths, a prerequisite for almost every
+                    optimization algorithm in Machine Learning.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Don't Lift Your Pencil" Rule</h3>
+                    <p>
+                        Intuitively, a function is continuous if you can draw its graph without lifting your pen. In
+                        Machine Learning, we need loss surfaces to be continuous (and preferably smooth) so that we can
+                        "slide" down them like a ball rolling down a hill to find the minimum error.
+                    </p>
+                </div>
+
+                <h2>1. The 3-Step Checklist</h2>
+                <div class="glass-card">
+                    <p>A function \(f(x)\) is continuous at a point \(x = a\) if and only if:</p>
+                    <ol class="feature-list">
+                        <li><strong>\(f(a)\) is Defined:</strong> The point exists (no hole, no asymptote).</li>
+                        <li><strong>\(\lim_{x \to a} f(x)\) Exists:</strong> The function approaches a specific value
+                            from both sides.</li>
+                        <li><strong>They Match:</strong> \(\lim_{x \to a} f(x) = f(a)\). The path leads exactly to where
+                            the point is.</li>
+                    </ol>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Step1{Is f(a) defined?} -->|No| Fail(Discontinuous)
+                        Step1 -->|Yes| Step2{Limit Exists?}
+                        Step2 -->|No| Fail
+                        Step2 -->|Yes| Step3{Limit == f(a)?}
+                        Step3 -->|No| Fail
+                        Step3 -->|Yes| Pass(Continuous ✅)
+                        style Pass fill:#48bb78,stroke:#2f855a
+                        style Fail fill:#f56565,stroke:#c53030
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Loss Landscapes</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Gradient Descent Fails on Discontinuities</h3>
+                    <p>
+                        Imagine training a neural network. You are essentially an optimizer standing on a foggy mountain
+                        (the Loss Landscape), trying to walk downhill.
+                    </p>
+                    <ul>
+                        <li><strong>Continuous Landscape:</strong> You take small steps. If you are at point A, point B
+                            (nearby) is at a similar height. You can trust your local slope.</li>
+                        <li><strong>Discontinuous Landscape:</strong> You take a step and suddenly fall off a cliff or
+                            hit a wall. Your gradient calculation (slope) becomes undefined or misleading.</li>
+                    </ul>
+                    <div class="feature-box">
+                        <h4>Lipschitz Continuity</h4>
+                        <p>
+                            In Generative Adversarial Networks (GANs), we often enforce a stricter form of continuity
+                            called <strong>Lipschitz Continuity</strong>. It limits how fast the function can change:
+                            \[ |f(x_1) - f(x_2)| \le K |x_1 - x_2| \]
+                            This prevents the "Critic" network from having exploding gradients, stabilizing the training
+                            of Wasserstein GANs.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Continuity Checker</h2>
+                <div class="code-header">check_continuity.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def check_continuity(func, point, epsilon=1e-5):
+    print(f"Checking continuity at x = {point}...")
+    
+    # 1. Check if defined
+    try:
+        val_at_point = func(point)
+        print(f"1. f({point}) = {val_at_point}")
+    except:
+        print(f"1. f({point}) is Undefined! -> Discontinuous")
+        return False
+
+    # 2. Check if limit exists (numerically)
+    left_lim = func(point - epsilon)
+    right_lim = func(point + epsilon)
+    
+    # We check if left/right are close
+    if not np.isclose(left_lim, right_lim, atol=1e-3):
+        print(f"2. Limit DNE! Left: {left_lim:.4f}, Right: {right_lim:.4f} -> Discontinuous")
+        return False
+    
+    limit_val = (left_lim + right_lim) / 2
+    print(f"2. Limit exists approx {limit_val:.4f}")
+
+    # 3. Check if they match
+    if np.isclose(limit_val, val_at_point, atol=1e-3):
+        print("3. Limit == Value -> CONTINUOUS ✅")
+        return True
+    else:
+        print(f"3. Limit ({limit_val}) != Value ({val_at_point}) -> Discontinuous ❌")
+        return False
+
+# Test Cases
+print("--- Case A: Absolute Value |x| at 0 ---")
+check_continuity(abs, 0)
+
+print("\n--- Case B: Step Function at 0 ---")
+func_step = lambda x: 1 if x >= 0 else 0
+check_continuity(func_step, 0)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="08_06_limit_laws.html" class="footer-link">← Prev: Limit Laws</a>
+                        <span class="separator">|</span>
+                        <a href="08_08_discontinuities_types.html" class="footer-link">Next: Discontinuity Types →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

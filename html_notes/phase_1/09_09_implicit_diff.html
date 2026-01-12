@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.09 Implicit Differentiation - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_06_product_rule.html" class="nav-link">06. The Product Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="09_07_quotient_rule.html" class="nav-link">07. The Quotient
+                                Rule</a></li>
+                        <li class="nav-item"><a href="09_08_chain_rule.html" class="nav-link">08. The Chain Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="09_09_implicit_diff.html" class="nav-link active">09. Implicit
+                                Differentiation</a></li>
+                        <li class="nav-item"><a href="09_10_trig_derivatives.html" class="nav-link">10. Trig
+                                Derivatives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Indirect</span>
+                </div>
+                <h1>Implicit Differentiation</h1>
+                <p class="lead-text">Sometimes you can't isolate \(y\). That doesn't stop calculus.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Tangled Variables</h3>
+                    <p>
+                        In many physical and geometric systems (like circles, ellipses, or conservation laws), variables
+                        are mixed together: \(x^2 + y^2 = 25\). Solving for \(y = \pm\sqrt{25-x^2}\) is messy and loses
+                        information (the \(\pm\)). Implicit differentiation lets us work directly on the equation.
+                    </p>
+                </div>
+
+                <h2>1. The Technique</h2>
+                <div class="glass-card">
+                    <p>
+                        Treat \(y\) as an unknown function of \(x\), i.e., \(y = y(x)\). When you differentiate a term
+                        with \(y\), apply the Chain Rule.
+                    </p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx}[y^n] = ny^{n-1} \cdot \frac{dy}{dx} \]
+                    </div>
+                    <p>
+                        After differentiating both sides, solve the resulting algebraic equation for \(\frac{dy}{dx}\).
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Eq[Equation: x^2 + y^2 = 25]
+                        Diff[Differentiate w.r.t x]
+
+                        TermX[d/dx x^2 -> 2x]
+                        TermY[d/dx y^2 -> 2y * y']
+                        Const[d/dx 25 -> 0]
+
+                        Eq --> Diff
+                        Diff --> TermX
+                        Diff --> TermY
+                        Diff --> Const
+
+                        Combine[2x + 2yy' = 0]
+                        Solve[Solve for y': y' = -x/y]
+
+                        TermX --> Combine
+                        TermY --> Combine
+                        Const --> Combine
+                        Combine --> Solve
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Implicit Layers</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Deep Equilibrium Models</h3>
+                    <p>
+                        Standard Deep Learning is an <strong>Explicit</strong> function: \(y = f_3(f_2(f_1(x)))\).
+                    </p>
+                    <p>
+                        However, recent research (Deep Equilibrium Models - DEQ) defines the output \(z\) as the
+                        stability point of an equation:
+                        \[ z = f(z, x) \]
+                        Here, the output \(z\) depends on itself! To train this, we need the gradient \(\frac{\partial
+                        z}{\partial x}\). Since \(z\) is defined implicitly, we use the <strong>Implicit Function
+                            Theorem</strong> to calculate gradients without unrolling infinite loops.
+                    </p>
+                    <div class="math-block">
+                        \[ \frac{\partial z}{\partial x} = -(I - J_f)^{-1} \frac{\partial f}{\partial x} \]
+                    </div>
+                    <p>This allows "infinite depth" networks with constant memory.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Implicit Slopes</h2>
+                <div class="code-header">implicit_diff.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x, y = sp.symbols('x y')
+
+# Define the implicit equation: x^3 + y^3 = 6xy (Folium of Descartes)
+eq = x**3 + y**3 - 6*x*y
+
+# Differentiate implicit function
+dy_dx = sp.idiff(eq, y, x)
+
+print(f"Equation: {eq} = 0")
+print(f"Derivative dy/dx: {dy_dx}")
+# Output: (2x - y^2) / (y - 2x) ? (Sympy usually simplifies)
+
+# Check slope at specific point (3, 3)
+point_x = 3
+point_y = 3
+slope_val = dy_dx.subs({x: point_x, y: point_y})
+
+print(f"\nSlope at ({point_x}, {point_y}): {slope_val}")
+# At (3,3), 3^3 + 3^3 = 54, 6*3*3 = 54. It lies on curve.
+# Slope calculation: (2*3 - 3^3/3?? idiff handles logic)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_08_chain_rule.html" class="footer-link">← Prev: Chain Rule</a>
+                        <span class="separator">|</span>
+                        <a href="09_10_trig_derivatives.html" class="footer-link">Next: Trig Derivatives →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

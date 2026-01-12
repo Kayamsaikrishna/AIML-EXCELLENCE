@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,75 +9,80 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.4 Integration</li>
-            <li><a href="18_11_riemann_sums.html">11. Riemann Sums</a></li>
-            <li><a href="18_12_ftc.html" class="active">12. FTC</a></li>
-            <li><a href="18_13_integral_props.html">13. Integral Props</a></li>
-            <li><a href="18_14_avg_value.html">14. Average Value</a></li>
-            <li><a href="18_15_area_between_curves.html">15. Area Between Curves</a></li>
-            <hr>
-            <li class="nav-label">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.4 Integration</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="18_12_ftc.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; FTC
+            <a href="../index.html">Syllabus</a> &gt; 18_12_ftc.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 18_12</div>
             <h1>12. The Fundamental Theorem of Calculus (FTC)</h1>
-            <p class="subtitle">The bridge between slopes and areas.</p>
+            <p class="lead-text">The bridge between slopes and areas.</p>
         </header>
 
-        <section>
-            <h2>1. FTC Part 1 (The Accumulation Function)</h2>
-            <p>If \(f\) is continuous on \([a, b]\), then the function defined by \(g(x) = \int_{a}^{x} f(t) dt\) is
+        
+
+
+
+<section>
+<h2>1. FTC Part 1 (The Accumulation Function)</h2>
+<p>If \(f\) is continuous on \([a, b]\), then the function defined by \(g(x) = \int_{a}^{x} f(t) dt\) is
                 continuous and differentiable, and:</p>
-            <div class="math-block">
+<div class="math-block">
                 $$ g'(x) = f(x) $$
             </div>
-            <p>This means that <strong>differentiation undoes integration</strong>.</p>
-        </section>
-
-        <section class="module-card">
-            <h2>2. FTC Part 2 (The Evaluation Theorem)</h2>
-            <p>If \(F\) is any antiderivative of \(f\), then:</p>
-            <div class="math-block">
+<p>This means that <strong>differentiation undoes integration</strong>.</p>
+</section>
+<section class="module-card">
+<h2>2. FTC Part 2 (The Evaluation Theorem)</h2>
+<p>If \(F\) is any antiderivative of \(f\), then:</p>
+<div class="math-block">
                 $$ \int_{a}^{b} f(x) dx = F(b) - F(a) $$
             </div>
-            <p>This is the most powerful tool in calculus. It allows us to calculate areas without needing to sum up
+<p>This is the most powerful tool in calculus. It allows us to calculate areas without needing to sum up
                 millions of rectangles—we just need to find the antiderivative.</p>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Loss and Gradients</h2>
-            <div class="module-card">
-                <h3>Path Independence in Optimization</h3>
-                <p>The FTC is why we can calculate the <strong>Total Loss</strong> of a model by integrating its
+</section>
+<section>
+<h2>3. AI/ML Connection: Loss and Gradients</h2>
+<div class="module-card">
+<h3>Path Independence in Optimization</h3>
+<p>The FTC is why we can calculate the <strong>Total Loss</strong> of a model by integrating its
                     <strong>Gradient</strong> over the path of training. </p>
-                <p>In <strong>Reinforcement Learning</strong>, we often accumulate "rewards" over time. The FTC allows
+<p>In <strong>Reinforcement Learning</strong>, we often accumulate "rewards" over time. The FTC allows
                     us to derive the relationship between the "Value Function" (total reward) and the "Policy Gradient"
                     (the rate of change of reward). Without the FTC, we wouldn't be able to analytically optimize
                     long-term behavior in agents like AlphaGo or ChatGPT.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Evaluating Definite Integrals</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>4. Python: Evaluating Definite Integrals</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 x = sp.Symbol('x')
 f = sp.sin(x)
@@ -88,13 +92,14 @@ f = sp.sin(x)
 result = sp.integrate(f, (x, 0, sp.pi))
 
 print(f"Area under sin(x) from 0 to pi: {result}")</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

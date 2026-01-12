@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,75 +9,80 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.8 Series & Taylor</li>
-            <li><a href="22_04_comparison_tests.html">04. Comparison Tests</a></li>
-            <li><a href="22_05_alternating_series.html" class="active">05. Alternating Series</a></li>
-            <li><a href="22_06_ratio_root_test.html">06. Ratio & Root Tests</a></li>
-            <li><a href="22_07_power_series.html">07. Power Series</a></li>
-            <li><a href="22_08_taylor_series.html">08. Taylor Series</a></li>
-            <hr>
-            <li class="nav-label navigation">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.5 Seq & Series</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="19_12_alternating_series.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Alternating Series
+            <a href="../index.html">Syllabus</a> &gt; 19_12_alternating_series.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 19_12</div>
             <h1>05. Alternating Series & Leibniz Test</h1>
-            <p class="subtitle">Dealing with the "tug-of-war" of changing signs.</p>
+            <p class="lead-text">Dealing with the "tug-of-war" of changing signs.</p>
         </header>
 
-        <section>
-            <h2>1. What is an Alternating Series?</h2>
-            <p>An alternating series has terms that alternate in sign: positive, then negative, then positive, etc. It
+        
+
+
+
+<section>
+<h2>1. What is an Alternating Series?</h2>
+<p>An alternating series has terms that alternate in sign: positive, then negative, then positive, etc. It
                 looks like \(\sum (-1)^n a_n\).</p>
-        </section>
-
-        <section class="module-card">
-            <h2>2. The Leibniz Test</h2>
-            <p>An alternating series <strong>converges</strong> if two simple conditions are met:</p>
-            <ol class="topic-list">
-                <li><strong>Decreasing:</strong> The magnitude of the terms gets smaller (\(a_{n+1} \leq a_n\)).</li>
-                <li><strong>Vanishing Limit:</strong> The terms approach zero (\(\lim a_n = 0\)).</li>
-            </ol>
-            <p>This is much "easier" than regular series. An alternating series can converge even if its non-alternating
+</section>
+<section class="module-card">
+<h2>2. The Leibniz Test</h2>
+<p>An alternating series <strong>converges</strong> if two simple conditions are met:</p>
+<ol class="topic-list">
+<li><strong>Decreasing:</strong> The magnitude of the terms gets smaller (\(a_{n+1} \leq a_n\)).</li>
+<li><strong>Vanishing Limit:</strong> The terms approach zero (\(\lim a_n = 0\)).</li>
+</ol>
+<p>This is much "easier" than regular series. An alternating series can converge even if its non-alternating
                 version (Absolute value) diverges. This is called <strong>Conditional Convergence</strong>.</p>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: SGD Oscillations & Momentum</h2>
-            <div class="module-card">
-                <h3>The Path of Learning</h3>
-                <p>When training an AI with <strong>Stochastic Gradient Descent (SGD)</strong>, the weights often
+</section>
+<section>
+<h2>3. AI/ML Connection: SGD Oscillations &amp; Momentum</h2>
+<div class="module-card">
+<h3>The Path of Learning</h3>
+<p>When training an AI with <strong>Stochastic Gradient Descent (SGD)</strong>, the weights often
                     "overshoot" the target. In one step the weight increases, in the next it decreases to correct
                     itself. This creates an <strong>Alternating Sequence</strong> of updates. </p>
-                <p>To ensure the AI eventually settles on a correct answer rather than oscillating forever, we reduce
+<p>To ensure the AI eventually settles on a correct answer rather than oscillating forever, we reduce
                     the <strong>Learning Rate</strong> over time. This mimics the Leibniz Test conditions (\(a_n\)
                     decreasing and going to zero). By controlling the alternating nature of these updates, AI engineers
                     prevent the model from "Diverging" and ensure that even with noisy data, the model eventually
                     stabilizes. This is the logic behind <strong>Annealing</strong> and <strong>Learning Rate
                         Schedulers</strong>.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Alternating Sum Convergence</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># Alternating Harmonic Series: 1 - 1/2 + 1/3 - 1/4...
+</div>
+</section>
+<section>
+<h2>4. Python: Alternating Sum Convergence</h2>
+<div class="code-block">
+<pre><code class="language-python"># Alternating Harmonic Series: 1 - 1/2 + 1/3 - 1/4...
 # Converges to ln(2) approx 0.693
 import numpy as np
 
@@ -88,13 +92,14 @@ for n in range(1, 1001):
 
 print(f"Sum (1000 terms): {total:.6f}")
 print(f"Verify (ln 2): {np.log(2):.6f}")</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

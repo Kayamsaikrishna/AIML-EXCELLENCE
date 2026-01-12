@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,76 +9,81 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.8 Series & Taylor</li>
-            <li><a href="22_07_root_test.html">07. Root Test</a></li>
-            <li><a href="22_08_power_series.html" class="active">08. Power Series</a></li>
-            <li><a href="22_09_power_series_funcs.html">09. Power Series Funcs</a></li>
-            <li><a href="22_10_taylor_series.html">10. Taylor Series</a></li>
-            <li><a href="22_11_taylor_apps.html">11. Taylor Apps</a></li>
-            <hr>
-            <li class="nav-label navigation">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.5 Seq & Series</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="19_14_power_series.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Power Series
+            <a href="../index.html">Syllabus</a> &gt; 19_14_power_series.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 19_14</div>
             <h1>08. Power Series & Convergence</h1>
-            <p class="subtitle">Turning functions into infinite polynomials.</p>
+            <p class="lead-text">Turning functions into infinite polynomials.</p>
         </header>
 
-        <section>
-            <h2>1. Definition</h2>
-            <p>A <strong>Power Series</strong> is a series of the form:</p>
-            <div class="math-block">
+        
+
+
+
+<section>
+<h2>1. Definition</h2>
+<p>A <strong>Power Series</strong> is a series of the form:</p>
+<div class="math-block">
                 $$ \sum_{n=0}^{\infty} c_n (x - a)^n = c_0 + c_1(x-a) + c_2(x-a)^2 + \dots $$
             </div>
-            <p>Where \(x\) is a variable, \(c_n\) are coefficients, and \(a\) is the center of the series.</p>
-        </section>
-
-        <section class="module-card">
-            <h2>2. The Radius of Convergence (R)</h2>
-            <p>For any power series, there is a radius \(R\) such that the series converges if \(|x-a| < R\) and
-                    diverges if \(|x-a|> R\). We find \(R\) by applying the <strong>Ratio Test</strong> to the entire
+<p>Where \(x\) is a variable, \(c_n\) are coefficients, and \(a\) is the center of the series.</p>
+</section>
+<section class="module-card">
+<h2>2. The Radius of Convergence (R)</h2>
+<p>For any power series, there is a radius \(R\) such that the series converges if \(|x-a| &lt; R\) and
+                    diverges if \(|x-a|&gt; R\). We find \(R\) by applying the <strong>Ratio Test</strong> to the entire
                     term.</p>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Approximating Non-Linearity</h2>
-            <div class="module-card">
-                <h3>Series Expansion of Neural Gates</h3>
-                <p>Neural networks use non-linear functions like <strong>Sigmoid</strong> (\(1/(1+e^{-x})\)) or
+</section>
+<section>
+<h2>3. AI/ML Connection: Approximating Non-Linearity</h2>
+<div class="module-card">
+<h3>Series Expansion of Neural Gates</h3>
+<p>Neural networks use non-linear functions like <strong>Sigmoid</strong> (\(1/(1+e^{-x})\)) or
                     <strong>Tanh</strong>. In modern hardware AI chips, these functions are actually very slow to
                     calculate directly. </p>
-                <p>To speed things up, engineers represent these functions as a <strong>Power Series</strong>. However,
+<p>To speed things up, engineers represent these functions as a <strong>Power Series</strong>. However,
                     the AI must stay within the <strong>Interval of Convergence</strong>. If the input weights push the
                     value of \(x\) outside of the radius \(R\), the approximation fails and the AI becomes wildly
                     inaccurate. Understanding the "Safe Zone" of a power series allows hardware researchers to design
                     ultra-fast AI processors that use simple polynomial additions instead of complex exponential math.
                 </p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Determining Convergence Interval</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># Series: x^n / n
-# Ratio Test: |x^(n+1)/(n+1) * n/x^n| = |x * n/(n+1)| -> |x|
-# Converges for |x| < 1. Radius R = 1.
+</div>
+</section>
+<section>
+<h2>4. Python: Determining Convergence Interval</h2>
+<div class="code-block">
+<pre><code class="language-python"># Series: x^n / n
+# Ratio Test: |x^(n+1)/(n+1) * n/x^n| = |x * n/(n+1)| -&gt; |x|
+# Converges for |x| &lt; 1. Radius R = 1.
 
 import sympy as sp
 x, n = sp.symbols('x n')
@@ -87,14 +91,15 @@ an = x**n / n
 
 # Using SymPy's formal limit
 ratio_limit = sp.limit(sp.Abs(x**(n+1)/(n+1) * (n/x**n)), n, sp.oo)
-print(f"Convergence condition: {ratio_limit} < 1")</code></pre>
-            </div>
-        </section>
+print(f"Convergence condition: {ratio_limit} &lt; 1")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

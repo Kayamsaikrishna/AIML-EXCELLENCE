@@ -4,119 +4,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dot Product Geom - Phase 1.2.6</title>
+    <title>02.06 Projections - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_05_dot_product.html">05. Dot Product</a></li>
-            <li><a href="02_06_dot_product_geom.html" class="active">06. Dot Product Geom</a></li>
-            <li><a href="02_07_cross_product.html">07. Cross Product</a></li>
-            <li><a href="02_08_cross_product_geom.html">08. Cross Product Geom</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Dot Product Geom
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>06. Geometric Interpretation of Dot Product</h1>
-            <p class="subtitle">Angle, Projection, and Similarity.</p>
-        </header>
-
-        <section>
-            <h2>1. The Cosine Formula</h2>
-            <p>While the algebraic definition is for computation, the geometric definition provides
-                <strong>intuition</strong>.
-                The dot product measures how much one vector points in the direction of another.</p>
-
-            <div class="math-block">
-                $$ \mathbf{u} \cdot \mathbf{v} = \|\mathbf{u}\| \|\mathbf{v}\| \cos \theta $$
-            </div>
-
-            <div class="visual-diagram">
-                <svg width="400" height="250" viewBox="0 0 400 250">
-                    <!-- Vector u -->
-                    <line x1="50" y1="200" x2="300" y2="200" stroke="#64748b" stroke-width="2"
-                        marker-end="url(#arrow-grey)" />
-                    <text x="170" y="220" fill="#64748b">u</text>
-                    <!-- Vector v -->
-                    <line x1="50" y1="200" x2="200" y2="80" stroke="#3b82f6" stroke-width="3"
-                        marker-end="url(#arrow-blue)" />
-                    <text x="120" y="130" fill="#3b82f6">v</text>
-                    <!-- Projection line -->
-                    <line x1="200" y1="80" x2="200" y2="200" stroke="#94a3b8" stroke-dasharray="4" />
-                    <text x="130" y="190" fill="#2563eb">v cos θ</text>
-                    <!-- Angle -->
-                    <path d="M 80 200 A 30 30 0 0 0 75 180" fill="none" stroke="#3b82f6" />
-                    <text x="90" y="185">θ</text>
-
-                    <defs>
-                        <marker id="arrow-grey" markerWidth="6" markerHeight="6" refX="5" refY="3" orientation="auto">
-                            <path d="M0,0 L0,6 L6,3 z" fill="#64748b" />
-                        </marker>
-                        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orientation="auto">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
-                        </marker>
-                    </defs>
-                </svg>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. Cosine Similarity in AI</h2>
-            <div class="module-card">
-                <h3>Similarity Mapping</h3>
-                <p>In <strong>Recommendation Systems</strong> or <strong>Semantic Search</strong>, we often don't care
-                    about the <em>length</em> (magnitude) of the vector, only the <em>angle</em>. This is <strong>Cosine
-                        Similarity</strong>.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Value = 1:</strong> Vectors are perfectly aligned (θ = 0°).</li>
-                    <li class="topic-item"><strong>Value = 0:</strong> Vectors are orthogonal (θ = 90°), no similarity.
-                    </li>
-                    <li class="topic-item"><strong>Value = -1:</strong> Vectors point in opposite directions (θ = 180°).
-                    </li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_05_dot_product.html" class="nav-link">05. Dot Product Theory</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">06. Projections</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Cosine Similarity</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 06. Geometric Projections
+        </div>
 
-def cosine_similarity(a, b):
-    dot = np.dot(a, b)
-    norm_a = np.linalg.norm(a)
-    norm_b = np.linalg.norm(b)
-    return dot / (norm_a * norm_b)
+        <header class="page-header">
+            <div class="badge">Module 06</div>
+            <h1>Shadow on the Floor</h1>
+            <p class="lead-text">Projecting one vector onto another. The math behind PCA, Compression, and removing
+                noise.</p>
+        </header>
 
-v1 = np.array([1, 2, 3])
-v2 = np.array([1, 2, 2.8]) # Very similar
+        <!-- VISUAL DIAGRAM: PROJECTION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Decomposition</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Original Vector v"]
+    Basis["Direction Vector u"]
+    
+    subgraph Operations
+        Proj["Projection (Shadow)"]
+        Rej["Rejection (Error)"]
+    end
+    
+    subgraph AI [Dimensionality Reduction]
+        PCA["PCA Component"]
+        Noise["Residual Noise"]
+        Compress["Compressed Data"]
+    end
 
-score = cosine_similarity(v1, v2)
-print(f"Similarity Score: {score:.4f}") # Output: 0.99...</code></pre>
+    Input --> Proj
+    Basis --> Proj
+    
+    Input --> Rej
+    Basis --> Rej
+    
+    Proj --> PCA
+    PCA --> Compress
+    Rej --> Noise
+
+    style Proj fill:#dcfce7,stroke:#16a34a
+    style Noise fill:#fee2e2,stroke:#b91c1c
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. THE PROJECTION FORMULA -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Casting the Shadow</h2>
+                <p>To find the part of vector \( \mathbf{v} \) that lies in the direction of \( \mathbf{u} \):</p>
+                <div class="math-block">
+                    $$ \text{proj}_{\mathbf{u}} \mathbf{v} = \left( \frac{\mathbf{v} \cdot \mathbf{u}}{||\mathbf{u}||^2}
+                    \right) \mathbf{u} $$
+                </div>
+                <p>The scaler term \( \frac{\mathbf{v} \cdot \mathbf{u}}{||\mathbf{u}||} \) is the
+                    <strong>length</strong> of the shadow. We multiply by unit vector \( \hat{u} \) to get the vector
+                    shadow.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: PCA -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Principal Component Analysis (PCA)</h2>
+                <p>PCA is just a sequence of projections.</p>
+                <ol>
+                    <li>Find the direction \( \mathbf{u}_1 \) that maximizes the length of the projection (variance).
+                    </li>
+                    <li>Project all data onto \( \mathbf{u}_1 \) (Compression).</li>
+                    <li>Subtract the projection from the original data (find the Rejection/Residual).</li>
+                    <li>Repeat.</li>
+                </ol>
+                <p>By keeping only the first few projections, we compress the image/data while preserving its "shape".
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Projecting Noise Away</h2>
+                <p>Simulating denoising by projecting onto a "signal" axis.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# 'Signal' Direction (e.g. Trend Line)
+u = np.array([4.0, 4.0])
+
+# Noisy Data Point
+v = np.array([4.2, 3.8])
+
+# 1. Projection
+scaler = np.dot(v, u) / np.dot(u, u) # (v . u) / ||u||^2
+proj_v = scaler * u
+
+# 2. Rejection (Noise)
+noise = v - proj_v
+
+print(f"Original: {v}")
+print(f"Projected (Clean): {proj_v}") # Should be [4, 4] approximately
+print(f"Noise Removed: {noise}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

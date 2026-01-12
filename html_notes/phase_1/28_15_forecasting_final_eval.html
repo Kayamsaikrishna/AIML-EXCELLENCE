@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.15 Forecasting Final Eval - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.13 Time Series Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_14_sarima_seasonal.html" class="nav-link">14. SARIMA
+                                (Seasonal)</a></li>
+                        <li class="nav-item"><a href="28_15_forecasting_final_eval.html" class="nav-link active">15.
+                                Forecasting Final Eval</a></li>
+                        <li class="nav-item"><a href="../index.html" class="nav-link">Syllabus Complete!</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Accuracy</span>
+                </div>
+                <h1>Forecasting Evaluation</h1>
+                <p class="lead-text">Judging the Oracle. How to mathematically prove that your model isn't just lucky.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Truth in the Future</h3>
+                    <p>
+                        In standard ML, we have a Test Set. In Time Series, we have a <strong>Hold-out Window</strong>.
+                        <br><br>
+                        We train on data until Time \(T\), and then we see how well our forecast matches the actual
+                        events at Time \(T+1, T+2...\).
+                    </p>
+                </div>
+
+                <h2>1. Error Metrics: The Three Kings</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. MAE & RMSE</h4>
+                        <p><strong>MAE:</strong> Mean Absolute Error. <br> <strong>RMSE:</strong> Root Mean Squared Error. <br> These are
+                            "Scale-Dependent". If you are predicting house prices in Millions, the error will be in the
+                            thousands. Use them to compare different models on the <strong>same</strong> dataset.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. MAPE</h4>
+                        <p><strong>Mean Absolute Percentage Error.</strong> <br> Useful because it's a percentage (e.g., "We are 95%
+                            accurate"). <br> <strong>Danger:</strong> It breaks if the actual value is zero, and it heavily penalizes
+                            forecasts that are "too high" more than "too low".</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. MASE</h4>
+                        <p><strong>Mean Absolute Scaled Error.</strong> <br> The "Scientist's Choice". It compares your model's error
+                            to a "Naive" forecast (just guessing that tomorrow will be the same as today). If MASE < 1,
+                                your model is better than a coin flip.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Diagnostic Check: Ljung-Box</h2>
+                <div class="math-box">
+                    $$ Q = n(n+2) \sum_{k=1}^h \frac{\hat{\rho}_k^2}{n-k} $$
+                </div>
+                <p>
+                    After building a model, look at the <strong>Residuals</strong> (the errors). If the residuals have patterns, you
+                    missed something!
+                </p>
+                <ul>
+                    <li><strong>Ljung-Box Test:</strong> Checks if there is any Autocorrelation left in the residuals. </li>
+                    <li><strong>Ideally:</strong> Residuals should be <strong>White Noise</strong> (Normal distribution centered at zero with no
+                        correlation).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Business Loss Functions</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Product ML</span>
+                    <span class="ml-badge">Supply Chain</span>
+                    <h3>Why RMSE often fails the business</h3>
+                    <p>
+                        Machine Learning models usually minimize RMSE because it's easy for calculus. But businesses
+                        have <strong>Asymmetric Risk</strong>.
+                    </p>
+                    <ul>
+                        <li><strong>Inventory Management:</strong> If you under-forecast demand, you lose a sale (Cost of Stockout).
+                            If you over-forecast, you have wasted storage (Cost of Inventory). These costs are rarely
+                            equal.</li>
+                        <li><strong>Quantile Regression:</strong> Instead of predicting the *mean*, we often use <strong>Pinball Loss</strong> to
+                            predict the 90th percentile of demand. This ensures we almost never run out of stock, even
+                            if it means we over-predict slightly.</li>
+                        <li><strong>Backtesting:</strong> Always use a "Rolling" or "Expanding" window backtest. A model that worked
+                            locally in April might fail in November. Multiple "Time-Slices" are the only way to prove
+                            robustness.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Final Mastery:</strong> A lower RMSE does not always mean a better model. Always visualize the
+                        forecast against the actuals. A model that "misses" slightly but follows the general shape of
+                        the trend is often more trustworthy than one with low error that predicts a flat line.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

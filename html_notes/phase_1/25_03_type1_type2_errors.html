@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.03 Type I & II Errors - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_02_test_stat_crit_val.html" class="nav-link">02. Test Stat Crit
+                                Val</a></li>
+                        <li class="nav-item"><a href="25_03_type1_type2_errors.html" class="nav-link active">03. Type 1
+                                & 2 Errors</a></li>
+                        <li class="nav-item"><a href="25_04_alpha_beta_power.html" class="nav-link">04. Alpha Beta
+                                Power</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">The Two Risks</span>
+                </div>
+                <h1>Type I & II Errors</h1>
+                <p class="lead-text">Understanding the cost of being wrong, whether you claim a discovery that isn't
+                    there, or miss one that is.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Legal Analogy</h3>
+                    <p>
+                        The Null Hypothesis is "Innocent until proven guilty."
+                        <br><br>
+                        - <strong>Type I Error:</strong> Convicting an innocent person (False Positive).
+                        <br>
+                        - <strong>Type II Error:</strong> Letting a guilty person go free (False Negative).
+                    </p>
+                </div>
+
+                <h2>1. Error Matrix</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Decision</th>
+                            <th>Truth: \(H_0\) is True</th>
+                            <th>Truth: \(H_a\) is True</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Reject \(H_0\)</strong></td>
+                            <td class="status-error"><strong>Type I Error</strong> (\(\alpha\))<br>(False Positive)</td>
+                            <td class="status-success"><strong>Correct Decision</strong><br>(Power)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fail to Reject \(H_0\)</strong></td>
+                            <td class="status-success"><strong>Correct Decision</strong></td>
+                            <td class="status-error"><strong>Type II Error</strong> (\(\beta\))<br>(False Negative)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Inherent Trade-off</h2>
+                <p>
+                    You cannot eliminate both errors. If you make it harder to reject the Null (to avoid Type I), you
+                    will naturally miss more real effects (increasing Type II).
+                </p>
+                <div class="insight-box">
+                    <h3>Example: Spam Filter</h3>
+                    <p>
+                        - <strong>Type I:</strong> A valid email from your boss goes to Spam. (Very High Cost!)
+                        <br>
+                        - <strong>Type II:</strong> A junk email makes it to your Inbox. (Low Cost).
+                    </p>
+                    <p>
+                        Because Type I is so much more expensive, we set a very strict threshold (\(\alpha\)), accepting
+                        that some spam will get through (\(\beta\)) as long as we never lose a real email.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Confusion Matrix</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Classification</span>
+                    <span class="ml-badge">Optimization</span>
+                    <h3>Precision vs. Recall</h3>
+                    <p>
+                        In Machine Learning, these errors are the bedrock of evaluation:
+                        - <strong>Type I (False Positive)</strong> leads to lower <strong>Precision</strong>.
+                        - <strong>Type II (False Negative)</strong> leads to lower <strong>Recall</strong>.
+                    </p>
+                    <p>
+                        When you change the `threshold` of a Classifier (e.g., Logistic Regression), you are moving the
+                        <strong>Critical Value</strong>. As you slide the threshold up:
+                        1. You get fewer False Positives (Type I \(\downarrow\), Precision \(\uparrow\)).
+                        2. You get more False Negatives (Type II \(\uparrow\), Recall \(\downarrow\)).
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

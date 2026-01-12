@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08.11 Squeeze (Sandwich) Theorem - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.1 Limits & Continuity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="08_01_limits_intuition.html" class="nav-link">01. Limits
+                                Intuition</a></li>
+                        <li class="nav-item"><a href="08_02_limits_formal.html" class="nav-link">02. Formal
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_03_limits_onesided.html" class="nav-link">03. One-Sided
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_04_limits_at_infinity.html" class="nav-link">04. Limits at
+                                Infinity</a></li>
+                        <li class="nav-item"><a href="08_05_limits_infinite.html" class="nav-link">05. Infinite
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_06_limit_laws.html" class="nav-link">06. Limit Laws &
+                                Properties</a></li>
+                        <li class="nav-item"><a href="08_07_continuity_defn.html" class="nav-link">07. Continuity
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_08_discontinuities_types.html" class="nav-link">08. Types of
+                                Discontinuities</a></li>
+                        <li class="nav-item"><a href="08_09_ivt.html" class="nav-link">09. Intermediate Value (IVT)</a>
+                        </li>
+                        <li class="nav-item"><a href="08_10_evt.html" class="nav-link">10. Extreme Value (EVT)</a></li>
+                        <li class="nav-item"><a href="08_11_squeeze_theorem.html" class="nav-link active">11. Squeeze
+                                Theorem</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Bounding</span>
+                </div>
+                <h1>The Squeeze (Sandwich) Theorem</h1>
+                <p class="lead-text">If you are stuck between a rock and a hard place, and both move to zero, you have
+                    no choice but to go to zero too.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Bounding the Unknown</h3>
+                    <p>
+                        Sometimes a function behaves wildly (e.g., oscillating infinitely fast). Calculating its limit
+                        directly is impossible. The Squeeze Theorem lets us ignore the complexity by trapping the
+                        function between two simple, predictable curves.
+                    </p>
+                </div>
+
+                <h2>1. The Theorem</h2>
+                <div class="glass-card">
+                    <p>
+                        If \(g(x) \le f(x) \le h(x)\) for all \(x\) near \(a\) (essentially, \(f\) is sandwiched), and:
+                    </p>
+                    <div class="math-block">
+                        \[ \lim_{x \to a} g(x) = \lim_{x \to a} h(x) = L \]
+                    </div>
+                    <p>Then:</p>
+                    <div class="math-block">
+                        \[ \lim_{x \to a} f(x) = L \]
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Top[Curve h] -->|Converges to L| Target((L))
+                        Bot[Curve g] -->|Converges to L| Target
+                        Mid[Function f] -->|Trapped| Target
+                        style Target fill:#fefcbf,stroke:#d69e2e
+                    </div>
+                    <div class="caption">f(x) has nowhere else to go.</div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Classic: Dampened Oscillation</h2>
+                <div class="two-col-grid">
+                    <div>
+                        <p>Evaluate \(\lim_{x \to 0} x^2 \sin(\frac{1}{x})\).</p>
+                        <p>Direct sub gives \(0 \cdot \sin(\infty)\), which is undefined. The sine term oscillates
+                            crazily.</p>
+                        <p>However:</p>
+                        <ul>
+                            <li>\(-1 \le \sin(1/x) \le 1\)</li>
+                            <li>Multiply by \(x^2\): \(-x^2 \le x^2 \sin(1/x) \le x^2\)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p>Now take limits of the outer guards:</p>
+                        <ul>
+                            <li>Maximize: \(\lim_{x \to 0} x^2 = 0\)</li>
+                            <li>Minimize: \(\lim_{x \to 0} -x^2 = 0\)</li>
+                        </ul>
+                        <p>Therefore, the middle term must be <strong>0</strong>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. AI/ML Connection: Proof of Convergence</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Evidence Lower Bound (ELBO)</h3>
+                    <p>
+                        In Variational Autoencoders (VAEs) and Bayesian Inference, calculating the true probability
+                        \(P(X)\) (the evidence) is often intractable (computationally impossible).
+                    </p>
+                    <p>
+                        Instead of calculating \(P(X)\) directly, we optimize a lower bound function called the
+                        <strong>ELBO</strong>.
+                    </p>
+                    <div class="math-block">
+                        \[ \mathcal{L}(\theta, \phi; x) \le \log P(x) \]
+                    </div>
+                    <p>
+                        By pushing this lower bound <strong>UP</strong> as high as possible (squeezing it against the
+                        true value), we implicitly maximize the true likelihood. The Squeeze Theorem's logic—trapping a
+                        value to control it—is the heart of variational inference.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Python: Visualizing Constraint</h2>
+                <div class="code-header">squeeze_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def g(x): return -x**2 # Lower
+def h(x): return x**2  # Upper
+def f(x): return x**2 * np.sin(1/x) # Target
+
+# Points getting closer to 0
+x_vals = [0.1, 0.01, 0.001, 0.0001, 1e-10]
+
+print(f"{'Input x':<15} | {'Lower g(x)':<15} | {'Target f(x)':<15} | {'Upper h(x)':<15}")
+print("-" * 75)
+
+for x in x_vals:
+    low = g(x)
+    high = h(x)
+    val = f(x)
+    
+    # Check if squeezed
+    is_squeezed = low <= val <= high
+    mark = "✅" if is_squeezed else "❌"
+    
+    print(f"{x:<15} | {low:<15.8f} | {val:<15.8f} {mark}| {high:<15.8f}")
+    
+# Notice that as x -> 0, all three values become indistinguishable from 0.00000000</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="08_10_evt.html" class="footer-link">← Prev: Extreme Value Thm</a>
+                        <span class="separator">|</span>
+                        <a href="../index.html" class="footer-link">Next: Calculus Index →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

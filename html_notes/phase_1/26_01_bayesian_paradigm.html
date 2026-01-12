@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.01 Bayesian Paradigm - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_01_bayesian_paradigm.html" class="nav-link active">01. Bayesian
+                                Paradigm</a></li>
+                        <li class="nav-item"><a href="26_02_prior_distributions.html" class="nav-link">02. Prior
+                                Distributions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Paradigm Shift</span>
+                </div>
+                <h1>The Bayesian Paradigm</h1>
+                <p class="lead-text">Probability isn't just counting frequencies; it's a measure of our personal
+                    "Strength of Belief."</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Fundamental Question</h3>
+                    <p>
+                        <strong>Frequentist:</strong> "How many times did this happen in 1,000 trials?"
+                        <br>
+                        <strong>Bayesian:</strong> "Given what I already know, how much do I trust this outcome?"
+                    </p>
+                </div>
+
+                <h2>1. Frequentist vs. Bayesian</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Frequentists</h4>
+                        <ul>
+                            <li>Parameters are <strong>Fixed</strong> (but unknown).</li>
+                            <li>Data is <strong>Random</strong>.</li>
+                            <li>Goal: Estimate the "One True Value."</li>
+                            <li>Weakness: Cannot handle events that only happen once (e.g., "Will it rain tomorrow?").
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Bayesians</h4>
+                        <ul>
+                            <li>Parameters are <strong>Random Variables</strong>.</li>
+                            <li>Data is <strong>Fixed</strong> (once observed).</li>
+                            <li>Goal: Find the *Distribution* of the truth.</li>
+                            <li>Strength: Incorporates "Prior Knowledge" and handles unique events naturally.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The "Scientific Method" in a Formula</h2>
+                <div class="math-box">
+                    $$ \text{Posterior} \propto \text{Likelihood} \times \text{Prior} $$
+                </div>
+                <p>
+                    Bayesian thinking is about <strong>Updating</strong>. You start with an opinion (<strong>Prior</strong>), you see some data
+                    (<strong>Likelihood</strong>), and you end up with a refined opinion (<strong>Posterior</strong>).
+                </p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Prior Experience] --> B[New Evidence]
+                        B --> C[Updated Belief]
+                        C --> D[Next Decision]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: The Cold-Start Problem</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Recommendation</span>
+                    <span class="ml-badge">Personalization</span>
+                    <h3>Why Netflix needs a Prior</h3>
+                    <p>
+                        Imagine a brand-new user joins Netflix. We have <strong>zero data</strong> on them (Frequentist nightmare:
+                        Probability of click = 0/0).
+                    </p>
+                    <p>
+                        A Bayesian Recommender doesn't start from zero. It uses a <strong>Prior Distribution</strong> based on
+                        "Average Users" in that country.
+                        - <strong>Prior:</strong> Most new users like 'Stranger Things'.
+                        - <strong>Action:</strong> Show them 'Stranger Things'.
+                        - <strong>Update:</strong> If they skip it, the <strong>Likelihood</strong> of them being "Average" drops, and the
+                        <strong>Posterior</strong> shifts to a specific niche (e.g., Anime lover).
+                    </p>
+                    <p>
+                        This "Updating as you go" is exactly how <strong>Recurrent Neural Networks (RNNs)</strong> and **Kalman
+                        Filters** operate—maintaining a state (belief) that updates with every new timestep.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

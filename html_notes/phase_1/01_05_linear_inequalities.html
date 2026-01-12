@@ -4,209 +4,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linear Inequalities - Phase 1.1.5</title>
+    <title>01.05 Linear Inequalities - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html" class="active">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_04_linear_equations.html" class="nav-link">04. Linear Equations</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">05. Linear Inequalities</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Linear Inequalities
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 05. Linear Inequalities
         </div>
 
-        <header>
-            <h1>5. Linear Inequalities & Decision Boundaries</h1>
-            <p class="subtitle">An equation (\(=\)) is a line. An inequality (\(>\)) is a <strong>Region</strong>. This
-                is how machines classify the world.</p>
+        <header class="page-header">
+            <div class="badge">Module 05</div>
+            <h1>Linear Inequalities & The Decision Boundary</h1>
+            <p class="lead-text">From Half-Spaces to the "AI Winter" of 1969. Why a single straight line changed the
+                course of history.</p>
         </header>
 
-        <!-- 1. BASICS -->
-        <section id="basics">
-            <h2>1. The Half-Plane</h2>
-            <p>When you solve an equation like \( y = 2x + 1 \), you get a specific set of points on a line. When you
-                solve an inequality like \( y > 2x + 1 \), you get infinite points—an entire "Half-Plane".</p>
+        <!-- VISUAL DIAGRAM: THE CLASSIFIER -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+flowchart TD
+    Data["Input Data Point x"] --> Compute["Compute Score z = wx + b"]
+    Compute --> Check{"z > 0?"}
+    
+    Check -- Yes --> Class1["Class 1: Positive"]
+    Check -- No --> Class0["Class 0: Negative"]
 
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Symbols & Syntax</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><strong>\( > \) Greater Than:</strong> Everything ABOVE the line (Dashed
-                            line).</li>
-                        <li class="topic-item"><strong>\( < \) Less Than:</strong> Everything BELOW the line (Dashed
-                                    line).</li>
-                        <li class="topic-item"><strong>\( \ge, \le \) Inclusive:</strong> Includes the boundary itself
-                            (Solid line).</li>
-                    </ul>
-                </div>
+    subgraph Geometry [Geometric Interpretation]
+    Line["The Line z=0"]
+    Region1["Half-Plane z>0"]
+    Region0["Half-Plane z<0"]
+    end
 
-                <div class="module-card">
-                    <h3 class="module-title">Engineering Context: Constraints</h3>
-                    <p>In Linear Programming (Optimization), we rarely have exact equalities. We have
-                        <strong>Constraints</strong>.</p>
-                    <ul>
-                        <li>"Budget must be less than $1000" (\( B \le 1000 \))</li>
-                        <li>"Speed must be above 20mph" (\( S > 20 \))</li>
-                    </ul>
-                    <p>The solution isn't a single point, but a <strong>Feasible Region</strong> where all constraints
-                        are satisfied.</p>
+    Check -.-> Line
+    Class1 -.-> Region1
+    Class0 -.-> Region0
+
+    style Class1 fill:#bbf,stroke:#00f
+    style Class0 fill:#fbb,stroke:#f00
+                    </pre>
                 </div>
             </div>
         </section>
 
-        <!-- 2. AI CONTEXT -->
-        <section id="ai-context">
-            <h2>2. The Decision Boundary</h2>
-            <p>The most fundamental unit of Deep Learning (the Neuron) is essentially a Linear Inequality check.</p>
-            <div class="math-block">
-                $$ \underbrace{w \cdot x + b}_{\text{Score}} > 0 $$
-            </div>
+        <!-- 1. LINEAR SEPARABILITY & THE XOR PROBLEM -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Linear Separability & The XOR Problem</h2>
+                <p>A dataset is <strong>Linearly Separable</strong> if there exists a hyperplane that perfectly divides
+                    the two classes.</p>
 
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <!-- SVG: Binary Classification -->
-                <svg width="500" height="300" viewBox="0 0 500 300" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Grid -->
-                    <defs>
-                        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="1" />
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#grid)" />
-
-                    <!-- Axis -->
-                    <line x1="50" y1="250" x2="450" y2="250" stroke="#64748b" stroke-width="2" />
-                    <line x1="50" y1="50" x2="50" y2="250" stroke="#64748b" stroke-width="2" />
-
-                    <!-- Decision Boundary Line: y = -x + 300ish -->
-                    <line x1="50" y1="250" x2="250" y2="50" stroke="#0f172a" stroke-width="3" stroke-dasharray="5,5" />
-
-                    <!-- Text: Equation -->
-                    <text x="260" y="60" fill="#0f172a" font-weight="bold">w·x + b = 0</text>
-
-                    <!-- Region 1: Class 1 (Blue) -->
-                    <circle cx="300" cy="100" r="5" fill="#3b82f6" opacity="0.8" />
-                    <circle cx="320" cy="80" r="5" fill="#3b82f6" opacity="0.8" />
-                    <circle cx="350" cy="150" r="5" fill="#3b82f6" opacity="0.8" />
-                    <text x="360" y="120" fill="#3b82f6" font-weight="bold">Class 1 (> 0)</text>
-
-                    <!-- Region 0: Class 0 (Red) -->
-                    <circle cx="100" cy="200" r="5" fill="#ef4444" opacity="0.8" />
-                    <circle cx="120" cy="220" r="5" fill="#ef4444" opacity="0.8" />
-                    <circle cx="80" cy="180" r="5" fill="#ef4444" opacity="0.8" />
-                    <text x="130" y="210" fill="#ef4444" font-weight="bold">Class 0 (< 0)</text>
-
-                </svg>
-                <div style="margin-top: 0.5rem; color: #64748b; font-size: 0.9rem;">
-                    Figure 1: A Linear Classifier. The dashed line is the "Decision Boundary". Points on one side are
-                    classified as Positive, the others as Negative.
+                <div class="deep-dive-box">
+                    <h4 class="deep-dive-title">The First AI Winter (1969)</h4>
+                    <p>Minsky and Papert proved that a single layer Perceptron (a linear inequality) <strong>cannot
+                            learn XOR</strong>.</p>
+                    <div class="math-block">
+                        $$ \text{XOR}(0,0) = 0, \quad \text{XOR}(1,1) = 0 $$
+                        $$ \text{XOR}(0,1) = 1, \quad \text{XOR}(1,0) = 1 $$
+                    </div>
+                    <p>No straight line can separate these points. This discovery froze AI funding for a decade until
+                        Multi-Layer Perceptrons (MLPs) were popularized.</p>
                 </div>
             </div>
+        </section>
 
-            <div class="deep-dive-box">
-                <h3 class="deep-dive-title">What happens on the line?</h3>
-                <p>If \( w \cdot x + b = 0 \), the model is exactly 50/50 unsure. This is the point of maximum entropy
-                    (uncertainty). In practice, we usually default to Class 1 or Class 0, but ideally, the model should
-                    output 0.5 probability.</p>
+        <!-- 2. OPTIMIZATION CONSTRAINTS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>2. Inequalities as Constraints</h2>
+                <p>In Deep Learning, inequalities often appear as constraints on the loss function.</p>
+
+                <h3>Support Vector Machines (SVM)</h3>
+                <p>We want to maximize the margin subject to ensuring all points are correctly classified:</p>
+                <div class="math-block">
+                    $$ y_i (w \cdot x_i + b) \ge 1 \quad \forall i $$
+                </div>
+
+                <h3>Wasserstein GANs (WGAN)</h3>
+                <p>The Critic network must satisfy the <strong>Lipschitz Constraint</strong>:</p>
+                <div class="math-block">
+                    $$ || \nabla D(x) || \le 1 $$
+                </div>
+                <p>We enforce this via "Gradient Penalty" or "Weight Clipping".</p>
             </div>
         </section>
 
         <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Coding a Linear Classifier</h2>
-            <p>How do we check an inequality in Python? It turns into a boolean mask.</p>
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. The Perceptron From Scratch</h2>
+                <p>Implementing the algorithm that updates weights when an inequality is violated.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Numpy: Vectorized Inequality Check</div>
-                <pre><code class="language-python">import numpy as np
+class Perceptron:
+    def __init__(self, n_features, lr=0.1):
+        self.weights = np.zeros(n_features)
+        self.bias = 0.0
+        self.lr = lr
 
-# Weights (w1, w2) and Bias
-w = np.array([0.5, -0.5])
-b = 0.0
+    def predict(self, x):
+        # The Inequality Check: w.x + b >= 0
+        linear_output = np.dot(x, self.weights) + self.bias
+        return np.where(linear_output >= 0, 1, 0)
 
-# 3 Data Points (x1, x2)
-# P1: (2, 1) -> Score: 0.5*2 - 0.5*1 = 0.5 (>0, Class 1)
-# P2: (1, 2) -> Score: 0.5*1 - 0.5*2 = -0.5 (<0, Class 0)
-X = np.array([
-    [2, 1],
-    [1, 2],
-    [10, 10] # P3: 5 - 5 = 0 (On Boundary)
-])
+    def train(self, X, y, epochs=10):
+        for _ in range(epochs):
+            for idx, x_i in enumerate(X):
+                y_pred = self.predict(x_i)
+                # Update rule only triggers on error
+                update = self.lr * (y[idx] - y_pred)
+                self.weights += update * x_i
+                self.bias += update
 
-# 1. Compute Scores (Linear Equation)
-scores = np.dot(X, w) + b
-# scores = [0.5, -0.5, 0.0]
+# Test on AND gate (Linearly Separable)
+X = np.array([[0,0], [0,1], [1,0], [1,1]])
+y = np.array([0, 0, 0, 1])
 
-# 2. Check Inequality (Activation)
-predictions = scores > 0
-
-print(f"Scores: {scores}")
-print(f"Classes: {predictions.astype(int)}") 
-# Output: [1, 0, 0] (False maps to 0)</code></pre>
+p = Perceptron(2)
+p.train(X, y)
+print(f"Weights: {p.weights}, Bias: {p.bias}")
+print(f"Predictions: {p.predict(X)}") # Should be [0 0 0 1]
+</code></pre>
+                </div>
             </div>
         </section>
 
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

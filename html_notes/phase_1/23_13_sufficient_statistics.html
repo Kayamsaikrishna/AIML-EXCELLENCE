@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.13 Sufficient Statistics - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_12_fisher_information.html" class="nav-link">12. Fisher
+                                Information</a></li>
+                        <li class="nav-item"><a href="23_13_sufficient_statistics.html" class="nav-link active">13.
+                                Sufficient Statistics</a></li>
+                        <li class="nav-item"><a href="23_14_map_estimation.html" class="nav-link">14. Map Estimation</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Compression</span>
+                </div>
+                <h1>Sufficient Statistics</h1>
+                <p class="lead-text">Reducing a massive database into a few numbers without losing ANY information about
+                    the reality you're predicting.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Efficient Memory</h3>
+                    <p>
+                        A statistic \(T(X)\) is <strong>Sufficient</strong> for a parameter \(\theta\) if, given the value of
+                        \(T(X)\), the original data \(X\) provides no additional information about \(\theta\).
+                        <br><br>
+                        "If I tell you the sum of 1,000 coin flips is 500, knowing the exact <em>order</em> of the heads
+                        and tails tells you nothing more about how biased the coin is."
+                    </p>
+                </div>
+
+                <h2>1. Fisher-Neyman Factorization Theorem</h2>
+                <div class="math-box">
+                    A statistic \(T(X)\) is sufficient if and only if the likelihood can be split:
+                    $$ L(X \mid \theta) = g(T(X), \theta) \cdot h(X) $$
+                </div>
+                <p>
+                    Here, \(h(X)\) depends only on the data (not \(\theta\)), and \(g\) depends only on the summary
+                    \(T(X)\) and the parameter.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Minimal Sufficiency</h2>
+                <p>
+                    A <strong>Minimal Sufficient Statistic</strong> is the most compressed version of the data possible that still
+                    captures everything about \(\theta\).
+                    - For a Normal distribution with unknown \(\mu\), the sample mean \(\bar{x}\) is the minimal
+                    sufficient statistic. You don't need the individual 1,000 data points; you just need their average.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Feature Engineering</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Foundational</span>
+                    <span class="ml-badge">Deep Learning</span>
+                    <h3>Sufficient Representations</h3>
+                    <p>
+                        The goal of the early layers of a Neural Network is to find a <strong>Sufficient
+                            Representation</strong> of the input.
+                    </p>
+                    <p>
+                        If we are predicting "Cat vs Dog", the raw pixels (1 million numbers) contain the information. A
+                        good model compresses those pixels into a "Feature Vector" (1,000 numbers). If that feature
+                        vector is a "Sufficient Statistic", the final classification layer doesn't need to look at the
+                        original pixels at all—everything it needs to know is in the compressed vector.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

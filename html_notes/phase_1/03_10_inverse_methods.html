@@ -4,96 +4,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inverse Methods - Phase 1.2.2.10</title>
+    <title>03.10 Inverse Methods - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_09_invertibility.html">09. Invertibility</a></li>
-            <li><a href="03_10_inverse_methods.html" class="active">10. Inverse Methods</a></li>
-            <li><a href="03_11_determinants.html">11. Determinants</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Inverse Methods
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>10. Methods to find Inverse</h1>
-            <p class="subtitle">From hand-calculation to high-performance solvers.</p>
-        </header>
-
-        <section>
-            <h2>1. Method 1: The Adjoint Method (\( 2 \times 2 \) Case)</h2>
-            <p>For a small matrix, the analytical solution is easy to remember:</p>
-            <div class="math-block">
-                $$ \mathbf{A}^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix} $$
-            </div>
-            <p>Where \( (ad - bc) \) is the determinant.</p>
-        </section>
-
-        <section>
-            <h2>2. Method 2: Elementary Row Operations</h2>
-            <p>Also known as the <strong>Gauss-Jordan Method</strong>. You append the Identity matrix to \( \mathbf{A}
-                \):</p>
-            <div class="math-block">
-                $$ [\mathbf{A} | \mathbf{I}] \xrightarrow{\text{Row Ops}} [\mathbf{I} | \mathbf{A}^{-1}] $$
-            </div>
-        </section>
-
-        <section>
-            <h2>3. Numerical Computing & AI Frameworks</h2>
-            <div class="module-card">
-                <h3>Pseudoinverse (Moore-Penrose)</h3>
-                <p>What if a matrix is not square or is singular? In AI, we use the <strong>Pseudoinverse (\(
-                        \mathbf{A}^+ \))</strong>.
-                    It provides the "best-fit" inverse using Singular Value Decomposition (SVD).</p>
-                <div class="math-block">
-                    $$ \mathbf{A}^+ = (\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T $$
-                </div>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Stability:</strong> Calculating the exact inverse for large matrices
-                        is numerically unstable. We usually solve \( \mathbf{Ax} = \mathbf{b} \) using <strong>LU
-                            Decomposition</strong> or <strong>QR</strong> instead of multiplying by \( \mathbf{A}^{-1}
-                        \).</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_09_invertibility.html" class="nav-link">09. Invertibility</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">10. Calculation</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>4. Python: Pseudoinverse</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 10. How to Find It
+        </div>
 
-# A non-square matrix (Cannot have a standard inverse)
-A = np.array([[1, 2], [3, 4], [5, 6]])
+        <header class="page-header">
+            <div class="badge">Module 10</div>
+            <h1>The Algorithm</h1>
+            <p class="lead-text"> Gauss-Jordan Elimination. Transforming \( [A|I] \) into \( [I|A^{-1}] \).</p>
+        </header>
 
-# Moore-Penrose Pseudoinverse
-A_pinv = np.linalg.pinv(A)
+        <!-- VISUAL DIAGRAM: GAUSS JORDAN -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Visual Guide: Row Reduction</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Start["Augmented Matrix [A | I]"]
+    
+    subgraph Process
+        Pivot["Find Pivot"]
+        ZeroBelow["Eliminate Entries Below"]
+        ZeroAbove["Eliminate Entries Above"]
+        Scale["Scale Pivot to 1"]
+    end
+    
+    End["Result [I | A^-1]"]
+    
+    Start --> Pivot
+    Pivot --> ZeroBelow
+    ZeroBelow --> ZeroAbove
+    ZeroAbove --> Scale
+    Scale --> End
 
-print(f"Pseudoinverse shape: {A_pinv.shape}") # (2, 3)
-print(f"Check: np.allclose(A_pinv @ A, I) -> \n{np.round(A_pinv @ A)}")</code></pre>
+    style Start fill:#fefe93,stroke:#d97706
+    style End fill:#dcfce7,stroke:#16a34a
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION: GAUSS-JORDAN -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Gauss-Jordan Elimination</h2>
+                <p>To find the inverse, we augment \( A \) with the Identity \( I \): \( [A | I] \).</p>
+                <p>We then perform <strong>Row Operations</strong> (swap, scale, add) to turn the left side ($A$) into
+                    Identity. The right side automatically transforms into \( A^{-1} \).</p>
+                <p>If we cannot turn $A$ into $I$, then $A$ is singular.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: OPTIMIZATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Note on Adjugate Method</h2>
+                <p>For small matrices (2x2, 3x3), we can use the Adjugate Formula:</p>
+                <div class="math-block">
+                    $$ A^{-1} = \frac{1}{\det(A)} \text{adj}(A) $$
+                </div>
+                <p>This is useful for theory, but bad for computers ($O(n!)$ complexity!). Gauss-Jordan ($O(n^3)$) is
+                    what solvers actually use.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Symbolic Inversion</h2>
+                <p>Using SymPy to see exact fractions.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">from sympy import Matrix
+
+# Define a matrix with integers
+M = Matrix([
+    [1, 2],
+    [3, 4]
+])
+
+# Compute Inverse Symbolic
+M_inv = M.inv()
+
+print("M:")
+print(M)
+
+print("\nExact Inverse:")
+print(M_inv)
+# [-2, 1]
+# [3/2, -1/2]
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

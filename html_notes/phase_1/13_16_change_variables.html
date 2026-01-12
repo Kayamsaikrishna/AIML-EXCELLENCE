@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.16 Change of Variables - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_15_triple_integrals.html" class="nav-link">15. Triple
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_16_change_variables.html" class="nav-link active">16. Change of
+                                Variables</a></li>
+                        <li class="nav-item"><a href="13_17_polar_integrals.html" class="nav-link">17. Polar
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_18_multi_integral_apps.html" class="nav-link">18. Integral
+                                Apps</a></li>
+                        <li class="nav-item"><a href="13_19_line_integrals.html" class="nav-link">19. Line Integrals</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Transformation</span>
+                </div>
+                <h1>Change of Variables</h1>
+                <p class="lead-text">Warping space to simplify the math.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The General Formula</h3>
+                    <p>
+                        Sometimes a region \( R \) is ugly in \( \int f(x,y) dx dy \), but beautiful in \( u, v \)
+                        coordinates.
+                        To switch variables, we must pay a price for "squishing" or "stretching" the grid. That price is
+                        the <strong>Jacobian Determinant</strong>.
+                        \[ \iint_{R} f(x, y) dx dy = \iint_{S} f(g(u,v), h(u,v)) \, \left| \frac{\partial(x,
+                        y)}{\partial(u, v)} \right| \, du dv \]
+                    </p>
+                    <p>
+                        The term \( \left| \det(J) \right| \) is the local magnification factor. It ensures that
+                        mass/probability is conserved during the warp.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Normalizing Flows</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Generative Modeling with Jacobians</h3>
+                    <p>
+                        <strong>Normalizing Flows</strong> (like Glow, RealNVP) are state-of-the-art Generative Models. They work by
+                        taking a simple distribution (like a Gaussian Blob) and applying a sequence of invertible
+                        transformations \( f_1, f_2, \dots \) to warp it into a complex distribution (like the pixels of
+                        a face).
+                    </p>
+                    <p>
+                        To train these models, we need to calculate the exact log-likelihood of real data. The Change of
+                        Variables formula gives us the exact rule:
+                        \[ \log p_x(x) = \log p_z(z) - \log \left| \det \frac{\partial f}{\partial z} \right| \]
+                        We optimize the model by maximizing this likelihood. The Jacobian determinant tracks the "change
+                        in volume" of probability density as it flows through the network.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Computing the Correction Factor</h2>
+                <div class="code-header">jacobian_correction.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+# Define transformation: u = x + y, v = x - y
+# Inverse: x = (u + v)/2, y = (u - v)/2
+u, v = sp.symbols('u v')
+x = (u + v) / 2
+y = (u - v) / 2
+
+# Compute Jacobian Matrix of Inverse Transformation
+J = sp.Matrix([x, y]).jacobian([u, v])
+
+# Compute Determinant
+det_J = sp.simplify(J.det())
+
+print("Jacobian Matrix:")
+sp.pprint(J)
+print(f"\nDeterminant (Correction Factor): {abs(det_J)}")
+# Expected: |-1/2| = 0.5. 
+# The map shrinks area by half. So to integrate, we multiply by 0.5.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_15_triple_integrals.html" class="footer-link">← Prev: Triple Integrals</a>
+                        <span class="separator">|</span>
+                        <a href="13_17_polar_integrals.html" class="footer-link">Next: Polar Integrals →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

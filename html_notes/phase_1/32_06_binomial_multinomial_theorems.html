@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32.06 Binomial & Multinomial Theorems - Combinatorics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.8.2 Binomial Logic</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="32_05_binomial_coefficients_pascal.html" class="nav-link">05.
+                                Binomial Coefficients</a></li>
+                        <li class="nav-item"><a href="32_06_binomial_multinomial_theorems.html"
+                                class="nav-link active">06. Multinomial Theorems</a></li>
+                        <li class="nav-item"><a href="32_07_stars_and_bars_distribution.html" class="nav-link">07. Stars
+                                & Bars</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Combinatorics</span>
+                    <span class="badge secondary">Theorems</span>
+                </div>
+                <h1>Binomial & Multinomial Theorems</h1>
+                <p class="lead-text">Expanding the Dimensionality. Moving from simple pairs to complex multisets of
+                    interactions — the algebraic foundation for high-dimensional probability density functions.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Power of Expansion</h3>
+                    <p>
+                        The <strong>Binomial Theorem</strong> explains how to expand \((x+y)^n\). It tells us that the total power
+                        \(n\) must be distributed among \(x\) and \(y\), and the number of ways to pick exactly \(k\) of
+                        \(x\)'s out of \(n\) trials is \(\binom{n}{k}\).
+                    </p>
+                </div>
+
+                <h2>1. The Binomial Theorem</h2>
+                <div class="math-box">
+                    $$ (x + y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{n-k} y^k $$
+                </div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> Expand \((x+y)^3\).</p>
+                    <p>\(\binom{3}{0}x^3 + \binom{3}{1}x^2y + \binom{3}{2}xy^2 + \binom{3}{3}y^3 = 1x^3 + 3x^2y + 3xy^2
+                        + 1y^3\).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Multinomial Theorem</h2>
+                <p>
+                    What if we have more than two variables? \((x_1 + x_2 + ... + x_m)^n\).
+                </p>
+                <div class="math-box">
+                    $$ \frac{n!}{k_1! k_2! ... k_m!} x_1^{k_1} x_2^{k_2} ... x_m^{k_m} $$
+                </div>
+                <p>Where \(k_1 + k_2 + ... + k_m = n\). These are the coefficients for the terms in the expansion.</p>
+                <div class="example-box">
+                    <p><strong>Example:</strong> In the expansion of \((a + b + c)^{10}\), what is the coefficient of
+                        \(a^2 b^3 c^5\)?</p>
+                    <p>Answer: \( \frac{10!}{2! 3! 5!} = 2,520 \).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">NLP</span>
+                    <h3>High-Dimensional Logic in AI</h3>
+                    <ul>
+                        <li><strong>Multinomial Naive Bayes:</strong> A staple for text classification. When we count word
+                            occurrences to predict a category, we are calculating the multinomial probability of a "bag
+                            of words" appearing.</li>
+                        <li><strong>Softmax Layer:</strong> The Softmax function in neural networks produces a multinomial
+                            distribution. The way cross-entropy loss interacts with these probabilities is rooted in the
+                            multinomial expansion of probabilities.</li>
+                        <li><strong>Kernel Expansion:</strong> In Support Vector Machines (SVMs) with Polynomial Kernels, we often
+                            expand low-dimensional features into higher dimensions using these very theorems to find
+                            linear separators.</li>
+                        <li><strong>Language Models:</strong> Predicting the next word in a sequence is a multinomial choice over the
+                            entire vocabulary. The "search space" size is determined by these combinations.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Workflow: Binomial vs. Multinomial</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Start Expansion] --> B{How many variables?}
+                    B -- 2 (Binary) --> C[Binomial Theorem]
+                    B -- >2 (Multi) --> D[Multinomial Theorem]
+                    C --> E["Generic Term: C(n,k) a^k b^{n-k}"]
+                    D --> F["Generic Term: (n! / k1!k2!...) x1^k1 x2^k2..."]
+                    E --> G[ML Application: Bernoulli Trials]
+                    F --> H[ML Application: Classification / NLP]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

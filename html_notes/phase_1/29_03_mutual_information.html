@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual Information - Phase 1.5.7.3</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_03_mutual_information.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_03_mutual_information.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_03</div>
+            <h1>03. Mutual Information (MI)</h1>
+            <p class="lead-text">The measure of non-linear dependency.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Beyond Correlation</h2>
+<p>Standard Correlation only measures *Linear* relationships. If $Y = X^2$, correlation might be zero.
+                <strong>Mutual Information $I(X; Y)$</strong> measures how much information $X$ tells you about $Y$ (and
+                vice versa) regardless of the shape of the relationship.</p>
+<div class="math-block">
+                $$ I(X; Y) = H(X) - H(X|Y) $$
+            </div>
+<p>If $X$ and $Y$ are independent, $I(X; Y) = 0$. </p>
+</section>
+<section class="module-card">
+<h2>2. The Information Bottleneck</h2>
+<p>MI is a measure of the "Communication Channel" between two variables. If a feature has zero mutual
+                information with the target, it is literally useless—it carries no signal, only noise.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Feature Selection and Disentanglement</h2>
+<div class="module-card">
+<h3>The Signal Detector</h3>
+<p>In AI, MI is the gold standard for <strong>Feature Selection Methods (mRMR)**. </strong></p>
+<p>Instead of testing every feature with a model, we calculate their **Mutual Information with the
+                    Target<strong>. This is extremely powerful for <strong>Genomic AI</strong> or <strong>Financial High-frequency data</strong>
+                        where we have 10,000+ features but only 10 are useful. Furthermore, <strong>InfoGANs (Generative
+                            Adversarial Networks)** use MI to learn <strong>Disentangled Representations</strong>: by maximizing the
+                            mutual information between a latent code and the generated image, the AI learns specific
+                            "Levers" (e.g., one lever changes the rotation of a face, another changes the lighting). It
+                            is the math of "Meaningful representation." </strong></strong></p>
+</div>
+</section>
+<section>
+<h2>4. Python: MI Score</h2>
+<div class="code-block">
+<pre><code class="language-python">from sklearn.feature_selection import mutual_info_regression
+
+# Calculate MI between all features in X and target y
+mi_scores = mutual_info_regression(X, y)
+
+# Higher score = more 'information' provided by the feature
+for name, score in zip(feature_names, mi_scores):
+    print(f"Feature '{name}' MI: {score:.4f}")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

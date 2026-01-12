@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.03 Likelihood Function - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_02_prior_distributions.html" class="nav-link">02. Prior
+                                Distributions</a></li>
+                        <li class="nav-item"><a href="26_03_likelihood_function.html" class="nav-link active">03.
+                                Likelihood Function</a></li>
+                        <li class="nav-item"><a href="26_04_posterior_distribution.html" class="nav-link">04. Posterior
+                                Distribution</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Evidence</span>
+                </div>
+                <h1>The Likelihood Function</h1>
+                <p class="lead-text">Measuring how well a specific set of parameters explains the data we actually saw.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Probability vs. Likelihood</h3>
+                    <p>
+                        They look the same (\(P(D|\theta)\)), but the <strong>perspective</strong> is flipped:
+                        <br><br>
+                        - <strong>Probability:</strong> \(\theta\) is constant. We predict different <strong>Data</strong> outcomes. (Area under
+                        curve = 1).
+                        - <strong>Likelihood:</strong> Data is constant. We try different <strong>\(\theta\)</strong> values to see which one
+                        "fits" best. (Does NOT sum to 1).
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    $$ L(\theta|D) = P(D|\theta) $$
+                </div>
+                <p>
+                    If you flip a coin 10 times and get 8 heads, the Likelihood function tells you which coin bias
+                    (\(\theta = 0.5, 0.8, 1.0\)) makes that "8 heads" result most probable.
+                    - For \(\theta = 0.5\), the chance is low.
+                    - For \(\theta = 0.8\), the likelihood is at its peak.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Multiplication Rule</h2>
+                <p>
+                    For independent data points (\(x_1, x_2, \dots, x_n\)), the total likelihood is the product:
+                </p>
+                <div class="math-box">
+                    $$ L(\theta) = \prod_{i=1}^{n} P(x_i | \theta) $$
+                </div>
+                <p>
+                    Because products of small probabilities turn into tiny numbers (0.00000001), computers use the
+                    <strong>Log-Likelihood</strong> instead:
+                </p>
+                <div class="math-box">
+                    $$ \log L(\theta) = \sum_{i=1}^{n} \log P(x_i | \theta) $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Cross-Entropy Loss</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Optimization</span>
+                    <h3>Loss is Negative Log-Likelihood</h3>
+                    <p>
+                        In Classification, why do we use <strong>Binary Cross-Entropy (BCE)</strong>?
+                    </p>
+                    <p>
+                        $$ \text{Loss} = -[y \log(\hat{y}) + (1-y) \log(1-\hat{y})] $$
+                    </p>
+                    <p>
+                        This isn't just a random formula. It is the <strong>Negative Log-Likelihood</strong> of a Bernoulli
+                        distribution!
+                        When your model minimizes Cross-Entropy, it is mathematically <strong>Maximizing the Likelihood</strong> of
+                        the training data. Every time you run `model.compile(loss='categorical_crossentropy')`, you are
+                        doing Maximum Likelihood Estimation (MLE) under the hood.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

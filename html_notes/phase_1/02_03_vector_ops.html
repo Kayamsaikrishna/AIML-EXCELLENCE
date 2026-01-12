@@ -4,119 +4,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vector Operations - Phase 1.2.3</title>
+    <title>02.03 Vector Arithmetic - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_01_vector_basics.html">01. Vector Basics</a></li>
-            <li><a href="02_02_vector_geometry.html">02. Geometry</a></li>
-            <li><a href="02_03_vector_ops.html" class="active">03. Operations</a></li>
-            <li><a href="02_04_scalar_mult.html">04. Scalar Mult</a></li>
-            <li><a href="02_05_dot_product.html">05. Dot Product</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Vector Operations
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>03. Vector Addition & Subtraction</h1>
-            <p class="subtitle">Combining signal and noise.</p>
-        </header>
-
-        <section>
-            <h2>1. Algebraic & Geometric Addition</h2>
-            <p>Vectors are added component-wise. Geometrically, this follows the <strong>Triangle Law</strong> or the
-                <strong>Parallelogram Law</strong>.
-            </p>
-
-            <div class="math-block">
-                $$ \mathbf{u} + \mathbf{v} = \begin{bmatrix} u_1 + v_1 \\ u_2 + v_2 \end{bmatrix} $$
-            </div>
-
-            <div class="visual-diagram">
-                <svg width="400" height="300" viewBox="0 0 400 300">
-                    <!-- Vector u -->
-                    <line x1="50" y1="250" x2="150" y2="150" stroke="#f43f5e" stroke-width="3"
-                        marker-end="url(#arrow-red)" />
-                    <text x="80" y="210" fill="#f43f5e">u</text>
-                    <!-- Vector v -->
-                    <line x1="150" y1="150" x2="300" y2="150" stroke="#3b82f6" stroke-width="3"
-                        marker-end="url(#arrow-blue)" />
-                    <text x="210" y="140" fill="#3b82f6">v</text>
-                    <!-- Resultant u+v -->
-                    <line x1="50" y1="250" x2="300" y2="150" stroke="#8b5cf6" stroke-width="4"
-                        marker-end="url(#arrow-purple)" />
-                    <text x="180" y="220" fill="#8b5cf6" font-weight="bold">u + v</text>
-
-                    <defs>
-                        <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orientation="auto">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#f43f5e" />
-                        </marker>
-                        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orientation="auto">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
-                        </marker>
-                        <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="9" refY="3"
-                            orientation="auto">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#8b5cf6" />
-                        </marker>
-                    </defs>
-                </svg>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. Residual Connections (Skip Connections)</h2>
-            <div class="module-card">
-                <h3>The ResNet Trick</h3>
-                <p>One of the most important discoveries in Deep Learning is the <strong>Residual Connection</strong>.
-                    Instead of learning a transformation \( y = f(x) \), the network learns the "difference" \( y = f(x)
-                    + x \).
-                </p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Vector Addition:</strong> By adding the original input vector back to
-                        the output, gradients flow easily through very deep networks.</li>
-                    <li class="topic-item"><strong>Information Preservation:</strong> Subtraction (\( y - x \)) allows
-                        us to analyze what features were actually added by a specific layer.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_02_vector_operations.html" class="nav-link">02. Vector Ops</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">03. Vector Arithmetic</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Vector Arithmetic</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 03. Vector Arithmetic
+        </div>
 
-u = np.array([2, -5])
-v = np.array([3, 2])
+        <header class="page-header">
+            <div class="badge">Module 03</div>
+            <h1>The Parallelogram Rule</h1>
+            <p class="lead-text">Addition and Subtraction in space. How AI models "step" towards the solution.</p>
+        </header>
 
-sum_vec = u + v      # Output: [5, -3]
-diff_vec = u - v     # Output: [-1, -7]
+        <!-- VISUAL DIAGRAM: PARALLELOGRAM -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Navigation</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Origin["Start (0,0)"]
+    V1["Vector A"]
+    V2["Vector B"]
+    
+    subgraph Addition
+        HeadTail["Head-to-Tail Method"]
+        ResultSum["Result: A + B"]
+    end
+    
+    subgraph Subtraction
+        Diff["Difference: B - A"]
+        Disp["Displacement Vector"]
+    end
+    
+    subgraph AI [Optimization]
+        Step["Update Step"]
+        SGD["W_new = W_old - lr * Grad"]
+    end
 
-print(f"Sum: {sum_vec}")
-print(f"Difference: {diff_vec}")</code></pre>
+    Origin --> V1
+    Origin --> V2
+    V1 --> HeadTail
+    V2 --> HeadTail
+    HeadTail --> ResultSum
+    
+    V1 --> Diff
+    V2 --> Diff
+    Diff --> SGD
+
+    style ResultSum fill:#dcfce7,stroke:#16a34a
+    style SGD fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. VECTOR ADDITION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Adding Forces</h2>
+                <p>Vector addition is commutative: \( \mathbf{a} + \mathbf{b} = \mathbf{b} + \mathbf{a} \).</p>
+                <div class="math-block">
+                    $$ \begin{bmatrix} 1 \\ 2 \end{bmatrix} + \begin{bmatrix} 3 \\ 4 \end{bmatrix} = \begin{bmatrix} 4
+                    \\ 6 \end{bmatrix} $$
+                </div>
+                <p>Geometrically, this forms the diagonal of the parallelogram extended by the two vectors.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: SGD UPDATE -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The Learning Step</h2>
+                <p>Training a Neural Network is literally just vector subtraction.</p>
+                <p>We want to move our weights \( W \) in the direction opposite to the Gradient \( \nabla L \).</p>
+                <div class="math-block">
+                    $$ W_{new} = W_{old} + (-\eta \cdot \nabla L) $$
+                </div>
+                <p>Here, \( -\eta \cdot \nabla L \) is a vector that points "downhill". We <strong>add</strong> this
+                    vector to our current position to arrive at a better solution.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Displacement Vectors</h2>
+                <p>Finding the vector pointing from A to B.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Current Weights (Position in Landscape)
+w_old = np.array([2.0, 3.0])
+
+# Gradient (Slope direction)
+gradient = np.array([0.5, 1.0])
+
+# Learning Rate (Step Size)
+lr = 0.1
+
+# Calculate Step Vector (The Update)
+step = -lr * gradient # [-0.05, -0.1]
+
+# Apply Update (Vector Addition)
+w_new = w_old + step
+
+print(f"Old Weights: {w_old}")
+print(f"Update Step: {step}")
+print(f"New Weights: {w_new}")
+# The model has 'walked' slightly downhill.
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

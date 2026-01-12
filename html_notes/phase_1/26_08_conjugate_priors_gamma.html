@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.08 Conjugate Priors: Gamma - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_07_conjugate_priors_normal.html" class="nav-link">07. Conjugate
+                                Priors Normal</a></li>
+                        <li class="nav-item"><a href="26_08_conjugate_priors_gamma.html" class="nav-link active">08.
+                                Conjugate Priors Gamma</a></li>
+                        <li class="nav-item"><a href="26_09_bayesian_workflow.html" class="nav-link">09. Bayesian
+                                Workflow</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Rate Estimation</span>
+                </div>
+                <h1>Conjugate Priors: Gamma</h1>
+                <p class="lead-text">Estimating frequencies and arrival rates (Poisson/Exponential) using the highly
+                    flexible Gamma distribution.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>What is Gamma?</h3>
+                    <p>
+                        The <strong>Gamma Distribution</strong> \(\text{Gamma}(\alpha, \beta)\) is the "Mother" of arrival processes.
+                        <br>
+                        - <strong>\(\alpha\):</strong> Shape parameter (number of events).
+                        - <strong>\(\beta\):</strong> Rate parameter (how fast events happen).
+                    </p>
+                </div>
+
+                <h2>1. The Gamma-Poisson Pair</h2>
+                <p>
+                    Use this when your data consists of <strong>Counts</strong> (e.g., number of emails, number of clicks).
+                </p>
+                <div class="math-box">
+                    Prior: \(\text{Gamma}(\alpha, \beta)\) <br>
+                    Data: \(n\) observations with sum \(\sum x_i\) from Poisson \(\text{Pois}(\lambda)\) <br>
+                    <strong>Posterior:</strong> \(\text{Gamma}(\alpha + \sum x_i, \beta + n)\)
+                </div>
+                <p>
+                    It's like a scoreboard: You add the "total events" you've seen to \(\alpha\), and the "total time"
+                    that passed to \(\beta\).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Gamma-Exponential Pair</h2>
+                <p>
+                    Use this when your data consists of <strong>Wait Times</strong> (e.g., time between server failures).
+                </p>
+                <div class="math-box">
+                    Prior: \(\text{Gamma}(\alpha, \beta)\) <br>
+                    Data: \(n\) samples from \(\text{Exp}(\lambda)\) with sum \(S\) <br>
+                    <strong>Posterior:</strong> \(\text{Gamma}(\alpha + n, \beta + S)\)
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Website Traffic Prediction</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Systems</span>
+                    <span class="ml-badge">Time Series</span>
+                    <h3>Bayesian Load Balancing</h3>
+                    <p>
+                        An AWS server needs to estimate how many requests per second it will receive (\(\lambda\)).
+                    </p>
+                    <p>
+                        - <strong>Prior:</strong> Historically, the rate is \(\text{Gamma}(10, 2)\) (approx 5 req/sec).
+                        - <strong>Data:</strong> In the last minute, it received 200 requests.
+                        - <strong>Update:</strong> The posterior immediately shifts to \(\text{Gamma}(210, 62)\).
+                    </p>
+                    <p>
+                        Because this update is a simple <strong>Add</strong> (\(10 + 200\) and \(2 + 60\)), the server can update its
+                        belief about traffic in <strong>microseconds</strong> without complex retraining. This allows the system to
+                        auto-scale dynamically based on the most recent, statistically-backed posterior.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

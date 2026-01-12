@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.13 Double Integrals (Rectangular) - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_11_jacobian_matrix.html" class="nav-link">11. Jacobian
+                                Matrix</a></li>
+                        <li class="nav-item"><a href="13_12_total_derivative.html" class="nav-link">12. Total
+                                Derivative</a></li>
+                        <li class="nav-item"><a href="13_13_double_integrals_rect.html" class="nav-link active">13.
+                                Double Integrals</a></li>
+                        <li class="nav-item"><a href="13_14_double_integrals_general.html" class="nav-link">14. Iterated
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_15_triple_integrals.html" class="nav-link">15. Triple
+                                Integrals</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Accumulation</span>
+                </div>
+                <h1>Double Integrals</h1>
+                <p class="lead-text">Volume under the surface.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">From Area to Volume</h3>
+                    <p>
+                        Single integrals \( \int f(x) dx \) calculate Area under a curve.
+                        Double integrals \( \iint f(x, y) dA \) calculate <strong>Volume</strong> under a surface \( z = f(x, y) \)
+                        over a specific region \( R \).
+                    </p>
+                    <p>
+                        If the region \( R \) is a rectangle \([a, b] \times [c, d]\), the calculation is
+                        straightforward:
+                        \[ \iint_R f(x,y) dA = \int_a^b \int_c^d f(x,y) \, dy \, dx \]
+                        We perform "partial integration" (integrate w.r.t one variable while holding the other constant)
+                        twice.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Joint Probability</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Probability Mass</h3>
+                    <p>
+                        In Statistics and ML, if \( X \) and \( Y \) are continuous random variables with a joint
+                        probability density function (PDF) \( p(x, y) \), then the probability that a data point falls
+                        into a region \( R \) is:
+                        \[ P((X, Y) \in R) = \iint_R p(x, y) \, dx \, dy \]
+                    </p>
+                    <p>
+                        This is fundamental for <strong>Classification</strong>. To classify a point, we often integrate likelihood
+                        densities over specific regions of the feature space.
+                        If the integral evaluates to 1 over the entire space, it's a valid probability distribution.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Numerical Integration</h2>
+                <div class="code-header">double_integral.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">from scipy.integrate import dblquad
+import numpy as np
+
+# Function: f(x, y) = x * y^2
+def f(y, x):
+    return x * y**2
+
+# Integrate over x in [0, 2], y in [0, 1]
+# Note: dblquad expects function args as (y, x)
+area, error = dblquad(f, 0, 2, lambda x: 0, lambda x: 1)
+
+print(f"Volume: {area:.4f}")
+print(f"Error Estimate: {error:.4e}")
+
+# Theoretical Result:
+# Int(x) from 0 to 2 = [x^2/2] = 2
+# Int(y^2) from 0 to 1 = [y^3/3] = 1/3
+# Total = 2 * 1/3 = 0.6666...</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_12_total_derivative.html" class="footer-link">← Prev: Differential</a>
+                        <span class="separator">|</span>
+                        <a href="13_14_double_integrals_general.html" class="footer-link">Next: Iterated Integrals →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

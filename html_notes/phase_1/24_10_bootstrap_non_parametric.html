@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.10 Non-parametric Bootstrap - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_09_bootstrap_principle.html" class="nav-link">09. Bootstrap
+                                Principle</a></li>
+                        <li class="nav-item"><a href="24_10_bootstrap_non_parametric.html" class="nav-link active">10.
+                                Bootstrap Non-Param</a></li>
+                        <li class="nav-item"><a href="24_11_bootstrap_parametric.html" class="nav-link">11. Bootstrap
+                                Parametric</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Data-Driven</span>
+                </div>
+                <h1>Non-parametric Bootstrap</h1>
+                <p class="lead-text">Measuring uncertainty when you have no idea what the underlying distribution is.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Plug-in Principle</h3>
+                    <p>
+                        The Non-parametric Bootstrap assumes that the <strong>Empirical Distribution</strong> (your raw
+                        data) is our best possible estimate of the population distribution. We "plug in" our data to act
+                        as the world.
+                    </p>
+                </div>
+
+                <h2>1. Why "Non-parametric"?</h2>
+                <p>
+                    Classic statistics (Z/T tests) assumes the data is Normal (parameters \(\mu, \sigma\)).
+                    <strong>Non-parametric Bootstrap</strong> doesn't care. Your data could be bimodal, skewed, or have multiple
+                    outliers. The bootstrap handles it automatically because it doesn't try to fit the data to a
+                    curve—it just re-uses the data points as they are.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Handling Complex Metrics</h2>
+                <p>
+                    For the sample mean, we have the CLT. But what about:
+                    - The <strong>Median</strong>?
+                    - The <strong>Correlation Coefficient</strong>?
+                    - The <strong>F1-Score</strong> of a model?
+                </p>
+                <p>
+                    There is no simple "F1-Score Table" in the back of a textbook. To find the confidence interval for
+                    an F1-score, we MUST use the Bootstrap.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Model Robustness Analysis</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Evaluation</span>
+                    <h3>The Distribution of the AUC</h3>
+                    <p>
+                        In sensitive fields like Medical Imaging (Detecting Cancer), reporting a single AUC of 0.95 is
+                        not enough. Regulatory bodies want to see the 95% Confidence Interval.
+                    </p>
+                    <p>
+                        <strong>The Workflow:</strong>
+                        1. Start with test set \(X_{test}\).
+                        2. Create 1,000 bootstrap test sets by resampling \(X_{test}\) with replacement.
+                        3. Calculate AUC for each set.
+                        4. The 2.5th and 97.5th percentiles of those 1,000 AUCs give the <strong>95% Confidence Interval</strong>.
+                    </p>
+                    <p>
+                        This "Non-parametric" approach is the standard in research papers because it works even if the
+                        model's errors are weirdly distributed.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

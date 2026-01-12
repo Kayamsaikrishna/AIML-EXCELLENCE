@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.04 Probability Density Function (PDF) - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.2 Random Variables</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="18_03_pmf.html" class="nav-link">03. PMF</a></li>
+                        <li class="nav-item"><a href="18_04_pdf.html" class="nav-link active">04. PDF</a></li>
+                        <li class="nav-item"><a href="18_05_cdf.html" class="nav-link">05. CDF</a></li>
+                        <li class="nav-item"><a href="18_06_cdf_properties.html" class="nav-link">06. CDF Properties</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Density</span>
+                </div>
+                <h1>Probability Density Function (PDF)</h1>
+                <p class="lead-text">Probability per unit length.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Density != Probability</h3>
+                    <p>
+                        For continuous variables, \(f_X(x)\) represents the <strong>density</strong> at point \(x\).
+                        To get probability, you must integrate area under the curve!
+                        \[ P(a < X < b)=\int_{a}^{b} f_X(x) dx \] Properties: <ol>
+                            <li>\(f_X(x) \ge 0\) (Can be > 1!)</li>
+                            <li>\(\int_{-\infty}^{\infty} f_X(x) dx = 1\) (Total Area = 1)</li>
+                            </ol>
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Regularization</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Priors as PDFs</h3>
+                    <p>
+                        When we say "Assume a Gaussian Prior on weights", we mean the probability density of the weights
+                        follows the bell curve equation:
+                        \[ p(w) = \frac{1}{\sqrt{2\pi}} e^{-w^2/2} \]
+                        Maximizing this density (MAP Estimate) pushes \(w\) towards 0, which is exactly L2
+                        Regularization.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Integration</h2>
+                <div class="code-header">pdf_integrate.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from scipy.stats import norm
+
+# Standard Normal Distribution PDF
+# Probability of range [-1, 1] (1 Sigma)
+
+# Using Cumulative function (Integration automatically done)
+prob = norm.cdf(1) - norm.cdf(-1)
+
+print(f"Area between -1 and 1: {prob:.4f}")
+# Expected: ~0.6827</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="18_03_pmf.html" class="footer-link">← Prev: PMF</a>
+                        <span class="separator">|</span>
+                        <a href="18_05_cdf.html" class="footer-link">Next: CDF →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

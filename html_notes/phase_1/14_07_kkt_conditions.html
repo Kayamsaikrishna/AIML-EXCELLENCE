@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.07 KKT Conditions - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_05_constrained_opt.html" class="nav-link">05. Constrained
+                                Opt</a></li>
+                        <li class="nav-item"><a href="14_06_lagrange_multipliers.html" class="nav-link">06. Lagrange
+                                Multipliers</a></li>
+                        <li class="nav-item"><a href="14_07_kkt_conditions.html" class="nav-link active">07. KKT
+                                Conditions</a></li>
+                        <li class="nav-item"><a href="14_08_convexity.html" class="nav-link">08. Convexity</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">The General Solvers</span>
+                </div>
+                <h1>KKT Conditions</h1>
+                <p class="lead-text">The definitive rules for finding optimality under any constraint.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Generalizing Lagrange to Inequalities</h3>
+                    <p>
+                        When we have inequality constraints \(g_i(\mathbf{x}) \le 0\), the optimum might be ON the
+                        boundary (\(g=0\)) or INSIDE it (\(g < 0\)). We don't know in advance. The **Karush-Kuhn-Tucker
+                            (KKT)** conditions handle both cases automatically. </p>
+                            <p>
+                                The most famous condition is <strong>Complementary Slackness</strong>:
+                                \[ \mu_i \cdot g_i(\mathbf{x}^*) = 0 \]
+                                This means either the constraint is satisfied with equality (\(g=0\)), or the multiplier
+                                is zero (\(\mu=0\), i.e., we ignore the constraint).
+                            </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Start[Optimization Problem] -->|Has Inequalities?| CheckType
+                        CheckType -->|No| Lagrange[Standard Lagrange Multipliers]
+                        CheckType -->|Yes| KKT[KKT Conditions]
+
+                        KKT -->|Condition 1| Stationarity[Gradient = 0]
+                        KKT -->|Condition 2| Primal[Satisfy g(x) &lt;= 0] KKT -->|Condition 3| Dual[Multipliers μ >= 0]
+                            KKT -->|Condition 4| Slackness[μ * g(x) = 0]
+
+                            Slackness -->|μ > 0| Active[Active Constraint (On Boundary)]
+                            Slackness -->|μ = 0| Inactive[Inactive Constraint (Inside Region)]
+
+                            style Active fill:#c05621,stroke:#ed8936
+                            style Inactive fill:#2f855a,stroke:#48bb78
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Sparse Vectors</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Sparsity Matters</h3>
+                    <p>
+                        In Support Vector Machines (SVMs), the "Dual Variables" \(\mu_i\) correspond to training
+                        examples.
+                        Complementary slackness tells us that for most training points (easy ones inside the correct
+                        class region), \(\mu_i = 0\).
+                        Only the difficult points right on the margin have \(\mu_i > 0\).
+                    </p>
+                    <p>
+                        This is why SVMs are "Sparse". You can throw away 90% of your training data (the easy ones) and
+                        the model remains exactly the same.
+                        This is a property guaranteed by KKT.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Solving Inequality Constraints</h2>
+                <div class="code-header">kkt_solve.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">from scipy.optimize import minimize
+import numpy as np
+
+# Problem: Minimize x^2 + y^2
+# Subject to: x + y >= 1  (or 1 - x - y <= 0)
+
+def objective(x):
+    return x[0]**2 + x[1]**2
+
+# Constraint: x[0] + x[1] - 1 >= 0
+cons = {'type': 'ineq', 'fun': lambda x: x[0] + x[1] - 1}
+
+# Start at (2, 2) [Inside the valid region]
+res = minimize(objective, [2.0, 2.0], constraints=cons)
+
+print(f"Optimal Solution: {res.x}")
+# Expected: [0.5, 0.5] (On the boundary)
+
+# If we change the constraint to x + y >= -10
+# The unconstrained minimum (0,0) satisfies it!
+cons2 = {'type': 'ineq', 'fun': lambda x: x[0] + x[1] + 10}
+res2 = minimize(objective, [2.0, 2.0], constraints=cons2)
+
+print(f"Optimal Solution 2: {res2.x}")
+# Expected: [0.0, 0.0] (Constraint Inactive)
+# Here, μ would be 0.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="14_06_lagrange_multipliers.html" class="footer-link">← Prev: Lagrange Multipliers</a>
+                        <span class="separator">|</span>
+                        <a href="14_08_convexity.html" class="footer-link">Next: Convexity →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

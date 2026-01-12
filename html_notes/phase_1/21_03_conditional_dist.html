@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.03 Conditional Distributions - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_02_marginal_dist.html" class="nav-link">02. Marginal Dist</a>
+                        </li>
+                        <li class="nav-item"><a href="21_03_conditional_dist.html" class="nav-link active">03.
+                                Conditional Dist</a></li>
+                        <li class="nav-item"><a href="21_04_independence_rv.html" class="nav-link">04. Independence</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Slice</span>
+                </div>
+                <h1>Conditional Distributions</h1>
+                <p class="lead-text">What happens to one variable when we fix the value of another?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Slicing the Mountain</h3>
+                    <p>
+                        Integration/Marginalization is like looking at the mountain's shadow. <strong>Conditioning</strong> is like
+                        taking a sharp knife and <strong>slicing</strong> through the mountain at a specific point
+                        (e.g., \(Y = y\)).
+                        <br><br>
+                        The shape of that slice is the conditional distribution. To make it a valid probability
+                        distribution, we must <strong>renormalize</strong> it so that the area under the slice is 1.
+                    </p>
+                </div>
+
+                <h2>1. Discrete Case</h2>
+                <div class="math-box">
+                    The conditional PMF of \(X\) given \(Y=y\):
+                    $$ p_{X|Y}(x|y) = \frac{p(x, y)}{p_Y(y)} $$
+                </div>
+                <p>
+                    <strong>Calculation:</strong>
+                    1. Find the row/column for \(Y=y\).
+                    2. Take the probability mass in that row/column.
+                    3. Divide by the total probability of that row/column (the marginal).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Continuous Case</h2>
+                <div class="math-box">
+                    The conditional PDF of \(X\) given \(Y=y\):
+                    $$ f_{X|Y}(x|y) = \frac{f(x, y)}{f_Y(y)} $$
+                </div>
+                <p>
+                    This is essentially Bayes' Theorem for continuous variables. The denominator \(f_Y(y)\) ensures that
+                    \(\int f_{X|Y}(x|y) dx = 1\).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Supervised Learning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised Learning</span>
+                    <span class="ml-badge">Deep Learning</span>
+                    <h3>Modeling $P(Y \mid X)$</h3>
+                    <p>
+                        Almost all supervised machine learning (Classification, Regression) is an attempt to model the
+                        <strong>Conditional Distribution</strong> of the label \(Y\) given the features \(X\).
+                    </p>
+                    <p>
+                        - <strong>Regression:</strong> We predict the mean of the conditional distribution \(E[Y \mid X]\).
+                        <br>
+                        - <strong>Classification:</strong> We predict the probability of a class label given inputs \(P(Y=k \mid X)\)
+                        using a Softmax function.
+                    </p>
+                </div>
+
+                <h3>Recommender Systems</h3>
+                <p>
+                    "What is the probability that a user likes Movie B, <strong>given</strong> they liked Movie A?"
+                    <br>
+                    This is \(P(\text{Like}_B \mid \text{Like}_A)\). Collaborative filtering models spend their entire
+                    existence trying to approximate these conditional densities.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. The Relation to Joint and Marginal</h2>
+                <div class="math-box">
+                    The Product Rule:
+                    $$ f(x, y) = f_{X|Y}(x|y) f_Y(y) $$
+                </div>
+                <p>
+                    This is the fundamental building block of <strong>Probabilistic Graphical Models</strong> (like
+                    Bayesian Networks). It allows us to build complex joint distributions by specifying simple
+                    conditional dependencies.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

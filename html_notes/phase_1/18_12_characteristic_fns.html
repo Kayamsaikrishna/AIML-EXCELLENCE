@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.12 Characteristic Functions - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.2 Random Variables</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="18_11_mgf.html" class="nav-link">11. MGF</a></li>
+                        <li class="nav-item"><a href="18_12_characteristic_fns.html" class="nav-link active">12. Char.
+                                Fns</a></li>
+                        <li class="nav-item"><a href="18_13_skewness_kurtosis.html" class="nav-link">13. Skew/Kurt</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Fourier Domain</span>
+                </div>
+                <h1>Characteristic Functions</h1>
+                <p class="lead-text">Universal fingerprint.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Definition</h3>
+                    <p>
+                        The Characteristic Function \(\phi_X(t)\) is the MGF assessed at imaginary values \(it\):
+                        \[ \phi_X(t) = E[e^{itX}] \]
+                        This always exists for any random variable!
+                        It is essentially the <strong>Fourier Transform</strong> of the PDF.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: CLT Proof</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Central Limit Theorem</h3>
+                    <p>
+                        Why does adding random variables creates a Normal distribution?
+                        Using Characteristic Functions, we can prove that:
+                        \[ \phi_{\sum X_i} (t) = (\phi_X(t))^n \]
+                        As \(n \to \infty\), this product converges to the function \(e^{-t^2/2}\), which is exactly the
+                        Characteristic Function of a Gaussian!
+                    </p>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="18_11_mgf.html" class="footer-link">← Prev: MGF</a>
+                        <span class="separator">|</span>
+                        <a href="18_13_skewness_kurtosis.html" class="footer-link">Next: Skew/Kurt →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

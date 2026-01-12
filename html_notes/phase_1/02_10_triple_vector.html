@@ -4,99 +4,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triple Vector Product - Phase 1.2.10</title>
+    <title>02.10 Vector Triple Product - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_09_triple_scalar.html">09. Triple Scalar Product</a></li>
-            <li><a href="02_10_triple_vector.html" class="active">10. Triple Vector Product</a></li>
-            <li><a href="02_11_projections.html">11. Projections</a></li>
-            <li><a href="02_12_orthogonality.html">12. Orthogonality</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Triple Vector
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>10. Triple Vector Product</h1>
-            <p class="subtitle">The BAC-CAB Identity and Vector Simplification.</p>
-        </header>
-
-        <section>
-            <h2>1. The BAC-CAB Identity</h2>
-            <p>The Triple Vector Product \( \mathbf{u} \times (\mathbf{v} \times \mathbf{w}) \) results in a vector. It
-                is restricted to the plane formed by \( \mathbf{v} \) and \( \mathbf{w} \).</p>
-
-            <div class="math-block">
-                $$ \mathbf{u} \times (\mathbf{v} \times \mathbf{w}) = \mathbf{v}(\mathbf{u} \cdot \mathbf{w}) -
-                \mathbf{w}(\mathbf{u} \cdot \mathbf{v}) $$
-            </div>
-
-            <div class="module-card">
-                <h3>Why simplify?</h3>
-                <p>Cross products are computationally more expensive than dot products. Using the identity allows
-                    hardware accelerators to process complex geometric transformations using simpler arithmetic.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. Complex Transformations in Robotics</h2>
-            <div class="module-card">
-                <h3>Angular Velocity & Acceleration</h3>
-                <p>In <strong>Reinforcement Learning for Robotics</strong> (like humanoid walking), calculating
-                    centripetal acceleration frequently involves triple vector products of the form \( \mathbf{\omega}
-                    \times (\mathbf{\omega} \times \mathbf{r}) \).
-                </p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Simplification:</strong> Using the identity, this becomes \(
-                        \mathbf{\omega}(\mathbf{\omega} \cdot \mathbf{r}) - \mathbf{r}(\mathbf{\omega} \cdot
-                        \mathbf{\omega}) \).</li>
-                    <li class="topic-item"><strong>Real-time Physics:</strong> This reduction is critical for
-                        high-frequency physics engines (1000Hz controllers).</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_09_triple_scalar.html" class="nav-link">09. Triple Scalar</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">10. Triple Vector</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Verifying the Identity</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 10. Vector Triple Product
+        </div>
 
-u = np.random.rand(3)
-v = np.random.rand(3)
-w = np.random.rand(3)
+        <header class="page-header">
+            <div class="badge">Module 10</div>
+            <h1>The "BAC - CAB" Rule</h1>
+            <p class="lead-text"> \( \mathbf{a} \times (\mathbf{b} \times \mathbf{c}) \). Reducing complex 3D
+                interactions into simple coplanar arithmetic.</p>
+        </header>
 
-# Direct calculation
-res1 = np.cross(u, np.cross(v, w))
+        <!-- VISUAL DIAGRAM: TRIPLE VECTOR -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Reduction</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["A x (B x C)"]
+    
+    subgraph Identity
+        Part1["(A . C) * B"]
+        Part2["(A . B) * C"]
+        Sub["Subtraction"]
+    end
+    
+    subgraph Geometry
+        Coplanar["Result is in Plane of B & C"]
+        Ortho["Perpendicular to A"]
+    end
+    
+    Input --> Part1
+    Input --> Part2
+    Part1 --> Sub
+    Part2 --> Sub
+    
+    Sub --> Coplanar
+    Input --> Ortho
 
-# BAC-CAB calculation
-res2 = v * np.dot(u, w) - w * np.dot(u, v)
-
-# Verify they are identical
-print(f"Verification: {np.allclose(res1, res2)}") # Output: True</code></pre>
+    style Identity fill:#dcfce7,stroke:#16a34a
+    style Coplanar fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION: LAGRANGE'S FORMULA -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The BAC-CAB Identity</h2>
+                <p>The vector triple product is NOT associative. \( (\mathbf{a} \times \mathbf{b}) \times \mathbf{c}
+                    \neq \mathbf{a} \times (\mathbf{b} \times \mathbf{c}) \).</p>
+                <div class="math-block">
+                    $$ \mathbf{a} \times (\mathbf{b} \times \mathbf{c}) = \mathbf{b}(\mathbf{a} \cdot \mathbf{c}) -
+                    \mathbf{c}(\mathbf{a} \cdot \mathbf{b}) $$
+                </div>
+                <p><strong>Insight:</strong> The result must lie in the plane defined by \( \mathbf{b} \) and \(
+                    \mathbf{c} \), because \( \mathbf{b} \times \mathbf{c} \) is perpendicular to that plane, and
+                    crossing it again with \( \mathbf{a} \) creates a vector perpendicular to the normal (i.e., back in
+                    the plane).</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: SIMPLIFICATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Computational Efficiency</h2>
+                <p>In Physics Engines (Rigid Body Dynamics) and Robotics, we often encounter terms like \( \Omega \times
+                    (\Omega \times r) \) (Centripetal Acceleration).</p>
+                <p>Using the BAC-CAB rule converts expensive Cross Products (Vector ops) into cheaper Dot Products
+                    (Scalar ops) followed by simple Vector Scaling. This is faster on GPUs.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Verifying the Identity</h2>
+                <p>Proving that the formula works numerically.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+c = np.array([7, 8, 9])
+
+# Method 1: Direct Cross Products
+b_cross_c = np.cross(b, c)
+res1 = np.cross(a, b_cross_c)
+
+# Method 2: BAC - CAB Rule
+# (a . c) * b
+scaler1 = np.dot(a, c)
+term1 = scaler1 * b
+
+# (a . b) * c
+scaler2 = np.dot(a, b)
+term2 = scaler2 * c
+
+res2 = term1 - term2
+
+print(f"Direct:  {res1}")
+print(f"Formula: {res2}")
+# They should be identical (within float error)
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

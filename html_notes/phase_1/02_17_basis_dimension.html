@@ -4,90 +4,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basis & Dimension - Phase 1.2.17</title>
+    <title>02.17 Basis and Dimension - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_16_linear_independence.html">16. Linear Independence</a></li>
-            <li><a href="02_17_basis_dimension.html" class="active">17. Basis & Dimension</a></li>
-            <li><a href="02_18_change_basis.html">18. Change of Basis</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_16_linear_independence.html" class="nav-link">16. Independence</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">17. Basis & Dimension</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Basis & Dimension
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 17. The Basis
         </div>
 
-        <header>
-            <h1>17. Basis and Dimension</h1>
-            <p class="subtitle">Defining the minimum necessary information.</p>
+        <header class="page-header">
+            <div class="badge">Module 17</div>
+            <h1>Degrees of Freedom</h1>
+            <p class="lead-text"> \( \text{dim}(V) \). The minimum number of vectors needed to build the entire
+                universe.</p>
         </header>
 
-        <section>
-            <h2>1. What is a Basis?</h2>
-            <p>A set of vectors \( B \) is a <strong>Basis</strong> for a vector space \( V \) if:</p>
-            <div class="module-card">
-                <ul class="topic-list">
-                    <li class="topic-item">\( B \) is <strong>Linearly Independent</strong>.</li>
-                    <li class="topic-item">\( B \) <strong>Spans</strong> \( V \).</li>
-                </ul>
+        <!-- VISUAL DIAGRAM: BASIS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Skeleton</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Space V"]
+    
+    subgraph Requirements
+        Indep["Independent"]
+        Span["Spans V"]
+    end
+    
+    subgraph Result
+        Basis["Basis (The Skeleton)"]
+        Dim["Dimension (Count)"]
+    end
+    
+    subgraph AI [Compression]
+        Latent["Latent Space"]
+        DimRed["Dim Reduction"]
+        Coords["Coordinates"]
+    end
+
+    Input --> Requirements
+    Requirements --> Basis
+    Basis --> Dim
+    Basis --> Coords
+    
+    Dim --> DimRed
+    DimRed --> Latent
+    Latent --> Coords
+
+    style Basis fill:#dcfce7,stroke:#16a34a
+    style Dim fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
-            <p>The number of vectors in any basis for \( V \) is called the <strong>Dimension</strong> of the space.</p>
         </section>
 
-        <section>
-            <h2>2. Latent Dimensions (The Secret Sauce of AI)</h2>
-            <div class="module-card">
-                <h3>Autoencoders & Bottlenecks</h3>
-                <p>In <strong>Generative AI (VAEs, GANs)</strong>, we take an image (Dimension = 1,000,000 pixels) and
-                    force it through a "Bottleneck" (Dimension = 128 latent factors). The model must find a new
-                    <strong>Basis</strong> for the data that captures only the essential features.
+        <!-- 1. DEFINITION: BASIS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Efficiency</h2>
+                <p>A <strong>Basis</strong> is the most efficient way to describe a space. It is a set of vectors that:
                 </p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Sparse Coding:</strong> Representing data using a basis where most
-                        coefficients are zero.</li>
-                    <li class="topic-item"><strong>Low-Dimensional Manifolds:</strong> Why a 3D object's surface can be
-                        described using a 2D basis.</li>
-                </ul>
+                <ol>
+                    <li>Are Linearly Independent (No waste).</li>
+                    <li>Span the entire space (Enough coverage).</li>
+                </ol>
+                <p>The <strong>Dimension</strong> is simply the number of vectors in a basis.</p>
+                <div class="math-block">
+                    $$ \text{Standard Basis for } \mathbb{R}^2: \mathbf{e}_1 = \begin{bmatrix}1\\0\end{bmatrix},
+                    \mathbf{e}_2 = \begin{bmatrix}0\\1\end{bmatrix} $$
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Space Dimensionality</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-# A space spanned by 3 vectors in 3D
-v1 = np.array([1, 0, 0])
-v2 = np.array([0, 1, 0])
-v3 = np.array([1, 1, 0]) # Linear combination of v1 and v2
-
-# Calculate dimension
-matrix = np.array([v1, v2, v3])
-dimension = np.linalg.matrix_rank(matrix)
-
-print(f"Dimension of the space: {dimension}") # Output: 2 (A plane)</code></pre>
+        <!-- 2. AI APPLICATION: LATENT DIMENSIONS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The Curse of Dimensionality</h2>
+                <p>In AI, we deal with high dimensions (e.g. 1024-dim text embeddings). However, the "True" intrinsic
+                    dimension is often lower.</p>
+                <p><strong>Autoencoders</strong> try to find a lower-dimensional Basis (Latent Space) that captures the
+                    essence of the data, discarding the redundant dimensions (compression).</p>
             </div>
         </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Change of Basis</h2>
+                <p>Representing the same vector in a new coordinate system.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Standard Coordinates of P
+p_std = np.array([3, 4])
+
+# New Basis (Rotated/Scaled)
+B = np.array([
+    [2, 1],
+    [1, 2]
+])
+# Note: Columns of B are the new basis vectors
+
+# Find coordinates of P in system B
+# B * p_new = p_std  =>  p_new = B_inv * p_std
+p_new = np.linalg.solve(B, p_std)
+
+print(f"Standard Coords: {p_std}")
+print(f"Basis B Coords:  {p_new}")
+
+# Verify
+reconstructed = np.dot(B, p_new)
+print(f"Reconstructed:   {reconstructed}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

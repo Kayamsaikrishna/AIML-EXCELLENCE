@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.03 Level Curves & Surfaces - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_01_multi_functions.html" class="nav-link">01. Several
+                                Variables</a></li>
+                        <li class="nav-item"><a href="13_02_multi_domain_limit.html" class="nav-link">02. Domain &
+                                Limits</a></li>
+                        <li class="nav-item"><a href="13_03_level_curves_surfaces.html" class="nav-link active">03.
+                                Level Curves</a></li>
+                        <li class="nav-item"><a href="13_04_partial_derivatives.html" class="nav-link">04. Partial
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="13_05_higher_order_partials.html" class="nav-link">05.
+                                Higher-Order Partials</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Visualization</span>
+                </div>
+                <h1>Level Curves & Surfaces</h1>
+                <p class="lead-text">Slicing the mountain to see the path.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Contours of Constant Value</h3>
+                    <p>
+                        A function \( z = f(x, y) \) describes a surface. If we slice this surface horizontally at
+                        height \( k \), the intersection is a cure called a <strong>Level Curve</strong>.
+                        \[ f(x, y) = k \]
+                    </p>
+                    <p>
+                        The collection of all level curves creates a <strong>Contour Map</strong> (like a topographic map).
+                        - <strong>Crowded lines</strong> = Steep slope.
+                        - <strong>Spaced out lines</strong> = Flat plain.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Decision Boundaries</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Lines That Divide</h3>
+                    <p>
+                        In a classification problem (e.g., Cat vs. Dog), the model predicts a probability \(
+                        P(\text{Cat} | x) \).
+                        The <strong>Decision Boundary</strong> is literally just a specific Level Curve:
+                        \[ P(\text{at} | x) = 0.5 \]
+                    </p>
+                    <p>
+                        Everything on one side of this curve is classified as "Cat", and everything on the other is
+                        "Dog".
+                        Complex models (Deep Learning) create highly twisted and non-linear level curves to separate
+                        difficult data.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Isocontours</h2>
+                <div class="code-header">contours.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Probability function for a 2D logistic regression
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+x = np.linspace(-3, 3, 100)
+y = np.linspace(-3, 3, 100)
+X, Y = np.meshgrid(x, y)
+
+# Linear boundary: 2x - 3y
+Z = sigmoid(2*X - 3*Y)
+
+plt.figure(figsize=(6, 6))
+# Draw the "Decision Boundary" at 0.5
+contours = plt.contour(X, Y, Z, levels=[0.1, 0.3, 0.5, 0.7, 0.9], cmap='coolwarm')
+plt.clabel(contours, inline=True, fontsize=10)
+plt.title("Decision Boundary (Level Curve 0.5)")
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.grid(True, alpha=0.3)
+plt.show()</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_02_multi_domain_limit.html" class="footer-link">← Prev: Domain</a>
+                        <span class="separator">|</span>
+                        <a href="13_04_partial_derivatives.html" class="footer-link">Next: Partials →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

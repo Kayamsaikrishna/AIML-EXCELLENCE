@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.03 Standard Normal Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_02_normal_dist.html" class="nav-link">02. Normal Dist</a></li>
+                        <li class="nav-item"><a href="20_03_standard_normal.html" class="nav-link active">03. Standard
+                                Normal</a></li>
+                        <li class="nav-item"><a href="20_04_exponential.html" class="nav-link">04. Exponential</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Yardstick</span>
+                </div>
+                <h1>Standard Normal Distribution (Z)</h1>
+                <p class="lead-text">Converting any normal distribution to a universal scale.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Universal Language</h3>
+                    <p>
+                        It is impossible to build tables for every possible \(\mu\) and \(\sigma\). Instead, we convert
+                        everything to the <strong>Standard Normal Distribution</strong>.
+                        <br><br>
+                        This allows us to compare "apples and oranges"—for example, comparing a person's height (in cm)
+                        to their weight (in kg) to see which is more "extreme" relative to the population.
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    The Standard Normal Distribution has \(\mu = 0\) and \(\sigma = 1\).
+                    $$ Z \sim \mathcal{N}(0, 1) $$
+                    PDF:
+                    $$ \phi(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}z^2} $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Z-Score (Standardization)</h2>
+                <p>To convert any normally distributed variable \(X \sim \mathcal{N}(\mu, \sigma^2)\) to a \(Z\)-score:
+                </p>
+                <div class="math-box">
+                    $$ Z = \frac{X - \mu}{\sigma} $$
+                </div>
+                <p>
+                    <strong>Interpretation:</strong> The Z-score tells you how many <strong>standard deviations</strong>
+                    a value is from the mean.
+                <ul>
+                    <li>\(Z = 2\): The value is 2 standard deviations <em>above</em> the mean.</li>
+                    <li>\(Z = -1.5\): The value is 1.5 standard deviations <em>below</em> the mean.</li>
+                </ul>
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The CDF and the Z-Table</h2>
+                <p>The cumulative distribution function for the Standard Normal is denoted by \(\Phi(z)\):</p>
+                $$ \Phi(z) = P(Z \le z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}t^2} dt $$
+                <p>
+                    This integral has no closed-form solution (we cannot solve it with basic algebra). In the past,
+                    scientists used <strong>Z-tables</strong>. Today, we use `scipy.stats.norm.cdf()`.
+                </p>
+                <div class="insight-box">
+                    <h3>Symmetry Properties</h3>
+                    <ul>
+                        <li>\(\Phi(0) = 0.5\) (Area to the left of the mean is half).</li>
+                        <li>\(\Phi(-z) = 1 - \Phi(z)\) (Area to the left of \(-z\) is the same as area to the right of
+                            \(z\)).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. ML Connection: Feature Scaling (Standardization)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Preprocessing</span>
+                    <span class="ml-badge">Sklearn</span>
+                    <h3>Why Scale?</h3>
+                    <p>
+                        Many ML algorithms (Gradient Descent, SVM, KNN) are sensitive to the scale of features. If
+                        'Salary' ranges from 20,000 to 200,000 and 'Age' ranges from 20 to 60, the 'Salary' feature will
+                        dominate the distance calculations and gradient updates.
+                    </p>
+                    <p>
+                        <strong>StandardScaler:</strong> By applying the Z-score transformation to every feature, we
+                        ensure all features have:
+                    <ul>
+                        <li><strong>Mean = 0</strong></li>
+                        <li><strong>Std Dev = 1</strong></li>
+                    </ul>
+                    This makes the optimization landscape (the Loss Surface) more spherical and helps Gradient Descent
+                    converge much faster.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>5. Outlier Detection</h2>
+                <p>
+                    In a normal distribution, observing a Z-score of \(> 3\) or \(< -3\) is extremely rare (~0.3%). This
+                        is a common heuristic for <strong>Outlier Detection</strong>: filter out anything outside the
+                        \(\pm 3\sigma\) range.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

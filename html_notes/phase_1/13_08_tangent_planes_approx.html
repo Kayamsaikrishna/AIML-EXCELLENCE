@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.08 Tangent Planes & Linear Approx - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_06_gradient_vectors.html" class="nav-link">06. Gradient
+                                Vectors</a></li>
+                        <li class="nav-item"><a href="13_07_directional_derivatives.html" class="nav-link">07.
+                                Directional Derivs</a></li>
+                        <li class="nav-item"><a href="13_08_tangent_planes_approx.html" class="nav-link active">08.
+                                Tangent Planes</a></li>
+                        <li class="nav-item"><a href="13_09_multi_chain_rule.html" class="nav-link">09. Chain Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="13_10_multi_implicit_diff.html" class="nav-link">10. Implicit
+                                Diff</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Approximation</span>
+                </div>
+                <h1>Tangent Planes & Linearization</h1>
+                <p class="lead-text">Flat earth theory (locally).</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Best Flat Approximation</h3>
+                    <p>
+                        In 1D, the tangent line approximates a curve. In 2D, the <strong>Tangent Plane</strong> approximates a
+                        surface.
+                        Instead of \( y - y_0 = m(x - x_0) \), we have:
+                        \[ z - z_0 = f_x(x - x_0) + f_y(y - y_0) \]
+                    </p>
+                    <p>
+                        This is the <strong>Linearization</strong> of \( f(x, y) \). For points close to \( (x_0, y_0) \), the curved
+                        surface looks indistinguishable from this flat plane.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Local Linearity</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Gradients Work</h3>
+                    <p>
+                        Gradient Descent relies entirely on the assumption that the loss function is <strong>Locally Linear</strong>.
+                        It assumes that if we step in the direction of the specific tangent plane slope, the function
+                        value will decrease linearly.
+                    </p>
+                    <p>
+                        If the learning rate is too high, we step "off" the valid region of the tangent plane
+                        approximation and might overshoot into a region where the curvature (Hessian) dominates, causing
+                        the loss to explode.
+                        This is why <strong>Adaptive Learning Rates</strong> (Adam, RMSProp) are crucial—they adjust the step size
+                        based on how trustworthy the linear approximation is.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Tangent Plane Construction</h2>
+                <div class="code-header">tangent_plane.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+def f(x, y):
+    return x**2 + y**2
+
+# Point of tangency (1, 1, 2)
+x0, y0 = 1, 1
+z0 = f(x0, y0)
+
+# Partials at (1, 1)
+fx = 2 * x0 # 2
+fy = 2 * y0 # 2
+
+# Tangent Plane Equation: z = z0 + fx(x-x0) + fy(y-y0)
+# z = 2 + 2(x-1) + 2(y-1) => z = 2x + 2y - 2
+
+x = np.linspace(0, 2, 20)
+y = np.linspace(0, 2, 20)
+X, Y = np.meshgrid(x, y)
+Z_surface = f(X, Y)
+Z_plane = 2*X + 2*Y - 2
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(X, Y, Z_surface, alpha=0.5, color='blue')
+ax.plot_surface(X, Y, Z_plane, alpha=0.5, color='orange')
+plt.title("Surface vs Tangent Plane")
+plt.show()</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_07_directional_derivatives.html" class="footer-link">← Prev: Directional</a>
+                        <span class="separator">|</span>
+                        <a href="13_09_multi_chain_rule.html" class="footer-link">Next: Chain Rule →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

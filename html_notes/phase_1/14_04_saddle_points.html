@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.04 Saddle Points - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_02_hessian_matrix.html" class="nav-link">02. Hessian Matrix</a>
+                        </li>
+                        <li class="nav-item"><a href="14_03_2d_deriv_test.html" class="nav-link">03. 2nd Derivative
+                                Test</a></li>
+                        <li class="nav-item"><a href="14_04_saddle_points.html" class="nav-link active">04. Saddle
+                                Points</a></li>
+                        <li class="nav-item"><a href="14_05_constrained_opt.html" class="nav-link">05. Constrained
+                                Opt</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">The Trap</span>
+                </div>
+                <h1>Saddle Points in High Dimensions</h1>
+                <p class="lead-text">Why optimizers get stuck in the flatlands, and how to escape.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Geometry</h3>
+                    <p>
+                        A <strong>Saddle Point</strong> is a critical point that curvature "up" in some directions and "down" in
+                        others.
+                        The classic example is the Monkey Saddle: \(z = x^3 - 3xy^2\).
+                    </p>
+                    <p>
+                        In 2D, they are rare. In 1,000,000 dimensions (Deep Learning), they are <strong>everywhere</strong>.
+                        Probability suggests that if you have 1B random directions, ~500M will curve up and ~500M will
+                        curve down.
+                        Finding a pure local minimum (where ALL directions curve up) is extremely unlikely until you are
+                        very close to the true solution.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Escaping Saddles</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why SGD Works</h3>
+                    <p>
+                        If you are exactly at a saddle point, the gradient is 0. A deterministic optimizer stays there
+                        forever.
+                        However, <strong>Stochastic Gradient Descent (SGD)</strong> uses random mini-batches, which adds <strong>Noise</strong> to
+                        the gradient.
+                    </p>
+                    <p>
+                        This noise kicks the ball sideways. Since a saddle point curves *down* in at least one
+                        direction, that random kick will causing the ball to "fall off" the saddle and continue
+                        optimizing.
+                        This is why small batch sizes often generalize better—they provide more "kicking".
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Visualization</h2>
+                <div class="code-header">saddle_viz.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Monkey Saddle
+def monkey_saddle(x, y):
+    return x**3 - 3*x*y**2
+
+x = np.linspace(-2, 2, 50)
+y = np.linspace(-2, 2, 50)
+X, Y = np.meshgrid(x, y)
+Z = monkey_saddle(X, Y)
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(X, Y, Z, cmap='plasma', alpha=0.9)
+ax.set_title("Monkey Saddle (Degenerate)")
+
+# Note: Hessian at (0,0) is all zeros!
+# Second Derivative Test fails here.
+plt.show()</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="14_03_2d_deriv_test.html" class="footer-link">← Prev: 2nd Deriv Test</a>
+                        <span class="separator">|</span>
+                        <a href="14_05_constrained_opt.html" class="footer-link">Next: Constrained Opt →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08.09 Intermediate Value Theorem (IVT) - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.1 Limits & Continuity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="08_01_limits_intuition.html" class="nav-link">01. Limits
+                                Intuition</a></li>
+                        <li class="nav-item"><a href="08_02_limits_formal.html" class="nav-link">02. Formal
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_03_limits_onesided.html" class="nav-link">03. One-Sided
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_04_limits_at_infinity.html" class="nav-link">04. Limits at
+                                Infinity</a></li>
+                        <li class="nav-item"><a href="08_05_limits_infinite.html" class="nav-link">05. Infinite
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_06_limit_laws.html" class="nav-link">06. Limit Laws &
+                                Properties</a></li>
+                        <li class="nav-item"><a href="08_07_continuity_defn.html" class="nav-link">07. Continuity
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_08_discontinuities_types.html" class="nav-link">08. Types of
+                                Discontinuities</a></li>
+                        <li class="nav-item"><a href="08_09_ivt.html" class="nav-link active">09. Intermediate Value
+                                (IVT)</a></li>
+                        <li class="nav-item"><a href="08_10_evt.html" class="nav-link">10. Extreme Value (EVT)</a></li>
+                        <li class="nav-item"><a href="08_11_squeeze_theorem.html" class="nav-link">11. Squeeze
+                                Theorem</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Theorems</span>
+                </div>
+                <h1>Intermediate Value Theorem (IVT)</h1>
+                <p class="lead-text">If you travel from A to B without teleporting, you must cross every point in
+                    between. The rigorous proof that solutions exist.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Existence vs. Construction</h3>
+                    <p>
+                        In math (and AI), we often distinguish between proving a solution <em>exists</em> versus
+                        actually finding it. The IVT is an <strong>existence theorem</strong>. It tells us a root lies
+                        somewhere in an interval, giving us the confidence to search for it (e.g., via Binary Search).
+                    </p>
+                </div>
+
+                <h2>1. The Theorem Statement</h2>
+                <div class="glass-card">
+                    <p>
+                        Suppose \(f\) is continuous on the closed interval \([a, b]\). Let \(N\) be any number strictly
+                        between \(f(a)\) and \(f(b)\). Then there exists a number \(c\) in \((a, b)\) such that:
+                    </p>
+                    <div class="math-block">
+                        \[ f(c) = N \]
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Start Point f_a] -->|Continuous Path| B[End Point f_b]
+                        N[Target Value N]
+                        A -.-> N
+                        N -.-> B
+                        style N fill:#fefcbf,stroke:#d69e2e,stroke-width:2px
+                    </div>
+                    <div class="caption">To get from f(a) to f(b) continuously, you cannot skip N.</div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Root-Finding Application</h2>
+                <p>
+                    The most common use of IVT is to show that \(f(x) = 0\) has a solution.
+                </p>
+                <ul class="feature-list">
+                    <li>If \(f(a) < 0\) (negative)</li>
+                    <li>And \(f(b) > 0\) (positive)</li>
+                    <li>And \(f\) is continuous...</li>
+                    <li>Then \(f(c) = 0\) for some \(c\) between \(a\) and \(b\). The graph must cross the x-axis.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. AI/ML Connection: Decision Boundaries</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Proving Boundaries Exist</h3>
+                    <p>
+                        In a Neural Network used for classification, the output is a continuous probability score
+                        \(P(y=1|x)\) ranging from 0 to 1.
+                    </p>
+                    <p>
+                        Suppose for input \(x_1\) (a cat), the score is 0.9. For input \(x_2\) (a dog), the score is
+                        0.1.
+                        If we define the "Decision Boundary" as the set of inputs where score = 0.5 (uncertainty), does
+                        such a boundary exist?
+                    </p>
+                    <p>
+                        <strong>Yes, by IVT.</strong> If we can continuously morph the image of the cat into the dog (in
+                        the latent space), there must be a transitional image where the model is exactly 50/50 confused.
+                        This concept is crucial for <strong>Adversarial Examples</strong>—finding the exact perturbation
+                        that flips a prediction.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Python: The Bisection Method</h2>
+                <p>The Bisection Method is the algorithmic implementation of IVT. It repeatedly halves the interval to
+                    trap the root.</p>
+                <div class="code-header">bisection_method.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">def f(x):
+    # Solves x^3 - x - 2 = 0
+    return x**3 - x - 2
+
+def bisection_search(func, a, b, tol=1e-5):
+    if func(a) * func(b) >= 0:
+        print("IVT conditions not met: f(a) and f(b) must have opposite signs.")
+        return None
+    
+    mid = a
+    steps = 0
+    while (b - a) / 2 > tol:
+        mid = (a + b) / 2
+        if func(mid) == 0:
+            return mid # Found exact root
+        elif func(a) * func(mid) < 0:
+            b = mid # Root is in left half
+        else:
+            a = mid # Root is in right half
+        steps += 1
+        
+    print(f"Found root approx {mid:.5f} after {steps} steps.")
+    return mid
+
+# Check values
+print(f"f(1) = {f(1)}") # -2
+print(f"f(2) = {f(2)}") # +4
+# Sign change detected -> Root exists between 1 and 2
+
+bisection_search(f, 1, 2)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="08_08_discontinuities_types.html" class="footer-link">← Prev: Discontinuities</a>
+                        <span class="separator">|</span>
+                        <a href="08_10_evt.html" class="footer-link">Next: Extreme Value Theorem →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

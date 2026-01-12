@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.01 Markov Inequality - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_01_markov_inequality.html" class="nav-link active">01. Markov
+                                Ineq</a></li>
+                        <li class="nav-item"><a href="22_02_chebyshev_inequality.html" class="nav-link">02. Chebyshev
+                                Ineq</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Tail Bounds</span>
+                </div>
+                <h1>Markov's Inequality</h1>
+                <p class="lead-text">Using the mean to put a ceiling on the "worst-case" probability.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Power of Averages</h3>
+                    <p>
+                        Markov's Inequality is the most basic "tail bound". It tells you something profound: If you know
+                        the <strong>average</strong> of a non-negative variable, you can limit how often that variable
+                        can be very large.
+                        <br><br>
+                        "If the average height is 6 feet, it's impossible for 50% of people to be 20 feet tall."
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    For any <strong>non-negative</strong> random variable \(X\) and any constant \(a > 0\):
+                    $$ P(X \ge a) \le \frac{E[X]}{a} $$
+                </div>
+                <p>
+                    <strong>Key Restriction:</strong> \(X\) must be non-negative (\(X \ge 0\)). If \(X\) can be
+                    negative, the mean tells us nothing about the tails (because large negative values could cancel out
+                    large positive ones).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Intuition: The Weight of the Tail</h2>
+                <p>Imagine a distribution. If 10% of the population has 10 times the average income, that 10% accounts
+                    for 100% of the total income. There's no room left for anyone else. </p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Low Mean] --> B[Probability of high value is TINY]
+                        C[High Mean] --> D[Probability of high value COULD be larger]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Data Quality Control</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Data Engineering</span>
+                    <span class="ml-badge">Robustness</span>
+                    <h3>Monitoring Loss Spikes</h3>
+                    <p>
+                        In production monitoring, we often track the average latency (\(E[X]\)). If a system's average
+                        latency is 10ms, Markov tells us that no more than 1 in 10 requests (10%) can take longer than
+                        100ms.
+                    </p>
+                    <p>
+                        While Markov is "loose" (it's often a very pessimistic upper bound), it is <strong>universal</strong>. It
+                        requires zero knowledge about the shape of the distribution (whether it's normal, exponential,
+                        or weird noise), as long as it's non-negative.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Limitations</h2>
+                <div class="warning-box">
+                    <strong>Pessimistic Bound:</strong> Markov is usually not "tight". The actual probability of
+                    exceeding a value \(a\) is often much lower than \(E[X]/a\). However, its beauty lies in its
+                    simplicity and generality. It serves as the foundation for the much tighter **Chebyshev
+                    Inequality**.
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

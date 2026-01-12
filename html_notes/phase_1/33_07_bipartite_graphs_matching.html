@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>33.07 Bipartite Graphs & Matching - Graph Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.9.3 Logic & Flow</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="33_06_shortest_paths_dijkstra.html" class="nav-link">06. Shortest
+                                Paths</a></li>
+                        <li class="nav-item"><a href="33_07_bipartite_graphs_matching.html" class="nav-link active">07.
+                                Bipartite Matching</a></li>
+                        <li class="nav-item"><a href="33_08_planar_graphs_coloring.html" class="nav-link">08. Planar
+                                Graphs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Graph Theory</span>
+                    <span class="badge secondary">Resource Matching</span>
+                </div>
+                <h1>Bipartite Graphs & Matching Theory</h1>
+                <p class="lead-text">Dividing and Pairing. Modeling scenarios where two distinct sets of entities
+                    interact, and finding the optimal way to match them.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Bipartite Property</h3>
+                    <p>
+                        A graph is <strong>Bipartite</strong> if its vertices can be divided into two disjoint sets \(U\) and \(V\)
+                        such that every edge connects a vertex in \(U\) to one in \(V\). No edge exists within \(U\) or
+                        within \(V\). This is the mathematical model for Recommendation Systems (Users and Movies).
+                    </p>
+                </div>
+
+                <h2>1. Matching Theory</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Matching (\(M\))</h4>
+                        <p>A subset of edges where no two edges share a vertex. A <strong>Perfect Matching</strong> covers every
+                            vertex in the graph.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Hall's Marriage Theorem</h4>
+                        <p>A Bipartite graph has a matching that covers \(U\) if and only if for every subset \(S
+                            \subseteq U\), the number of neighbors is at least the size of \(S\): \(|N(S)| \geq |S|\).
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Maximum Bipartite Matching</h2>
+                <p>Finding the largest possible matching in a bipartite graph. This is often solved using
+                    <strong>Max-Flow</strong> logic or the <strong>Hopcroft-Karp</strong> algorithm.</p>
+                <div class="example-box">
+                    <p><strong>Assignment Problem:</strong> Assigning \(n\) tasks to \(m\) workers such that efficiency
+                        is maximized and each worker gets at most one task. This is a Weighted Bipartite Matching
+                        problem.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Recommendation</span>
+                    <span class="ml-badge">Deep Learning</span>
+                    <h3>Matching in AI</h3>
+                    <ul>
+                        <li><strong>Collaborative Filtering:</strong> The User-Item interaction matrix is literally a Bipartite
+                            Graph. Recommending a movie is finding "strong" potential edges in this graph.</li>
+                        <li><strong>Object Tracking:</strong> In Computer Vision, after detecting objects in frame \(t\) and frame
+                            \(t+1\), we use Bipartite Matching (the Hungarian Algorithm) to determine which detection in
+                            the new frame corresponds to which object from the old frame.</li>
+                        <li><strong>Generative Adversarial Networks (GANs):</strong> The training process can be viewed as a
+                            Bipartite competition/matching between the Generator and the Discriminator.</li>
+                        <li><strong>Word Alignments:</strong> In Machine Translation, matching words from Source language to Target
+                            language is a bipartite alignment task.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Bipartite Visualization</h2>
+                <div class="mermaid">
+                    graph LR
+                    subgraph U ["Set U (Users)"]
+                    U1((User 1))
+                    U2((User 2))
+                    end
+                    subgraph V ["Set V (Movies)"]
+                    V1((Movie A))
+                    V2((Movie B))
+                    V3((Movie C))
+                    end
+                    U1 --- V1
+                    U1 --- V2
+                    U2 --- V2
+                    U2 --- V3
+                    style U1 fill:#a8e6cf,stroke:#333
+                    style V1 fill:#ffd3b6,stroke:#333
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

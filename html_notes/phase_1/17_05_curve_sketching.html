@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,76 +9,81 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.3 Applications of Derivs</li>
-            <li><a href="17_01_critical_points.html">01. Critical Points</a></li>
-            <li><a href="17_02_first_deriv_test.html">02. 1st Deriv Test</a></li>
-            <li><a href="17_03_second_deriv_test.html">03. 2nd Deriv Test</a></li>
-            <li><a href="17_04_concavity_inflection.html">04. Concavity</a></li>
-            <li><a href="17_05_curve_sketching.html" class="active">05. Curve Sketching</a></li>
-            <hr>
-            <li class="nav-label">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.3 Deriv Apps</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="17_05_curve_sketching.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Curve Sketching
+            <a href="../index.html">Syllabus</a> &gt; 17_05_curve_sketching.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 17_05</div>
             <h1>05. Curve Sketching</h1>
-            <p class="subtitle">Bringing it all together.</p>
+            <p class="lead-text">Bringing it all together.</p>
         </header>
 
-        <section>
-            <h2>1. The 7-Step Checklist</h2>
-            <p>To visualize the behavior of a function \(f(x)\) from start to finish, we follow this systematic
+        
+
+
+
+<section>
+<h2>1. The 7-Step Checklist</h2>
+<p>To visualize the behavior of a function \(f(x)\) from start to finish, we follow this systematic
                 analysis:</p>
-            <ol>
-                <li><strong>Domain:</strong> Where is the function allowed to exist?</li>
-                <li><strong>Intercepts:</strong> Where does it hit the x and y axes?</li>
-                <li><strong>Symmetry:</strong> Is it even, odd, or periodic?</li>
-                <li><strong>Asymptotes:</strong> What happens as \(x \to \infty\) or near vertical breaks?</li>
-                <li><strong>Intervals of Increase/Decrease:</strong> Found using \(f'(x)\).</li>
-                <li><strong>Local Extrema:</strong> Maxima and Minima.</li>
-                <li><strong>Concavity & Inflection:</strong> Found using \(f''(x)\).</li>
-            </ol>
-        </section>
-
-        <section class="module-card">
-            <h2>2. The "Anatomy" of a Curve</h2>
-            <p>By identifying these milestones, we can draw a high-fidelity graph of the function without needing to
+<ol>
+<li><strong>Domain:</strong> Where is the function allowed to exist?</li>
+<li><strong>Intercepts:</strong> Where does it hit the x and y axes?</li>
+<li><strong>Symmetry:</strong> Is it even, odd, or periodic?</li>
+<li><strong>Asymptotes:</strong> What happens as \(x \to \infty\) or near vertical breaks?</li>
+<li><strong>Intervals of Increase/Decrease:</strong> Found using \(f'(x)\).</li>
+<li><strong>Local Extrema:</strong> Maxima and Minima.</li>
+<li><strong>Concavity &amp; Inflection:</strong> Found using \(f''(x)\).</li>
+</ol>
+</section>
+<section class="module-card">
+<h2>2. The "Anatomy" of a Curve</h2>
+<p>By identifying these milestones, we can draw a high-fidelity graph of the function without needing to
                 plot thousands of individual points.</p>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Loss Surface Visualization</h2>
-            <div class="module-card">
-                <h3>Debugging Your Model</h3>
-                <p>When an AI model isn't training well, research engineers often "sketch" the loss surface. Does the
+</section>
+<section>
+<h2>3. AI/ML Connection: Loss Surface Visualization</h2>
+<div class="module-card">
+<h3>Debugging Your Model</h3>
+<p>When an AI model isn't training well, research engineers often "sketch" the loss surface. Does the
                     loss function have multiple local minima? Is there a flat plateau? Are there sharp "cliffs" where
                     the gradient explodes?</p>
-                <p>Advanced tools like <strong>LossLandscape.com</strong> use variations of curve sketching techniques
+<p>Advanced tools like <strong>LossLandscape.com</strong> use variations of curve sketching techniques
                     to plot the multi-billion-dimensional space of a Neural Network onto a 2D or 3D graph. Understanding
                     the "shape" of your objective function is the first step toward improving optimizer performance.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Automated Analysis Utility</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>4. Python: Automated Analysis Utility</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 def analyze_function(expr_string):
     x = sp.Symbol('x')
@@ -94,13 +98,14 @@ def analyze_function(expr_string):
 
 res = analyze_function("x**3 - 3*x**2")
 print(f"Key Graph Points: {res}")</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

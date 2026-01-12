@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>33.04 Trees, Forests & Isomorphism - Graph Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.9.1 Graph Fundamentals</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="33_03_paths_cycles_connectivity.html" class="nav-link">03.
+                                Connectivity</a></li>
+                        <li class="nav-item"><a href="33_04_trees_forests_isomorphism.html" class="nav-link active">04.
+                                Trees & Forests</a></li>
+                        <li class="nav-item"><a href="33_05_spanning_trees_mst.html" class="nav-link">05. Spanning
+                                Trees</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Graph Theory</span>
+                    <span class="badge secondary">Hierarchy</span>
+                </div>
+                <h1>Trees, Forests & Graph Isomorphism</h1>
+                <p class="lead-text">Order without Chaos. Exploring the unique class of graphs that represent minimal
+                    connectivity and the deep mathematical question of when two graphs are 'the same'.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Tree Constraint</h3>
+                    <p>
+                        A <strong>Tree</strong> is a connected graph with <strong>no cycles</strong>. This single property creates a rigid,
+                        hierarchical structure where any two nodes are connected by exactly one path. A collection of
+                        disjoint trees is a <strong>Forest</strong>.
+                    </p>
+                </div>
+
+                <h2>1. Tree Properties</h2>
+                <div class="math-box">
+                    A tree with \(n\) vertices must have exactly \(n-1\) edges.
+                </div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Rooted Trees</h4>
+                        <p>A tree where one node is designated as the 'root'. This introduces the concept of Parent,
+                            Child, and Leaf nodes.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Distance & Diameter</h4>
+                        <p>The <strong>Distance</strong> between two nodes is the length of the unique path. The <strong>Diameter</strong> is the
+                            maximum distance in the tree.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Graph Isomorphism</h2>
+                <p>
+                    Two graphs \(G\) and \(H\) are <strong>Isomorphic</strong> (\(G \cong H\)) if there is a bijection between their
+                    vertex sets that preserves adjacency. In simple terms: they are the same graph, just drawn
+                    differently.
+                </p>
+                <div class="example-box">
+                    <p><strong>Checking for Isomorphism:</strong> It is difficult to prove two graphs *are* isomorphic
+                        (this is a complex computational problem), but easy to prove they are *not* by looking for
+                        <strong>Invariants</strong>:</p>
+                    <ul>
+                        <li>Do they have the same number of vertices/edges?</li>
+                        <li>Do they have the same degree sequence?</li>
+                        <li>Do they both have cycles of the same length?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">NLP</span>
+                    <span class="ml-badge">ML Architectures</span>
+                    <h3>Hierarchies in AI</h3>
+                    <ul>
+                        <li><strong>Decision Trees:</strong> The most famous application. Using a tree structure to split data until
+                            a leaf (prediction) is reached.</li>
+                        <li><strong>Hierarchical Clustering:</strong> Building a "Dendrogram" (a binary tree) to represent the
+                            hierarchy of data clusters based on distance.</li>
+                        <li><strong>Tree-LSTMs:</strong> A variation of RNNs that operates on tree-structured data (like natural
+                            language parse trees) rather than linear sequences.</li>
+                        <li><strong>Prompt Engineering:</strong> When we organize complex prompts into "nested instructions," we are
+                            building a cognitive tree for the LLM to follow.</li>
+                        <li><strong>Isomorphism in Databases:</strong> Graph Databases use subgraph isomorphism to find patterns
+                            (e.g., "Find all users who bought the same 3 items as User A").</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Tree Visualization</h2>
+                <div class="mermaid">
+                    graph TD
+                    Root((Root)) --> C1((Child 1))
+                    Root --> C2((Child 2))
+                    C1 --> L1((Leaf 1))
+                    C1 --> L2((Leaf 2))
+                    C2 --> L3((Leaf 3))
+                    style Root fill:#a8e6cf,stroke:#333
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

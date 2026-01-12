@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.05 Multi-Armed Bandits - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.12 Experimental Design</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_04_ab_testing_intro.html" class="nav-link">04. A/B Testing
+                                Intro</a></li>
+                        <li class="nav-item"><a href="28_05_multi_armed_bandits.html" class="nav-link active">05. Multi
+                                Armed Bandits</a></li>
+                        <li class="nav-item"><a href="28_06_power_analysis.html" class="nav-link">06. Power Analysis</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Bayesian Optimization</span>
+                </div>
+                <h1>Multi-Armed Bandits (MAB)</h1>
+                <p class="lead-text">Learning while doing. Why waiting for an A/B test to finish is often a waste of
+                    money.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Explore-Exploit Dilemma</h3>
+                    <p>
+                        In a traditional A/B test, you spend 50% of your traffic on a potentially "worse" version
+                        (Treatment A or B) for two weeks to get a p-value. This is "Regret".
+                        <br><br>
+                        <strong>Bandits</strong> solve this by actively shifting traffic toward the "Winner" as soon as it starts to
+                        pull ahead.
+                        - <strong>Explore:</strong> Try new/uncertain options to gather data.
+                        - <strong>Exploit:</strong> Use the option that currently has the best performance.
+                    </p>
+                </div>
+
+                <h2>1. Three Famous Strategies</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. \(\epsilon\)-Greedy</h4>
+                        <p>With probability \(\epsilon\) (e.g., 0.1), pick a random arm. Otherwise, pick the
+                            best-performing one. Simple, but "Explore" is blind.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Upper Confidence Bound (UCB)</h4>
+                        <p>Pick the arm with the highest potential ("Optimism in the face of uncertainty"). It favors
+                            arms we haven't tried in a while.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Thompson Sampling</h4>
+                        <p><strong>The Bayesian King:</strong> Maintain a Beta distribution for each arm. Sample from each
+                            distribution and pick the highest. Elegant and state-of-the-art.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Comparison: A/B vs. Bandits</h2>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        subgraph AB_TEST
+                        A[Fixed 50/50 Traffic] --> B[Wait for p-value]
+                        B --> C[Declare Winner]
+                        end
+                        subgraph BANDITS
+                        D[Interactive Traffic] --> E{Is Arm B winning?}
+                        E -- Yes --> F[Give B 90% Traffic]
+                        E -- No --> G[Give A 90% Traffic]
+                        F --> D
+                        G --> D
+                        end
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Reinforcement Learning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Active Learning</span>
+                    <span class="ml-badge">RecSys</span>
+                    <h3>The Foundation of Active Intelligence</h3>
+                    <p>
+                        MAB is the simplest form of <strong>Reinforcement Learning (RL)</strong>.
+                    </p>
+                    <ul>
+                        <li><strong>Recommender Systems:</strong> Netflix uses Bandits to decide which images (box art) to show for a
+                            movie. They don't wait for two weeks; they switch the art in real-time as users click more
+                            on one version.</li>
+                        <li><strong>Dynamic Pricing:</strong> Airlines use Bandits to explore which price point yields the highest
+                            revenue without losing seat occupancy.</li>
+                        <li><strong>Bayesian Optimization:</strong> When optimizing Neural Network hyperparameters, we use UCB (Upper
+                            Confidence Bound) to decide which set of weights to "explore" next.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Pro-Tip:</strong> If you care about <strong>Statistically Significant Proof</strong>, use an A/B test. If you care
+                        about <strong>Maximizing Revenue/Clicks</strong> while testing, use a Bandit.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02.19 Matrix Multiplication - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_18_matrix_intro.html" class="nav-link">18. Matrix Intro</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">19. Multiplication</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 19. Matrix Multiplication
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 19</div>
+            <h1>The Chain of Events</h1>
+            <p class="lead-text"> \( f(g(x)) \). Multiplying matrices is composing functions. It's how deep networks
+                think.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: COMPOSITION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Pipeline</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Input vector x"]
+    
+    subgraph Layer1
+        B["Matrix B (Rotation)"]
+        Op1["Update: h = Bx"]
+    end
+    
+    subgraph Layer2
+        A["Matrix A (Scaling)"]
+        Op2["Update: y = Ah"]
+    end
+    
+    subgraph Equivalent
+        C["Matrix C = AB"]
+        Op3["Update: y = Cx"]
+    end
+    
+    Input --> Op1
+    Op1 --> Op2
+    
+    Input --> Op3
+    
+    B --> C
+    A --> C
+    
+    style C fill:#dcfce7,stroke:#16a34a
+    style Op2 fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: COMPOSITION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Function Composition</h2>
+                <p>If matrix \( B \) rotates a vector, and matrix \( A \) scales a vector:</p>
+                <ul>
+                    <li>Apply \( B \) first: \( \mathbf{h} = B\mathbf{x} \)</li>
+                    <li>Apply \( A \) next: \( \mathbf{y} = A\mathbf{h} = A(B\mathbf{x}) = (AB)\mathbf{x} \)</li>
+                </ul>
+                <p>The product \( AB \) represents the single transformation that does both steps at once. Note that
+                    order matters: \( AB \neq BA \) (Rotate then Scale != Scale then Rotate).</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: DEEP NETWORKS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Stacking Layers</h2>
+                <p>A Deep Neural Network is just a chain of matrix multiplications (interspersed with non-linearities \(
+                    \sigma \)).</p>
+                <div class="math-block">
+                    $$ \hat{y} = W_3 \sigma(W_2 \sigma(W_1 \mathbf{x})) $$
+                </div>
+                <p>If we removed the non-linearities \( \sigma \), the whole network would collapse into a single matrix
+                    \( W_{total} = W_3 W_2 W_1 \), making "Deep" learning pointless. Linear layers alone cannot learn
+                    complex patterns.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. The Dot Product Method</h2>
+                <p>Using NumPy for efficient multiplication.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# A: Scale Y by 2
+A = np.array([
+    [1, 0],
+    [0, 2]
+])
+
+# B: Rotate 90 Deg
+B = np.array([
+    [0, -1],
+    [1, 0]
+])
+
+# AB (Rotate THEN Scale)
+AB = np.dot(A, B)
+
+# BA (Scale THEN Rotate)
+BA = np.dot(B, A)
+
+print("AB (Rotate then Scale):")
+print(AB)
+# [[ 0, -1]
+#  [ 2,  0]]
+
+print("\nBA (Scale then Rotate):")
+print(BA)
+# [[ 0, -2]
+#  [ 1,  0]]
+
+# They are different!
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

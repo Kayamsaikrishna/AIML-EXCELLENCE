@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.14 Iterated Integrals (General) - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_11_jacobian_matrix.html" class="nav-link">11. Jacobian
+                                Matrix</a></li>
+                        <li class="nav-item"><a href="13_12_total_derivative.html" class="nav-link">12. Total
+                                Derivative</a></li>
+                        <li class="nav-item"><a href="13_13_double_integrals_rect.html" class="nav-link">13. Double
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_14_double_integrals_general.html" class="nav-link active">14.
+                                Iterated Integrals</a></li>
+                        <li class="nav-item"><a href="13_15_triple_integrals.html" class="nav-link">15. Triple
+                                Integrals</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Fubini</span>
+                </div>
+                <h1>General Regions & Fubini's Theorem</h1>
+                <p class="lead-text">Order matters (but sometimes it doesn't).</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Non-Rectangular Bounds</h3>
+                    <p>
+                        Real-world regions aren't always squares. Often, the limits of integration for \( y \) depend on
+                        \( x \).
+                        \[ \int_a^b \int_{g_1(x)}^{g_2(x)} f(x, y) \, dy \, dx \]
+                        This describes "Type I" regions (bounded by vertical lines). We can also have "Type II" regions
+                        (bounded by horizontal lines).
+                    </p>
+                    <p>
+                        <strong>Fubini's Theorem states</strong>: If the function is continuous, you can swap the order of
+                        integration ($dx dy$ vs $dy dx$), <strong>PROVIDED</strong> you correctly update the boundary equations. This
+                        "Order Swap" is a powerful trick to solve impossible integrals.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Marginalization</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Integrating Out Variables</h3>
+                    <p>
+                        In probabilistic graphical models (Bayesian Networks), calculating the <strong>Marginal Probability</strong>
+                        \( P(x) \) requires integrating the joint distribution \( P(x, y) \) over all possible values of
+                        \( y \) (often called "integrating out" the nuisance variable).
+                    </p>
+                    <p>
+                        \[ p(x) = \int_{-\infty}^{\infty} p(x, y) \, dy \]
+                    </p>
+                    <p>
+                        In variational inference (VAEs), efficient marginalization is crucial. The ability to swap
+                        integration orders (Fubini) allows us to rearrange expectations and verify ELBO (Evidence Lower
+                        Bound) derivations.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Iterated Integral</h2>
+                <div class="code-header">iterated_integral.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x, y = sp.symbols('x y')
+f = x * y
+
+# Region: Triangle bounded by x=0, y=0, y=1-x
+# Form 1: dy first. y goes from 0 to 1-x. x goes from 0 to 1.
+integral_1 = sp.integrate(sp.integrate(f, (y, 0, 1-x)), (x, 0, 1))
+
+# Form 2: dx first. x goes from 0 to 1-y. y goes from 0 to 1.
+integral_2 = sp.integrate(sp.integrate(f, (x, 0, 1-y)), (y, 0, 1))
+
+print(f"Order dy dx: {integral_1}")
+print(f"Order dx dy: {integral_2}")
+# Both should be 1/24</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_13_double_integrals_rect.html" class="footer-link">← Prev: Double Integrals</a>
+                        <span class="separator">|</span>
+                        <a href="13_15_triple_integrals.html" class="footer-link">Next: Triple Integrals →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

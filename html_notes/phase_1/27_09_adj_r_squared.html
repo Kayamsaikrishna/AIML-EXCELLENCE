@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.09 Adjusted R-Squared - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_08_r_squared.html" class="nav-link">08. R Squared</a></li>
+                        <li class="nav-item"><a href="27_09_adj_r_squared.html" class="nav-link active">09. Adj R
+                                Squared</a></li>
+                        <li class="nav-item"><a href="27_10_multicollinearity.html" class="nav-link">10.
+                                Multicollinearity</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Model Selection</span>
+                </div>
+                <h1>Adjusted R-Squared</h1>
+                <p class="lead-text">R-Squared with a "BS Filter". It penalizes you for adding features that don't add
+                    real value.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Penalty for Greed</h3>
+                    <p>
+                        In a regular \(R^2\), adding features always makes the score look better (or stay the same).
+                        <strong>Adjusted \(R^2\)</strong> only increases if the new feature clarifies the target more than what's
+                        expected by chance.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    $$ R^2_{adj} = 1 - \left[ \frac{(1 - R^2)(n - 1)}{n - p - 1} \right] $$
+                </div>
+                <p>
+                    Where:
+                    - <strong>\(n\)</strong>: Number of data points (Samples).
+                    - <strong>\(p\)</strong>: Number of predictors (Features).
+                </p>
+                <div class="insight-box" style="border-left-color: var(--secondary);">
+                    As <strong>\(p\)</strong> (features) increases, the denominator <strong>\((n-p-1)\)</strong> gets smaller. This makes the
+                    fraction larger, which <strong>subtracts more</strong> from 1, lowering the final score.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. When to use it?</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Feature Competing</h4>
+                        <p>When you are trying to decide between Model A (5 features) and Model B (500 features).
+                            Adjusted \(R^2\) treats Model A more fairly.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Parsimony</h4>
+                        <p>The principle of choosing the simplest explanation. If Model A and Model B have the same
+                            \(R^2\), the one with the higher Adjusted \(R^2\) is the winner because it achieves the
+                            result with fewer moving parts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Regularization Logic</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Overfitting</span>
+                    <span class="ml-badge">Model Choice</span>
+                    <h3>The Statistical Ancestor of L1/L2</h3>
+                    <p>
+                        Adjusted R-squared is the conceptual father of <strong>Regularization</strong> (Lasso/Ridge).
+                    </p>
+                    <p>
+                        Both tools are designed to solve the same problem: **"How do I keep my model from getting too
+                        complex and learning noise?"**
+                    </p>
+                    <ul>
+                        <li><strong>Adjusted R-Squared:</strong> Punishes you for the *count* of features (\(p\)).</li>
+                        <li><strong>Ridge/Lasso:</strong> Punishes you for the *size* of the weights (\(\beta\)).</li>
+                    </ul>
+                    <p>
+                        In deep learning, we use <strong>Akaike Information Criterion (AIC)</strong> and **Bayesian Information
+                        Criterion (BIC)**, which are essentially more advanced versions of Adjusted R-Squared.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

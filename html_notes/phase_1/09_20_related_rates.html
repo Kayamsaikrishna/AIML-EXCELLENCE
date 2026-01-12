@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.20 Related Rates - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_16_higher_order.html" class="nav-link">16. Higher Order
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_17_mvt.html" class="nav-link">17. Mean Value Theorem</a></li>
+                        <li class="nav-item"><a href="09_18_rolles_theorem.html" class="nav-link">18. Rolle's
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="09_19_lhopital.html" class="nav-link">19. L'Hopital's Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="09_20_related_rates.html" class="nav-link active">20. Related
+                                Rates</a></li>
+                        <li class="nav-item"><a href="09_21_linear_approx.html" class="nav-link">21. Linear
+                                Approximation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Time Dynamics</span>
+                </div>
+                <h1>Related Rates</h1>
+                <p class="lead-text">If A pulls B, and B pulls C, how fast is C moving when A starts running?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Ripple Effect</h3>
+                    <p>
+                        In a connected system, you can't change one variable without affecting all the others that
+                        depend on it. Related Rates is simply Implicit Differentiation with respect to Time (\(t\)).
+                    </p>
+                </div>
+
+                <h2>1. The Strategy</h2>
+                <div class="glass-card">
+                    <ol class="step-list">
+                        <li><strong>Equation:</strong> Find the static relationship (e.g., \(x^2 + y^2 = z^2\)).</li>
+                        <li><strong>Differentiate w.r.t Time:</strong> Apply \(d/dt\) to both sides. Remember Chain
+                            Rule: \( \frac{d}{dt}(x^2) = 2x \frac{dx}{dt} \).</li>
+                        <li><strong>Substitute:</strong> Plug in the "snapshot" values (current x, y) and known rates.
+                        </li>
+                        <li><strong>Solve:</strong> Isolate the unknown rate.</li>
+                    </ol>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Static[Static Equation: Area = pi * r^2] -->|d/dt| Dynamic[Dynamic Equation: dA/dt = 2*pi*r *
+                        dr/dt]
+
+                        Input[Known: r=10, dr/dt=2] --> Dynamic
+                        Dynamic --> Output[Unknown: dA/dt]
+
+                        style Dynamic fill:#63b3ed,stroke:#2b6cb0,color:white
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Recurrent Neural Networks (RNNs)</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Backpropagation Through Time (BPTT)</h3>
+                    <p>
+                        RNNs process data over time steps \(t=1, 2, 3...\). The hidden state \(h_t\) depends on the
+                        previous state \(h_{t-1}\) and current input \(x_t\).
+                    </p>
+                    <p>
+                        When we train an RNN, we face a <strong>Related Rates</strong> problem:
+                        "How does the Loss \(L\) change with respect to the weights \(W\)?"
+                    </p>
+                    <p>
+                        Because \(L\) depends on \(h_T\), which depends on \(h_{T-1}\), which depends on \(W\), we must
+                        chain the rates backward through time:
+                        \[ \frac{dL}{dW} = \sum_{t} \frac{dL}{dh_t} \cdot \frac{dh_t}{dW} \]
+                    </p>
+                    <p>
+                        This is literally tracking how a small nudge to the weights at \(t=0\) ripples forward to affect
+                        the error at \(t=100\).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: The Ripple Simulation</h2>
+                <div class="code-header">related_rates_sim.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Scenario: A balloon is being inflated.
+# Volume V = (4/3) * pi * r^3
+# We know dV/dt (pump rate) = 100 cm^3/s
+# Question: How fast is radius growing (dr/dt) when r = 25 cm?
+
+def calculate_dr_dt(r, dv_dt):
+    # Differentiating V = (4/3)pi*r^3 w.r.t t:
+    # dV/dt = 4 * pi * r^2 * dr/dt
+    # Therefore: dr/dt = (dV/dt) / (4 * pi * r^2)
+    return dv_dt / (4 * np.pi * r**2)
+
+dv_dt = 100 # constant pump rate
+
+radii_to_check = [5, 10, 25, 50]
+
+print(f"Pump Rate dV/dt: {dv_dt} cm^3/s")
+print("-" * 40)
+print(f"{'Radius (cm)':<15} | {'Growth Rate dr/dt (cm/s)':<25}")
+print("-" * 40)
+
+for r in radii_to_check:
+    rate = calculate_dr_dt(r, dv_dt)
+    print(f"{r:<15} | {rate:.6f}")
+
+print("-" * 40)
+print("Insight: As the balloon gets bigger, the radius grows SLOWER for the same air input.")
+# This is analogous to 'Vanishing Gradients' in a way - the effect dilutes over volume.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_19_lhopital.html" class="footer-link">← Prev: L'Hopital's Rule</a>
+                        <span class="separator">|</span>
+                        <a href="09_21_linear_approx.html" class="footer-link">Next: Linear Approx →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

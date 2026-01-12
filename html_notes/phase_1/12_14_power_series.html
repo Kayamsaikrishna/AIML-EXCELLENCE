@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.14 Power Series - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_11_integral_test.html" class="nav-link">11. Integral Test</a>
+                        </li>
+                        <li class="nav-item"><a href="12_12_alternating_series.html" class="nav-link">12. Alternating
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_13_abs_cond_convergence.html" class="nav-link">13. Abs & Cond
+                                Conv</a></li>
+                        <li class="nav-item"><a href="12_14_power_series.html" class="nav-link active">14. Power
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_15_radius_interval.html" class="nav-link">15. Radius &
+                                Interval</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Approximation</span>
+                </div>
+                <h1>Power Series</h1>
+                <p class="lead-text">Infinite polynomials that build the world.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Universal Lego Brick</h3>
+                    <p>
+                        A Power Series is a function represented as an infinite sum of polynomial terms:
+                        \[ f(x) = \sum_{n=0}^{\infty} c_n (x-a)^n = c_0 + c_1(x-a) + c_2(x-a)^2 \dots \]
+                    </p>
+                    <p>
+                        This is incredibly powerful because while computers struggle with \(\sin(x)\) or \(e^x\), they
+                        are excessively fast at adding and multiplying (polynomials).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Activation Function Approximation</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Hardware Acceleration</h3>
+                    <p>
+                        In deep learning, we use activation functions like <strong>Sigmoid</strong> (\(\sigma(x) = 1/(1+e^{-x})\)) or
+                        <strong>Tanh</strong>.
+                        Computing these exact exponentials on thousands of GPU cores is expensive.
+                    </p>
+                    <p>
+                        Hardware designers (like at NVIDIA or Google TPU teams) often implement these functions using
+                        <strong>Truncated Power Series</strong> (Polynomial Approximation).
+                        Instead of calculating \(e^x\), the chip calculates \(1 + x + x^2/2 + x^3/6\). This is 100x
+                        faster and "accurate enough" for neural network training, provided the inputs \(x\) stay within
+                        a certain range.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Approximating Sigmoid</h2>
+                <div class="code-header">sigmoid_approx.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# Approx near x=0 (Maclaurin-ish, first few terms)
+# Sigmoid approx: 0.5 + 0.25x - 0.02x^3 ...
+def sigmoid_poly(x):
+    return 0.5 + 0.25*x - (1/48)*x**3
+
+x_vals = np.linspace(-2, 2, 100)
+true_vals = sigmoid(x_vals)
+approx_vals = sigmoid_poly(x_vals)
+
+print(f"True(1.0): {sigmoid(1.0):.4f}")
+print(f"Poly(1.0): {sigmoid_poly(1.0):.4f}")
+# Close match near 0! Becomes simpler math for the CPU.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_13_abs_cond_convergence.html" class="footer-link">← Prev: Abs Conv</a>
+                        <span class="separator">|</span>
+                        <a href="12_15_radius_interval.html" class="footer-link">Next: Radius & Interval →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

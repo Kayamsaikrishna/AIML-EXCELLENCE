@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08.08 Types of Discontinuities - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.1 Limits & Continuity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="08_01_limits_intuition.html" class="nav-link">01. Limits
+                                Intuition</a></li>
+                        <li class="nav-item"><a href="08_02_limits_formal.html" class="nav-link">02. Formal
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_03_limits_onesided.html" class="nav-link">03. One-Sided
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_04_limits_at_infinity.html" class="nav-link">04. Limits at
+                                Infinity</a></li>
+                        <li class="nav-item"><a href="08_05_limits_infinite.html" class="nav-link">05. Infinite
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_06_limit_laws.html" class="nav-link">06. Limit Laws &
+                                Properties</a></li>
+                        <li class="nav-item"><a href="08_07_continuity_defn.html" class="nav-link">07. Continuity
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_08_discontinuities_types.html" class="nav-link active">08.
+                                Types of Discontinuities</a></li>
+                        <li class="nav-item"><a href="08_09_ivt.html" class="nav-link">09. Intermediate Value (IVT)</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Break-Points</span>
+                </div>
+                <h1>Types of Discontinuities</h1>
+                <p class="lead-text">Not all breaks are created equal. Classifying the different ways functions can fail
+                    to be continuous allows us to predict algorithm behavior.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Why it matters in ML</h3>
+                    <p>
+                        Different discontinuities require different fixes. A "Removable" discontinuity can be patched
+                        (e.g., 0/0). A "Jump" discontinuity (like in Decision Trees or Classification) fundamentally
+                        changes the state. An "Infinite" discontinuity (like exploding loss) crashes the system.
+                    </p>
+                </div>
+
+                <h2>1. The Classification</h2>
+                <div class="three-col-grid">
+                    <div class="glass-card">
+                        <h3>1. Removable (Hole)</h3>
+                        <p>The limit exists, but the function value is wrong or missing. We can "plug the hole".</p>
+                        <div class="math-block">\[\lim_{x \to a^-} f = \lim_{x \to a^+} f \neq f(a)\]</div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>2. Jump</h3>
+                        <p>Left and Right limits both exist but are different. The graph "skips".</p>
+                        <div class="math-block">\[\lim_{x \to a^-} f \neq \lim_{x \to a^+} f\]</div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>3. Infinite</h3>
+                        <p>At least one side shoots to \(\pm \infty\). A vertical asymptote (The "Wall").</p>
+                        <div class="math-block">\[\lim_{x \to a} f = \pm \infty\]</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Visualizing with Mermaid</h2>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Start{Limits equal?}
+                        Start -->|Yes| CheckF{Defined at a?}
+                        Start -->|No| Jump[JUMP Discontinuity]
+                        CheckF -->|No| Rem[REMOVABLE / Hole]
+                        CheckF -->|Yes| CheckVal{Limit == Value?}
+                        CheckVal -->|No| Rem
+                        CheckVal -->|Yes| Cont[Continuous]
+
+                        inf[Infinite Discontinuity] -.->|Special Case| Jump
+                        style Rem fill:#f6ad55,stroke:#dd6b20
+                        style Jump fill:#f56565,stroke:#c53030
+                        style Cont fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. AI/ML Connection: Decision Boundaries</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Classification is a Discontinuity</h3>
+                    <p>
+                        In a binary classification problem (e.g., Cat vs. Dog), the output is discrete: Yes (1) or No
+                        (0).
+                        The perfect decision boundary is a <strong>Jump Discontinuity</strong>.
+                    </p>
+                    <p>
+                        However, training a model with jumps is hard (gradients are zero almost everywhere and undefined
+                        at the jump).
+                        We replace the hard jump (Step function) with a smooth <strong>Sigmoid</strong> curve.
+                    </p>
+                    <div class="math-block">
+                        \[ \text{Step}(x) \approx \frac{1}{1 + e^{-kx}} \]
+                    </div>
+                    <p>
+                        By increasing \(k\), the sigmoid becomes steeper, approaching the jump discontinuity while
+                        remaining continuous and differentiable everywhere. This is the "Relaxation" technique in
+                        optimization.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Python: Discontinuity Detector</h2>
+                <div class="code-header">detect_breaks.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def classify_discontinuity(func, point, epsilon=1e-5):
+    left_val = func(point - epsilon)
+    right_val = func(point + epsilon)
+    
+    print(f"Analyzing at x={point}...")
+    print(f"Left Limit: {left_val:.2f}, Right Limit: {right_val:.2f}")
+
+    # Check for Infinite (Overflow or huge number)
+    if abs(left_val) > 1e6 or abs(right_val) > 1e6:
+        print("=> Type: INFINITE Discontinuity ⚠️")
+        return
+
+    # Check for Jump
+    if not np.isclose(left_val, right_val, atol=0.1):
+        print("=> Type: JUMP Discontinuity 🦘")
+        return
+
+    # If limits match, check value at point
+    try:
+        val_at = func(point)
+        if not np.isclose(val_at, left_val, atol=0.1):
+             print(f"=> Type: REMOVABLE Discontinuity (Hole) 🕳️. Point is {val_at}, Limit is {left_val:.2f}")
+        else:
+             print("=> Type: None (Continuous) ✅")
+    except:
+        print("=> Type: REMOVABLE Discontinuity (Undefined Point) 🕳️")
+
+# Test 1: Step Function
+step = lambda x: 1 if x > 0 else 0
+classify_discontinuity(step, 0)
+
+# Test 2: 1/x^2
+inv_sq = lambda x: 1/(x**2)
+classify_discontinuity(inv_sq, 0)
+
+# Test 3: Hole (x^2-1)/(x-1)
+hole = lambda x: (x**2-1)/(x-1) if x != 1 else 10 # Incorrect value at 1
+classify_discontinuity(hole, 1)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="08_07_continuity_defn.html" class="footer-link">← Prev: Continuity</a>
+                        <span class="separator">|</span>
+                        <a href="08_09_ivt.html" class="footer-link">Next: Intermediate Value Theorem →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

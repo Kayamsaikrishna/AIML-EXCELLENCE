@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.02 Confidence Intervals (Concept) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_01_precision_accuracy.html" class="nav-link">01. Precision vs
+                                Accuracy</a></li>
+                        <li class="nav-item"><a href="24_02_ci_concept.html" class="nav-link active">02. Confidence
+                                Intervals</a></li>
+                        <li class="nav-item"><a href="24_03_ci_mean_known.html" class="nav-link">03. CI Mean Known</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Interval Estimation</span>
+                </div>
+                <h1>Confidence Intervals (CI): The Concept</h1>
+                <p class="lead-text">Why providing a range is more "honest" than providing a single number.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Point vs. Interval</h3>
+                    <p>
+                        A <strong>Point Estimate</strong> (like \(\bar{x} = 5.2\)) is almost certainly wrong. Out of the infinite
+                        possible values in the population, the chance it is exactly 5.2 is zero.
+                        <br><br>
+                        An <strong>Interval Estimate</strong> provides a range of values that we are reasonably sure contains the
+                        truth.
+                    </p>
+                </div>
+
+                <h2>1. The Frequentist Interpretation</h2>
+                <div class="warning-box">
+                    <strong>CRITICAL MISCONCEPTION:</strong>
+                    A 95% Confidence Interval DOES NOT mean there is a 95% probability that the parameter lies in that
+                    specific range.
+                    <br><br>
+                    <strong>The actual meaning:</strong> If you repeat the experiment 100 times and calculate a CI for each,
+                    approximately 95 of those intervals will contain the true (fixed) population parameter.
+                </div>
+                <p>
+                    In Frequentist stats, the <strong>Parameter is fixed</strong> and the <strong>Interval is
+                        random</strong> (it moves depending on the sample).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Anatomoy of a CI</h2>
+                <div class="math-box">
+                    $$ \text{CI} = \text{Point Estimate} \pm (\text{Critical Value} \times \text{Standard Error}) $$
+                </div>
+                <ul>
+                    <li><strong>Point Estimate:</strong> Your best guess (e.g., sample mean).</li>
+                    <li><strong>Critical Value:</strong> How many "standard deviations" you want to go out (e.g., 1.96 for 95%
+                        normal).</li>
+                    <li><strong>Standard Error:</strong> The uncertainty in your estimate (\(\sigma / \sqrt{n}\)).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Error Bars</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Visualization</span>
+                    <span class="ml-badge">Research</span>
+                    <h3>The "Honesty" of a Plot</h3>
+                    <p>
+                        When you see a line plot of "Loss over Time", you often see a shaded area around the line. That
+                        shaded area is usually a <strong>Confidence Interval</strong>.
+                    </p>
+                    <p>
+                        - If the interval is <strong>narrow</strong>, the model performance is stable. Any single run of the training
+                        process will give roughly similar results.
+                        - If the interval is <strong>wide</strong>, the model is volatile. The "mean accuracy" might be 90%, but in
+                        reality, it ranges from 70% to 100% depending on the random seed.
+                    </p>
+                </div>
+
+                <h3>Parameter Significance</h3>
+                <p>
+                    In Linear Regression, if the 95% CI for a weight (\(w_i\)) includes <strong>zero</strong> (e.g.,
+                    \(w_i \in [-2, 5]\)), it means we cannot be 95% sure that the feature actually helps the prediction.
+                    It might just be noise.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

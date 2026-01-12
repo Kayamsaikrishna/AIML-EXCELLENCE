@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.09 The Bootstrap Principle - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_08_sample_size_determination.html" class="nav-link">08. Sample
+                                Size</a></li>
+                        <li class="nav-item"><a href="24_09_bootstrap_principle.html" class="nav-link active">09.
+                                Bootstrap Principle</a></li>
+                        <li class="nav-item"><a href="24_10_bootstrap_non_parametric.html" class="nav-link">10.
+                                Bootstrap Non-Param</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Computational Inference</span>
+                </div>
+                <h1>The Bootstrap Principle</h1>
+                <p class="lead-text">"Lifting yourself up by your own bootstraps"—using your data to understand itself.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Sampling Analogy</h3>
+                    <p>
+                        In ideal statistics, we want to know the <strong>Population</strong>. We draw many samples from it to see how
+                        the mean fluctuates.
+                        <strong>The Problem:</strong> We only have ONE sample.
+                        <br><br>
+                        <strong>The Bootstrap Solution:</strong> Treat your sample as if it WERE the population. Draw "Bootstrap
+                        Samples" from your original data (with replacement) to see how your statistic fluctuates.
+                    </p>
+                </div>
+
+                <h2>1. The Process</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A["Original Data (n items)"] -->|Resample with Replacement| B["Bootstrap Sample 1 (n items)"]
+                        A -->|Resample with Replacement| C["Bootstrap Sample 2 (n items)"]
+                        A -->|...| D["Bootstrap Sample N"]
+                        B --> E["Calculate Statistic 1"]
+                        C --> F["Calculate Statistic 2"]
+                        D --> G["Calculate Statistic N"]
+                        E & F & G --> H["Empirical Sampling Distribution"]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Why Resample with Replacement?</h2>
+                <p>
+                    If you resampled <em>without</em> replacement, you would just get the exact same dataset in a
+                    different order. Replacement ensures that some items appear twice and some stay out, creating the
+                    necessary "variation" needed to simulate the randomness of the real world.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Ensemble Learning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Random Forest</span>
+                    <h3>Bagging (Bootstrap Aggregating)</h3>
+                    <p>
+                        The "Bootstrap" is the heart of <strong>Bagging</strong>.
+                        - Instead of training one model on all data, we create 100 Bootstrap datasets.
+                        - We train one Decision Tree on each dataset.
+                        - We average their results.
+                    </p>
+                    <p>
+                        The Bootstrap ensures that each tree sees a slightly different "reality". By averaging them, we
+                        cancel out the specific noise of any single tree, drastically reducing <strong>Variance</strong> and creating
+                        a much more stable model (like a Random Forest).
+                    </p>
+                </div>
+
+                <h3>Out-of-Bag (OOB) Error</h3>
+                <p>
+                    Because we sample with replacement, ~36.8% of the data is left out of any given bootstrap sample.
+                    This "Out-of-Bag" data can be used as a built-in validation set to estimate the model's performance
+                    without needing a separate test set!
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

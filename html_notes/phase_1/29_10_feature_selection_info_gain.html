@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.10 Feature Selection - Info Gain - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.2 Mutual Information</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_09_information_gain_definition.html" class="nav-link">09.
+                                Information Gain Definition</a></li>
+                        <li class="nav-item"><a href="29_10_feature_selection_info_gain.html"
+                                class="nav-link active">10. Feature Selection - Info Gain</a></li>
+                        <li class="nav-item"><a href="29_11_mutual_information_definition.html" class="nav-link">11.
+                                Mutual Information Definition</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Data Eng</span>
+                    <span class="badge secondary">Feature Rank</span>
+                </div>
+                <h1>Feature Selection using Information Gain</h1>
+                <p class="lead-text">Filtering the static. How to mathematically identifies which variables are
+                    "Signals" and which are "Noise."</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Overabundance of Data</h3>
+                    <p>
+                        Adding more data isn't always better. In high-dimensional datasets, irrelevant features (like
+                        "Row ID" or "User Name") can hide the true patterns. Information Gain is the filter we use to
+                        find the "Gold" in the dirt.
+                    </p>
+                </div>
+
+                <h2>1. The Ranking Process</h2>
+                <p>Information Gain allows us to perform <strong>Filter-based Feature Selection</strong>. The workflow is as follows:
+                </p>
+                <ol>
+                    <li><strong>Calculate Global Entropy</strong> of the target variable \(Y\).</li>
+                    <li>For every feature \(X_i\), calculate the <strong>Information Gain</strong> \(IG(Y, X_i)\).</li>
+                    <li>Rank all features by their IG score.</li>
+                    <li>Keep the top \(k\) features (e.g., SelectKBest).</li>
+                </ol>
+                <div class="math-box">
+                    <strong>Feature Ranking Logic:</strong>
+                    $$ IG_{Ranking} = \{ X_i \mid IG(Y, X_1) \ge IG(Y, X_2) \ge \dots \} $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The "Gain Ratio" Upgrade</h2>
+                <p>Standard IG has a weakness: it inherently prefers features with many distinct values (high
+                    cardinality). A feature like "Passport Number" would have perfect IG but zero predictive power for
+                    future cases.</p>
+                <div class="math-box">
+                    $$ GainRatio = \frac{IG(Target, Feature)}{SplitInformation(Feature)} $$
+                </div>
+                <p>
+                    <strong>SplitInformation</strong> is simply the entropy of the feature itself. If a feature has many branches,
+                    its SplitInformation is high, which shrinks the final Ratio—effectively penalizing "noisy" or overly
+                    granular features.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Feature Importance</h2>
+                <pre><code class="language-python">from sklearn.feature_selection import mutual_info_classif
+import pandas as pd
+
+# Assume X contains features, y contains labels
+importance = mutual_info_classif(X, y)
+
+# Create a ranking table
+feat_importance = pd.Series(importance, index=X.columns)
+print(feat_importance.sort_values(ascending=False))</code></pre>
+                <div class="insight-box">
+                    <strong>Note:</strong> In scikit-learn, `mutual_info_classif` is the function used to calculate Information Gain
+                    for classification tasks. It uses K-Nearest Neighbors to estimate the entropy.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Random Forest</span>
+                    <span class="ml-badge">Boosting</span>
+                    <h3>Gain in Modern Ensembles</h3>
+                    <ul>
+                        <li><strong>Gradient Boosting (XGBoost/LightGBM):</strong> When these models build trees, they use a "Score"
+                            or "Gain" to decide where to cut. This is directly descended from Information Gain
+                            principles but modified to handle gradients and second-order derivatives.</li>
+                        <li><strong>Dimensionality Reduction:</strong> Before running expensive algorithms like SVM or Deep Learning,
+                            run an IG filter to drop features with near-zero gain. This reduces training time and
+                            prevents overfitting.</li>
+                        <li><strong>Interpretability:</strong> Unlike "Gini Impurity" (which is more common in Scikit-Learn's default
+                            Random Forest), "Information Gain" provides a result in <strong>Bits</strong>, which is often easier for
+                            humans to intuitive'y grasp as "How much information did I actually gain?"</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. The Signal Pipeline</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Raw Dataset] --> B[Calculate Entropy]
+                    B --> C[Feature IG Scoring]
+                    C --> D[Rank & Filter]
+                    D --> E[Refined Model Training]
+                    style E fill:#00ff0033
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

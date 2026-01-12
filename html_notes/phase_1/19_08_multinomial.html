@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19.08 Multinomial Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.3 Discrete Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="19_06_poisson.html" class="nav-link">06. Poisson</a></li>
+                        <li class="nav-item"><a href="19_07_discrete_uniform.html" class="nav-link">07. Discrete
+                                Uniform</a></li>
+                        <li class="nav-item"><a href="19_08_multinomial.html" class="nav-link active">08.
+                                Multinomial</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Many Categories</span>
+                </div>
+                <h1>The Multinomial Distribution</h1>
+                <p class="lead-text">Beyond binary: What if the coin has \(k\) sides?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Generalizing the Binomial</h3>
+                    <p>
+                        The Binomial distribution handles 2 outcomes (Heads/Tails).
+                        <br>
+                        The <strong>Multinomial distribution</strong> handles \(k\) outcomes (e.g., Rolling a generic
+                        die, classifying an image as Cat/Dog/Bird/Car).
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    We perform \(n\) independent trials. Each trial results in one of \(k\) categories with
+                    probabilities \(p_1, p_2, \dots, p_k\) (where \(\sum p_i = 1\)).
+                    <br><br>
+                    Let \(X_i\) be the count of outcome \(i\).
+                    $$ P(X_1=x_1, \dots, X_k=x_k) = \frac{n!}{x_1! x_2! \dots x_k!} p_1^{x_1} p_2^{x_2} \dots p_k^{x_k}
+                    $$
+                    where \(\sum x_i = n\).
+                </div>
+                <p>The term \(\frac{n!}{x_1! \dots x_k!}\) is the <strong>Multinomial Coefficient</strong>.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Softmax & Cross-Entropy</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">NLP</span>
+                    <h3>Categorical Classification</h3>
+                    <p>
+                        In a Neural Network classifying handwritten digits (0-9), the output layer has 10 neurons. We
+                        apply the <strong>Softmax function</strong> to convert logits into probabilities \(p_1, \dots,
+                        p_{10}\).
+                    </p>
+                    <p>
+                        The target label is a "one-hot" vector (e.g., \([0, 0, 1, 0, \dots]\)). This is essentially a
+                        single draw from a Multinomial distribution (\(n=1\)).
+                        <br><br>
+                        The loss function is <strong>Categorical Cross-Entropy</strong>, which is derived from the
+                        negative log-likelihood of the Multinomial distribution.
+                    </p>
+                </div>
+
+                <h3>NLP: Bag of Words</h3>
+                <p>
+                    In classic NLP, a document is represented as a count of words from a vocabulary of size \(V\). If we
+                    assume words are generated independently (Naive Bayes assumption), the document is modeled as a draw
+                    from a Multinomial distribution with parameters \(n\) (doc length) and \(p\) (word probabilities).
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

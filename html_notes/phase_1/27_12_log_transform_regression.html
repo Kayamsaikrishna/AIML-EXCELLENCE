@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.12 Log-Transform Regression - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_11_polynomial_regression.html" class="nav-link">11. Polynomial
+                                Regression</a></li>
+                        <li class="nav-item"><a href="27_12_log_transform_regression.html" class="nav-link active">12.
+                                Log Transform Regression</a></li>
+                        <li class="nav-item"><a href="27_13_interaction_terms.html" class="nav-link">13. Interaction
+                                Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Feature Engineering</span>
+                </div>
+                <h1>Log-Transform Regression</h1>
+                <p class="lead-text">Converting multiplication into addition. Why logs are the "magic wand" for
+                    heavy-tailed data.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Percent Interpretation</h3>
+                    <p>
+                        In a standard regression, a 1-unit increase in X adds a <strong>constant amount</strong> to Y.
+                        <br>
+                        In a Log-Transform model, a 1-unit increase in X causes a <strong>constant percentage change</strong> in Y.
+                        <br><br>
+                        This is perfect for Economics, Finance, and biological growth where things grow exponentially.
+                    </p>
+                </div>
+
+                <h2>1. The Three Flavor of Log Models</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Log-Lin (\(\ln(Y) = \beta_0 + \beta_1 X\))</h4>
+                        <p><strong>Interpretation:</strong> If X moves by 1, Y moves by \(\beta_1 \times 100\) percent. <br> **ML
+                            Use:** Predicting house prices (where an extra bedroom adds % value, not just a fixed $
+                            amount).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Lin-Log (\(Y = \beta_0 + \beta_1 \ln(X)\))</h4>
+                        <p><strong>Interpretation:</strong> If X moves by 1%, Y moves by \(\beta_1 / 100\) units. <br> <strong>ML Use:</strong>
+                            Diminishing returns (e.g., spending more on ads helps, but each extra dollar helps less).
+                        </p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Log-Log (\(\ln(Y) = \beta_0 + \beta_1 \ln(X)\))</h4>
+                        <p><strong>Interpretation:</strong> If X moves by 1%, Y moves by \(\beta_1\) percent. <br> <strong>ML Use:</strong>
+                            Elasticity (Price sensitivity).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Handling Skewness</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Squeezing the Tails</h4>
+                        <p>Real-world data like Salary, Net Worth, or City Populations are "Right-Skewed" (a few massive
+                            values far to the right). Linear regression hates this.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>The Fix</h4>
+                        <p>Logging these variables pulls the big values closer to the center, making the distribution
+                            look more "Normal" (Gaussian), which makes the OLS math much happier.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Log-Likelihood</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Loss Functions</span>
+                    <span class="ml-badge">NLP</span>
+                    <h3>Why AI loves Logs</h3>
+                    <p>
+                        Neural networks and Probabilistic models use Log-Transforms everywhere.
+                    </p>
+                    <ul>
+                        <li><strong>Numerical Stability:</strong> Multiplying 1000 probabilities like 0.001 results in a number so
+                            small the computer thinks it's Zero (<strong>Underflow</strong>). If we take the log and *add* them, the
+                            computer stays happy.</li>
+                        <li><strong>Cross-Entropy Loss:</strong> The standard loss for classification is literally just the Log of
+                            the probability.</li>
+                        <li><strong>Word Embeddings:</strong> In algorithms like Glove, we predict the log-frequency of word
+                            co-occurrences.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Pro-Tip:</strong> If your target variable is strictly positive and spans several orders of
+                        magnitude (e.g., $100 to $1,000,000), <strong>log it</strong>. Your model performance will likely jump by
+                        10-20% immediately.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

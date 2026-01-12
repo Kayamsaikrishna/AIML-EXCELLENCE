@@ -4,96 +4,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Rank - Phase 1.2.2.15</title>
+    <title>03.15 Rank - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_14_cramers_rule.html">14. Cramer's Rule</a></li>
-            <li><a href="03_15_rank.html" class="active">15. Rank</a></li>
-            <li><a href="03_16_rank_nullity.html">16. Nullity</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Rank
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>15. Rank of a Matrix</h1>
-            <p class="subtitle">The measure of non-redundant information.</p>
-        </header>
-
-        <section>
-            <h2>1. Definition & Properties</h2>
-            <p>The <strong>Rank</strong> of a matrix \( \mathbf{A} \) is the maximum number of linearly independent
-                column vectors (or row vectors) in the matrix.</p>
-            <div class="module-card">
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Full Rank:</strong> If \( \text{rank}(\mathbf{A}) = \min(m, n) \),
-                        the matrix contains no redundant information.</li>
-                    <li class="topic-item"><strong>Rank-Deficient:</strong> If the rank is lower than the dimensions,
-                        some features can be perfectly predicted by others.</li>
-                    <li class="topic-item"><strong>Property:</strong> \( \text{rank}(\mathbf{A}) =
-                        \text{rank}(\mathbf{A}^T) \).</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_14_cramers_rule.html" class="nav-link">14. Cramer's Rule</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">15. Rank</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>2. LoRA: Fine-Tuning Giant Models</h2>
-            <div class="module-card">
-                <h3>Low-Rank Adaptation</h3>
-                <p>When fine-tuning huge LLMs like GPT-4, updating all 175B parameters is impossible. Researchers found
-                    that the change in weights (\( \Delta \mathbf{W} \)) often has a very <strong>Low Rank</strong>.
-                    Instead of learning a giant matrix, we learn two tiny matrices \( \mathbf{A} \) and \( \mathbf{B}
-                    \):</p>
-                <div class="math-block">
-                    $$ \Delta \mathbf{W} \approx \mathbf{A}_{d \times r} \cdot \mathbf{B}_{r \times k} $$
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 15. Dimensions
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 15</div>
+            <h1>Rank</h1>
+            <p class="lead-text"> \( \text{rank}(A) \). The true information content of the matrix.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: RANK -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Miracle</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Matrix["Matrix A (m x n)"]
+    
+    subgraph Analysis
+        RowRank["Indep Rows (Rank r)"]
+        ColRank["Indep Cols (Rank c)"]
+    end
+    
+    subgraph Theorem
+        Equality["Row Rank = Col Rank!!"]
+    end
+    
+    subgraph Types
+        FullRank["Full Rank"]
+        LowRank["Low Rank (Deficient)"]
+    end
+    
+    Matrix --> RowRank
+    Matrix --> ColRank
+    RowRank --> Equality
+    ColRank --> Equality
+    
+    Equality --> FullRank
+    Equality --> LowRank
+
+    style Equality fill:#fefe93,stroke:#d97706
+    style FullRank fill:#dcfce7,stroke:#16a34a
+                    </pre>
                 </div>
-                <p>Where \( r \ll d, k \). This reduces parameter counts by \( 99.9\% \)!</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Rank Detection</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-# Redundant features matrix
-X = np.array([
-    [1, 2, 1],
-    [2, 4, 1], # Row 2 is basically Row 1 * 2 (except 3rd col)
-    [3, 6, 1]
-])
-
-rank = np.linalg.matrix_rank(X)
-
-print(f"Matrix Dimensions: {X.shape}")
-print(f"Detected Rank: {rank}") # Output: 2
-
-if rank < X.shape[1]:
-    print("This dataset has multi-collinearity!")</code></pre>
+        <!-- 1. DEFINITION: ROW EQUALS COL -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Fundamental Theorem of Linear Algebra (Part 1)</h2>
+                <p>The number of linearly independent rows ALWAYS equals the number of linearly independent columns.</p>
+                <p>This single number is the <strong>Rank</strong>. It represents the dimension of the image of the
+                    transformation.</p>
             </div>
         </section>
+
+        <!-- 2. AI APPLICATION: LOW RANK APPROXIMATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Low Rank is Good</h2>
+                <p>In Compression (SVD) and Recommender Systems, we <strong>want</strong> low rank matrices.</p>
+                <p>A rank-50 approximation of a 10,000x10,000 matrix captures 99% of the information (patterns) but uses
+                    0.1% of the storage. The noise is usually high-rank, so lowering rank filters noise.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Numerical Rank</h2>
+                <p>Using SVD to determine effective rank.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# A Rank-1 Matrix (All rows are multiples of [1, 2, 3])
+u = np.array([[1, 2, 3]])
+v = np.array([[2], [4], [6]])
+A = u.T @ v.T # 3x3
+
+print(f"Matrix A:\n{A}")
+print(f"Calculated Rank: {np.linalg.matrix_rank(A)}")
+
+# Add slight noise (Technically Full Rank now)
+A_noisy = A + 1e-10 * np.random.rand(3, 3)
+
+# Default tolerance handles tiny noise
+print(f"Rank with tiny noise: {np.linalg.matrix_rank(A_noisy)}")
+
+# But if we check singular values
+s = np.linalg.svd(A_noisy, compute_uv=False)
+print(f"Singular Values: {s}")
+# 1 big one, 2 tiny ones. Effectively Rank 1.
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

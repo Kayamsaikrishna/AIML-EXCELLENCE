@@ -4,107 +4,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linear Combinations - Phase 1.2.15</title>
+    <title>02.15 Linear Combinations - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_14_subspaces_span.html">14. Subspaces & Span</a></li>
-            <li><a href="02_15_linear_combinations.html" class="active">15. Linear Combinations</a></li>
-            <li><a href="02_16_linear_independence.html">16. Linear Independence</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Linear Combinations
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>15. Linear Combinations</h1>
-            <p class="subtitle">The basic operation of all Neural Networks.</p>
-        </header>
-
-        <section>
-            <h2>1. Algebraic Definition</h2>
-            <p>A linear combination is a result of scaling vectors and adding them together.</p>
-
-            <div class="math-block">
-                $$ \mathbf{w} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \dots + c_n \mathbf{v}_n $$
-            </div>
-
-            <div class="visual-diagram">
-                <svg width="450" height="200" viewBox="0 0 450 200">
-                    <!-- Layer concept -->
-                    <circle cx="50" cy="40" r="10" fill="#3b82f6" /><text x="70" y="45">v1</text>
-                    <circle cx="50" cy="100" r="10" fill="#3b82f6" /><text x="70" y="105">v2</text>
-                    <circle cx="50" cy="160" r="10" fill="#3b82f6" /><text x="70" y="165">v3</text>
-
-                    <!-- Weights -->
-                    <line x1="60" y1="40" x2="250" y2="100" stroke="#94a3b8" stroke-width="2" />
-                    <line x1="60" y1="100" x2="250" y2="100" stroke="#94a3b8" stroke-width="4" />
-                    <line x1="60" y1="160" x2="250" y2="100" stroke="#94a3b8" stroke-width="1" />
-
-                    <!-- Summation Node -->
-                    <circle cx="260" cy="100" r="25" fill="#1e40af" />
-                    <text x="252" y="107" fill="white" font-weight="bold" font-size="20">Σ</text>
-
-                    <text x="300" y="105" font-weight="bold" fill="#1e40af">w = 0.5 v1 + 2.0 v2 + 0.1 v3</text>
-                </svg>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. The "Linear" in Neural Networks</h2>
-            <div class="module-card">
-                <h3>Weighted Summing</h3>
-                <p>Every single neuron in a network performs a <strong>Linear Combination</strong> of its inputs before
-                    applying a non-linear activation. The "weights" of the target model \(W\) are the scalars \(c_i\).
-                </p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Inference:</strong> Calculating the output is just taking a linear
-                        combination.</li>
-                    <li class="topic-item"><strong>Training:</strong> Adjusting the scalars \(c_i\) to minimize error.
-                    </li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_14_subspaces_span.html" class="nav-link">14. Subspaces & Span</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">15. Linear Combinations</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Manual Linear Combination</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 15. The Linearity
+        </div>
 
-# Basis Vectors
-v1 = np.array([1, 0])
-v2 = np.array([0, 1])
+        <header class="page-header">
+            <div class="badge">Module 15</div>
+            <h1>The Weighted Sum</h1>
+            <p class="lead-text"> \( \mathbf{y} = \sum w_i \mathbf{x}_i \). The atomic operation of all Neural Networks.
+            </p>
+        </header>
 
-# Scalars (Weights)
-c1, c2 = 2.5, -1.2
+        <!-- VISUAL DIAGRAM: LINEAR COMBO -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Mixing Ingredients</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Inputs["Inputs {x1, x2, x3}"]
+    Weights["Weights {w1, w2, w3}"]
+    
+    subgraph Mixer
+        Scale["Scale (wi * xi)"]
+        Add["Add (Sum)"]
+    end
+    
+    subgraph Output
+        Result["Result y"]
+        Bias["Bias (+b)"]
+        Neuron["Neuron Pre-Activation"]
+    end
+    
+    Inputs --> Scale
+    Weights --> Scale
+    
+    Scale --> Add
+    Add --> Result
+    Bias --> Add
+    
+    Result --> Neuron
 
-# Linear Combination
-w = c1*v1 + c2*v2 
-
-print(f"Resultant Vector: {w}") # Output: [2.5, -1.2]</code></pre>
+    style Neuron fill:#dcfce7,stroke:#16a34a
+    style Scale fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION: LINEAR COMBINATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Recipe</h2>
+                <p>A linear combination is formed by multiplying vectors by scalars and adding them up.</p>
+                <div class="math-block">
+                    $$ \mathbf{v} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \dots + c_n \mathbf{v}_n $$
+                </div>
+                <p>If you can reach a vector \( \mathbf{v} \) using vectors \( \{\mathbf{v}_i\} \), we say \( \mathbf{v}
+                    \) is "Linearly Dependent" on them.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: NEURAL LAYERS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The Fully Connected Layer</h2>
+                <p>A "Dense" layer in a neural network is nothing more than calculating \( m \) different linear
+                    combinations of the \( n \) inputs at once.</p>
+                <div class="math-block">
+                    $$ \mathbf{y} = W \mathbf{x} + \mathbf{b} $$
+                </div>
+                <p>Here, the matrix \( W \) contains rows of weights, where each row acts as the scalars \( c_i \) for a
+                    specific output neuron.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Mixing Colors (RGB)</h2>
+                <p>Colors are linear combinations of Red, Green, and Blue basis vectors.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Basis Vectors (Primary Colors)
+Red = np.array([255, 0, 0])
+Green = np.array([0, 255, 0])
+Blue = np.array([0, 0, 255])
+
+# Weights
+w_r, w_g, w_b = 0.5, 0.5, 0.0 # 50% Red, 50% Green
+
+# Linear Combination
+yellow_mix = w_r * Red + w_g * Green + w_b * Blue
+
+print(f"Resulting Color: {yellow_mix}") 
+# [127.5, 127.5, 0.0] -> Dark Yellow (Olive)
+
+# In AI, we learn these weights to produce the desired output.
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

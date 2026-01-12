@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02.28 Diagonalization - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_27_eigen_intro.html" class="nav-link">27. Eigenvalues</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">28. Diagonalization</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 28. Decoupling
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 28</div>
+            <h1>The Decoupling</h1>
+            <p class="lead-text"> \( A = PDP^{-1} \). Unravelling the tangled mess of linear systems into simple,
+                independent threads.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: DIAGONALIZATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Unlocking the Box</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Coupled System (Messy A)"]
+    
+    subgraph Transformation
+        Pinv["P^-1 (Change Basis)"]
+        D["D (Diagonal Matrix)"]
+        P["P (Restore Basis)"]
+    end
+    
+    subgraph Outcome
+        Power["Matrix Powers A^k = P D^k P^-1"]
+        Decouple["Independent Eqs"]
+    end
+    
+    Input --> Pinv
+    Pinv --> D
+    D --> P
+    P --> Decouple
+    P --> Power
+
+    style D fill:#dcfce7,stroke:#16a34a
+    style Power fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: EIGEN BASIS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Factorization</h2>
+                <p>If a matrix has enough independent eigenvectors, we can factorize it into:</p>
+                <div class="math-block">
+                    $$ A = PDP^{-1} $$
+                </div>
+                <ul>
+                    <li>\( P \): Matrix with Eigenvectors as columns.</li>
+                    <li>\( D \): Diagonal Matrix with Eigenvalues on the diagonal.</li>
+                </ul>
+                <p>This "Diagonalizes" the matrix. In the Eigen-basis, the transformation is purely stretching (no
+                    rotating/shearing).</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: FAST EXPONENTIATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Powers of Matrices</h2>
+                <p>If we want to compute \( A^{100} \) (e.g. 100 steps of a Markov Chain or Recurrent Net), doing 100
+                    multiplications is slow.</p>
+                <p>With diagonalization:</p>
+                <div class="math-block">
+                    $$ A^k = (PDP^{-1})^k = P D^k P^{-1} $$
+                </div>
+                <p>Computing \( D^k \) is trivial (just power the diagonal elements). This makes analyzing long-term
+                    behavior (stability) of AI systems possible.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Fibonacci via Matrix Power</h2>
+                <p>Calculating the 1000th Fibonacci number instantly.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Fibonacci Matrix
+# [ F_n+1 ] = [ 1 1 ] [ F_n   ]
+# [ F_n   ]   [ 1 0 ] [ F_n-1 ]
+A = np.array([
+    [1, 1],
+    [1, 0]
+])
+
+# Diagonalize
+vals, P = np.linalg.eig(A)
+D = np.diag(vals)
+P_inv = np.linalg.inv(P)
+
+# Calculate A^10
+k = 10
+D_k = np.power(D, k)
+A_k = P @ D_k @ P_inv
+
+print(f"Matrix A^{k}:")
+print(A_k)
+
+# Check F_10 (Should be 55)
+# Initial state [F1, F0] = [1, 0]
+start = np.array([1, 0])
+result = np.dot(A_k, start)
+print(f"\nF_{k+1}: {result[0]:.2f}") # F_11
+print(f"F_{k}:   {result[1]:.2f}") # F_10 = 55
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

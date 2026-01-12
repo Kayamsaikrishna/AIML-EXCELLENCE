@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.01 Precision vs Accuracy - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_01_precision_accuracy.html" class="nav-link active">01.
+                                Precision vs Accuracy</a></li>
+                        <li class="nav-item"><a href="24_02_ci_concept.html" class="nav-link">02. Confidence
+                                Intervals</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Measurement Quality</span>
+                </div>
+                <h1>Precision vs. Accuracy</h1>
+                <p class="lead-text">Understanding the difference between getting the right answer and getting a
+                    consistent answer.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Target Analogy</h3>
+                    <p>
+                        Imagine throwing darts at a bullseye:
+                        <br>
+                        - <strong>Accuracy:</strong> How close you are to the bullseye (the center).
+                        <br>
+                        - <strong>Precision:</strong> How tightly clustered your darts are (even if they are far from the center).
+                    </p>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Accuracy (Validity)</h4>
+                        <ul>
+                            <li>Relates to <strong>Bias</strong>.</li>
+                            <li>The ability of a measurement to match the "True" value.</li>
+                            <li>Improved by better calibration or model unbiasedness.</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Precision (Reliability)</h4>
+                        <ul>
+                            <li>Relates to <strong>Variance</strong>.</li>
+                            <li>The consistency of measurements when repeated.</li>
+                            <li>Improved by increasing sample size or reducing noise.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>1. The Four Quadrants</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Measurement Quality] --> B[High Accuracy, High Precision]
+                        A --> C[Low Accuracy, High Precision]
+                        A --> D[High Accuracy, Low Precision]
+                        A --> E[Low Accuracy, Low Precision]
+                        B --> B1["The Bullseye (Low Bias, Low Variance)"]
+                        C --> C1["Systematic Error (High Bias, Low Variance)"]
+                        D --> D1["Reliable on Average but Noisy (Low Bias, High Variance)"]
+                        E --> E1["The Worst Case (High Bias, High Variance)"]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Error Analysis</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Foundational</span>
+                    <span class="ml-badge">Model Evaluation</span>
+                    <h3>Why Accuracy is Not Precision</h3>
+                    <p>
+                        In Classification, <strong>Accuracy</strong> counts total correct predictions. But if you have a massive
+                        class imbalance (99% A, 1% B), a model that always predicts "A" has 99% accuracy but 0
+                        <strong>Precision</strong> for class B.
+                    </p>
+                    <p>
+                        <strong>In Regression:</strong>
+                        - If your model's predictions are always +10 higher than the truth, it has high <strong>Precision</strong>
+                        (low variance) but low <strong>Accuracy</strong> (high bias). This is often caused by a missing feature or a
+                        bad intercept.
+                        - If your model's predictions are scattered but the mean error is zero, it is <strong>Accurate</strong>
+                        (unbiased) but not <strong>Precise</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Key Takeaway</h2>
+                <p>
+                    In Statistics, we often prefer a <strong>Biased (Low Accuracy)</strong> but <strong>Precise (Low Variance)</strong> model over
+                    an accurate but wildly varying one, especially when the bias is predictable. This is the logic
+                    behind Regularization!
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

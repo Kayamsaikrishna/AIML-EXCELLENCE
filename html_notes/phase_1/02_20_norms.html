@@ -4,98 +4,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vector Norms - Phase 1.2.20</title>
+    <title>02.20 Vector Norms - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_19_inner_products.html">19. Inner Products</a></li>
-            <li><a href="02_20_norms.html" class="active">20. Norms</a></li>
-            <li><a href="02_21_distance_metrics.html">21. Distance Metrics</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.1 Vectors</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_19_inner_products.html" class="nav-link">19. Inner Products</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">20. Norms (L1, L2)</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Vector Norms
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 20. Measuring Size
         </div>
 
-        <header>
-            <h1>20. Norms (L1, L2, p-norms)</h1>
-            <p class="subtitle">Defining "Size" and "Distance".</p>
+        <header class="page-header">
+            <div class="badge">Module 20</div>
+            <h1>The Length Rule</h1>
+            <p class="lead-text"> \( ||\mathbf{x}|| \). How big is the vector? It depends on which Ruler you use
+                (Euclidean vs Manhattan).</p>
         </header>
 
-        <section>
-            <h2>1. Common p-Norms</h2>
-            <p>A norm is a function that assigns a strictly positive length or size to all vectors.</p>
+        <!-- VISUAL DIAGRAM: NORMS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Unit Ball</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Vector["Vector v"]
+    
+    subgraph Rulers
+        L1["L1 Norm (Manhattan)"]
+        L2["L2 Norm (Euclidean)"]
+        LInf["L-Infinity (Max)"]
+    end
+    
+    subgraph Shapes
+        Diamond["Diamond (L1)"]
+        Circle["Circle (L2)"]
+        Square["Square (L-Inf)"]
+    end
+    
+    subgraph AI
+        Lasso["Sparsity (L1 Reg)"]
+        Ridge["Weight Decay (L2 Reg)"]
+    end
+    
+    Vector --> L1
+    Vector --> L2
+    Vector --> LInf
+    
+    L1 --> Diamond
+    L2 --> Circle
+    LInf --> Square
+    
+    Diamond --> Lasso
+    Circle --> Ridge
 
-            <div class="math-block">
-                $$ L_p \text{ Norm: } \|\mathbf{v}\|_p = \left( \sum_{i=1}^n |v_i|^p \right)^{1/p} $$
+    style L1 fill:#fefe93,stroke:#d97706
+    style Lasso fill:#dcfce7,stroke:#16a34a
+                    </pre>
+                </div>
             </div>
+        </section>
 
-            <div class="module-card">
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>L1 Norm (Manhattan):</strong> \( \sum |v_i| \). Encourages
-                        <strong>Sparsity</strong>.</li>
-                    <li class="topic-item"><strong>L2 Norm (Euclidean):</strong> \( \sqrt{\sum v_i^2} \). The standard
-                        "as-the-crow-flies" distance.</li>
-                    <li class="topic-item"><strong>L-infinity Norm:</strong> \( \max |v_i| \). Used in Chebyshev
-                        distance and adversarial robustness.</li>
+        <!-- 1. DEFINITION: P-NORMS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Formula</h2>
+                <p>The general \( L_p \) norm is defined as:</p>
+                <div class="math-block">
+                    $$ ||\mathbf{x}||_p = \left( \sum_{i=1}^n |x_i|^p \right)^{1/p} $$
+                </div>
+                <ul>
+                    <li><strong>L1 (Taxicab):</strong> Sum of absolute values. \( |x| + |y| \).</li>
+                    <li><strong>L2 (Euclidean):</strong> Straight line distance. \( \sqrt{x^2 + y^2} \).</li>
+                    <li><strong>L0 (Pseudo-norm):</strong> Count of non-zero elements.</li>
                 </ul>
             </div>
         </section>
 
-        <section>
-            <h2>2. AI Regularization (Lasso vs. Ridge)</h2>
-            <div class="module-card">
-                <h3>Shape of the Constraint</h3>
-                <p>In <strong>Weight Regularization</strong>, we add the norm of the weights to the loss function to
-                    prevent over-fitting.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>L1 Regularization (Lasso):</strong> The "diamond" shape forces some
-                        weights to be exactly zero, effectively performing <strong>Feature Selection</strong>.</li>
-                    <li class="topic-item"><strong>L2 Regularization (Ridge):</strong> The "circle" shape makes weights
-                        small but usually non-zero.</li>
-                </ul>
+        <!-- 2. AI APPLICATION: REGULARIZATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Sparsity vs Decay</h2>
+                <p>In Machine Learning loss functions:</p>
+                <div class="math-block">
+                    $$ L = Error + \lambda ||\mathbf{w}|| $$
+                </div>
+                <p>If we use <strong>L1 Regularization (Lasso)</strong>, the "Diamond" shape of the unit ball forces
+                    coefficients to hit exactly zero. This performs <strong>Feature Selection</strong> (Sparsity).</p>
+                <p>If we use <strong>L2 Regularization (Ridge)</strong>, the "Circle" shape just shrinks weights small
+                    but rarely zero.</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Vector Norms with Numpy</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Calculating Norms</h2>
+                <p>Using NumPy to measure vectors.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
 v = np.array([3, -4])
 
-# L1 Norm (3 + 4)
-norm_l1 = np.linalg.norm(v, ord=1) 
+# L1 Norm: |3| + |-4| = 7
+l1 = np.linalg.norm(v, 1)
+print(f"L1 Norm: {l1}")
 
-# L2 Norm (sqrt(9 + 16))
-norm_l2 = np.linalg.norm(v, ord=2)
+# L2 Norm: sqrt(9 + 16) = 5
+l2 = np.linalg.norm(v, 2)
+print(f"L2 Norm: {l2}")
 
-# Max Norm (4)
-norm_inf = np.linalg.norm(v, ord=np.inf)
+# L-Infinity: max(|3|, |-4|) = 4
+linf = np.linalg.norm(v, np.inf)
+print(f"L-Inf Norm: {linf}")
 
-print(f"L1: {norm_l1}, L2: {norm_l2}, Inf: {norm_inf}")</code></pre>
+# Custom L0
+l0 = np.count_nonzero(v)
+print(f"L0 Norm: {l0}")
+</code></pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

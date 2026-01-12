@@ -4,98 +4,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Determinants - Phase 1.2.2.11</title>
+    <title>03.11 Determinants - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_10_inverse_methods.html">10. Inverse Methods</a></li>
-            <li><a href="03_11_determinants.html" class="active">11. Determinants</a></li>
-            <li><a href="03_12_det_properties.html">12. Det Properties</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_10_inverse_methods.html" class="nav-link">10. Inverse Methods</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">11. Determinants</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Determinants
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 11. Determinants
         </div>
 
-        <header>
-            <h1>11. Determinants (\( 2 \times 2, 3 \times 3, n \times n \))</h1>
-            <p class="subtitle">Scaling factors for the volume of space.</p>
+        <header class="page-header">
+            <div class="badge">Module 11</div>
+            <h1>The Scaling Factor</h1>
+            <p class="lead-text"> \( \det(A) \). How strictly does the matrix stretch or shrink space?</p>
         </header>
 
-        <section>
-            <h2>1. Calculations by Size</h2>
-            <div class="module-card">
-                <h3>2x2 Determinant</h3>
-                <div class="math-block">
-                    $$ \text{det}\begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc $$
-                </div>
-            </div>
+        <!-- VISUAL DIAGRAM: DETERMINANT -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Area and Volume</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Matrix["Matrix Transformation A"]
+    
+    subgraph Geometry
+        UnitBox["Unit Square (Area 1)"]
+        TransBox["Transformed Parallelogram"]
+        Area["Area = |det(A)|"]
+    end
+    
+    subgraph Sign
+        Pos["Positive (Orientation Preserved)"]
+        Neg["Negative (Orientation Flipped)"]
+        Zero["Zero (Squashed to Line/Point)"]
+    end
+    
+    Matrix --> UnitBox
+    Matrix --> TransBox
+    TransBox --> Area
+    
+    Area --> Pos
+    Area --> Neg
+    Area --> Zero
+    
+    Zero --> Singularity["Singularity"]
 
-            <div class="module-card">
-                <h3>3x3 Determinant (Sarrus Rule)</h3>
-                <div class="math-block">
-                    $$ \text{det}\begin{bmatrix} a & b & c \\ d & e & f \\ g & h & i \end{bmatrix} = a(ei - fh) - b(di -
-                    fg) + c(dh - eg) $$
+    style Area fill:#fefe93,stroke:#d97706
+    style Zero fill:#fee2e2,stroke:#b91c1c
+                    </pre>
                 </div>
             </div>
         </section>
 
-        <section>
-            <h2>2. The Geometric Intuition (AI Connection)</h2>
-            <div class="module-card">
-                <h3>Normalizing Flows & Change of Variable</h3>
-                <p>In <strong>Generative AI (Normalizing Flows)</strong>, we transform a simple distribution (like a
-                    Gaussian)
-                    into a complex one (like image data). The <strong>Determinant of the Jacobian</strong> tells us how
-                    the local probability density "stretches" or "shrinks" during this transformation.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Positive Det:</strong> Preserves orientation.</li>
-                    <li class="topic-item"><strong>Negative Det:</strong> Flips orientation (mirroring).</li>
-                    <li class="topic-item"><strong>Zero Det:</strong> The matrix is singular; it squashes the entire
-                        space into a lower dimension (e.g., a volume becomes a flat plane).</li>
+        <!-- 1. DEFINITION: VOLUME -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Geometric Interpretation</h2>
+                <p>The determinant is the <strong>signed volume scaling factor</strong> of the linear transformation.
+                </p>
+                <ul>
+                    <li>If \( \det(A) = 2 \): The transformation doubles the volume of any region.</li>
+                    <li>If \( \det(A) = 0 \): The transformation flattens space (Volume -> 0).</li>
+                    <li>If \( \det(A) = -1 \): The transformation acts like a mirror (Flip).</li>
                 </ul>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Calculating Determinants</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-A = np.array([
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-])
-
-# Compute determinant
-det_a = np.linalg.det(A)
-
-print(f"Determinant of A: {det_a}") 
-# Note: For this matrix, det is 0 because row 3 is a linear combination.
-# Numerical precision might give a tiny non-zero value like 1e-16.</code></pre>
+        <!-- 2. AI APPLICATION: JACOBIAN determinant -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Normalizing Flows</h2>
+                <p>In Generative AI (Normalizing Flows), we transform a simple distribution (Gaussian) into a complex
+                    one (Image).</p>
+                <p>To compute the probability density, we MUST track how the volume changes. This requires computing \(
+                    \log |\det(J)| \), where \( J \) is the Jacobian matrix.</p>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Calculating Scale</h2>
+                <p>Singular vs Non-Singular transforms.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# A Shear Matrix (Preserves Volume)
+Shear = np.array([
+    [1, 1],
+    [0, 1]
+])
+
+print(f"Shear Det: {np.linalg.det(Shear)}")
+# Exact 1.0. Shearing pushes the box but keeps area same.
+
+# A Scaling Matrix (Doubles x, Triples y)
+Scale = np.array([
+    [2, 0],
+    [0, 3]
+])
+
+print(f"Scale Det: {np.linalg.det(Scale)}")
+# 2*3 = 6.0. Area increases 6-fold.
+
+# A Singular Matrix (Projection)
+Proj = np.array([
+    [1, 0],
+    [0, 0]
+])
+
+print(f"Proj Det: {np.linalg.det(Proj)}")
+# 0.0. Squashed 2D space onto 1D x-axis. Volume is lost.
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

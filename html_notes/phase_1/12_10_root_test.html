@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.10 Root Test - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_06_p_series.html" class="nav-link">06. P-Series</a></li>
+                        <li class="nav-item"><a href="12_07_comparison_test.html" class="nav-link">07. Comparison
+                                Tests</a></li>
+                        <li class="nav-item"><a href="12_08_limit_comparison.html" class="nav-link">08. Limit
+                                Comparison</a></li>
+                        <li class="nav-item"><a href="12_09_ratio_test.html" class="nav-link">09. Ratio Test</a></li>
+                        <li class="nav-item"><a href="12_10_root_test.html" class="nav-link active">10. Root Test</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Tests</span>
+                </div>
+                <h1>The Root Test</h1>
+                <p class="lead-text">Evaluating n-th power complexity.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Fundamental Rate</h3>
+                    <p>
+                        The Root Test is ideal for series with powers of \(n\), like \( (a_n)^n \). It strips away the
+                        power to see the base behavior.
+                    </p>
+                    <p>
+                        \[ L = \lim_{n \to \infty} \sqrt[n]{|a_n|} \]
+                    </p>
+                    <ul>
+                        <li><strong>\(L < 1\):</strong> Converges.</li>
+                        <li><strong>\(L > 1\):</strong> Diverges.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Spectral Radius</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Spectral Norms</h3>
+                    <p>
+                        The Root Test is closely related to the <strong>Spectral Radius</strong> (\(\rho(A)\)) of a matrix in Linear
+                        Algebra.
+                        Ideally, for a recurrent system \(h_{t+1} = W h_t\) to be stable, we need \(\rho(W) < 1\). </p>
+                            <p>
+                                This is the matrix equivalent of the Root Test condition \(L < 1\). If the largest
+                                    eigenvalue (root) is \(< 1\), the signal decays. If \(> 1\), it explodes.
+                                    <strong>Spectral Normalization</strong> (used in GANs) explicitly scales weights to satisfy this
+                                    property.
+                            </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Root Test Check</h2>
+                <div class="code-header">root_test.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import math
+
+# Series: ((n+1)/2n)^n
+# Base limit: (n+1)/2n -> 1/2
+# Root Limit L = 1/2 < 1 -> Converges
+
+def get_root_val(n):
+    term = ((n + 1) / (2 * n))**n
+    return term**(1/n) # The n-th root
+
+print(f"{'n':<10} | {'Root Value':<15}")
+print("-" * 30)
+
+for n in [10, 100, 1000, 10000]:
+    print(f"{n:<10} | {get_root_val(n):<15.6f}")
+
+# It approaches 0.5</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_09_ratio_test.html" class="footer-link">← Prev: Ratio Test</a>
+                        <span class="separator">|</span>
+                        <a href="12_11_integral_test.html" class="footer-link">Next: Integral Test →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

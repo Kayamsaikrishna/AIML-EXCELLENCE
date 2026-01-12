@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.11 Law of Total Probability - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_10_bayes_theorem.html" class="nav-link">10. Bayes Theorem</a>
+                        </li>
+                        <li class="nav-item"><a href="17_11_law_total_prob.html" class="nav-link active">11. Total
+                                Prob</a></li>
+                        <li class="nav-item"><a href="17_12_independence.html" class="nav-link">12. Independence</a>
+                        </li>
+                        <li class="nav-item"><a href="17_13_exclusive_vs_independent.html" class="nav-link">13.
+                                Exclusive vs Indep</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Marginalization</span>
+                </div>
+                <h1>Law of Total Probability</h1>
+                <p class="lead-text">Summing out the unknowns.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Divide and Conquer</h3>
+                    <p>
+                        To find the probability of event \(B\), we can partition the sample space into disjoint events
+                        \(A_1, A_2, \dots A_n\) (scenarios) and sum the probability of reaching \(B\) via each scenario:
+                        \[ P(B) = \sum_{i} P(B|A_i)P(A_i) \]
+                    </p>
+                    <p>
+                        This is also known as <strong>Marginalization</strong> (summing out variable \(A\)).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Mixture Models</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">GMMs</h3>
+                    <p>
+                        A Gaussian Mixture Model (GMM) assumes data comes from one of \(K\) hidden clusters
+                        (components).
+                        The probability of observing a data point \(x\) is the sum of probabilities of generating \(x\)
+                        from each cluster, weighted by the cluster's size:
+                        \[ P(x) = \sum_{k=1}^K P(x | z=k) P(z=k) \]
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Total[Total P(B)]
+                        A1[Scenario A1] -->|P(B|A1)| Total
+                        A2[Scenario A2] -->|P(B|A2)| Total
+                        A3[Scenario A3] -->|P(B|A3)| Total
+
+                        style Total fill:#2f855a,stroke:#48bb78
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Marginalization</h2>
+                <div class="code-header">total_prob.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Factory A makes 20% of widgets (1% defective)
+# Factory B makes 80% of widgets (5% defective)
+# What is total defective rate? P(Defect)
+
+p_A = 0.20
+p_B = 0.80
+
+p_def_A = 0.01
+p_def_B = 0.05
+
+# Law of Total Prob
+p_total_defect = (p_def_A * p_A) + (p_def_B * p_B)
+
+print(f"Total Defect Rate: {p_total_defect:.4f}")
+# 0.002 + 0.04 = 0.042 (4.2%)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_10_bayes_theorem.html" class="footer-link">← Prev: Bayes Theorem</a>
+                        <span class="separator">|</span>
+                        <a href="17_12_independence.html" class="footer-link">Next: Independence →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>33.05 Spanning Trees & MST - Graph Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.9.2 Path & Tree Algorithms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="33_04_trees_forests_isomorphism.html" class="nav-link">04. Trees &
+                                Forests</a></li>
+                        <li class="nav-item"><a href="33_05_spanning_trees_mst.html" class="nav-link active">05.
+                                Spanning Trees</a></li>
+                        <li class="nav-item"><a href="33_06_shortest_paths_dijkstra.html" class="nav-link">06. Shortest
+                                Paths</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Graph Theory</span>
+                    <span class="badge secondary">Optimization</span>
+                </div>
+                <h1>Spanning Trees & MST</h1>
+                <p class="lead-text">Minimal Connectivity. Extracting the most efficient skeleton from a complex network
+                    to connect all nodes with minimum total edge weight.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Spanning Concept</h3>
+                    <p>
+                        A <strong>Spanning Tree</strong> of a graph \(G\) is a subgraph that includes all vertices and is a tree. A
+                        graph can have many spanning trees, but in a <strong>Weighted Graph</strong>, we are often looking for the
+                        <strong>Minimum Spanning Tree (MST)</strong> — the one with the smallest sum of edge weights.
+                    </p>
+                </div>
+
+                <h2>1. MST Algorithms</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Kruskal's Algorithm</h4>
+                        <p>A <strong>Greedy</strong> approach: Sort all edges by weight and add them to the MST as long
+                            as they don't create a cycle (using Disjoint Set Union).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Prim's Algorithm</h4>
+                        <p>Starts from a single node and grows the tree by adding the cheapest edge that connects a node
+                            in the tree to one outside of it.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Cayley's Formula</h2>
+                <p>How many spanning trees exist in a complete graph \(K_n\)?</p>
+                <div class="math-box">
+                    $$ T(K_n) = n^{n-2} $$
+                </div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> For \(n=4\), there are \(4^{4-2} = 16\) unique spanning trees. This
+                        explosive growth shows why greedy optimization is necessary.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Unsupervised Learning</span>
+                    <span class="ml-badge">NLP</span>
+                    <h3>MST in AI</h3>
+                    <ul>
+                        <li><strong>Single Linkage Clustering:</strong> When performing Hierarchical Clustering, the sequence of
+                            merges is exactly the order of edges added in Kruskal's MST algorithm.</li>
+                        <li><strong>Image Segmentation:</strong> Treating pixels as nodes and spectral differences as edge weights,
+                            MST algorithms are used to find "natural" boundaries and regions in an image.</li>
+                        <li><strong>Taxonomy Generation:</strong> In NLP, given a set of concepts and their semantic distances, an
+                            MST can discover the most "efficient" logical hierarchy between them.</li>
+                        <li><strong>Communication Efficiency:</strong> In Distributed ML (Federated Learning), gradients are often
+                            aggregated along an MST of the nodes to minimize network latency and bandwidth.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Kruskal's Workflow</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Sort Edges by Weight] --> B[Pick Shortest Edge]
+                    B --> C{Creates Cycle?}
+                    C -- No --> D[Add to MST]
+                    C -- Yes --> E[Discard Edge]
+                    D --> F{n-1 edges reached?}
+                    E --> B
+                    F -- No --> B
+                    F -- Yes --> G[MST Complete]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

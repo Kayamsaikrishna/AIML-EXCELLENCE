@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.01 Sequence Convergence - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_01_sequence_convergence.html" class="nav-link active">01.
+                                Sequence Convergence</a></li>
+                        <li class="nav-item"><a href="12_02_sequence_limits.html" class="nav-link">02. Sequence
+                                Limits</a></li>
+                        <li class="nav-item"><a href="12_03_bounded_monotonic.html" class="nav-link">03. Bounded &
+                                Monotonic</a></li>
+                        <li class="nav-item"><a href="12_04_series_tests_intro.html" class="nav-link">04. Infinite
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_05_geometric_series.html" class="nav-link">05. Geometric &
+                                P-Series</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Sequences</span>
+                </div>
+                <h1>Sequence Convergence</h1>
+                <p class="lead-text">Predicting the destination of an infinite journey.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Limit of a List</h3>
+                    <p>
+                        A sequence is simply an ordered list of numbers: \(a_1, a_2, a_3, \dots\).
+                        We ask one fundamental question: <strong>As \(n\) gets infinitely large, does \(a_n\) settle on
+                            a single value?</strong>
+                        If yes, it <strong>Converges</strong>. If no (it oscillates or goes to infinity), it <strong>Diverges</strong>.
+                    </p>
+                </div>
+
+                <h2>1. Formal Definition</h2>
+                <div class="glass-card">
+                    <p>
+                        A sequence \(\{a_n\}\) converges to limit \(L\) if for every target precision \(\epsilon > 0\),
+                        there is a cutoff point \(N\) such that all future terms are within \(\epsilon\) of \(L\).
+                        \[ \lim_{n \to \infty} a_n = L \]
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Start[Start Sequence] --> Terms[a1, a2, a3...]
+                        Terms --> Check{Does it settle?}
+                        Check -->|Yes| Converge[Convergent (Limit L)]
+                        Check -->|No| Diverge[Divergent (Infinity or Oscillate)]
+
+                        style Converge fill:#48bb78,stroke:#2f855a
+                        style Diverge fill:#f56565,stroke:#c53030
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Optimization & Time Series</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Training Dynamics</h3>
+                    <p>
+                        In Deep Learning, the <strong>Weights</strong> of a neural network over time are a sequence: \(W_0, W_1, W_2,
+                        \dots\).
+                        We want this sequence to converge to an optimal set of weights \(W^*\).
+                    </p>
+                    <p>
+                        Similarly, in <strong>Recurrent Neural Networks (RNNs)</strong>, we process sequences of data (like words in
+                        a sentence or stock prices).
+                        If the gradients in an RNN sequence explode (diverge) or vanish (converge to 0 too fast),
+                        learning fails. This is known as the <strong>Exploding/Vanishing Gradient Problem</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Simulating Convergence</h2>
+                <div class="code-header">check_convergence.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Sequence: a_n = (n + 1) / n
+# As n -> inf, 1 + 1/n -> 1
+
+def sequence_term(n):
+    return (n + 1) / n
+
+n_values = [1, 10, 100, 1000, 10000]
+terms = [sequence_term(n) for n in n_values]
+
+print(f"{'n':<10} | {'a_n':<10}")
+print("-" * 25)
+for n, val in zip(n_values, terms):
+    print(f"{n:<10} | {val:<10.6f}")
+
+# Output shows values approaching 1.000000</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="../index.html" class="footer-link">← Syllabus</a>
+                        <span class="separator">|</span>
+                        <a href="12_02_sequence_limits.html" class="footer-link">Next: Limits →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

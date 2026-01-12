@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.11 Moving Averages & Smoothing - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.13 Time Series Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_10_differencing_transformations.html" class="nav-link">10.
+                                Differencing Transformations</a></li>
+                        <li class="nav-item"><a href="28_11_moving_averages_smoothing.html" class="nav-link active">11.
+                                Moving Averages Smoothing</a></li>
+                        <li class="nav-item"><a href="28_12_acf_pacf_autocorrelation.html" class="nav-link">12. ACF PACF
+                                Autocorrelation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Smoothing</span>
+                </div>
+                <h1>Moving Averages & Smoothing</h1>
+                <p class="lead-text">Polishing the past. How to remove "Jitter" from your data to see the underlying
+                    truth.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Low-Pass Filter</h3>
+                    <p>
+                        In engineering, we use capacitors to smooth electrical signals. In statistics, we use
+                        <strong>Averages</strong>.
+                        <br><br>
+                        A smoothing function acts as a "Low-Pass Filter"—it lets the slow, meaningful trends pass
+                        through while blocking the high-frequency random noise.
+                    </p>
+                </div>
+
+                <h2>1. Simple vs. Exponential</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Simple Moving Average (SMA)</h4>
+                        <div class="math-box">$$ \text{SMA}_t = \frac{1}{k} \sum_{i=0}^{k-1} Y_{t-i} $$</div>
+                        <p>Every data point in the window has equal weight. <br> <strong>Pros:</strong> Easy to explain. <br>
+                            <strong>Cons:</strong> It "lags" significantly and reacts slowly to new trends.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Exponential Moving Average (EMA)</h4>
+                        <div class="math-box">$$ S_t = \alpha Y_t + (1-\alpha) S_{t-1} $$</div>
+                        <p>Recent data is weighted more heavily than old data. <br> <strong>Pros:</strong> Much more responsive to
+                            sudden price changes. <br> <strong>Cons:</strong> Very sensitive to outliers.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Complex Smoothing (Holt-Winters)</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Double Exponential (Holt)</h4>
+                        <p>Adds a separate smoothing factor for <strong>Trend</strong>. It can predict data that is consistently
+                            rising or falling.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Triple Exponential (Holt-Winters)</h4>
+                        <p>Adds a third factor for <strong>Seasonality</strong>. The "Gold Standard" for non-ML forecasting of retail
+                            sales or weather.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Signal Denoising</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Computer Vision</span>
+                    <span class="ml-badge">Optimizer</span>
+                    <h3>Why "Smoothing" is everywhere in AI</h3>
+                    <p>
+                        We use the math of EMA/SMA even when we aren't doing Time Series work:
+                    </p>
+                    <ul>
+                        <li><strong>Gradient Descent with Momentum:</strong> Optimizers like <strong>SGD with Momentum</strong> or <strong>Adam</strong> use
+                            EMA to smooth out the updates. This prevents the training from "bouncing" around and helps
+                            it roll smoothly down the loss curve.</li>
+                        <li><strong>Batch Normalization:</strong> During inference, Batch Norm uses a <strong>Moving Average</strong> of the
+                            training mean/variance to normalize the inputs.</li>
+                        <li><strong>Image Kernels:</strong> A "Gaussian Blur" in Computer Vision is essentially a 2D weighted moving
+                            average. It smooths out pixel noise so the model can see larger shapes and edges.</li>
+                        <li><strong>Feature Engineering:</strong> When predicting user churn, we often create features like
+                            `avg_login_time_last_7_days`. This is an SMA that reduces the noise of a single bad day.
+                        </li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Warning:</strong> Smoothing introduces <strong>Look-ahead Bias</strong> if not handled carefully.
+                        Ensure your window only looks at the *past* (\(t, t-1...\)) and never the *future* when
+                        calculating features for training.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

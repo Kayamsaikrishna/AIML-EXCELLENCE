@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.11 Jacobian Matrix - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_10_multi_implicit_diff.html" class="nav-link">10. Implicit
+                                Diff</a></li>
+                        <li class="nav-item"><a href="13_11_jacobian_matrix.html" class="nav-link active">11. Jacobian
+                                Matrix</a></li>
+                        <li class="nav-item"><a href="13_12_total_derivative.html" class="nav-link">12. Total
+                                Derivative</a></li>
+                        <li class="nav-item"><a href="13_13_double_integrals_rect.html" class="nav-link">13. Double
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_14_double_integrals_general.html" class="nav-link">14. Iterated
+                                Integrals</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Linearization</span>
+                </div>
+                <h1>The Jacobian Matrix</h1>
+                <p class="lead-text">How to stretch space locally.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Derivative" of a Vector Field</h3>
+                    <p>
+                        A single derivative \( f'(x) \) works for \( f: \mathbb{R} \to \mathbb{R} \).
+                        The Gradient \( \nabla f \) works for \( f: \mathbb{R}^n \to \mathbb{R} \).
+                        What if we have multiple inputs mapping to multiple outputs? \( f: \mathbb{R}^n \to \mathbb{R}^m
+                        \) (e.g., Robot arm velocity).
+                    </p>
+                    <p>
+                        The derivative is a <strong>Matrix</strong> of all possible partials, called the <strong>Jacobian</strong>:
+                        \[ \mathbf{J} = \begin{bmatrix}
+                        \frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\
+                        \vdots & \ddots & \vdots \\
+                        \frac{\partial f_m}{\partial x_1} & \cdots & \frac{\partial f_m}{\partial x_n}
+                        \end{bmatrix} \]
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Generative Flows</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Normalizing Flows</h3>
+                    <p>
+                        In <strong>Generative Modeling</strong>, we often want to map a simple distribution (Gaussian noise) to a
+                        complex one (Images of faces).
+                        If we transform a probability distribution using a function \( f \), the density changes. To
+                        compute the new probability, we <strong>Must</strong> divide by the absolute value of the **Determinant of
+                        the Jacobian** (\( |\det(J)| \)).
+                    </p>
+                    <p>
+                        This determinant tells us how much the function "stretches" or "squishes" space at that point.
+                        If the Jacobian determinant is 2, the function expands volume by 2x, so the probability density
+                        must drop by half to integrate to 1.
+                        <strong>Normalizing Flows</strong> (like Glow or RealNVP) are architected specifically so that this Jacobian
+                        determinant is easy to compute.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Z[Simple Noise z] -->|Transform f(z)| X[Complex Data x]
+                        Z -->|Jacobian Det| LogDet[Change of Volume]
+                        LogDet --> Prob[Exact Likelihood P(x)]
+
+                        style LogDet fill:#b794f4,stroke:#553c9a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Jacobian</h2>
+                <div class="code-header">jacobian_calc.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+# Define variables for Polar Coordinates
+r, theta = sp.symbols('r theta')
+
+# Transformation: x = r cos(theta), y = r sin(theta)
+x = r * sp.cos(theta)
+y = r * sp.sin(theta)
+
+# Define vector function F = [x, y]
+F = sp.Matrix([x, y])
+vars = sp.Matrix([r, theta])
+
+# Compute Jacobian Matrix
+J = F.jacobian(vars)
+
+print("Jacobian Matrix:")
+sp.pprint(J)
+
+# Compute Determinant
+det_J = sp.simplify(J.det())
+print(f"\nDeterminant: {det_J}")
+# Expected: r (Since dx dy = r dr dtheta)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_10_multi_implicit_diff.html" class="footer-link">← Prev: Implicit Diff</a>
+                        <span class="separator">|</span>
+                        <a href="13_12_total_derivative.html" class="footer-link">Next: Total Derivative →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

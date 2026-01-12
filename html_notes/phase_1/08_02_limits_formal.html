@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08.02 The Epsilon-Delta Definition - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.1 Limits & Continuity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="08_01_limits_intuition.html" class="nav-link">01. Limits
+                                Intuition</a></li>
+                        <li class="nav-item"><a href="08_02_limits_formal.html" class="nav-link active">02. Formal
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_03_limits_onesided.html" class="nav-link">03. One-Sided
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_04_limits_at_infinity.html" class="nav-link">04. Limits at
+                                Infinity</a></li>
+                        <li class="nav-item"><a href="08_05_limits_infinite.html" class="nav-link">05. Infinite
+                                Limits</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Rigor</span>
+                </div>
+                <h1>The Formal Definition (ε-δ)</h1>
+                <p class="lead-text">Moving from "hand-wavy" intuition to the rock-solid logical foundation of Calculus
+                    via the Epsilon-Delta definition.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Rigorous Bounds in ML</h3>
+                    <p>
+                        In Machine Learning Theory, we often need guarantees. For example, <strong>PAC Learning
+                            (Probably Approximately Correct)</strong> uses logic remarkably similar to epsilon-delta:
+                        <em>"With probability \(1-\delta\), the error is less than \(\epsilon\)."</em> Mastering this
+                        logic is the first step toward understanding theoretical guarantees in AI.
+                    </p>
+                </div>
+
+                <h2>1. The Definition</h2>
+                <div class="math-block">
+                    \[ \lim_{x \to a} f(x) = L \]
+                </div>
+                <p>
+                    Means that for every \(\epsilon > 0\) (no matter how small), there exists a \(\delta > 0\) such
+                    that:
+                </p>
+                <div class="math-block">
+                    \[ 0 < |x - a| < \delta \implies |f(x) - L| < \epsilon \] </div>
+
+                        <h3 class="section-title">Decoding the Inequalities</h3>
+                        <p>Recall that \(|A - B|\) represents the <strong>distance</strong> between A and B.</p>
+                        <ul class="feature-list">
+                            <li><strong>\(|f(x) - L| < \epsilon\)</strong>: The output \(f(x)\) is within distance
+                                        \(\epsilon\) of the target \(L\). This is the "Challenge".</li>
+                            <li><strong>\(|x - a| < \delta\)</strong>: The input \(x\) is within distance \(\delta\) of
+                                        the point \(a\). This is the "Response".</li>
+                            <li><strong>\(0 < |x - a|\)</strong>: We specifically ignore the point \(x = a\) itself
+                                        (where the "hole" might be).</li>
+                        </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Visualizing "The Game"</h2>
+                <p>Limit proofs can be thought of as a game between a Skeptic (Challenger) and You (Prover).</p>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        sequenceDiagram
+                        participant Skeptic as 🛑 The Skeptic
+                        participant You as ✅ The Prover
+                        Skeptic->>You: "I bet you can't stay within 0.01 error!" (ε = 0.01)
+                        You->>You: Calculates required narrowness...
+                        You->>Skeptic: "If x is within 0.005 of a..." (δ = 0.005)
+                        Skeptic->>You: "Okay, what about 0.0001 error?" (ε = 0.0001)
+                        You->>You: Re-calculates...
+                        You->>Skeptic: "If x is within 0.00005 of a..." (δ = 0.00005)
+                        Note over Skeptic,You: If YOU can always find a δ for ANY ε, the Limit exists.
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. A Concrete Proof Example</h2>
+                <div class="glass-card">
+                    <h3>Prove that \(\lim_{x \to 3} (2x - 1) = 5\)</h3>
+                    <p><strong>Step 1: Scratch Work (Finding the relationship)</strong><br>
+                        We want \(|(2x - 1) - 5| < \epsilon\).<br>
+                            Simplify: \(|2x - 6| < \epsilon\)<br>
+                                Factor out 2: \(2|x - 3| < \epsilon\)<br>
+                                    Divide by 2: \(|x - 3| < \epsilon/2\)<br>
+                                        This looks exactly like \(|x - a| < \delta\) if we choose
+                                            \(\delta=\epsilon/2\).</p>
+
+                                            <p><strong>Step 2: Formal Proof</strong><br>
+                                                Given any \(\epsilon > 0\), choose \(\delta = \epsilon/2\).<br>
+                                                Assume \(0 < |x - 3| < \delta\).<br>
+                                                    Substitute \(\delta\): \(\implies |x - 3| < \epsilon/2\)<br>
+                                                        Multiply by 2: \(\implies 2|x - 3| < \epsilon\)<br>
+                                                            Bring 2 inside: \(\implies |2x - 6| < \epsilon\)<br>
+                                                                Rewrite inside: \(\implies |(2x - 1) - 5| <
+                                                                    \epsilon\)<br>
+                                                                    Therefore, \(|f(x) - L| < \epsilon\). Q.E.D.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Python: Verifying the Delta</h2>
+                <div class="code-header">epsilon_delta_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">def linear_proof_check(epsilon):
+    # For f(x) = 2x - 1, limit at 3 is 5
+    # Our proof said delta = epsilon / 2
+    delta = epsilon / 2
+    return delta
+
+# Let's play the game
+epsilons = [1.0, 0.1, 0.01, 0.00001, 1e-9]
+
+print(f"{'Appointed Epsilon':<20} | {'Required Delta':<20} | {'Test Result'}")
+print("-" * 65)
+
+for eps in epsilons:
+    delta = linear_proof_check(eps)
+    
+    # VERIFICATION: Pick the 'worst case' x at the very edge of delta
+    # If proof is correct, error must be EXACTLY epsilon (or less)
+    
+    # Test point slightly inside the boundary (99.9% of delta)
+    x_test = 3 + (delta * 0.999) 
+    f_x = 2 * x_test - 1
+    
+    actual_error = abs(f_x - 5)
+    
+    status = "PASS" if actual_error < eps else "FAIL"
+    print(f"{eps:<20} | {delta:<20} | Error: {actual_error:.10f} ({status})")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="08_01_limits_intuition.html" class="footer-link">← Prev: Intuition</a>
+                        <span class="separator">|</span>
+                        <a href="08_03_limits_onesided.html" class="footer-link">Next: One-Sided Limits →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

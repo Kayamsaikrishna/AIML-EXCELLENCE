@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.16 RV Transformations - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.2 Random Variables</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="18_13_skewness_kurtosis.html" class="nav-link">13. Skewness &
+                                Kurtosis</a></li>
+                        <li class="nav-item"><a href="18_14_median_mode.html" class="nav-link">14. Median & Mode</a>
+                        </li>
+                        <li class="nav-item"><a href="18_15_quantiles_percentiles.html" class="nav-link">15.
+                                Quantiles</a></li>
+                        <li class="nav-item"><a href="18_16_rv_transformations.html" class="nav-link active">16. RV
+                                Transformations</a></li>
+                        <li class="nav-item"><a href="18_17_rv_functions.html" class="nav-link">17. RV Functions</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Shapeshifters</span>
+                </div>
+                <h1>RV Transformations (The Change of Variable)</h1>
+                <p class="lead-text">Morphing distributions: scalar scaling to normalizing flows.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Core Intuition</h3>
+                    <p>
+                        In Machine Learning, we rarely stare at raw data. We assume the data \(X\) is a transformation
+                        of some simpler latent variable \(Z\) (Generative Models), or we transform \(X\) into a more
+                        useful shape \(Y\) (Feature Engineering, Batch Norm).
+                        <br><br>
+                        When you transform a Random Variable \(X\) into \(Y = g(X)\), the probability mass/density
+                        doesn't just "move"—it <strong>stretches</strong> or <strong>squishes</strong>. This distortion
+                        must be accounted for to preserve the total probability of 1.
+                    </p>
+                </div>
+
+                <h2>1. Discrete vs. Continuous Transformation</h2>
+
+                <div class="two-col-grid">
+                    <div class="concept-card">
+                        <h3>Discrete Case: Just Map It</h3>
+                        <p>For discrete RVs, probability mass stays attached to the value.</p>
+                        <p>$$Y = g(X)$$</p>
+                        <p>$$P(Y=y) = \sum_{x: g(x)=y} P(X=x)$$</p>
+                        <p class="text-sm">If multiple \(x\)'s map to the same \(y\), you sum their probabilities. No
+                            scaling factor needed.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>Continuous Case: The Jacobian</h3>
+                        <p>For continuous RVs, we transform <strong>density</strong>.</p>
+                        <p>$$f_Y(y) = f_X(x) \left| \frac{dx}{dy} \right|$$</p>
+                        <p class="text-sm">The term \(|\frac{dx}{dy}|\) (or \(|\frac{dg^{-1}(y)}{dy}|\)) measures how
+                            much the space was stretched. If we stretch space by 2, density drops by half.</p>
+                    </div>
+                </div>
+
+                <h3>Why the Absolute Value?</h3>
+                <p>
+                    Probabilities must be positive. Whether \(g(x)\) is increasing or decreasing, an interval \(dx\)
+                    maps to \(dy\). We care about the <em>magnitude</em> of the volume change, not the direction, to
+                    keep probability mass positive.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Formula (Monotonic Function)</h2>
+                <div class="math-box">
+                    Let \(X\) be a continuous RV with PDF \(f_X(x)\). Let \(Y = g(X)\) be a differentiable, monotonic
+                    function. Then the PDF of \(Y\) is:
+                    $$f_Y(y) = f_X(g^{-1}(y)) \left| \frac{d}{dy} g^{-1}(y) \right|$$
+                    Where \(x = g^{-1}(y)\).
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Example: Linear Scaling (Batch Norm Principles)</h2>
+                <p>Let \(X \sim \mathcal{N}(\mu, \sigma^2)\). Let \(Y = aX + b\) (Standardizing or Scaling).</p>
+                <p>Here, \(g(x) = ax+b\), so \(x = \frac{y-b}{a}\). The derivative \(\frac{dx}{dy} = \frac{1}{a}\).</p>
+
+                <p>PDF of Y:</p>
+                $$f_Y(y) = f_X\left(\frac{y-b}{a}\right) \left| \frac{1}{a} \right|$$
+
+                <p>This explains why dividing data by \(\sigma\) divides the standard deviation (width) but multiplies
+                    the peak height by \(\sigma\), keeping area = 1.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. ML Connection: Normalizing Flows and VAEs</h2>
+
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Generative Models</span>
+                    <h3>Normalizing Flows</h3>
+                    <p>
+                        Normalizing Flows are generative models that construct complex distributions by transforming a
+                        simple one (like a Gaussian) through a sequence of invertible functions.
+                    </p>
+                    <p>
+                        To train them, we need to compute the likelihood of data. This requires calculating the change
+                        of variables formula (Determinant of the Jacobian) efficiently. All flow architectures (RealNVP,
+                        Glow) are designed specifically so that this determinant is easy to compute.
+                    </p>
+                    $$ \log p_X(x) = \log p_Z(z) - \log \left| \det \frac{\partial f}{\partial z} \right| $$
+                </div>
+
+                <div class="code-playground">
+                    <div class="code-header">Python: Visualizing Transformation</div>
+                    <pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Original Distribution: Uniform [0, 1]
+x = np.random.uniform(0, 1, 10000)
+
+# Transformation: Y = -ln(X) (Inverse Transform Sampling for Exponential)
+# If X ~ Uniform(0,1), then -ln(X) ~ Exponential(1)
+y = -np.log(x)
+
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+sns.histplot(x, bins=50, kde=True, color='skyblue')
+plt.title("X ~ Uniform(0, 1)")
+
+plt.subplot(1, 2, 2)
+sns.histplot(y, bins=50, kde=True, color='salmon')
+plt.title("Y = -ln(X) ~ Exponential(1)")
+plt.show()
+
+# Observe: The uniform block is 'stretched' into an asymptotic tail.
+                    </code></pre>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>5. The Log-Normal Transformation</h2>
+                <p>
+                    If \(X \sim \mathcal{N}(\mu, \sigma^2)\), then \(Y = e^X\) follows a <strong>Log-Normal</strong> distribution.
+                </p>
+                <p>
+                    <strong>Why it matters:</strong> Many natural phenomena (stock prices, weights, incomes) are
+                    product-based rather than sum-based. The Central Limit Theorem for multiplication says products of
+                    random variables converge to Log-Normal.
+                </p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Normal Distribution] -->|Exp(x)| B[Log-Normal Distribution]
+                        B -->|Ln(x)| A
+                        A -->|Add Noise| C[Still Normal]
+                        B -->|Multiply Noise| D[Still Log-Normal]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

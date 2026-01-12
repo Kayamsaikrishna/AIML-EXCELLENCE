@@ -4,94 +4,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orthogonality - Phase 1.2.12</title>
+    <title>02.12 Orthogonality - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_11_projections.html">11. Projections</a></li>
-            <li><a href="02_12_orthogonality.html" class="active">12. Orthogonality</a></li>
-            <li><a href="02_13_vector_spaces.html">13. Vector Spaces</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_11_projections.html" class="nav-link">11. Projections (Matrix)</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">12. Orthogonality</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Orthogonality
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 12. Orthogonality & Orthonormality
         </div>
 
-        <header>
-            <h1>12. Orthogonal & Orthonormal Vectors</h1>
-            <p class="subtitle">The ideal state for feature independence.</p>
+        <header class="page-header">
+            <div class="badge">Module 12</div>
+            <h1>The Perfect Basis</h1>
+            <p class="lead-text"> \( Q^T Q = I \). Why coordinate systems that meet at 90 degrees are the Holy Grail of
+                numerical stability.</p>
         </header>
 
-        <section>
-            <h2>1. Formal Definitions</h2>
-            <div class="module-card">
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Orthogonal:</strong> Two vectors are orthogonal if their dot product
-                        is zero (\( \mathbf{u} \cdot \mathbf{v} = 0 \)). They are "perpendicular".</li>
-                    <li class="topic-item"><strong>Orthonormal:</strong> Vectors are orthonormal if they are orthogonal
-                        AND each has a unit magnitude (\( \|\mathbf{v}\| = 1 \)).</li>
-                </ul>
-            </div>
+        <!-- VISUAL DIAGRAM: ORTHOGONALITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Independence vs Orthogonality</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    subgraph Vectors
+        Indep["Independent (Different Directions)"]
+        Ortho["Orthogonal (90 Degrees)"]
+        Normal["Orthonormal (90 deg + Unit Length)"]
+    end
+    
+    subgraph Properties
+        Stable["Numerically Stable"]
+        EasyInv["Inverse = Transpose"]
+        Decorrelated["Features are Uncorrelated"]
+    end
+    
+    subgraph AI [Algorithms]
+        PCA["PCA Bases"]
+        QR["QR Decomposition"]
+        Rot["Rotation Matrices"]
+    end
 
-            <div class="math-block">
-                $$ \mathbf{u} \cdot \mathbf{v} = 0, \quad \|\mathbf{u}\| = 1, \quad \|\mathbf{v}\| = 1 $$
+    Indep --> Ortho
+    Ortho --> Normal
+    
+    Normal --> Stable
+    Normal --> EasyInv
+    Ortho --> Decorrelated
+    
+    EasyInv --> Rot
+    Stable --> QR
+    Decorrelated --> PCA
+
+    style Normal fill:#dbeafe,stroke:#2563eb
+    style EasyInv fill:#dcfce7,stroke:#16a34a
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: Q MATRICES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Orthonormal Matrices (Q)</h2>
+                <p>A set of vectors is <strong>Orthonormal</strong> if:</p>
+                <ol>
+                    <li>They are all mutually orthogonal (Dot product = 0).</li>
+                    <li>They are all unit length (Norm = 1).</li>
+                </ol>
+                <p>If we stack them into a matrix \( Q \), explicitly:</p>
+                <div class="math-block">
+                    $$ Q^T Q = I \implies Q^{-1} = Q^T $$
+                </div>
+                <p>This property makes inverting matrices free (computationally), which is why we love QR Decomposition.
+                </p>
             </div>
         </section>
 
-        <section>
-            <h2>2. Importance in AI Training</h2>
-            <div class="module-card">
-                <h3>Orthogonal Weight Initialization</h3>
-                <p>When training deep Neural Networks, if weights are too similar (highly correlated), gradients can
-                    vanish or explode. <strong>Orthogonal Initialization</strong> ensures that each neuron starts by
-                    looking for independent features.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Vanishing Gradients:</strong> Orthogonal matrices preserve the
-                        magnitude of gradients during backpropagation.</li>
-                    <li class="topic-item"><strong>Redundancy:</strong> Orthonormal bases ensure that the data is
-                        represented with zero redundancy, making the model more "efficient".</li>
-                </ul>
+        <!-- 2. AI APPLICATION: DISENTANGLEMENT -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Feature Disentanglement</h2>
+                <p>Ideally, we want our neural network features to be orthogonal. This means changing one feature (e.g.,
+                    "Hair Color") does not affect another (e.g., "Age").</p>
+                <p>If features are correlated (angle < 90), the gradient descent path is zig-zaggy and slow. If they are
+                        orthogonal, the cost function becomes a perfect bowl (Condition Number=1), and convergence is
+                        instant.</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Checking Orthogonality</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Checking Orthonormality</h2>
+                <p>Verifying the Identity property.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
-# A standard basis is orthonormal
-e1 = np.array([1, 0, 0])
-e2 = np.array([0, 1, 0])
+# A Rotation Matrix (Always Orthonormal)
+theta = np.radians(45)
+c, s = np.cos(theta), np.sin(theta)
 
-# Orthogonal Check
-is_orthogonal = np.dot(e1, e2) == 0
+Q = np.array([
+    [c, -s],
+    [s,  c]
+])
 
-# Orthonormal Check
-is_orthonormal = is_orthogonal and np.linalg.norm(e1) == 1 and np.linalg.norm(e2) == 1
+print("Matrix Q:")
+print(Q)
 
-print(f"Orthonormal: {is_orthonormal}")</code></pre>
+# Check Q^T @ Q
+QtQ = np.dot(Q.T, Q)
+
+print("\nQ^T . Q (Should be Identity):")
+with np.printoptions(suppress=True):
+    print(QtQ)
+
+# Check Inverse cost
+inv_Q = np.linalg.inv(Q)
+print("\nInverse (Same as Transpose?):")
+print(np.allclose(inv_Q, Q.T)) # True
+</code></pre>
+                </div>
             </div>
         </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

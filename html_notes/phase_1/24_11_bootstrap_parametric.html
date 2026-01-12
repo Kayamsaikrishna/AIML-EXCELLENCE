@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.11 Parametric Bootstrap - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_10_bootstrap_non_parametric.html" class="nav-link">10.
+                                Bootstrap Non-Param</a></li>
+                        <li class="nav-item"><a href="24_11_bootstrap_parametric.html" class="nav-link active">11.
+                                Bootstrap Parametric</a></li>
+                        <li class="nav-item"><a href="24_12_bootstrap_confidence_intervals.html" class="nav-link">12.
+                                Bootstrap CI</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Model-Based</span>
+                </div>
+                <h1>Parametric Bootstrap</h1>
+                <p class="lead-text">Generating "alternate realities" based on a model you've already found.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Middle Ground</h3>
+                    <p>
+                        In the Non-parametric Bootstrap, we sample from the <strong>Data</strong>.
+                        <br>
+                        In the Parametric Bootstrap, we first fit a <strong>Model</strong> (e.g., a Normal distribution) to the data,
+                        and then we sample new synthetic data points from that model.
+                    </p>
+                </div>
+
+                <h2>1. The Process</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A["Original Data"] -->|Use MLE| B["Estimated Model (e.g., Normal Mean=5, Std=2)"]
+                        B -->|Generate Synthetic Data| C["Bootstrap Sample 1"]
+                        B -->|Generate Synthetic Data| D["Bootstrap Sample 2"]
+                        C --> E["Calculate Statistic 1"]
+                        D --> F["Calculate Statistic 2"]
+                        E & F --> G["Parametric Bootstrap Distribution"]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Why use the Parametric version?</h2>
+                <ul>
+                    <li><strong>Efficiency:</strong> If the model's assumptions (like normality) are actually true, the parametric
+                        bootstrap is more precise than the non-parametric one.</li>
+                    <li><strong>Small Samples:</strong> It can perform better when you have very little data (where resampling the
+                        data itself doesn't provide enough variation).</li>
+                    <li><strong>Extrapolation:</strong> It allows you to generate values that weren't in your original dataset, but
+                        are possible according to the model.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Generative AI and Simulation</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Generative AI</span>
+                    <h3>Synthetic Data for Uncertainty</h3>
+                    <p>
+                        In high-stakes ML (like autonomous driving), we often use <strong>Simulators</strong>. A
+                        simulator is effectively a massive "Parametric Model" of the real world.
+                    </p>
+                    <p>
+                        Engineers use the simulator to generate thousands of "Bootstrap" scenarios (rainy night, busy
+                        intersection, etc.). By seeing how the model behaves in these synthetic environments, they can
+                        estimate the confidence and safety of the system in the real world. This is the **Parametric
+                        Bootstrap** at an industrial scale!
+                    </p>
+                </div>
+
+                <h3>Model Sensitivity</h3>
+                <p>
+                    You can also use this to test how sensitive a model is to noise. Add Gaussian noise to your dataset
+                    (\(\epsilon \sim N(0, \sigma^2)\)), train the model 100 times, and look at the distribution of the
+                    weights. This is a parametric bootstrap of the learning process itself.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

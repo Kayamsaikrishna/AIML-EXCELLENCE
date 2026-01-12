@@ -4,104 +4,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Law of Sines & Cosines - Phase 1.1.38</title>
+    <title>01.38 Law Sines/Cosines - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.2 Trigonometry</li>
-            <li><a href="01_28_angle_measurement.html">28. Angle Measurement</a></li>
-            <li><a href="01_29_trig_functions.html">29. Trig Functions</a></li>
-            <li><a href="01_30_right_triangle_trig.html">30. Right Triangle Trig</a></li>
-            <li><a href="01_31_unit_circle.html">31. Unit Circle</a></li>
-            <li><a href="01_32_trig_identities.html">32. Trig Identities</a></li>
-            <li><a href="01_33_sum_diff_formulas.html">33. Sum & Diff Formulas</a></li>
-            <li><a href="01_34_double_half_angle.html">34. Double & Half Angle</a></li>
-            <li><a href="01_35_product_sum_formulas.html">35. Product-Sum Formulas</a></li>
-            <li><a href="01_36_trig_equations.html">36. Trig Equations</a></li>
-            <li><a href="01_37_inverse_trig.html">37. Inverse Trig Functions</a></li>
-            <li><a href="01_38_law_sines_cosines.html" class="active">38. Law of Sines & Cosines</a></li>
-            <li><a href="01_39_trig_applications.html">39. Trig Applications</a></li>
-            <li><a href="01_40_polar_coordinates.html">40. Polar Coordinates</a></li>
-            <li><a href="01_41_complex_trig.html">41. Complex Numbers (Trig)</a></li>
-            <li><a href="01_42_de_moivre.html">42. De Moivre's Theorem</a></li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Law of Sines/Cosines
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>38. Law of Sines & Law of Cosines</h1>
-            <p class="subtitle">Solving the Oblique (Non-Right) Triangle.</p>
-        </header>
-
-        <section>
-            <h2>1. The Formulas</h2>
-            <div class="math-block">
-                $$ \frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C} \quad \text{(Law of Sines)} $$
-                $$ c^2 = a^2 + b^2 - 2ab \cos C \quad \text{(Law of Cosines)} $$
-            </div>
-            <p><strong>Note:</strong> Law of Cosines is the general version of Pythagoras. If \(C = 90^\circ\), then
-                \(\cos
-                90^\circ = 0\), and we get \(c^2 = a^2 + b^2\).</p>
-        </section>
-
-        <section>
-            <h2>2. SLAM & Spatial AI</h2>
-            <div class="module-card">
-                <h3>Triangulation in the Wild</h3>
-                <p>In **Robotic Navigation (SLAM)**, a robot sees a landmark from two different positions. Knowing the
-                    distance it traveled (base are) and the angles it measured, it uses the **Law of Sines** to
-                    triangulate the exact GPS coordinate of that landmark.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Satellite Geolocation:</strong> Calculating the distance to an object
-                        using signal delay from three satellites is a 3D extension of the Law of Cosines.</li>
-                    <li class="topic-item"><strong>Mesh Generation:</strong> In 3D graphics AI, we simplify complex
-                        shapes into triangles. These laws ensure the mesh is geometrically consistent.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_37_inverse_trig.html" class="nav-link">37. Inverse Trig</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">38. General Triangles</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Landmarked Triangulation</h2>
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Trig &gt; 38. Law of Sines & Cosines
+        </div>
 
-# A triangle with sides a=5, b=7 and included angle C=60°
-a = 5
-b = 7
-angle_C_deg = 60
-angle_C_rad = np.deg2rad(angle_C_deg)
+        <header class="page-header">
+            <div class="badge">Module 38</div>
+            <h1>The General Metric</h1>
+            <p class="lead-text">Beyond 90 degrees. Calculating distance and similarity in non-orthogonal (skewed)
+                vector spaces.</p>
+        </header>
 
-# Law of Cosines to find side c
-c_sq = a**2 + b**2 - 2*a*b*np.cos(angle_C_rad)
-c = np.sqrt(c_sq)
+        <!-- VISUAL DIAGRAM: GENERAL TRIANGLE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Generalized Distance</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    subgraph Theorem
+        Pythag["c² = a² + b² (Right Angle Only)"]
+        LawCos["c² = a² + b² - 2ab cos(C) (Any Angle)"]
+    end
+    
+    subgraph AI [Applications]
+        Euclid["Euclidean Distance"]
+        Correction["Correction Term (-2ab cos C)"]
+        Manifold["Curved Space"]
+    end
+    
+    Pythag -->|Special Case of| LawCos
+    LawCos --> Correction
+    Correction -->|Adjusts for| Manifold
 
-print(f"Third side length c: {c:.2f}") 
-# Output: 6.24</code></pre>
+    style LawCos fill:#dcfce7,stroke:#16a34a
+    style Correction fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. THE LAW OF COSINES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Generalized Pythagoras</h2>
+                <p>For ANY triangle, not just right triangles:</p>
+                <div class="math-block">
+                    $$ c^2 = a^2 + b^2 - 2ab \cos(C) $$
+                </div>
+                <p><strong>Insight:</strong> If \( C = 90^\circ \), then \( \cos(90) = 0 \), and we get back \( c^2 =
+                    a^2 + b^2 \).</p>
+                <p>The term \( -2ab \cos(C) \) is the "Correction factor" for how much the angle deviates from
+                    orthogonality.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: METRIC SPACES -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f43f5e;">
+                <h2>2. Triangle Inequality</h2>
+                <p>For any distance metric \( d(x, y) \), the Law of Cosines implies the <strong>Triangle
+                        Inequality</strong>:</p>
+                <div class="math-block">
+                    $$ d(A, C) \le d(A, B) + d(B, C) $$
+                </div>
+                <p>This is crucial for <strong>Metric Learning</strong> (Siamese Networks). If the distance doesn't obey
+                    this rule (e.g., KL Divergence), the space is not a "Metric Space", and many algorithms (like
+                    K-Means or Nearest Neighbors) break down.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Calculating Distance</h2>
+                <p>Computing the side of a generalized triangle.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Two vectors (Sides a and b)
+a = 5.0
+b = 8.0
+angle_deg = 60.0 # Angle C
+angle_rad = np.radians(angle_deg)
+
+# Law of Cosines to find side c
+c_squared = a**2 + b**2 - 2*a*b*np.cos(angle_rad)
+c = np.sqrt(c_squared)
+
+print(f"Side c: {c:.4f}") 
+# 5^2 + 8^2 - 2(5)(8)(0.5) = 25 + 64 - 40 = 49. sqrt(49) = 7.
+# Yes, a 5-8-7 triangle works with 60 degrees!
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

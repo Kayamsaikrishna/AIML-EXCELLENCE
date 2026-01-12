@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications in Cryptography - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Aurora Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Module Navigation</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#" class="nav-link active">Current Topic</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="index.html">Syllabus</a> &gt; 1.6.6 Number Theory &gt; Applications in Cryptography
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 42</div>
+            <h1>Applications in Cryptography</h1>
+            <p class="lead-text">Detailed exploration of Applications in Cryptography in the context of Artificial
+                Intelligence and Machine Learning.</p>
+        </header>
+
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>Concept Overview</h2>
+                <p>Number theory forms the backbone of modern cryptography. Algorithms like <strong>RSA
+                        (Rivest-Shamir-Adleman)</strong> and <strong>ECC (Elliptic Curve Cryptography)</strong> rely on
+                    the computational hardness of mathematical problems involving integers, such as integer
+                    factorization and the discrete logarithm problem.</p>
+
+                <h3>Key Cryptographic Primitives</h3>
+                <ul>
+                    <li><strong>RSA Encryption:</strong> Relies on the difficulty of factoring the product of two large
+                        prime numbers.
+                        <div class="math-block">
+                            $$ n = p \times q $$
+                            $$ \phi(n) = (p-1)(q-1) $$
+                            $$ d \cdot e \equiv 1 \pmod{\phi(n)} $$
+                        </div>
+                        Where \( (n, e) \) is the public key and \( d \) is the private key.
+                    </li>
+                    <li><strong>Diffie-Hellman Key Exchange:</strong> Enables secure exchange of keys over a public
+                        channel using modular exponentiation.</li>
+                    <li><strong>Elliptic Curve Cryptography (ECC):</strong> Offers equivalent security to RSA with
+                        smaller key sizes, critical for mobile and IoT devices.</li>
+                </ul>
+
+                <div class="ai-insight-box">
+                    <div class="ai-insight-title">AI Insight: Privacy-Preserving Machine Learning</div>
+                    <p>In the era of data privacy (GDPR, CCPA), number theoretic cryptography enables
+                        <strong>Privacy-Preserving AI</strong>:</p>
+                    <ul>
+                        <li><strong>Homomorphic Encryption (HE):</strong> Allows computations to be performed on
+                            encrypted data without decrypting it first. This means an AI model can make predictions on
+                            encrypted patient data without ever "seeing" the raw medical records.</li>
+                        <li><strong>Secure Multi-Party Computation (SMPC):</strong> Enables multiple parties to jointly
+                            train a model (Federated Learning) without sharing their local datasets, relying on
+                            cryptographic protocols to aggregate updates securely.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

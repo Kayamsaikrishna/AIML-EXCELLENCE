@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.18 Integral Applications - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_15_triple_integrals.html" class="nav-link">15. Triple
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_16_change_variables.html" class="nav-link">16. Change of
+                                Variables</a></li>
+                        <li class="nav-item"><a href="13_17_polar_integrals.html" class="nav-link">17. Polar
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_18_multi_integral_apps.html" class="nav-link active">18.
+                                Integral Apps</a></li>
+                        <li class="nav-item"><a href="13_19_line_integrals.html" class="nav-link">19. Line Integrals</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Moments</span>
+                </div>
+                <h1>Applications: Centroids & Probability</h1>
+                <p class="lead-text">Where is the center of the data?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Center of Mass</h3>
+                    <p>
+                        In physics, the <strong>Center of Mass</strong> \((\bar{x}, \bar{y})\) is the balance point of an object. To
+                        find it, we calculate the "Moments" (weighted torque) and divide by total mass.
+                        \[ \bar{x} = \frac{1}{M} \iint_D x \cdot \rho(x, y) \, dA \]
+                        where \( \rho \) is the density.
+                    </p>
+                    <p>
+                        In Statistics, this corresponds exactly to the <strong>Expected Value</strong> \( E[X] \) of a joint
+                        distribution.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: K-Means & Tracking</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Finding the "Middle"</h3>
+                    <p>
+                        <strong>K-Means Clustering</strong> works by iteratively re-calculating the <strong>Centroid</strong> of a cluster of
+                        points. This is effectively calculating the center of mass of a discrete cloud of points.
+                    </p>
+                    <p>
+                        In <strong>Computer Vision (Object Tracking)</strong>, once an object is segmented (binary mask), we
+                        calculate its "Image Moment" to find its center \((\bar{x}, \bar{y})\). This coordinate is fed
+                        into a Kalman Filter to predict where the object will move next.
+                        Any instability in calculating this integral leads to "jittery" tracking.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Image Moments</h2>
+                <div class="code-header">find_centroid.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from scipy import ndimage
+
+# Create a 10x10 "image" with a block of "mass"
+image = np.zeros((10, 10))
+image[2:5, 3:6] = 1 # A 3x3 square of pixels
+
+# Calculate center of mass
+# ndimage.center_of_mass uses numeric integration of array indices
+cy, cx = ndimage.center_of_mass(image)
+
+print(f"Centroid (y, x): ({cy}, {cx})")
+# Expected: Center of 2,3,4 is 3.0; Center of 3,4,5 is 4.0
+# Result: (3.0, 4.0)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_17_polar_integrals.html" class="footer-link">← Prev: Polar</a>
+                        <span class="separator">|</span>
+                        <a href="13_19_line_integrals.html" class="footer-link">Next: Line Integrals →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

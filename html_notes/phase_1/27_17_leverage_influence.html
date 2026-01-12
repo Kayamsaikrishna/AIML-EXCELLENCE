@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.17 Leverage & Influence - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_16_logistic_regression.html" class="nav-link">16. Logistic
+                                Regression</a></li>
+                        <li class="nav-item"><a href="27_17_leverage_influence.html" class="nav-link active">17.
+                                Leverage & Influence</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Outliers</span>
+                </div>
+                <h1>Leverage & Influence</h1>
+                <p class="lead-text">Identifying the "Power Players". Why one single bad data point can make your entire
+                    model lie to you.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Outlier vs The Influencer</h3>
+                    <p>
+                        - <strong>Outlier:</strong> A point with a large residual (far from the line).
+                        - <strong>Leverage:</strong> A point with an unusual X-value (far from the "mass" of the data).
+                        - <strong>Influence:</strong> A point that <strong>moves the line</strong>. Not all outliers are influential; only those
+                        with leverage usually change the weights significantly.
+                    </p>
+                </div>
+
+                <h2>1. Measuring Influence: Cook's Distance</h2>
+                <div class="math-box">
+                    $$ D_i = \frac{\sum_{j=1}^n (\hat{y}_j - \hat{y}_{j(i)})^2}{p s^2} $$
+                </div>
+                <p>
+                    <strong>Intuition:</strong> "If I delete this one point, how much do ALL my predictions change?"
+                    <br><br>
+                    If \(D_i > 1\) (or \(4/n\)), that point is a <strong>Red Flag</strong>. It's holding your model hostage.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Leverage Score (\(h_{ii}\))</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>X-Space Extremes</h4>
+                        <p>Leverage lives in the <strong>Design Matrix</strong>. It measures how far a point is from the mean of all
+                            other features. These are the diagonal elements of the <strong>Hat Matrix</strong>.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>The Rule of Thumb</h4>
+                        <p>High leverage points act like a <strong>Fulcrum</strong>. They have the power to pull the regression line
+                            towards them, even if they are wrong.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Robustness & Data Cleaning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Data Quality</span>
+                    <span class="ml-badge">Robustness</span>
+                    <h3>Protecting the Model</h3>
+                    <p>
+                        In a production pipeline with millions of rows, you can't manually look at scatter plots. You
+                        need automated influence detection.
+                    </p>
+                    <ul>
+                        <li><strong>Data Cleaning:</strong> We use influence metrics to automatically flag rows that might be sensor
+                            errors or edge cases that don't represent the general population.</li>
+                        <li><strong>Robust Regression:</strong> Algorithms like RANSAC or Theil-Sen regression are designed to ignore
+                            high-influence outliers automatically.</li>
+                        <li><strong>Deep Learning:</strong> In Neural Networks, high-influence points can cause "Gradient Explosion"
+                            or "Memory Overwriting" in certain layers. We use <strong>Gradient Clipping</strong> to counteract the
+                            physical effect of high-influence samples during training.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Philosophy:</strong> A model that is 95% accurate but breaks when a single data point
+                        changes is <strong>Dangerous</strong>. Always check your Cook's Distance before deploying to production.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.10 Multicollinearity - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_09_adj_r_squared.html" class="nav-link">09. Adj R Squared</a>
+                        </li>
+                        <li class="nav-item"><a href="27_10_multicollinearity.html" class="nav-link active">10.
+                                Multicollinearity</a></li>
+                        <li class="nav-item"><a href="27_11_polynomial_regression.html" class="nav-link">11. Polynomial
+                                Regression</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Feature Interaction</span>
+                </div>
+                <h1>Multicollinearity</h1>
+                <p class="lead-text">When your features are "talking over each other". If two inputs tell the same
+                    story, the model loses its mind.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Redundant Roommate</h3>
+                    <p>
+                        Imagine you ask two friends for the time. One says "10:00" and the other says "10:00". You have
+                        twice as much "input" but zero new "information".
+                        <br><br>
+                        In regression, this causes the <strong>Variance of Coefficients</strong> to explode. The weights (\(\beta\))
+                        become incredibly sensitive to tiny changes in data.
+                    </p>
+                </div>
+
+                <h2>1. Detection: Variance Inflation Factor (VIF)</h2>
+                <div class="math-box">
+                    $$ VIF_j = \frac{1}{1 - R^2_j} $$
+                </div>
+                <p>
+                    Where \(R^2_j\) is the R-squared obtained by regressing feature \(j\) against **all other
+                    features**.
+                </p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>VIF = 1</h4>
+                        <p>No correlation. This feature is a "Lone Wolf". Perfect.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>VIF > 5 or 10</h4>
+                        <p>High multicollinearity. This feature is redundant. It's time to delete it or merge it.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Consequences</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Wobbly Weights</h4>
+                        <p>You might see a feature that should be positive (like House Size) suddenly get a negative
+                            coefficient just because it's correlated with Number of Rooms.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Inference Failure</h4>
+                        <p>You can't trust p-values. A feature might seem "insignificant" simply because its partner is
+                            stealing the spotlight, even though the feature itself is very important.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: PCA and Regularization</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Feature Eng</span>
+                    <h3>The Engineering Fix</h3>
+                    <p>
+                        In big data pipelines, we usually solve multicollinearity via:
+                    </p>
+                    <ul>
+                        <li><strong>PCA (Principal Component Analysis):</strong> Merge correlated features into orthogonal
+                            (uncorrelated) components. This is the "Gold Standard" for high-dimensional data.</li>
+                        <li><strong>Ridge Regression (L2):</strong> Specifically designed to handle multicollinearity by shrinking
+                            weights instead of picking "winners" and "losers".</li>
+                        <li><strong>Drop high-VIF features:</strong> Simple, effective, and keeps the model interpretable.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Neural Network Tip:</strong> While collinearity confuses a linear regression, deep networks are more
+                        robust to it because they can learn non-linear combinations. However, it still slows down
+                        convergence and increases memory usage!
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

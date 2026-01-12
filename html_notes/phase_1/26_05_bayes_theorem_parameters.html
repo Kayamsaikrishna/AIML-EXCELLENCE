@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.05 Bayes Theorem for Parameters - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_04_posterior_distribution.html" class="nav-link">04. Posterior
+                                Distribution</a></li>
+                        <li class="nav-item"><a href="26_05_bayes_theorem_parameters.html" class="nav-link active">05.
+                                Bayes Theorem Parameters</a></li>
+                        <li class="nav-item"><a href="26_06_conjugate_priors_concept.html" class="nav-link">06.
+                                Conjugate Priors Concept</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Continuous Case</span>
+                </div>
+                <h1>Bayes Theorem for Parameters</h1>
+                <p class="lead-text">Moving from choosing between "Rain" or "No Rain" to choosing between infinite
+                    possible weight values.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Shift to PDF</h3>
+                    <p>
+                        In basic Bayes, we deal with events (Discrete). In ML, we deal with parameters (\(\theta\))
+                        which are usually <strong>Continuous</strong> (weights can be 0.1, 0.11, 0.111, etc.).
+                    </p>
+                </div>
+
+                <h2>1. The Continuous Formula</h2>
+                <div class="math-box">
+                    $$ f(\theta|x) = \frac{f(x|\theta) f(\theta)}{\int f(x|\theta') f(\theta') d\theta'} $$
+                </div>
+                <p>
+                    Where:
+                    - \(f(\theta|x)\) is the <strong>Posterior PDF</strong>.
+                    - \(f(\theta)\) is the <strong>Prior PDF</strong>.
+                </p>
+                <p>
+                    Instead of a single probability number, we now get a <strong>Probability Density Function</strong>. This means we
+                    have a whole range of "most likely" values for our model parameters.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Parameter Estimation</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Uncertainty</span>
+                    <h3>Why point estimates are dangerous</h3>
+                    <p>
+                        A standard Neural Network (Frequentist/MLE) gives you a single set of weights: <strong>\(w = 0.45\)</strong>.
+                    </p>
+                    <p>
+                        A <strong>Bayesian Neural Network</strong> gives you a distribution: <strong>\(w \sim \mathcal{N}(0.45, 0.01)\)</strong>.
+                    </p>
+                    <p>
+                        <strong>The Advantage:</strong> If the posterior distribution is very "wide" (high variance), it means the
+                        model is <strong>Uncertain</strong>. In medical AI, if a model says "Cancer" but has a 40% variance in its
+                        weight-belief, we shouldn't trust it! Frequentist models can be "Confidently Wrong"; Bayesian
+                        models warn you when they are guessing.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Key Takeaway</h2>
+                <p>
+                    Bayes Theorem for parameters isn't just about finding the "best" answer. It's about finding the
+                    <strong>landscape</strong> of possible answers. The peak of the landscape is the most likely value, but the width
+                    of the landscape tells us if we should bet our lives on it.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

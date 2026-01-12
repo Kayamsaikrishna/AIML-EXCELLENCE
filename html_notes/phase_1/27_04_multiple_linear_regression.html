@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.04 Multiple Linear Regression - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_03_geometric_regression.html" class="nav-link">03. Geometric
+                                Regression</a></li>
+                        <li class="nav-item"><a href="27_04_multiple_linear_regression.html" class="nav-link active">04.
+                                Multiple Linear Regression</a></li>
+                        <li class="nav-item"><a href="27_05_hat_matrix_projections.html" class="nav-link">05. Hat Matrix
+                                Projections</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Multivariate</span>
+                </div>
+                <h1>Multiple Linear Regression (MLR)</h1>
+                <p class="lead-text">Predicting Y using multiple predictors, while "holding other factors constant."</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Partial Effect</h3>
+                    <p>
+                        In SLR (\(Y = \beta_0 + \beta_1 X\)), \(\beta_1\) is the total effect.
+                        <br><br>
+                        In MLR (\(Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2\)), \(\beta_1\) is the <strong>Ceteris Paribus</strong>
+                        effect: The change in Y when \(X_1\) increases by 1, assuming \(X_2\) DOES NOT MOVE.
+                    </p>
+                </div>
+
+                <h2>1. The Matrix Form</h2>
+                <div class="math-box">
+                    $$ \mathbf{y} = \mathbf{X}\beta + \epsilon $$
+                </div>
+                <p>
+                    Where \(\mathbf{X}\) is an \(n \times (p+1)\) matrix (the first column is all ones for the
+                    intercept).
+                </p>
+                <div class="math-box">
+                    $$ \hat{\beta} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y} $$
+                </div>
+                <p>This is the famous <strong>Normal Equation</strong>. It calculates all weights simultaneously.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Feature Engineering</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">ML Engineering</span>
+                    <span class="ml-badge">Supervised</span>
+                    <h3>Why More is not always Better</h3>
+                    <p>
+                        In Multiple Regression, every feature you add takes away one <strong>Degree of Freedom</strong>.
+                    </p>
+                    <p>
+                        - <strong>Overfitting:</strong> If you have 10 data points and 10 features, you can get a "Perfect" (\(R^2 =
+                        1\)) fit that means absolutely nothing. This is why we use <strong>Regularization</strong> (Ridge/Lasso) or
+                        <strong>Akaike Information Criterion (AIC)</strong> to judge if a feature is actually worth its weight.
+                        - <strong>Syks Effect:</strong> Adding a feature that is highly correlated with an existing feature (Like
+                        having "Height in cm" and "Height in inches") makes the matrix \((\mathbf{X}^T \mathbf{X})\)
+                        non-invertible. The model breaks. This is why we check for <strong>Multicollinearity</strong>.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

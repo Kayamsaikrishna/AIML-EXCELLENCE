@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13.27 Vector Calculus Apps: PINNs - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_24_stokes_theorem.html" class="nav-link">24. Stokes'
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_32_divergence_theorem.html" class="nav-link">25. Divergence
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_33_curl_divergence.html" class="nav-link">26. Curl &
+                                Divergence</a></li>
+                        <li class="nav-item"><a href="13_34_vector_calculus_apps.html" class="nav-link active">27. PINNs
+                                & Physics AI</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">The Capstone</span>
+                </div>
+                <h1>AI for Physics: The Rise of PINNs</h1>
+                <p class="lead-text">Teaching Neural Networks to respect the Laws of Nature (Div, Grad, Curl).</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Problem with Standard AI</h3>
+                    <p>
+                        A standard Neural Network trained on data (like fluid flow sensors) might predict physically
+                        impossible results—like creating energy out of nothing or teleporting mass.
+                        To fix this, we don't just minimize the error on the <strong>labels</strong>; we minimize the
+                        violation of the <strong>physics equations</strong> themselves.
+                    </p>
+                    <p>
+                        This is the birth of <strong>Physics-Informed Neural Networks (PINNs)</strong>.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Input["Coords (x,y,t)"] -->|Forward Pass| NN["Neural Network"]
+                        NN -->|Output| Field["Vector Field E, B"]
+
+                        Field -->|Auto-Differentiation| Operators["Calc Div, Curl"]
+                        Operators -->|Compare vs 0| PhysicsLoss["Physics Loss: ||Div B||²"]
+
+                        Field -->|Compare vs Labels| DataLoss["Data Loss: MSE"]
+
+                        PhysicsLoss -->|Backprop| Update["Update Weights"]
+                        DataLoss -->|Backprop| Update
+
+                        style PhysicsLoss fill:#c05621,stroke:#ed8936
+                        style DataLoss fill:#2d3748,stroke:#4a5568
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Math: Encoding Maxwell's Equations</h2>
+                <p>
+                    Maxwell's equations (the foundation of electromagnetism) are purely Vector Calculus constraints.
+                    If we want an AI to simulate light or magnets, we must enforce these rules in the Loss Function:
+                </p>
+                <div class="math-block">
+                    \[
+                    \mathcal{L}_{total} = \mathcal{L}_{data} + \lambda_1 \underbrace{||\nabla \cdot
+                    \mathbf{B}||^2}_{\text{No Magnetic Monopoles}} + \lambda_2 \underbrace{||\nabla \times \mathbf{E} +
+                    \frac{\partial \mathbf{B}}{\partial t}||^2}_{\text{Faraday's Law}}
+                    \]
+                </div>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Vector Calculus Matters</h3>
+                    <p>
+                        Without understanding Divergence and Curl, you cannot design the loss functions needed for
+                        <strong>Scientific Machine Learning (SciML)</strong>.
+                        These derivatives are calculated using <strong>Automatic Differentiation</strong> (AutoGrad), treating the
+                        network's derivatives as the field operators.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Implementing a Physics Loss</h2>
+                <div class="code-header">pinn_loss.py (PyTorch Style)</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import torch
+
+# Assume 'model' takes (x,y,z) and outputs vector B = [Bx, By, Bz]
+# We want to enforce Div(B) = 0 (Gauss's Law for Magnetism)
+
+def physics_loss(model, coordinates):
+    coordinates.requires_grad = True
+    
+    # 1. Forward Pass
+    B_field = model(coordinates) 
+    Bx, By, Bz = B_field[:,0], B_field[:,1], B_field[:,2]
+    
+    # 2. Calculate Partials using AutoGrad
+    # standard "grad" function in PyTorch allows calculating d(Output)/d(Input)
+    
+    dBx_dx = torch.autograd.grad(Bx, coordinates, grad_outputs=torch.ones_like(Bx), create_graph=True)[0][:,0]
+    dBy_dy = torch.autograd.grad(By, coordinates, grad_outputs=torch.ones_like(By), create_graph=True)[0][:,1]
+    dBz_dz = torch.autograd.grad(Bz, coordinates, grad_outputs=torch.ones_like(Bz), create_graph=True)[0][:,2]
+    
+    # 3. Calculate Divergence
+    div_B = dBx_dx + dBy_dy + dBz_dz
+    
+    # 4. Physics Loss: We want Div(B) to be 0 everywhere
+    loss_physics = torch.mean(div_B ** 2)
+    
+    return loss_physics
+
+# In the training loop:
+# total_loss = criterion(pred, target) + lambda * physics_loss(model, inputs)
+# total_loss.backward() 
+# This teaches the NN to "be a valid magnetic field".</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_33_curl_divergence.html" class="footer-link">← Prev: Curl & Div</a>
+                        <span class="separator">|</span>
+                        <a href="../14_01_multi_critical.html" class="footer-link">Next: Optimization →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

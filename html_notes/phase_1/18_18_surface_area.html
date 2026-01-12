@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,74 +9,79 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.4 Integration</li>
-            <li><a href="18_16_volumes.html">16. Volumes</a></li>
-            <li><a href="18_17_arc_length.html">17. Arc Length</a></li>
-            <li><a href="18_18_surface_area.html" class="active">18. Surface Area</a></li>
-            <li><a href="18_19_work_force.html">19. Work & Force</a></li>
-            <li><a href="18_20_numerical_integration.html">20. Numerical Integr</a></li>
-            <hr>
-            <li class="nav-label">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.4 Integration</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="18_18_surface_area.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Surface Area
+            <a href="../index.html">Syllabus</a> &gt; 18_18_surface_area.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 18_18</div>
             <h1>18. Surface Area of Revolution</h1>
-            <p class="subtitle">Finding the area of the "skin" of a 3D solid.</p>
+            <p class="lead-text">Finding the area of the "skin" of a 3D solid.</p>
         </header>
 
-        <section>
-            <h2>1. The Formula</h2>
-            <p>To find the surface area created by rotating a curve \(y = f(x)\) around the <strong>x-axis</strong>:</p>
-            <div class="math-block">
+        
+
+
+
+<section>
+<h2>1. The Formula</h2>
+<p>To find the surface area created by rotating a curve \(y = f(x)\) around the <strong>x-axis</strong>:</p>
+<div class="math-block">
                 $$ S = \int_{a}^{b} 2\pi f(x) \sqrt{1 + [f'(x)]^2} dx $$
             </div>
-            <p>Think of this as the integral of the <strong>Circumference</strong> (\(2\pi r\)) times the <strong>Arc
+<p>Think of this as the integral of the <strong>Circumference</strong> (\(2\pi r\)) times the <strong>Arc
                     Length segment</strong> (\(ds\)).</p>
-        </section>
-
-        <section class="module-card">
-            <h2>2. Importance of f'(x)</h2>
-            <p>Just like arc length, this formula depends heavily on how "steep" the function is. If a function is
+</section>
+<section class="module-card">
+<h2>2. Importance of f'(x)</h2>
+<p>Just like arc length, this formula depends heavily on how "steep" the function is. If a function is
                 growing fast, it spreads out more surface as it rotates, which is captured by the \(\sqrt{1 + [f']^2}\)
                 term.</p>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Mesh & Surface Modeling</h2>
-            <div class="module-card">
-                <h3>Medical AI and Digital Twins</h3>
-                <p>In <strong>Medical AI</strong>, hospitals use scans to create 3D models of organs or tumors. Often,
+</section>
+<section>
+<h2>3. AI/ML Connection: Mesh &amp; Surface Modeling</h2>
+<div class="module-card">
+<h3>Medical AI and Digital Twins</h3>
+<p>In <strong>Medical AI</strong>, hospitals use scans to create 3D models of organs or tumors. Often,
                     these shapes are simplified into "revolutions" or axial models. Calculating the <strong>Surface
                         Area</strong> is vital for dose calculation in radiation therapy or for estimating how much
                     medicine should be applied to a specific region. </p>
-                <p>In <strong>3D Graphics AI</strong>, models often perform "Laplacian Smoothing" on a mesh. This
+<p>In <strong>3D Graphics AI</strong>, models often perform "Laplacian Smoothing" on a mesh. This
                     involves minimizing the surface area of the 3D model while keeping the volume constant. The calculus
                     of surface area ensures that AI-generated avatars look smooth and natural instead of "pointy" and
                     digital.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Area of a Sphere</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># Rotate y = sqrt(R^2 - x^2) from -R to R
+</div>
+</section>
+<section>
+<h2>4. Python: Area of a Sphere</h2>
+<div class="code-block">
+<pre><code class="language-python"># Rotate y = sqrt(R^2 - x^2) from -R to R
 # Expected: 4 * pi * R^2
 
 import sympy as sp
@@ -92,13 +96,14 @@ area = sp.simplify(sp.integrate(integrand, (x, -R, R)))
 
 print(f"Surface Area of a Sphere: {area}")
 # Output: 4*pi*R**2</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

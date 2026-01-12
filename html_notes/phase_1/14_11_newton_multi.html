@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.11 Newton's Method - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_10_gd_foundation.html" class="nav-link">10. Gradient
+                                Descent</a></li>
+                        <li class="nav-item"><a href="14_11_newton_multi.html" class="nav-link active">11. Newton's
+                                Method</a></li>
+                        <li class="nav-item"><a href="14_12_quasi_newton.html" class="nav-link">12. Quasi-Newton</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">Second Order</span>
+                </div>
+                <h1>Newton's Method (Multi-Dim)</h1>
+                <p class="lead-text">Using curvature to accelerate convergence.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Hessian Update</h3>
+                    <p>
+                        Gradient Descent is "dumb"—it only knows the slope.
+                        Newton's Method is "smart"—it uses the <strong>Curvature</strong> (Hessian Matrix) to perfectly jump to the
+                        minimum of a quadratic bowl in one step.
+                    </p>
+                    <div class="math-block">
+                        $$ \mathbf{w}_{t+1} = \mathbf{w}_t - \mathbf{H}^{-1} \nabla f(\mathbf{w}_t) $$
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        GradDescent[Gradient Descent] -->|Linear Conv.| Slow[Takes many steps]
+                        Newton[Newton's Method] -->|Quadratic Conv.| Fast[Converges instantly]
+
+                        Newton -->|Requires| HessInv[Hessian Inverse]
+                        HessInv -->|Complexity| Cubic[O(N^3)]
+
+                        style Fast fill:#2f855a,stroke:#48bb78
+                        style Cubic fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Memory Wall</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why not in Deep Learning?</h3>
+                    <p>
+                        If Newton's Method is so much better, why don't we use it?
+                        Simply put: <strong>Calculating the Inverse Hessian is impossible</strong> for large networks.
+                    </p>
+                    <ul>
+                        <li>If \(N=1,000,000\) weights (a tiny network), \(\mathbf{H}\) has \(10^{12}\) entries.</li>
+                        <li>Storing it requires 4000 Terabytes of RAM.</li>
+                        <li>Inverting it takes \(O(N^3)\) operations.</li>
+                    </ul>
+                    <p>
+                        This is why we use <strong>Quasi-Newton Methods</strong> (like L-BFGS) or adaptive gradient methods (like
+                        <strong>Adam</strong>) which approximate the *diagonal* of the Hessian without storing the full matrix.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Convergence Test</h2>
+                <div class="code-header">newton_convergence.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# f(x) = x^4 - 2x^2 + 2
+# f'(x) = 4x^3 - 4x
+# f''(x) = 12x^2 - 4
+
+def newton_opt(start_x, steps=5):
+    x = start_x
+    for i in range(steps):
+        grad = 4*x**3 - 4*x
+        hess = 12*x**2 - 4
+        
+        # Newtons Update
+        x = x - grad / hess
+        print(f"Step {i}: x={x:.6f}")
+    return x
+
+print("Newton starting at 2.0:")
+newton_opt(2.0)
+# Converges to 1.0 (minimum) in ~4 steps. Extremely fast.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="14_10_gd_foundation.html" class="footer-link">← Prev: Gradient Descent</a>
+                        <span class="separator">|</span>
+                        <a href="14_12_quasi_newton.html" class="footer-link">Next: Quasi-Newton →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

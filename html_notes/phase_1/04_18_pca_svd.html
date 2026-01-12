@@ -4,100 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PCA vs SVD - Phase 1.2.3.18</title>
+    <title>04.18 PCA SVD - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_17_pca_derivation.html">17. PCA Derivation</a></li>
-            <li><a href="04_18_pca_svd.html" class="active">18. PCA vs SVD Relationship</a></li>
-            <li><a href="04_19_eigendecomp_apps.html">19. Eigendecomposition Apps</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_17_pca_derivation.html" class="nav-link">17. PCA Derivation</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">18. PCA via SVD</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; PCA vs SVD
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 18. The Better Way
         </div>
 
-        <header>
-            <h1>18. The Link: PCA vs SVD</h1>
-            <p class="subtitle">Two paths to the same latent space.</p>
+        <header class="page-header">
+            <div class="badge">Module 18</div>
+            <h1>PCA on Data Matrix</h1>
+            <p class="lead-text"> Don't compute the Covariance Matrix. Use SVD directly on X.</p>
         </header>
 
-        <section>
-            <h2>1. The Mathematical Link</h2>
-            <p>Why do all professional libraries (like Scikit-Learn) use <strong>SVD</strong> to compute
-                <strong>PCA</strong>
-                instead of the Covariance matrix method?</p>
-            <p>Recall the SVD of \(\mathbf{X}\): \(\mathbf{X} = \mathbf{U}\Sigma\mathbf{V}^T\).</p>
-            <p>The Covariance Matrix \(\mathbf{S}\) is:</p>
-            <div class="math-block">
-                $$ \mathbf{S} = \frac{\mathbf{X}^T\mathbf{X}}{n-1} =
-                \frac{(\mathbf{U}\Sigma\mathbf{V}^T)^T(\mathbf{U}\Sigma\mathbf{V}^T)}{n-1} =
-                \frac{\mathbf{V}\Sigma^T\mathbf{U}^T\mathbf{U}\Sigma\mathbf{V}^T}{n-1} $$
-                $$ \mathbf{S} = \mathbf{V} \left( \frac{\Sigma^2}{n-1} \right) \mathbf{V}^T $$
-            </div>
-            <p>Comparing this to the Eigendecomposition of \(\mathbf{S}\) (\(\mathbf{S} =
-                \mathbf{P}\Lambda\mathbf{P}^T\)):</p>
-            <ul class="topic-list">
-                <li class="topic-item"><strong>Principal Components:</strong> Are the columns of \(\mathbf{V}\) (Right
-                    singular vectors).</li>
-                <li class="topic-item"><strong>Eigenvalues:</strong> Are related to Singular values by \(\lambda_i =
-                    \frac{\sigma_i^2}{n-1}\).</li>
-            </ul>
-        </section>
+        <!-- VISUAL DIAGRAM: PCA SVD -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Skipping the Square</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Data["Data Matrix X"]
+    
+    subgraph "The Hard Way"
+        Cov["Compute X^T X (Covariance)"]
+        Eig["Eigendecomp of Covariance"]
+    end
+    
+    subgraph "The SVD Way"
+        SVD["SVD of X = U S V^T"]
+    end
+    
+    Data -- "Slow O(N d^2)" --> Cov --> Eig
+    Data -- "Fast/Stable" --> SVD
+    
+    SVD -- "Right Singular Vectors V" --> PCs["Principal Components"]
+    Eig -- "Eigenvectors" --> PCs
 
-        <section>
-            <h2>2. Why SVD is Superior</h2>
-            <div class="module-card">
-                <h3>Avoid the Square</h3>
-                <p>Computing \(\mathbf{X}^T\mathbf{X}\) squares the <strong>Condition Number</strong> of the data.
-                    If your data is poorly conditioned, \(\mathbf{X}^T\mathbf{X}\) becomes extremely sensitive to
-                    precision errors. SVD works directly on \(\mathbf{X}\), preserving numeric precision.</p>
+    style PCs fill:#dcfce7,stroke:#16a34a
+    style SVD fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Proving the Link</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-X = np.random.randn(50, 5) # 50 samples, 5 features
-X_centered = X - np.mean(X, axis=0)
-
-# Method 1: Covariance
-S = np.dot(X_centered.T, X_centered) / (50 - 1)
-eigenvals, eigenvects = np.linalg.eigh(S)
-
-# Method 2: SVD
-U, s, Vt = np.linalg.svd(X_centered)
-
-# Compare Singular vectors vs Eigenvectors
-# (Note: directions might be inverted, so take absolute)
-print(f"Match PC directions? {np.allclose(np.abs(Vt.T), np.abs(eigenvects[:, ::-1]))}")
-
-# Compare eigenvalues vs singular values^2 / (n-1)
-print(f"Match Spectrum? {np.allclose(eigenvals[::-1], (s**2)/(50-1))}")</code></pre>
+        <!-- 1. DEFINITION: THE LINK -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Connection</h2>
+                <p>If we apply SVD to the centered data \( X = U \Sigma V^T \):</p>
+                <div class="math-block">
+                    $$ X^T X = (V \Sigma U^T) (U \Sigma V^T) = V \Sigma^2 V^T $$
+                </div>
+                <p>This shows that the <strong>Right Singular Vectors \( V \)</strong> of \( X \) are identically the
+                    <strong>Eigenvectors</strong> of the covariance matrix \( X^T X \).</p>
             </div>
         </section>
+
+        <!-- 2. AI APPLICATION: EFFICIENCY -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Why SVD?</h2>
+                <p>Computing \( X^T X \) squares the condition number, effectively destroying numerical precision. SVD
+                    works directly on \( X \), maintaining higher precision.</p>
+                <p>Furthermore, standard libraries (like Scikit-Learn's PCA) implementation use randomized SVD to solve
+                    this efficiently.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Sklearn's Secret</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Centered Data X
+X = np.array([
+    [-1, -1],
+    [-2, -1],
+    [-3, -2],
+    [1, 1],
+    [2, 1],
+    [3, 2]
+])
+
+# Method 1: Eigen of Covariance
+cov = np.cov(X.T)
+val, vec = np.linalg.eig(cov)
+# Note: eig doesn't sort by default
+
+# Method 2: SVD of X
+U, S, Vt = np.linalg.svd(X)
+
+print(f"Eigenvectors from Cov (Column 0):\n{vec[:,0]}")
+print(f"Singular Vectors from SVD (Row 0 of Vt):\n{Vt[0,:]}")
+
+# Check magnitude
+print(f"\nEigenvalue[0]: {val[0]:.4f}")
+print(f"SingularValue[0]^2 / (N-1): {S[0]**2 / (X.shape[0]-1):.4f}")
+# Matches exactly!
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

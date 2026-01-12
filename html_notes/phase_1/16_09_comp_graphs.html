@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.09 Computation Graphs - Calculus for ML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.9 Calculus for ML</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="16_07_numerical_diff.html" class="nav-link">07. Numerical Diff</a>
+                        </li>
+                        <li class="nav-item"><a href="16_08_automatic_diff.html" class="nav-link">08. Autodiff
+                                Basics</a></li>
+                        <li class="nav-item"><a href="16_09_comp_graphs.html" class="nav-link active">09. Comp
+                                Graphs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">ML Calc 1.9</span>
+                    <span class="badge secondary">The Blueprint</span>
+                </div>
+                <h1>Computation Graphs</h1>
+                <p class="lead-text">Visualizing mathematical dependencies.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">DAGs (Directed Acyclic Graphs)</h3>
+                    <p>
+                        Every calculation in a computer can be represented as a Graph.
+                        Nodes are <strong>Operations</strong> (add, mul, tanh).
+                        Edges are <strong>Tensors</strong> (data flowing between ops).
+                    </p>
+                    <p>
+                        This abstraction allows Deep Learning frameworks to optimize execution (fusing operations) and
+                        run parallel streams on GPUs automatically.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        x[Tensor x] --> Mul[*]
+                        w[Weights w] --> Mul
+                        b[Bias b] --> Add[+]
+                        Mul --> Add
+                        Add -->|z| ReLU[Activation]
+                        ReLU -->|h| Output
+
+                        style w fill:#4a5568,stroke:#cbd5e0
+                        style Mul fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Dynamic vs Static</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Define-by-Run</h3>
+                    <p>
+                        <strong>Static Graphs (TensorFlow 1.x):</strong> You define the graph once, compile it, and run
+                        it many times. Fast but rigid. Debugging is a nightmare.
+                    </p>
+                    <p>
+                        <strong>Dynamic Graphs (PyTorch):</strong> The graph is built on-the-fly as you execute code.
+                        You can use Python `if` loops and print statements. This flexibility is why researchers love
+                        PyTorch.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Traversing the Graph</h2>
+                <div class="code-header">graph_inspect.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import torch
+
+x = torch.tensor(1.0, requires_grad=True)
+y = x * 2
+z = y ** 2
+
+# We can inspect the graph attached to z
+print(f"z grad_fn: {z.grad_fn}")
+# PowBackward0
+
+print(f"y grad_fn: {z.grad_fn.next_functions[0][0]}")
+# MulBackward0 (The operation that created y)
+
+# This linked list of functions IS the computation graph.
+# .backward() just traverses this list.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="16_08_automatic_diff.html" class="footer-link">← Prev: Autodiff</a>
+                        <span class="separator">|</span>
+                        <a href="../index.html" class="footer-link">Module 17 Intro →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

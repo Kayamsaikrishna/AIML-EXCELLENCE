@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.13 Convex Optimization Basics - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_11_newton_multi.html" class="nav-link">11. Newton's Method</a>
+                        </li>
+                        <li class="nav-item"><a href="14_12_quasi_newton.html" class="nav-link">12. Quasi-Newton</a>
+                        </li>
+                        <li class="nav-item"><a href="14_13_convex_opt_basics.html" class="nav-link active">13. Convex
+                                Optimization</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">The Holy Grail</span>
+                </div>
+                <h1>Convex Optimization Basics</h1>
+                <p class="lead-text">When solving the problem is guaranteed.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Reliability Engineering</h3>
+                    <p>
+                        In most engineering fields (Control Theory, Signal Processing), we design systems to be
+                        <strong>Convex</strong>.
+                        Why? Because <strong>Convex Problems are Solvable</strong>.
+                    </p>
+                    <p>
+                        We have efficient polynomial-time algorithms (Interior Point Methods) that can find the global
+                        minimum to high precision.
+                        If you can frame your AI problem as a Convex Optimization problem (e.g., SVM is a Quadratic
+                        Program), you solve it once and solve it strictly.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Relaxation</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Approximating the Hard Stuff</h3>
+                    <p>
+                        Many real-world AI problems are discrete (combinatorial) and Non-Convex (NP-Hard).
+                        A common strategy is <strong>Convex Relaxation</strong>:
+                    </p>
+                    <ul>
+                        <li><strong>Original:</strong> Find the sparsest solution (L0 Norm, NP-Hard).</li>
+                        <li><strong>Relaxed:</strong> Find the solution with smallest L1 Norm (Convex L1
+                            Regularization).</li>
+                    </ul>
+                    <p>
+                        This turns an impossible problem into a solvable one (Lasso Regression), often yielding almost
+                        the same answer.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Solving with CVXPY</h2>
+                <div class="code-header">cvxpy_demo.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import cvxpy as cp
+import numpy as np
+
+# Problem: Least Squares with Non-Negativity Constraints
+# Minimize ||Ax - b||^2 subject to x >= 0
+
+np.random.seed(1)
+m, n = 10, 5
+A = np.random.randn(m, n)
+b = np.random.randn(m)
+
+# Define variables
+x = cp.Variable(n)
+
+# Define Objective
+cost = cp.sum_squares(A @ x - b)
+objective = cp.Minimize(cost)
+
+# Define Constraints
+constraints = [x >= 0]
+
+# Solve
+prob = cp.Problem(objective, constraints)
+prob.solve()
+
+print(f"Optimal value: {prob.value:.4f}")
+print(f"Optimal x: {x.value}")
+# Notice all x values are >= 0 (or significantly close to 0)</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="14_12_quasi_newton.html" class="footer-link">← Prev: Quasi-Newton</a>
+                        <span class="separator">|</span>
+                        <a href="../index.html" class="footer-link">Next: Module 15 →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.05 Joint Entropy - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.1 Entropy</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_04_properties_of_entropy.html" class="nav-link">04. Properties
+                                of Entropy</a></li>
+                        <li class="nav-item"><a href="29_05_joint_entropy.html" class="nav-link active">05. Joint
+                                Entropy</a></li>
+                        <li class="nav-item"><a href="29_06_conditional_entropy.html" class="nav-link">06. Conditional
+                                Entropy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Info Theory</span>
+                    <span class="badge secondary">Multivariate</span>
+                </div>
+                <h1>Joint Entropy</h1>
+                <p class="lead-text">Measuring the combined uncertainty of a multi-variable system. How much information
+                    is contained in the pair (X, Y)?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Ensemble Uncertainty</h3>
+                    <p>
+                        In a single-variable system, we measure the surprise of one event. In a joint system, we measure
+                        the surprise of seeing a specific <strong>combination</strong> of events.
+                        <br><br>
+                        If \(X\) is "Rain" and \(Y\) is "Traffic Jam," joint entropy measures the total uncertainty of
+                        the weather and traffic system as a whole.
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <p>For a pair of discrete random variables \((X, Y)\) with joint probability distribution \(P(x, y)\):
+                </p>
+                <div class="math-box">
+                    $$ H(X, Y) = -\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x, y) \log_2 P(x, y) $$
+                </div>
+                <p>
+                    This is simply the Shannon entropy of the joint distribution. It quantifies the number of bits
+                    required to describe the entire system state.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Independence Inequality</h2>
+                <p>A crucial rule of thumb:</p>
+                <div class="math-box">
+                    $$ H(X, Y) \le H(X) + H(Y) $$
+                </div>
+                <ul>
+                    <li><strong>Equality (\(=\)):</strong> Happens if and only if \(X\) and \(Y\) are <strong>independent</strong>. The total
+                        uncertainty is just the sum of individual parts.</li>
+                    <li>**Less Than (\(<\)):** Happens if \(X\) and \(Y\) are **correlated** or dependent. Because they
+                            share information, you need *fewer* bits to describe them together than if you described
+                            them separately.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Visualization: Information Overlap</h2>
+                <p>Think of entropy as areas. If the circles for \(X\) and \(Y\) overlap, the "Total Area" (Joint
+                    Entropy) is less than the sum of the two circles.</p>
+                <div class="mermaid">
+                    graph TD
+                    subgraph "Joint Entropy H(X, Y)"
+                    X[Individual H_X] --- O((Overlap))
+                    Y[Individual H_Y] --- O
+                    end
+                </div>
+                <p>The overlap region is what we will later call <strong>Mutual Information</strong>. The joint entropy is the outer
+                    boundary of both circles.</p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Computer Vision</span>
+                    <span class="ml-badge">Multimodal Learning</span>
+                    <h3>Joint Entropy in Modern AI</h3>
+                    <ul>
+                        <li><strong>Feature Correlation:</strong> If two features in your dataset have a joint entropy nearly equal
+                            to the entropy of just one, it means they are highly redundant. One can be removed without
+                            losing information.</li>
+                        <li><strong>Contrastive Learning (e.g., CLIP):</strong> Models like CLIP try to align Image (\(X\)) and Text
+                            (\(Y\)). By maximizing the similarity of their embeddings, they are effectively trying to
+                            minimize the joint entropy of the pair—making the combination highly predictable and
+                            related.</li>
+                        <li><strong>Multi-variable Optimization:</strong> When training a neural network with multiple heads (e.g.,
+                            predicting both Object Class and Bounding Box), the joint entropy of the targets helps us
+                            understand the fundamental difficulty of the task.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Chain Rule (Preview)</h2>
+                <p>Joint entropy can also be broken down sequentially:</p>
+                <div class="math-box">
+                    $$ H(X, Y) = H(X) + H(Y|X) $$
+                </div>
+                <p>
+                    This says: "The total uncertainty of the system is the uncertainty of \(X\), plus the remaining
+                    uncertainty of \(Y\) once you already know \(X\)."
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

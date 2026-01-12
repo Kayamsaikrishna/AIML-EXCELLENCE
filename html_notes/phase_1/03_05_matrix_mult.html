@@ -4,111 +4,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Multiplication - Phase 1.2.2.5</title>
+    <title>03.05 Matrix Mult - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_04_matrix_ops.html">04. Matrix Ops</a></li>
-            <li><a href="03_05_matrix_mult.html" class="active">05. Matrix Mult</a></li>
-            <li><a href="03_06_non_commutative.html">06. Non-Commutativity</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Mult
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>05. Matrix Multiplication (Dot Product Rule)</h1>
-            <p class="subtitle">The dynamic engine of AI inference.</p>
-        </header>
-
-        <section>
-            <h2>1. The Fundamental Rule</h2>
-            <p>To multiply \( \mathbf{A} \) (\( m \times n \)) and \( \mathbf{B} \) (\( n \times p \)), the
-                <strong>columns of A must match the rows of B</strong>. The result is a matrix of size \( m \times p \).
-            </p>
-
-            <div class="math-block">
-                $$ c_{ij} = \sum_{k=1}^n a_{ik}b_{kj} $$
-            </div>
-            <p>Each element \( c_{ij} \) is the <strong>Dot Product</strong> of the \( i \)-th row of A and the \( j
-                \)-th column of B.</p>
-        </section>
-
-        <section>
-            <h2>2. Visualizing Parallel Processing</h2>
-            <div class="visual-diagram">
-                <svg width="500" height="200" viewBox="0 0 500 200">
-                    <!-- Matrix A (Rows) -->
-                    <rect x="50" y="50" width="80" height="100" fill="#bfdbfe" stroke="#1e40af" />
-                    <line x1="50" y1="75" x2="130" y2="75" stroke="#1e40af" stroke-dasharray="2" />
-                    <line x1="50" y1="100" x2="130" y2="100" stroke="#1e40af" />
-                    <text x="70" y="40" font-weight="bold">Rows of A</text>
-
-                    <text x="150" y="105" font-size="24">×</text>
-
-                    <!-- Matrix B (Cols) -->
-                    <rect x="180" y="50" width="100" height="80" fill="#bbf7d0" stroke="#16a34a" />
-                    <line x1="213" y1="50" x2="213" y2="130" stroke="#16a34a" stroke-dasharray="2" />
-                    <line x1="246" y1="50" x2="246" y2="130" stroke="#16a34a" />
-                    <text x="200" y="40" font-weight="bold">Cols of B</text>
-
-                    <text x="295" y="105" font-size="24">=</text>
-
-                    <!-- Result C -->
-                    <rect x="330" y="50" width="100" height="100" fill="#fef08a" stroke="#ca8a04" />
-                    <text x="350" y="40" font-weight="bold">Result C</text>
-                </svg>
-            </div>
-
-            <div class="module-card">
-                <h3>Linear Layers (Dense Layers)</h3>
-                <p>In a Neural Network, calculating the hidden state is a matrix multiplication: \( \mathbf{H} =
-                    \sigma(\mathbf{X} \mathbf{W}) \).</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>X:</strong> Input batch matrix.</li>
-                    <li class="topic-item"><strong>W:</strong> Weight matrix where each column is one neuron.</li>
-                    <li class="topic-item"><strong>Scaling:</strong> Since compute cost is \( O(m \cdot n \cdot p) \),
-                        optimizing matrix multiplication is the primary goal of AI hardware designers (Tensor Cores).
-                    </li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_04_matrix_ops.html" class="nav-link">04. Matrix Ops</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">05. Multiplication</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Efficient Multiplication</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 05. The Product
+        </div>
 
-A = np.random.rand(128, 512) # 128 samples, 512 features
-W = np.random.rand(512, 1024) # 512 inputs, 1024 neurons
+        <header class="page-header">
+            <div class="badge">Module 05</div>
+            <h1>MatMul</h1>
+            <p class="lead-text"> \( C = AB \). The engine of Deep Learning. Rows meet Columns.</p>
+        </header>
 
-# Standard Matrix Mult (The @ operator)
-C = A @ W 
+        <!-- VISUAL DIAGRAM: MATMUL -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Pairing Dimensions</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Matrices["A (m x k) and B (k x n)"]
+    
+    subgraph Inner
+        InnerDim["Inner Dimension k MUST match"]
+    end
+    
+    subgraph Views
+        Dot["Dot Product View (Row-Col)"]
+        Linear["Linear Combo View (Cols of B)"]
+        Outer["Outer Product View (Sum of Rank-1)"]
+    end
+    
+    subgraph Output
+        Result["C (m x n)"]
+    end
+    
+    Matrices --> InnerDim
+    InnerDim --> Dot
+    InnerDim --> Linear
+    InnerDim --> Outer
+    
+    Dot --> Result
+    Linear --> Result
+    Outer --> Result
 
-print(f"Result shape: {C.shape}") # (128, 1024)</code></pre>
+    style InnerDim fill:#fee2e2,stroke:#b91c1c
+    style Result fill:#dcfce7,stroke:#16a34a
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION: ROW BY COLUMN -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Standard View</h2>
+                <p>The element \( c_{ij} \) is the dot product of the \( i \)-th row of \( A \) and the \( j \)-th
+                    column of \( B \).</p>
+                <div class="math-block">
+                    $$ c_{ij} = \text{row}_i(A) \cdot \text{col}_j(B) $$
+                </div>
+                <p>For this to work, the "inner dimensions" must match: \( (m \times \mathbf{k}) \times (\mathbf{k}
+                    \times n) \to (m \times n) \).</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: LAYERS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Neural Layers</h2>
+                <p>A Fully Connected Layer involves: \( Y = X W^T + b \).</p>
+                <ul>
+                    <li>\( X \): The input batch.</li>
+                    <li>\( W \): The weights matrix.</li>
+                </ul>
+                <p>This single operation transforms the entire batch of inputs into outputs in parallel. GPUs are
+                    optimized specifically to do this one operation blazingly fast.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. The @ Operator</h2>
+                <p>The modern way to multiply matrices.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# A: 2x3
+A = np.array([
+    [1, 2, 0],
+    [3, 1, 4]
+])
+
+# B: 3x2
+B = np.array([
+    [4, 1],
+    [2, 2],
+    [1, 0]
+])
+
+# Result C: 2x2
+# Op 1: matmul
+C1 = np.matmul(A, B)
+
+# Op 2: @ operator (Preferred)
+C2 = A @ B
+
+print(f"A Shape: {A.shape}, B Shape: {B.shape}")
+print(f"Result Shape: {C2.shape}")
+print(f"\nResult C:\n{C2}")
+
+# Element (0,0): 1*4 + 2*2 + 0*1 = 8
+# Element (0,1): 1*1 + 2*2 + 0*0 = 5
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

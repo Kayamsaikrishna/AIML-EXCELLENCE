@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.04 Partial Derivatives - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_01_multi_functions.html" class="nav-link">01. Several
+                                Variables</a></li>
+                        <li class="nav-item"><a href="13_02_multi_domain_limit.html" class="nav-link">02. Domain &
+                                Limits</a></li>
+                        <li class="nav-item"><a href="13_03_level_curves_surfaces.html" class="nav-link">03. Level
+                                Curves</a></li>
+                        <li class="nav-item"><a href="13_04_partial_derivatives.html" class="nav-link active">04.
+                                Partial Derivatives</a></li>
+                        <li class="nav-item"><a href="13_05_higher_order_partials.html" class="nav-link">05.
+                                Higher-Order Partials</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Core Mechanic</span>
+                </div>
+                <h1>Partial Derivatives</h1>
+                <p class="lead-text">Changing one thing at a time.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Hold Everything Else Constant</h3>
+                    <p>
+                        A regular derivative \( \frac{dy}{dx} \) assumes \(y\) depends only on \(x\).
+                        In multivariable calculus, \( z = f(x, y) \) depends on both.
+                        To find how \(z\) changes when we nudge \(x\), we <strong>pretend \(y\) is a constant</strong> (like the
+                        number 5).
+                    </p>
+                    <p>
+                        Notation: \( \frac{\partial f}{\partial x} \) or \( f_x \).
+                        \[ \frac{\partial}{\partial x} (x^2 y) = 2xy \quad \text{(y treated as constant)} \]
+                        \[ \frac{\partial}{\partial y} (x^2 y) = x^2 \quad \text{(x treated as constant)} \]
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Adjusting Weights</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Essence of Learning</h3>
+                    <p>
+                        When a Neural Network creates an error, we need to know: <strong>"Who is responsible?"</strong>
+                        If the network has 1 million weights, we calculate the <strong>Partial Derivative</strong> of the error with
+                        respect to *each individual weight*.
+                    </p>
+                    <p>
+                        \( \frac{\partial Error}{\partial w_{500}} \) tells us: "If we increase weight #500 slightly,
+                        how much will the error go up or down?"
+                        We then update that weight in the opposite direction. We do this for all 1 million weights
+                        simultaneously. This is <strong>Backpropagation</strong>.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Error[Total Error]
+                        Error -->|Partial wrt w1| Grad1[Sensitivity of w1]
+                        Error -->|Partial wrt w2| Grad2[Sensitivity of w2]
+                        Error -->|Partial wrt w3| Grad3[Sensitivity of w3]
+                        Grad1 --> Update1[Update w1 only]
+                        Grad2 --> Update2[Update w2 only]
+                        Grad3 --> Update3[Update w3 only]
+
+                        style Error fill:#e53e3e,stroke:#9b2c2c
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Differentiation</h2>
+                <div class="code-header">partial_diff.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x, y = sp.symbols('x y')
+f = x**2 * sp.sin(y) + y**3
+
+# Calculate partial derivative with respect to x
+# Treat y as constant: derivative of (x^2 * const + const^3) -> 2x * const
+df_dx = sp.diff(f, x)
+
+# Calculate partial derivative with respect to y
+# Treat x as constant: derivative of (const * sin(y) + y^3) -> const * cos(y) + 3y^2
+df_dy = sp.diff(f, y)
+
+print(f"Function: {f}")
+print(f"df/dx: {df_dx}") # 2*x*sin(y)
+print(f"df/dy: {df_dy}") # x**2*cos(y) + 3*y**2
+
+# Evaluate at (1, pi/2)
+print(f"df/dx evaluated at (1, pi/2): {df_dx.subs({x:1, y:sp.pi/2})}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_03_level_curves_surfaces.html" class="footer-link">← Prev: Level Curves</a>
+                        <span class="separator">|</span>
+                        <a href="13_05_higher_order_partials.html" class="footer-link">Next: Higher Order →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

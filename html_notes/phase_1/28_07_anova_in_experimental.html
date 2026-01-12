@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.07 ANOVA in Experimental - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.12 Experimental Design</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_06_power_analysis.html" class="nav-link">06. Power Analysis</a>
+                        </li>
+                        <li class="nav-item"><a href="28_07_anova_in_experimental.html" class="nav-link active">07.
+                                Anova In Experimental</a></li>
+                        <li class="nav-item"><a href="28_10_differencing_transformations.html" class="nav-link">08. Time
+                                Series Components</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Group Testing</span>
+                </div>
+                <h1>ANOVA (Analysis of Variance)</h1>
+                <p class="lead-text">Comparing multiple versions at once. Why you shouldn't just run ten T-Tests in a
+                    row.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Multi-Comparison Problem</h3>
+                    <p>
+                        If you have 5 different website designs (A, B, C, D, E) and you compare them two-at-a-time using
+                        T-Tests, your chance of making a False Positive error (Type I) explodes.
+                        <br><br>
+                        <strong>ANOVA</strong> solves this by checking if ANY group is different from the others in a single
+                        "Omnibus" test.
+                    </p>
+                </div>
+
+                <h2>1. The Logic of Variance</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Within-Group Variance (\(SS_W\))</h4>
+                        <p>How much people within the SAME group vary (The "Noise").</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Between-Group Variance (\(SS_B\))</h4>
+                        <p>How much the MEANS of the groups vary (The "Signal").</p>
+                    </div>
+                </div>
+                <div class="math-box">
+                    $$ F = \frac{\text{Between-Group Variance}}{\text{Within-Group Variance}} $$
+                </div>
+                <p>
+                    - If <strong>\(F\)</strong> is large, it means the groups are genuinely different.
+                    - If <strong>\(F\)</strong> is close to 1, it means the group differences are just random noise.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Feature Selection</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Pre-processing</span>
+                    <span class="ml-badge">Dimensionality</span>
+                    <h3>The ANOVA F-Classifier</h3>
+                    <p>
+                        In scikit-learn, `SelectKBest(f_classif)` uses ANOVA to find which features are actually useful.
+                    </p>
+                    <ul>
+                        <li><strong>Feature Utility:</strong> If you have a categorical feature (like "Country") and a continuous
+                            target (like "Revenue"), ANOVA checks if the revenue means are different between countries.
+                            If they are all the same, the "Country" feature is useless noise and can be deleted.</li>
+                        <li><strong>Explainability:</strong> In a Random Forest, we often use "Feature Importance." But ANOVA
+                            provides a different, statistically rigorous view of which inputs strictly separate the
+                            output classes.</li>
+                        <li><strong>Factorial ANOVA:</strong> When we have multiple treatments (e.g., Change Button Color AND Change
+                            Price), ANOVA allows us to calculate the <strong>Interaction Effect</strong> between these two changes.
+                        </li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Fact:</strong> ANOVA only tells you that "At least one group is different." It doesn't
+                        tell you *which* one. To find the winner, you must follow up with a <strong>Post-hoc Test</strong> (like
+                        Tukey’s HSD) which adjusts the p-values to keep your error rate safe.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

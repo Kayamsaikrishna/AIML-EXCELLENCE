@@ -4,116 +4,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scalar Multiplication - Phase 1.2.4</title>
+    <title>02.04 Scalar Multiplication - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_01_vector_basics.html">01. Vector Basics</a></li>
-            <li><a href="02_02_vector_geometry.html">02. Geometry</a></li>
-            <li><a href="02_03_vector_ops.html">03. Operations</a></li>
-            <li><a href="02_04_scalar_mult.html" class="active">04. Scalar Mult</a></li>
-            <li><a href="02_05_dot_product.html">05. Dot Product</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Scalar Multiplication
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>04. Scalar Multiplication</h1>
-            <p class="subtitle">Stretching and shrinking the feature space.</p>
-        </header>
-
-        <section>
-            <h2>1. Definition</h2>
-            <p>Multiplying a vector \(\mathbf{v}\) by a scalar \(c\) changes its magnitude but usually maintains (or
-                reverses) its direction.</p>
-
-            <div class="math-block">
-                $$ c \mathbf{v} = \begin{bmatrix} c v_1 \\ c v_2 \end{bmatrix} $$
-            </div>
-
-            <div class="visual-diagram">
-                <svg width="400" height="200" viewBox="0 0 400 200">
-                    <!-- Original v -->
-                    <line x1="50" y1="150" x2="150" y2="100" stroke="#64748b" stroke-width="2"
-                        marker-end="url(#arrow-grey)" />
-                    <text x="100" y="140" fill="#64748b">v</text>
-                    <!-- 2v (Stretched) -->
-                    <line x1="50" y1="100" x2="250" y2="0" stroke="#2563eb" stroke-width="4"
-                        marker-end="url(#arrow-blue)" />
-                    <text x="200" y="80" fill="#2563eb" font-weight="bold">2v</text>
-                    <!-- -0.5v (Shrunk & Reversed) -->
-                    <line x1="150" y1="180" x2="100" y2="205" stroke="#f43f5e" stroke-width="2"
-                        marker-end="url(#arrow-red)" />
-                    <text x="130" y="200" fill="#f43f5e">-0.5v</text>
-
-                    <defs>
-                        <marker id="arrow-grey" markerWidth="6" markerHeight="6" refX="5" refY="3" orientation="auto">
-                            <path d="M0,0 L0,6 L6,3 z" fill="#64748b" />
-                        </marker>
-                        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orientation="auto">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#2563eb" />
-                        </marker>
-                        <marker id="arrow-red" markerWidth="6" markerHeight="6" refX="5" refY="3" orientation="auto">
-                            <path d="M0,0 L0,6 L6,3 z" fill="#f43f5e" />
-                        </marker>
-                    </defs>
-                </svg>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. Optimization & Learning Rates</h2>
-            <div class="module-card">
-                <h3>Scaling the Gradient</h3>
-                <p>In <strong>Gradient Descent</strong>, we calculate the gradient vector \(\nabla L\), but we don't
-                    take a full step in that direction. We multiply it by a <strong>Learning Rate (\(\eta\))</strong>.
-                </p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Scalar Multiplication:</strong> The update step is \(\Delta w = \eta
-                        \cdot \nabla L\).</li>
-                    <li class="topic-item"><strong>Gradient Clipping:</strong> If the magnitude is too large, we use a
-                        scalar \(c < 1\) to shrink the vector and prevent "Exploding Gradients" .</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_03_vector_ops.html" class="nav-link">03. Vector Arithmetic</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">04. Scalar Multiplication</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Feature Scaling</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 04. Scalar Multiplication
+        </div>
 
-features = np.array([45000, 3, 22]) # [Salary, Age, Experience]
+        <header class="page-header">
+            <div class="badge">Module 04</div>
+            <h1>Scaling & Broadcasting</h1>
+            <p class="lead-text">Stretching space. How multiplying by a single number affects the entire universe (or at
+                least your tensor).</p>
+        </header>
 
-# Scaling down by a factor to normalize
-scale_factor = 1/features.max()
-normalized_features = features * scale_factor
+        <!-- VISUAL DIAGRAM: SCALING -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Resizer</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Vec["Vector v"]
+    Scalar["Scalar c"]
+    
+    subgraph Operation
+        Mult["Multiply (c * v)"]
+    end
+    
+    subgraph Effects
+        Stretch["Stretch (|c| > 1)"]
+        Shrink["Shrink (|c| < 1)"]
+        Flip["Flip Direction (c < 0)"]
+    end
+    
+    subgraph AI [Coding]
+        Broadcast["Broadcasting (NumPy)"]
+        LearningRate["Learning Rate Decay"]
+    end
 
-print(f"Original: {features}")
-print(f"Normalized: {normalized_features}")</code></pre>
+    Vec --> Mult
+    Scalar --> Mult
+    
+    Mult --> Stretch
+    Mult --> Shrink
+    Mult --> Flip
+    
+    Mult --> Broadcast
+    Shrink --> LearningRate
+
+    style Broadcast fill:#dcfce7,stroke:#16a34a
+    style Flip fill:#fef3c7,stroke:#d97706
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Stretching the Arrow</h2>
+                <p>Multiplying a vector \( \mathbf{v} \) by a scalar \( c \) scales its magnitude by \( |c| \) and, if
+                    \( c < 0 \), reverses its direction.</p>
+                        <div class="math-block">
+                            $$ 2 \cdot \begin{bmatrix} 1 \\ 3 \end{bmatrix} = \begin{bmatrix} 2 \\ 6 \end{bmatrix} $$
+                        </div>
+                        <p>This operation is <strong>Linear</strong>, meaning it preserves the structure of the space
+                            (lines remain lines). </p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: BROADCASTING -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f43f5e;">
+                <h2>2. NumPy Broadcasting</h2>
+                <p>In classical math, you can't add a scalar to a vector \( \mathbf{v} + 5 \). In Python/AI, you CAN.
+                </p>
+                <p>This is called <strong>Broadcasting</strong>. The scalar is automatically expanded (copied) to match
+                    the shape of the vector.</p>
+                <div class="math-block">
+                    $$ \begin{bmatrix} 1 \\ 2 \end{bmatrix} + 5 \rightarrow \begin{bmatrix} 1 \\ 2 \end{bmatrix} +
+                    \begin{bmatrix} 5 \\ 5 \end{bmatrix} = \begin{bmatrix} 6 \\ 7 \end{bmatrix} $$
+                </div>
+                <p>This makes code cleaner and faster (no manual loops).</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Learning Rate Scaling</h2>
+                <p>Updating weights requires scaling the gradient.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# A batch of gradients (Matrix)
+grads = np.array([
+    [0.1, -0.2],
+    [0.05, 0.3],
+    [-0.1, 0.0]
+])
+
+print(f"Original Shape: {grads.shape}")
+
+# Scalar Multiplication (Learning Rate)
+lr = 0.01
+update = lr * grads # Broadcasts scalar to (3, 2) matrix
+
+print("Scaled Updates:")
+print(update)
+
+# Reversing Direction (Negative Scalar)
+step = -1.0 * update
+print("\nDescent Step:")
+print(step)
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

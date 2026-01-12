@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,71 +9,81 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.1 Limits & Continuity</li>
-            <li><a href="15_03_limits_special.html">03. One-sided/Infinite</a></li>
-            <li><a href="15_04_limit_laws.html" class="active">04. Limit Laws</a></li>
-            <li><a href="15_05_continuity.html">05. Continuity Def</a></li>
-            <li class="nav-label">1.2.6 AI/ML Apps</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Limit Laws
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>04. Limit Laws and Properties</h1>
-            <p class="subtitle">The algebraic toolkit for limit computation.</p>
-        </header>
-
-        <section>
-            <h2>1. Algebraic Laws</h2>
-            <p>If \(\lim_{x \to a} f(x) = L\) and \(\lim_{x \to a} g(x) = M\), then:</p>
-            <div class="module-card">
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Sum Rule:</strong> \(\lim (f+g) = L + M\)</li>
-                    <li class="topic-item"><strong>Product Rule:</strong> \(\lim (f \cdot g) = L \cdot M\)</li>
-                    <li class="topic-item"><strong>Quotient Rule:</strong> \(\lim (f / g) = L / M \quad (M \neq 0)\)
-                    </li>
-                    <li class="topic-item"><strong>Power Rule:</strong> \(\lim [f(x)]^n = L^n\)</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.1 Limits</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="15_04_limit_laws.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
 
-        <section>
-            <h2>2. Indeterminate Forms (0/0 and \(\infty/\infty\))</h2>
-            <p>If the Quotient Rule results in \(0/0\), the limit is <strong>not always undefined</strong>.
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 15_04_limit_laws.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 15_04</div>
+            <h1>04. Limit Laws and Properties</h1>
+            <p class="lead-text">The algebraic toolkit for limit computation.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Algebraic Laws</h2>
+<p>If \(\lim_{x \to a} f(x) = L\) and \(\lim_{x \to a} g(x) = M\), then:</p>
+<div class="module-card">
+<ul class="topic-list">
+<li class="topic-item"><strong>Sum Rule:</strong> \(\lim (f+g) = L + M\)</li>
+<li class="topic-item"><strong>Product Rule:</strong> \(\lim (f \cdot g) = L \cdot M\)</li>
+<li class="topic-item"><strong>Quotient Rule:</strong> \(\lim (f / g) = L / M \quad (M \neq 0)\)
+                    </li>
+<li class="topic-item"><strong>Power Rule:</strong> \(\lim [f(x)]^n = L^n\)</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>2. Indeterminate Forms (0/0 and \(\infty/\infty\))</h2>
+<p>If the Quotient Rule results in \(0/0\), the limit is <strong>not always undefined</strong>.
                 It means more work is needed (factoring, rationalizing, or L'Hôpital's Rule later).</p>
-            <div class="math-block">
+<div class="math-block">
                 $$ \lim_{x \to 2} \frac{x^2 - 4}{x - 2} = \lim_{x \to 2} \frac{(x-2)(x+2)}{x-2} = \lim_{x \to 2} (x+2) =
                 4 $$
             </div>
-        </section>
-
-        <section>
-            <h2>3. AI Analogy: Linearity of Expectation</h2>
-            <div class="module-card">
-                <p>The "Sum Rule" of limits is mirrored in Probability as the <strong>Linearity of Expectation</strong>.
+</section>
+<section>
+<h2>3. AI Analogy: Linearity of Expectation</h2>
+<div class="module-card">
+<p>The "Sum Rule" of limits is mirrored in Probability as the <strong>Linearity of Expectation</strong>.
                     Since an Expectation is just an integral (a limit of sums), the property that "the limit of
                     a sum is the sum of limits" is the reason we can average loss values across a <strong>Batch</strong>
                     of data to get a stable gradient for the whole dataset.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Symbolic Limit Solving</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>4. Python: Symbolic Limit Solving</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 x = sp.Symbol('x')
 f = (x**2 - 4) / (x - 2)
@@ -82,14 +91,15 @@ f = (x**2 - 4) / (x - 2)
 # Symbolic limit
 result = sp.limit(f, x, 2)
 
-print(f"Limit of (x^2 - 4)/(x - 2) as x->2 is: {result}")</code></pre>
-            </div>
-        </section>
+print(f"Limit of (x^2 - 4)/(x - 2) as x-&gt;2 is: {result}")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
-
 </html>

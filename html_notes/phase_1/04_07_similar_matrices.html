@@ -4,99 +4,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Similar Matrices - Phase 1.2.3.07</title>
+    <title>04.07 Similar Matrices - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_06_diag_conditions.html">06. Conditions for Diag</a></li>
-            <li><a href="04_07_similar_matrices.html" class="active">07. Similar Matrices</a></li>
-            <li><a href="04_08_spectral_symmetric.html">08. Spectral Theorem (Sym)</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_06_diag_conditions.html" class="nav-link">06. Conditions</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">07. Similarity</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Similar Matrices
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 07. Same Thing, Different View
         </div>
 
-        <header>
-            <h1>07. Similar Matrices</h1>
-            <p class="subtitle">Same transformation, different perspective.</p>
+        <header class="page-header">
+            <div class="badge">Module 07</div>
+            <h1>Similar Matrices</h1>
+            <p class="lead-text"> \( B = P A P^{-1} \). Different numbers, same physics.</p>
         </header>
 
-        <section>
-            <h2>1. The Definition</h2>
-            <p>Two matrices \(\mathbf{A}\) and \(\mathbf{B}\) are <strong>Similar</strong> if there exists an
-                invertible matrix \(\mathbf{P}\) such that:</p>
-            <div class="math-block">
-                $$ \mathbf{B} = \mathbf{P}^{-1}\mathbf{A}\mathbf{P} $$
+        <!-- VISUAL DIAGRAM: SIMILARITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Change of Basis</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    InputX["Input (Basis X)"]
+    InputY["Input (Basis Y)"]
+    
+    subgraph Ops
+        A["Matrix A (Acts on X)"]
+        B["Matrix B (Acts on Y)"]
+        P["Change of Basis P (Y to X)"]
+    end
+    
+    OutputX["Output (Basis X)"]
+    OutputY["Output (Basis Y)"]
+    
+    InputX --> A --> OutputX
+    InputY --> B --> OutputY
+    
+    InputY -- P --> InputX
+    OutputX -- "P^-1" --> OutputY
+    
+    B -.->|"Equivalent to P^-1 A P"| A
+
+    style A fill:#dcfce7,stroke:#16a34a
+    style B fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
-            <p>Similar matrices represent the <strong>same linear transformation</strong> under different coordinate
-                bases.</p>
         </section>
 
-        <section>
-            <h2>2. Invariant Properties</h2>
-            <p>No matter which basis you choose, these properties of a linear transformation remain exactly the same:
-            </p>
-            <div class="module-card">
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Eigenvalues:</strong> Have the same values and multiplicities.</li>
-                    <li class="topic-item"><strong>Trace:</strong> The sum of diagonal elements is invariant.</li>
-                    <li class="topic-item"><strong>Determinant:</strong> The product of eigenvalues is invariant.</li>
-                    <li class="topic-item"><strong>Rank & Nullity:</strong> The dimension of the span/null space is
-                        invariant.</li>
+        <!-- 1. DEFINITION: SIMILARITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>Two matrices \( A \) and \( B \) are <strong>similar</strong> if there exists an invertible matrix \(
+                    P \) such that:</p>
+                <div class="math-block">
+                    $$ B = P^{-1} A P $$
+                </div>
+                <p><strong>Crucial Property:</strong> Similar matrices share the same:</p>
+                <ul>
+                    <li>Eigenvalues.</li>
+                    <li>Determinant.</li>
+                    <li>Trace.</li>
+                    <li>Rank.</li>
                 </ul>
             </div>
         </section>
 
-        <section>
-            <h2>3. AI Context: Latent Space Similarity</h2>
-            <div class="module-card">
-                <h3>Linear Probing</h3>
-                <p>In <strong>Representation Learning</strong>, the hidden states of two different models might look
-                    different as matrices, but if they are similar, they contain the same "knowledge" (features)
-                    just rotated or scaled. Techniques like <strong>Canonical Correlation Analysis (CCA)</strong>
-                    search for such similarities.</p>
+        <!-- 2. AI APPLICATION: LATENT SPACES -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Feature Transformations</h2>
+                <p>When we train a neural network layer, we are often learning a transformation \( A \).</p>
+                <p>Sometimes, we "whiten" the data (change basis) before the layer. The operation performed in the new
+                    basis \( B \) is mathematically similar to \( A \). The underlying "action" (like rotation or
+                    scaling) remains identical despite the coordinate shift.</p>
             </div>
         </section>
 
-        <section>
-            <h2>4. Python: Verifying Invariants</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Verifying Invariants</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
-A = np.array([[1, 2], [3, 4]])
-P = np.array([[1, 1], [0, 1]]) # Random invertible matrix
+A = np.array([[1, 2], 
+              [3, 4]])
+
+# Random Change of Basis P
+P = np.array([[2, 5], 
+              [1, 3]])
 P_inv = np.linalg.inv(P)
 
 # B is similar to A
 B = P_inv @ A @ P
 
-print(f"Det(A): {np.linalg.det(A):.2f}, Det(B): {np.linalg.det(B):.2f}")
-print(f"Trace(A): {np.trace(A)}, Trace(B): {np.trace(B)}")
-print(f"Eigenvals A: {np.linalg.eigvals(A)}")
-print(f"Eigenvals B: {np.linalg.eigvals(B)}")</code></pre>
+print("A:\n", A)
+print("\nB (Similar):\n", B.round(2))
+
+# Check Invariants
+print(f"\nTrace A: {np.trace(A)}, Trace B: {np.trace(B):.2f}")
+print(f"Det A: {np.linalg.det(A):.2f}, Det B: {np.linalg.det(B):.2f}")
+
+evals_A = np.sort(np.linalg.eigvals(A))
+evals_B = np.sort(np.linalg.eigvals(B))
+print(f"Eigenvals A: {evals_A.round(4)}")
+print(f"Eigenvals B: {evals_B.round(4)}")
+# Should match exactly
+</code></pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

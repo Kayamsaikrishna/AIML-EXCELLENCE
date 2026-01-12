@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.15 Bias Correction (Bootstrap) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_14_standard_errors_bootstrap.html" class="nav-link">14.
+                                Standard Errors Bootstrap</a></li>
+                        <li class="nav-item"><a href="24_15_bias_correction_bootstrap.html" class="nav-link active">15.
+                                Bias Correction Bootstrap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Accuracy Tuning</span>
+                </div>
+                <h1>Bias Correction via Bootstrap</h1>
+                <p class="lead-text">Using the bootstrap not just for uncertainty, but to actively fix our original
+                    guesses.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Feedback Loop</h3>
+                    <p>
+                        Sometimes a statistical estimator is fundamentally biased (it systematically over- or
+                        under-estimates the truth).
+                        The <strong>Bootstrap</strong> can detect this pattern by comparing your original estimate to the average of
+                        your bootstrap estimates.
+                    </p>
+                </div>
+
+                <h2>1. Estimating Bias</h2>
+                <div class="math-box">
+                    $$ \text{Bias}_{boot} = \bar{\hat{\theta}}^* - \hat{\theta} $$
+                </div>
+                <ul>
+                    <li>\(\hat{\theta}\): Your original estimate from the whole dataset.</li>
+                    <li>\(\bar{\hat{\theta}}^*\): The average of your 1,000 bootstrap estimates.</li>
+                </ul>
+                <p>
+                    If the bootstrap average is consistently higher than your original guess, it's a sign that your
+                    original guess is biased low.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Bias-Corrected Estimate</h2>
+                <div class="math-box">
+                    $$ \hat{\theta}_{corrected} = \hat{\theta} - \text{Bias}_{boot} = 2\hat{\theta} -
+                    \bar{\hat{\theta}}^* $$
+                </div>
+                <p>
+                    We subtract the estimated bias from our original guess to get a "cleaner" answer that is closer to
+                    the true population value.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Small Sample Validation</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Hyperparameters</span>
+                    <h3>Correcting Model Performance</h3>
+                    <p>
+                        When validating a model on a very small dataset (e.g., 50 samples), the measured accuracy is
+                        often biased because the test set is so small.
+                    </p>
+                    <p>
+                        By using <strong>Bias-Corrected Bootstrap</strong>, we can get a more realistic estimate of how the model
+                        will perform on the general population. This prevents "Optimism Bias"—the tendency for models to
+                        look better on their own small test sets than they actually are in production.
+                    </p>
+                </div>
+
+                <h3>Parameter Tuning</h3>
+                <p>
+                    In complex models like <strong>Support Vector Machines (SVM)</strong>, some internal parameters might be biased
+                    based on the sample size. Advanced bootstrap methods are used to correct these parameters during the
+                    training phase.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Module Recap Diagram</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Estimation & Bootstrap] --> B[Direct Calculation]
+                        A --> C[Resampling]
+                        B --> B1[Z-Intervals Large n]
+                        B --> B2[T-Intervals Small n]
+                        C --> C1["Bootstrap (Random)"]
+                        C --> C2["Jackknife (Leave-One-Out)"]
+                        C1 --> D["Confidence Intervals"]
+                        C1 --> E["Standard Errors"]
+                        C1 --> F["Bias Correction"]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

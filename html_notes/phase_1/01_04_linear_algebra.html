@@ -1,27 +1,313 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topic - AI/ML Hub</title>
-    <link rel='stylesheet' href='../css/style.css'>
-    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class='sidebar'>
-        <div class='sidebar-header'>AI/ML Hub</div>
-        <ul class='nav-links'>
-            <li><a href='../home.html'>&larr; Dashboard</a></li>
-            <li><a href='index.html'>&uarr; Phase 1 Index</a></li>
-        </ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_04_linear_algebra.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
-    <main class='main-content'>
-        <h1>Topic Coming Soon</h1>
-        <p>This content is currently being developed.</p>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 01_04_linear_algebra.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 01_04</div>
+            <h1>Introduction to Linear Algebra</h1>
+            <p class="lead-text">The mathematical foundation of modern AI. From vectors and matrices to eigendecomposition.</p>
+        </header>
+
+        <!-- CONCEPT MAP: LINEAR ALGEBRA HIERARCHY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">1. The Foundation of Linear Algebra</h2>
+                <p>Linear algebra is the study of vectors, vector spaces, and linear transformations. It's the mathematical framework that underlies virtually all of machine learning and deep learning.</p>
+                <div class="visual-diagram">
+                    <svg height="400" viewBox="0 0 600 400" width="600" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter height="140%" id="shadow" width="140%" x="-20%" y="-20%">
+                                <feGaussianBlur in="SourceAlpha" stdDeviation="3"></feGaussianBlur>
+                                <feOffset dx="2" dy="4" result="offsetblur"></feOffset>
+                                <feComponentTransfer>
+                                    <feFuncA slope="0.2" type="linear"></feFuncA>
+                                </feComponentTransfer>
+                                <feMerge>
+                                    <feMergeNode in="offsetblur"></feMergeNode>
+                                    <feMergeNode in="SourceGraphic"></feMergeNode>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <!-- Scalars -->
+                        <circle cx="150" cy="100" fill="#fef08a" filter="url(#shadow)" r="50" stroke="#ca8a04" stroke-width="2"></circle>
+                        <text fill="#92400e" font-size="14" font-weight="bold" text-anchor="middle" x="150" y="105">Scalars</text>
+                        <text fill="#92400e" font-size="12" text-anchor="middle" x="150" y="125">(Single Values)</text>
+                        
+                        <!-- Vectors -->
+                        <rect x="250" y="50" width="200" height="40" fill="#bfdbfe" stroke="#2563eb" stroke-width="2" rx="8" filter="url(#shadow)"></rect>
+                        <text fill="#1e40af" font-size="14" font-weight="bold" text-anchor="middle" x="350" y="75">Vectors</text>
+                        <text fill="#1e40af" font-size="12" text-anchor="middle" x="350" y="95">(Ordered Lists)</text>
+                        
+                        <!-- Matrices -->
+                        <rect x="250" y="120" width="200" height="80" fill="#bbf7d0" stroke="#16a34a" stroke-width="2" rx="8" filter="url(#shadow)"></rect>
+                        <text fill="#065f46" font-size="14" font-weight="bold" text-anchor="middle" x="350" y="150">Matrices</text>
+                        <text fill="#065f46" font-size="12" text-anchor="middle" x="350" y="170">(2D Arrays)</text>
+                        
+                        <!-- Tensors -->
+                        <rect x="250" y="230" width="200" height="100" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2" rx="8" filter="url(#shadow)"></rect>
+                        <text fill="#5b21b6" font-size="14" font-weight="bold" text-anchor="middle" x="350" y="270">Tensors</text>
+                        <text fill="#5b21b6" font-size="12" text-anchor="middle" x="350" y="290">(Multi-Dim</text>
+                        <text fill="#5b21b6" font-size="12" text-anchor="middle" x="350" y="305">Arrays)</text>
+                        
+                        <!-- Arrows showing progression -->
+                        <line stroke="#64748b" stroke-width="2" x1="200" y1="100" x2="250" y2="70"></line>
+                        <polygon fill="#64748b" points="245,65 255,75 245,85"></polygon>
+                        
+                        <line stroke="#64748b" stroke-width="2" x1="350" y1="90" x2="350" y2="120"></line>
+                        <polygon fill="#64748b" points="345,115 355,125 355,115"></polygon>
+                        
+                        <line stroke="#64748b" stroke-width="2" x1="350" y1="200" x2="350" y2="230"></line>
+                        <polygon fill="#64748b" points="345,225 355,235 355,225"></polygon>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- CORE CONCEPTS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>2. Core Concepts in Linear Algebra</h2>
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <h3>Vectors</h3>
+                        <p>Mathematically, a vector is an element of a vector space. In AI, it's typically an ordered list of numbers.</p>
+                        <div class="math-block">
+                            $$ \vec{v} = \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{bmatrix} \in \mathbb{R}^n $$
+                        </div>
+                        <p>In AI, vectors represent features, embeddings, or activations in neural networks.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>Matrices</h3>
+                        <p>A rectangular array of numbers arranged in rows and columns.</p>
+                        <div class="math-block">
+                            $$ A = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{bmatrix} \in \mathbb{R}^{m \times n} $$
+                        </div>
+                        <p>Weight matrices in neural networks are prime examples of matrices in AI.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>Operations</h3>
+                        <p>Fundamental operations that form the basis of all linear algebra computations.</p>
+                        <ul>
+                            <li><strong>Vector Addition:</strong> $\vec{u} + \vec{v}$</li>
+                            <li><strong>Scalar Multiplication:</strong> $c\vec{v}$</li>
+                            <li><strong>Dot Product:</strong> $\vec{u} \cdot \vec{v}$</li>
+                            <li><strong>Matrix Multiplication:</strong> $AB$</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPREHENSIVE APPLICATIONS SECTION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Applications in AI/ML Systems</h2>
+                <div class="application-grid">
+                    <div class="application-card">
+                        <h3>Neural Network Layers</h3>
+                        <p>Neural network operations are fundamentally matrix and vector operations.</p>
+                        <div class="math-block">
+                            $$ \mathbf{y} = \sigma(\mathbf{Wx} + \mathbf{b}) $$
+                        </div>
+                        <p>Where \(\mathbf{W}\) is the weight matrix, \(\mathbf{x}\) is the input vector, \(\mathbf{b}\) is the bias vector, and \(\sigma\) is the activation function.</p>
+                    </div>
+                    <div class="application-card">
+                        <h3>Principal Component Analysis (PCA)</h3>
+                        <p>Dimensionality reduction technique using eigendecomposition of covariance matrices.</p>
+                        <div class="math-block">
+                            $$ \mathbf{X} = \mathbf{U\Sigma V}^T $$
+                        </div>
+                        <p>Singular Value Decomposition (SVD) is used to find principal components.</p>
+                    </div>
+                    <div class="application-card">
+                        <h3>Attention Mechanisms</h3>
+                        <p>Core component of transformer models using matrix operations for self-attention.</p>
+                        <div class="math-block">
+                            $$ \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V $$
+                        </div>
+                        <p>Attention weights are computed using dot products and matrix multiplication.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROBLEM-SOLVING METHODOLOGIES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>4. Problem-Solving Methodologies</h2>
+                <div class="methodology-grid">
+                    <div class="methodology-card">
+                        <h3>Matrix Decomposition</h3>
+                        <p>Breaking down matrices into simpler, interpretable components.</p>
+                        <div class="math-block">
+                            \text{LU Decomposition: } A = LU \\
+                            \text{QR Decomposition: } A = QR \\
+                            \text{Eigendecomposition: } A = Q\Lambda Q^{-1}
+                        </div>
+                        <div class="code-example">
+                            <pre><code class="language-python">
+import numpy as np
+
+# Example: SVD decomposition
+A = np.array([[1, 2], [3, 4]])
+U, s, Vt = np.linalg.svd(A)
+
+print(f'Original matrix:\n{A}')
+print(f'U matrix:\n{U}')
+print(f'Singular values: {s}')
+print(f'V transpose:\n{Vt}')
+
+# Reconstruct the matrix
+S = np.zeros((2, 2))
+np.fill_diagonal(S, s)
+reconstructed = U @ S @ Vt
+print(f'Reconstructed matrix:\n{reconstructed}')
+                            </code></pre>
+                        </div>
+                    </div>
+                    <div class="methodology-card">
+                        <h3>Solving Linear Systems</h3>
+                        <p>Methods for solving systems of linear equations Ax = b.</p>
+                        <ul>
+                            <li>Gaussian elimination</li>
+                            <li>Matrix inversion</li>
+                            <li>Iterative methods (Jacobi, Gauss-Seidel)</li>
+                        </ul>
+                    </div>
+                    <div class="methodology-card">
+                        <h3>Eigenvalues and Eigenvectors</h3>
+                        <p>Special vectors that only change in scale when transformed by a matrix.</p>
+                        <div class="math-block">
+                            $$ A\vec{v} = \lambda\vec{v} $$
+                        </div>
+                        <p>Applications in PCA, stability analysis, and graph theory.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INDUSTRY USE CASES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>5. Industry Use Cases</h2>
+                <div class="use-case-grid">
+                    <div class="use-case-card">
+                        <h3>Computer Vision</h3>
+                        <p>Image processing and feature extraction using linear algebra operations.</p>
+                        <ul>
+                            <li>Convolution as matrix operations</li>
+                            <li>Image transformations (rotation, scaling, translation)</li>
+                            <li>Feature extraction using PCA</li>
+                        </ul>
+                    </div>
+                    <div class="use-case-card">
+                        <h3>Natural Language Processing</h3>
+                        <p>Transforming text into algebraic representations for processing.</p>
+                        <ul>
+                            <li>Word embeddings as high-dimensional vectors</li>
+                            <li>Attention mechanisms using dot products</li>
+                            <li>Document-term matrices for text analysis</li>
+                        </ul>
+                    </div>
+                    <div class="use-case-card">
+                        <h3>Recommendation Systems</h3>
+                        <p>Matrix factorization techniques for collaborative filtering.</p>
+                        <ul>
+                            <li>Singular Value Decomposition (SVD)</li>
+                            <li>Non-negative Matrix Factorization (NMF)</li>
+                            <li>Latent factor models</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP-BY-STEP PROBLEM SOLVING -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>6. Step-by-Step Problem Solving</h2>
+                <div class="problem-solving-steps">
+                    <div class="step">
+                        <h3>Step 1: Identify the Problem Type</h3>
+                        <p>Determine the type of linear algebra problem you're dealing with:</p>
+                        <ul>
+                            <li>Vector operations (dot product, cross product, norms)</li>
+                            <li>Matrix operations (multiplication, inverse, determinant)</li>
+                            <li>Systems of linear equations</li>
+                            <li>Eigenvalue/eigenvector problems</li>
+                        </ul>
+                    </div>
+                    <div class="step">
+                        <h3>Step 2: Apply Appropriate Formulas</h3>
+                        <p>Select and implement the relevant mathematical formulas:</p>
+                        <ul>
+                            <li>Dot product: $\vec{a} \cdot \vec{b} = \sum_{i=1}^{n} a_i b_i$</li>
+                            <li>Matrix multiplication: $(AB)_{ij} = \sum_{k} A_{ik} B_{kj}$</li>
+                            <li>Norm calculation: $||\vec{v}|| = \sqrt{\sum_{i=1}^{n} v_i^2}$</li>
+                        </ul>
+                    </div>
+                    <div class="step">
+                        <h3>Step 3: Verify Results</h3>
+                        <p>Check your solution for accuracy and validity:</p>
+                        <ul>
+                            <li>Verify matrix dimensions are compatible</li>
+                            <li>Check that eigenvalues/eigenvectors satisfy the defining equation</li>
+                            <li>Confirm that solutions satisfy original equations</li>
+                        </ul>
+                    </div>
+                    <div class="step">
+                        <h3>Step 4: Interpret in Context</h3>
+                        <p>Connect mathematical results to the real-world problem:</p>
+                        <ul>
+                            <li>Understand what principal components represent in PCA</li>
+                            <li>Interpret eigenvalues in terms of variance explained</li>
+                            <li>Relate matrix factorization to latent factors in data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
 </body>
 </html>
-
-
-
-

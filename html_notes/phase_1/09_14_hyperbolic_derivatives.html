@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.14 Hyperbolic Derivatives - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_10_trig_derivatives.html" class="nav-link">10. Trig
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_11_exp_derivatives.html" class="nav-link">11. Exponential
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_12_log_derivatives.html" class="nav-link">12. Logarithmic
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_13_inv_trig_derivatives.html" class="nav-link">13. Inverse
+                                Trig</a></li>
+                        <li class="nav-item"><a href="09_14_hyperbolic_derivatives.html" class="nav-link active">14.
+                                Hyperbolic (Tanh)</a></li>
+                        <li class="nav-item"><a href="09_15_log_diff.html" class="nav-link">15. Logarithmic Diff</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Activation</span>
+                </div>
+                <h1>Hyperbolic Derivatives</h1>
+                <p class="lead-text">Meet 'Tanh', the older, sharper cousin of Sigmoid.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Zero-Centered" Advantage</h3>
+                    <p>
+                        Both Sigmoid and Tanh are S-shaped. But Tanh goes from -1 to 1, passing through 0. This
+                        "Zero-Centering" makes optimization easier because gradients can be positive or negative, rather
+                        than always positive (as in Sigmoid outputs).
+                    </p>
+                </div>
+
+                <h2>1. The Formulae</h2>
+                <div class="glass-card">
+                    <p><strong>Hyperbolic Sine & Cosine:</strong></p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx}\sinh x = \cosh x \]
+                        \[ \frac{d}{dx}\cosh x = \sinh x \]
+                    </div>
+                    <p><em>(Notice no negative signs, unlike regular trig!)</em></p>
+                </div>
+                <div class="glass-card">
+                    <p><strong>Hyperbolic Tangent (The Star):</strong></p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx}\tanh x = \text{sech}^2 x = 1 - \tanh^2 x \]
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Tanh[Tanh Function] -->|Differentiate| Sech2[Sech Squared]
+                        Sech2 -->|Identity| OneMinussq[1 - Tanh^2]
+
+                        OneMinussq -->|x is Large| Zero[Gradient -> 0]
+                        OneMinussq -->|x is 0| One[Gradient -> 1]
+
+                        style Zero fill:#f56565,stroke:#c53030
+                        style One fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Tanh Saturation</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Gradient Descent gets stuck</h3>
+                    <p>
+                        In Recurrent Neural Networks (RNNs) and LSTMs, Tanh is the default activation.
+                        Look at the derivative: \(1 - \text{output}^2\).
+                    </p>
+                    <ul>
+                        <li>If the output is near 1 (Meaning x is large positive), derivative is \(1 - 1^2 = 0\).</li>
+                        <li>If the output is near -1 (Meaning x is large negative), derivative is \(1 - (-1)^2 = 0\).
+                        </li>
+                    </ul>
+                    <p>
+                        This is <strong>Saturation</strong>. If your weights push the neuron into these flat regions,
+                        the gradient dies, and the neuron stops learning. This led to the initialization techinques like
+                        "Xavier Initialization" designed specifically to keep inputs in the "linear" range near 0 where
+                        gradients are strong.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Tanh vs Sigmoid Gradients</h2>
+                <div class="code-header">activation_gradients.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def tanh_deriv(x):
+    return 1 - np.tanh(x)**2
+
+def sigmoid_deriv(x):
+    s = 1 / (1 + np.exp(-x))
+    return s * (1 - s)
+
+# Peak Gradient Strength implies learning speed potential
+print(f"Max Tanh Gradient (at 0):    {tanh_deriv(0):.4f}")    # 1.0!
+print(f"Max Sigmoid Gradient (at 0): {sigmoid_deriv(0):.4f}") # 0.25
+
+# Tanh allows gradients to flow 4x stronger than Sigmoid!
+# This is why Tanh is historically preferred over Sigmoid in hidden layers.
+
+x_sat = 3.0
+print(f"\nSaturation Check at x={x_sat}:")
+print(f"Tanh Grad:    {tanh_deriv(x_sat):.6f}")
+print(f"Sigmoid Grad: {sigmoid_deriv(x_sat):.6f}")
+# Both are dying, but Tanh dies faster due to steeper slope.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_13_inv_trig_derivatives.html" class="footer-link">← Prev: Inverse Trig</a>
+                        <span class="separator">|</span>
+                        <a href="09_15_log_diff.html" class="footer-link">Next: Log Diff →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

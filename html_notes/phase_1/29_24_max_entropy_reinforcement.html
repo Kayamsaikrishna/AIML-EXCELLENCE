@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximum Entropy RL - Phase 1.5.7.24</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_24_max_entropy_reinforcement.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_24_max_entropy_reinforcement.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_24</div>
+            <h1>24. Maximum Entropy RL (Soft Actor-Critic)</h1>
+            <p class="lead-text">Training agents to be smart and unpredictable.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Modified Objective</h2>
+<p>In standard Reinforcement Learning, the agent maximizes the sum of rewards. In <strong>Maximum Entropy
+                    RL<strong>, the agent maximizes the reward **plus</strong> the entropy of its policy. </strong></p>
+<div class="math-block">
+                $$ J(\pi) = \sum_{t=0}^T E_{(s_t, a_t) \sim \rho_\pi} [r(s_t, a_t) + \alpha \mathcal{H}(\pi(\cdot |
+                s_t))] $$
+            </div>
+<p>where $\alpha$ is the temperature parameter that controls the trade-off. </p>
+</section>
+<section class="module-card">
+<h2>2. Why increase uncertainty?</h2>
+<p>By encouraging high entropy, we force the agent to explore all possible successful actions rather than
+                just memorizing one. This makes the AI significantly more robust to noise and changes in the
+                environment.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Soft Actor-Critic (SAC)</h2>
+<div class="module-card">
+<h3>The State-of-the-Art in Robotics</h3>
+<p>In AI, the <strong>Soft Actor-Critic (SAC)** algorithm is the direct application of this theory. </strong></p>
+<p>SAC is one of the most stable and efficient algorithms for continuous control (like training a
+                    humanoid robot to walk). Because it maximizes entropy, it doesn't "Collapse" into a single brittle
+                    strategy. If a robot trained with SAC finds two paths to a goal, it will learn to use BOTH,
+                    effectively maintaining a "Portfolio" of skills. This is why SAC-trained agents can handle "Icy
+                    floors" or "Broken motors" better than standard agents: they have "High-entropy" backups. It is the
+                    bridge between <strong>Information Theory</strong> and <strong>Embodied Intelligence</strong>. </p>
+</div>
+</section>
+<section>
+<h2>4. Mathematical Summary</h2>
+<p>MaxEnt RL proves that information is a resource. An agent that "Consumes" entropy (explores) is better
+                equipped to "Earn" reward in the long run. </p>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

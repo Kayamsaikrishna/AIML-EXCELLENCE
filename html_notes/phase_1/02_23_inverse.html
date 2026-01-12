@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02.23 Matrix Inverse - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_22_rank.html" class="nav-link">22. Rank</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">23. Inverse Matrix</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 23. The Inverse
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 23</div>
+            <h1>The Undo Button</h1>
+            <p class="lead-text"> \( A^{-1} \). Reversing space. Why we rarely compute it explicitly in AI.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: INVERSE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Round Trip</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Vector x"]
+    
+    subgraph Forward
+        A["Matrix A"]
+        Output["Output y = Ax"]
+    end
+    
+    subgraph Backward
+        Inv["Inverse A^-1"]
+        Restored["Restored x = A^-1 y"]
+    end
+    
+    subgraph Danger
+        Singular["Singular Matrix (Det=0)"]
+        NoInv["No Undo Button (Crash)"]
+    end
+    
+    Input --> A
+    A --> Output
+    
+    Output --> Inv
+    Inv --> Restored
+    
+    Singular --> NoInv
+    A -.->|If Rank Deficient| Singular
+
+    style Restored fill:#dcfce7,stroke:#16a34a
+    style NoInv fill:#fee2e2,stroke:#b91c1c
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: IDENTITY RECOVERY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>The inverse \( A^{-1} \) is the unique matrix that, when multiplied by \( A \), returns the Identity
+                    matrix.</p>
+                <div class="math-block">
+                    $$ A^{-1}A = I \quad \text{and} \quad AA^{-1} = I $$
+                </div>
+                <p>This allows us to solve \( A\mathbf{x} = \mathbf{b} \) by simply multiplying: \( \mathbf{x} =
+                    A^{-1}\mathbf{b} \).</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: NUMERICAL INSTABILITY -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The Condition Number</h2>
+                <p>In practice (Deep Learning), we almost <strong>NEVER</strong> calculate \( A^{-1} \) explicitly.</p>
+                <ul>
+                    <li><strong>Computational Cost:</strong> \( O(n^3) \). Too slow for big matrices.</li>
+                    <li><strong>Stability:</strong> If \( A \) is "almost" singular (Condition Number is high), dividing
+                        by small numbers causes massive exploding errors.</li>
+                </ul>
+                <p>Instead, we use solvers like Gaussian Elimination or LU Decomposition.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. The Inverse vs Solver</h2>
+                <p>Comparing explicit inversion vs efficient solving.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import time
+
+# Large Matrix
+N = 1000
+A = np.random.rand(N, N)
+# Ensure it's invertible by adding Identity (Diagonally dominant)
+A = A + np.eye(N) * N 
+x_true = np.random.rand(N)
+b = np.dot(A, x_true)
+
+# Method 1: Explicit Inverse (Slow & Less Precise)
+t0 = time.time()
+A_inv = np.linalg.inv(A)
+x_inv = np.dot(A_inv, b)
+t1 = time.time()
+print(f"Inverse Time: {t1-t0:.4f}s")
+
+# Method 2: Solver (Fast & Stable)
+t0 = time.time()
+x_solve = np.linalg.solve(A, b)
+t1 = time.time()
+print(f"Solver Time:  {t1-t0:.4f}s")
+
+# Check Errors
+err_inv = np.linalg.norm(x_true - x_inv)
+err_solve = np.linalg.norm(x_true - x_solve)
+
+print(f"Error (Inv):   {err_inv:.4e}")
+print(f"Error (Solve): {err_solve:.4e}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

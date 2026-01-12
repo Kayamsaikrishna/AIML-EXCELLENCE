@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.18 Rolle's Theorem - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_16_higher_order.html" class="nav-link">16. Higher Order
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_17_mvt.html" class="nav-link">17. Mean Value Theorem</a></li>
+                        <li class="nav-item"><a href="09_18_rolles_theorem.html" class="nav-link active">18. Rolle's
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="09_19_lhopital.html" class="nav-link">19. L'Hopital's Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="09_20_related_rates.html" class="nav-link">20. Related Rates</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Zero Slope</span>
+                </div>
+                <h1>Rolle's Theorem</h1>
+                <p class="lead-text">If what goes up must come down, there must be a moment where it freezes in mid-air.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Turnaround" point</h3>
+                    <p>
+                        Rolle's Theorem is common sense wrapped in rigor. If you throw a ball and catch it at the same
+                        height, at some point its vertical velocity was exactly zero.
+                    </p>
+                </div>
+
+                <h2>1. The Theorem</h2>
+                <div class="glass-card">
+                    <p>
+                        If \(f\) is continuous on \([a,b]\), differentiable on \((a,b)\), and <strong>\(f(a) =
+                            f(b)\)</strong>, then there exists at least one \(c\) where:
+                    </p>
+                    <div class="math-block">
+                        \[ f'(c) = 0 \]
+                    </div>
+                    <p>
+                        This \(c\) is a Critical Point (candidate for local max/min).
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Start[Point A: Height h] -->|Go Up| Peak[Peak: Velocity 0]
+                        Peak -->|Go Down| End[Point B: Height h]
+
+                        Context[If Start == End, there MUST be a Turnaround]
+                        style Peak fill:#f6e05e,stroke:#d69e2e,color:black
+                        style Context fill:#2d3748,color:white,border:0
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Loss Landscape Symmetry</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Finding Valleys between Mountains</h3>
+                    <p>
+                        In deep learning, our loss landscapes are often non-convex and have symmetries.
+                        Imagine we have two different sets of weights \(W_1\) and \(W_2\) that yield the exact same loss
+                        value (e.g., due to permuting neurons).
+                    </p>
+                    <p>
+                        Rolle's Theorem (or its multidimensional version) implies that on any smooth path connecting
+                        \(W_1\) and \(W_2\), there must be a point where the gradient is zero.
+                    </p>
+                    <p>
+                        This usually implies the existence of a <strong>Saddle Point</strong> between two minima. AI
+                        researchers use this to study "Mode Connectivity"—how we can travel from one good solution to
+                        another without the loss spiking up too high.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Rolle's Check</h2>
+                <div class="code-header">rolles_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Function: f(x) = x^2 - 4x + 3
+# Roots at x=1 and x=3 -> f(1)=0, f(3)=0
+def f(x):
+    return x**2 - 4*x + 3
+
+def df(x):
+    return 2*x - 4
+
+a, b = 1, 3
+print(f"f({a}) = {f(a)}")
+print(f"f({b}) = {f(b)}")
+print("Rolle's Condition Met: f(a) == f(b)")
+
+# Solve 2x - 4 = 0 -> x = 2
+c = 2
+print(f"\nTurning Point c: {c}")
+print(f"Is c in ({a}, {b})? {a < c < b}")
+print(f"Derivative at c: {df(c)}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_17_mvt.html" class="footer-link">← Prev: Mean Value Theorem</a>
+                        <span class="separator">|</span>
+                        <a href="09_19_lhopital.html" class="footer-link">Next: L'Hopital's Rule →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

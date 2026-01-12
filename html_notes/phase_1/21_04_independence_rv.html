@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.04 Independence of Random Variables - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_03_conditional_dist.html" class="nav-link">03. Conditional
+                                Dist</a></li>
+                        <li class="nav-item"><a href="21_04_independence_rv.html" class="nav-link active">04.
+                                Independence</a></li>
+                        <li class="nav-item"><a href="21_05_exp_multiple_rvs.html" class="nav-link">05. Exp Multiple
+                                RVs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Divorce</span>
+                </div>
+                <h1>Independence of Random Variables</h1>
+                <p class="lead-text">When knowledge of one variable provides zero information about another.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Vanishing Condition</h3>
+                    <p>
+                        Two variables are independent if their Joint Distribution is simply the <strong>product</strong>
+                        of their Marginal Distributions.
+                        <br><br>
+                        "Knowing \(X\) doesn't change my belief about \(Y\)." Mathematically, the conditional
+                        distribution is just the marginal.
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    RVs \(X\) and \(Y\) are independent if and only if:
+                    $$ f(x, y) = f_X(x) f_Y(y) $$
+                    Equivalent to:
+                    $$ f_{X|Y}(x|y) = f_X(x) $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Independent and Identically Distributed (I.I.D.)</h2>
+                <div class="insight-box">
+                    <h3>The Foundation of Statistics</h3>
+                    <p>
+                        Most ML algorithms start with the <strong>I.I.D. Assumption</strong>: We assume our training
+                        data points are sampled independently from the same underlying distribution.
+                    </p>
+                    <p>
+                        If your samples are <strong>Independent</strong>, the likelihood of the whole dataset is just
+                        the product of the likelihoods of each individual point. This simplifies the math for Maximum
+                        Likelihood Estimation (MLE) tremendously:
+                        $$ P(\mathcal{D}) = \prod_{i=1}^n P(x_i) $$
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Naive Bayes</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Classic ML</span>
+                    <span class="ml-badge">Supervised</span>
+                    <h3>The "Naive" Assumption</h3>
+                    <p>
+                        In classification, we want to compute \(P(Y \mid X_1, X_2, \dots, X_n)\).
+                        <br>
+                        The <strong>Naive Bayes</strong> classifier makes a massive simplification: It assumes all features \(X_i\)
+                        are <strong>conditionally independent</strong> given the class label \(Y\).
+                    </p>
+                    <p>
+                        Instead of trying to learn a complex joint relationship between all features, we just learn the
+                        relationship between each individual feature and the class:
+                        $$ P(X_1, \dots, X_n \mid Y) \approx \prod_{i=1}^n P(X_i \mid Y) $$
+                        Even though this assumption is almost always <em>wrong</em> (features are usually correlated),
+                        Naive Bayes works surprisingly well for tasks like Spam filtering.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Independence vs. Uncorrelated</h2>
+                <p>
+                    <strong>Warning:</strong> Independence implies zero correlation, but **Zero correlation does NOT
+                    necessarily imply independence.**
+                </p>
+                <p>
+                    Correlation only measures linear relationships. Two variables could be perfectly related (e.g., \(Y
+                    = X^2\)) but have zero correlation if the relationship is symmetric. However, they are definitely
+                    not independent!
+                </p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Independent] --> B[Uncorrelated]
+                        B -.->|Only if Gaussian| A
+                        C[Non-Linear Relation] --> B
+                        C --> D[Dependent]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

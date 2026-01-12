@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13.26 Curl & Helmholtz Decomposition - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_24_stokes_theorem.html" class="nav-link">24. Stokes'
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_32_divergence_theorem.html" class="nav-link">25. Divergence
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_33_curl_divergence.html" class="nav-link active">26. Curl &
+                                Divergence</a></li>
+                        <li class="nav-item"><a href="13_34_vector_calculus_apps.html" class="nav-link">27. Vector
+                                Apps</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">The Operators</span>
+                </div>
+                <h1>Curl & Helmholtz Decomposition</h1>
+                <p class="lead-text">Breaking every vector field into "Flow" (Divergence) and "Spin" (Curl).</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Curl Operator</h3>
+                    <p>
+                        <strong>Curl</strong> (\(\nabla \times \vec{F}\)) measures the local rotation or "vorticity" of
+                        a field.
+                        Imagine placing a tiny paddle wheel in the fluid; the Curl is the axis and speed of its spin.
+                    </p>
+                    <div class="math-block">
+                        $$ \nabla \times \vec{F} = \det \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\
+                        \frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\ P & Q
+                        & R \end{vmatrix} $$
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Field["Vector Field F"] -->|Calc Divergence| Div["Scalar: Expansion"]
+                        Field -->|Calc Curl| Rot["Vector: Rotation"]
+
+                        Div -->|Positive| Source["Source (Repelling)"]
+                        Div -->|Negative| Sink["Sink (Attracting)"]
+
+                        Rot -->|Zero| Consev["Conservative / Gradient Field"]
+                        Rot -->|Non-Zero| Vortex["Rotational / Solenoidal"]
+
+                        style Field fill:#2d3748,stroke:#4a5568
+                        style Rot fill:#c05621,stroke:#ed8936
+                        style Consev fill:#2f855a,stroke:#48bb78
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Helmholtz Decomposition</h2>
+                <p>
+                    The <strong>Fundamental Theorem of Vector Calculus</strong> states that any smooth, rapidly decaying
+                    field \(\vec{F}\)
+                    can be decomposed into the sum of a gradient field (irrotational) and a curl field (solenoidal):
+                </p>
+                <div class="math-block">
+                    $$ \vec{F} = -\nabla \Phi + \nabla \times \vec{A} $$
+                </div>
+
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Graph Neural Networks (GNNs)</h3>
+                    <p>
+                        In <strong>Geometric Deep Learning</strong>, we often analyze signals on graphs (like traffic
+                        flow or molecular interactions).
+                        This flow can be decomposed into:
+                    </p>
+                    <ul>
+                        <li><strong>Gradient Flow:</strong> Flow driven by potential differences (e.g., heat moving from
+                            hot to cold).
+                            This is the "Divergence" part.</li>
+                        <li><strong>Cyclic Flow:</strong> Flow that circulates around holes in the network (e.g.,
+                            currents in a circuit).
+                            This is the "Curl" part (or Harmonic flow).</li>
+                    </ul>
+                    <p>
+                        Modern <strong>Hodge-Net</strong> architectures explicitly learn these two components separately
+                        to better predict complex system dynamics.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Calculating Curl & Div</h2>
+                <div class="code-header">decompose_field.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+# Define Field F = < -y, x, z >
+# This has rotation in xy-plane, and expansion in z-axis.
+
+x, y, z = sp.symbols('x y z')
+F = sp.Matrix([-y, x, z])
+
+# 1. Calculate Divergence (Scalar)
+# Div(F) = d(-y)/dx + d(x)/dy + d(z)/dz = 0 + 0 + 1 = 1
+divergence = sp.diff(F[0], x) + sp.diff(F[1], y) + sp.diff(F[2], z)
+
+# 2. Calculate Curl (Vector)
+# Curl(F) = < (Ry - Qz), (Pz - Rx), (Qx - Py) >
+# Ry=0, Qz=0 -> i: 0
+# Pz=0, Rx=0 -> j: 0
+# Qx=1, Py=-1 -> k: 1 - (-1) = 2
+curl_F = sp.Matrix([
+    sp.diff(F[2], y) - sp.diff(F[1], z),
+    sp.diff(F[0], z) - sp.diff(F[2], x),
+    sp.diff(F[1], x) - sp.diff(F[0], y)
+])
+
+print(f"Field: {F}")
+print(f"Divergence (Expansion): {divergence}") # Expect 1
+print(f"Curl (Rotation): {curl_F}")           # Expect <0, 0, 2>
+
+# Conclusion: This field spirals upward like a tornado.
+# It expands vertically (Div=1) and rotates horizontally (Curl=2k).</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_32_divergence_theorem.html" class="footer-link">← Prev: Div Theorem</a>
+                        <span class="separator">|</span>
+                        <a href="13_34_vector_calculus_apps.html" class="footer-link">Next: Vector Apps →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

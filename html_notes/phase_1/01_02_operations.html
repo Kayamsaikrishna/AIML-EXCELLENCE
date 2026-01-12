@@ -4,249 +4,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operations & Basics - Phase 1.1.2</title>
+    <title>01.02 Operations - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">? Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_01_number_systems.html" class="nav-link">01. Number Systems</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">02. Operations</a></li>
+                    <li class="nav-item"><a href="01_03_pemdas.html" class="nav-link">03. Order of Ops</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Operations & Basics
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 02. Operations
         </div>
 
-        <header>
-            <h1>Operations & Fundamental Properties</h1>
-            <p class="subtitle">Why \( A \cdot B \neq B \cdot A \) crashes your code, and how "Order of Operations"
-                builds the Brain of a Neural Network.</p>
+        <header class="page-header">
+            <div class="badge">Module 02</div>
+            <h1>Operations, Properties & Einstein Summation</h1>
+            <p class="lead-text">From fundamental field axioms to the "Master Key" of Deep Learning: Einsum. A rigorous
+                study of tensor contractions and computational complexity.</p>
         </header>
 
-        <!-- INTRO: The Grammar of Math -->
-        <section id="introduction">
-            <div class="ai-insight-box" style="border-left-color: #ec4899;">
-                <div class="ai-insight-title" style="color: #be185d;">Real World Context: The "Grammar" of Reality</div>
-                <p>Imagine reading a sentence without spaces or punctuation: "Letseatgrandma".</p>
-                <p>Is it <strong>"Let's eat, grandma!"</strong> (Inviting her to dinner) or <strong>"Let's eat
-                        grandma!"</strong> (Cannibalism)?</p>
-                <p>Mathematical Operations work the same way. They are the grammar rules that tell us <em>how</em> to
-                    combine quantities. In AI, these rules tell the computer how to combine <strong>Data</strong>. If
-                    you get the grammar wrong, the model doesn't just fail; it learns the wrong "meaning" entirely.</p>
+        <!-- VISUAL DIAGRAM: OPERATIONS MAP -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    subgraph Ops [Fundamental Arithemtic]
+        Add["Addition (+)"]
+        Mult["Multiplication (×)"]
+        Exp["Exponentiation (^)"]
+    end
+
+    subgraph Props [Key Properties]
+        Comm["Commutativity"]
+        Assoc["Associativity"]
+        Dist["Distributivity"]
+    end
+
+    subgraph AI [Tensor Contractions]
+        MatMul["Matrix Multiplication"]
+        Broad["Broadcasting"]
+        Einsum["Einstein Summation"]
+    end
+
+    Add --> Comm
+    Add --> Assoc
+    Mult --> Comm
+    Mult --> Assoc
+    
+    Comm -.->|Fails for Matrices| MatMul
+    Add -.->|Generalizes to| Broad
+    MatMul -.->|Abstracts to| Einsum
+
+    style MatMul fill:#faa,stroke:#f00
+    style Broad fill:#afa,stroke:#0f0
+    style Einsum fill:#d8b4fe,stroke:#9333ea
+                    </pre>
+                </div>
             </div>
         </section>
 
-        <!-- 1. COMMUTATIVITY -->
-        <section id="commutativity">
-            <h2>1. The Commutative Property: Order Independence</h2>
-            <p><strong>Definition:</strong> An operation is commutative if changing the order of the operands does not
-                change the result.</p>
-            <div class="math-block">
-                $$ A + B = B + A $$
-                $$ A \cdot B = B \cdot A \quad \text{(For Scalars Only!)} $$
+        <!-- 1. FUNDAMENTAL PROPERTIES & AI FAILURES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Fundamental Properties & AI Failures</h2>
+                <p>In Abstract Algebra, we define a <strong>Field</strong> by properties like Commutativity and
+                    Associativity. In Deep Learning, we break them.</p>
+
+                <h3>The Failure of Commutativity</h3>
+                <p>For scalars, \( ab = ba \). For Matrices, \( \mathbf{A}\mathbf{B} \neq \mathbf{B}\mathbf{A} \).</p>
+                <div class="math-block">
+                    $$ \text{Let } A = \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}, B = \begin{bmatrix} 0 & 0 \\ 1 & 0
+                    \end{bmatrix} $$
+                    $$ AB = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}, \quad BA = \begin{bmatrix} 0 & 0 \\ 0 & 1
+                    \end{bmatrix} $$
+                </div>
+                <p><strong>Impact:</strong> In Neural Networks, the order of layers generally cannot be swapped without
+                    changing the function entirely.</p>
+
+                <h3>The Failure of Associativity</h3>
+                <p>For scalars, \( (a+b)+c = a+(b+c) \). In Floating Point Arithmetic, this <strong>fails</strong>.</p>
+                <div class="code-block">
+                    <pre><code class="language-python"># Floating Point Non-Associativity Demo
+a = 1e30
+b = -1e30
+c = 1.0
+
+# Order 1: Large numbers cancel out first
+print((a + b) + c) # Output: 1.0
+
+# Order 2: Small number lost in precision
+print(a + (b + c)) # Output: 0.0 (Precision Loss!)
+</code></pre>
+                </div>
             </div>
+        </section>
 
-            <div class="module-card">
-                <h3 class="module-title">Real World Analogy: Mixing Paint</h3>
-                <p>If you pour <strong>Red</strong> paint into a bucket, then add <strong>Blue</strong>, you get Purple.
-                </p>
-                <p>If you pour <strong>Blue</strong> first, then add <strong>Red</strong>, you still get the exact same
-                    Purple.</p>
-                <p>Addition is like mixing fluids—the history doesn't matter, only the total amount does.</p>
+        <!-- 2. BROADCASTING: THE TENSOR ALGEBRA -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>2. Broadcasting: Implicit Tensor Algebra</h2>
+                <p>Broadcasting allows binary operations on arrays of different sizes. It is the vectorized equivalent
+                    of a nested `for` loop.</p>
+
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+flowchart LR
+    A["Tensor A: (3, 1)"]
+    B["Tensor B: (1, 4)"]
+    C["Result C: (3, 4)"]
+
+    A -->|Replicate| A_prime["Tensor (3, 4)"]
+    B -->|Replicate| B_prime["Tensor (3, 4)"]
+    A_prime --> Add["Sum (+)"]
+    B_prime --> Add
+    Add --> C
+
+    style A_prime fill:#ff9,stroke:#333,stroke-dasharray: 5 5
+    style B_prime fill:#ff9,stroke:#333,stroke-dasharray: 5 5
+                    </pre>
+                </div>
+
+                <h3>Formal Rules</h3>
+                <ol>
+                    <li>Align dimensions from the right.</li>
+                    <li>If dimensions differ, one of them must be <strong>1</strong>.</li>
+                    <li>The dimension with size <strong>1</strong> is stretched to match the other.</li>
+                </ol>
             </div>
+        </section>
 
-            <div class="ai-insight-box">
-                <div class="ai-insight-title">⚡ AI CRITICAL: The "Matrix Trap"</div>
-                <p>In Deep Learning, we almost never work with single numbers (scalars). We work with <strong>Matrices
-                        (Tensors)</strong>.</p>
-                <p><strong>Matrix Multiplication is NOT Commutative.</strong> This is the #1 source of shape mismatch
-                    errors in PyTorch.</p>
+        <!-- 3. EINSTEIN SUMMATION (EINSUM) -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #7c3aed;">
+                <h2>3. Einstein Summation (Einsum): A Deep Dive</h2>
+                <p>Proposed by Albert Einstein in 1916 for General Relativity, <strong>Einsum</strong> is a notation
+                    that expresses complex tensor contractions without loops or specific function calls (`matmul`,
+                    `transpose`, `dot`).</p>
 
-                <div
-                    style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; font-family: var(--font-code);">
+                <div class="math-block">
+                    $$ C_{ik} = \sum_j A_{ij} B_{jk} \implies \text{"ij,jk->ik"} $$
+                </div>
+
+                <h3>Research Applications</h3>
+                <p>Modern architectures like <strong>Transformers</strong> use einsum to implement Multi-Head Attention
+                    efficiently.</p>
+
+                <table class="data-table" style="width:100%; border-collapse: collapse; margin-top: 20px;">
+                    <tr style="background:#f3f4f6; text-align: left;">
+                        <th style="padding:10px; border:1px solid #ddd;">Operation</th>
+                        <th style="padding:10px; border:1px solid #ddd;">Einsum String</th>
+                        <th style="padding:10px; border:1px solid #ddd;">Math</th>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">Dot Product</td>
+                        <td style="padding:10px; border:1px solid #ddd;"><code>i,i-></code></td>
+                        <td style="padding:10px; border:1px solid #ddd;">\( \sum_i a_i b_i \)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">Matrix Mul</td>
+                        <td style="padding:10px; border:1px solid #ddd;"><code>ij,jk->ik</code></td>
+                        <td style="padding:10px; border:1px solid #ddd;">\( \sum_j A_{ij} B_{jk} \)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">Attention</td>
+                        <td style="padding:10px; border:1px solid #ddd;"><code>bqd,bkd->bqk</code></td>
+                        <td style="padding:10px; border:1px solid #ddd;">Batch-Query-Key Mul</td>
+                    </tr>
+                </table>
+
+                <div class="code-block" style="margin-top:20px;">
+                    <h3>The Attention Implementation</h3>
                     <pre><code class="language-python">import torch
 
-# Define two matrices
-A = torch.randn(2, 3)  # Shape: [2, 3]
-B = torch.randn(3, 4)  # Shape: [3, 4]
+# Batch (b), Heads (h), Seq (t), Dim (d)
+Q = torch.randn(32, 8, 128, 64) 
+K = torch.randn(32, 8, 128, 64)
 
-# A @ B works (Matches inner dim 3) -> Result [2, 4]
-C = torch.matmul(A, B) 
-print(f"Shape: {C.shape}") # Output: torch.Size([2, 4])
+# Native implementation: Permute -> Matmul
+# scores = torch.matmul(Q, K.transpose(-2, -1))
 
-# B @ A fails! Inner dims (4 vs 2) mismatch.
-# RuntimeError: mat1 and mat2 shapes cannot be multiplied (3x4 and 2x3)
-D = torch.matmul(B, A) </code></pre>
+# Einsum implementation: Clean & Explicit
+# "Multiply Q and K along dimension 'd', keep b, h, t"
+scores = torch.einsum('b h t d, b h s d -> b h t s', Q, K)
+
+print(scores.shape) # [32, 8, 128, 128]
+</code></pre>
                 </div>
-                <p style="margin-top: 1rem;"><strong>Takeaway:</strong> In AI, "Order of Operations" isn't just a rule;
-                    it's a physical constraint of the data geometry.</p>
             </div>
         </section>
 
-        <!-- 2. ASSOCIATIVITY -->
-        <section id="associativity">
-            <h2>2. The Associative Property: Grouping Independence</h2>
-            <p><strong>Definition:</strong> Changing the grouping of operations doesn't change the result.</p>
-            <div class="math-block">
-                $$ (A + B) + C = A + (B + C) $$
-            </div>
+        <!-- 4. COMPUTATIONAL COMPLEXITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>4. Computational Complexity (Big-O)</h2>
+                <p>Why are LLMs so expensive? The answer lies in the complexity of Tensor Operations.</p>
 
-            <div class="module-card">
-                <h3 class="module-title">Real World Analogy: The Road Trip</h3>
-                <p>Three friends (Alice, Bob, Charlie) need to get in a van.</p>
+                <h3>Matrix Multiplication Cost</h3>
+                <p>Multiplying \( [N \times N] \) by \( [N \times N] \):</p>
                 <ul>
-                    <li>Scenario 1: Alice and Bob get in first. Then Charlie gets in. Total: 3 people.</li>
-                    <li>Scenario 2: Bob and Charlie get in first. Then Alice gets in. Total: 3 people.</li>
+                    <li>Standard Algorithm: \( O(N^3) \)</li>
+                    <li>Strassen Algorithm: \( O(N^{2.81}) \)</li>
+                    <li>Coppersmith-Winograd: \( O(N^{2.373}) \) (Theoretical)</li>
                 </ul>
-                <p>The result (full van) is the same regardless of who grouped up first.</p>
-            </div>
 
-            <div class="deep-dive-box">
-                <h4 class="deep-dive-title">Advanced AI: The "Floating Point" Lie</h4>
-                <p>In pure math, addition is associative. In <strong>Computer Science (IEEE 754 Floating
-                        Point)</strong>, it is actually <strong>NOT</strong>.</p>
-                <p>$$ (1e20 + -1e20) + 1 = 1 $$</p>
-                <p>$$ 1e20 + (-1e20 + 1) = 0 \quad \text{(Because 1 is lost in precision)} $$</p>
-                <p><strong>Why this matters to you:</strong> This is why training a neural network on a GPU is
-                    <strong>non-deterministic</strong>. The GPU sums millions of gradients in parallel. The order in
-                    which leading threads finish and add their result changes slightly every run. Because float addition
-                    isn't perfectly associative, your loss value will differ slightly every time, even with a fixed
-                    random seed.
-                </p>
-            </div>
-        </section>
-
-        <!-- PEMDAS moved to 01_03_pemdas.html -->
-
-        <!-- 4. BROADCASTING -->
-        <section id="broadcasting">
-            <h2>4. Broadcasting: The "Hidden" AI Operation</h2>
-            <p>In standard math, you can't add a single number (Scalar) to a List (Vector). In Python and AI, you can.
-                This is called <strong>Broadcasting</strong>.</p>
-
-            <div class="module-card">
-                <h3 class="module-title">Practical Scenario: The spreadsheet</h3>
-                <p>Imagine a spreadsheet column of "Sales Prices". You want to apply a $5 tax to every single item.</p>
-                <ul>
-                    <li><strong>Rigid Math:</strong> You must create a new column of 5s, same length as Sales, then add
-                        them row by row.</li>
-                    <li><strong>Broadcasting (AI):</strong> You just say "Column A + 5". The system <em>implicitly</em>
-                        duplicates the 5 to match the column height.</li>
-                </ul>
-            </div>
-
-            <div
-                style="background: #0f172a; color: #f8fafc; padding: 2rem; border-radius: 12px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Code Example: Adding Bias to a Batch</div>
-                <pre><code class="language-python">
-# Input Data (Batch of 3 samples, 4 features each)
-X = torch.tensor([
-    [1.0, 2.0, 3.0, 4.0],
-    [5.0, 6.0, 7.0, 8.0],
-    [9.0, 1.0, 2.0, 3.0]
-]) # Shape: [3, 4]
-
-# Bias vector (One bias per feature)
-b = torch.tensor([0.1, 0.2, 0.3, 0.4]) # Shape: [4]
-
-# BROADCASTING MAGIC
-# The shape [4] is "stretched" to become [3, 4] implicitly
-Y = X + b 
-
-print(Y)
-# Result: 
-# [[1.1, 2.2, 3.3, 4.4],  <-- Added b to row 1
-#  [5.1, 6.2, 7.3, 8.4],  <-- Added b to row 2
-#  [9.1, 1.2, 2.3, 3.4]]  <-- Added b to row 3
-                </code></pre>
-            </div>
-        </section>
-
-        <!-- 5. IDENTITY & ZERO -->
-        <section id="identity">
-            <h2>5. The Power of Zero and One</h2>
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">The Additive Identity (0)</h3>
-                    <p class="topic-item">Adding 0 changes nothing. In Neural Networks, 0 is the <strong>Standard of
-                            Neutrality</strong>.</p>
-                    <ul class="topic-list">
-                        <li class="topic-item"><strong>ReLU Activation:</strong> \( \max(0, x) \). Anything below zero
-                            is "killed". Zero is the threshold of inactivity.</li>
-                        <li class="topic-item"><strong>Bias Initialization:</strong> We usually initialize bias terms to
-                            0 so they don't disturb the learning process at the start.</li>
-                        <li class="topic-item"><strong>Padding:</strong> "Zero-padding" an image allows us to process
-                            the edges without changing the pixel values mathematically.</li>
-                    </ul>
+                <h3>Attention Mechanism Cost</h3>
+                <p>Self-Attention scales quadratically with sequence length \( L \).</p>
+                <div class="math-block">
+                    $$ \text{Complexity} = O(L^2 \cdot d) $$
                 </div>
-
-                <div class="sub-module">
-                    <h3 class="sub-module-title">The Multiplicative Identity (1)</h3>
-                    <p class="topic-item">Multiplying by 1 changes nothing. In Neural Networks, 1 is the
-                        <strong>Standard of Scale</strong>.
-                    </p>
-                    <ul class="topic-list">
-                        <li class="topic-item"><strong>Batch Normalization:</strong> We force our data to have a
-                            variance of 1. This keeps the signal distinct. Multiples of 1 mean "Signal". Multiples of
-                            0.001 mean "Vanishing Gradient".</li>
-                        <li class="topic-item"><strong>Residual Connections (ResNets):</strong> \( f(x) + x \). The \( +
-                            x \) part is essentially \( 1 \cdot x \). It allows the signal to "flow through" unchanged
-                            if the network decides the layer \( f(x) \) is useless.</li>
-                    </ul>
-                </div>
+                <p>This \( L^2 \) scaling is why standard Transformers struggle with very long contexts (e.g., millions
+                    of tokens).</p>
             </div>
         </section>
 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.13 Pareto Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_12_log_normal_dist.html" class="nav-link">12. Log-Normal</a>
+                        </li>
+                        <li class="nav-item"><a href="20_13_pareto_dist.html" class="nav-link active">13. Pareto
+                                Dist</a></li>
+                        <li class="nav-item"><a href="20_14_weibull_dist.html" class="nav-link">14. Weibull Dist</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The 80/20 Rule</span>
+                </div>
+                <h1>The Pareto Distribution</h1>
+                <p class="lead-text">Modeling extreme inequality: The world of Power Laws.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Vital Few</h3>
+                    <p>
+                        In 1896, Vilfredo Pareto observed that 80% of the land in Italy was owned by 20% of the
+                        population. This "Predictable Inequality" turned out to be a universal principle.
+                        <br><br>
+                        "20% of features drive 80% of model performance."
+                        <br>
+                        "20% of bugs cause 80% of crashes."
+                    </p>
+                </div>
+
+                <h2>1. Definition and PDF</h2>
+                <div class="math-box">
+                    \(X \sim \text{Pareto}(x_m, \alpha)\) where \(x_m\) is the minimum possible value and \(\alpha\) is
+                    the <strong>tail index</strong> (shape).
+                    $$ f(x) = \frac{\alpha x_m^\alpha}{x^{\alpha+1}} $$
+                    for \(x \ge x_m\).
+                </div>
+                <ul>
+                    <li>The PDF drops off as a power of \(x\) (\(x^\alpha\)), not exponentially. This means the tail is
+                        <strong>very</strong> heavy.</li>
+                    <li>Extremely high values are rare, but significantly more likely than in a Normal or Log-Normal
+                        distribution.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Hierarchy of Means</h2>
+                <p>Depending on \(\alpha\), the Pareto distribution starts "breaking":</p>
+                <ul>
+                    <li>If \(\alpha \le 1\): The distribution has <strong>Infinite Mean</strong>.</li>
+                    <li>If \(\alpha \le 2\): The distribution has <strong>Infinite Variance</strong>.</li>
+                </ul>
+                <p>Wealth distributions often have \(\alpha \approx 1.1\), meaning they are so unequal that the "average
+                    wealth" isn't a stable or meaningful metric for individual prediction.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Feature Sparsity & Zipf's Law</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">NLP</span>
+                    <span class="ml-badge">Data Mining</span>
+                    <h3>Zipf's Law</h3>
+                    <p>
+                        In Natural Language Processing, the frequency of words follows a power law. The word "the"
+                        appears twice as often as the 2nd most frequent word, three times as often as the 3rd, and so
+                        on.
+                    </p>
+                    <p>
+                        <strong>Implication:</strong> Word frequency datasets are extremely unbalanced. Most of your
+                        vocabulary will appear only once or twice (the "Long Tail"). This is why we use techniques like
+                        <strong>Sub-word Tokenization</strong> (BPE) or <strong>TF-IDF</strong>—to stop the most
+                        frequent terms from drowning out the rare, informative ones.
+                    </p>
+                </div>
+
+                <h3>Customer Value (CLV)</h3>
+                <p>
+                    In E-commerce, customer spending often follows a Pareto distribution. A tiny fraction of "Whales" or
+                    super-users contribute the vast majority of revenue. Marketing models must identify these outliers
+                    correctly.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Scale Invariance</h2>
+                <p>
+                    Pareto distributions are <strong>self-similar</strong>. If you look at the top 1% of wealth owners,
+                    the distribution of wealth <em>within</em> that 1% is also a Pareto distribution with the same
+                    shape!
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

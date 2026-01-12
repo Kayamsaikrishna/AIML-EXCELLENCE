@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30.01 Propositional Logic - Logic & Proofs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.6.1 Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="30_01_propositional_logic.html" class="nav-link active">01.
+                                Propositional Logic</a></li>
+                        <li class="nav-item"><a href="30_02_logical_connectives.html" class="nav-link">02. Logical
+                                Connectives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Formal Logic</span>
+                    <span class="badge secondary">Foundations</span>
+                </div>
+                <h1>Propositional Logic</h1>
+                <p class="lead-text">Grammar of Truth. The foundation of all mathematical reasoning, providing the
+                    syntax and rules for building complex logical statements from simple observations.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Atomic Statement</h3>
+                    <p>
+                        Propositional Logic deals with <strong>propositions</strong>: statements that are either <strong>True (T)</strong> or
+                        <strong>False (F)</strong>, but never both or neither. It ignores "what" the statement says and focuses
+                        entirely on the "logic skeleton" that connects them.
+                    </p>
+                </div>
+
+                <h2>1. Defining Propositions</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>What IS a Proposition?</h4>
+                        <ul>
+                            <li>"The sky is blue" (T)</li>
+                            <li>"2 + 2 = 5" (F)</li>
+                            <li>"Python is a language" (T)</li>
+                        </ul>
+                    </div>
+                    <div class="topic-card">
+                        <h4>What IS NOT a Proposition?</h4>
+                        <ul>
+                            <li>"Go to the store!" (Command)</li>
+                            <li>"X + 1 = 2" (Predicate - depends on X)</li>
+                            <li>"This sentence is false." (Paradox)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Symbolic Representation</h2>
+                <p>
+                    We represent propositions using letters like \(p, q, r, s\). This allows us to perform "algebra on
+                    truth" without getting bogged down in linguistics.
+                </p>
+                <div class="example-box">
+                    <p><strong>Example:</strong></p>
+                    <p>\(p\): "The sun is shining."</p>
+                    <p>\(q\): "I am happy."</p>
+                    <p>Logic statement: If \(p\), then \(q\) (\(p \rightarrow q\)).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">LLMs</span>
+                    <span class="ml-badge">Prompting</span>
+                    <h3>Why Logic matters in AI</h3>
+                    <p>
+                        Current AI models (LLMs) are often described as "stochastic parrots," but their ability to
+                        reason depends on following internal logical consistency.
+                    </p>
+                    <ul>
+                        <li><strong>Chain-of-Thought (CoT):</strong> By forcing an AI to break down a problem into a series of
+                            propositions, we increase the probability that it arrives at a logically sound conclusion.
+                        </li>
+                        <li><strong>Consistency Checks:</strong> Many AI evaluation frameworks use propositional logic to verify if
+                            an AI's claims on Page 1 are consistent with its claims on Page 10.</li>
+                        <li><strong>Knowledge Graphs:</strong> Large-scale symbolic AI relies on storing facts as interconnected
+                            propositions (\(subject \xrightarrow{relation} object\)).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Logical Structure</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Natural Language] -- "Formalization" --> B[Atomic Propositions]
+                    B -- "Connectives (NOT, AND, OR)" --> C[Compound Statements]
+                    C -- "Evaluation" --> D{Truth Value: T / F}
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

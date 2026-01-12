@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.22 Newton's Method - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_18_rolles_theorem.html" class="nav-link">18. Rolle's
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="09_19_lhopital.html" class="nav-link">19. L'Hopital's Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="09_20_related_rates.html" class="nav-link">20. Related Rates</a>
+                        </li>
+                        <li class="nav-item"><a href="09_21_linear_approx.html" class="nav-link">21. Linear
+                                Approximation</a></li>
+                        <li class="nav-item"><a href="09_22_newtons_method.html" class="nav-link active">22. Newton's
+                                Method</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Optimization</span>
+                </div>
+                <h1>Newton's Method</h1>
+                <p class="lead-text">Why walk blindly downhill when you can calculate the exact location of the bottom?
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Quadratic Speedup</h3>
+                    <p>
+                        Newton's Method is radically faster than simple guessing or even linear search. It uses the
+                        slope to "predict" where the function forces zero. It generally doubles its precision with every
+                        step (Quadratic Convergence).
+                    </p>
+                </div>
+
+                <h2>1. Root Finding Formula</h2>
+                <div class="glass-card">
+                    <p>To solve \(f(x) = 0\):</p>
+                    <div class="math-block">
+                        \[ x_{new} = x_{old} - \frac{f(x_{old})}{f'(x_{old})} \]
+                    </div>
+                    <p>
+                        <strong>Geometric Idea:</strong> Slide down the tangent line from \(x_{old}\) until you hit the
+                        x-axis. That intercept is \(x_{new}\).
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Guess[Initial Guess x0] -->|Calculate| Slope[Tangent Slope f'x]
+                        Slope -->|Intersect| NewX[New x1 = x0 - y/slope]
+                        NewX -->|Check| Zero{Is f x1 close to 0?}
+                        Zero -->|No| Guess
+                        Zero -->|Yes| Solution[Root Found]
+
+                        style Solution fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Second-Order Optimization</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Newton's Method in Training</h3>
+                    <p>
+                        In ML, we don't want \(Loss = 0\) (which might be impossible due to noise). We want
+                        \(\text{Gradient} = 0\) (the minimum).
+                    </p>
+                    <p>
+                        Applying Newton's Method to the <strong>Gradient function</strong> gives:
+                        \[ \theta_{new} = \theta_{old} - \frac{J'(\theta)}{J''(\theta)} \]
+                    </p>
+                    <p>
+                        In vector form (multivariate):
+                        \[ \theta_{new} = \theta_{old} - H^{-1} \nabla J \]
+                        Where \(H\) is the <strong>Hessian Matrix</strong> (2nd derivatives).
+                    </p>
+                    <p>
+                        <strong>Pros:</strong> Converges instantly on quadratic surfaces.
+                        <br>
+                        <strong>Cons:</strong> Calculating \(H^{-1}\) for a billion-parameter GPT model requires
+                        unimaginable memory. That's why we use "Quasi-Newton" methods like <strong>BFGS</strong> or purely
+                        first-order methods like <strong>Adam</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Convergence Race</h2>
+                <div class="code-header">convergence_race.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# We want to find sqrt(612) iteratively.
+# This implies solving x^2 - 612 = 0
+target = 612
+
+def f(x): return x**2 - target
+def df(x): return 2*x
+
+# Method 1: Newton's Method
+x_newton = 10.0 # Bad guess
+print("--- Newton's Method ---")
+for i in range(6):
+    x_newton = x_newton - f(x_newton)/df(x_newton)
+    error = abs(x_newton**2 - target)
+    print(f"Iter {i+1}: {x_newton:.8f} (Error: {error:.8f})")
+
+# Method 2: Gradient Descent (Finding min of (x^2 - 612)^2)
+# Often much slower for root finding without tuning
+lr = 0.0001
+x_gd = 10.0
+print("\n--- Gradient Descent (Naive) ---")
+for i in range(6):
+    # Loss L = (x^2 - A)^2
+    # dL/dx = 2(x^2 - A) * 2x = 4x(x^2 - A)
+    grad = 4 * x_gd * (x_gd**2 - target)
+    x_gd = x_gd - lr * grad
+    error = abs(x_gd**2 - target)
+    print(f"Iter {i+1}: {x_gd:.8f} (Error: {error:.8f})")
+
+# Insight: Newton's method solves it in 4-5 steps. GD barely moves.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_21_linear_approx.html" class="footer-link">← Prev: Linear Approx</a>
+                        <span class="separator">|</span>
+                        <a href="../index.html" class="footer-link">Next: Module 10 →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

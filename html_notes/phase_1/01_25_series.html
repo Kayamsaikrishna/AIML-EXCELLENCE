@@ -4,172 +4,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Series - Phase 1.1.25</title>
+    <title>01.25 Series - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html" class="active">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_24_sequences.html" class="nav-link">24. Sequences</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">25. Series</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Serious Series
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 25. Infinite Series
         </div>
 
-        <header>
-            <h1>25. Series (Summing to Infinity)</h1>
-            <p class="subtitle">When does an infinite list equal a finite number? The magic of Convergence.</p>
+        <header class="page-header">
+            <div class="badge">Module 25</div>
+            <h1>Series & Approximations</h1>
+            <p class="lead-text">Summing the infinite. How Taylor Series allows AI to navigate complex terrains by
+                pretending everything is just lines and parabolas.</p>
         </header>
 
-        <!-- 1. BASICS -->
-        <section id="basics">
-            <h2>1. Geometric Series</h2>
-            <div class="math-block">
-                $$ S = \sum_{k=0}^{\infty} ar^k = \frac{a}{1-r} \quad \text{if } |r| < 1 $$ </div>
-
-                    <div class="syllabus-container">
-                        <div class="sub-module">
-                            <h3 class="sub-module-title">Interpretation</h3>
-                            <p>If you keep adding smaller and smaller pieces, you eventually stop moving forward
-                                essentially. You hit a limit.</p>
-                        </div>
-                    </div>
-
-                    <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                        <!-- SVG: Discounted Rewards -->
-                        <svg width="600" height="250" viewBox="0 0 600 250"
-                            style="background: #f8fafc; border-radius: 8px;">
-                            <!-- Bar Chart of decaying rewards -->
-                            <rect x="50" y="100" width="40" height="100" fill="#3b82f6" />
-                            <text x="70" y="90" text-anchor="middle" font-weight="bold">R₀</text>
-                            <text x="70" y="220" text-anchor="middle" font-size="0.8rem">Now</text>
-
-                            <rect x="120" y="120" width="40" height="80" fill="#60a5fa" />
-                            <text x="140" y="110" text-anchor="middle" font-weight="bold">γR₁</text>
-
-                            <rect x="190" y="136" width="40" height="64" fill="#93c5fd" />
-                            <text x="210" y="130" text-anchor="middle" font-weight="bold">γ²R₂</text>
-
-                            <rect x="260" y="149" width="40" height="51" fill="#bfdbfe" />
-                            <text x="280" y="145" text-anchor="middle" font-weight="bold" font-size="0.8rem">...</text>
-
-                            <!-- Infinite Tail -->
-                            <path d="M 320 200 Q 400 200 550 200" stroke="#cbd5e1" stroke-width="2"
-                                stroke-dasharray="5,5" />
-                            <text x="450" y="180" fill="#64748b">Future becomes negligible</text>
-
-                            <!-- Header -->
-                            <text x="300" y="40" text-anchor="middle" font-size="1.2rem" font-weight="bold"
-                                fill="#1e293b">The Discounted Future (Total Return)</text>
-                        </svg>
-                    </div>
-        </section>
-
-        <!-- 2. AI CONTEXT -->
-        <section id="ai-context">
-            <h2>2. Reinforcement Learning</h2>
-            <p>In RL (like training an AI to play Chess), we care about the "Total Future Reward".</p>
-            <p><strong>The Problem:</strong> The game might go on forever. The sum would be infinity.</p>
-            <p><strong>The Fix:</strong> We multiply future rewards by a discount factor \( \gamma \) (usually 0.99).
-                This turns the problem into a convergent <strong>Geometric Series</strong>.</p>
-            <div class="math-block">
-                $$ G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots $$
-            </div>
-        </section>
-
-        <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Calculating Returns</h2>
-            <p>Computing the discounted return for an episode.</p>
-
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Python: Discounted Return Calculation</div>
-                <pre><code class="language-python">import numpy as np
-
-def calculate_return(rewards, gamma=0.99):
-    """
-    Computes G_t for a single time step t=0.
-    """
-    G = 0
-    power_of_gamma = 1.0
+        <!-- VISUAL DIAGRAM: TAYLOR -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Approximation Game</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Func["Complex Function f(x)"]
     
-    for r in rewards:
-        G += r * power_of_gamma
-        power_of_gamma *= gamma
-        
-    return G
+    subgraph Approximations
+        Order1["1st Order: Line (Tangent)"]
+        Order2["2nd Order: Parabola (Curve)"]
+        OrderN["Nth Order: Precise"]
+    end
+    
+    subgraph AI_Opt [Optimization]
+        GD["Gradient Descent (1st Order)"]
+        Newton["Newton's Method (2nd Order)"]
+    end
 
-# Example: AI gets +1 reward for 100 steps
-rewards = [1] * 100 
-finite_return = calculate_return(rewards)
+    Func -->|"Taylor Expansion"| Order1
+    Order1 --> Order2
+    
+    Order1 -->|"Uses Slope"| GD
+    Order2 -->|"Uses Curvature"| Newton
 
-print(f"Total Undiscounted: {sum(rewards)}") # 100
-print(f"Total Discounted (γ=0.99): {finite_return:.2f}") 
-# Output: ~63.4 (Even if calculating to infinity, it would cap at 1/(1-0.99) = 100)</code></pre>
+    style Order1 fill:#dbeafe,stroke:#2563eb
+    style GD fill:#dcfce7,stroke:#16a34a
+                    </pre>
+                </div>
             </div>
         </section>
 
-    </main>
+        <!-- 1. DEFINITION: PARTIAL SUMS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Convergence vs Divergence</h2>
+                <p>A Series is the sum of a Sequence. \( S = \sum a_n \).</p>
+                <ul>
+                    <li><strong>Convergent:</strong> Sums to a finite number (e.g., \( 1 + 1/2 + 1/4 + \dots = 2 \)).
+                    </li>
+                    <li><strong>Divergent:</strong> Sums to infinity (e.g., \( 1 + 1 + 1 + \dots \)).</li>
+                </ul>
+                <p>In AI, we need our Loss Function to <strong>Converge</strong> to 0 (or a minimum). If it Diverges
+                    (Exploding Loss), training fails.</p>
+            </div>
+        </section>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
+        <!-- 2. TAYLOR SERIES -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #8b5cf6;">
+                <h2>2. Taylor Series: The Engine of Calculus</h2>
+                <p>Any smooth function can be rewritten as an infinite polynomial.</p>
+                <div class="math-block">
+                    $$ f(x) \approx f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 $$
+                </div>
+                <h3>Optimization Insight</h3>
+                <p>Gradient Descent is basically approximating the Loss Landscape as a flat plane (First Order Taylor
+                    Series) and taking a step downhill.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Approximating e^x</h2>
+                <p>Computing exponential growth using simple addition/multiplication.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import math
+
+def taylor_exp(x, terms=10):
+    # e^x = 1 + x + x^2/2! + x^3/3! + ...
+    sum_val = 0
+    for n in range(terms):
+        term = (x ** n) / math.factorial(n)
+        sum_val += term
+    return sum_val
+
+x_val = 1.0
+approx = taylor_exp(x_val, 10)
+true_val = math.exp(x_val)
+
+print(f"Approximation (10 terms): {approx}")
+print(f"True Value: {true_val}")
+# They are nearly identical!
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

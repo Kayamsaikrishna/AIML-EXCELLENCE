@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.03 Blocking & Confounding - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.12 Experimental Design</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_02_factorial_designs.html" class="nav-link">02. Factorial
+                                Designs</a></li>
+                        <li class="nav-item"><a href="28_03_blocking_confounding.html" class="nav-link active">03.
+                                Blocking & Confounding</a></li>
+                        <li class="nav-item"><a href="28_04_ab_testing_intro.html" class="nav-link">04. A/B Testing
+                                Intro</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Noise Reduction</span>
+                </div>
+                <h1>Blocking & Confounding</h1>
+                <p class="lead-text">Isolating the Signal. How to stop "Nuisance Variables" from drowning out your
+                    results.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Noise Floor</h3>
+                    <p>
+                        In a perfect world, all your subjects are identical. In the real world, subjects are chaotic.
+                        Some are old, some are young, some use iPhones, some use Android.
+                        <br><br>
+                        <strong>Blocking</strong> is the "Statistical Filter" that groups these differences together so they don't
+                        leak into your treatment effect.
+                    </p>
+                </div>
+
+                <h2>1. Blocking: The Organized Comparison</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>What is a Block?</h4>
+                        <p>A group of experimental units that are <strong>similar</strong> (e.g., a "Hospital", a "City", or a "Time
+                            Slot"). We apply the treatment *within* each block.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Blocking vs. Randomization</h4>
+                        <p>"Block what you can, Randomize what you can't." - G.E.P Box. <br> Blocking removes known
+                            sources of variability; Randomization protects you from the unknown ones.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Confounding: The Tangled Effect</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>The Identity Crisis</h4>
+                        <p>Confounding occurs when you can't tell which factor caused the change. <br> Example: If you
+                            always test "New Algorithm" on "iPhones" and "Old Algorithm" on "Androids", the effect of
+                            the algorithm is <strong>confounded</strong> with the device type.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Lurking Variables</h4>
+                        <p>These are the "Hidden Puppeteers". In a study showing "Ice Cream sales correlate with
+                            Drownings", the lurking variable is "Temperature". Ice cream doesn't cause drowning; heat
+                            causes both.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Stratification & Batch Effects</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Data Engineering</span>
+                    <span class="ml-badge">Deep Learning</span>
+                    <h3>Why AI engineers use "Blocks"</h3>
+                    <p>
+                        We don't call it "Blocking" in ML, but we use the principles every day:
+                    </p>
+                    <ul>
+                        <li><strong>Stratified Splitting:</strong> When you split data into Train/Test, you use `stratify=y` to
+                            ensure the "Blocks" of classes are balanced. This is a form of Blocking to ensure the model
+                            isn't biased by one class being overrepresented in Training.</li>
+                        <li><strong>Batch Normalization:</strong> In Deep Learning, each "Batch" is like a Block. Batch Norm resets
+                            the mean/variance of each batch to a standard level, effectively "Blocking out" the
+                            covariate shift between different parts of the training data.</li>
+                        <li><strong>A/B Testing (Day-of-Week):</strong> If you run a test on Monday and Tuesday only, your results
+                            are confounded with "Weekday Behavior". To fix this, you must run the test for a full 7-day
+                            cycle to "Block" the effect of the calendar.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Statistical Warning:</strong> If you "Block" too much, you lose <strong>Degrees of Freedom</strong>. Only block
+                        variables that you are *certain* have a major impact on the outcome.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

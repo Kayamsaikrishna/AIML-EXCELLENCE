@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30.04 Predicate Logic & Quantifiers - Logic & Proofs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.6.1 Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="30_03_truth_tables.html" class="nav-link">03. Truth Tables &
+                                Equivalence</a></li>
+                        <li class="nav-item"><a href="30_04_predicate_logic_quantifiers.html"
+                                class="nav-link active">04. Predicate Logic & Quantifiers</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Formal Logic</span>
+                    <span class="badge secondary">Quantification</span>
+                </div>
+                <h1>Predicate Logic & Quantifiers</h1>
+                <p class="lead-text">From Facts to Formulas. Moving beyond simple fixed statements to logical templates
+                    that describe whole categories of objects and behaviors.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Template Problem</h3>
+                    <p>
+                        Propositional logic can say "Socrates is a man." But it can't say "All men are mortal" without a
+                        infinite list. <strong>Predicate Logic</strong> introduces variables, allowing us to define properties that
+                        apply to many subjects.
+                    </p>
+                </div>
+
+                <h2>1. Predicates & Variables</h2>
+                <p>
+                    A <strong>Predicate</strong> \(P(x)\) is a statement containing a variable \(x\). It is not a proposition until
+                    \(x\) is replaced by a specific value.
+                </p>
+                <ul>
+                    <li>\(P(x)\): "\(x\) is greater than 3."</li>
+                    <li>\(P(4)\): "4 is greater than 3" (True proposition).</li>
+                    <li>\(P(2)\): "2 is greater than 3" (False proposition).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Quantifiers: The Logic of Sets</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Universal (\(\forall\))</h4>
+                        <p><strong>"For All":</strong> The statement \(P(x)\) is true for <strong>every</strong> element in the
+                            domain.</p>
+                        <div class="math-box">\(\forall x P(x)\)</div>
+                        <p class="small-text">Example: "Everyone in this room is a student."</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Existential (\(\exists\))</h4>
+                        <p><strong>"There Exists":</strong> There is <strong>at least one</strong> element in the domain for which
+                            \(P(x)\) is true.</p>
+                        <div class="math-box">\(\exists x P(x)\)</div>
+                        <p class="small-text">Example: "Someone in this room is wearing a hat."</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Negating Quantifiers</h2>
+                <p>When you negate a quantifier, the quantifier flips, and the negation moves inside. This is essential
+                    for counterexamples.</p>
+                <div class="math-box">
+                    $$ \neg (\forall x P(x)) \equiv \exists x \neg P(x) $$
+                    $$ \neg (\exists x P(x)) \equiv \forall x \neg P(x) $$
+                </div>
+                <p><strong>Intuition:</strong> Saying "Not everyone is happy" is the same as saying "There exists at
+                    least one person who is not happy."</p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Programming</span>
+                    <span class="ml-badge">Knowledge Graphs</span>
+                    <h3>Predicates in AI Systems</h3>
+                    <ul>
+                        <li><strong>Database Queries (SQL):</strong> `SELECT * FROM students WHERE grade > 90` is essentially
+                            evaluating a predicate \(P(x) = (\text{grade}(x) > 90)\) for all \(x\) in the domain of
+                            students.</li>
+                        <li><strong>Assert Statement:</strong> In Python, `assert all(x > 0 for x in data)` is a direct
+                            implementation of \(\forall x (x > 0)\).</li>
+                        <li><strong>Semantic Networks:</strong> Modern Knowledge Graphs (like Google's Search graph) store
+                            information as predicates: `BornIn(Einstein, Germany)`. By using quantifiers, these systems
+                            can infer new knowledge: "If someone is born in Germany, they are European." (\(\forall x
+                            (\text{BornIn}(x, \text{Germany}) \rightarrow \text{European}(x))\)).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Logical Quantifier Map</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Statement with Variable] --> B{How many elements?}
+                    B -- All --> C["∀x P(x) (Universal)"]
+                    B -- At least one --> D["∃x P(x) (Existential)"]
+                    C -- "Negate" --> E["∃x ¬P(x)"]
+                    D -- "Negate" --> F["∀x ¬P(x)"]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

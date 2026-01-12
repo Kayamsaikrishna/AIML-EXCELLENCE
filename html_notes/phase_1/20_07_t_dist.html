@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.07 t-Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_06_beta_dist.html" class="nav-link">06. Beta Dist</a></li>
+                        <li class="nav-item"><a href="20_07_t_dist.html" class="nav-link active">07. t-Distribution</a>
+                        </li>
+                        <li class="nav-item"><a href="20_08_chi_square.html" class="nav-link">08. Chi-Square</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Fat Tails</span>
+                </div>
+                <h1>Student's t-Distribution</h1>
+                <p class="lead-text">Modeling uncertainty when samples are small and variance is unknown.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Guinness Origins</h3>
+                    <p>
+                        The t-distribution was discovered by William Sealy Gosset, a chemist for Guinness Brewery. He
+                        needed a way to monitor quality with very small samples of beer. Because he wasn't allowed to
+                        publish under his real name, he used the pseudonym "Student".
+                    </p>
+                </div>
+
+                <h2>1. Definition and PDF</h2>
+                <div class="math-box">
+                    The t-distribution is defined by a single parameter: <strong>Degrees of Freedom (\(\nu\) or \(df\))</strong>.
+                    $$ f(t) = \frac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\nu\pi} \Gamma(\frac{\nu}{2})} \left(1 +
+                    \frac{t^2}{\nu}\right)^{-\frac{\nu+1}{2}} $$
+                </div>
+                <p>
+                    <strong>Visual Comparison:</strong>
+                <ul>
+                    <li>Looks like a Normal distribution (bell curve).</li>
+                    <li>It has <strong>"heavier tails"</strong> (higher probability of extreme values).</li>
+                    <li>As \(\nu \to \infty\), it becomes exactly the Normal Distribution.</li>
+                </ul>
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. When to use it?</h2>
+                <p>Use the t-distribution instead of Normal when:</p>
+                <ol>
+                    <li>The sample size is <strong>small</strong> (\(n < 30\)).</li>
+                    <li>The population standard deviation (\(\sigma\)) is <strong>unknown</strong> (we use the sample
+                        standard deviation \(s\) instead).</li>
+                </ol>
+                <p>
+                    Because we are estimating both the mean and the variance from the same small sample, our uncertainty
+                    is higher. The t-distribution's fat tails represent this extra uncertainty.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Robustness to Outliers</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Robust Statistics</span>
+                    <span class="ml-badge">Deep Learning</span>
+                    <h3>The "Laplacian" of Bells</h3>
+                    <p>
+                        Standard Linear Regression (Normal assumption) is very sensitive to outliers. An extreme data
+                        point can "pull" the line of best fit significantly.
+                    </p>
+                    <p>
+                        <strong>T-Regression:</strong> By assuming the noise in our labels follows a t-distribution
+                        instead of a Gaussian, we make our model more <strong>Robust</strong>. Because the
+                        t-distribution <em>expects</em> occasional extreme values (fat tails), it doesn't overreact to
+                        outliers during training.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Statistical Testing (t-Tests)</h2>
+                <p>
+                    In A/B testing, if we want to know if "Button A" is significantly better than "Button B" and we only
+                    have a few hundred clicks, we compute a <strong>t-statistic</strong>.
+                </p>
+                $$ t = \frac{\bar{x} - \mu}{s / \sqrt{n}} $$
+                <p>Standardizing by the sample error (\(s/\sqrt{n}\)) leads to a t-distribution.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

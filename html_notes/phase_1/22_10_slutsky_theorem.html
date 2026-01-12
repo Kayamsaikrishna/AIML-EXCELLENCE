@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.10 Slutsky's Theorem - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_09_conv_almost_sure.html" class="nav-link">09. Conv (A.S.)</a>
+                        </li>
+                        <li class="nav-item"><a href="22_10_slutsky_theorem.html" class="nav-link active">10. Slutsky's
+                                Thm</a></li>
+                        <li class="nav-item"><a href="22_11_delta_method.html" class="nav-link">11. Delta Method</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Algebra of Limits</span>
+                </div>
+                <h1>Slutsky's Theorem</h1>
+                <p class="lead-text">Performing algebra on random variable sequences that converge in different ways.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Problem with Convergence</h3>
+                    <p>
+                        In calculus, if \(a_n \to a\) and \(b_n \to b\), then \(a_n + b_n \to a + b\).
+                        <br><br>
+                        In probability, this is <strong>not always true</strong> if the variables converge in different
+                        ways (e.g., one in distribution and one in probability). <strong>Slutsky's Theorem</strong> provides the
+                        crucial exceptions where algebra still works.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    Let \(X_n \xrightarrow{d} X\) (Distribution) and \(Y_n \xrightarrow{P} c\) (Probability to a
+                    <strong>constant</strong>).
+                    Then:
+                    <ul>
+                        <li>\(X_n + Y_n \xrightarrow{d} X + c\)</li>
+                        <li>\(X_n Y_n \xrightarrow{d} cX\)</li>
+                        <li>\(X_n / Y_n \xrightarrow{d} X/c\) (if \(c \neq 0\))</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Why the Constant "c" Matters</h2>
+                <p>
+                    If \(Y_n\) converged to another <em>random variable</em> \(Y\), we wouldn't be able to say much
+                    without knowing their joint relationship (correlation). But because \(Y_n\) collapses to a
+                    <strong>single number</strong>, Slutsky proves that the limit behavior is well-behaved.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Variance Estimation</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Statistics</span>
+                    <span class="ml-badge">Inference</span>
+                    <h3>Why we can use the Sample Variance</h3>
+                    <p>
+                        When we perform a Z-test, we ideally need the true population variance \(\sigma\). But we only
+                        have the sample variance \(s\).
+                    </p>
+                    <p>
+                        The Central Limit Theorem says: \(\frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \xrightarrow{d}
+                        \mathcal{N}(0, 1)\).
+                        <br>
+                        The Law of Large Numbers says: \(s \xrightarrow{P} \sigma\).
+                    </p>
+                    <p>
+                        <strong>Slustky's Theorem</strong> allows us to combine these:
+                        $$\frac{\bar{X} - \mu}{s/\sqrt{n}} = \left(\frac{\bar{X} - \mu}{\sigma/\sqrt{n}}\right) \cdot
+                        \left(\frac{\sigma}{s}\right) \xrightarrow{d} \mathcal{N}(0, 1) \cdot 1 = \mathcal{N}(0, 1) $$
+                        This is the mathematical proof that for large \(n\), using the sample variance in your formulas
+                        is <strong>asymptotically valid</strong>.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

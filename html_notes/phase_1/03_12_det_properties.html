@@ -4,92 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Det Properties - Phase 1.2.2.12</title>
+    <title>03.12 Determinant Properties - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_11_determinants.html">11. Determinants</a></li>
-            <li><a href="03_12_det_properties.html" class="active">12. Det Properties</a></li>
-            <li><a href="03_13_cofactor_expansion.html">13. Cofactor Expansion</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Det Properties
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>12. Properties of Determinants</h1>
-            <p class="subtitle">Computational shortcuts for complex matrices.</p>
-        </header>
-
-        <section>
-            <h2>1. Fundamental Rules</h2>
-            <div class="module-card">
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Product Rule:</strong> \( \text{det}(\mathbf{AB}) =
-                        \text{det}(\mathbf{A})\text{det}(\mathbf{B}) \).</li>
-                    <li class="topic-item"><strong>Inverse Rule:</strong> \( \text{det}(\mathbf{A}^{-1}) = 1 /
-                        \text{det}(\mathbf{A}) \).</li>
-                    <li class="topic-item"><strong>Transpose Rule:</strong> \( \text{det}(\mathbf{A}^T) =
-                        \text{det}(\mathbf{A}) \).</li>
-                    <li class="topic-item"><strong>Scalar Rule:</strong> For an \( n \times n \) matrix, \(
-                        \text{det}(c\mathbf{A}) = c^n \text{det}(\mathbf{A}) \).</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_11_determinants.html" class="nav-link">11. Determinants</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">12. Properties</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>2. Special Structures</h2>
-            <div class="module-card">
-                <h3>Triangular Matrices</h3>
-                <p>The determinant of a triangular (or diagonal) matrix is simply the <strong>product of its diagonal
-                        elements</strong>.</p>
-                <div class="math-block">
-                    $$ \text{det}(\mathbf{L}) = \prod_{i=1}^n l_{ii} $$
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 12. Rules of Volume
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 12</div>
+            <h1>Det Rules</h1>
+            <p class="lead-text"> \( \det(AB) = \det(A)\det(B) \). Volume scaling is multiplicative.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: PROPERTIES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Laws</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Det["Determinant(A)"]
+    
+    subgraph Multiplicative
+        Prod["det(AB) = det(A)det(B)"]
+        Inv["det(A^-1) = 1/det(A)"]
+    end
+    
+    subgraph Scaling
+        Scale["det(cA) = c^n det(A) (Tricky!)"]
+    end
+    
+    subgraph Invariance
+        Trans["det(A^T) = det(A)"]
+    end
+    
+    Det --> Prod
+    Det --> Inv
+    Det --> Scale
+    Det --> Trans
+
+    style Prod fill:#dcfce7,stroke:#16a34a
+    style Scale fill:#fefe93,stroke:#d97706
+                    </pre>
                 </div>
-                <p><strong>AI Use:</strong> This makes <strong>LU Decomposition</strong> extremely powerful for
-                    calculating
-                    determinants in log-probability calculations for models like GMMs.</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Verifying Properties</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-A = np.random.rand(5, 5)
-B = np.random.rand(5, 5)
-
-# Property: det(AB) = det(A) * det(B)
-det_AB = np.linalg.det(A @ B)
-det_A_times_B = np.linalg.det(A) * np.linalg.det(B)
-
-print(f"det(AB): {det_AB:.4f}")
-print(f"det(A)*det(B): {det_A_times_B:.4f}")
-print(f"Property holds: {np.isclose(det_AB, det_A_times_B)}")</code></pre>
+        <!-- 1. DEFINITION: MULTIPLICATIVE NESS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Product Rule</h2>
+                <p>Since determinants represent volume scaling, applying two transformations $A$ then $B$ scales the
+                    volume by the product of their individual scalings.</p>
+                <div class="math-block">
+                    $$ \det(AB) = \det(A) \cdot \det(B) $$
+                </div>
+                <p>This explains why \( A \) must be invertible if \( \det(A) \neq 0 \): because \( \det(A)\det(A^{-1})
+                    = \det(I) = 1 \).</p>
             </div>
         </section>
+
+        <!-- 2. AI APPLICATION: DIMENSIONAL SCALING -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The 'c' Trap</h2>
+                <p>Common mistake: \( \det(cA) = c \det(A) \). <strong>WRONG!</strong></p>
+                <p>If you scale a 3D box by 2, it gets 2x wider, 2x taller, 2x deeper. Volume increases by \( 2^3 = 8
+                    \).</p>
+                <div class="math-block">
+                    $$ \det(cA) = c^n \det(A) $$
+                </div>
+                <p>In high-dimensional AI (e.g., $n=1000$), scaling weights slightly can explode determinants
+                    exponentially ($2^{1000}$).</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Verifying Rules</h2>
+                <p>Checking the Product and Scaling properties.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+n = 3
+A = np.random.rand(n, n)
+B = np.random.rand(n, n)
+c = 2
+
+# 1. Product Rule
+LHS = np.linalg.det(A @ B)
+RHS = np.linalg.det(A) * np.linalg.det(B)
+print(f"Product Rule Match? {np.isclose(LHS, RHS)}")
+
+# 2. Scaling Rule
+LHS_scale = np.linalg.det(c * A)
+RHS_scale = (c**n) * np.linalg.det(A)
+print(f"Scaling Rule Match? {np.isclose(LHS_scale, RHS_scale)}")
+
+# 3. Transpose Rule
+print(f"Transpose Match? {np.isclose(np.linalg.det(A), np.linalg.det(A.T))}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

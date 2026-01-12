@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31.04 Cartesian Products & Relations - Set Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.7.1 Theory of Sets</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="31_03_subsets_power_sets_cardinality.html" class="nav-link">03.
+                                Subsets & Power Sets</a></li>
+                        <li class="nav-item"><a href="31_04_cartesian_products_relations.html"
+                                class="nav-link active">04. Cartesian Products & Relations</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Interactions</span>
+                    <span class="badge secondary">Structure</span>
+                </div>
+                <h1>Cartesian Products & Relations</h1>
+                <p class="lead-text">Building Connections. Moving from isolated collections to pairs and triplets that
+                    describe how different dimensions of data relate to one another.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Product of Worlds</h3>
+                    <p>
+                        A single set is a group. A <strong>Cartesian Product</strong> is the set of all possible pairs between two
+                        groups. A <strong>Relation</strong> is any subset of that product — it picks only the "meaningful"
+                        connections between the sets.
+                    </p>
+                </div>
+
+                <h2>1. The Cartesian Product (\(A \times B\))</h2>
+                <p>
+                    The set of all ordered pairs \((a, b)\) where \(a \in A\) and \(b \in B\).
+                </p>
+                <div class="math-box">\( A \times B = \{(a, b) \mid a \in A \land b \in B\} \)</div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Coordinates</h4>
+                        <p>The standard 2D plane \(\mathbb{R}^2\) is the Cartesian product \(\mathbb{R} \times
+                            \mathbb{R}\). Every point is a pair of numbers.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Size</h4>
+                        <p>\(|A \times B| = |A| \cdot |B|\). This multiplicative growth is why high-dimensional spaces
+                            explode in complexity (Curse of Dimensionality).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Binary Relations (\(R\))</h2>
+                <p>
+                    A <strong>Relation</strong> \(R\) from \(A\) to \(B\) is a subset of \(A \times B\). It represents a specific
+                    rule or connection.
+                </p>
+                <ul>
+                    <li><strong>Mathematics:</strong> The relations \(<\), \(=\), or "is a factor of." </li>
+                    <li><strong>Sociology:</strong> "Is a friend of," "Lives next to."</li>
+                </ul>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Reflexive</h4>
+                        <p>Every element is related to itself (\(a R a\)).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Symmetric</h4>
+                        <p>If \(a R b\), then \(b R a\).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Transitive</h4>
+                        <p>If \(a R b\) and \(b R c\), then \(a R c\).</p>
+                    </div>
+                </div>
+                <p class="small-text">A relation that is all three is called an <strong>Equivalence Relation</strong>, which allows
+                    us to "partition" a set into groups.</p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Knowledge Graphs</span>
+                    <span class="ml-badge">Neural Nets</span>
+                    <h3>Relations in Modern Systems</h3>
+                    <ul>
+                        <li><strong>Relational Databases (SQL):</strong> A table in SQL is literally a <strong>Relation</strong>. It's a subset of
+                            the Cartesian product of its columns (\(\text{ID} \times \text{Name} \times \text{Email}\)).
+                            We "query" it using relational algebra.</li>
+                        <li><strong>Knowledge Graphs:</strong> These are collections of relations (triplets). \((Subject, Relation,
+                            Object)\). "Paris" (A) has the relation "is capital of" with "France" (B).</li>
+                        <li><strong>Recommendation Systems:</strong> The "User-Item Matrix" is a relation. The interaction \(R(u, i)
+                            = 1\) if user \(u\) bought item \(i\), and \(0\) otherwise. Matrix Factorization helps us
+                            predict missing links in this relation.</li>
+                        <li><strong>Word Embeddings:</strong> We use cosine similarity (a relation) to find how close two vectors are
+                            in the high-dimensional Cartesian space of the model.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Relation Mapping Flow</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Set A: Elements]
+                    B[Set B: Elements]
+                    A -- "Multiply" --> CP[Cartesian Product]
+                    CP -- "Apply Rule" --> R[Relation R: Subset]
+                    R -- "Visualize" --> G[Directed Graph]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

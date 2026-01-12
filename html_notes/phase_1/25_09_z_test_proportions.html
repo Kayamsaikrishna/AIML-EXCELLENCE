@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.09 Z-Test for Proportions - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_08_t_test_single_mean.html" class="nav-link">08. T Test Single
+                                Mean</a></li>
+                        <li class="nav-item"><a href="25_09_z_test_proportions.html" class="nav-link active">09. Z Test
+                                Proportions</a></li>
+                        <li class="nav-item"><a href="25_10_two_sample_t_test.html" class="nav-link">10. Two Sample T
+                                Test</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Percentages</span>
+                </div>
+                <h1>Z-Test for Proportions</h1>
+                <p class="lead-text">Testing if the "Success Rate" of a process matches a claimed value.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Requirements</h3>
+                    <p>
+                        We use the Normal approximation for Binomial proportions if:
+                        <br>
+                        - \(np_0 \ge 10\) and \(n(1-p_0) \ge 10\)
+                        <br>
+                        (Basically, you need enough successes and failures in your sample).
+                    </p>
+                </div>
+
+                <h2>1. The Test Statistic</h2>
+                <div class="math-box">
+                    $$ Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} $$
+                </div>
+                <ul>
+                    <li>\(\hat{p}\): Sample Proportion (successes / total).</li>
+                    <li>\(p_0\): Hypothesized Population Proportion.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Accuracy Testing</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Classification</span>
+                    <span class="ml-badge">QA</span>
+                    <h3>Is the Model accurate enough?</h3>
+                    <p>
+                        A marketing model claims to have <strong>90% accuracy</strong> (\(p_0 = 0.90\)).
+                        You evaluate it on a fresh batch of 400 images and it correctly identifies 348 of them
+                        (\(\hat{p} = 348/400 = 0.87\)).
+                    </p>
+                    <p>
+                        <strong>The Calculation:</strong>
+                        $$ Z = \frac{0.87 - 0.90}{\sqrt{\frac{0.9 \cdot 0.1}{400}}} = \frac{-0.03}{0.015} =
+                        \mathbf{-2.0} $$
+                    </p>
+                    <p>
+                        Since \(|-2.0| > 1.96\), you <strong>Reject the Null</strong> at the 95% level. The model's real-world
+                        accuracy is significantly lower than 90%.
+                    </p>
+                </div>
+
+                <div class="insight-box">
+                    <h3>Conversion Rates</h3>
+                    <p>
+                        This is the standard test for <strong>Conversion Rate Optimization (CRO)</strong>. If you change a button's
+                        color and 5% of people click instead of 4.5%, you use this Z-test to see if that extra 0.5% is a
+                        real shift or just daily fluctuation.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

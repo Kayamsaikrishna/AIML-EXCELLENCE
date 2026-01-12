@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>33.03 Paths, Cycles & Connectivity - Graph Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.9.1 Graph Fundamentals</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="33_02_adjacency_matrix_representations.html" class="nav-link">02.
+                                Representations</a></li>
+                        <li class="nav-item"><a href="33_03_paths_cycles_connectivity.html" class="nav-link active">03.
+                                Connectivity</a></li>
+                        <li class="nav-item"><a href="33_04_trees_forests_isomorphism.html" class="nav-link">04. Trees &
+                                Forests</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Graph Theory</span>
+                    <span class="badge secondary">Navigation</span>
+                </div>
+                <h1>Paths, Cycles & Connectivity</h1>
+                <p class="lead-text">Traversing the Network. Defining how nodes interact over distances and determining
+                    if a graph is a unified structure or a collection of isolated islands.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Walk vs. The Path</h3>
+                    <p>
+                        In a graph, moving from A to B can happen in many ways. A <strong>Walk</strong> is any sequence of edges. A
+                        <strong>Path</strong> is a walk where no vertex is repeated. A <strong>Cycle</strong> is a path that starts and ends at
+                        the same node. These definitions are crucial for detecting loops in software and dependencies in
+                        AI pipelines.
+                    </p>
+                </div>
+
+                <h2>1. Connectivity Definitions</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Connected Graph</h4>
+                        <p>A graph where there is a path between *every* pair of vertices. No node is left behind.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Components</h4>
+                        <p>Isolated "islands" of nodes within a non-connected graph. Each component is itself a
+                            connected sub-graph.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Strongly vs. Weakly Connected</h4>
+                        <p>In <strong>Digraphs</strong>: <strong>Strongly</strong> means you can go from A to B AND B to A.
+                            <strong>Weakly</strong> means they are connected only if we ignore edge directions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Cycle Detection</h2>
+                <p>
+                    Cycles represent feedback loops or circular dependencies. In many AI tasks, we explicitly try to
+                    avoid them by working with <strong>DAGs (Directed Acyclic Graphs)</strong>.
+                </p>
+                <div class="example-box">
+                    <p><strong>Bridges & Articulation Points:</strong> A bridge is an edge whose removal increases the
+                        number of connected components. In a network, these are "Single Points of Failure."</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">NLP</span>
+                    <span class="ml-badge">Recommendation Systems</span>
+                    <h3>Connectivity in AI</h3>
+                    <ul>
+                        <li><strong>Recommender Systems:</strong> "Users who bought X also bought Y." We find paths between users
+                            (nodes) and items (nodes). Connectivity helps determine "collaborative filtering" clusters.
+                        </li>
+                        <li><strong>Dependency Parsing:</strong> In NLP, a sentence is parsed into a dependency tree (a specific type
+                            of connected graph). Cycles in a parse usually indicate an error.</li>
+                        <li><strong>Gradient Flow:</strong> In deep neural networks, a skip-connection (like in ResNets) creates a
+                            shortcut <strong>Path</strong> for gradients to flow without vanishing, effectively enhancing the
+                            "connectivity" of the gradient network.</li>
+                        <li><strong>Social Network Analysis:</strong> Using Connectivity to find the "Six Degrees of Separation" (the
+                            average shortest path length) between people.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Connectivity Visualization</h2>
+                <div class="mermaid">
+                    graph TD
+                    subgraph Component1 ["Connected Component A"]
+                    A((A)) --- B((B))
+                    B --- C((C))
+                    C --- A
+                    end
+                    subgraph Component2 ["Connected Component B"]
+                    D((D)) --- E((E))
+                    end
+                    style A fill:#a8e6cf,stroke:#333
+                    style D fill:#ffd3b6,stroke:#333
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">A Disconnected Graph with
+                    2 unique components.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

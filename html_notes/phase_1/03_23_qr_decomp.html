@@ -4,94 +4,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Decomposition - Phase 1.2.2.23</title>
+    <title>03.23 QR Decomp - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_22_lu_decomp.html">22. LU Decomposition</a></li>
-            <li><a href="03_23_qr_decomp.html" class="active">23. QR Decomposition</a></li>
-            <li><a href="03_24_cholesky.html">24. Cholesky</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; QR Decomposition
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>23. QR Decomposition</h1>
-            <p class="subtitle">Orthogonality satisfies numerical stability.</p>
-        </header>
-
-        <section>
-            <h2>1. The Definition</h2>
-            <p>QR decomposition factors a matrix \( \mathbf{A} \) into an <strong>Orthogonal Matrix</strong> \(
-                \mathbf{Q} \)
-                and an <strong>Upper Triangular Matrix</strong> \( \mathbf{R} \).</p>
-            <div class="math-block">
-                $$ \mathbf{A} = \mathbf{QR} $$
-            </div>
-            <p>Recall: For an orthogonal matrix, \( \mathbf{Q}^T\mathbf{Q} = \mathbf{I} \).</p>
-        </section>
-
-        <section>
-            <h2>2. The Gold Standard for Least Squares</h2>
-            <div class="module-card">
-                <h3>Numerical Stability in Regression</h3>
-                <p>To solve the Normal Equation \( \mathbf{w} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} \),
-                    directly calculating the inverse is bad. Using QR is much more stable:</p>
-                <div class="math-block">
-                    $$ \mathbf{Rw} = \mathbf{Q}^T\mathbf{y} $$
-                </div>
-                <p>Since \( \mathbf{R} \) is triangular, we solve for \( \mathbf{w} \) using simple backward
-                    substitution.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Algorithm:</strong> Usually implemented via <strong>Householder
-                            Reflections</strong> rather than Gram-Schmidt for better stability.</li>
-                    <li class="topic-item"><strong>Eigenvalues:</strong> Identifying the eigenvalues of a matrix
-                        iteratively (the QR algorithm) relies on this decomposition.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_22_lu_decomp.html" class="nav-link">22. LU Decomp</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">23. QR Decomp</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: QR for Regression</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 23. Orthogonalization
+        </div>
 
-# Random data
-X = np.random.rand(10, 3)
-y = np.random.rand(10, 1)
+        <header class="page-header">
+            <div class="badge">Module 23</div>
+            <h1>QR Decomposition</h1>
+            <p class="lead-text"> \( A = QR \). Making the basis Orthogonal.</p>
+        </header>
 
-# QR Decomposition
-Q, R = np.linalg.qr(X)
+        <!-- VISUAL DIAGRAM: QR -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Straightening Out</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Matrix["Matrix A (Skewed Columns)"]
+    
+    subgraph Factors
+        Q["Orthogonal Q (Orthonormal Columns)"]
+        R["Upper Triangular R (Coefficients)"]
+    end
+    
+    Matrix -- "Gram-Schmidt" --> Q
+    Matrix -- "Gram-Schmidt" --> R
+    
+    Q --> Reconstruct["A = Q R"]
+    R --> Reconstruct
 
-# Solve for weights w
-# R @ w = Q.T @ y
-w = np.linalg.solve(R, Q.T @ y)
-
-print(f"Regression Weights via QR:\n{w}")</code></pre>
+    style Q fill:#dcfce7,stroke:#16a34a
+    style R fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION: THE FORM -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>Any matrix \( A \) (even rectangular) can be written as:</p>
+                <div class="math-block">
+                    $$ A = Q R $$
+                </div>
+                <ul>
+                    <li>\( Q \): Orthogonal Matrix (\( Q^T Q = I \)). Encodes the "Direction".</li>
+                    <li>\( R \): Upper Triangular. Encodes the "Scaling/Shearing".</li>
+                </ul>
+                <p>This is effectively the matrix form of the Gram-Schmidt process.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: LEAST SQUARES -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Stable Regression</h2>
+                <p>To solve Least Squares \( A^T A \mathbf{x} = A^T \mathbf{b} \), we typically use QR because it avoids
+                    forming \( A^T A \) (which can square the condition number and lose precision).</p>
+                <div class="math-block">
+                    $$ R \mathbf{x} = Q^T \mathbf{b} $$
+                </div>
+                <p>Solving this triangular system is fast and stable.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Numerical QR</h2>
+                <p>Standard factorization.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+A = np.array([
+    [1, 1],
+    [1, 0],
+    [1, 2]
+]) # 3x2, Overdetermined
+
+# Reduced QR (returns Q as 3x2, R as 2x2)
+Q, R = np.linalg.qr(A)
+
+print("Q (Orthonormal Columns):")
+print(Q.round(3))
+print("\nR (Upper Triangular):")
+print(R.round(3))
+
+print("\nCheck Orthogonality Q.T @ Q:")
+print((Q.T @ Q).round(10)) # Should be Identity
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

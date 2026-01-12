@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.04 Second Derivative Test - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.3 Applications</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="10_01_extrema.html" class="nav-link">01. Critical Points</a></li>
+                        <li class="nav-item"><a href="10_02_first_deriv_test.html" class="nav-link">02. First Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_03_concavity.html" class="nav-link">03. Concavity</a></li>
+                        <li class="nav-item"><a href="10_04_second_deriv_test.html" class="nav-link active">04. Second
+                                Deriv Test</a></li>
+                        <li class="nav-item"><a href="10_05_curve_sketching.html" class="nav-link">05. Curve
+                                Sketching</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">The Shortcut</span>
+                </div>
+                <h1>The Second Derivative Test</h1>
+                <p class="lead-text">Why check neighbors when you can just check the curvature at the point?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Local Geometry</h3>
+                    <p>
+                        If you are standing on a flat spot (slope=0) and the ground curves UP around you, you must be in
+                        a hole (Minimum). If it curves DOWN, you are on a hill (Maximum).
+                    </p>
+                </div>
+
+                <h2>1. The Test</h2>
+                <div class="glass-card">
+                    <p>Given \(f'(c) = 0\):</p>
+                    <ul class="check-list">
+                        <li><strong>\(f''(c) > 0\):</strong> Concave Up \( \to \) <strong>Local Minimum</strong>.</li>
+                        <li><strong>\(f''(c) < 0\):</strong> Concave Down \( \to \) <strong>Local Maximum</strong>.</li>
+                        <li><strong>\(f''(c) = 0\):</strong> <strong>Inconclusive</strong>. (Could be min, max, or
+                            inflection). Use 1st Deriv test.</li>
+                    </ul>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Crit[Identify Critical c where f'c=0] --> Calc2[Calculate f''c]
+                        Calc2 -->|Result > 0| Min[Local Min (Bowl)]
+                        Calc2 -->|Result &lt; 0| Max[Local Max (Hill)] Calc2 -->|Result = 0| Fail[Test Fails: Go Back to
+                            1st Deriv Test]
+
+                            style Min fill:#48bb78
+                            style Max fill:#f56565
+                            style Fail fill:#718096,color:white
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Hessian</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Multivariable Curvature</h3>
+                    <p>
+                        In deep learning, we have thousands of weights. The "Second Derivative" becomes a matrix of
+                        partial derivatives called the <strong>Hessian Matrix</strong> \(H\).
+                    </p>
+                    <p>
+                        The "Second Derivative Test" for ML involves checking the <strong>Eigenvalues</strong> of \(H\):
+                    </p>
+                    <ul>
+                        <li>All Eigenvalues > 0: <strong>Local Minimum</strong> (Stable, Good).</li>
+                        <li>All Eigenvalues < 0: <strong>Local Maximum</strong> (Unstable, we roll away).</li>
+                        <li><strong>Mixed (+ and -):</strong> <strong>Saddle Point</strong>.</li>
+                    </ul>
+                    <p>
+                        Since calculating \(H\) is expensive, optimizing without it (using just gradients) but avoiding
+                        Saddle Points is a major research area.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Automated Classifier</h2>
+                <div class="code-header">classify_extrema.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+f = x**3 - 3*x + 5
+
+# 1. Derivatives
+f1 = sp.diff(f, x)
+f2 = sp.diff(f1, x)
+
+# 2. Find Critical Points
+crit_points = sp.solve(f1, x)
+
+print(f"Function: {f}")
+print(f"Critical Points: {crit_points}")
+print("-" * 30)
+
+for c in crit_points:
+    concavity = f2.subs(x, c)
+    if concavity > 0:
+        result = "Local MIN (Box)"
+    elif concavity < 0:
+        result = "Local MAX (Hill)"
+    else:
+        result = "Inconclusive"
+        
+    print(f"Point x={c}: f''={concavity} -> {result}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="10_03_concavity.html" class="footer-link">← Prev: Concavity</a>
+                        <span class="separator">|</span>
+                        <a href="10_05_curve_sketching.html" class="footer-link">Next: Curve Sketching →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

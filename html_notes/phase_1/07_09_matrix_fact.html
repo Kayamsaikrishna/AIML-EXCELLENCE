@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07.09 Matrix Factorization - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.6 AI Applications</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="07_08_graph_algos.html" class="nav-link">08. Graph Algorithms</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">09. Matrix Factorization</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 09. Recommendations
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 09</div>
+            <h1>Matrix Factorization</h1>
+            <p class="lead-text"> \( R \approx U V^T \). Learning latent preferences.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: FACTORIZATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Filling the Holes</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    Matrix["User-Item Matrix R (Sparse)"]
+    
+    subgraph Factors
+        Users["User Factors U (n_users x k)"]
+        Items["Item Factors V (n_items x k)"]
+    end
+    
+    Factors -- "U x V^T" --> Predicted["Reconstructed Matrix R_hat (Dense)"]
+    
+    Matrix -- "Train on known ratings" --> Factors
+    Predicted -- "Fill missing values" --> Recommend["Recommendation"]
+
+    style Recommend fill:#dcfce7,stroke:#16a34a
+    style Users fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: NMF -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Non-Negative Matrix Factorization (NMF)</h2>
+                <p>Unlike SVD which allows negative numbers, NMF forces \( X \approx WH \) where \( W, H \ge 0 \).</p>
+                <p>This leads to "parts-based" learning. In facial recognition, NMF learns to build faces from eyes,
+                    noses, and mouths (additive parts), whereas SVD uses "Eigenfaces" which are holistic and ghostly.
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: RECOMMENDER SYSTEMS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Collaborative Filtering</h2>
+                <p>We decompose the Rating Matrix \( R \) (Users \(\times\) Movies) into \( U \) (User preferences) and
+                    \( V \) (Movie attributes).</p>
+                <div class="math-block">
+                    $$ \text{Rating}_{ij} \approx \mathbf{u}_i \cdot \mathbf{v}_j $$
+                </div>
+                <p>This reduces a massive sparse problem to a low-rank k-dimensional problem, capturing "Latent"
+                    concepts like "Action vs Romance" or "Serious vs Funny".</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. NMF in Action</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from sklearn.decomposition import NMF
+
+# Data: 4 Users, 5 Movies (0 = Unseen)
+X = np.array([
+    [5, 4, 0, 1, 0], # User 1: Likes Action
+    [0, 0, 5, 4, 0], # User 2: Likes Comedy
+    [4, 5, 0, 0, 1], # User 3: Likes Action
+    [1, 0, 4, 5, 0]  # User 4: Likes Comedy
+])
+
+# Factorize into 2 latent components
+model = NMF(n_components=2, init='random', random_state=42)
+W = model.fit_transform(X) # User Matrix
+H = model.components_      # Movie Matrix
+
+print("User Factors W (Preference):\n", W.round(2))
+# Users 1&3 should map to feature 0, Users 2&4 to feature 1
+
+print("\nMovie Factors H (Attributes):\n", H.round(2))
+
+# Reconstruct
+X_hat = W @ H
+print("\nPredicted Ratings:\n", X_hat.round(1))
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

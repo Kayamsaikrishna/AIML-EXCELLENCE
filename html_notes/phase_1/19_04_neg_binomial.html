@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19.04 Negative Binomial Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.3 Discrete Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="19_01_bernoulli.html" class="nav-link">01. Bernoulli</a></li>
+                        <li class="nav-item"><a href="19_02_binomial.html" class="nav-link">02. Binomial</a></li>
+                        <li class="nav-item"><a href="19_03_geometric.html" class="nav-link">03. Geometric</a></li>
+                        <li class="nav-item"><a href="19_04_neg_binomial.html" class="nav-link active">04. Neg
+                                Binomial</a></li>
+                        <li class="nav-item"><a href="19_05_hypergeometric.html" class="nav-link">05. Hypergeometric</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Extension</span>
+                </div>
+                <h1>The Negative Binomial Distribution</h1>
+                <p class="lead-text">Waiting not just for one, but for \(r\) successes.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Generalizing the Wait</h3>
+                    <p>
+                        The Geometric distribution is "Trials until 1st success".
+                        <br>
+                        The Negative Binomial distribution is "Trials until \(r\)-th success".
+                        <br><br>
+                        Alternatively (and more commonly in data science), it is defined as the number of
+                        <strong>failures</strong> before \(r\) successes.
+                    </p>
+                </div>
+
+                <h2>1. The Formula (Failures Definition)</h2>
+                <div class="math-box">
+                    Let \(k\) be the number of failures. Let \(r\) be the required successes.
+                    $$ P(X=k) = \binom{k+r-1}{k} (1-p)^k p^r $$
+                    <strong>Why?</strong>
+                    The last trial <em>must</em> be a success. So we need to arrange \(r-1\) successes and \(k\)
+                    failures in the first \(k+r-1\) trials.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Overdispersion</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">NLP</span>
+                    <span class="ml-badge">Count Data</span>
+                    <h3>Better than Poisson?</h3>
+                    <p>
+                        We often use Poisson Regression for count data (e.g., number of clicks per day). However,
+                        Poisson assumes Mean = Variance.
+                        <br><br>
+                        Real-world data is often "bursty" or clumpy, meaning the variance is much higher than the mean
+                        (Overdispersion).
+                        <br><br>
+                        <strong>Negative Binomial</strong> has an extra parameter that allows the variance to exceed the
+                        mean:
+                        $$ \text{Var}(X) = \mu + \frac{\mu^2}{r} $$
+                        This makes it the standard choice for modeling:
+                    <ul>
+                        <li>Word counts in text corpus (some words appear in bursty clusters).</li>
+                        <li>RNA-seq read counts in bioinformatics.</li>
+                        <li>Traffic accidents.</li>
+                    </ul>
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Relation to Geometric</h2>
+                <p>
+                    Just as Binomial is a sum of Bernoullis, Negative Binomial is a sum of \(r\) independent Geometric
+                    variables.
+                    <br>
+                    You wait for the 1st success (Geo 1), reset, wait for the 2nd (Geo 2)... until the r-th.
+                </p>
+                <div class="mermaid">
+                    graph LR
+                    A[Geometric] -->|Sum of r i.i.d| B[Negative Binomial]
+                    C[Bernoulli] -->|Sum of n i.i.d| D[Binomial]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

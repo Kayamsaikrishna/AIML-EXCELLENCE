@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.19 Conditional Independence in BN - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_18_bayesian_networks_structure.html" class="nav-link">18.
+                                Bayesian Networks Structure</a></li>
+                        <li class="nav-item"><a href="26_19_conditional_independence_bn.html"
+                                class="nav-link active">19. Conditional Independence Bn</a></li>
+                        <li class="nav-item"><a href="26_20_bayesian_inference_applications.html" class="nav-link">20.
+                                Bayesian Inference Applications</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Inference Logic</span>
+                </div>
+                <h1>Conditional Independence (D-Separation)</h1>
+                <p class="lead-text">Learning when info can travel through a graph and when it is "blocked."</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Traffic Light Analogy</h3>
+                    <p>
+                        <strong>D-Separation</strong> is the set of rules that tells us: "If I know variable X, does that help me
+                        predict Z?"
+                    </p>
+                </div>
+
+                <h2>1. The Three Basic Atoms</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. The Chain (\(X \rightarrow Y \rightarrow Z\))</h4>
+                        <p>Information flows from X to Z. But if you observe <strong>Y**, the chain is **Blocked</strong>. Z is
+                            independent of X given Y.</p>
+                        <p><strong>Example:</strong> Smoke \(\rightarrow\) Alarm \(\rightarrow\) Evacuation. If you already hear the
+                            Alarm, seeing the Smoke doesn't give you "extra" info about Evacuation.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. The Fork (\(X \leftarrow Y \rightarrow Z\))</h4>
+                        <p>X and Z look correlated (common cause). If you observe <strong>Y**, the fork is **Blocked</strong>. X and
+                            Z are now independent.</p>
+                        <p><strong>Example:</strong> Ice Cream Sales \(\leftarrow\) Heatwave \(\rightarrow\) Drownings. Once you know
+                            it's a Heatwave, Ice Cream sales don't help predict Drownings.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. The Collider (\(X \rightarrow Y \leftarrow Z\))</h4>
+                        <p><strong>The Weird One!</strong> X and Z are already independent. But if you observe <strong>Y</strong>, they become
+                            <strong>Correlated</strong>!</p>
+                        <p><strong>Example:</strong> Talent \(\rightarrow\) Celebrity \(\leftarrow\) Beauty. They are independent.
+                            But if you look at "Celebrity" group (Observed Y), and see someone is not Beautiful, you
+                            find it's very likely they are highly Talented. This is called <strong>Explaining Away</strong>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Berkson's Paradox</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Data Bias</span>
+                    <span class="ml-badge">Causality</span>
+                    <h3>Why your model finds fake correlations</h3>
+                    <p>
+                        Imagine a recruitment model that looks only at <strong>Top Tech Companies</strong>.
+                        - <strong>Variables:</strong> Coding Skill (\(X\)) and Communication Skill (\(Z\)).
+                        - <strong>Collider:</strong> Hired at Google (\(Y\)).
+                    </p>
+                    <p>
+                        In the general population, coding and talking are independent. But in the "Google Employees"
+                        dataset (Observed Collider), they will appear <strong>Negatively Correlated</strong>. Why? Because to get
+                        hired, you need at least ONE of them. If a hire has low coding skills, they MUST have high
+                        communication skills to have made the cut.
+                    </p>
+                    <p>
+                        If your ML model learns from this biased "Success-only" data without understanding
+                        <strong>D-separation</strong>, it will mistakenly conclude that "Good coders are bad at talking." This is a
+                        classic <strong>Selection Bias</strong> error.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

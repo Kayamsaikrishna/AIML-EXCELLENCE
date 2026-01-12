@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithmetic Coding - Phase 1.5.7.17</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_17_arithmetic_coding.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_17_arithmetic_coding.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_17</div>
+            <h1>17. Arithmetic Coding</h1>
+            <p class="lead-text">Encoding an entire message as a single point on a line.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Beyond Huffman</h2>
+<p>Huffman coding (Module 07) assigns an integer number of bits to each symbol. But what if a symbol only
+                carries 0.5 bits of information? Huffman must round up to 1, wasting space. <strong>Arithmetic Coding**
+                    represents an entire sequence of symbols as a single <strong>Fraction</strong> (an interval) between 0 and 1.
+            </strong></p>
+</section>
+<section class="module-card">
+<h2>2. The Fractional Interval</h2>
+<p>Each symbol narrows the current interval based on its probability. The final message is just a
+                high-precision number within that tiny final interval. This method can reach the Shannon limit
+                perfectly, even if symbol probabilities aren't "Clean" powers of 2.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: LLM Tokenizers and Neural Compression</h2>
+<div class="module-card">
+<h3>The Perfect Bridge from Probabilities to Bits</h3>
+<p>In AI, Arithmetic Coding is the <strong>Standard for Modern Compression (H.264, JPEG2000, 7z)**. </strong></p>
+<p>When you build a <strong>Neural Compression</strong> model for images, the AI predicts the probability of each
+                    pixel. To turn those probabilities into an actual file, we pipe them into an <strong>Arithmetic Coder</strong>.
+                    In <strong>Natural Language Processing (NLP)</strong>, concepts like <strong>Byte Pair Encoding (BPE)</strong> are
+                    pre-processors, but the final compression of "Language" into bits (for storage or transmission)
+                    relies on arithmetic schemes. Understanding this bridge allows AI engineers to build **Entropy-aware
+                    model formats**: we don't just store floats; we store the "Fractional intervals" of those floats.
+                    This is how <strong>Model Quantization (GGUF, EXL2)** works at its deepest level: it uses
+                        information-theoretic coding to pack as much "Intelligence" as possible into a single byte. </strong></p>
+</div>
+</section>
+<section>
+<h2>4. Python: The Logic of Narrowing Intervals</h2>
+<div class="code-block">
+<pre><code class="language-python"># Start [0, 1]
+# p(A)=0.5, p(B)=0.5
+# If first symbol is 'A', new interval is [0, 0.5]
+# If second is 'B', new interval is [0.25, 0.5]
+# The sequence 'AB' is '0.3' (represented in binary)</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

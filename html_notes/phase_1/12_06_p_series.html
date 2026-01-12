@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.06 P-Series - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_06_p_series.html" class="nav-link active">06. P-Series</a></li>
+                        <li class="nav-item"><a href="12_07_comparison_test.html" class="nav-link">07. Comparison
+                                Tests</a></li>
+                        <li class="nav-item"><a href="12_08_limit_comparison.html" class="nav-link">08. Limit
+                                Comparison</a></li>
+                        <li class="nav-item"><a href="12_09_ratio_test.html" class="nav-link">09. Ratio Test</a></li>
+                        <li class="nav-item"><a href="12_10_root_test.html" class="nav-link">10. Root Test</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Standard Series</span>
+                </div>
+                <h1>The P-Series & Harmonic Series</h1>
+                <p class="lead-text">The slow march to infinity.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Power Law Series</h3>
+                    <p>
+                        A p-series is a sum of the form:
+                        \[ \sum_{n=1}^{\infty} \frac{1}{n^p} = 1 + \frac{1}{2^p} + \frac{1}{3^p} + \dots \]
+                    </p>
+                    <p>
+                        <strong>Convergence Rule:</strong>
+                    <ul>
+                        <li>If \(p > 1\): <strong>Converges</strong> (Terms shrink fast enough).</li>
+                        <li>If \(p \leq 1\): <strong>Diverges</strong> (Terms shrink too slowly).</li>
+                    </ul>
+                    </p>
+                    <p>
+                        The case \(p=1\) is the <strong>Harmonic Series</strong> (\(1 + 1/2 + 1/3 \dots\)). It diverges, but very
+                        slowly.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Zipf's Law & Vocabulary</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Long Tail of Language</h3>
+                    <p>
+                        In <strong>Natural Language Processing (NLP)</strong>, word frequencies follow <strong>Zipf's Law</strong>: the frequency
+                        of the \(n\)-th most common word is proportional to \(1/n^s\) (where \(s \approx 1\)).
+                    </p>
+                    <p>
+                        This is a p-series with \(p \approx 1\). Since \(p=1\) diverges, it means the "total probability
+                        mass" of the long tail (rare words) is <strong>infinite</strong> if the vocabulary is unbounded.
+                    </p>
+                    <p>
+                        This mathematical reality forces LLMs (like GPT) to use a <strong>Fixed Vocabulary</strong> (e.g., 50k
+                        tokens). If we tried to learn <i>every</i> word, the model complexity would explode because the
+                        distribution tails are "heavy" (they don't decay fast enough).
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Words[All Possible Words] --> Frequency[Sort by Frequency]
+                        Frequency --> Zipf[Zipf's Law: 1/n]
+                        Zipf --> Check{Sum Converges?}
+                        Check -->|No| Infinite[Infinite Memory Need]
+                        Check -->|Solution| Cutoff[Vocabulary Cutoff (Top 50k)]
+
+                        style Infinite fill:#f56565,stroke:#c53030
+                        style Cutoff fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Harmonic Divergence</h2>
+                <div class="code-header">harmonic_growth.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Compare Harmonic (p=1) vs Geometric (p=2) partial sums
+
+n_values = range(1, 1000)
+harmonic_sums = []
+convergent_sums = []
+
+h_sum = 0
+c_sum = 0
+
+for n in n_values:
+    h_sum += 1/n
+    c_sum += 1/(n**2)
+    harmonic_sums.append(h_sum)
+    convergent_sums.append(c_sum)
+
+print(f"Harmonic Sum (n=1000): {h_sum:.2f}")
+print(f"Convergent Sum (n=1000): {c_sum:.2f}")
+# Harmonic keeps growing (logarithmically)
+# Convergent flattens out</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_05_geometric_series.html" class="footer-link">← Prev: Geometric</a>
+                        <span class="separator">|</span>
+                        <a href="12_07_comparison_test.html" class="footer-link">Next: Comparison →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

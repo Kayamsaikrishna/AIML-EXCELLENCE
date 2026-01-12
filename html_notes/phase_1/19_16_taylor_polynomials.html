@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,81 +9,86 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.8 Series & Taylor</li>
-            <li><a href="22_09_power_series_funcs.html">09. Power Series Funcs</a></li>
-            <li><a href="22_10_taylor_series.html" class="active">10. Taylor Series</a></li>
-            <li><a href="22_11_taylor_apps.html">11. Taylor Apps</a></li>
-            <li><a href="22_12_taylor_convergence.html">12. Taylor Convergence</a></li>
-            <li><a href="22_13_power_series_calc.html">13. Power Series Calc</a></li>
-            <hr>
-            <li class="nav-label navigation">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.5 Seq & Series</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="19_16_taylor_polynomials.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Taylor Series
+            <a href="../index.html">Syllabus</a> &gt; 19_16_taylor_polynomials.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 19_16</div>
             <h1>10. Taylor and Maclaurin Series</h1>
-            <p class="subtitle">The definitive way to approximate any smooth function.</p>
+            <p class="lead-text">The definitive way to approximate any smooth function.</p>
         </header>
 
-        <section>
-            <h2>1. The Formula</h2>
-            <p>A <strong>Taylor Series</strong> represents a function \(f(x)\) as an infinite sum of its derivatives at
+        
+
+
+
+<section>
+<h2>1. The Formula</h2>
+<p>A <strong>Taylor Series</strong> represents a function \(f(x)\) as an infinite sum of its derivatives at
                 a single point \(a\):</p>
-            <div class="math-block">
+<div class="math-block">
                 $$ f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x - a)^n $$
             </div>
-            <p>If the series is centered at \(a=0\), it is called a <strong>Maclaurin Series</strong>.</p>
-        </section>
-
-        <section class="module-card">
-            <h2>2. Common Maclaurin Series</h2>
-            <div class="math-block">
+<p>If the series is centered at \(a=0\), it is called a <strong>Maclaurin Series</strong>.</p>
+</section>
+<section class="module-card">
+<h2>2. Common Maclaurin Series</h2>
+<div class="math-block">
                 $$ e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots $$
                 $$ \sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots $$
                 $$ \cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots $$
             </div>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: The Logic of Gradients</h2>
-            <div class="module-card">
-                <h3>Linearizing the Loss</h3>
-                <p>Why do we use the "Gradient" to train AI? Because the first two terms of the Taylor Series tell us
+</section>
+<section>
+<h2>3. AI/ML Connection: The Logic of Gradients</h2>
+<div class="module-card">
+<h3>Linearizing the Loss</h3>
+<p>Why do we use the "Gradient" to train AI? Because the first two terms of the Taylor Series tell us
                     that: </p>
-                <div class="math-block">
+<div class="math-block">
                     $$ f(x + \Delta x) \approx f(x) + \nabla f(x) \cdot \Delta x $$
                 </div>
-                <p>This is a <strong>First-Order Taylor Approximation</strong>. It says that locally, any complex neural
+<p>This is a <strong>First-Order Taylor Approximation</strong>. It says that locally, any complex neural
                     network looks like a simple flat plane. When we use <strong>Gradient Descent</strong>, we are
                     essentially moving "down" that local Taylor plane. </p>
-                <p>Advanced optimizers (like <strong>AdaGrad</strong> or <strong>RMSProp</strong>) try to account for
+<p>Advanced optimizers (like <strong>AdaGrad</strong> or <strong>RMSProp</strong>) try to account for
                     the second-order term (\(x^2\)), which represents the "Curvature" of the loss. By understanding
                     Taylor series, you understand exactly why AI training works: we are approximating the global,
                     impossible-to-calculate loss mountain with a series of tiny, easy-to-calculate Taylor polynomials.
                     The "Learning Rate" is the size of the window where our Taylor approximation is still accurate.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Symbolic Taylor Expansion</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>4. Python: Symbolic Taylor Expansion</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 x = sp.Symbol('x')
 f = sp.exp(x) # The exponential function
@@ -94,13 +98,14 @@ taylor_expansion = sp.series(f, x, 0, 5)
 
 print(f"Taylor Expansion of e^x:\n{taylor_expansion}")
 # Output: 1 + x + x**2/2 + x**3/6 + x**4/24 + O(x**5)</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

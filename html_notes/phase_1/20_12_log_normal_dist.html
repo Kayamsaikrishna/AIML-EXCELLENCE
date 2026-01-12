@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.12 Log-Normal Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_11_cauchy_dist.html" class="nav-link">11. Cauchy Dist</a></li>
+                        <li class="nav-item"><a href="20_12_log_normal_dist.html" class="nav-link active">12.
+                                Log-Normal</a></li>
+                        <li class="nav-item"><a href="20_13_pareto_dist.html" class="nav-link">13. Pareto Dist</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Growth</span>
+                </div>
+                <h1>The Log-Normal Distribution</h1>
+                <p class="lead-text">Modeling products of small independent factors.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Sums vs. Products</h3>
+                    <p>
+                        The <strong>Normal</strong> distribution is for things that <strong>add</strong> up (Central Limit Theorem).
+                        <br>
+                        The <strong>Log-Normal</strong> distribution is for things that <strong>multiply</strong> together.
+                        <br><br>
+                        "If you take a sample and its logarithm follows a Normal distribution, the original sample is
+                        Log-Normal."
+                    </p>
+                </div>
+
+                <h2>1. Definition and PDF</h2>
+                <div class="math-box">
+                    \(X \sim \text{Log-Normal}(\mu, \sigma^2)\) if \(\ln(X) \sim \mathcal{N}(\mu, \sigma^2)\).
+                    $$ f(x) = \frac{1}{x \sigma \sqrt{2\pi}} \exp\left( -\frac{(\ln x - \mu)^2}{2\sigma^2} \right) $$
+                    for \(x > 0\).
+                </div>
+                <ul>
+                    <li>The distribution is positively skewed (long tail to the right).</li>
+                    <li>Always positive (useful for prices, weights, volumes).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. When does it appear?</h2>
+                <p>
+                    Any process where growth is proportional to the current size leads to a Log-Normal distribution.
+                </p>
+                <ul>
+                    <li><strong>Biology:</strong> Height of microorganisms, weight of body organs.</li>
+                    <li><strong>Finance:</strong> Stock prices (Black-Scholes model assumes returns are log-normal).
+                    </li>
+                    <li><strong>Linguistics:</strong> Length of sentences in a book.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Log-Transforms</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Preprocessing</span>
+                    <span class="ml-badge">Feature Engineering</span>
+                    <h3>Correcting Skewness</h3>
+                    <p>
+                        Linear models (OLS) and many Neural Networks perform best when features and targets are roughly
+                        Gaussian.
+                    </p>
+                    <p>
+                        If your target variable (like House Prices) is highly skewed (Log-Normal), taking the log of the
+                        variable (\(y' = \log(y)\)) transforms it into a Normal distribution.
+                        <br><br>
+                        <strong>Training Loop:</strong>
+                        1. Log-transform data.
+                        2. Train model.
+                        3. Predict.
+                        4. Inverse-transform prediction (\(\exp(y')\)) to get final answer.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Moments</h2>
+                <ul>
+                    <li><strong>Mean:</strong> \(E[X] = \exp(\mu + \sigma^2/2)\).
+                        <br><span class="text-sm">(Note: The mean is higher than \(\exp(\mu)\) because of the long
+                            tail).</span>
+                    </li>
+                    <li><strong>Median:</strong> \(\exp(\mu)\).</li>
+                    <li><strong>Mode:</strong> \(\exp(\mu - \sigma^2)\).</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

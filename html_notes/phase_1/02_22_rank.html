@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02.22 Matrix Rank - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_21_column_space.html" class="nav-link">21. Column Space</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">22. Rank</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 22. Rank and Information
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 22</div>
+            <h1>The Information Content</h1>
+            <p class="lead-text"> \( \text{rank}(A) \). How many independent patterns actually exist in your data?</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: RANK -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Compression</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Matrix["Matrix A (Height m, Width n)"]
+    
+    subgraph Properties
+        Rows["Independent Info (Rows)"]
+        Cols["Independent Features (Cols)"]
+        Rank["Rank r"]
+    end
+    
+    subgraph Cases
+        Full["Full Rank (r = min(m,n))"]
+        Low["Low Rank (r < min(m,n))"]
+    end
+
+    subgraph AI [Applications]
+        Recommender["Matrix Factorization (Netflix)"]
+        Compression["Image Compression (SVD)"]
+    end
+    
+    Matrix --> Rows
+    Matrix --> Cols
+    Rows --> Rank
+    Cols --> Rank
+    
+    Rank --> Full
+    Rank --> Low
+    
+    Low --> Recommender
+    Low --> Compression
+
+    style Rank fill:#fefe93,stroke:#d97706
+    style Recommender fill:#dcfce7,stroke:#16a34a
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: DIMENSION OF THE IMAGE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. What is Rank?</h2>
+                <p>The <strong>Rank</strong> of a matrix is the dimension of its Column Space (which equals the
+                    dimension of its Row Space).</p>
+                <div class="math-block">
+                    $$ \text{rank}(A) \le \min(m, n) $$
+                </div>
+                <p>If Rank < min(m, n), the matrix is "Rank Deficient" (Singular). It squashes space.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: LOW RANK APPROXIMATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Recommender Systems</h2>
+                <p>The Netflix Prize was solved using <strong>Matrix Factorization</strong>. We assume the "User-Movie"
+                    rating matrix is <strong>Low Rank</strong>.</p>
+                <p>Why? Because a user's taste isn't random; it depends on just a few latent factors (Action vs Romance,
+                    Budget, etc.).</p>
+                <div class="math-block">
+                    $$ R \approx U \cdot V^T $$
+                </div>
+                <p>where \( U \) and \( V \) are thin matrices (Rank \( k \)). This fills in the missing ratings!</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Image Compression (SVD)</h2>
+                <p>Approximating an image with a low-rank matrix.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# A 4x4 Image (Simple Gradient)
+img = np.array([
+    [10, 20, 30, 40],
+    [10, 20, 30, 40],
+    [50, 60, 70, 80],
+    [50, 60, 70, 80]
+])
+
+# Calculate Rank
+rank = np.linalg.matrix_rank(img)
+print(f"Original Rank: {rank}")
+# Result: 2. (Rows 1&2 are same, Rows 3&4 are same).
+
+# SVD (Singular Value Decomposition)
+U, S, Vt = np.linalg.svd(img)
+
+print(f"Singular Values: {S}")
+# Only first 2 are non-zero.
+
+# Reconstruct using ONLY Rank 1 (Most info)
+img_approx = S[0] * np.outer(U[:, 0], Vt[0, :])
+
+print("\nRank 1 Approximation:")
+print(img_approx)
+# Captures the main light/dark split but loses detail.
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

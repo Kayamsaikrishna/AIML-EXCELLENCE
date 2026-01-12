@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,91 +9,99 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.5 Sequences & Series</li>
-            <li><a href="19_02_sequence_limits.html">02. Sequence Limits</a></li>
-            <li><a href="19_03_bounded_monotonic.html" class="active">03. Bounded & Monotonic</a></li>
-            <li><a href="19_04_series_tests_intro.html">04. Series Intro</a></li>
-            <hr>
-            <li class="nav-label navigation">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.5 Seq & Series</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="19_03_bounded_monotonic.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Bounded & Monotonic
+            <a href="../index.html">Syllabus</a> &gt; 19_03_bounded_monotonic.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 19_03</div>
             <h1>03. Bounded & Monotonic Sequences</h1>
-            <p class="subtitle">Ensuring stability: The Monotone Convergence Theorem.</p>
+            <p class="lead-text">Ensuring stability: The Monotone Convergence Theorem.</p>
         </header>
 
-        <section>
-            <h2>1. Definitions</h2>
-            <ul class="topic-list">
-                <li><strong>Monotonic:</strong> A sequence that either only increases (\(a_n \leq a_{n+1}\)) or only
-                    decreases (\(a_n \geq a_{n+1}\)).</li>
-                <li><strong>Bounded:</strong> There exists a number \(M\) such that \(|a_n| \leq M\) for all \(n\).</li>
-            </ul>
-        </section>
+        
 
-        <section class="module-card">
-            <h2>2. The Monotone Convergence Theorem</h2>
-            <p>Every <strong>bounded</strong> and <strong>monotonic</strong> sequence is convergent. This is a
+
+
+<section>
+<h2>1. Definitions</h2>
+<ul class="topic-list">
+<li><strong>Monotonic:</strong> A sequence that either only increases (\(a_n \leq a_{n+1}\)) or only
+                    decreases (\(a_n \geq a_{n+1}\)).</li>
+<li><strong>Bounded:</strong> There exists a number \(M\) such that \(|a_n| \leq M\) for all \(n\).</li>
+</ul>
+</section>
+<section class="module-card">
+<h2>2. The Monotone Convergence Theorem</h2>
+<p>Every <strong>bounded</strong> and <strong>monotonic</strong> sequence is convergent. This is a
                 fundamental guarantee in mathematical analysis: if a sequence is restricted (bounded) and headed in one
                 direction (monotonic), it <i>must</i> hit a limit.</p>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: The Loss Floor</h2>
-            <div class="module-card">
-                <h3>Gradient Descent Stability</h3>
-                <p>When training an AI, the "Loss" is ideally a <strong>Monotonic Decreasing</strong> sequence. Since
+</section>
+<section>
+<h2>3. AI/ML Connection: The Loss Floor</h2>
+<div class="module-card">
+<h3>Gradient Descent Stability</h3>
+<p>When training an AI, the "Loss" is ideally a <strong>Monotonic Decreasing</strong> sequence. Since
                     the loss of a model can never be less than zero (it is <strong>Bounded Below</strong>), the Monotone
                     Convergence Theorem guarantees that the training <i>must eventually settle</i> on a minimum value.
                 </p>
-                <p>If your training loss is not monotonic (it keeps jumping up and down), it indicates that your
+<p>If your training loss is not monotonic (it keeps jumping up and down), it indicates that your
                     <strong>Learning Rate</strong> is too high, causing the sequence to oscillate instead of converging.
                     Stability in AI is about forcing the math to behave like a bounded monotonic sequence.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Checking Monotonicity</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># Sequence: a_n = n / (n + 1)
+</div>
+</section>
+<section>
+<h2>4. Python: Checking Monotonicity</h2>
+<div class="code-block">
+<pre><code class="language-python"># Sequence: a_n = n / (n + 1)
 def a_n(n):
     return n / (n + 1)
 
 values = [a_n(i) for i in range(1, 11)]
 
 # Check if increasing
-is_increasing = all(x < y for x, y in zip(values, values[1:]))
+is_increasing = all(x &lt; y for x, y in zip(values, values[1:]))
 # Check if bounded by 1.0
-is_bounded = all(x <= 1.0 for x in values)
+is_bounded = all(x &lt;= 1.0 for x in values)
 
 print(f"Values: {[round(v, 3) for v in values]}")
 print(f"Is Monotonic Increasing? {is_increasing}")
 print(f"Is Bounded Above by 1.0? {is_bounded}")
 print("Therefore, by MCT, it MUST converge (Limit is 1).")</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

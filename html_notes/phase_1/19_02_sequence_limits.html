@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,85 +9,94 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.5 Sequences & Series</li>
-            <li><a href="19_01_sequence_convergence.html">01. Convergence</a></li>
-            <li><a href="19_02_sequence_limits.html" class="active">02. Sequence Limits</a></li>
-            <hr>
-            <li class="nav-label navigation">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.5 Seq & Series</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="19_02_sequence_limits.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Sequence Limits
+            <a href="../index.html">Syllabus</a> &gt; 19_02_sequence_limits.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 19_02</div>
             <h1>02. Limits of Sequences</h1>
-            <p class="subtitle">Where does an infinite list of numbers eventually go?</p>
+            <p class="lead-text">Where does an infinite list of numbers eventually go?</p>
         </header>
 
-        <section>
-            <h2>1. Formal Definition</h2>
-            <p>A sequence \(\{a_n\}\) has the limit \(L\) if for every \(\epsilon > 0\), there exists an integer \(N\)
-                such that if \(n > N\), then \(|a_n - L| < \epsilon\).</p>
-        </section>
+        
 
-        <section class="module-card">
-            <h2>2. Limit Laws</h2>
-            <p>Limits of sequences behave exactly like limits of functions. If \(\lim a_n = A\) and \(\lim b_n = B\):
+
+
+<section>
+<h2>1. Formal Definition</h2>
+<p>A sequence \(\{a_n\}\) has the limit \(L\) if for every \(\epsilon &gt; 0\), there exists an integer \(N\)
+                such that if \(n &gt; N\), then \(|a_n - L| &lt; \epsilon\).</p>
+</section>
+<section class="module-card">
+<h2>2. Limit Laws</h2>
+<p>Limits of sequences behave exactly like limits of functions. If \(\lim a_n = A\) and \(\lim b_n = B\):
             </p>
-            <ul class="topic-list">
-                <li>\(\lim (a_n \pm b_n) = A \pm B\)</li>
-                <li>\(\lim (a_n \cdot b_n) = A \cdot B\)</li>
-                <li>\(\lim \frac{a_n}{b_n} = \frac{A}{B}\) (if \(B \neq 0\))</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: The Stop Criterion</h2>
-            <div class="module-card">
-                <h3>Convergence Monitoring</h3>
-                <p>In <strong>Machine Learning</strong>, we don't train forever. We look at the sequence of "Validation
+<ul class="topic-list">
+<li>\(\lim (a_n \pm b_n) = A \pm B\)</li>
+<li>\(\lim (a_n \cdot b_n) = A \cdot B\)</li>
+<li>\(\lim \frac{a_n}{b_n} = \frac{A}{B}\) (if \(B \neq 0\))</li>
+</ul>
+</section>
+<section>
+<h2>3. AI/ML Connection: The Stop Criterion</h2>
+<div class="module-card">
+<h3>Convergence Monitoring</h3>
+<p>In <strong>Machine Learning</strong>, we don't train forever. We look at the sequence of "Validation
                     Errors" after each epoch. If the limit of this sequence is approaching a constant value (meaning the
                     error is no longer dropping), the model has <strong>Converged</strong>.</p>
-                <p>Engineers use a "Patience" parameter (the \(N\) in our limit definition) to decide when to stop. If
+<p>Engineers use a "Patience" parameter (the \(N\) in our limit definition) to decide when to stop. If
                     the error doesn't change by more than \(\epsilon\) for \(N\) steps, we assume we've reached the
                     limit of what the model can learn and stop the training process to save time and power.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Simulating Sequence Limits</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># Sequence: a_n = (4n^2 + 1) / (2n^2)
+</div>
+</section>
+<section>
+<h2>4. Python: Simulating Sequence Limits</h2>
+<div class="code-block">
+<pre><code class="language-python"># Sequence: a_n = (4n^2 + 1) / (2n^2)
 # Theoretical limit: 4/2 = 2.0
 
 def a_n(n):
     return (4*n**2 + 1) / (2*n**2)
 
 for i in [1, 10, 100, 1000, 10000]:
-    print(f"n={i: <6} | Value: {a_n(i):.8f}")
+    print(f"n={i: &lt;6} | Value: {a_n(i):.8f}")
 
 # As n grows, the result gets closer and closer to 2.0</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

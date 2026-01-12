@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.09 Multivariable Chain Rule - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_06_gradient_vectors.html" class="nav-link">06. Gradient
+                                Vectors</a></li>
+                        <li class="nav-item"><a href="13_07_directional_derivatives.html" class="nav-link">07.
+                                Directional Derivs</a></li>
+                        <li class="nav-item"><a href="13_08_tangent_planes_approx.html" class="nav-link">08. Tangent
+                                Planes</a></li>
+                        <li class="nav-item"><a href="13_09_multi_chain_rule.html" class="nav-link active">09. Chain
+                                Rule</a></li>
+                        <li class="nav-item"><a href="13_10_multi_implicit_diff.html" class="nav-link">10. Implicit
+                                Diff</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Dependencies</span>
+                </div>
+                <h1>Multivariable Chain Rule</h1>
+                <p class="lead-text">Propagating signals through the web.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Multiplying Paths</h3>
+                    <p>
+                        If \( z \) depends on \( x \) and \( y \), and both depend on \( t \), how does \( z \) change
+                        with \( t \)?
+                        We must account for both paths of influence:
+                        \[ \frac{dz}{dt} = \frac{\partial z}{\partial x} \frac{dx}{dt} + \frac{\partial z}{\partial y}
+                        \frac{dy}{dt} \]
+                    </p>
+                    <p>
+                        Rule of Thumb: <strong>Multiply</strong> along branches, <strong>Add</strong> separate branches together.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Backbone of Backprop</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Computational Graphs</h3>
+                    <p>
+                        Deep Learning frameworks (PyTorch, TensorFlow) view models as **Directed Acyclic Graphs
+                        (DAGs)**.
+                        When we call `.backward()`, the engine automatically constructs the chain rule derivative.
+                    </p>
+                    <p>
+                        If a layer's output splits into three different branches (e.g., in a ResNet block or Attention
+                        Head), the error gradients from all three branches flow back, get multiplied by their respective
+                        weigh changes, and then <strong>Sum Up</strong> at the junction.
+                        This summation is the literal implementation of the "Plus" in the Chain Rule formula above.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph RL
+                        Loss[Loss L]
+                        Hidden[Hidden H]
+                        Input[Input X]
+
+                        Loss -->|dL/dH| Hidden
+                        Hidden -->|dH/dW| Weights[Weights W]
+                        Hidden -->|dH/dX| Input
+
+                        style Loss fill:#e53e3e
+                        style Weights fill:#3182ce
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Auto-Differentiation</h2>
+                <div class="code-header">chain_rule_jax.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import jax.numpy as jnp
+from jax import grad
+
+# Define composite function z = f(g(t), h(t))
+# x = sin(t), y = cos(t), z = x*y = sin(t)cos(t)
+
+def f(t):
+    x = jnp.sin(t)
+    y = jnp.cos(t)
+    z = x * y
+    return z
+
+# JAX computes chain rule automatically
+dz_dt = grad(f)
+
+t_val = 1.0
+print(f"Gradient at t=1.0: {dz_dt(t_val)}")
+
+# Manual verification:
+# z = 0.5 * sin(2t) -> z' = cos(2t)
+print(f"Manual check:      {jnp.cos(2 * t_val)}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_08_tangent_planes_approx.html" class="footer-link">← Prev: Tangent Planes</a>
+                        <span class="separator">|</span>
+                        <a href="13_10_multi_implicit_diff.html" class="footer-link">Next: Implicit Diff →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

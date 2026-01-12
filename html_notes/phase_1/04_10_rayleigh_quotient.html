@@ -4,110 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rayleigh Quotient - Phase 1.2.3.10</title>
+    <title>04.10 Rayleigh Quotient - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_09_spectral_normal.html">09. Spectral Theorem (Normal)</a></li>
-            <li><a href="04_10_rayleigh_quotient.html" class="active">10. Rayleigh Quotient</a></li>
-            <li><a href="04_11_power_iteration.html">11. Power Iteration</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_09_spectral_normal.html" class="nav-link">09. Normal Spectral</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">10. Rayleigh Quotient</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Rayleigh Quotient
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 10. Boundaries
         </div>
 
-        <header>
-            <h1>10. Rayleigh Quotient</h1>
-            <p class="subtitle">Turning Linear Algebra into an Optimization problem.</p>
+        <header class="page-header">
+            <div class="badge">Module 10</div>
+            <h1>Rayleigh Quotient</h1>
+            <p class="lead-text"> \( R(x) \). Bounding the energy of a system between \( \lambda_{\min} \) and \(
+                \lambda_{\max} \).</p>
         </header>
 
-        <section>
-            <h2>1. The Definition</h2>
-            <p>For a real symmetric matrix \(\mathbf{A}\), the <strong>Rayleigh Quotient</strong> \(R(\mathbf{A},
-                \mathbf{x})\)
-                is defined for a non-zero vector \(\mathbf{x}\) as:</p>
-            <div class="math-block">
-                $$ R(\mathbf{A}, \mathbf{x}) = \frac{\mathbf{x}^T\mathbf{A}\mathbf{x}}{\mathbf{x}^T\mathbf{x}} $$
-            </div>
-            <p>If \(\mathbf{x}\) is an eigenvector with eigenvalue \(\lambda\), then \(R(\mathbf{A}, \mathbf{x}) =
-                \lambda\).</p>
-        </section>
+        <!-- VISUAL DIAGRAM: RAYLEIGH -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Energy Landscape</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Vector x"]
+    
+    subgraph Calculation
+        Num["x^T A x (Energy)"]
+        Den["x^T x (Norm Squared)"]
+        Quotient["R(x) = Num / Den"]
+    end
+    
+    Input --> Num
+    Input --> Den
+    Num --> Quotient
+    Den --> Quotient
+    
+    Quotient -- "Max over x" --> MaxLam["&lambda;_max"]
+    Quotient -- "Min over x" --> MinLam["&lambda;_min"]
 
-        <section>
-            <h2>2. The Min-Max Property</h2>
-            <div class="module-card">
-                <h3>Energy Bounds</h3>
-                <p>Crucially, the Rayleigh Quotient is bounded by the smallest and largest eigenvalues:</p>
-                <div class="math-block">
-                    $$ \lambda_{min} \leq \frac{\mathbf{x}^T\mathbf{A}\mathbf{x}}{\mathbf{x}^T\mathbf{x}} \leq
-                    \lambda_{max} $$
-                </div>
-                <p>To find the "Principal Direction" of data, we simply pick the \(\mathbf{x}\) that **maximizes**
-                    this quotient. To find the "Bottleneck," we minimize it.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>3. AI Application: LDA & Fisher's Criterion</h2>
-            <div class="module-card">
-                <h3>Linear Discriminant Analysis (LDA)</h3>
-                <p>In classification, we want to find a direction that maximizes the distance between class means
-                    while minimizing the variance within classes. This "separability" is expressed exactly as a
-                    <strong>Generalized Rayleigh Quotient</strong>:
-                </p>
-                <div class="math-block">
-                    $$ J(\mathbf{w}) = \frac{\mathbf{w}^T\mathbf{S}_B\mathbf{w}}{\mathbf{w}^T\mathbf{S}_W\mathbf{w}} $$
+    style MaxLam fill:#dcfce7,stroke:#16a34a
+    style MinLam fill:#fee2e2,stroke:#b91c1c
+                    </pre>
                 </div>
             </div>
         </section>
 
-        <section>
-            <h2>4. Python: Estimating Max Eigenvalue</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-A = np.array([[5, 1], [1, 5]])
-
-# Start with a random vector
-x = np.random.rand(2)
-
-# Compute Rayleigh Quotient
-def rayleigh_quotient(A, x):
-    return (x.T @ A @ x) / (x.T @ x)
-
-# Iteratively improve x (Simplistic Power Method)
-for _ in range(10):
-    x = A @ x
-    x = x / np.linalg.norm(x)
-
-estimated_lambda = rayleigh_quotient(A, x)
-actual_lambda = max(np.linalg.eigvals(A))
-
-print(f"Estimated: {estimated_lambda:.4f}")
-print(f"Actual: {actual_lambda:.4f}")</code></pre>
+        <!-- 1. DEFINITION: THE RATIO -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>For a symmetric matrix \( A \), the Rayleigh Quotient for a vector \( x \) is:</p>
+                <div class="math-block">
+                    $$ R(A, x) = \frac{x^T A x}{x^T x} $$
+                </div>
+                <p>The <strong>Min-Max Theorem</strong> states that the maximum value of \( R(x) \) is the largest
+                    eigenvalue, and the minimum is the smallest.</p>
             </div>
         </section>
+
+        <!-- 2. AI APPLICATION: PCA OPTIMIZATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Principal Components</h2>
+                <p>PCA (Principal Component Analysis) can be framed as an optimization problem: Find the direction \( u
+                    \) that maximizes the variance.</p>
+                <div class="math-block">
+                    $$ \max_u \frac{u^T \Sigma u}{u^T u} $$
+                </div>
+                <p>By the Rayleigh theorem, the solution is exactly the eigenvector corresponding to the largest
+                    eigenvalue of the Covariance matrix \( \Sigma \).</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Numerical Bounds</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Symmetric Matrix
+A = np.array([
+    [3, 1],
+    [1, 2]
+])
+
+vals = np.linalg.eigvals(A)
+min_lambda = np.min(vals)
+max_lambda = np.max(vals)
+
+print(f"True Eigenvalues: {min_lambda:.4f}, {max_lambda:.4f}")
+
+# Test Random Vectors
+radii = []
+for _ in range(100):
+    x = np.random.randn(2)
+    R = (x.T @ A @ x) / (x.T @ x)
+    radii.append(R)
+
+print(f"Random R Min: {min(radii):.4f}")
+print(f"Random R Max: {max(radii):.4f}")
+# Notice the random values never exceed the eigenvalue bounds
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

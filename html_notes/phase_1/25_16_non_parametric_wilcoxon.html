@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.16 Non-parametric: Wilcoxon - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_15_chi_square_goodness_fit.html" class="nav-link">15. Chi
+                                Square Goodness Fit</a></li>
+                        <li class="nav-item"><a href="25_16_non_parametric_wilcoxon.html" class="nav-link active">16.
+                                Non Parametric Wilcoxon</a></li>
+                        <li class="nav-item"><a href="25_17_non_parametric_kruskal.html" class="nav-link">17. Non
+                                Parametric Kruskal</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Ranks</span>
+                </div>
+                <h1>Wilcoxon Signed-Rank Test</h1>
+                <p class="lead-text">Testing paired differences without assuming that the data follows a Normal
+                    distribution.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Distribution-Free Alternative</h3>
+                    <p>
+                        The Paired T-test requires the differences to be Normally distributed. What if they aren't? What
+                        if your data has massive outliers or is highly skewed?
+                        <br><br>
+                        <strong>Wilcoxon Signed-Rank Test</strong> ignore the raw values and looks at their <strong>Ranks</strong>.
+                    </p>
+                </div>
+
+                <h2>1. The Logic</h2>
+                <div class="math-box">
+                    1. Calculate differences (After - Before).
+                    2. Ignore the signs and <strong>Rank</strong> the differences by magnitude.
+                    3. Sum the ranks for the positive differences (\(W^+\)) and negative differences (\(W^-\)).
+                    4. If the Null is true, \(W^+\) and \(W^-\) should be roughly equal.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. When to use it?</h2>
+                <ul>
+                    <li><strong>Non-Normal Data:</strong> Your "Differences" histograms looks like a mess.</li>
+                    <li><strong>Ordinal Data:</strong> Your ratings aren't numbers (e.g., "Good", "Better", "Best").</li>
+                    <li><strong>Small Samples with Outliers:</strong> One crazy data point can ruin a T-test; it only shifts one rank
+                        in Wilcoxon.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Ranking Models</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Search/Recommend</span>
+                    <span class="ml-badge">Robustness</span>
+                    <h3>Comparing Rank-Based Systems</h3>
+                    <p>
+                        In Search Engine optimization, we often use <strong>NDCG</strong> (Normalized Discounted Cumulative Gain).
+                        This metric is notoriously non-normal.
+                    </p>
+                    <p>
+                        If you want to prove Model A is better than Model B across 20 search queries:
+                        - <strong>Why T-test fails:</strong> With only 20 queries, one "easy" query where both models score 1.0 would
+                        skew the mean and variance.
+                        - <strong>Why Wilcoxon wins:</strong> It only cares if Model A was *relatively* better than Model B for each
+                        query.
+                    </p>
+                    <p>
+                        Wilcoxon is the "Gold Standard" for comparing algorithms in ML research papers when the metric
+                        doesn't follow a clean bell curve.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

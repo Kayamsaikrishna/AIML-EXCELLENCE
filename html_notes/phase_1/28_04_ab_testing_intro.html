@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.04 A/B Testing Intro - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.12 Experimental Design</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_03_blocking_confounding.html" class="nav-link">03. Blocking &
+                                Confounding</a></li>
+                        <li class="nav-item"><a href="28_04_ab_testing_intro.html" class="nav-link active">04. A/B
+                                Testing Intro</a></li>
+                        <li class="nav-item"><a href="28_05_multi_armed_bandits.html" class="nav-link">05. Multi Armed
+                                Bandits</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Inference</span>
+                </div>
+                <h1>A/B Testing Foundations</h1>
+                <p class="lead-text">The Scientific Method at Scale. How the world’s biggest companies decide which
+                    button to change.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Simplest Experiment</h3>
+                    <p>
+                        An A/B test is simply a <strong>Two-Sample Hypothesis Test</strong> applied to product features.
+                        - <strong>A (Control):</strong> The current version of the product.
+                        - <strong>B (Treatment):</strong> The new proposed version.
+                        <br><br>
+                        Goal: Does version B yield a statistically significant improvement in our Key Performance
+                        Indicator (KPI)?
+                    </p>
+                </div>
+
+                <h2>1. The Measurement Trio</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Primary Metric</h4>
+                        <p>The ONE thing you want to move (e.g., Conversion Rate or Click-Through Rate).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Secondary Metric</h4>
+                        <p>Things that might also change (e.g., Average Order Value). Gives context to the primary
+                            metric.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Guardrail Metric</h4>
+                        <p>The "Don't Break This" metric (e.g., Latency or Error Rate). If clicks go up but errors
+                            double, you don't launch!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Statistics of Launching</h2>
+                <div class="math-box">
+                    $$ H_0: \mu_B - \mu_A = 0 \quad (\text{No effect}) $$
+                    $$ H_1: \mu_B - \mu_A \neq 0 \quad (\text{Effect exists}) $$
+                </div>
+                <div class="insight-box" style="border-left-color: var(--secondary);">
+                    - <strong>Alpha (\(\alpha\)):</strong> Usually 0.05. The probability of calling it a "win" when it was just luck.
+                    - <strong>P-Value:</strong> The probability of seeing our results if the Null Hypothesis were true.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Model Deployment</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Product ML</span>
+                    <span class="ml-badge">Monitoring</span>
+                    <h3>Why we A/B test Neural Networks</h3>
+                    <p>
+                        In ML, "Offline" metrics (like RMSE or Accuracy on training data) often <strong>lie</strong> about real-world
+                        performance.
+                    </p>
+                    <ul>
+                        <li><strong>The Offline-Online Gap:</strong> Your new model might have 10% better accuracy, but because it's
+                            200ms slower, users bounce before seeing the result. A/B testing captures the <strong>UX impact</strong>
+                            of your model.</li>
+                        <li><strong>Canary Deployments:</strong> A "Soft" A/B test. You route 1% of traffic to the new model (B) and
+                            check for errors or massive drops in metrics before ramping up to 50/50.</li>
+                        <li><strong>Novelty Effect:</strong> Users often click new things just because they are new. A/B tests need
+                            to run long enough (usually 14 days) to allow the "excitement" to wear off and see the true
+                            long-term behavior.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Fact:</strong> You cannot check your A/B test result every hour and stop when it looks
+                        good. This is called <strong>"P-hacking"</strong> or <strong>"Peeking"</strong>. It artificially inflates your False
+                        Positive rate by 3-5x!
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

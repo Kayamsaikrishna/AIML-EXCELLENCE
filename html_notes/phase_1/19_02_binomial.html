@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19.02 Binomial Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.3 Discrete Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="19_01_bernoulli.html" class="nav-link">01. Bernoulli</a></li>
+                        <li class="nav-item"><a href="19_02_binomial.html" class="nav-link active">02. Binomial</a></li>
+                        <li class="nav-item"><a href="19_03_geometric.html" class="nav-link">03. Geometric</a></li>
+                        <li class="nav-item"><a href="19_04_neg_binomial.html" class="nav-link">04. Neg Binomial</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Ensemble</span>
+                </div>
+                <h1>The Binomial Distribution</h1>
+                <p class="lead-text">What happens when you flip the coin \(n\) times?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Sum of Bernoullis</h3>
+                    <p>
+                        If \(X_1, X_2, \dots, X_n\) are independent Bernoulli trials with probability \(p\), their sum
+                        \(Y = \sum X_i\) follows a <strong>Binomial Distribution</strong>.
+                        <br><br>
+                        "What is the probability of getting exactly \(k\) heads in \(n\) tosses?"
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    \(Y \sim \text{Bin}(n, p)\) represents the number of successes in \(n\) independent trials.
+                    $$ P(Y=k) = \binom{n}{k} p^k (1-p)^{n-k} $$
+                    <br>
+                    <strong>Components:</strong>
+                    <ul>
+                        <li>\(p^k\): Probability of \(k\) successes.</li>
+                        <li>\((1-p)^{n-k}\): Probability of \(n-k\) failures.</li>
+                        <li>\(\binom{n}{k}\): The number of ways to arrange \(k\) successes among \(n\) trials (The
+                            Binomial Coefficient).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Moments</h2>
+                <ul>
+                    <li><strong>Mean:</strong> \(E[Y] = np\)
+                        <br><span class="text-sm">(Derived from Linearity of Expectation: \(E[\sum X_i] = \sum E[X_i] =
+                            \sum p = np\))</span>
+                    </li>
+                    <li><strong>Variance:</strong> \(\text{Var}(Y) = np(1-p)\)
+                        <br><span class="text-sm">(Since trials are independent, variances add up: \(\sum p(1-p) =
+                            np(1-p)\))</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Ensembles & Bagging</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Random Forests</span>
+                    <span class="ml-badge">Ensemble Learning</span>
+                    <h3>The Wisdom of Crowds</h3>
+                    <p>
+                        Imagine you have an ensemble of \(n=100\) weak classifiers (e.g., small decision trees). Assume
+                        each classifier is independent and has an accuracy of \(p=0.6\).
+                    </p>
+                    <p>
+                        The ensemble decides by majority vote (>50 votes). What is the accuracy of the ensemble?
+                    </p>
+                    $$ P(Y > 50) = \sum_{k=51}^{100} \binom{100}{k} (0.6)^k (0.4)^{100-k} \approx 0.97 $$
+                    <p>
+                        The probability jumps from 60% (single model) to 97% (ensemble)! This is the power of the
+                        <strong>Binomial Cumulative Distribution</strong> (Condorcet's Jury Theorem).
+                    </p>
+                </div>
+
+                <h3>Assumption Check: Independence</h3>
+                <div class="warning-box">
+                    The Binomial math assumes <strong>Independence</strong>. If all your classifiers make the
+                    <em>same</em> mistakes (high correlation), the ensemble gain vanishes. This is why "Bagging"
+                    (Bootstrap Aggregating) intentionally introduces randomness—to make the trees as independent as
+                    possible.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Visualization</h2>
+                <div class="code-playground">
+                    <div class="code-header">Python: The PMF Shape</div>
+                    <pre><code class="language-python">
+from scipy.stats import binom
+import matplotlib.pyplot as plt
+
+n, p = 20, 0.5
+x = range(n + 1)
+pmf = binom.pmf(x, n, p)
+
+plt.bar(x, pmf, color='cyan', alpha=0.7)
+plt.title(f'Binomial PMF (n={n}, p={p})')
+plt.xlabel('Number of Successes (k)')
+plt.ylabel('Likelihood')
+plt.show()
+
+# As n increases, this shape approaches a Bell Curve (Normal Distribution).
+# This is the De Moivre–Laplace theorem, a special case of the CLT.
+                    </code></pre>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

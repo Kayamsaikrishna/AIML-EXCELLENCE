@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,74 +9,79 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.4 Integration</li>
-            <li><a href="18_13_integral_props.html">13. Integral Props</a></li>
-            <li><a href="18_14_avg_value.html">14. Average Value</a></li>
-            <li><a href="18_15_area_between_curves.html" class="active">15. Area Between Curves</a></li>
-            <li><a href="18_16_volumes.html">16. Volumes</a></li>
-            <li><a href="18_17_arc_length.html">17. Arc Length</a></li>
-            <hr>
-            <li class="nav-label">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.4 Integration</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="18_15_area_between_curves.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Area Between Curves
+            <a href="../index.html">Syllabus</a> &gt; 18_15_area_between_curves.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 18_15</div>
             <h1>15. Area Between Curves</h1>
-            <p class="subtitle">Quantifying the "Gap" between two models or functions.</p>
+            <p class="lead-text">Quantifying the "Gap" between two models or functions.</p>
         </header>
 
-        <section>
-            <h2>1. The Formula</h2>
-            <p>To find the area between two continuous functions \(f(x)\) and \(g(x)\) on an interval \([a, b]\) where
+        
+
+
+
+<section>
+<h2>1. The Formula</h2>
+<p>To find the area between two continuous functions \(f(x)\) and \(g(x)\) on an interval \([a, b]\) where
                 \(f(x) \geq g(x)\):</p>
-            <div class="math-block">
+<div class="math-block">
                 $$ A = \int_{a}^{b} [f(x) - g(x)] dx $$
             </div>
-            <p>Think of this as <strong>Area(Top Function) - Area(Bottom Function)</strong>.</p>
-        </section>
-
-        <section class="module-card">
-            <h2>2. Finding the Bounds</h2>
-            <p>Often, the interval \([a, b]\) isn't given. You must first find where the curves
+<p>Think of this as <strong>Area(Top Function) - Area(Bottom Function)</strong>.</p>
+</section>
+<section class="module-card">
+<h2>2. Finding the Bounds</h2>
+<p>Often, the interval \([a, b]\) isn't given. You must first find where the curves
                 <strong>intersect</strong> by solving \(f(x) = g(x)\). These intersection points become your limits of
                 integration.</p>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Performance Gaps & AUC</h2>
-            <div class="module-card">
-                <h3>Benchmarking Models</h3>
-                <p>When comparing two AI models (e.g., GPT-4 vs. Claude 3), we often plot their learning curves. The
+</section>
+<section>
+<h2>3. AI/ML Connection: Performance Gaps &amp; AUC</h2>
+<div class="module-card">
+<h3>Benchmarking Models</h3>
+<p>When comparing two AI models (e.g., GPT-4 vs. Claude 3), we often plot their learning curves. The
                     <strong>Area Between the Curves</strong> represents the "Total Performance Advantage" one model has
                     over the other across all training steps. </p>
-                <p>In classification, the <strong>Area Under the Curve (AUC-ROC)</strong> is a measure of how well a
+<p>In classification, the <strong>Area Under the Curve (AUC-ROC)</strong> is a measure of how well a
                     model separates classes. If you have two different ROC curves, the area between them tells you
                     exactly how much "Better" one classifier is at handling trade-offs between precision and recall than
                     the other. It is the mathematical proof of model superiority.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Calculating the Inter-Curve Area</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># Area between y = x^2 and y = x
-# 1. Intersection: x^2 = x -> x=0, x=1
+</div>
+</section>
+<section>
+<h2>4. Python: Calculating the Inter-Curve Area</h2>
+<div class="code-block">
+<pre><code class="language-python"># Area between y = x^2 and y = x
+# 1. Intersection: x^2 = x -&gt; x=0, x=1
 # 2. Top is y=x (between 0 and 1)
 # 3. Integral (x - x^2) from 0 to 1
 
@@ -90,13 +94,14 @@ area, error = quad(integrand, 0, 1)
 
 print(f"Area Between Curves: {area:.4f}") 
 # Result: 1/6 approx 0.1667</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

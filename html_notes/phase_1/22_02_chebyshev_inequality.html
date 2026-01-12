@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.02 Chebyshev Inequality - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_01_markov_inequality.html" class="nav-link">01. Markov Ineq</a>
+                        </li>
+                        <li class="nav-item"><a href="22_02_chebyshev_inequality.html" class="nav-link active">02.
+                                Chebyshev Ineq</a></li>
+                        <li class="nav-item"><a href="22_03_chernoff_bound.html" class="nav-link">03. Chernoff Bound</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Tighter Bounds</span>
+                </div>
+                <h1>Chebyshev's Inequality</h1>
+                <p class="lead-text">Using variance to quantify how "tightly" a variable clusters around its mean.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Adding Variance to the Mix</h3>
+                    <p>
+                        Markov's inequality only used the mean. <strong>Chebyshev's Inequality</strong> uses both the
+                        <strong>Mean</strong> and the <strong>Variance</strong>.
+                        <br><br>
+                        It works for any distribution (even those that take negative values) and provides a much
+                        stronger ceiling on the probability of "extreme" events.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    For any random variable \(X\) with mean \(\mu\) and variance \(\sigma^2\), and any \(k > 0\):
+                    $$ P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2} $$
+                </div>
+                <p>
+                    <strong>The \(k\)-sigma rule:</strong>
+                    - The probability of being more than 2 standard deviations away is \(\le 1/2^2 = 25\%\).
+                    - The probability of being more than 3 standard deviations away is \(\le 1/3^2 \approx 11\%\).
+                    - The probability of being more than 10 standard deviations away is \(\le 1/10^2 = 1\%\).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Comparison with Normal Distribution</h2>
+                <p>For a <strong>Normal Distribution</strong>, the probability of being outside \(3\sigma\) is only <strong>0.3%</strong>.
+                    Chebyshev says it is \(\le 11\%\).</p>
+                <div class="insight-box">
+                    <h3>Universal Guarantee</h3>
+                    <p>
+                        Chebyshev is much looser than the Normal rule, but it is <strong>always true</strong>. Even if
+                        the distribution is skewed, multimodal, or has long tails, it cannot break this rule as long as
+                        it has a finite variance.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Anomaly Detection</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Unsupervised</span>
+                    <span class="ml-badge">Robustness</span>
+                    <h3>The Outlier Ceiling</h3>
+                    <p>
+                        When we don't know the distribution of our data (which is almost always the case in real-world
+                        ML), we can't use Z-scores reliably.
+                    </p>
+                    <p>
+                        However, we can use Chebyshev to provide a "safety threshold". If we flag any data point that is
+                        more than $10\sigma$ from the mean as an "Outlier", we are guaranteed that we will flag
+                        <strong>at most 1%</strong> of the data, regardless of how "weird" the distribution is.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Proof Sketch (Markov's Child)</h2>
+                <p>
+                    Chebyshev is actually just Markov's Inequality applied to the squared deviation:
+                    $$ P(|X-\mu| \ge a) = P((X-\mu)^2 \ge a^2) \le \frac{E[(X-\mu)^2]}{a^2} = \frac{\sigma^2}{a^2} $$
+                    Setting \(a = k\sigma\) gives the familiar \(1/k^2\) result.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

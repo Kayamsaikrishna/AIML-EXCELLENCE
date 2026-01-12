@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.06 One vs Two-Tailed Tests - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_05_p_value_computation.html" class="nav-link">05. P Value
+                                Computation</a></li>
+                        <li class="nav-item"><a href="25_06_one_vs_two_tailed.html" class="nav-link active">06. One Vs
+                                Two Tailed</a></li>
+                        <li class="nav-item"><a href="25_07_z_test_single_mean.html" class="nav-link">07. Z Test Single
+                                Mean</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Directionality</span>
+                </div>
+                <h1>One vs Two-Tailed Tests</h1>
+                <p class="lead-text">Deciding whether you are looking for ANY difference, or a specific improvement.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Curiosity Limit</h3>
+                    <p>
+                        A hypothesis test is directional if you only care if one side happens.
+                        It is non-directional if you are looking for a change in either direction (increase or
+                        decrease).
+                    </p>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Two-Tailed (Non-directional)</h4>
+                        <ul>
+                            <li><strong>Question:</strong> "Is there a difference?"</li>
+                            <li>\(H_1: \mu \neq 50\)</li>
+                            <li>Rejection region is split into <strong>two tails</strong> (\(\alpha/2\) each).</li>
+                            <li>Harder to reject (conservative).</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>One-Tailed (Directional)</h4>
+                        <ul>
+                            <li><strong>Question:</strong> "Is it better?" (or worse?)</li>
+                            <li>\(H_1: \mu > 50\) (or \(&lt;\))</li>
+                            <li>Rejection region is entirely in <strong>one tail</strong>.</li>
+                            <li>Easier to reject (if you are right about the direction).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>1. The Rejection Regions</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A["Two-Tailed (Alpha=0.05)"] --> B["2.5% in Left Tail"]
+                        A --> C["2.5% in Right Tail"]
+                        D["Right-Tailed (Alpha=0.05)"] --> E["Full 5% in Right Tail"]
+                        F["Left-Tailed (Alpha=0.05)"] --> G["Full 5% in Left Tail"]
+                    </div>
+                </div>
+                <p>
+                    Because the One-Tailed test puts all it's "doubt quota" into one side, its critical value is lower
+                    (e.g., 1.64 for one-tail vs 1.96 for two-tail at 95% confidence).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Benchmark Performance</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Research</span>
+                    <span class="ml-badge">Validation</span>
+                    <h3>The One-Tailed Trap</h3>
+                    <p>
+                        When you develop a new model, you usually only care if it's <strong>better</strong> than the
+                        baseline. This sounds like a One-Tailed test (\(H_a: \text{New} > \text{Baseline}\)).
+                    </p>
+                    <p>
+                        <strong>The Danger:</strong> If you use a one-tailed test, and your new model is actually
+                        <strong>worse</strong>, the test statistic will be in the wrong tail and you will "Fail to
+                        Reject."
+                    </p>
+                    <div class="warning-box">
+                        <strong>Standard Practice:</strong> Most scientific journals and ML benchmarks use **Two-Tailed
+                        tests** by default. It is more rigorous because it checks for difference in both directions (is
+                        it better OR worse?). If you use a one-tailed test just to get a lower P-value, your peers might
+                        call it cheating!
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

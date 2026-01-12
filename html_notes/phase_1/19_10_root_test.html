@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,79 +9,84 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.8 Series & Taylor</li>
-            <li><a href="22_06_ratio_test.html">06. Ratio Test</a></li>
-            <li><a href="22_07_root_test.html" class="active">07. Root Test</a></li>
-            <li><a href="22_08_power_series.html">08. Power Series</a></li>
-            <li><a href="22_09_power_series_funcs.html">09. Power Series Funcs</a></li>
-            <li><a href="22_10_taylor_series.html">10. Taylor Series</a></li>
-            <hr>
-            <li class="nav-label navigation">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.5 Seq & Series</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="19_10_root_test.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Root Test
+            <a href="../index.html">Syllabus</a> &gt; 19_10_root_test.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 19_10</div>
             <h1>07. The Root Test</h1>
-            <p class="subtitle">Finding the limit of the n-th magnitude.</p>
+            <p class="lead-text">Finding the limit of the n-th magnitude.</p>
         </header>
 
-        <section>
-            <h2>1. The Test</h2>
-            <p>The Root Test is ideal for series where the terms are raised to the \(n\)-th power (\(a_n^n\)). We look
+        
+
+
+
+<section>
+<h2>1. The Test</h2>
+<p>The Root Test is ideal for series where the terms are raised to the \(n\)-th power (\(a_n^n\)). We look
                 at the \(n\)-th root of the absolute value:</p>
-            <div class="math-block">
+<div class="math-block">
                 $$ L = \lim_{n \to \infty} \sqrt[n]{|a_n|} $$
             </div>
-            <ul class="topic-list">
-                <li><strong>If \(L < 1\):</strong> The series <strong>Converges Absolutely</strong>.</li>
-                <li><strong>If \(L > 1\):</strong> The series <strong>Diverges</strong>.</li>
-                <li><strong>If \(L = 1\):</strong> Inconclusive.</li>
-            </ul>
-        </section>
-
-        <section class="module-card">
-            <h2>2. Geometry</h2>
-            <p>Intuitively, the Root Test compares the series to a <strong>Geometric Series</strong>. If \(L < 1\), it
+<ul class="topic-list">
+<li><strong>If \(L &lt; 1\):</strong> The series <strong>Converges Absolutely</strong>.</li>
+<li><strong>If \(L &gt; 1\):</strong> The series <strong>Diverges</strong>.</li>
+<li><strong>If \(L = 1\):</strong> Inconclusive.</li>
+</ul>
+</section>
+<section class="module-card">
+<h2>2. Geometry</h2>
+<p>Intuitively, the Root Test compares the series to a <strong>Geometric Series</strong>. If \(L &lt; 1\), it
                     means that for very large \(n\), the terms are decaying faster than some geometric series \(\sum
-                    r^n\) where \(r < 1\).</p>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Spectral Radius & RNNs</h2>
-            <div class="module-card">
-                <h3>Recurrent Dependencies</h3>
-                <p>In <strong>Recurrent Neural Networks (RNNs)</strong>, a weight matrix \(W\) is applied repeatedly to
+                    r^n\) where \(r &lt; 1\).</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Spectral Radius &amp; RNNs</h2>
+<div class="module-card">
+<h3>Recurrent Dependencies</h3>
+<p>In <strong>Recurrent Neural Networks (RNNs)</strong>, a weight matrix \(W\) is applied repeatedly to
                     the hidden state over time steps. If the "Average Magnitude" of these weights is greater than 1, the
                     signal will grow exponentially and explode. </p>
-                <p>The Root Test logic is used to calculate the <strong>Spectral Radius</strong> of the weight matrix.
+<p>The Root Test logic is used to calculate the <strong>Spectral Radius</strong> of the weight matrix.
                     If the spectral radius (\(L\)) is less than 1, we are guaranteed that the information "Converges"
                     and doesn't explode. This is why we use techniques like <strong>Weight Normalization</strong>—to
                     force the \(n\)-th root of our model's transformation to stay within the safe "Convergence Zone"
                     (less than 1).</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Root Test Simulation</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># Series: ( (n+1)/3n )^n
-# Root: (n+1)/3n -> 1/3
+</div>
+</section>
+<section>
+<h2>4. Python: Root Test Simulation</h2>
+<div class="code-block">
+<pre><code class="language-python"># Series: ( (n+1)/3n )^n
+# Root: (n+1)/3n -&gt; 1/3
 import numpy as np
 
 n = 1000000
@@ -90,14 +94,15 @@ an = ((n + 1) / (3 * n))**n
 root_val = an**(1/n)
 
 print(f"n-th root limit: {root_val:.6f}")
-print("Limit 1/3 < 1 -> Series Converges!")</code></pre>
-            </div>
-        </section>
+print("Limit 1/3 &lt; 1 -&gt; Series Converges!")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

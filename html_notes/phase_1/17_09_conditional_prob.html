@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.09 Conditional Probability - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_08_multiplication_rule.html" class="nav-link">08.
+                                Multiplication</a></li>
+                        <li class="nav-item"><a href="17_09_conditional_prob.html" class="nav-link active">09.
+                                Conditional Prob</a></li>
+                        <li class="nav-item"><a href="17_10_bayes_theorem.html" class="nav-link">10. Bayes Theorem</a>
+                        </li>
+                        <li class="nav-item"><a href="17_11_law_total_prob.html" class="nav-link">11. Total Prob</a>
+                        </li>
+                        <li class="nav-item"><a href="17_12_independence.html" class="nav-link">12. Independence</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">New Universe</span>
+                </div>
+                <h1>Conditional Probability</h1>
+                <p class="lead-text">Updating beliefs based on evidence.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Shrinking the Sample Space</h3>
+                    <p>
+                        When we say \(P(A|B)\), we mean "Assuming \(B\) has happened, what is the probability of
+                        \(A\)?".
+                        Effectively, the sample space \(\Omega\) shrinks to just \(B\).
+                        \[ P(A|B) = \frac{P(A \cap B)}{P(B)} \]
+                    </p>
+                    <p>
+                        The denominator \(P(B)\) acts as a normalization constant to make sure the probabilities within
+                        the new universe sum to 1.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Precision recall</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Confusion Matrix</h3>
+                    <p>
+                        Most classification metrics are conditional probabilities:
+                    <ul>
+                        <li><strong>Precision:</strong> \(P(\text{True Positive} | \text{Predicted Positive})\). Given
+                            the model said "Yes", how likely is it right?</li>
+                        <li><strong>Recall:</strong> \(P(\text{Predicted Positive} | \text{True Positive})\). Given it
+                            actually is "Yes", how likely did we find it?</li>
+                    </ul>
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Omega[Entire Population] -->|Evidence B| B[Subpopulation B]
+                        B -->|Intersect A| AB[Part of A inside B]
+
+                        style B fill:#4a5568,stroke:#cbd5e0
+                        style AB fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Conditional Logic</h2>
+                <div class="code-header">cond_prob.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Experiment: Roll two dice
+# B: Sum is 6 {(1,5), (2,4), (3,3), (4,2), (5,1)} -> Size 5
+# A: First die is 2 {(2,4)}
+# P(A | B)?
+
+# Total space size = 36
+# P(B) = 5/36
+# P(A and B) = 1/36 (Only outcome (2,4))
+
+p_A_given_B = (1/36) / (5/36)
+print(f"P(Die1=2 | Sum=6) = {p_A_given_B:.2f}") # 0.20</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_08_multiplication_rule.html" class="footer-link">← Prev: Multiplication</a>
+                        <span class="separator">|</span>
+                        <a href="17_10_bayes_theorem.html" class="footer-link">Next: Bayes Theorem →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

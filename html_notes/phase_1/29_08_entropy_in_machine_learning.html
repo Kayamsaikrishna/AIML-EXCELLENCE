@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.08 Entropy in Machine Learning - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.1 Entropy</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_07_maximum_entropy_principle.html" class="nav-link">07. Maximum
+                                Entropy Principle</a></li>
+                        <li class="nav-item"><a href="29_08_entropy_in_machine_learning.html"
+                                class="nav-link active">08. Entropy in Machine Learning</a></li>
+                        <li class="nav-item"><a href="29_09_information_gain_definition.html" class="nav-link">09.
+                                Information Gain Definition</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Applied AI</span>
+                    <span class="badge secondary">Optimization</span>
+                </div>
+                <h1>Entropy in Machine Learning</h1>
+                <p class="lead-text">From Theory to Tensor. How entropy drives the training, evaluation, and
+                    decision-making of modern AI models.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Driving Force of Learning</h3>
+                    <p>
+                        In Machine Learning, training a model is essentially an act of <strong>Entropy Transfer</strong>. We take the
+                        high-entropy (noisy) weights of a fresh model and use data to "force" them into a low-entropy
+                        (structured) state that can make predictable decisions.
+                    </p>
+                </div>
+
+                <h2>1. Decision Trees: Information Gain</h2>
+                <p>One of the earliest applications of entropy in AI is in Decision Tree algorithms like ID3 and C4.5.
+                    The computer asks: "Which question will reduce my uncertainty the most?"</p>
+                <div class="math-box">
+                    $$ IG(S, A) = H(S) - \sum_{v \in Values(A)} \frac{|S_v|}{|S|} H(S_v) $$
+                </div>
+                <ul>
+                    <li><strong>H(S):</strong> Entropy of the dataset before a split.</li>
+                    <li><strong>Weighted Sum:</strong> Expected entropy after the split on feature A.</li>
+                    <li>The algorithm picks the feature with the highest <strong>Information Gain</strong>.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Neural Networks: Cross-Entropy Loss</h2>
+                <p>When training a classifier, we want the predicted distribution \(Q\) (Softmax output) to match the
+                    true distribution \(P\) (the One-Hot label). We minimize <strong>Cross-Entropy</strong>:</p>
+                <div class="math-box">
+                    $$ \mathcal{L} = -\sum P(x) \log Q(x) $$
+                </div>
+                <p>
+                    Minimizing Cross-Entropy is mathematically equivalent to maximizing the Log-Likelihood of the
+                    correct class. It effectively punishes the model if it is "confident but wrong" (very low
+                    probability for the true class).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Aleatoric vs. Epistemic Uncertainty</h2>
+                <p>Entropy allows us to distinguish between two types of "I don't know" in AI:</p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Aleatoric (Data Noise)</h4>
+                        <p>Inherent randomness in the process. (e.g., a blurry photo of a cat). No matter how much data
+                            you have, this entropy never goes to zero.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Epistemic (Model Ignorance)</h4>
+                        <p>Uncertainty because the model has never seen this type of data before. We can measure this by
+                            the entropy across multiple model predictions (Deep Ensembles).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Active Learning</span>
+                    <span class="ml-badge">LLMs</span>
+                    <h3>Entropy-Based Selection</h3>
+                    <ul>
+                        <li><strong>Active Learning:</strong> To save money on labeling, we only ask humans to label the data points
+                            where the model's prediction has the <strong>highest predictive entropy</strong>. These are the
+                            "educational" points.</li>
+                        <li><strong>Prompt Engineering:</strong> In few-shot learning, the selection of examples that minimize the
+                            conditional entropy of the LLM's response can lead to much more objective and accurate
+                            answers.</li>
+                        <li><strong>Contrastive Learning:</strong> By minimizing the entropy of the similarity matrix, models like
+                            SimCLR or CLIP learn to push unrelated items far apart in the embedding space.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary of Entropy's Lifecycle in AI</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Data Collection] -- High Entropy --> B[Training]
+                    B -- Information Extraction --> C[Model Weights]
+                    C -- Low Entropy State --> D[Inference]
+                    D -- Precise Prediction --> E[Low Entropy Output]
+                    D -- Uncertainty Measurement --> F[High Entropy Output]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

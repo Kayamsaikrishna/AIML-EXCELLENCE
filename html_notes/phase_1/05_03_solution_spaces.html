@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05.03 Solution Spaces - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.4 Systems of Equations</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="05_02_homogeneous.html" class="nav-link">02. Homogeneous</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">03. Solution Spaces</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 03. Complete Solution
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 03</div>
+            <h1>The General Solution</h1>
+            <p class="lead-text"> \( x = x_p + x_n \). Parallel affine spaces.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: SOLUTION STRUCTURE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Offset Subspace</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Target["General Solution x"]
+    
+    subgraph Components
+        XP["Particular Solution (x_p)"]
+        XN["Homogeneous Solution (x_n)"]
+    end
+    
+    Components --> Target
+    
+    XP -- "Satisfies" --> AxB["Ax = b"]
+    XN -- "Satisfies" --> Ax0["Ax = 0"]
+    
+    Target -- "x = x_p + c*x_n" --> Line["Line/Plane shifted away from Origin"]
+
+    style Target fill:#dcfce7,stroke:#16a34a
+    style XP fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: AFFINE SPACES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Structure</h2>
+                <p>The complete set of solutions to \( Ax = b \) is given by:</p>
+                <div class="math-block">
+                    $$ \mathbf{x} = \mathbf{x}_p + \mathbf{x}_n $$
+                </div>
+                <ul>
+                    <li>\( \mathbf{x}_p \): Any single vector that solves \( Ax = b \) (Particular).</li>
+                    <li>\( \mathbf{x}_n \): Any vector in the Null Space of \( A \) (Homogeneous).</li>
+                </ul>
+                <p>Geometrically, this is a subspace (the null space) shifted by the vector \( x_p \). It doesn't pass
+                    through the origin (unless \( b=0 \)), so it's an <strong>Affine Space</strong>, not a Subspace.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: REGULARIZATION PATHS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Infinite Solutions in ML</h2>
+                <p>In Deep Learning, we have more parameters than data points (\( n \gg m \)). This is an
+                    underdetermined system.</p>
+                <p>There are infinite solutions (weights) that yield zero training error (perfect \( Ax=b \)). The
+                    "Solution Space" is vast. Optimization algorithms (SGD) traverse this space to find a solution that
+                    generalizes well (often picking the one with minimum norm implicitly).</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Least Squares Particular Solution</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Underdetermined System (1 equation, 3 unknowns)
+# x + y + z = 6
+A = np.array([[1, 1, 1]])
+b = np.array([6])
+
+print("A shape:", A.shape)
+
+# Particular Solution using Pseudo-inverse (gives min-norm solution)
+x_p = np.linalg.pinv(A) @ b
+print("Particular Solution x_p:", x_p)
+# Should be [2, 2, 2]
+
+# Homogeneous Solutions (Null Space)
+# Vectors sum to 0
+x_n1 = np.array([1, -1, 0])
+x_n2 = np.array([1, 0, -1])
+
+# Verify General Solution x = x_p + c*x_n
+x_general = x_p + 5 * x_n1
+print("General Solution check:", A @ x_general) 
+# Should still be [6]
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.02 Sequence Limits - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_01_sequence_convergence.html" class="nav-link">01. Sequence
+                                Convergence</a></li>
+                        <li class="nav-item"><a href="12_02_sequence_limits.html" class="nav-link active">02. Sequence
+                                Limits</a></li>
+                        <li class="nav-item"><a href="12_03_bounded_monotonic.html" class="nav-link">03. Bounded &
+                                Monotonic</a></li>
+                        <li class="nav-item"><a href="12_04_series_tests_intro.html" class="nav-link">04. Infinite
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_05_geometric_series.html" class="nav-link">05. Geometric &
+                                P-Series</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Limits</span>
+                </div>
+                <h1>Sequence Limits</h1>
+                <p class="lead-text">Rules for finding the destination.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Algebra of Limits</h3>
+                    <p>
+                        Just like functions, sequence limits follow standard algebraic rules. If \(\lim a_n = A\) and
+                        \(\lim b_n = B\):
+                    </p>
+                    <ul>
+                        <li>Sum: \(\lim (a_n + b_n) = A + B\)</li>
+                        <li>Product: \(\lim (a_n \cdot b_n) = A \cdot B\)</li>
+                        <li>Quotient: \(\lim (a_n / b_n) = A / B\) (if \(B \neq 0\))</li>
+                    </ul>
+                </div>
+
+                <h2>1. L'Hôpital's Rule for Sequences</h2>
+                <div class="glass-card">
+                    <p>
+                        To find \(\lim_{n \to \infty} f(n)\), we can define a continuous function \(f(x)\) such that
+                        \(f(n) = a_n\).
+                        If \(\lim_{x \to \infty} f(x) = L\), then \(\lim_{n \to \infty} a_n = L\).
+                    </p>
+                    <p>
+                        This allows us to use <strong>L'Hôpital's Rule</strong> on sequences by treating \(n\) as a continuous
+                        variable \(x\).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Patience & Early Stopping</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The "Patience" Parameter</h3>
+                    <p>
+                        In Model Training, we monitor the Validation Loss sequence \(L_1, L_2, L_3 \dots\).
+                        We want the limit to be minimum. However, in practice, the loss fluctuates (it's noisy).
+                    </p>
+                    <p>
+                        We define a <strong>Convergence Criterion</strong> (like \(\epsilon\) in real analysis). If the loss does not
+                        improve by at least \(\epsilon\) for \(P\) steps (<strong>Patience</strong>), we say the sequence has
+                        "Converged" (or stalled) and we stop training. This prevents overfitting and saves compute.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Epoch[Training Epoch n] --> CalcLoss[Calculate Loss Ln]
+                        CalcLoss --> Compare{Ln &lt; BestLoss - epsilon?} Compare -->|Yes| Update[Update Best Loss, Reset
+                            Patience]
+                            Compare -->|No| PatienceCheck{Patience Exceeded?}
+                            PatienceCheck -->|No| Continue[Continue Training]
+                            PatienceCheck -->|Yes| Stop[Stop Training (Converged)]
+
+                            style Stop fill:#e53e3e,stroke:#c53030
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Implementing Early Stopping</h2>
+                <div class="code-header">early_stopping.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Simulating a noisy loss sequence
+loss_sequence = [5.0, 4.5, 4.1, 4.0, 3.95, 3.94, 3.96, 3.95, 3.95]
+
+best_loss = float('inf')
+patience = 2
+counter = 0
+min_delta = 0.05
+
+for epoch, loss in enumerate(loss_sequence):
+    print(f"Epoch {epoch}: Loss {loss}")
+    
+    if loss < best_loss - min_delta:
+        best_loss = loss
+        counter = 0 # Reset patience
+    else:
+        counter += 1
+        print(f"  No improvement. Patience: {counter}/{patience}")
+        
+    if counter >= patience:
+        print("  STOPPING: Model has converged.")
+        break</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_01_sequence_convergence.html" class="footer-link">← Prev: Convergence</a>
+                        <span class="separator">|</span>
+                        <a href="12_03_bounded_monotonic.html" class="footer-link">Next: Monotonic →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

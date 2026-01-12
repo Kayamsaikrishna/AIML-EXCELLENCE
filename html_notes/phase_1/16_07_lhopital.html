@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,67 +9,76 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.2 Differentiation</li>
-            <li><a href="16_06_higher_order.html">06. Higher-order</a></li>
-            <li><a href="16_07_lhopital.html" class="active">07. L'Hôpital's Rule</a></li>
-            <li class="nav-label">1.3.3 Applications</li>
-            <li><a href="17_01_extrema.html">01. Extrema</a></li>
-            <li class="nav-label">1.3.1 Limits</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.2 Differentiation</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="16_07_lhopital.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; L'Hopital
+            <a href="../index.html">Syllabus</a> &gt; 16_07_lhopital.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 16_07</div>
             <h1>07. L'Hôpital's Rule</h1>
-            <p class="subtitle">Solving indeterminate limits with derivatives.</p>
+            <p class="lead-text">Solving indeterminate limits with derivatives.</p>
         </header>
 
-        <section>
-            <h2>1. The Problem</h2>
-            <p>If \(\lim_{x \to a} \frac{f(x)}{g(x)}\) results in \(0/0\) or \(\infty/\infty\), we cannot
-                solve it with basic limit laws.</p>
-        </section>
+        
 
-        <section>
-            <h2>2. The Rule</h2>
-            <p>Under certain continuity conditions:</p>
-            <div class="math-block" style="font-size: 1.5rem;">
+
+
+<section>
+<h2>1. The Problem</h2>
+<p>If \(\lim_{x \to a} \frac{f(x)}{g(x)}\) results in \(0/0\) or \(\infty/\infty\), we cannot
+                solve it with basic limit laws.</p>
+</section>
+<section>
+<h2>2. The Rule</h2>
+<p>Under certain continuity conditions:</p>
+<div class="math-block" style="font-size: 1.5rem;">
                 $$ \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)} $$
             </div>
-            <p>If the result is <i>still</i> indeterminate, you can apply the rule again!</p>
-        </section>
-
-        <section>
-            <h2>3. AI Connection: Log-Loss and Divergence</h2>
-            <div class="module-card">
-                <p>Many information-theoretic metrics like <strong>KL Divergence</strong> involve limits of
+<p>If the result is <i>still</i> indeterminate, you can apply the rule again!</p>
+</section>
+<section>
+<h2>3. AI Connection: Log-Loss and Divergence</h2>
+<div class="module-card">
+<p>Many information-theoretic metrics like <strong>KL Divergence</strong> involve limits of
                     the form \(x \ln(x)\) as \(x \to 0\). Using L'Hôpital's rule by rewriting the
                     expression as \(\frac{\ln(x)}{1/x}\), we can prove that \(x\) dominates \(\ln(x)\)
                     and the limit is 0. This proof is crucial for demonstrating that some loss
                     functions remain well-behaved even as probabilities approach zero.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Verifying with SymPy</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>4. Python: Verifying with SymPy</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 x = sp.Symbol('x')
-# Limit of (sin x) / x as x -> 0 is 0/0
+# Limit of (sin x) / x as x -&gt; 0 is 0/0
 f = sp.sin(x)
 g = x
 
@@ -78,14 +86,15 @@ g = x
 # cos(0) / 1 = 1
 result = sp.limit(f/g, x, 0)
 
-print(f"Limit of sin(x)/x as x->0: {result}")</code></pre>
-            </div>
-        </section>
+print(f"Limit of sin(x)/x as x-&gt;0: {result}")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
-
 </html>

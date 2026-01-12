@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.06 CI for Proportions - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_05_t_distribution_inference.html" class="nav-link">05. T
+                                Distribution</a></li>
+                        <li class="nav-item"><a href="24_06_ci_proportion.html" class="nav-link active">06. CI
+                                Proportion</a></li>
+                        <li class="nav-item"><a href="24_07_ci_difference_means.html" class="nav-link">07. CI Difference
+                                Means</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Binary Outcomes</span>
+                </div>
+                <h1>CI for Proportions</h1>
+                <p class="lead-text">Measuring the uncertainty in "Yes/No" questions, like model accuracy or conversion
+                    rates.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Accuracy Range</h3>
+                    <p>
+                        Success or Failure (0 or 1) follows a Binomial distribution. When we have a reasonably large
+                        sample (\(n\hat{p} \ge 10\) and \(n(1-\hat{p}) \ge 10\)), we can approximate this with a Normal
+                        distribution to build a Confidence Interval.
+                    </p>
+                </div>
+
+                <h2>1. The Formula (Wald Interval)</h2>
+                <div class="math-box">
+                    $$ \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} $$
+                </div>
+                <ul>
+                    <li>\(\hat{p}\): Sample Proportion (e.g., \(80/100 = 0.8\)).</li>
+                    <li>\(\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\): The Standard Error of a Proportion.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Margin of Error (MoE)</h2>
+                <p>
+                    The term after the \(\pm\) is the <strong>Margin of Error</strong>.
+                    - To cut the MoE in half, you need to <strong>quadruple</strong> the sample size (\(n\)).
+                    - This is the diminishing returns of data collection.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Accuracy Reporting</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Classification</span>
+                    <span class="ml-badge">Product Readiness</span>
+                    <h3>Is 90% Accuracy enough?</h3>
+                    <p>
+                        If you test your model on 100 images and get 90% accuracy:
+                        - Your 95% CI is roughly <strong>[84%, 96%]</strong>.
+                        <br>
+                        If you test on 1,000 images and get 90%:
+                        - Your 95% CI is roughly <strong>[88%, 92%]</strong>.
+                    </p>
+                    <p>
+                        <strong>Why this matters:</strong> If a safety critical system requires 88% minimum accuracy to be legal, the
+                        first model is "unreliable" because the truth could be 84% (lower than the limit). The second
+                        model is "verified" because the entire confidence interval is above the 88% threshold.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -4,99 +4,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Non-Commutativity - Phase 1.2.2.6</title>
+    <title>03.06 Non-Commutativity - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_05_matrix_mult.html">05. Matrix Mult</a></li>
-            <li><a href="03_06_non_commutative.html" class="active">06. Non-Commutativity</a></li>
-            <li><a href="03_07_transpose.html">07. Transpose</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_05_matrix_mult.html" class="nav-link">05. Multiplication</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">06. Order Matters</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Non-Commutativity
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 06. Commutativity
         </div>
 
-        <header>
-            <h1>06. Matrix Multiplication is NOT Commutative</h1>
-            <p class="subtitle">Why the order of operations changes everything.</p>
+        <header class="page-header">
+            <div class="badge">Module 06</div>
+            <h1>Order Matters</h1>
+            <p class="lead-text"> \( AB \neq BA \). Why "Rotate then Shear" is not the same as "Shear then Rotate".</p>
         </header>
 
-        <section>
-            <h2>1. The Proof by Counter-Example</h2>
-            <p>Unlike regular numbers (\( 2 \times 3 = 3 \times 2 \)), for matrices \( \mathbf{A} \) and \( \mathbf{B}
-                \):</p>
-            <div class="math-block">
-                $$ \mathbf{AB} \neq \mathbf{BA} $$
-            </div>
-            <p>In fact, if \( \mathbf{AB} \) is defined, \( \mathbf{BA} \) might not even be defined (if dimensions
-                don't align).</p>
+        <!-- VISUAL DIAGRAM: NON-COMMUTATIVE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Sequence of Events</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Vector x"]
+    
+    subgraph Path1
+        A1["Apply A"]
+        B1["Apply B"]
+        Out1["Result BAx"]
+    end
+    
+    subgraph Path2
+        B2["Apply B"]
+        A2["Apply A"]
+        Out2["Result ABx"]
+    end
+    
+    Input --> A1 --> B1 --> Out1
+    Input --> B2 --> A2 --> Out2
+    
+    Out1 -.->|Differs from| Out2
 
-            <div class="module-card">
-                <h3>Numerical Example</h3>
-                <p>Let \( \mathbf{A} = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \) and \( \mathbf{B} =
-                    \begin{bmatrix} 0 & 1 \\ 2 & 3 \end{bmatrix} \).</p>
-                <div class="math-block">
-                    $$ \mathbf{AB} = \begin{bmatrix} 4 & 7 \\ 8 & 15 \end{bmatrix}, \quad \mathbf{BA} = \begin{bmatrix}
-                    3 & 4 \\ 11 & 16 \end{bmatrix} $$
+    style Out1 fill:#fee2e2,stroke:#b91c1c
+    style Out2 fill:#dcfce7,stroke:#16a34a
+                    </pre>
                 </div>
             </div>
         </section>
 
-        <section>
-            <h2>2. Why this matters in AI Architecture</h2>
-            <div class="module-card">
-                <h3>Sequential Layers</h3>
-                <p>Modern AI architectures like <strong>Transformers</strong> or <strong>ResNets</strong> are built as
-                    sequences of linear transformations (Matrix Multiplications). Swapping the order of layers
-                    completely changes the features extracted.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Layer Composition:</strong> \( f(g(x)) \neq g(f(x)) \). If \( f \) is
-                        a convolution and \( g \) is a pooling layer, the result depends strictly on the order.</li>
-                    <li class="topic-item"><strong>Gradient Flow:</strong> In Backpropagation, we multiply Jacobian
-                        matrices. The order of these multiplications must strictly follow the chain rule in reverse.
-                    </li>
-                </ul>
+        <!-- 1. DEFINITION: NON-COMMUTATIVITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Rule</h2>
+                <p>Unlike real numbers ($3 \times 5 = 5 \times 3$), for matrices, the order of multiplication changes
+                    the result.</p>
+                <div class="math-block">
+                    $$ AB \neq BA $$
+                </div>
+                <p>This is because matrices represent <strong>Functions</strong> (transformations). Composition of
+                    functions is generally not commutative ($f(g(x)) \neq g(f(x))$).</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Verifying Order Impact</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-A = np.array([[1, 2], [3, 4]])
-B = np.array([[0, 1], [2, 3]])
-
-AB = A @ B
-BA = B @ A
-
-if not np.array_equal(AB, BA):
-    print("Multiplication order matters!")
-    print(f"AB:\n{AB}")
-    print(f"BA:\n{BA}")</code></pre>
+        <!-- 2. AI APPLICATION: QUANTUM HEISENBERG -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Quantum Mechanics & AI</h2>
+                <p>The Heisenberg Uncertainty Principle arises directly from matrix non-commutativity: \( [x, p] = xp -
+                    px \neq 0 \).</p>
+                <p>In Deep Learning, the order of layers matters entirely. A `ReLU` followed by a `Linear` layer is
+                    completely different from a `Linear` followed by `ReLU`.</p>
             </div>
         </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Pauli Matrices Check</h2>
+                <p>Famous matrices in Quantum Computing that anti-commute.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Pauli Matrices
+SigmaX = np.array([[0, 1], [1, 0]])
+SigmaY = np.array([[0, -1j], [1j, 0]])
+
+# Order 1: XY
+XY = SigmaX @ SigmaY
+
+# Order 2: YX
+YX = SigmaY @ SigmaX
+
+print("XY:")
+print(XY)
+# [[i, 0], [0, -i]]
+
+print("\nYX:")
+print(YX)
+# [[-i, 0], [0, i]]
+
+print(f"\nCommutator [X, Y]:\n{XY - YX}")
+# Not Zero!
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

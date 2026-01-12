@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.06 Covariance - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_05_exp_multiple_rvs.html" class="nav-link">05. Exp Multiple
+                                RVs</a></li>
+                        <li class="nav-item"><a href="21_06_covariance.html" class="nav-link active">06. Covariance</a>
+                        </li>
+                        <li class="nav-item"><a href="21_07_correlation.html" class="nav-link">07. Correlation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Direction</span>
+                </div>
+                <h1>Covariance</h1>
+                <p class="lead-text">Measuring the joint variation of two random variables.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Trend Detector</h3>
+                    <p>
+                        Variance tells you how much a single variable "spreads out". <strong>Covariance</strong> tells you if two
+                        variables spread out <em>together</em>.
+                        <br><br>
+                        - If high values of \(X\) tend to occur with high values of \(Y\), covariance is
+                        <strong>positive</strong>.
+                        <br>
+                        - If high values of \(X\) tend to occur with low values of \(Y\), covariance is
+                        <strong>negative</strong>.
+                        <br>
+                        - If there is no linear relationship, covariance is <strong>zero</strong>.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    Definition:
+                    $$ \text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])] $$
+                    Computational Shortcut:
+                    $$ \text{Cov}(X, Y) = E[XY] - E[X]E[Y] $$
+                </div>
+                <p>
+                    <strong>Relation to Variance:</strong> The covariance of a variable with <em>itself</em> is just the
+                    variance:
+                    $$ \text{Cov}(X, X) = \text{Var}(X) $$
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Interpretation and Units</h2>
+                <p>
+                    The magnitude of covariance is hard to interpret because it depends on the units of \(X\) and \(Y\).
+                </p>
+                <ul>
+                    <li>If \(X\) is Height (cm) and \(Y\) is Weight (kg), covariance is in units of
+                        <strong>cm·kg</strong>.</li>
+                    <li>If you change Height to meters, the covariance magnitude changes, even though the relationship
+                        is the same.</li>
+                </ul>
+                <p>This limitation is why we use <strong>Correlation</strong> (scaled covariance) for easier
+                    interpretation.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: PCA and Data Redundancy</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Dimensionality Reduction</span>
+                    <span class="ml-badge">Unsupervised</span>
+                    <h3>Principal Component Analysis (PCA)</h3>
+                    <p>
+                        PCA is a technique that reduces the number of features while keeping as much information as
+                        possible. It works by looking at the <strong>Covariance</strong> between features.
+                    </p>
+                    <p>
+                        If two features (like "Height in inches" and "Height in cm") have high positive covariance, they
+                        are <strong>redundant</strong>. PCA finds new "Principal Components" (directions) that have
+                        <strong>zero covariance</strong> (orthogonal), effectively compressing the data by removing correlated noise.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Properties</h2>
+                <ul>
+                    <li>\(\text{Cov}(X, Y) = \text{Cov}(Y, X)\) (Symmetric).</li>
+                    <li>\(\text{Cov}(aX, bY) = ab \, \text{Cov}(X, Y)\).</li>
+                    <li>\(\text{Cov}(X, c) = 0\) (A constant doesn't vary).</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

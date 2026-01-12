@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.05 Strong Law of Large Numbers - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_04_weak_lln.html" class="nav-link">04. Weak LLN</a></li>
+                        <li class="nav-item"><a href="22_05_strong_lln.html" class="nav-link active">05. Strong LLN</a>
+                        </li>
+                        <li class="nav-item"><a href="22_06_clt.html" class="nav-link">06. CLT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Certainty</span>
+                </div>
+                <h1>Strong Law of Large Numbers (SLLN)</h1>
+                <p class="lead-text">Moving from "high probability" to "absolute certainty" in the limit.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Ironclad Guarantee</h3>
+                    <p>
+                        The Weak Law says the probability of the average being "wrong" goes to zero.
+                        The <strong>Strong Law</strong> says the average <em>itself</em> literally converges to the true mean with
+                        probability 1.
+                        <br><br>
+                        "If you flip a coin forever, the sequence of averages is <strong>guaranteed</strong> to hit 0.5
+                        and stay there."
+                    </p>
+                </div>
+
+                <h2>1. The Formal Statement</h2>
+                <div class="math-box">
+                    $$ P\left( \lim_{n \to \infty} \bar{X}_n = \mu \right) = 1 $$
+                </div>
+                <p>
+                    This is called <strong>Convergence Almost Surely</strong>. It is a much stronger requirement than
+                    convergence in probability.
+                    - WLLN allows the sample mean to jump away from \(\mu\) occasionally (as long as it happens very
+                    rarely).
+                    - SLLN implies that after some finite \(N\), the sample mean will <strong>never</strong> jump away
+                    significantly again.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Intuition: Why the distinction?</h2>
+                <p>Think of a drunk person walking towards their home.</p>
+                <ul>
+                    <li><strong>WLLN:</strong> At any specific time \(t\), the drunk is likely close to home. But they
+                        could sporadically stumble far away for a moment.</li>
+                    <li><strong>SLLN:</strong> As time goes on, the drunk's stumbles get smaller and smaller until they
+                        effectively "glide" into the doorstep and stay there.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Asymptotic Theory</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Theoretical ML</span>
+                    <span class="ml-badge">Convergence</span>
+                    <h3>Model Identifiability</h3>
+                    <p>
+                        The SLLN is the reason why we can talk about the "True Model" in an asymptotic sense. If we had
+                        an infinite stream of data, the SLLN guarantees that our Maximum Likelihood Estimator (MLE)
+                        would converge <strong>exactly</strong> to the true underlying parameters of the distribution
+                        (assuming the model is correctly specified).
+                    </p>
+                </div>
+
+                <h3>Stochastic Approximation</h3>
+                <p>
+                    In Reinforcement Learning (Q-Learning), the Strong Law is used to prove that the Q-table will
+                    eventually contain the optimal values, provided every state-action pair is visited infinitely often.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Comparing the Laws</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Weak Law (WLLN)</th>
+                            <th>Strong Law (SLLN)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mode</td>
+                            <td>Conv in Probability</td>
+                            <td>Conv Almost Surely</td>
+                        </tr>
+                        <tr>
+                            <td>Strength</td>
+                            <td>Easier to prove</td>
+                            <td>Much harder to prove</td>
+                        </tr>
+                        <tr>
+                            <td>ML View</td>
+                            <td>"Usually correct"</td>
+                            <td>"Definitely correct in limit"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

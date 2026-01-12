@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.02 Hessian Matrix - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_01_multi_critical.html" class="nav-link">01. Critical
+                                Points</a></li>
+                        <li class="nav-item"><a href="14_02_hessian_matrix.html" class="nav-link active">02. Hessian
+                                Matrix</a></li>
+                        <li class="nav-item"><a href="14_03_2d_deriv_test.html" class="nav-link">03. 2nd Derivative
+                                Test</a></li>
+                        <li class="nav-item"><a href="14_04_saddle_points.html" class="nav-link">04. Saddle Points</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">Curvature (2nd Order)</span>
+                </div>
+                <h1>The Hessian Matrix</h1>
+                <p class="lead-text">Measuring the "Sharpness" of the loss landscape.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Definition</h3>
+                    <p>
+                        The <strong>Hessian Matrix</strong> \(\mathbf{H}\) contains all second-order partial derivatives
+                        of a function.
+                        If the Gradient \(\nabla f\) is the vector of slopes, the Hessian is the matrix of curvatures.
+                    </p>
+                    <div class="math-block">
+                        $$ \mathbf{H}(f) = \begin{bmatrix}
+                        \frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots \\
+                        \frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots \\
+                        \vdots & \vdots & \ddots
+                        \end{bmatrix} $$
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        F[Function f] -->|1st Deriv| Grad[Gradient Vector: Slope]
+                        Grad -->|2nd Deriv| Hess[Hessian Matrix: Curvature]
+
+                        Hess -->|Eigenvalues > 0| Bowl[Bowl (Minimum)]
+                        Hess -->|Eigenvalues &lt; 0| Hill[Hill (Maximum)] Hess -->|Mixed Signs| Saddle[Saddle Point]
+
+                            style Hess fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Flat vs. Sharp Minima</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Generalization & The Hessian</h3>
+                    <p>
+                        In Deep Learning, we care about the <strong>Eigenvalues</strong> of the Hessian at the final
+                        solution \(\mathbf{w}^*\).
+                    </p>
+                    <ul>
+                        <li><strong>Sharp Minimum (Large Eigenvalues):</strong> The loss shoots up if you move slightly.
+                            This suggests the model is "brittle" and might not generalize well to unseen data.</li>
+                        <li><strong>Flat Minimum (Small Eigenvalues):</strong> The loss stays low even if parameters are
+                            perturbed. This suggests robust generalization.</li>
+                    </ul>
+                    <p>
+                        Techniques like <strong>SAM (Sharpness-Aware Minimization)</strong> explicitly try to minimize the trace (or
+                        largest eigenvalue) of the Hessian to find flatter solutions.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Calculating the Hessian</h2>
+                <div class="code-header">hessian_calc.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import torch
+
+# Define a function: f(x,y) = 0.5*x^2 + 2*y^2 + x*y
+# This is a quadratic bowl (convex).
+
+def f(w):
+    x, y = w[0], w[1]
+    return 0.5*x**2 + 2.0*y**2 + 1.0*x*y
+
+w = torch.tensor([1.0, 1.0], requires_grad=True)
+loss = f(w)
+
+# 1. First Derivative (Gradient)
+grad = torch.autograd.grad(loss, w, create_graph=True)[0]
+# grad = [x+y, 4y+x] -> at (1,1): [2, 5]
+
+# 2. Second Derivative (Hessian)
+hessian = []
+for i in range(len(w)):
+    # Calculate grad of the i-th component of the gradient
+    row = torch.autograd.grad(grad[i], w, retain_graph=True)[0]
+    hessian.append(row)
+
+H = torch.stack(hessian)
+
+print(f"Gradient: {grad}")
+print(f"Hessian Matrix:\n{H}")
+# Expected H:
+# [[1, 1],
+#  [1, 4]]
+
+# 3. Eigenvalues
+eig = torch.linalg.eigvals(H)
+print(f"Eigenvalues: {eig}")
+# Both positive -> Definite Minimum.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="14_01_multi_critical.html" class="footer-link">← Prev: Critical Points</a>
+                        <span class="separator">|</span>
+                        <a href="14_03_2d_deriv_test.html" class="footer-link">Next: 2nd Deriv Test →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

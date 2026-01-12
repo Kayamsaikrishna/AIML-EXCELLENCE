@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient-based Optimization - Phase 1.3.9.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.9 ML Opt</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="16_02_gradient_algorithms.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 16_02_gradient_algorithms.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 23_02</div>
+            <h1>02. Gradient-based Optimization Algorithms</h1>
+            <p class="lead-text">Descent into the depths of the loss landscape.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Vanilla Gradient Descent</h2>
+<p>The core update rule for modern AI. We update weights by moving in the <i>opposite</i> direction of the
+                gradient, scaled by a <strong>Learning Rate</strong> \(\eta\):</p>
+<div class="math-block">
+                $$ \theta_{t+1} = \theta_t - \eta \cdot \nabla_{\theta} J(\theta_t) $$
+            </div>
+</section>
+<section class="module-card">
+<h2>2. Advanced Variations</h2>
+<ul class="topic-list">
+<li><strong>Momentum:</strong> Adds a fraction of the previous update to the current one, helping
+                    "bounce" out of local minima.</li>
+<li><strong>Stochastic Gradient Descent (SGD):</strong> Calculates the gradient on a single data point
+                    (or minibatch) rather than the whole dataset to speed up training.</li>
+<li><strong>Adam (Adaptive Moment Estimation):</strong> Adjusts the learning rate for each specific
+                    weight based on how much its gradient is oscillating.</li>
+</ul>
+</section>
+<section>
+<h2>3. AI/ML Connection: The Vanishing Gradient Problem</h2>
+<div class="module-card">
+<h3>Calculus in Deep Networks</h3>
+<p>In very deep neural networks, we multiply many partial derivatives together (due to the chain rule).
+                </p>
+<p>If these derivatives are all small (e.g., between 0 and 1), the final product becomes effectively
+                    zero. This is the <strong>Vanishing Gradient Problem</strong>. When this happens, the optimization
+                    algorithms stop updating the early layers of the network, and the AI "stops learning". This is why
+                    optimization isn't just about the formula; it's about the <strong>Calculus of Signal
+                        Persistence</strong>. Understanding this led to breakthroughs like <strong>ReLU
+                        activations</strong> and <strong>Residual Connections</strong>, which keep gradients "alive"
+                    during descent.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: SGD with Momentum</h2>
+<div class="code-block">
+<pre><code class="language-python"># Simplified Momentum Update
+velocity = 0
+momentum = 0.9
+learning_rate = 0.01
+
+for epoch in range(100):
+    grad = get_gradient(params)
+    # v = m*v - lr*grad
+    velocity = momentum * velocity - learning_rate * grad
+    params += velocity</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

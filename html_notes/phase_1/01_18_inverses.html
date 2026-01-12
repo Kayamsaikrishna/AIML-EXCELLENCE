@@ -4,185 +4,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inverse Functions - Phase 1.1.18</title>
+    <title>01.18 Inverses - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html" class="active">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_17_transformations.html" class="nav-link">17. Transforms</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">18. Inverses</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Inverse Functions
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 18. Inverse Functions
         </div>
 
-        <header>
-            <h1>18. Inverse Functions</h1>
-            <p class="subtitle">Undo. Reverse. Reconstruct. The logic of Autoencoders.</p>
+        <header class="page-header">
+            <div class="badge">Module 18</div>
+            <h1>Inverses & Normalizing Flows</h1>
+            <p class="lead-text">Undoing the transformation. How can we map a complex image back to a simple noise
+                vector? The math of Generative AI.</p>
         </header>
 
-        <!-- 1. BASICS -->
-        <section id="basics">
-            <h2>1. The Mirror World</h2>
-            <div class="math-block">
-                $$ f^{-1}(y) = x \iff f(x) = y $$
-            </div>
-            <p>A function maps Input → Output. An inverse maps Output → Input. Geometrically, it is a reflection across
-                the line \( y = x \).</p>
+        <!-- VISUAL DIAGRAM: INVERSE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Two-Way Street</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    X["Input X"]
+    Y["Output Y"]
+    
+    subgraph Forward [Encoder / Function]
+        F["f(x)"]
+    end
+    
+    subgraph Backward [Decoder / Inverse]
+        Finv["f⁻¹(y)"]
+    end
+    
+    X -->|Forward| Y
+    Y -->|Inverse| X
+    
+    subgraph AI [Generative AI]
+        Noise["Latent Noise (z)"]
+        Image["Generated Image (x)"]
+        Flow["Invertible Flow"]
+    end
+    
+    Noise -->|Generate| Image
+    Image -->|Inference| Noise
 
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Conditions</h3>
-                    <p>A function only has an inverse if it is <strong>One-to-One</strong> (Injective). If multiple
-                        inputs go to the same output (like \( x^2 \)), you can't know which one to go back to (unless
-                        you restrict the domain).</p>
+    style Forward fill:#dbeafe,stroke:#2563eb
+    style Backward fill:#fce7f3,stroke:#db2777
+                    </pre>
                 </div>
             </div>
+        </section>
 
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <!-- SVG: Inverse Reflection -->
-                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Axis -->
-                    <line x1="50" y1="250" x2="250" y2="250" stroke="#64748b" stroke-width="2" />
-                    <line x1="50" y1="50" x2="50" y2="250" stroke="#64748b" stroke-width="2" />
+        <!-- 1. DEFINITION: ONE-TO-ONE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. What Makes a Function Invertible?</h2>
+                <p>Not all functions have inverses. \( f(x) = x^2 \) destroys information (you can't know if input was
+                    -2 or +2). It is not <strong>Injective</strong> (One-to-One).</p>
+                <div class="math-block">
+                    $$ f(f^{-1}(x)) = x $$
+                </div>
 
-                    <!-- y=x Line -->
-                    <line x1="50" y1="250" x2="250" y2="50" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5,5" />
-                    <text x="260" y="50" fill="#94a3b8">y = x</text>
-
-                    <!-- Function (e.g., e^x) -->
-                    <path d="M 50 240 Q 150 230 250 50" fill="none" stroke="#3b82f6" stroke-width="3" />
-                    <text x="200" y="80" fill="#3b82f6" font-weight="bold">f(x)</text>
-
-                    <!-- Inverse (e.g., ln x) -->
-                    <path d="M 60 250 Q 70 150 250 50" fill="none" stroke="#ef4444" stroke-width="3"
-                        transform="rotate(-90 150 150) translate(-100, 100)" />
-                    <!-- Simplified manual path for visual symmetry -->
-                    <path d="M 60 250 Q 230 150 250 50" fill="none" stroke="transparent" /> <!-- Hidden guide -->
-                    <path d="M 50 250 Q 60 150 240 150" fill="none" stroke="#ef4444" stroke-width="3" />
-
-                    <text x="200" y="170" fill="#ef4444" font-weight="bold">f⁻¹(x)</text>
-                </svg>
+                <h3>AI Application: Autoencoders</h3>
+                <p>An Autoencoder tries to learn an identity mapping: \( \text{Decoder}(\text{Encoder}(x)) \approx x \).
+                    If the Encoder destroys information, the Decoder produces blurry images.</p>
             </div>
         </section>
 
-        <!-- 2. AI CONTEXT -->
-        <section id="ai-context">
-            <h2>2. The Autoencoder</h2>
-            <p>One of the most famous architectures in unsupervised learning is the Autoencoder. It tries to learn an
-                Identity function \( f(x) \approx x \) by forcing data through a bottleneck.</p>
-            <div class="math-block">
-                $$ \underbrace{D}_{\text{Decoder}}(\underbrace{E}_{\text{Encoder}}(x)) \approx x $$
-            </div>
-            <p>Here, the Decoder \( D \) attempts to learn the <strong>Inverse Function</strong> of the Encoder \( E \).
-                If \( E \) compresses the image, \( D \) must un-compress it.</p>
-
-            <div class="module-card">
-                <h3 class="module-title">Generative Models (GANs/Flows)</h3>
-                <p><strong>Normalizing Flows</strong> explicitly use Invertible Neural Networks (INNs) where every layer
-                    is mathematically invertible, allowing exact likelihood calculation.</p>
-            </div>
-        </section>
-
-        <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Coding an Autoencoder</h2>
-            <p>A simple PyTorch Autoencoder compression.</p>
-
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// PyTorch: Autoencoder</div>
-                <pre><code class="language-python">import torch
-import torch.nn as nn
-
-class Autoencoder(nn.Module):
-    def __init__(self):
-        super().__init__()
-        
-        # Encoder: 784 -> 32 (Compression)
-        self.encoder = nn.Sequential(
-            nn.Linear(784, 128),
-            nn.ReLU(),
-            nn.Linear(128, 32) # Latent Space
-        )
-        
-        # Decoder: 32 -> 784 (Reconstruction / Inverse)
-        self.decoder = nn.Sequential(
-            nn.Linear(32, 128),
-            nn.ReLU(),
-            nn.Linear(128, 784),
-            nn.Sigmoid()
-        )
-
-    def forward(self, x):
-        encoded = self.encoder(x)
-        decoded = self.decoder(encoded)
-        return decoded
-
-# The Decoder learns to "Undo" the Encoder's compression.</code></pre>
+        <!-- 2. NORMALIZING FLOWS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #8b5cf6;">
+                <h2>2. Invertible Neural Networks (Flows)</h2>
+                <p>Normalizing Flows (e.g., RealNVP, Glow) consist of special layers that are mathematically guaranteed
+                    to be invertible.</p>
+                <div class="deep-dive-box">
+                    <h4 class="deep-dive-title">Why Invertibility?</h4>
+                    <p>It allows us to compute exact likelihoods and generate data cheaply. If we know \( f(x) \), we
+                        can easily compute \( P(x) \) using the Change of Variables formula:</p>
+                    <div class="math-block">
+                        $$ \log P(x) = \log P(z) + \log |\det(J)| $$
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Inverting a Transform</h2>
+                <p>The inverse of scaling is un-scaling. The inverse of shifting is un-shifting.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# 1. Forward Transform (Standardization)
+def transform(x, mean, std):
+    return (x - mean) / std
+
+# 2. Inverse Transform (Reconstruction)
+def inverse_transform(z, mean, std):
+    return (z * std) + mean
+
+# Data
+data = np.array([10.0, 20.0, 30.0])
+mu = np.mean(data)
+sigma = np.std(data)
+
+# Forward
+z_scores = transform(data, mu, sigma)
+print(f"Z-Scores: {z_scores}")
+
+# Backward
+reconstructed = inverse_transform(z_scores, mu, sigma)
+print(f"Reconstructed: {reconstructed}") 
+# Matches original exactly
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30.05 Rules of Inference - Logic & Proofs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.6.1 Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="30_04_predicate_logic_quantifiers.html" class="nav-link">04.
+                                Predicate Logic & Quantifiers</a></li>
+                        <li class="nav-item"><a href="30_05_rules_of_inference.html" class="nav-link active">05. Rules
+                                of Inference</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Formal Logic</span>
+                    <span class="badge secondary">Reasoning</span>
+                </div>
+                <h1>Rules of Inference</h1>
+                <p class="lead-text">The Engine of Proof. Valid logical templates that allow us to derive new truths
+                    from existing facts without needing to build a truth table every time.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Legal Moves</h3>
+                    <p>
+                        In a chess game, you can't move a knight however you want. In a proof, you can't jump to a
+                        conclusion however you want. <strong>Rules of Inference</strong> are the "legal moves" of logic. They ensure
+                        that if the premises are true, the conclusion is <strong>guaranteed</strong> to be true.
+                    </p>
+                </div>
+
+                <h2>1. Classic Inference Rules</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Modus Ponens</h4>
+                        <p><strong>Affirming the Antecedent:</strong> If you have "If \(p\) then \(q\)" and you know
+                            \(p\) is true, you can conclude \(q\).</p>
+                        <div class="math-box">
+                            $$ p \rightarrow q $$
+                            $$ p $$
+                            $$ \therefore q $$
+                        </div>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Modus Tollens</h4>
+                        <p><strong>Denying the Consequent:</strong> If you have "If \(p\) then \(q\)" and you know \(q\)
+                            is false, you can conclude \(p\) is false.</p>
+                        <div class="math-box">
+                            $$ p \rightarrow q $$
+                            $$ \neg q $$
+                            $$ \therefore \neg p $$
+                        </div>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Hypothetical Syllogism</h4>
+                        <p><strong>Transitivity:</strong> If \(p \rightarrow q\) and \(q \rightarrow r\), then \(p
+                            \rightarrow r\).</p>
+                        <div class="math-box">
+                            $$ p \rightarrow q $$
+                            $$ q \rightarrow r $$
+                            $$ \therefore p \rightarrow r $$
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Rules for Quantifiers</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Universal Specialization</h4>
+                        <p>If something is true for <strong>everyone</strong>, it is true for <strong>Socrates</strong>.</p>
+                        <div class="math-box">
+                            $$ \forall x P(x) $$
+                            $$ \therefore P(c) $$
+                        </div>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Existential Generalization</h4>
+                        <p>If <strong>Socrates</strong> has a property, then <strong>someone</strong> exists who has that property.</p>
+                        <div class="math-box">
+                            $$ P(c) $$
+                            $$ \therefore \exists x P(x) $$
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Expert Systems</span>
+                    <span class="ml-badge">Reasoning</span>
+                    <h3>Automated Reasoning</h3>
+                    <p>
+                        Before Deep Learning, AI was largely about "Inference Engines."
+                    </p>
+                    <ul>
+                        <li><strong>Prolog:</strong> A programming language where you provide facts and rules (Hypothetical
+                            Syllogisms), and the computer uses rules of inference to answer queries.</li>
+                        <li><strong>Forward Chaining:</strong> Start with what you know and use Modus Ponens to reach a goal. (Used
+                            in diagnostic systems).</li>
+                        <li><strong>Backward Chaining:</strong> Start with a goal and search for premises that could prove it via
+                            Modus Tollens. (Used in legal/policy expert systems).</li>
+                        <li><strong>Chain-of-Thought Prompting:</strong> When an LLM says "Let's think step by step," it is
+                            attempting to build a sequence of Modus Ponens steps. If one step is logically invalid, the
+                            whole reasoning "hallucinates."</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Reasoning Workflow</h2>
+                <div class="mermaid">
+                    graph TD
+                    P1[Premise 1: p → q] --> I[Inference Engine]
+                    P2[Premise 2: p] --> I
+                    I -- "Modus Ponens" --> C[Conclusion: q]
+                    C --> G[Goal Reached]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

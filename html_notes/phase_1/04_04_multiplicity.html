@@ -4,96 +4,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiplicity - Phase 1.2.3.04</title>
+    <title>04.04 Multiplicity - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_03_finding_eigen.html">03. Finding Eigen (2x2, 3x3)</a></li>
-            <li><a href="04_04_multiplicity.html" class="active">04. Multiplicity</a></li>
-            <li><a href="04_05_diagonalization.html">05. Diagonalization</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_03_finding_eigen.html" class="nav-link">03. Calculating</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">04. Multiplicity</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Multiplicity
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 04. Counting Roots
         </div>
 
-        <header>
-            <h1>04. Algebraic & Geometric Multiplicity</h1>
-            <p class="subtitle">When eigenvalues repeat, does the space collapse?</p>
+        <header class="page-header">
+            <div class="badge">Module 04</div>
+            <h1>Alg vs Geo Multiplicity</h1>
+            <p class="lead-text"> Not all eigenvalues are created equal. When \( \text{Geo} < \text{Alg} \), things
+                    break.</p>
         </header>
 
-        <section>
-            <h2>1. Algebraic Multiplicity (AM)</h2>
-            <p>The number of times an eigenvalue appears as a root of the characteristic polynomial.</p>
-            <div class="math-block">
-                $$ P(\lambda) = (\lambda - 2)^3 \implies \lambda = 2 \text{ has AM = 3} $$
+        <!-- VISUAL DIAGRAM: MULTIPLICITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: One Root, How Many Vectors?</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    Root["Repeated Root &lambda; (Alg Mult = 2)"]
+    
+    subgraph Scenario1
+        Full["Two Independent Vectors x1, x2"]
+        Perf["Geo Mult = Alg Mult"]
+        Diag["Diagonalizable"]
+    end
+    
+    subgraph Scenario2
+        Missing["Only One Vector x1"]
+        Defect["Geo Mult < Alg Mult"]
+        NonDiag["Defective (Jordan Form needed)"]
+    end
+    
+    Root --> Scenario1
+    Root --> Scenario2
+    
+    Full --> Perf --> Diag
+    Missing --> Defect --> NonDiag
+
+    style Diag fill:#dcfce7,stroke:#16a34a
+    style NonDiag fill:#fee2e2,stroke:#b91c1c
+                    </pre>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2>2. Geometric Multiplicity (GM)</h2>
-            <p>The number of <strong>linearly independent</strong> eigenvectors associated with that eigenvalue.
-                It is the dimension of the <strong>Null Space</strong> of \((\mathbf{A} - \lambda\mathbf{I})\).</p>
-            <div class="math-block">
-                $$ \text{GM}(\lambda) = \text{nullity}(\mathbf{A} - \lambda\mathbf{I}) $$
-            </div>
-
-            <div class="module-card">
-                <center>
-                    <h3>The Cardinal Rule: \( \text{GM} \leq \text{AM} \)</h3>
-                </center>
-                <p>If \( \text{GM} < \text{AM} \), the matrix is <strong>Defective</strong>. It cannot be fully
-                        diagonalized because it lacks a full basis of eigenvectors.</p>
+        <!-- 1. DEFINITION: THE TWO COUNTS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definitions</h2>
+                <ul>
+                    <li><strong>Algebraic Multiplicity (AM):</strong> How many times \( \lambda \) appears as a root of
+                        the characteristic polynomial. (e.g., \((\lambda - 2)^3 \implies \text{AM}=3\)).</li>
+                    <li><strong>Geometric Multiplicity (GM):</strong> The dimension of the eigenspace required for that
+                        \( \lambda \). How many independent eigenvectors exist.</li>
+                </ul>
+                <p>Rule: \( 1 \leq \text{GM} \leq \text{AM} \). If \( \text{GM} < \text{AM} \), the matrix is <strong
+                        style="color: #ef4444;">Defective</strong>.</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. AI Bottleneck Analogy</h2>
-            <p>In a neural network layer, if the weight matrix is defective, certain degrees of freedom in the
-                latent representation are permanently lost (information collapse), potentially hindering
-                learning capacity.</p>
-        </section>
-
-        <section>
-            <h2>4. Python: Detecting Multiplicity</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-# A defective matrix
-A = np.array([[2, 1], [0, 2]])
-
-# Char Poly: (lambda - 2)^2 -> AM = 2
-eigenvals, eigenvects = np.linalg.eig(A)
-
-print(f"Eigenvalues: {eigenvals}") 
-# Result: [2, 2]
-
-# Check nullity of (A - 2I)
-nullity = A.shape[0] - np.linalg.matrix_rank(A - 2*np.eye(2))
-print(f"Geometric Multiplicity (GM): {nullity}")
-# Result: 1. (GM < AM -> Defective)</code></pre>
+        <!-- 2. AI APPLICATION: COLLAPSING MODES -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Mode Collapse</h2>
+                <p>In Physics and Data Science, repeated eigenvalues usually imply Symmetry (e.g., a sphere has the same
+                    width in x, y, z).</p>
+                <p>A defective matrix implies a "shear" structure that cannot be purely decoupled. This is rare in
+                    random data but common in designed systems (control loops).</p>
             </div>
         </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Spotting the Defect</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from sympy import Matrix
+
+# A defective matrix (Shear)
+# [2 1]
+# [0 2]
+A = Matrix([
+    [2, 1],
+    [0, 2]
+])
+
+eigenvals = A.eigenvals()
+print(f"Eigenvalues (Root:Count): {eigenvals}")
+# {2: 2} -> Alg Multiplicity is 2
+
+eigenvects = A.eigenvects()
+# Returns [(lambda, AlgMult, [vectors])]
+root, alg_mult, vectors = eigenvects[0]
+
+geo_mult = len(vectors)
+
+print(f"Algebraic Multiplicity: {alg_mult}")
+print(f"Geometric Multiplicity: {geo_mult}")
+
+if geo_mult < alg_mult:
+    print("Matrix is DEFECTIVE (Non-diagonalizable)")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

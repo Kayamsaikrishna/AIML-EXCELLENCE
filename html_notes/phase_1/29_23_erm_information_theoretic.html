@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERM & Info Theory - Phase 1.5.7.23</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_23_erm_information_theoretic.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_23_erm_information_theoretic.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_23</div>
+            <h1>23. Empirical Risk Minimization (ERM)</h1>
+            <p class="lead-text">Reinterpreting learning theory through the lens of Information Theory.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. What is ERM?</h2>
+<p><strong>Empirical Risk Minimization (ERM)** is the core principle of statistical learning. It states that
+                    since we don't know the true distribution of data, we should minimize the error (Risk) on our
+                    observed sample (The Empirical Risk). </strong></p>
+</section>
+<section class="module-card">
+<h2>2. The Information Bound</h2>
+<p>A landmark result in AI theory is that the <strong>Generalization Gap** (the difference between train and
+                    test error) is bounded by the <strong>Mutual Information</strong> between the model weights and the training
+                    data! </strong></p>
+<div class="math-block">
+                $$ E[\text{Risk}_{test} - \text{Risk}_{train}] \le \sqrt{\frac{2 I(W; S)}{n}} $$
+            </div>
+<p>This means if a model "Memorizes" the training set ($S$)—making $I(W; S)$ huge—the generalization error
+                explodes. </p>
+</section>
+<section>
+<h2>3. AI/ML Connection: The Rationale for Weight Noise and Dropout</h2>
+<div class="module-card">
+<h3>Reducing Mutual Information for Better Fit</h3>
+<p>In AI, this theorem explains why <strong>Dropout</strong>, <strong>Weight Decay</strong>, and <strong>Batch Normalization</strong> work.
+                </p>
+<p>By adding noise to the weights during training, we are intentionally **Lowering the Mutual
+                    Information ($I(W; S)$)** between the model and the training set. We are preventing the model from
+                    becoming "Too specific" to the training examples. In <strong>PAC-Learning (Probably Approximately
+                        Correct)**, we use this to prove exactly how many samples we need for a given model size.
+                        Furthermore, the <strong>Information Bottleneck Theory (Tishby)** suggests that during the final
+                            stages of training, a model actually "Forgets" irrelevant information about the input while
+                            keeping only the information relevant to the label. It is the math that tells us that
+                            <strong>"Forgetting is as important as Remembering"** for creating an intelligent system.
+                </strong></strong></strong></p>
+</div>
+</section>
+<section>
+<h2>4. Mathematical Summary</h2>
+<p>ERM tells you *what* to optimize. Information Theory tells you *how much* you can optimize before you
+                start memorizing noise. They are the Law and the Speed Limit of the AI world. </p>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

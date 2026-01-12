@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>35.01 Divisibility & Primes - Number Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.6.6 Number Theory</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="35_01_divisibility_primes.html" class="nav-link active">01.
+                                Divisibility & Primes</a></li>
+                        <li class="nav-item"><a href="35_02_gcd_euclidean_algorithm.html" class="nav-link">02. GCD &
+                                Euclidean Algo</a></li>
+                        <li class="nav-item"><a href="35_03_lcm_modular_arithmetic.html" class="nav-link">03. LCM &
+                                Modular Arith</a></li>
+                        <li class="nav-item"><a href="35_04_congruences_linear_equations.html" class="nav-link">04.
+                                Congruences & Eqns</a></li>
+                        <li class="nav-item"><a href="35_05_chinese_remainder_theorem.html" class="nav-link">05. Chinese
+                                Remainder Thm</a></li>
+                        <li class="nav-item"><a href="35_06_fermat_euler_theorem.html" class="nav-link">06. Fermat &
+                                Euler</a></li>
+                        <li class="nav-item"><a href="35_07_primitive_roots_discrete_logs.html" class="nav-link">07.
+                                Primitive Roots</a></li>
+                        <li class="nav-item"><a href="35_08_number_theory_synthesis.html" class="nav-link">08. Module
+                                Synthesis</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Number Theory</span>
+                    <span class="badge secondary">Integer Properties</span>
+                </div>
+                <h1>Divisibility & Primes</h1>
+                <p class="lead-text">The Atoms of Arithmetic. Exploring the fundamental properties of integers that
+                    underpin modern cryptography, hashing, and error-correcting codes.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Integer Grid</h3>
+                    <p>
+                        Number theory is the study of discrete properties. Unlike Calculus, where we deal with smooth
+                        curves, here we deal with the "cracks" between numbers. In AI, this discrete nature is what
+                        allows us to define reliable communication protocols and secure model weights.
+                    </p>
+                </div>
+
+                <h2>1. Formal Divisibility</h2>
+                <p>We say $a$ divides $b$ (written $a|b$) if there exists an integer $k$ such that:</p>
+                <div class="math-box">
+                    $$ b = a \cdot k $$
+                </div>
+                <p>If $a$ does not divide $b$, we have the <strong>Division Algorithm</strong>:</p>
+                <div class="math-box">
+                    $$ b = a \cdot q + r \quad (0 \leq r < |a|) $$ </div>
+                        <p>Where $q$ is the quotient and $r$ is the remainder (the core of modular arithmetic).</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Prime Numbers: The Building Blocks</h2>
+                <p>A prime number $p > 1$ is an integer that has exactly two divisors: 1 and itself.</p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Fundamental Theorem of Arithmetic</h4>
+                        <p>Every integer $n > 1$ can be uniquely represented as a product of prime powers: $n =
+                            p_1^{e_1} p_2^{e_2} \dots p_k^{e_k}$. This is the "DNA" of a number.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Sieve of Eratosthenes</h4>
+                        <p>A simple algorithm to find all primes up to $n$ by iteratively marking the multiples of each
+                            prime starting from 2. Complexity: $O(n \log \log n)$.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Hashing</span>
+                    <span class="ml-badge">Security</span>
+                    <h3>Primes in the AI Workflow</h3>
+                    <ul>
+                        <li><strong>Hash Functions:</strong> Primes (like $2^{31}-1$) are used as table sizes to
+                            minimize collisions.
+                            Because primes have no common factors with most numbers, they ensure a more uniform
+                            distribution of data in memory.</li>
+                        <li><strong>Random Number Generation:</strong> Linear Congruential Generators (LCGs) often use
+                            large primes
+                            as the modulus to ensure a long period of pseudo-random values.</li>
+                        <li><strong>RSA Encryption:</strong> The security of HTTPS (and how you download your models
+                            securely)
+                            depends on the difficulty of factoring the product of two giant primes.</li>
+                        <li><strong>Locality Sensitive Hashing (LSH):</strong> Choosing prime coefficients for hash
+                            functions ensures
+                            that the probability of accidental collisions is mathematically bounded.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Sieve Visualization</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Start with 2, 3, 4, 5, 6, 7, 8, 9, 10...]
+                    B[Mark multiples of 2: 4, 6, 8, 10...]
+                    C[Mark multiples of 3: 6, 9, 12...]
+                    D[Remaining are Primes]
+                    A --> B --> C --> D
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">The iterative process of
+                    filtering out composites to reveal the "prime atoms."</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.26 Fisher Information Revisited - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.4 Advanced Concepts</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_25_relative_entropy.html" class="nav-link">25. Relative Entropy
+                                & Inference</a></li>
+                        <li class="nav-item"><a href="29_26_fisher_information_revisited.html"
+                                class="nav-link active">26. Fisher Information Revisited</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Information Geometry</span>
+                    <span class="badge secondary">Curvature</span>
+                </div>
+                <h1>Fisher Information Revisited</h1>
+                <p class="lead-text">Measuring the Shape of Certainty. How the local curvature of the KL Divergence
+                    defines the geometry of probability space and the limits of learning.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Curvature of Knowledge</h3>
+                    <p>
+                        We know that KL Divergence measures how far two distributions are. <strong>Fisher Information</strong> tells
+                        us how *sensitive* that distance is to small changes in our model's parameters. It is the
+                        "Hessian" of the probability manifold.
+                    </p>
+                </div>
+
+                <h2>1. The Formal Definition</h2>
+                <p>
+                    The Fisher Information Matrix \(I(\theta)\) is the expected value of the square of the gradient of
+                    the log-likelihood (the Score function).
+                </p>
+                <div class="math-box">
+                    $$ I(\theta) = E \left[ \left( \nabla_\theta \ln P(x|\theta) \right) \left( \nabla_\theta \ln
+                    P(x|\theta) \right)^T \right] $$
+                </div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>The KL Connection</h4>
+                        <p>Taylor expansion of KL Divergence around \(\theta\):</p>
+                        <div class="math-box">$$ D_{KL}(P_\theta \| P_{\theta+\epsilon}) \approx \frac{1}{2} \epsilon^T
+                            I(\theta) \epsilon $$</div>
+                        <p>This proves Fisher Information is the <strong>metric tensor</strong> of the KL space.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Cramér-Rao Bound</h4>
+                        <p>The inverse of Fisher Information is the theoretical minimum variance any unbiased estimator
+                            can achieve. It is the "Uncertainty Principle" of statistics.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Natural Gradient</span>
+                    <span class="ml-badge">EWC</span>
+                    <h3>Why AI Optimization Needs Geometry</h3>
+                    <p>
+                        Standard Gradient Descent takes a step in the direction of steepest change in *parameter
+                        values*. But we want the steepest change in *model behavior*.
+                    </p>
+                    <ul>
+                        <li><strong>Natural Gradient Descent:</strong> Instead of \(\Delta \theta = -\eta \nabla L\), we use \(\Delta
+                            \theta = -\eta I(\theta)^{-1} \nabla L\). This ensures a constant step in KL divergence
+                            space, making training invariant to how we parameterize our network.</li>
+                        <li><strong>Elastic Weight Consolidation (EWC):</strong> In Continual Learning, we want to learn Task B
+                            without forgetting Task A. EWC uses the Fisher Information of Task A to identify which
+                            weights are "critical" (high curvature) and penalizes changing them while learning Task B.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Workflow: The Information Geometry</h2>
+                <div class="mermaid">
+                    graph TD
+                    W[Weights / Parameters] -- "I(θ) Metric" --> P[Probability Distribution]
+                    P -- "KL Divergence" --> D[Behavioral Difference]
+                    D -- "Inverse Fisher" --> NG[Natural Gradient Step]
+                    NG -- "Optimizes" --> B[Model Performance]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

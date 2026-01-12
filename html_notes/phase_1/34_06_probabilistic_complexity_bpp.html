@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>34.06 Probabilistic Complexity (BPP, RP) - Complexity Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.10.2 Practical Complexity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="34_05_approximation_heuristics_ai.html" class="nav-link">05.
+                                Heuristics in AI</a></li>
+                        <li class="nav-item"><a href="34_06_probabilistic_complexity_bpp.html"
+                                class="nav-link active">06. Probabilistic Complexity</a></li>
+                        <li class="nav-item"><a href="34_07_communication_complexity.html" class="nav-link">07.
+                                Communication Complexity</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Complexity Theory</span>
+                    <span class="badge secondary">Randomized Logic</span>
+                </div>
+                <h1>Probabilistic Complexity (BPP & RP)</h1>
+                <p class="lead-text">Embracing Uncertainty. Exploring the power of randomness to achieve computational
+                    efficiency, even at the cost of a tiny, controlled probability of error.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Power of the Coin Flip</h3>
+                    <p>
+                        Sometimes, a deterministic algorithm for a problem is slow, but a randomized one is blazing
+                        fast. <strong>Probabilistic Complexity</strong> explores the classes of problems that can be solved by a
+                        Turing Machine with access to a random bit stream.
+                    </p>
+                </div>
+
+                <h2>1. Key Complexity Classes</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>BPP (Bounded-Error Probabilistic Polynomial Time)</h4>
+                        <p>Problems solvable in poly-time with error probability \(\leq 1/3\). This error can be reduced
+                            to near-zero by repeating the algorithm and taking a majority vote.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>RP (Randomized Polynomial Time)</h4>
+                        <p>One-sided error. If the answer is No, the algorithm always says No. If the answer is Yes, it
+                            says Yes with probability \(\geq 1/2\).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>ZPP (Zero-Error Probabilistic)</h4>
+                        <p>Algorithms that never lie, but their *runtime* is probabilistic. They always provide the
+                            correct answer, but in some cases, they take longer than others.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Why Randomness Works</h2>
+                <p>Randomness allows us to "sample" a space instead of exhaustive searching. In many high-dimensional
+                    problems, a random sample is representative of the whole with high probability.</p>
+                <div class="example-box">
+                    <p><strong>Primality Testing:</strong> The Miller-Rabin test is an RP algorithm. It can determine if
+                        a number is prime significantly faster than any known deterministic method.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Reinforcement Learning</span>
+                    <h3>Stochastic Complexity in AI</h3>
+                    <ul>
+                        <li><strong>Stochastic Gradient Descent (SGD):</strong> The bedrock of AI. Instead of calculating the
+                            gradient of the whole dataset (\(O(N)\)), we sample a mini-batch. This makes training
+                            essentially a <strong>Probabilistic</strong> process that converges to a "good" solution.</li>
+                        <li><strong>Monte Carlo Tree Search (MCTS):</strong> AlphaGo uses randomness to "roll out" potential game
+                            futures, sampling the game tree rather than exploring it fully—effectively operating in a
+                            probabilistic search space.</li>
+                        <li><strong>Dropout:</strong> A probabilistic regularization technique. By randomly "killing" neurons during
+                            training, we force the network to be robust, essentially sampling from an ensemble of
+                            sub-networks.</li>
+                        <li><strong>Variational Inference:</strong> Instead of solving complex integrals deterministically, we use
+                            probabilistic sampling (Reparameterization Trick) to approximate the distribution of latent
+                            variables.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Error Reduction by Repetition</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Single Run: Error &lt; 1/3] --> B[3 Runs: Majority Vote]
+                        B --> C[100 Runs: Majority Vote]
+                        C -- Result --> D[Error &lt; 10^-10] style D fill:#a8e6cf,stroke:#333 </div>
+                            <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">Using the Law
+                                of Large Numbers to make BPP as reliable as P.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

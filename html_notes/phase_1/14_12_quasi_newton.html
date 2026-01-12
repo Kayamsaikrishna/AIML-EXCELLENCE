@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.12 Quasi-Newton Methods - Optimization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.7 Optimization</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="14_10_gd_foundation.html" class="nav-link">10. Gradient
+                                Descent</a></li>
+                        <li class="nav-item"><a href="14_11_newton_multi.html" class="nav-link">11. Newton's Method</a>
+                        </li>
+                        <li class="nav-item"><a href="14_12_quasi_newton.html" class="nav-link active">12.
+                                Quasi-Newton</a></li>
+                        <li class="nav-item"><a href="14_13_convex_opt_basics.html" class="nav-link">13. Convex
+                                Optimization</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Optimization 1.7</span>
+                    <span class="badge secondary">Smart Approx</span>
+                </div>
+                <h1>Quasi-Newton Methods (BFGS)</h1>
+                <p class="lead-text">Approximating curvature without the heavy lifting.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Best of Both Worlds</h3>
+                    <p>
+                        <strong>Newton's Method</strong> is fast (converges in few steps) but expensive (inverts a huge
+                        matrix).
+                        <strong>Gradient Descent</strong> is cheap (linear time) but slow (needs many steps).
+                    </p>
+                    <p>
+                        <strong>Quasi-Newton Methods</strong> (like <strong>BFGS</strong>) bridge the gap.
+                        They don't calculate the Hessian directly. Instead, they <strong>estimate</strong> the inverse Hessian
+                        \(\mathbf{H}^{-1}\) iteratively
+                        by observing how the gradient changes between steps. It's like building a map of the terrain as
+                        you walk.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: L-BFGS</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Limited Memory</h3>
+                    <p>
+                        Standard BFGS stores an \(N \times N\) matrix approximation. For 1 million params, that's still
+                        too big.
+                        <strong>L-BFGS (Limited-memory BFGS)</strong> only stores the last \(m\) updates (e.g.,
+                        \(m=10\)).
+                    </p>
+                    <p>
+                        L-BFGS is the default solver for <strong>Logistic Regression</strong> in Scikit-Learn.
+                        It is incredibly efficient for "traditional" ML models (GLMs, SVMs, CRFs) where the parameter
+                        count is in the thousands, not billions.
+                        In Deep Learning, Adam is preferred because the noise of mini-batches breaks the curvature
+                        estimation of L-BFGS.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Optimizing Rosenbrock</h2>
+                <div class="code-header">bfgs_demo.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">from scipy.optimize import minimize
+import numpy as np
+
+# The Rosenbrock function (The "Banana" Valley)
+# Global minimum at (1,1) inside a long, narrow, curved valley.
+# Hard for GD, easy for BFGS.
+
+def rosenbrock(x):
+    return (1 - x[0])**2 + 100 * (x[1] - x[0]**2)**2
+
+# Start at (0,0)
+x0 = [0, 0]
+
+# 1. Nelder-Mead (Gradient-Free)
+res_nm = minimize(rosenbrock, x0, method='Nelder-Mead')
+print(f"Nelder-Mead Iterations: {res_nm.nit}")
+
+# 2. BFGS (Quasi-Newton)
+res_bfgs = minimize(rosenbrock, x0, method='BFGS')
+print(f"BFGS Iterations: {res_bfgs.nit}")
+print(f"Optimal X: {res_bfgs.x}")
+
+# BFGS typically solves it in < 50 iters.
+# Gradient Descent might take thousands.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="14_11_newton_multi.html" class="footer-link">← Prev: Newton's Method</a>
+                        <span class="separator">|</span>
+                        <a href="14_13_convex_opt_basics.html" class="footer-link">Next: Convex Opt →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

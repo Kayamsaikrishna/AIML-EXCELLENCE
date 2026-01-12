@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.06 Gradient Vectors - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_06_gradient_vectors.html" class="nav-link active">06. Gradient
+                                Vectors</a></li>
+                        <li class="nav-item"><a href="13_07_directional_derivatives.html" class="nav-link">07.
+                                Directional Derivs</a></li>
+                        <li class="nav-item"><a href="13_08_tangent_planes_approx.html" class="nav-link">08. Tangent
+                                Planes</a></li>
+                        <li class="nav-item"><a href="13_09_multi_chain_rule.html" class="nav-link">09. Chain Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="13_10_multi_implicit_diff.html" class="nav-link">10. Implicit
+                                Diff</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Optimization</span>
+                </div>
+                <h1>The Gradient Vector</h1>
+                <p class="lead-text">Points to the steepest ascent.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Direction of Greatest Change</h3>
+                    <p>
+                        The <strong>Gradient</strong> \(\nabla f\) is a vector that packages all partial derivatives:
+                        \[ \nabla f(x,y) = \langle f_x, f_y \rangle = \frac{\partial f}{\partial x}\mathbf{i} +
+                        \frac{\partial f}{\partial y}\mathbf{j} \]
+                    </p>
+                    <p>
+                        It has two critical geometric properties:
+                        1. <strong>Direction:</strong> It points in the direction of steepest increase in function value.
+                        2. <strong>Magnitude:</strong> The length \( ||\nabla f|| \) represents *how fast* the function is
+                        increasing.
+                        3. <strong>Orthogonality:</strong> It is always perpendicular to Level Curves.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Engine of AI</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why "Descent"?</h3>
+                    <p>
+                        If the gradient \(\nabla L\) points <strong>UP</strong> the hill (increasing Loss), then negative gradient
+                        \(-\nabla L\) points <strong>DOWN</strong> the hill (decreasing Loss).
+                    </p>
+                    <p>
+                        This is the update rule for <strong>Gradient Descent</strong>:
+                        \[ w_{new} = w_{old} - \eta \cdot \nabla L(w_{old}) \]
+                        Where \(\eta\) (eta) is the learning rate. We compute this vector for millions of parameters,
+                        take a small step in the opposite direction, and repeat until the model is "smart" (error is
+                        minimized).
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Start[Current Weights] -->|Calculate Gradients| Grad[Gradient Vector (Uphill)]
+                        Grad -->|Negate| Descent[Descent Direction (Downhill)]
+                        Descent -->|Step Size * Learning Rate| Step[Weight Update]
+                        Step --> New[New Weights]
+                        New -->|Loop| Start
+
+                        style Descent fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Visualizing Vector Fields</h2>
+                <div class="code-header">gradient_field.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Function: f(x,y) = x^2 + y^2 (Bowl)
+# Gradient: <2x, 2y>
+
+x, y = np.meshgrid(np.linspace(-2, 2, 10), np.linspace(-2, 2, 10))
+u = 2 * x # x-component of gradient
+v = 2 * y # y-component of gradient
+
+plt.figure(figsize=(7, 7))
+plt.quiver(x, y, u, v, color='teal')
+plt.title("Gradient Vector Field (Arrows point OUT/UP)")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True, alpha=0.3)
+plt.show()
+
+print("Notice: Arrows get longer further from the center (steeper slope).")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_05_higher_order_partials.html" class="footer-link">← Prev: Higher Order</a>
+                        <span class="separator">|</span>
+                        <a href="13_07_directional_derivatives.html" class="footer-link">Next: Directional →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

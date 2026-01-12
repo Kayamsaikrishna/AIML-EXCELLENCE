@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30.02 Logical Connectives - Logic & Proofs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.6.1 Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="30_01_propositional_logic.html" class="nav-link">01. Propositional
+                                Logic</a></li>
+                        <li class="nav-item"><a href="30_02_logical_connectives.html" class="nav-link active">02.
+                                Logical Connectives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Operations</span>
+                    <span class="badge secondary">Syntax</span>
+                </div>
+                <h1>Logical Connectives</h1>
+                <p class="lead-text">The Joints of Reason. Combining atomic propositions into compound statements using
+                    operators that mimic human language and digital circuits.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Connective Principle</h3>
+                    <p>
+                        In arithmetic, we use \(+, -, \times\) to build complex numbers. In logic, we use
+                        <strong>Connectives</strong> to build complex truth values. These are the "chemical bonds" that hold
+                        molecules of thought together.
+                    </p>
+                </div>
+
+                <h2>1. The Primary Operators</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Negation (\(\neg\))</h4>
+                        <p><strong>NOT:</strong> Flips the truth value. If \(p\) is true, \(\neg p\) is false.</p>
+                        <div class="math-box">\(\neg p\)</div>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Conjunction (\(\land\))</h4>
+                        <p><strong>AND:</strong> True only if <strong>both</strong> propositions are true. Like a series circuit.</p>
+                        <div class="math-box">\(p \land q\)</div>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Disjunction (\(\lor\))</h4>
+                        <p><strong>OR:</strong> True if <strong>at least one</strong> is true (inclusive). Like a parallel circuit.
+                        </p>
+                        <div class="math-box">\(p \lor q\)</div>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Exclusive OR (\(\oplus\))</h4>
+                        <p><strong>XOR:</strong> True if <strong>exactly one</strong> is true. Used in hardware and parity checks.
+                        </p>
+                        <div class="math-box">\(p \oplus q\)</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Conditional Operators</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Implication (\(\rightarrow\))</h4>
+                        <p><strong>If \(p\), then \(q\):</strong> Only false if the hypothesis (\(p\)) is true and the
+                            conclusion (\(q\)) is false.</p>
+                        <div class="math-box">\(p \rightarrow q\)</div>
+                        <p class="small-text">Note: If \(p\) is false, the whole statement is true (vacuously true).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Biconditional (\(\leftrightarrow\))</h4>
+                        <p><strong>If and only if:</strong> True only if both have the same truth value (both true or
+                            both false).</p>
+                        <div class="math-box">\(p \leftrightarrow q\)</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Neural Nets</span>
+                    <span class="ml-badge">Programming</span>
+                    <h3>Logic in Implementation</h3>
+                    <ul>
+                        <li><strong>Revitilizing Perceptrons:</strong> An early single-layer perceptron could easily represent AND,
+                            OR, and NOT gates. However, the XOR gate became the "crisis" of early AI because a single
+                            linear neuron could not separate it (it required a multi-layer network).</li>
+                        <li><strong>Short-circuit Evaluation:</strong> In languages like Python, `if p or q:` won't even evaluate `q`
+                            if `p` is already true. This is an optimization based on the definition of the Disjunction
+                            operator.</li>
+                        <li><strong>Masking:</strong> In LLM transformers, we use "Causal Masking" (an AND operation between the
+                            attention scores and a triangular matrix) to ensure tokens don't "see" the future.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Workflow: Building a Statement</h2>
+                <div class="mermaid">
+                    graph TD
+                    P[Proposition p] -- NOT --> NP[¬p]
+                    Q[Proposition q]
+                    NP -- AND --> S[¬p ∧ q]
+                    S -- IMPLIES --> R[r]
+                    Final["(¬p ∧ q) → r"]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

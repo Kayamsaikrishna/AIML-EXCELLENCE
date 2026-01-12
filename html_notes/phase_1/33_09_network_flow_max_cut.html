@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>33.09 Network Flow & Max-Cut - Graph Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.9.3 Logic & Flow</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="33_08_planar_graphs_coloring.html" class="nav-link">08. Planar
+                                Graphs</a></li>
+                        <li class="nav-item"><a href="33_09_network_flow_max_cut.html" class="nav-link active">09.
+                                Network Flow</a></li>
+                        <li class="nav-item"><a href="33_10_graph_theory_in_ai_gnn.html" class="nav-link">10. Graph
+                                Theory in AI</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Graph Theory</span>
+                    <span class="badge secondary">Optimization</span>
+                </div>
+                <h1>Network Flow & Max-Flow Min-Cut</h1>
+                <p class="lead-text">Pushing the Limits. Analyzing how much 'stuff' can move through a network of pipes
+                    with varying capacities, and finding the bottlenecks that restrict it.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Pipe Analogy</h3>
+                    <p>
+                        In a <strong>Flow Network</strong>, edges are "pipes" with a maximum capacity. We have a <strong>Source</strong> (where
+                        flow starts) and a <strong>Sink</strong> (where flow ends). The goal is to maximize the amount of flow from
+                        Source to Sink without exceeding the capacity of any pipe.
+                    </p>
+                </div>
+
+                <h2>1. The Max-Flow Min-Cut Theorem</h2>
+                <div class="math-box">
+                    The maximum amount of flow in a network is exactly equal to the capacity of the <strong>Minimum Cut</strong>.
+                </div>
+                <p>A <strong>Cut</strong> is a partition of vertices that separates the Source from the Sink. The
+                    capacity of a cut is the sum of weights of edges crossing the partition. The "tightest" cut is the
+                    bottleneck of the entire system.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Standard Algorithms</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Ford-Fulkerson</h4>
+                        <p>Uses "Augmenting Paths" in a <strong>Residual Graph</strong>. It keeps adding flow as long as
+                            a path exists that isn't full.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Edmonds-Karp</h4>
+                        <p>An implementation of Ford-Fulkerson using <strong>BFS</strong> to find the shortest augmenting paths.
+                            Complexity: \(O(V E^2)\).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Ops</span>
+                    <h3>The Flow Logic in AI</h3>
+                    <ul>
+                        <li><strong>Image Segmentation (GrabCut):</strong> Treating an image as a flow network where "similarity" is
+                            capacity. The <strong>Min-Cut</strong> partitions the image into "Foreground" and "Background" optimally.
+                        </li>
+                        <li><strong>Pipeline Optimization:</strong> In MLOps, if you have multiple data processing stages with
+                            different throughputs (capacities), Max-Flow determines the maximum data your entire
+                            pipeline can handle per second.</li>
+                        <li><strong>Information Bottleneck Theory:</strong> A deep learning concept suggesting that a layer's goal is
+                            to maximize information about the target while "cutting" irrelevant information from the
+                            input — analogous to finding the min-cut of information flow.</li>
+                        <li><strong>Resource Scheduling:</strong> Max-Flow is used to assign GPU clusters to training jobs when there
+                            are complex constraints on connectivity and memory.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Flow Visualization</h2>
+                <div class="mermaid">
+                    graph LR
+                    S((Source)) -- "10/10" --> A((A))
+                    S -- "2/5" --> B((B))
+                    A -- "7/8" --> T((Sink))
+                    B -- "5/5" --> T
+                    A -- "3/3" --> B
+                    style S fill:#a8e6cf,stroke:#333
+                    style T fill:#ff9999,stroke:#333
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">Example: Flow/Capacity.
+                    Note that S -> A is full ("saturated").</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

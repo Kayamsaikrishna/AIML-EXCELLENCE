@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.12 Logarithmic Derivatives - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_10_trig_derivatives.html" class="nav-link">10. Trig
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_11_exp_derivatives.html" class="nav-link">11. Exponential
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_12_log_derivatives.html" class="nav-link active">12.
+                                Logarithmic Derivatives</a></li>
+                        <li class="nav-item"><a href="09_13_inv_trig_derivatives.html" class="nav-link">13. Inverse
+                                Trig</a></li>
+                        <li class="nav-item"><a href="09_14_hyperbolic_derivatives.html" class="nav-link">14. Hyperbolic
+                                (Tanh)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Information</span>
+                </div>
+                <h1>Logarithmic Derivatives</h1>
+                <p class="lead-text">Why does multiplying loss by 'log' make training easier? Because it turns products
+                    into sums.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Reciprocal</h3>
+                    <p>
+                        The derivative of the natural logarithm is simply \(1/x\). This is beautiful and dangerous. It
+                        means as \(x\) gets smaller (closer to zero), the change gets drastically larger.
+                    </p>
+                </div>
+
+                <h2>1. The Formulae</h2>
+                <div class="glass-card">
+                    <p><strong>Natural Log:</strong></p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx}[\ln x] = \frac{1}{x} \]
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <p><strong>Chain Rule Version (Crucial for ML):</strong></p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx}[\ln(u)] = \frac{u'}{u} \]
+                    </div>
+                    <p><em>(The derivative is "u prime over u".)</em></p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        X[Input x] -->|ln| LogX[ln x]
+                        LogX -->|Derive| InvX[1/x]
+
+                        InputSmall[x = 0.001] --> InvLarge[Gradient = 1000]
+                        InputLarge[x = 100] --> InvSmall[Gradient = 0.01]
+
+                        style InvLarge fill:#f56565,stroke:#c53030
+                        style InvSmall fill:#48bb78,stroke:#2f855a
+                    </div>
+                    <div class="caption">Small inputs yield MASSIVE gradients.</div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Cross-Entropy & Maximum Likelihood</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why we use Log-Loss</h3>
+                    <p>
+                        In classification, we want to maximize the probability of the correct class \(p\).
+                        Instead of maximizing \(p\), we minimize \(-\ln(p)\) (Negative Log Likelihood). Why?
+                    </p>
+                    <p>
+                        Look at the gradient:
+                        \[ \frac{d}{dp}[-\ln p] = -\frac{1}{p} \]
+                    </p>
+                    <p>
+                        If the model assigns \(p=0.01\) (wrongly confident) to the correct class, the gradient is
+                        \(-100\). This creates a massive "correction force" that slams the weights back in the right
+                        direction. If we used just \(1-p\) (MSE) as loss, the gradient would be small (constant 1), and
+                        learning would be slow.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: The "Brakes" of Gradient Descent</h2>
+                <div class="code-header">log_gradient_magnitude.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def log_loss_gradient(p_predicted):
+    # Gradient of -ln(p) is -1/p
+    return -1.0 / p_predicted
+
+print("Scenario: True Class is 1.")
+
+# Case 1: Model is confident and correct (p=0.9)
+p1 = 0.9
+g1 = log_loss_gradient(p1)
+print(f"Prediction: {p1} | Gradient: {g1:.2f} (Small adjustment)")
+
+# Case 2: Model is unsure (p=0.5)
+p2 = 0.5
+g2 = log_loss_gradient(p2)
+print(f"Prediction: {p2} | Gradient: {g2:.2f} (Medium adjustment)")
+
+# Case 3: Model is confident and WRONG (p=0.01)
+p3 = 0.01
+g3 = log_loss_gradient(p3)
+print(f"Prediction: {p3} | Gradient: {g3:.2f} (HUGE adjustment!)")
+
+# This geometric explosion forces the model to fix bad predictions immediately.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_11_exp_derivatives.html" class="footer-link">← Prev: Exponential Derivatives</a>
+                        <span class="separator">|</span>
+                        <a href="09_13_inv_trig_derivatives.html" class="footer-link">Next: Inverse Trig →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

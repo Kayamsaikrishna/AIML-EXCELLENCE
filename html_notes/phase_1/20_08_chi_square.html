@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.08 Chi-Square Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_07_t_dist.html" class="nav-link">07. t-Distribution</a></li>
+                        <li class="nav-item"><a href="20_08_chi_square.html" class="nav-link active">08. Chi-Square</a>
+                        </li>
+                        <li class="nav-item"><a href="20_09_f_distribution.html" class="nav-link">09. F-Distribution</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Square</span>
+                </div>
+                <h1>The Chi-Square Distribution (\(\chi^2\))</h1>
+                <p class="lead-text">Measuring squared deviations from the expected.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Sum of Squared Normals</h3>
+                    <p>
+                        If you take a standard normal variable \(Z\) and square it, what distribution do you get?
+                        <br>
+                        Answer: <strong>Chi-Square with 1 Degree of Freedom</strong>.
+                        <br><br>
+                        If you sum \(k\) such independent squared normals, you get \(\chi^2\) with \(k\) degrees of
+                        freedom.
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    Let \(Z_1, Z_2, \dots, Z_k\) be independent \(\mathcal{N}(0, 1)\) variables.
+                    $$ X = \sum_{i=1}^k Z_i^2 \sim \chi^2(k) $$
+                    The PDF is a special case of the Gamma distribution with \(\alpha = k/2\) and \(\beta = 1/2\).
+                </div>
+                <ul>
+                    <li>Values are always non-negative (\(x \ge 0\)).</li>
+                    <li>Skewed to the right.</li>
+                    <li>As \(k\) (df) increases, it looks more like a Normal distribution.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Moments</h2>
+                <ul>
+                    <li><strong>Mean:</strong> \(E[X] = k\) (The number of degrees of freedom).</li>
+                    <li><strong>Variance:</strong> \(\text{Var}(X) = 2k\).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Statistical Testing (Independence)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Feature Selection</span>
+                    <span class="ml-badge">Pearson Test</span>
+                    <h3>Chi-Square Test for Independence</h3>
+                    <p>
+                        Suppose you want to know if 'Gender' is related to 'Interest in Tech'. You collect a table of
+                        counts.
+                    </p>
+                    <p>
+                        The Chi-Square statistic measures the distance between your <strong>Observed</strong> counts and
+                        the <strong>Expected</strong> counts (what you'd see if they were independent).
+                        $$ \chi^2 = \sum \frac{(O-E)^2}{E} $$
+                        If the value is very high, you reject the idea that they are independent.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Link to Variance</h2>
+                <p>
+                    If we have \(n\) samples from a Normal population, the sample variance \(s^2\) is related to the
+                    chi-square distribution:
+                    $$ \frac{(n-1)s^2}{\sigma^2} \sim \chi^2(n-1) $$
+                    This is how we calculate <strong>Confidence Intervals for Variance</strong>.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

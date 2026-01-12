@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.16 Taylor Polynomials - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_15_radius_interval.html" class="nav-link">15. Radius &
+                                Interval</a></li>
+                        <li class="nav-item"><a href="12_16_taylor_polynomials.html" class="nav-link active">16. Taylor
+                                Polynomials</a></li>
+                        <li class="nav-item"><a href="12_17_maclaurin_series.html" class="nav-link">17. Maclaurin
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_18_common_taylor.html" class="nav-link">18. Common
+                                Expansions</a></li>
+                        <li class="nav-item"><a href="12_19_taylor_remainder.html" class="nav-link">19. Taylor
+                                Remainder</a></li>
+                        <li class="nav-item"><a href="12_20_taylor_applications.html" class="nav-link">20. Taylor
+                                Applications</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Approximation</span>
+                </div>
+                <h1>Taylor Polynomials</h1>
+                <p class="lead-text">Reconstructing the whole from a single point.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The DNA of Functions</h3>
+                    <p>
+                        A Taylor Series allows us to reconstruct a complex function \(f(x)\) simply by knowing its
+                        derivatives at a single point \(a\).
+                        It is the sum of infinite derivatives:
+                    </p>
+                    <p>
+                        \[ f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x - a)^n \]
+                    </p>
+                    <p>
+                        The first few terms are the best "Linear", "Quadratic", and "Cubic" approximations of the
+                        function near \(a\).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Gradient Descent Logic</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Linearizing the Loss Landscape</h3>
+                    <p>
+                        Why does <strong>Gradient Descent</strong> work? It relies on the <strong>First-Order Taylor Approximation</strong>:
+                        \[ f(x + \Delta x) \approx f(x) + \nabla f(x) \cdot \Delta x \]
+                    </p>
+                    <p>
+                        This equation says: "Locally, every function looks like a flat plane (slope)."
+                        By moving in the direction of the negative gradient, we slide down this local plane.
+                    </p>
+                    <p>
+                        Advanced optimizers like <strong>Newton's Method</strong> use the <strong>Second-Order Taylor Approximation</strong>
+                        (Hessian Matrix), which accounts for curvature (\(x^2\)).
+                        \[ f(x + \Delta x) \approx f(x) + \nabla f(x)\Delta x + \frac{1}{2} \Delta x^T H \Delta x \]
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Complex[Complex Loss Function] --> Taylor[Taylor Approximation]
+                        Taylor -->|1st Order| Plane[Flat Plane (Gradient Descent)]
+                        Taylor -->|2nd Order| Bowl[Parabolic Bowl (Newton Method)]
+                        Plane --> Optimize[Update Weights]
+
+                        style Plane fill:#4299e1,stroke:#2b6cb0
+                        style Bowl fill:#9f7aea,stroke:#6b46c1
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Expansion</h2>
+                <div class="code-header">taylor_expand.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+# Expand e^x around a=0
+x = sp.Symbol('x')
+f = sp.exp(x)
+
+# Get the series up to x^5
+series_expansion = sp.series(f, x, 0, 6)
+
+print(f"Taylor Series of e^x:")
+print(series_expansion)
+# Output: 1 + x + x**2/2 + x**3/6 + x**4/24 + x**5/120 + O(x**6)
+
+# This confirms that e^x is just a polynomial if you have infinite terms!</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_15_radius_interval.html" class="footer-link">← Prev: Interval</a>
+                        <span class="separator">|</span>
+                        <a href="12_17_maclaurin_series.html" class="footer-link">Next: Maclaurin →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

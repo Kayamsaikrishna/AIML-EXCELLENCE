@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.12 Independence - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_11_law_total_prob.html" class="nav-link">11. Total Prob</a>
+                        </li>
+                        <li class="nav-item"><a href="17_12_independence.html" class="nav-link active">12.
+                                Independence</a></li>
+                        <li class="nav-item"><a href="17_13_exclusive_vs_independent.html" class="nav-link">13.
+                                Exclusive vs Indep</a></li>
+                        <li class="nav-item"><a href="17_14_counting_principles.html" class="nav-link">14. Counting</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Uncorrelated</span>
+                </div>
+                <h1>Independence</h1>
+                <p class="lead-text">When knowing one thing tells you nothing about the other.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Definition</h3>
+                    <p>
+                        Two events \(A\) and \(B\) are <strong>Independent</strong> if:
+                        \[ P(A \cap B) = P(A)P(B) \]
+                        Equivalently: \(P(A|B) = P(A)\).
+                    </p>
+                    <p>
+                        <strong>WARNING:</strong> Disjoint events are NOT independent. If \(A\) and \(B\) are disjoint,
+                        knowing \(A\) happened tells me definitely \(B\) did NOT happen (maximal dependence).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: I.I.D Assumption</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Independent and Identically Distributed</h3>
+                    <p>
+                        Almost all ML theory rests on the <strong>I.I.D. Assumption</strong>.
+                        We assume each data point \((x_i, y_i)\) is drawn independently from the same underlying
+                        distribution.
+                        \[ P(D) = \prod_{i=1}^N P(x_i, y_i) \]
+                    </p>
+                    <p>
+                        If data is not independent (e.g., Time Series, Video), standard algorithms fail, and we need
+                        RNNs or Transformers.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Covariance Check</h2>
+                <div class="code-header">independence_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Simulate independent coin flips
+flips1 = np.random.randint(0, 2, 1000)
+flips2 = np.random.randint(0, 2, 1000)
+
+# Joint probability P(H, H) should be 0.25
+joint_heads = np.mean((flips1 == 1) & (flips2 == 1))
+print(f"Joint Prob P(H,H): {joint_heads:.3f}")
+
+# Product of marginals P(H)*P(H) = 0.5 * 0.5 = 0.25
+prod_marginals = np.mean(flips1==1) * np.mean(flips2==1)
+print(f"Product Prob:      {prod_marginals:.3f}")
+
+# Correlation should be near 0
+corr = np.corrcoef(flips1, flips2)[0,1]
+print(f"Correlation: {corr:.4f}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_11_law_total_prob.html" class="footer-link">← Prev: Law of Total Prob</a>
+                        <span class="separator">|</span>
+                        <a href="17_13_exclusive_vs_independent.html" class="footer-link">Next: Exclusive vs Indep →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

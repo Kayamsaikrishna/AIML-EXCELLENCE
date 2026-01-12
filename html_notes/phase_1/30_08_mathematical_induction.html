@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30.08 Mathematical Induction - Logic & Proofs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.6.2 Proof Techniques</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="30_07_proof_by_contradiction.html" class="nav-link">07. Proof by
+                                Contradiction</a></li>
+                        <li class="nav-item"><a href="30_08_mathematical_induction.html" class="nav-link active">08.
+                                Mathematical Induction</a></li>
+                        <li class="nav-item"><a href="30_09_logic_in_computer_science.html" class="nav-link">09. Logic
+                                in CS</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Proofs</span>
+                    <span class="badge secondary">Recursion</span>
+                </div>
+                <h1>Mathematical Induction</h1>
+                <p class="lead-text">The Domino Effect. Proving that a property holds for an infinite set of integers by
+                    showing that the first one is true and that each success guarantees the next.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Falling Dominos</h3>
+                    <p>
+                        Imagine an infinite line of dominos. How do you prove they will all fall?
+                    </p>
+                    <ol>
+                        <li><strong>Base Case:</strong> Push the first domino.</li>
+                        <li><strong>Inductive Step:</strong> Prove that if any domino \(k\) falls, it <strong>must</strong> knock over its
+                            neighbor \(k+1\).</li>
+                    </ol>
+                </div>
+
+                <h2>1. The Formal Structure</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Base Case \(P(1)\)</h4>
+                        <p>Verify that the statement is true for the starting value (usually \(n=1\)). This is the
+                            foundation.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Inductive Hypothesis</h4>
+                        <p>Assume that the statement is true for some arbitrary integer \(k\). (Assume \(P(k)\)).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Inductive Step</h4>
+                        <p>Use the assumption to prove that the statement remains true for \(k+1\). (Show \(P(k)
+                            \rightarrow P(k+1)\)).</p>
+                    </div>
+                </div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> Prove the sum of first \(n\) integers: \(1 + 2 + ... + n =
+                        \frac{n(n+1)}{2}\).</p>
+                    <ol>
+                        <li><strong>Base Case (n=1):</strong> \(1 = \frac{1(2)}{2} = 1\). True.</li>
+                        <li><strong>Hypothesis:</strong> Assume \(S_k = \frac{k(k+1)}{2}\).</li>
+                        <li><strong>Step:</strong> \(S_{k+1} = S_k + (k+1) = \frac{k(k+1)}{2} + (k+1)\).</li>
+                        <li>Factor out \((k+1)\): \( (k+1) [\frac{k}{2} + 1] = (k+1) \frac{k+2}{2} =
+                            \frac{(k+1)(k+2)}{2} \).</li>
+                        <li>This matches the formula for \(n=k+1\). \(\square\)</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Strong Induction</h2>
+                <p>
+                    Sometimes, knowing only that the *previous* step was true isn't enough. In <strong>Strong Induction</strong>, we
+                    assume the statement is true for <strong>all</strong> values from the base case up to \(k\).
+                </p>
+                <div class="math-box">
+                    $$ [P(1) \land P(2) \land ... \land P(k)] \rightarrow P(k+1) $$
+                </div>
+                <p>This is often used in Computer Science for proving things about binary trees or recursive structures
+                    where a node depends on all its children.</p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Recursion</span>
+                    <span class="ml-badge">Programming</span>
+                    <h3>The Logic of Algorithms</h3>
+                    <ul>
+                        <li><strong>Loop Invariants:</strong> When you write a `while` loop, you are using induction. You ensure the
+                            "Loop Invariant" (a property) is true at the start, and that each iteration preserves it.
+                            This guarantees the program's correctness when the loop ends.</li>
+                        <li><strong>Recursive Complexity:</strong> We use induction to prove the time complexity of algorithms like
+                            <strong>MergeSort</strong>. By showing that a list of size \(n\) takes \(O(n \log n)\) based on its
+                            halves, we are building an inductive proof.</li>
+                        <li><strong>Dynamic Programming:</strong> The "State Transition" in DP is essentially an inductive step. You
+                            solve the base cases and then define how the solution for a larger state depends on smaller
+                            ones.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Induction Workflow</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Goal: Prove P(n) for all n] --> B[Verify P(1) Base Case]
+                    B --> C[Assume P(k) Inductive Hypothesis]
+                    C --> D[Prove P(k+1) using P(k)]
+                    D -- "Success" --> E[Conclusion: True by Induction]
+                    D -- "Fail" --> F[Check Hypothesis or Domain]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

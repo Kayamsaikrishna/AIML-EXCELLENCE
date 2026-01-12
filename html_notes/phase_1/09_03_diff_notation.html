@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.03 Differentiation Notation - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_01_derivative_defn.html" class="nav-link">01. Derivative
+                                Definition</a></li>
+                        <li class="nav-item"><a href="09_02_geometric_interp.html" class="nav-link">02. Geometric
+                                Interpretation</a></li>
+                        <li class="nav-item"><a href="09_03_diff_notation.html" class="nav-link active">03. Notation
+                                (Leibniz/Lagrange)</a></li>
+                        <li class="nav-item"><a href="09_04_basic_rules.html" class="nav-link">04. Basic Power Rules</a>
+                        </li>
+                        <li class="nav-item"><a href="09_05_sum_diff_rules.html" class="nav-link">05. Sum & Difference
+                                Rules</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Language</span>
+                </div>
+                <h1>The Language of Change</h1>
+                <p class="lead-text">Calculus was discovered independently by two rival geniuses. We inherited both of
+                    their languages.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Why multiple notations?</h3>
+                    <p>
+                        Different notations stress different aspects. Some stress logical flow (Chain Rule), some stress
+                        brevity, and some stress vectorization. In AI, you must be fluent in <strong>Leibniz</strong>
+                        and <strong>Vector Calculus</strong> notation.
+                    </p>
+                </div>
+
+                <h2>1. The Big Four</h2>
+                <div class="grid-2x2">
+                    <div class="glass-card">
+                        <h3>Leibniz: \(\frac{dy}{dx}\)</h3>
+                        <p><strong>The Engineer's Choice</strong>. Treats derivatives like fractions (which they are, in
+                            the limit). Makes the Chain Rule intuitive via "cancellation".</p>
+                        <div class="math-block">\[ \frac{dy}{dt} = \frac{dy}{dx} \cdot \frac{dx}{dt} \]</div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Lagrange: \(f'(x)\)</h3>
+                        <p><strong>The Mathematician's Choice</strong>. Clean, uncluttered. Best for generic
+                            single-variable functions where the input variable is obvious.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Newton: \(\dot{x}\)</h3>
+                        <p><strong>The Physicist's Choice</strong>. The dot specifically means "derivative with respect
+                            to <strong>time</strong>". Used in Robotics and Reinforcement Learning dynamics.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Partial: \(\partial\) vs \(d\)</h3>
+                        <p><strong>The AI Standard</strong>. \(\partial\) (curly 'd') means "change one input, hold
+                            others constant." \(d\) means total change.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Nabla ($\nabla$)</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Gradient Vector</h3>
+                    <p>
+                        In Deep Learning, our "function" is a Neural Net with 1 Billion weights. Writing 1 Billion
+                        partial derivatives is impossible.
+                    </p>
+                    <p>
+                        We use the <strong>Nabla</strong> operator \(\nabla\) to pack all those partials into a single
+                        vector (or tensor).
+                    </p>
+                    <div class="math-block">
+                        \[ \nabla f(\mathbf{w}) = \begin{bmatrix} \frac{\partial f}{\partial w_1} \\ \frac{\partial
+                        f}{\partial w_2} \\ \vdots \\ \frac{\partial f}{\partial w_n} \end{bmatrix} \]
+                    </div>
+                    <p>
+                        This allows us to write the update rule for all 1 Billion weights in one line:
+                        \[ \mathbf{w}_{new} = \mathbf{w}_{old} - \alpha \nabla f(\mathbf{w}) \]
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Interactive Notation Guide</h2>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Start{Is input Scalar or Vector?}
+                        Start -->|Scalar (1 var)| Branch1{Is variable Time?}
+                        Branch1 -->|Yes| Newton[Newton: x_dot]
+                        Branch1 -->|No| Leibniz[Leibniz: dy/dx]
+
+                        Start -->|Vector (Multi-var)| Branch2{Output Scalar?}
+                        Branch2 -->|Yes| Gradient[Gradient: ∇f]
+                        Branch2 -->|No| Jacobian[Jacobian Matrix: J]
+
+                        style Gradient fill:#f6e05e,stroke:#d69e2e,color:black
+                        style Jacobian fill:#fc8181,stroke:#c53030,color:white
+                    </div>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_02_geometric_interp.html" class="footer-link">← Prev: Geometry</a>
+                        <span class="separator">|</span>
+                        <a href="09_04_basic_rules.html" class="footer-link">Next: Basic Rules →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

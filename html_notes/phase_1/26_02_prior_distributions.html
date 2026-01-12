@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.02 Prior Distributions - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_01_bayesian_paradigm.html" class="nav-link">01. Bayesian
+                                Paradigm</a></li>
+                        <li class="nav-item"><a href="26_02_prior_distributions.html" class="nav-link active">02. Prior
+                                Distributions</a></li>
+                        <li class="nav-item"><a href="26_03_likelihood_function.html" class="nav-link">03. Likelihood
+                                Function</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Pre-Data Knowledge</span>
+                </div>
+                <h1>Prior Distributions</h1>
+                <p class="lead-text">Quantifying what you know before you see a single data point.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Subjectivity Argument</h3>
+                    <p>
+                        Critics of Bayesianism hate Priors because they seem "subjective." But Bayesians argue that no
+                        analysis is truly objective—even Frequentists use "Subjective" assumptions (like assuming a
+                        Normal distribution). A Prior just makes your assumptions explicit.
+                    </p>
+                </div>
+
+                <h2>1. Types of Priors</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Non-Informative (Flat)</h4>
+                        <p>When you have no clue. You spread probability equally across all possibilities.</p>
+                        <p><strong>Example:</strong> A Uniform distribution \(U(0, 1)\).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Informative</h4>
+                        <p>Based on previous experiments, physics, or expert opinion. It has a clear shape (a "peak").
+                        </p>
+                        <p><strong>Example:</strong> "I'm 90% sure the conversion rate is between 2% and 5%."</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Weakly Informative</h4>
+                        <p>Ensures parameters stay in a "reasonable" range (e.g., weights shouldn't be 10 million).</p>
+                        <p><strong>The Data Scientist's Choice.</strong></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Priors and Data Volume</h2>
+                <p>
+                    The impact of a Prior fades as you get more data.
+                </p>
+                <ul>
+                    <li><strong>Small Data (\(n=5\)):</strong> The Prior dominates. If your prior is wrong, your results will be
+                        wrong.</li>
+                    <li><strong>Big Data (\(n=1,000,000\)):</strong> The Data dominates. Even a strong prior gets "washed out" by the
+                        sheer weight of evidence.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Weight Initialization</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Backprop</span>
+                    <h3>Initialization is a Prior</h3>
+                    <p>
+                        When you initialize Neural Network weights using <strong>Xavier/Glorot</strong> or <strong>He Initialization</strong>, you
+                        are setting a <strong>Prior</strong>.
+                    </p>
+                    <p>
+                        - <strong>Frequentist view:</strong> "I'm just picking a random starting point for optimization."
+                        - <strong>Bayesian view:</strong> "I am assuming that weights follow a Normal distribution \(\mathcal{N}(0,
+                        \sigma^2)\). I believe that big, exploding weights are fundamentally unlikely before I see the
+                        training data."
+                    </p>
+                    <p>
+                        If you set all weights to zero, your "Prior" is a single spike at 0. This makes the network
+                        impossible to train (symmetry problem). Choosing a good range for initialization is effectively
+                        choosing a <strong>Weakly Informative Prior</strong> that allows learning to happen efficiently.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

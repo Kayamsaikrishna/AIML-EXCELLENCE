@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.01 Critical Points & Extrema - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.3 Applications</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="10_01_extrema.html" class="nav-link active">01. Critical
+                                Points</a></li>
+                        <li class="nav-item"><a href="10_02_first_deriv_test.html" class="nav-link">02. First Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_03_concavity.html" class="nav-link">03. Concavity</a></li>
+                        <li class="nav-item"><a href="10_04_second_deriv_test.html" class="nav-link">04. Second Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_05_curve_sketching.html" class="nav-link">05. Curve
+                                Sketching</a></li>
+                        <li class="nav-item"><a href="10_06_optimization.html" class="nav-link">06. Optimization</a>
+                        </li>
+                        <li class="nav-item"><a href="10_07_physics_apps.html" class="nav-link">07. Motion Physics</a>
+                        </li>
+                        <li class="nav-item"><a href="10_08_economics_ml.html" class="nav-link">08. Cost & Marginal</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Min/Max</span>
+                </div>
+                <h1>Critical Points & Extrema</h1>
+                <p class="lead-text">To find the highest peak, first find where the ground is flat.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Search for Zero</h3>
+                    <p>
+                        In optimization (and life), significant things happen when change stops.
+                        If a quantity is maximized or minimized, its rate of change must momentarily be zero.
+                    </p>
+                </div>
+
+                <h2>1. Definition of Extrema</h2>
+                <div class="glass-card">
+                    <ul class="topic-list">
+                        <li><strong>Absolute (Global) Maximum:</strong> The highest point on the entire domain. "The
+                            summit of Everest."</li>
+                        <li><strong>Relative (Local) Maximum:</strong> The highest point in a neighborhood. "The summit
+                            of a small hill."</li>
+                        <li><strong>Critical Point:</strong> Any \(c\) where \(f'(c) = 0\) OR \(f'(c)\) is undefined.
+                        </li>
+                    </ul>
+                    <p class="math-block">
+                        Fermat's Theorem: If \(f\) has a local extremum at \(c\), then \(c\) is a Critical Point.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Domain[Input Space] -->|f x| Surface[Landscape]
+                        Surface -->|Derivative| Slope[Gradient]
+                        Slope -->|Check = 0| Critical[Critical Points]
+                        Critical -->|Filter| Max[Maxima]
+                        Critical -->|Filter| Min[Minima]
+                        Critical -->|Filter| Saddle[Saddle Points]
+
+                        style Min fill:#48bb78,stroke:#2f855a
+                        style Max fill:#f56565,stroke:#c53030
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Loss Landscape</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Navigating the Terrain</h3>
+                    <p>
+                        Training a Neural Network is literally just finding the global minimum of a high-dimensional
+                        function called the <strong>Loss Surface</strong> using Gradient Descent.
+                    </p>
+                    <p>
+                        <strong>The Challenge:</strong>
+                        <br>
+                        In 1D, finding \(f'(x)=0\) is easy. In 1,000,000 dimensions, there are billions of Critical
+                        Points.
+                    </p>
+                    <ul>
+                        <li><strong>Local Minima:</strong> Traps where the model thinks it's done but can do better.
+                        </li>
+                        <li><strong>Saddle Points:</strong> Points where it's flat, but slopes up in one direction and
+                            down in another. These are surprisingly common in Deep Learning and kill training speed.
+                        </li>
+                        <li><strong>Plateaus:</strong> Vast flat regions where gradients vanish.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Hunt</h2>
+                <div class="code-header">find_critical_points.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = sp.Symbol('x')
+# A polynomial with peaks and valleys: f(x) = x^4 - 4x^3 + 10
+f = x**4 - 4 * x**3 + 10
+
+# 1. Calculate Derivative
+df = sp.diff(f, x)
+print(f"Function: {f}")
+print(f"Derivative: {df}")
+
+# 2. Solve df/dx = 0
+critical_points = sp.solve(df, x)
+print(f"Critical Points found at x = {critical_points}")
+
+# 3. Evaluate f(x) at these points
+for cp in critical_points:
+    val = f.subs(x, cp)
+    print(f"Value at x={cp}: {val}")
+
+# Interpretation:
+# x=0: f(0)=10. Is it a max, min, or inflection?
+# x=3: f(3)= -17. 
+# We need the 2nd Derivative Test to know for sure.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="../phase_1/09_22_newtons_method.html" class="footer-link">← Prev: Newton's Method</a>
+                        <span class="separator">|</span>
+                        <a href="10_02_first_deriv_test.html" class="footer-link">Next: First Deriv Test →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integral Applications - Phase 1.3.6.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_25_multi_integral_apps.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_25_multi_integral_apps.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_25</div>
+            <h1>05. Applications: Mass and Center of Mass</h1>
+            <p class="lead-text">Finding the balance point of a 2D distribution.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Total Mass</h2>
+<p>If \(\rho(x, y)\) is the density of a plate (\(\text{mass/area}\)), then the <strong>Total Mass</strong>
+                \(M\) is the double integral of density over the region \(D\):</p>
+<div class="math-block">
+                $$ M = \iint_{D} \rho(x, y) dA $$
+            </div>
+</section>
+<section class="module-card">
+<h2>2. The Center of Mass (Centroid)</h2>
+<p>The "average" location of the mass, \((\bar{x}, \bar{y})\), is found by dividing the
+                <strong>Moments</strong> by the Total Mass:</p>
+<div class="math-block">
+                $$ \bar{x} = \frac{1}{M} \iint_{D} x \rho(x, y) dA, \quad \bar{y} = \frac{1}{M} \iint_{D} y \rho(x, y)
+                dA $$
+            </div>
+<p>This is the 2D versions of the expected value \(\mathbb{E}[X]\) and \(\mathbb{E}[Y]\).</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: K-Means &amp; Cluster Centroids</h2>
+<div class="module-card">
+<h3>Gravity in the Data Space</h3>
+<p>In <strong>Unsupervised Learning</strong>, we often use the <strong>K-Means Clustering</strong>
+                    algorithm. The core of this algorithm is finding the "Centroid" of a group of data points. This
+                    centroid is exactly the Center of Mass if we assume each data point has unit mass. </p>
+<p>Furthermore, and most importantly, in <strong>Image Processing</strong>, the "Centroid" of a detected object helps
+                    an AI track the movement of that object (e.g., following a person's head in a video). By integrating
+                    the pixel intensities, the AI can find the "True Center" even if the object is blurry or has an
+                    irregular shape. This is the foundation of <strong>Object Tracking</strong> and <strong>Motion
+                        Estimation</strong>.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Centroid of a Region</h2>
+<div class="code-block">
+<pre><code class="language-python"># Find centroid of a unity-density square [0,1]x[0,1]
+# Mass = 1. Moment_x = int(x dx dy) = 0.5. x_bar = 0.5/1 = 0.5.
+
+from scipy.integrate import dblquad
+
+mass, _ = dblquad(lambda y, x: 1, 0, 1, 0, 1)
+mom_x, _ = dblquad(lambda y, x: x, 0, 1, 0, 1)
+
+x_bar = mom_x / mass
+
+print(f"Center of Mass coord (x): {x_bar}")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

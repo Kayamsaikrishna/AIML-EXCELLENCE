@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.06 CDF Properties - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.2 Random Variables</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="18_05_cdf.html" class="nav-link">05. CDF</a></li>
+                        <li class="nav-item"><a href="18_06_cdf_properties.html" class="nav-link active">06. CDF
+                                Properties</a></li>
+                        <li class="nav-item"><a href="18_07_expected_value.html" class="nav-link">07. Expected Value</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Inversion</span>
+                </div>
+                <h1>CDF Properties</h1>
+                <p class="lead-text">From probability to quantiles.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Inverse CDF</h3>
+                    <p>
+                        Since the CDF \(F_X(x)\) is monotonic, it is invertible.
+                        The inverse function \(F^{-1}(p)\) tells us: "What value of \(x\) has \(p\) probability mass
+                        below it?"
+                        This is the <strong>Quantile Function</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Sampling</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Inverse Transform Sampling</h3>
+                    <p>
+                        How do computers generate random numbers from a Gaussian or Exponential distribution?
+                        Usually, they generate a Uniform random number \(u \sim U[0, 1]\).
+                        Then they apply the inverse CDF: \(x = F^{-1}(u)\).
+                        This transforms the uniform noise into the desired distribution.
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Uniform[Uniform Random u] -->|Inverse CDF| Target[Target Dist x]
+                        Target -->|CDF| Uniform
+
+                        style Target fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="18_05_cdf.html" class="footer-link">← Prev: CDF</a>
+                        <span class="separator">|</span>
+                        <a href="18_07_expected_value.html" class="footer-link">Next: Expected Value →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

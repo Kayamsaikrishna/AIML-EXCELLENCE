@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.17 Maclaurin Series - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_15_radius_interval.html" class="nav-link">15. Radius &
+                                Interval</a></li>
+                        <li class="nav-item"><a href="12_16_taylor_polynomials.html" class="nav-link">16. Taylor
+                                Polynomials</a></li>
+                        <li class="nav-item"><a href="12_17_maclaurin_series.html" class="nav-link active">17. Maclaurin
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_18_common_taylor.html" class="nav-link">18. Common
+                                Expansions</a></li>
+                        <li class="nav-item"><a href="12_19_taylor_remainder.html" class="nav-link">19. Taylor
+                                Remainder</a></li>
+                        <li class="nav-item"><a href="12_20_taylor_applications.html" class="nav-link">20. Taylor
+                                Applications</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Approximation</span>
+                </div>
+                <h1>Maclaurin Series</h1>
+                <p class="lead-text">Approximating from the origin.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Center at Zero</h3>
+                    <p>
+                        A <strong>Maclaurin Series</strong> is simply a Taylor Series centered at \(a = 0\).
+                        \[ f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!} x^n \]
+                    </p>
+                    <p>
+                        Most standard approximations in physics and engineering (like \(\sin x \approx x\)) are actually
+                        Maclaurin series truncated after the first term.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Weight Initialization</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Starting at the Origin</h3>
+                    <p>
+                        When initializing a Neural Network (e.g., <strong>Xavier Initialization</strong>), we often set weights close
+                        to zero.
+                        Why? Because activation functions like <strong>Tanh</strong> or <strong>Sigmoid</strong> are most "linear" near zero.
+                    </p>
+                    <p>
+                        Looking at the Maclaurin Series for \(\tanh(x)\):
+                        \[ \tanh(x) \approx x - \frac{x^3}{3} \dots \]
+                    </p>
+                    <p>
+                        For small \(x\), \(\tanh(x) \approx x\). This means the gradient flows perfectly (slope = 1) at
+                        the start of training. If we initialized weights far from zero, the higher-order terms (\(x^3,
+                        x^5\)) would dominate, causing signal distortion or vanishing gradients.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Visualizing Linearity</h2>
+                <div class="code-header">tanh_linear.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-3, 3, 100)
+y_tanh = np.tanh(x)
+y_linear = x  # First term of Maclaurin Series
+
+# Compare Tanh vs Linear Approximation
+print("At x=0.1:")
+print(f"Tanh: {np.tanh(0.1):.5f}")
+print(f"Linear: {0.1:.5f}")
+# Almost identical!
+
+print("\nAt x=2.0:")
+print(f"Tanh: {np.tanh(2.0):.5f}")
+print(f"Linear: {2.0:.5f}")
+# Diverges significantly. Maclaurin approx only good near 0.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_16_taylor_polynomials.html" class="footer-link">← Prev: Taylor Poly</a>
+                        <span class="separator">|</span>
+                        <a href="12_18_common_taylor.html" class="footer-link">Next: Common Expansions →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

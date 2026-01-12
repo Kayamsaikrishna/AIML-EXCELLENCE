@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cylindrical Triples - Phase 1.3.6.7</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_23_cylindrical_integrals.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_23_cylindrical_integrals.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_23</div>
+            <h1>07. Triple Integrals in Cylindrical Coordinates</h1>
+            <p class="lead-text">Integration for pipes, wires, and rotating rods.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Transformation</h2>
+<p>Cylindrical coordinates are just polar coordinates (\(r, \theta\)) with a vertical \(z\) axis added.</p>
+<div class="math-block">
+                $$ x = r \cos \theta, \quad y = r \sin \theta, \quad z = z $$
+                $$ dV = \mathbf{r} \, dz \, dr \, d\theta $$
+            </div>
+<p>Use this when the region of integration has <strong>Axial Symmetry</strong> (symmetry around the z-axis).
+            </p>
+</section>
+<section class="module-card">
+<h2>2. Why use it?</h2>
+<p>Integrating a function like \(f(x, y, z) = x^2 + y^2\) over a cylinder is trivial in cylindrical
+                coordinates (\(f = r^2\)), but involves painful square roots in rectangular coordinates. </p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Industrial IoT and Fluids</h2>
+<div class="module-card">
+<h3>Pipeline Diagnostics</h3>
+<p>AI models used in <strong>Smart Factories</strong> often monitor the flow of liquids or gas through
+                    pipes. To predict a leak or a blockage, the AI must integrate the velocity profile across the
+                    cross-section of the cylinder. </p>
+<p>Calculations for <strong>Reynolds Numbers</strong> (which tell an AI if flow is stable or turbulent)
+                    rely on cylindrical integration. Furthermore, in <strong>Hardware AI</strong>, simulating the
+                    thermal heat dissipation along a copper wire (a long cylinder) requires these integrals to ensure
+                    that the AI chip doesn't melt during intense training loads.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Cylindrical Volume of a Paraboloid</h2>
+<div class="code-block">
+<pre><code class="language-python"># Volume under z = 1 - r^2 above r=0..1, theta=0..2pi
+# Integral [0 to 2pi] [0 to 1] [0 to 1-r^2] r dz dr d_theta
+
+import sympy as sp
+r, theta, z = sp.symbols('r theta z')
+
+# Volume = int (r dz dr d_theta)
+# The innermost integral int(r, z=0..1-r^2) = r * (1 - r^2)
+volume = sp.integrate(sp.integrate(sp.integrate(r, (z, 0, 1 - r**2)), (r, 0, 1)), (theta, 0, 2*sp.pi))
+
+print(f"Volume of the paraboloid: {volume}")
+# Result: pi/2</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

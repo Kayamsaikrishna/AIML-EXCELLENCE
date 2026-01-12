@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.06 The Product Rule - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_06_product_rule.html" class="nav-link active">06. The Product
+                                Rule</a></li>
+                        <li class="nav-item"><a href="09_07_quotient_rule.html" class="nav-link">07. The Quotient
+                                Rule</a></li>
+                        <li class="nav-item"><a href="09_08_chain_rule.html" class="nav-link">08. The Chain Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="09_09_implicit_diff.html" class="nav-link">09. Implicit
+                                Differentiation</a></li>
+                        <li class="nav-item"><a href="09_10_trig_derivatives.html" class="nav-link">10. Trig
+                                Derivatives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Interactions</span>
+                </div>
+                <h1>The Product Rule</h1>
+                <p class="lead-text">When two dynamic systems interact (multiply), their total rate of change is a
+                    weighted sum of their individual changes.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Not Just u'v'</h3>
+                    <p>
+                        A common mistake is thinking \((uv)' = u'v'\). This is wrong. If a rectangle's length and width
+                        both grow, the new area isn't just the corner piece; it's the added strips along both original
+                        sides.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="glass-card">
+                    <p>
+                        For two differentiable functions \(u(x)\) and \(v(x)\):
+                    </p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx}[u(x) \cdot v(x)] = u'(x)v(x) + u(x)v'(x) \]
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Rect[Rectangle Area A = u * v]
+                        Change[Changes du and dv occur]
+                        Strip1[Side Strip: v * du]
+                        Strip2[Side Strip: u * dv]
+                        Corner[Tiny Corner: du * dv]
+
+                        Rect --> Change
+                        Change --> Strip1
+                        Change --> Strip2
+                        Change --> Corner
+
+                        Total[Total Change dA]
+                        Strip1 --> Total
+                        Strip2 --> Total
+                        Corner -.->|Negligible as limits -> 0| Total
+
+                        style Corner fill:#f56565,opacity:0.5
+                    </div>
+                    <div class="caption">The derivative sums the two main strips of growth. The tiny corner (du*dv)
+                        vanishes.</div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Gating Mechanisms</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Backprop Through Gates</h3>
+                    <p>
+                        In <strong>LSTMs (Long Short-Term Memory)</strong> and <strong>Transformers</strong>, we use
+                        "Gates" to control information flow. A gate is a multiplication:
+                    </p>
+                    <div class="math-block">
+                        \[ h_t = o_t \odot \tanh(c_t) \]
+                    </div>
+                    <p>
+                        Here, the output gate \(o_t\) multiplies the memory content. When we adjust weights via
+                        Backpropagation, gradients must flow through this multiplication. The Product Rule tells us
+                        exactly how the error signal splits:
+                    </p>
+                    <ul>
+                        <li>Part of the error signal updates the gate ($o_t$).</li>
+                        <li>Part updates the memory ($c_t$).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Verification</h2>
+                <div class="code-header">product_rule_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+
+# Define u and v
+u = x**2
+v = sp.sin(x)
+
+# 1. Product Rule Formula: u'v + uv'
+u_prime = sp.diff(u, x)
+v_prime = sp.diff(v, x)
+formula_result = u_prime * v + u * v_prime
+
+# 2. Direct Differentiation using SymPy
+direct_result = sp.diff(u * v, x)
+
+print(f"u(x) = {u}, v(x) = {v}")
+print(f"Formula (u'v + uv'): {formula_result}")
+print(f"Direct Diff:          {direct_result}")
+
+# Check Equality
+if sp.simplify(formula_result - direct_result) == 0:
+    print("\n✅ Product Rule Vindicated!")
+else:
+    print("\n❌ Something went wrong.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_05_sum_diff_rules.html" class="footer-link">← Prev: Sum Rule</a>
+                        <span class="separator">|</span>
+                        <a href="09_07_quotient_rule.html" class="footer-link">Next: Quotient Rule →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

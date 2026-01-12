@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.06 Conjugate Priors Concept - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_05_bayes_theorem_parameters.html" class="nav-link">05. Bayes
+                                Theorem Parameters</a></li>
+                        <li class="nav-item"><a href="26_06_conjugate_priors_concept.html" class="nav-link active">06.
+                                Conjugate Priors Concept</a></li>
+                        <li class="nav-item"><a href="26_07_conjugate_priors_normal.html" class="nav-link">07. Conjugate
+                                Priors Normal</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Closed-Form</span>
+                </div>
+                <h1>Conjugate Priors Concept</h1>
+                <p class="lead-text">Simplifying Bayesian math so you can calculate posteriors with a pencil instead of
+                    a supercomputer.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Mathematical Match</h3>
+                    <p>
+                        Normally, calculating the Posterior is hard because the denominator (\(P(D)\)) is an impossible
+                        integral.
+                        <br><br>
+                        However, if you choose a <strong>Prior</strong> that "matches" your <strong>Likelihood</strong>, the math cancels out
+                        perfectly. The resulting <strong>Posterior</strong> is in the same family as the Prior.
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <p>
+                    A Prior is <strong>Conjugate</strong> to a Likelihood if the Posterior distribution is in the same probability
+                    distribution family as the Prior.
+                </p>
+                <div class="math-box">
+                    Family X (Prior) + Family Y (Likelihood) \(\rightarrow\) Family X (Posterior)
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Common Conjugate Pairs</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Likelihood (Data)</th>
+                            <th>Conjugate Prior</th>
+                            <th>Posterior</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Bernoulli</strong> (Coin Flips)</td>
+                            <td><strong>Beta</strong></td>
+                            <td><strong>Beta</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Poisson</strong> (Arrivals)</td>
+                            <td><strong>Gamma</strong></td>
+                            <td><strong>Gamma</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Normal</strong> (with known \(\sigma\))</td>
+                            <td><strong>Normal</strong></td>
+                            <td><strong>Normal</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multinomial</strong> (Dice/Words)</td>
+                            <td><strong>Dirichlet</strong></td>
+                            <td><strong>Dirichlet</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Topic Modeling (LDA)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Unsupervised</span>
+                    <span class="ml-badge">NLP</span>
+                    <h3>Dirichlet-Multinomial Conjugacy</h3>
+                    <p>
+                        In <strong>Latent Dirichlet Allocation (LDA)</strong>, we assume:
+                        1. A document is a <strong>Multinomial</strong> distribution of words.
+                        2. The distribution of topics follows a <strong>Dirichlet</strong> distribution.
+                    </p>
+                    <p>
+                        Because Dirichlet is the conjugate prior for Multinomial, the algorithm can update its "topic
+                        belief" for every word in a giant corpus very quickly. Without conjugacy, LDA would be too slow
+                        to run on modern web-scale text data.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

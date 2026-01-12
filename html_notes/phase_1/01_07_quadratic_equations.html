@@ -4,213 +4,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quadratics - Phase 1.1.4</title>
+    <title>01.07 Quadratic Equations - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">? Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_06_absolute_value.html" class="nav-link">06. Absolute Value</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">07. Quadratic Eq</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Quadratics
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 07. Quadratic Equations
         </div>
 
-        <header>
-            <h1>Quadratic Equations & Optimization</h1>
-            <p class="subtitle">The Parabola (\(x^2\)) is the shape of "Loss". Finding its bottom is the primary goal of
-                training a Neural Network.</p>
+        <header class="page-header">
+            <div class="badge">Module 07</div>
+            <h1>Quadratic Equations & Loss Landscapes</h1>
+            <p class="lead-text">From parabolas to the high-dimensional "bowls" we descend to train Neural Networks.
+                Understanding Convexity.</p>
         </header>
 
-        <!-- 1. BASICS & FACTORING -->
-        <section id="basics">
-            <h2>1. The Quadratic Equation</h2>
-            <p>A quadratic equation introduces curvature. It is a polynomial of degree 2.</p>
-            <div class="math-block">
-                $$ ax^2 + bx + c = 0 $$
-            </div>
+        <!-- VISUAL DIAGRAM: CONVEXITY -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Optimization Bowl</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    subgraph Math [The Geometry]
+        Para["Parabola (x²)"]
+        Vertex["Global Minimum"]
+        Convex["Convexity (Bowl Shape)"]
+    end
 
-            <div class="module-card">
-                <h3 class="module-title">Factoring: Finding the Roots</h3>
-                <p>Solving for \(x\) means finding where the curve hits the floor ($y=0$).</p>
-                <div style="background: #f8fafc; padding:1.5rem; border-radius:8px;">
-                    <p><strong>Example:</strong> \(x^2 - 5x + 6 = 0\)</p>
-                    <p>We look for two numbers that multiply to 6 and add to -5.</p>
-                    <p>$$ (x - 2)(x - 3) = 0 $$</p>
-                    <p><strong>Roots:</strong> \(x = 2, x = 3\).</p>
-                </div>
-                <div class="ai-insight-box">
-                    <div class="ai-insight-title">AI Context: Zero Loss</div>
-                    <p>If the quadratic represents your Error Function, finding the roots means finding the state where
-                        <strong>Error = 0</strong> (Perfect Prediction).
-                    </p>
-                    <p>In reality, noise prevents Error from ever hitting exactly 0, but we try to get as close as
-                        possible.</p>
-                </div>
-            </div>
-        </section>
+    subgraph AI [The Training Process]
+        MSE["Mean Squared Error"]
+        GD["Gradient Descent"]
+        Converge["Convergence"]
+    end
 
-        <!-- 2. COMPLETING THE SQUARE -->
-        <section id="completing-square">
-            <h2>2. Completing the Square: finding the Minimum</h2>
-            <p>This is arguably the most important algebraic manipulation for Machine Learning intuition. It transforms
-                standard form into <strong>Vertex Form</strong>.</p>
-            <div class="math-block">
-                $$ y = a(x - h)^2 + k $$
-            </div>
+    Para --> Convex
+    Convex --> Vertex
+    
+    MSE -->|"Is a"| Para
+    Vertex -->|"Goal of"| GD
+    GD --> Converge
 
-            <div class="visual-diagram" style="text-align:center; margin: 3rem 0;">
-                <svg width="400" height="300" viewBox="0 0 400 300"
-                    style="background:#fff; border-radius:8px; border:1px solid #e2e8f0;">
-                    <!-- Axes -->
-                    <line x1="20" y1="280" x2="380" y2="280" stroke="#cbd5e1" stroke-width="2" />
-                    <line x1="200" y1="20" x2="200" y2="280" stroke="#cbd5e1" stroke-width="2" />
-
-                    <!-- Parabola -->
-                    <path d="M 50 50 Q 200 350 350 50" fill="none" stroke="#2563eb" stroke-width="4" />
-
-                    <!-- Vertex Point -->
-                    <circle cx="200" cy="200" r="8" fill="#ef4444" />
-                    <text x="215" y="200" fill="#0f172a" font-weight="bold">Vertex (h, k)</text>
-                    <text x="215" y="220" fill="#64748b" font-size="0.9rem">Global Minimum</text>
-
-                    <!-- Gradient Descent Arrows -->
-                    <path d="M 100 120 L 140 160" stroke="#10b981" stroke-width="3" marker-end="url(#arrow)" />
-                    <path d="M 300 120 L 260 160" stroke="#10b981" stroke-width="3" marker-end="url(#arrow)" />
-                    <text x="80" y="110" fill="#10b981" font-weight="bold">Gradient</text>
-
-                    <defs>
-                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto"
-                            markerUnits="strokeWidth">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#10b981" />
-                        </marker>
-                    </defs>
-                </svg>
-            </div>
-
-            <div class="module-card">
-                <h3 class="module-title">Why "Completing the Square" matters for Optimization</h3>
-                <p>The term \((x-h)^2\) is always positive. The smallest it can ever be is <strong>0</strong> (when
-                    \(x=h\)).</p>
-                <p>Therefore, the minimum value of \(y\) is just \(k\).</p>
-                <p><strong>This is the goal of Gradient Descent:</strong> To find the input \(h\) (weights) that
-                    minimizes the function value \(k\) (Loss). We want to slide down the sides of the bowl to sit in the
-                    vertex.</p>
-            </div>
-
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; margin-top: 2rem; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// PyTorch: MSE Loss looks just like (x-h)^2</div>
-                <pre><code class="language-python">
-import torch.nn as nn
-import torch
-
-# Mean Squared Error Loss
-loss_fn = nn.MSELoss()
-
-prediction = torch.tensor([5.0], requires_grad=True)
-target = torch.tensor([2.0]) # The "h" (correct answer)
-
-# Loss = (5 - 2)^2 = 3^2 = 9
-loss = loss_fn(prediction, target) 
-
-print(f"Loss: {loss.item()}") 
-# Output: 9.0
-
-# If we shift prediction closer to 2...
-prediction = torch.tensor([2.1])
-loss = loss_fn(prediction, target)
-print(f"New Loss: {loss.item()}")
-# Output: 0.0100 (Much smaller!)
-                </code></pre>
-            </div>
-        </section>
-
-        <!-- 3. QUADRATIC FORMULA -->
-        <section id="formula">
-            <h2>3. The Quadratic Formula</h2>
-            <p>When factoring is too hard, we use the brute force tool of the universe.</p>
-            <div class="math-block">
-                $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
-            </div>
-
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">The Discriminant: \( \Delta = b^2 - 4ac \)</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><strong>\(\Delta > 0\):</strong> Two real roots. (The Loss curve crosses
-                            zero twice).</li>
-                        <li class="topic-item"><strong>\(\Delta = 0\):</strong> One real root. (The Loss curve just
-                            touches zero perfectly—Ideal state).</li>
-                        <li class="topic-item"><strong>\(\Delta < 0\):</strong> No real roots. Complex roots. (The Loss
-                                    curve floats above zero—The model can never reach 0 error).</li>
-                    </ul>
+    style MSE fill:#dbeafe,stroke:#2563eb
+    style Vertex fill:#dcfce7,stroke:#16a34a
+    style GD fill:#f3e8ff,stroke:#9333ea
+                    </pre>
                 </div>
             </div>
         </section>
 
-        <!-- 4. QUADRATIC INEQUALITIES -->
-        <!-- Quadratic Inequalities moved to 01_08_quadratic_inequalities.html -->
+        <!-- 1. THE STANDARD FORM & PARABOLAS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Geometry of Squared Error</h2>
+                <p>The standard quadratic equation is \( ax^2 + bx + c = 0 \). In AI, we care about the function \( f(x)
+                    = ax^2 + bx + c \).</p>
 
+                <h3>Why do we love squares?</h3>
+                <p>We use Mean Squared Error (MSE) because it is <strong>Strictly Convex</strong> (if used on linear
+                    models). It guarantees a single global minimum, meaning Gradient Descent <em>will</em> find the
+                    answer.</p>
+
+                <div class="math-block">
+                    $$ \text{Loss}(\theta) = (\theta x - y)^2 $$
+                </div>
+                <p>Since this is a square, the error surface is a parabola opening upwards.</p>
+            </div>
+        </section>
+
+        <!-- 2. FINDING THE MINIMUM (VERTEX) -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>2. Finding the Minimum: Analytical vs. Iterative</h2>
+                <p>For a simple parabola, we can find the minimum analytically using the Vertex Formula or Calculus.</p>
+                <div class="math-block">
+                    $$ x_{min} = -\frac{b}{2a} \quad \text{(Vertex Formula)} $$
+                    $$ \frac{df}{dx} = 2ax + b = 0 \implies x = -b/2a \quad \text{(Calculus)} $$
+                </div>
+
+                <div class="deep-dive-box">
+                    <h4 class="deep-dive-title">The Hessian Matrix</h4>
+                    <p>In high dimensions, how do we know if we are at a minimum, maximum, or saddle point?</p>
+                    <p>We look at the <strong>Hessian Matrix</strong> (matrix of second derivatives). If the Hessian is
+                        <strong>Positive Definite</strong> (all eigenvalues > 0), the function is locally convex (a
+                        bowl), and we are at a stable minimum.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. GRADIENT DESCENT LOGIC -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #16a34a;">
+                <h2>3. Gradient Descent on a Quadratic</h2>
+                <p>Gradient Descent effectively mimics a ball rolling down the parabola.</p>
+                <div class="math-block">
+                    $$ \theta_{new} = \theta_{old} - \eta \nabla L(\theta) $$
+                </div>
+                <p>If the learning rate \( \eta \) is too high, the ball bounces out of the bowl (Divergence). If too
+                    low, it takes forever.</p>
+            </div>
+        </section>
+
+        <!-- 4. PYTHON VISUALIZATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>4. Visualizing the Loss Landscape</h2>
+                <p>Let's plot the MSE loss surface for a simple 1-parameter model.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate synthetic data
+# y = 3x
+x_data = np.array([1, 2, 3, 4])
+y_data = np.array([3, 6, 9, 12])
+
+# Define Weight space (The parameter we are tuning)
+w_space = np.linspace(0, 6, 100) # Check weights from 0 to 6
+losses = []
+
+for w in w_space:
+    # Model: y_pred = w * x
+    preds = w * x_data
+    # MSE Loss formula
+    mse = np.mean((preds - y_data)**2)
+    losses.append(mse)
+
+# This would produce a perfect Parabola with minimum at w=3
+# Use libraries to plot if needed, but the array proves the values.
+min_loss = min(losses)
+best_w = w_space[np.argmin(losses)]
+
+print(f"Minimum Loss: {min_loss:.4f} at Weight: {best_w:.2f}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.04 Sampling Distributions - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_03_statistics_estimators.html" class="nav-link">03. Statistics
+                                Estimators</a></li>
+                        <li class="nav-item"><a href="23_04_sampling_dist.html" class="nav-link active">04. Sampling
+                                Dist</a></li>
+                        <li class="nav-item"><a href="23_05_bias_estimator.html" class="nav-link">05. Bias Estimator</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">The Meta-Distribution</span>
+                </div>
+                <h1>Sampling Distributions</h1>
+                <p class="lead-text">Why your guess changes if you pick a different sample.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Distribution of Results</h3>
+                    <p>
+                        An estimator is a random variable. If you take 100 different samples from the same population
+                        and calculate the mean for each, you will get 100 different numbers.
+                        The distribution of these 100 numbers is the <strong>Sampling Distribution</strong>.
+                    </p>
+                </div>
+
+                <h2>1. Standard Error (SE)</h2>
+                <div class="math-box">
+                    Standard Error is the <strong>Standard Deviation of the Sampling Distribution</strong>.
+                    $$ SE(\bar{X}) = \frac{\sigma}{\sqrt{n}} $$
+                </div>
+                <p>
+                    It tells you how much your "guess" is expected to fluctuate from one sample to another.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Central Limit Theorem Revisited</h2>
+                <p>
+                    The Sampling Distribution of the mean <strong>always</strong> becomes Normal as \(n \to \infty\).
+                    This is why the Normal distribution is the "gold standard" for calculating confidence in our
+                    statistics.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Variance of the Model</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Robustness</span>
+                    <span class="ml-badge">Cross-Validation</span>
+                    <h3>Why we use K-Fold CV</h3>
+                    <p>
+                        When we run K-Fold Cross-Validation, we get \(K\) different values for the accuracy/loss.
+                        This is a small-scale empirical look at the <strong>Sampling Distribution</strong> of our
+                        model's performance.
+                    </p>
+                    <p>
+                        If the accuracy is 90% in one fold and 60% in another, the <strong>Standard Error</strong> is high. This
+                        tells us that our model is sensitive to the specific sample it was trained on (High Variance). A
+                        robust model should have a "tight" sampling distribution with low SE.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Visualization: The Hierarchy</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A["Population (The Truth)"] -->|Draw Sample| B["Sample 1"]
+                        A -->|Draw Sample| C["Sample 2"]
+                        A -->|...| D["Sample N"]
+                        B --> E["Stat 1"]
+                        C --> F["Stat 2"]
+                        D --> G["Stat N"]
+                        E & F & G --> H["Sampling Distribution (The Meta-View)"]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

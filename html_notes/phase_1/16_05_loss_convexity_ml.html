@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.05 Loss Convexity - Calculus for ML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.9 Calculus for ML</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="16_04_neural_chain_rule.html" class="nav-link">04. Neural Chain
+                                Rule</a></li>
+                        <li class="nav-item"><a href="16_05_loss_convexity_ml.html" class="nav-link active">05. Loss
+                                Convexity</a></li>
+                        <li class="nav-item"><a href="16_06_taylor_optimization_ml.html" class="nav-link">06. Taylor in
+                                ML</a></li>
+                        <li class="nav-item"><a href="16_07_numerical_diff.html" class="nav-link">07. Numerical Diff</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">ML Calc 1.9</span>
+                    <span class="badge secondary">Geometry</span>
+                </div>
+                <h1>Loss Convexity in ML</h1>
+                <p class="lead-text">Why Linear Models are safe and Neural Nets are dangerous.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Convex = Solvable</h3>
+                    <p>
+                        A problem is convex if the line segment between any two points on the loss surface lies above
+                        the curve.
+                        This implies a single global minimum.
+                        <strong>Linear Regression</strong> and <strong>SVMs</strong> are convex optimization problems.
+                        You simply cannot get "stuck".
+                    </p>
+                    <p>
+                        <strong>Neural Networks</strong> are Non-Convex. They have symmetries (permuting neurons) and
+                        complex interactions, creating a landscape full of hills, valleys, and saddle points.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Mode Connectivity</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Finding Valleys</h3>
+                    <p>
+                        Recent research shows that while Neural Nets are non-convex globally, good solutions are often
+                        connected by "low-loss valleys".
+                    </p>
+                    <p>
+                        This means if you find two different good models (Model A and Model B), you can often find a
+                        path between them where the error never goes up.
+                        This is the geometric basis for <strong>Ensembling</strong> and <strong>Weight Averaging (SWA)</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Ensembling</h2>
+                <div class="code-header">swa_demo.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Stochastic Weight Averaging (SWA)
+# If we average the weights of a model at different steps of SGD,
+# we often end up in a flatter, more robust minimum.
+
+import torch
+
+def swa_update(swa_model, model, alpha):
+    for swa_param, param in zip(swa_model.parameters(), model.parameters()):
+        swa_param.data = swa_param.data * (1.0 - alpha) + param.data * alpha
+
+# This simple arithmetic average of weights exploits the 
+# local convexity of the solution space.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="16_04_neural_chain_rule.html" class="footer-link">← Prev: Neural Chain Rule</a>
+                        <span class="separator">|</span>
+                        <a href="16_06_taylor_optimization_ml.html" class="footer-link">Next: Taylor Series →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

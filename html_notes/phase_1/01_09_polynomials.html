@@ -4,127 +4,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polynomials & Rationals - Phase 1.1.5</title>
+    <title>01.09 Polynomials - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">? Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_08_systems_of_equations.html" class="nav-link">08. Systems of
+                            Eq</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">09. Polynomials</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Polynomials
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 09. Polynomials
         </div>
 
-        <header>
-            <h1>Polynomials & Rational Functions</h1>
-            <p class="subtitle">Modeling complexity. When a straight line (\(x\)) and a curve (\(x^2\)) aren't enough,
-                we
-                combine them into complex features.</p>
+        <header class="page-header">
+            <div class="badge">Module 09</div>
+            <h1>Polynomials & Feature Engineering</h1>
+            <p class="lead-text">When a straight line isn't enough. Using \(x^2, x^3\) and interaction terms to model
+                complex reality.</p>
         </header>
 
-        <!-- 1. POLYNOMIALS -->
-        <section id="polynomials">
-            <h2>1. Polynomial Basics</h2>
-            <p>A polynomial is a sum of terms in the form \( a_n x^n \). </p>
-            <div class="math-block">
-                $$ P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0 $$
-            </div>
+        <!-- VISUAL DIAGRAM: CURVE FITTING -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Bendy Lines</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    subgraph Models [Model Complexity]
+        Linear["Degree 1: Line (Underfit)"]
+        Quad["Degree 2: Parabola (Good Fit?)"]
+        High["Degree 20: Wiggle (Overfit)"]
+    end
 
-            <div class="module-card">
-                <h3 class="module-title">AI Application: Polynomial Regression & Feature Crossing</h3>
-                <p>Sometimes your data is complex. A simple linear model \( w_1 x_1 + w_2 x_2 \) fails.</p>
-                <p>We can "engineer" complexity by creating polynomial features:</p>
-                <ul>
-                    <li><strong>Inputs:</strong> Height (\(x_1\)), Weight (\(x_2\)).</li>
-                    <li><strong>Polynomial Features:</strong> \( x_1^2 \) (Squared Height), \( x_1 \cdot x_2 \)
-                        (Interaction term).</li>
-                </ul>
-                <p>This allows a simple Linear Regressor to fit curved data! This is the basis of <strong>Kernel
-                        Methods</strong> in SVMs.</p>
-            </div>
+    subgraph AI [AI Technique]
+        Feat["Feature Engineering"]
+        Kernel["Kernel Trick (SVM)"]
+        Reg["Regularization"]
+    end
 
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Sklearn: Generating Polynomial Features</div>
-                <pre><code class="language-python">from sklearn.preprocessing import PolynomialFeatures
-import numpy as np
+    Linear -->|"Add x²"| Quad
+    Quad -->|"Add x³...x²⁰"| High
+    
+    Feat --> Quad
+    High -->|"Fix with"| Reg
 
-# Input: [a, b]
-X = np.array([[2, 3]])
-
-# Create features up to degree 2
-poly = PolynomialFeatures(degree=2)
-X_poly = poly.fit_transform(X)
-
-print(X_poly)
-# Output: [1, 2, 3, 4, 6, 9]
-# Corresponds to: [1, a, b, a^2, a*b, b^2]
-# We created "a*b" (interaction) from thin air!</code></pre>
+    style Quad fill:#dcfce7,stroke:#16a34a
+    style High fill:#fee2e2,stroke:#b91c1c
+                    </pre>
+                </div>
             </div>
         </section>
 
-        <!-- Division and Rationals moved to 01_10, 01_11, 01_12 -->
+        <!-- 1. POLYNOMIAL DEFINITION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. What is a Polynomial?</h2>
+                <p>A sum of variables raised to non-negative integer powers.</p>
+                <div class="math-block">
+                    $$ P(x) = a_n x^n + \dots + a_2 x^2 + a_1 x + a_0 $$
+                </div>
 
+                <h3>Degree & Behavior</h3>
+                <ul>
+                    <li><strong>Degree 1 (Linear):</strong> \( mx+b \). Constant rate of change.</li>
+                    <li><strong>Degree 2 (Quadratic):</strong> \( ax^2+bx+c \). Acceleration (Gravity).</li>
+                    <li><strong>Degree 3 (Cubic):</strong> Inflection points. S-curves.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. POLYNOMIAL REGRESSION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #8b5cf6;">
+                <h2>2. Polynomial Regression as Linear Regression</h2>
+                <p>Wait, isn't Linear Regression only for lines? Yes, but observe:</p>
+                <div class="math-block">
+                    $$ y = w_1 x + w_2 x^2 + b $$
+                </div>
+                <p>If we treat \( x^2 \) as just another feature \( z \), then \( y = w_1 x + w_2 z + b \). This is
+                    <strong>Linear</strong> in the weights \( w \)!</p>
+
+                <div class="deep-dive-box">
+                    <h4 class="deep-dive-title">The "Kernel Trick"</h4>
+                    <p>In SVMs, we project data into infinite-dimensional polynomial space using the Kernel function
+                        without ever computing the coordinates explicitly.</p>
+                    <div class="math-block">
+                        $$ K(x, y) = (x \cdot y + c)^d $$
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Feature Engineering in Scikit-Learn</h2>
+                <p>Generating polynomial features automatically.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+
+# 1. Dummy Data: Area of House
+X = np.array([[10], [20], [30]]) # 1 Feature: Length
+
+# 2. Upgrade to Quadratic Features
+# converts [x] -> [1, x, x^2]
+poly = PolynomialFeatures(degree=2)
+X_poly = poly.fit_transform(X)
+
+print(f"Original X:\n{X}")
+print(f"Expanded Features:\n{X_poly}")
+# [[  1.  10. 100.]
+#  [  1.  20. 400.]
+#  [  1.  30. 900.]]
+
+# 3. Fit Linear Model on Expanded Features
+model = LinearRegression()
+model.fit(X_poly, np.array([100, 400, 900])) # Perfect y=x^2 relationship
+print(f"Coefficients: {model.coef_}") # Should learn [0, 0, 1]
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

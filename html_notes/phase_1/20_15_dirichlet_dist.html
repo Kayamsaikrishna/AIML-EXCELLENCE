@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.15 Dirichlet Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.4 Continuous Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="20_14_weibull_dist.html" class="nav-link">14. Weibull Dist</a>
+                        </li>
+                        <li class="nav-item"><a href="20_15_dirichlet_dist.html" class="nav-link active">15. Dirichlet
+                                Dist</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Multivariate Prior</span>
+                </div>
+                <h1>The Dirichlet Distribution</h1>
+                <p class="lead-text">Distributions of categorical distributions.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Beta of many Categories</h3>
+                    <p>
+                        The <strong>Beta</strong> distribution models uncertainty about a Bernoulli parameter (2 outcomes).
+                        <br>
+                        The <strong>Dirichlet</strong> distribution models uncertainty about a Multinomial parameter (K outcomes).
+                        <br><br>
+                        "A sample from a Dirichlet distribution is itself a valid probability distribution (a set of
+                        numbers that sum to 1)."
+                    </p>
+                </div>
+
+                <h2>1. Definition and Simplex</h2>
+                <div class="math-box">
+                    Let \(X = (x_1, \dots, x_K)\) take values on the <strong>(K-1)-Simplex</strong> (meaning \(x_i \ge 0\) and \(\sum
+                    x_i = 1\)).
+                    <br>
+                    The parameters are \(\alpha = (\alpha_1, \dots, \alpha_K)\) where \(\alpha_i > 0\).
+                    $$ f(x_1, \dots, x_K; \alpha) = \frac{1}{B(\alpha)} \prod_{i=1}^K x_i^{\alpha_i-1} $$
+                </div>
+                <p>
+                    <strong>The Simplex:</strong> Because the components must sum to 1, a Dirichlet over 3 variables can
+                    be visualized as a 2D triangle. Each point inside the triangle represents a specific probability
+                    distribution (e.g., 40% A, 30% B, 30% C).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Shape and Concentration</h2>
+                <ul>
+                    <li>If <strong>all \(\alpha_i = 1\)</strong>: Uniform distribution over the simplex.</li>
+                    <li>If <strong>all \(\alpha_i > 1\)</strong>: Density concentrates in the middle (Balanced
+                        probabilities).</li>
+                    <li>If <strong>all \(\alpha_i < 1\)</strong>: Density pushes towards the corners (Sparse
+                                probabilities—the sample will have one element close to 1 and others close to 0).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Latent Dirichlet Allocation (LDA)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">NLP</span>
+                    <span class="ml-badge">Topic Modeling</span>
+                    <h3>Topic Modeling</h3>
+                    <p>
+                        In LDA, we assume a document is a mixture of "Topics".
+                    <ul>
+                        <li>Each <strong>Document</strong> is a sample from a Dirichlet distribution over topics.</li>
+                        <li>Each <strong>Topic</strong> is a sample from a Dirichlet distribution over words.</li>
+                    </ul>
+                    </p>
+                    <p>
+                        By setting the \(\alpha\) parameters to be small (e.g., 0.1), we encode the prior belief that
+                        each document mostly belongs to just a few topics, and each topic is mostly made of just a few
+                        key words (Sparsity).
+                    </p>
+                </div>
+
+                <h3>Bayesian Categorical Inference</h3>
+                <p>
+                    Dirichlet is the <strong>Conjugate Prior</strong> for Multinomial. If you see word counts from a website
+                    (Multinomial), you update your Dirichlet prior by simply adding the observed word counts to your
+                    \(\alpha\) parameters.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Moments</h2>
+                <ul>
+                    <li><strong>Mean:</strong> \(E[x_i] = \frac{\alpha_i}{\sum \alpha_j}\).</li>
+                    <li><strong>Interpretation:</strong> The "expected" probability for category \(i\) is its share of
+                        the total concentration.</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

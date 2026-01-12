@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22.11 The Delta Method - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.6 Limit Theorems</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="22_10_slutsky_theorem.html" class="nav-link">10. Slutsky's Thm</a>
+                        </li>
+                        <li class="nav-item"><a href="22_11_delta_method.html" class="nav-link active">11. Delta
+                                Method</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Linearized Conv</span>
+                </div>
+                <h1>The Delta Method</h1>
+                <p class="lead-text">Extending the Central Limit Theorem to smooth functions of sample averages.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Beyond Simple Means</h3>
+                    <p>
+                        The CLT tells us that the average \(\bar{X}\) is Normally distributed. But what if we are
+                        interested in \(\sqrt{\bar{X}}\), or \(\log(\bar{X})\), or \(1/\bar{X}\)?
+                        <br><br>
+                        The <strong>Delta Method</strong> allows us to find the distribution of any smooth function \(g(\bar{X})\) by
+                        linearizing it around the mean using a Taylor expansion.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    If \(\sqrt{n}(\bar{X}_n - \mu) \xrightarrow{d} \mathcal{N}(0, \sigma^2)\) and \(g\) is
+                    differentiable at \(\mu\), then:
+                    $$ \sqrt{n}(g(\bar{X}_n) - g(\mu)) \xrightarrow{d} \mathcal{N}(0, [g'(\mu)]^2 \sigma^2) $$
+                </div>
+                <p>
+                    <strong>Intuition:</strong> The variance of the function is the original variance scaled by the
+                    <strong>squared derivative</strong> (slope) of the function at that point. If the function is very
+                    steep, the fluctuations of \(\bar{X}\) are magnified. If it's flat, they are dampened.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Odds and Logistic Units</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Classification</span>
+                    <h3>Confidence in Logits</h3>
+                    <p>
+                        In Logistic Regression, we often interpret the output as a probability \(P =
+                        \sigma(\mathbf{w}^\top\mathbf{x})\). But what if we want to know the <strong>Standard
+                            Error</strong> of this probability?
+                    </p>
+                    <p>
+                        The model gives us the variance of the linear scores (\(\mathbf{w}^\top\mathbf{x}\)). We use the
+                        Delta Method (with the Sigmoid function as our \(g\)) to propagate that variance through the
+                        non-linearity and find the confidence interval of the final probability.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Second-Order Delta Method</h2>
+                <p>
+                    If the first derivative \(g'(\mu)\) is zero, we look at the second derivative. In this case, the
+                    resulting distribution is not Normal but usually related to a <strong>Chi-Square</strong> distribution.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary of Limit Theorems</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Markov/Chebyshev] -->|Bounds| B[LLN]
+                        B -->|Location| C[CLT]
+                        C -->|Shape| D[Delta Method]
+                        D -->|Functions| E[Predictions with Confidence]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

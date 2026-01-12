@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,71 +9,79 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.3 Applications of Derivs</li>
-            <li><a href="17_01_critical_points.html" class="active">01. Critical Points</a></li>
-            <li><a href="17_02_first_deriv_test.html">02. 1st Deriv Test</a></li>
-            <li><a href="17_03_second_deriv_test.html">03. 2nd Deriv Test</a></li>
-            <li><a href="17_04_concavity_inflection.html">04. Concavity</a></li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.3 Deriv Apps</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="17_01_critical_points.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Critical Points
+            <a href="../index.html">Syllabus</a> &gt; 17_01_critical_points.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 17_01</div>
             <h1>01. Critical Points & Extrema</h1>
-            <p class="subtitle">Finding the mountains and valleys of a function.</p>
+            <p class="lead-text">Finding the mountains and valleys of a function.</p>
         </header>
 
-        <section>
-            <h2>1. What is a Critical Point?</h2>
-            <p>A point \(c\) in the domain of \(f\) is a <strong>critical point</strong> if:</p>
-            <ol>
-                <li>\(f'(c) = 0\) (Horizontal Tangent)</li>
-                <li><strong>OR</strong> \(f'(c)\) does not exist (Sharp corners or vertical tangents)</li>
-            </ol>
-        </section>
+        
 
-        <section class="module-card">
-            <h2>2. Extrema types</h2>
-            <ul class="topic-list">
-                <li><strong>Local Maximum:</strong> The peak of a local hill.</li>
-                <li><strong>Local Minimum:</strong> The bottom of a local valley.</li>
-                <li><strong>Global Maximum:</strong> The absolute highest point on the interval.</li>
-                <li><strong>Global Minimum:</strong> The absolute lowest point on the interval.</li>
-            </ul>
-        </section>
 
-        <section>
-            <h2>3. AI/ML Connection: The Search for Minima</h2>
-            <div class="module-card">
-                <h3>Stationary Points</h3>
-                <p>In Machine Learning, we define a <strong>Loss Function</strong> (Cost Function). The "best" model is
+
+<section>
+<h2>1. What is a Critical Point?</h2>
+<p>A point \(c\) in the domain of \(f\) is a <strong>critical point</strong> if:</p>
+<ol>
+<li>\(f'(c) = 0\) (Horizontal Tangent)</li>
+<li><strong>OR</strong> \(f'(c)\) does not exist (Sharp corners or vertical tangents)</li>
+</ol>
+</section>
+<section class="module-card">
+<h2>2. Extrema types</h2>
+<ul class="topic-list">
+<li><strong>Local Maximum:</strong> The peak of a local hill.</li>
+<li><strong>Local Minimum:</strong> The bottom of a local valley.</li>
+<li><strong>Global Maximum:</strong> The absolute highest point on the interval.</li>
+<li><strong>Global Minimum:</strong> The absolute lowest point on the interval.</li>
+</ul>
+</section>
+<section>
+<h2>3. AI/ML Connection: The Search for Minima</h2>
+<div class="module-card">
+<h3>Stationary Points</h3>
+<p>In Machine Learning, we define a <strong>Loss Function</strong> (Cost Function). The "best" model is
                     the one with the minimum loss. Calculus tells us that the minimum <strong>must</strong> occur at a
                     critical point.</p>
-                <p>Therefore, training a model consists solely of finding a critical point where the gradient is zero.
+<p>Therefore, training a model consists solely of finding a critical point where the gradient is zero.
                     However, critical points can also be maxima or "saddle points"—which is why we need deeper tests to
                     confirm we found a minimum.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Finding Critical Points</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>4. Python: Finding Critical Points</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 x = sp.Symbol('x')
 # f(x) = x^3 - 3x^2 + 5
@@ -89,13 +96,14 @@ crit_points = sp.solve(f_prime, x)
 print(f"Function: {f}")
 print(f"Critical Points occur at: {crit_points}") 
 # Output: [0, 2]</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

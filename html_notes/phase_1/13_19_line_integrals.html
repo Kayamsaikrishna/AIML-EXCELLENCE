@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.19 Line Integrals - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_18_multi_integral_apps.html" class="nav-link">18. Integral
+                                Apps</a></li>
+                        <li class="nav-item"><a href="13_19_line_integrals.html" class="nav-link active">19. Line
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_20_conservative_fields.html" class="nav-link">20. Conservative
+                                Fields</a></li>
+                        <li class="nav-item"><a href="13_21_ftc_line.html" class="nav-link">21. FTC for Line
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_22_greens_theorem.html" class="nav-link">22. Green's
+                                Theorem</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Vectors</span>
+                </div>
+                <h1>Line Integrals & Vector Fields</h1>
+                <p class="lead-text">Work along a path.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Accumulation along a Curve</h3>
+                    <p>
+                        A standard integral accumulates area along a straight line (the x-axis).
+                        A <strong>Line Integral</strong> accumulates values along a curvy path \( C \) through a specific "Field" \(
+                        \vec{F}(x, y) \).
+                    </p>
+                    <p>
+                        The most common form is calculating <strong>Work</strong>:
+                        \[ W = \int_C \vec{F} \cdot d\vec{r} = \int_{a}^{b} \vec{F}(\vec{r}(t)) \cdot \vec{r}'(t) \, dt
+                        \]
+                        This sums up the dot product of the Field Vector and your Direction Vector at every step. It
+                        measures how much the field "pushes" or "pulls" you along your journey.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Training Trajectories</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Path to Convergence</h3>
+                    <p>
+                        Training a Neural Network is literally moving a point (the weights \( \vec{w} \)) through a
+                        high-dimensional landscape defined by the <strong>Gradient Field</strong> of the Loss Function.
+                    </p>
+                    <p>
+                        We calculate the <strong>Path Integral</strong> (sum of gradients) along the training trajectory to measure
+                        "Effective Learning".
+                        In <strong>Reinforcement Learning</strong>, Policy Gradients are vector fields. A crucial question is: "Is
+                        the policy improvement path-dependent?" If we update weights in order A vs order B, do we end up
+                        at the same policy? Line integrals help analyze this stability (Policy Drift).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Work Done by a Field</h2>
+                <div class="code-header">line_integral_work.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+t = sp.Symbol('t')
+
+# Vector Field F(x, y) = < -y, x > (Rotation/Vortex)
+# Path r(t) = < cos(t), sin(t) > (Unit Circle) from 0 to pi/2
+x = sp.cos(t)
+y = sp.sin(t)
+
+F = sp.Matrix([-y, x]) # <-sin(t), cos(t)>
+dr = sp.Matrix([sp.diff(x, t), sp.diff(y, t)]) # <-sin(t), cos(t)>
+
+# Dot product F . dr
+dot_prod = F.dot(dr) # (-sin)(-sin) + (cos)(cos) = sin^2 + cos^2 = 1
+
+# Integrate from 0 to pi/2
+work = sp.integrate(dot_prod, (t, 0, sp.pi/2))
+
+print(f"Dot Product simplifies to: {sp.simplify(dot_prod)}")
+print(f"Work Done: {work}")
+# Result: pi/2. You are walking WITH the wind the whole time.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_18_multi_integral_apps.html" class="footer-link">← Prev: Apps</a>
+                        <span class="separator">|</span>
+                        <a href="13_20_conservative_fields.html" class="footer-link">Next: Conservative Fields →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

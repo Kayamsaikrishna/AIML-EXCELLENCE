@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.10 Maximum Likelihood Estimation (MLE) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_09_method_of_moments.html" class="nav-link">09. Method Of
+                                Moments</a></li>
+                        <li class="nav-item"><a href="23_10_mle_intro.html" class="nav-link active">10. Mle Intro</a>
+                        </li>
+                        <li class="nav-item"><a href="23_11_mle_properties.html" class="nav-link">11. Mle Properties</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">The Best Fit</span>
+                </div>
+                <h1>Maximum Likelihood Estimation (MLE)</h1>
+                <p class="lead-text">Asking the question: "Which parameter makes the data I just saw most probable?"</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Likelihood Perspective</h3>
+                    <p>
+                        In probability, we calculate the chance of data given a parameter: \(P(\text{Data} \mid
+                        \theta)\).
+                        In MLE, we reverse this. We observe the data, and we treat the result as a function of
+                        \(\theta\). This is the <strong>Likelihood Function</strong> \(L(\theta)\).
+                    </p>
+                </div>
+
+                <h2>1. The Goal</h2>
+                <div class="math-box">
+                    Find the \(\theta\) that maximizes the Likelihood:
+                    $$ \hat{\theta}_{MLE} = \text{arg max}_{\theta} L(\theta) $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Log-Likelihood Trick</h2>
+                <p>
+                    Calculating products of thousands of tiny probabilities leads to numerical underflow. To solve this,
+                    we maximize the <strong>Log-Likelihood</strong> \(\ell(\theta) = \ln L(\theta)\).
+                </p>
+                <div class="insight-box">
+                    <h3>Why Log?</h3>
+                    <ol>
+                        <li>Log turns products into sums (easier to differentiate).</li>
+                        <li>Log is a monotonic function, so the max of \(\ell(\theta)\) is at the same location as the
+                            max of \(L(\theta)\).</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Cost Functions</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Loss Minimization</span>
+                    <h3>Binary Cross Entropy = MLE</h3>
+                    <p>
+                        In Deep Learning, we don't usually talk about "maximizing likelihood". We talk about
+                        <strong>minimizing Loss</strong>.
+                    </p>
+                    <p>
+                        It turns out that <strong>Binary Cross Entropy (BCE)</strong> loss is just the Negative Log-Likelihood (NLL)
+                        of a Bernoulli distribution.
+                        - Maximizing \(L(\theta)\) is the same as minimizing \(- \ln L(\theta)\).
+                    </p>
+                    <p>
+                        Every time you train a Neural Network with BCE or MSE, you are performing Maximum Likelihood
+                        Estimation!
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. The Process</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Observe Data] --> B[Write Probability Function]
+                        B --> C[Take Log]
+                        C --> D[Take Derivative]
+                        D --> E[Set to Zero and Solve]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

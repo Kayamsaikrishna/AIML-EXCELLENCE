@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.17 Hamiltonian Monte Carlo - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_16_metropolis_hastings.html" class="nav-link">16. Metropolis
+                                Hastings</a></li>
+                        <li class="nav-item"><a href="26_17_hamiltonian_monte_carlo.html" class="nav-link active">17.
+                                Hamiltonian Monte Carlo</a></li>
+                        <li class="nav-item"><a href="26_18_bayesian_networks_structure.html" class="nav-link">18.
+                                Bayesian Networks Structure</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Physics-Based</span>
+                </div>
+                <h1>Hamiltonian Monte Carlo (HMC)</h1>
+                <p class="lead-text">Turning probability distributions into "gravity wells" and using momentum to glide
+                    through them efficiently.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The End of the Random Walk</h3>
+                    <p>
+                        Standard MCMC (Metropolis) is like a drunk person wandering around. It takes forever to explore
+                        far-away regions.
+                        <br><br>
+                        <strong>HMC</strong> is like a frictionless marble rolling through a landscape. It uses the <strong>Gradient</strong>
+                        (slope) of the probability distribution to pick a direction and "glid" long distances in a
+                        single step.
+                    </p>
+                </div>
+
+                <h2>1. The Physics Analogy</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Potential Energy</h4>
+                        <p>The "Negative Log-Posterior." High-probability areas are valleys; low-probability areas are
+                            peaks.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Kinetic Energy</h4>
+                        <p>We give the "marble" a random kick (Momentum). This allows it to roll out of the valley and
+                            up the next hill.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Leapfrog Integrator</h4>
+                        <p>A math trick to simulate physics in small steps while preserving total energy (Hamiltonian).
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Why HMC is better</h2>
+                <ul>
+                    <li><strong>High-Dimensional Scaling:</strong> While Metropolis fails as you add more variables, HMC scales
+                        beautifully. This makes it the only viable choice for models with thousands of parameters.</li>
+                    <li><strong>Lower Correlation:</strong> Consecutive samples in HMC are much further apart, meaning you need fewer
+                        samples to "cover" the truth.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: NUTS in PyMC</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Hardware</span>
+                    <h3>The No-U-Turn Sampler</h3>
+                    <p>
+                        HMC is great, but it has a problem: How long should you let the marble roll before stopping and
+                        taking a sample?
+                    </p>
+                    <p>
+                        <strong>NUTS</strong> is an algorithm that automatically figures this out. It lets the marble roll until it
+                        starts to turn back around ("No-U-Turn"), then it takes the sample. NUTS is the default engine
+                        in <strong>Stan</strong> and <strong>PyMC</strong>.
+                    </p>
+                    <p>
+                        In deep learning, <strong>Stochastic Gradient Langevin Dynamics (SGLD)</strong> is a cousin of HMC that
+                        allows us to find Bayesian distributions of Neural Network weights using the same GPUs we use
+                        for standard Backprop. It effectively bridges the gap between "Fast Optimization" and "Deep
+                        Bayesian Uncertainty."
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

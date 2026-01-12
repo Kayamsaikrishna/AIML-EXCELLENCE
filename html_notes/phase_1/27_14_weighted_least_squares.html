@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.14 Weighted Least Squares - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_13_interaction_terms.html" class="nav-link">13. Interaction
+                                Terms</a></li>
+                        <li class="nav-item"><a href="27_14_weighted_least_squares.html" class="nav-link active">14.
+                                Weighted Least Squares</a></li>
+                        <li class="nav-item"><a href="27_15_glm_link_functions.html" class="nav-link">15. GLM & Link
+                                Functions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Heteroscedasticity</span>
+                </div>
+                <h1>Weighted Least Squares (WLS)</h1>
+                <p class="lead-text">Not all data points are created equal. WLS lets you prioritize the points you trust
+                    more.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Precision Priority</h3>
+                    <p>
+                        In standard OLS, we assume every data point has the same amount of noise (Homoscedasticity).
+                        <br><br>
+                        But what if some measurements come from a high-precision sensor and others from an old, shaky
+                        one? WLS gives higher <strong>weights (\(w_i\))</strong> to the precise data and lower weights to the noisy
+                        data.
+                    </p>
+                </div>
+
+                <h2>1. The Objective Function</h2>
+                <div class="math-box">
+                    $$ RSS_{weighted} = \sum_{i=1}^n w_i (y_i - \hat{y}_i)^2 $$
+                </div>
+                <p>
+                    Where:
+                    - <strong>\(w_i = \frac{1}{\sigma_i^2}\)</strong> (Inverse of the variance).
+                    - High variance points have small weights and don't influence the line much.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Why use WLS?</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Solving Heteroscedasticity</h4>
+                        <p>If your error variance grows with the input (The "Fan" shape), WLS down-weights the points in
+                            the "fat" part of the fan where the model is uncertain.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Averaged Data</h4>
+                        <p>If some data points are averages of 1,000 observations and others are just 1 observation, you
+                            should weight them by the sample size.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Class Weights</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Loss Functions</span>
+                    <span class="ml-badge">Imbalanced Data</span>
+                    <h3>Weighting in modern AI</h3>
+                    <p>
+                        The spirit of WLS lives on in almost every ML framework (PyTorch, TensorFlow, Scikit-learn):
+                    </p>
+                    <ul>
+                        <li><strong>Imbalanced Classification:</strong> If you have 99% "Normal" transactions and 1% "Fraud", you can
+                            set `class_weight='balanced'`. This is mathematically equivalent to WLS—it tells the model
+                            to penalize errors on Fraud cases much more heavily.</li>
+                        <li><strong>Sample Weights:</strong> In many competitions (Kaggle), some test samples are more important than
+                            others. You pass a `sample_weight` vector to the `fit()` function of an XGBoost or CatBoost
+                            model.</li>
+                        <li><strong>Locally Weighted Regression (LOWESS):</strong> Used in data visualization to create smooth
+                            curves. It weights points near the "current X" more heavily than distant points.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Pro-Tip:</strong> WLS is the bridge to <strong>Iteratively Reweighted Least Squares (IRLS)</strong>, which is the
+                        actual algorithm used to solve Logistic Regression and GLMs.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

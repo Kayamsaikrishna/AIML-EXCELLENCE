@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15.05 ODE Applications (Diffusion) - Differential Equations</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.8 Differential Equations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="15_03_second_order_odes.html" class="nav-link">03. Second-Order
+                                ODEs</a></li>
+                        <li class="nav-item"><a href="15_04_homo_nonhomo.html" class="nav-link">04. Homogeneous Eqs</a>
+                        </li>
+                        <li class="nav-item"><a href="15_05_ode_ml_apps.html" class="nav-link active">05. Diffusion
+                                Models</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">DiffEq 1.8</span>
+                    <span class="badge secondary">The Generative Era</span>
+                </div>
+                <h1>Diffusion Models & SDEs</h1>
+                <p class="lead-text">Generating art by reversing noise.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Stochastic Differential Equations (SDEs)</h3>
+                    <p>
+                        A standard ODE is deterministic: \(d\mathbf{x} = f(\mathbf{x}, t)dt\).
+                        Diffusion models add randomness (Brownian Motion \(d\mathbf{w}\)):
+                        \[ d\mathbf{x} = f(\mathbf{x}, t)dt + g(t)d\mathbf{w} \]
+                    </p>
+                    <p>
+                        The "Forward" process slowly destroys an image by adding noise until it is pure static.
+                        The "Reverse" process learns the ODE that <i>removes</i> noise to recreate the image.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Image[Clean Image] -->|Add Noise ODE| Noisy[Noisy Data]
+                        Noisy -->|Add More Noise| PureNoise[Pure Gaussian Noise]
+
+                        PureNoise -->|Reverse SDE| Denoise1[Less Noise]
+                        Denoise1 -->|Neural Network| ImageRecon[Generated Image]
+
+                        style PureNoise fill:#c05621,stroke:#ed8936
+                        style ImageRecon fill:#2f855a,stroke:#48bb78
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Stable Diffusion</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Langevin Dynamics</h3>
+                    <p>
+                        To generate an image, we start with random noise and follow the "Score Function" (the gradient
+                        of the data distribution).
+                        \[ d\mathbf{x} = \nabla_{\mathbf{x}} \log p_{data}(\mathbf{x}) dt + \sqrt{2} d\mathbf{w} \]
+                    </p>
+                    <p>
+                        This is essentially <strong>Gradient Ascent</strong> on the probability density of images. The model learns
+                        to "push" random pixels towards configurations that look like real photos.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: 1D Diffusion</h2>
+                <div class="code-header">diffusion_1d.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Simple 1D "Forward Diffusion": Drift towards 0 + Noise
+def diffuse(x0, steps=100, dt=0.1):
+    path = [x0]
+    x = x0
+    for _ in range(steps):
+        # dx = -0.5*x*dt + noise
+        dx = -0.5 * x * dt + np.random.normal(0, np.sqrt(dt))
+        x += dx
+        path.append(x)
+    return path
+
+# Run multiple particles
+for i in range(5):
+    plt.plot(diffuse(5.0), alpha=0.6)
+
+plt.axhline(0, color='red', linestyle='--', label="Target Distribution")
+plt.title("Forward Diffusion Process (Ornstein-Uhlenbeck)")
+plt.xlabel("Time Step")
+plt.ylabel("Value")
+plt.legend()
+plt.show()</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="15_04_homo_nonhomo.html" class="footer-link">← Prev: Homogeneous</a>
+                        <span class="separator">|</span>
+                        <a href="../index.html" class="footer-link"> Next: Module 16 →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

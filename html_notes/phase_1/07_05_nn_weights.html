@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07.05 NN Weights - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.6 AI Applications</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="07_04_regression_math.html" class="nav-link">04. Regression Math</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">05. NN Weights</a></li>
+                    <li class="nav-item"><a href="07_06_convolution_matrix.html" class="nav-link">06. Convolution
+                            Matrix</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 05. The Brains
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 05</div>
+            <h1>Neural Network Weights</h1>
+            <p class="lead-text"> \( W^{(l)} \). Feature Extractors and Transformers.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: LAYERS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Layer-wise Transform</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Input x (Features)"]
+    
+    subgraph Layer1
+        W1["Weight Matrix W1 (Patterns)"]
+        Activation["ReLU (Non-Linearity)"]
+    end
+    
+    subgraph Layer2
+        W2["Weight Matrix W2 (Combinations)"]
+        Softmax["Softmax (Probabilities)"]
+    end
+    
+    Input -- "x W1" --> W1
+    W1 -- "Dot Products" --> Activation
+    Activation -- "h" --> W2
+    W2 -- "Logits" --> Softmax
+
+    style W1 fill:#dcfce7,stroke:#16a34a
+    style W2 fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. EXPLANATION: ROWS AS PATTERNS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Interpretation</h2>
+                <p>If we view a layer computation as \( z = Wx \):</p>
+                <ul>
+                    <li><strong>Rows of W:</strong> Each row is a "template" or "filter". The dot product measures how
+                        much the input \( x \) matches that template.</li>
+                    <li><strong>Columns of W:</strong> Basis vectors for the output space. \( x \) is the coordinate
+                        vector in this new basis.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: INITIALIZATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Initialization Matters</h2>
+                <p>If \( W \) is initialized to zeros, gradients die (Symmetry breaking fails). If initialized too
+                    large, activations saturate.</p>
+                <p><strong>Xavier/He Initialization</strong> sets the random variance of \( W \) based on the size of
+                    the matrix (Fan-in/Fan-out) to keep signal magnitude stable across layers (keeping Spectral Radius
+                    close to 1).</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Visualizing Weights (MNIST)</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Simulate a trained Weight Matrix for MNIST (784 inputs -> 10 outputs)
+# 10 rows (digits), 784 cols (pixels)
+# In reality, we learn these. Here we simulate random patterns.
+W = np.random.randn(10, 784)
+
+# Visualize the weights for digit '0'
+weight_image = W[0].reshape(28, 28)
+
+plt.imshow(weight_image, cmap='seismic')
+plt.title("What Neuron 0 looks for (Weights)")
+plt.colorbar()
+# Positive regions (Red) : "Ink here implies Digit 0"
+# Negative regions (Blue): "Ink here implies NOT Digit 0"
+plt.show()
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

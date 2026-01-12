@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>33.08 Planar Graphs & Coloring - Graph Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.9.3 Logic & Flow</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="33_07_bipartite_graphs_matching.html" class="nav-link">07.
+                                Bipartite Matching</a></li>
+                        <li class="nav-item"><a href="33_08_planar_graphs_coloring.html" class="nav-link active">08.
+                                Planar Graphs</a></li>
+                        <li class="nav-item"><a href="33_09_network_flow_max_cut.html" class="nav-link">09. Network
+                                Flow</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Graph Theory</span>
+                    <span class="badge secondary">Spatial Constraints</span>
+                </div>
+                <h1>Planar Graphs & Graph Coloring</h1>
+                <p class="lead-text">Drawing without Crossings. Exploring the elegant constraints of 2D embeddings and
+                    the power of vertex coloring to solve scheduling and allocation puzzles.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Flattening Challenge</h3>
+                    <p>
+                        A graph is <strong>Planar</strong> if it can be drawn in a plane without any edges crossing. While most
+                        real-world social networks are dense and non-planar, planar graphs are the foundation of
+                        physical hardware (PCB design) and geography.
+                    </p>
+                </div>
+
+                <h2>1. Euler's Formula</h2>
+                <p>For any connected planar graph with \(V\) vertices, \(E\) edges, and \(F\) faces (regions):</p>
+                <div class="math-box">
+                    $$ V - E + F = 2 $$
+                </div>
+                <div class="example-box">
+                    <p><strong>Kuratowski's Theorem:</strong> A graph is non-planar if and only if it contains a
+                        subgraph that is an expansion of \(K_5\) (complete 5-node graph) or \(K_{3,3}\) (the 3-utility
+                        house puzzle).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Graph Coloring</h2>
+                <p>
+                    <strong>Vertex Coloring</strong> is an assignment of labels (colors) to vertices such that no two adjacent
+                    vertices share the same color. The minimum number of colors needed is the <strong>Chromatic Number
+                        \(\chi(G)\)</strong>.
+                </p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Four Color Theorem</h4>
+                        <p>Any planar graph can be colored with at most 4 colors. This was the first major theorem to be
+                            proved by a computer.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Welsh-Powell Algorithm</h4>
+                        <p>A greedy approach: Sort nodes by degree and color them in order to find an upper bound for
+                            the chromatic number.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Hardware</span>
+                    <span class="ml-badge">Operations Research</span>
+                    <h3>Spatial Logic in AI</h3>
+                    <ul>
+                        <li><strong>Register Allocation:</strong> In a compiler (like XLA for Tensor Processing Units), variables are
+                            nodes, and if two variables are "active" at the same time, they share an edge. Finding the
+                            minimum registers needed is a <strong>Graph Coloring</strong> problem.</li>
+                        <li><strong>Exam/Resource Scheduling:</strong> If two exams share a student, they cannot happen at the same
+                            time (edge). Finding the minimum time slots (colors) is a classic coloring application.</li>
+                        <li><strong>Convolutional Maps:</strong> In Computer Vision, the grid-like neighborhood of pixels forms a
+                            planar graph. CNNs leverage this planarity to perform localized operations efficiently.</li>
+                        <li><strong>Constraint Satisfaction (CSPs):</strong> Many AI puzzles (Sudoku, Map Coloring) are fundamentally
+                            graph coloring problems where the goal is to find a valid assignment of values under
+                            adjacency constraints.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Planarity Visualization</h2>
+                <div class="mermaid">
+                    graph LR
+                    A((A)) --- B((B))
+                    B --- C((C))
+                    C --- D((D))
+                    D --- A
+                    A --- C
+                    style A fill:#a8e6cf,stroke:#333
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">A Planar representation
+                    of a graph where edges do not cross.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

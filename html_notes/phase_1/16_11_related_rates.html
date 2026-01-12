@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,68 +9,78 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.2 Differentiation</li>
-            <li><a href="16_10_mvt_rolles.html">10. MVT & Rolles</a></li>
-            <li><a href="16_11_related_rates.html" class="active">11. Related Rates</a></li>
-            <li><a href="16_12_newton_root.html">12. Newton's Method</a></li>
-            <li class="nav-label">1.3.1 Limits</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.2 Differentiation</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="16_11_related_rates.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Related Rates
+            <a href="../index.html">Syllabus</a> &gt; 16_11_related_rates.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 16_11</div>
             <h1>11. Related Rates and Differentials</h1>
-            <p class="subtitle">Differentiation in multi-variable connected systems.</p>
+            <p class="lead-text">Differentiation in multi-variable connected systems.</p>
         </header>
 
-        <section>
-            <h2>1. The Concept</h2>
-            <p>If two variables \(x\) and \(y\) are related by an equation, and both change over time \(t\),
+        
+
+
+
+<section>
+<h2>1. The Concept</h2>
+<p>If two variables \(x\) and \(y\) are related by an equation, and both change over time \(t\),
                 their rates of change \(\frac{dx}{dt}\) and \(\frac{dy}{dt}\) are also related via the
                 <strong>Chain Rule</strong>.
             </p>
-        </section>
-
-        <section>
-            <h2>2. Linear Approximation (Differentials)</h2>
-            <div class="module-card">
-                <p>For a tiny change \(dx\), the change in \(y\) is approximately:</p>
-                <div class="math-block">
+</section>
+<section>
+<h2>2. Linear Approximation (Differentials)</h2>
+<div class="module-card">
+<p>For a tiny change \(dx\), the change in \(y\) is approximately:</p>
+<div class="math-block">
                     $$ dy \approx f'(x) \cdot dx $$
                 </div>
-                <p>This is the foundation of <strong>Sensitivity Analysis</strong>.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>3. AI Connection: Parameter Sensitivity</h2>
-            <div class="module-card">
-                <h3>Vulnerability to Perturbations</h3>
-                <p>In "Adversarial AI", we want to know how a tiny change in pixel values (\(dx\))
+<p>This is the foundation of <strong>Sensitivity Analysis</strong>.</p>
+</div>
+</section>
+<section>
+<h2>3. AI Connection: Parameter Sensitivity</h2>
+<div class="module-card">
+<h3>Vulnerability to Perturbations</h3>
+<p>In "Adversarial AI", we want to know how a tiny change in pixel values (\(dx\))
                     leads to a massive change in the prediction (\(dy\)). Related rates and differentials
                     allow us to quantify the <strong>Jacobian</strong> of the network—the matrix
                     that maps input perturbations to output shifts. If the "related rate" is high,
                     the model is brittle/unstable.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Related Rates Simulation</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>4. Python: Related Rates Simulation</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 # Area of circle A = pi * r^2
 # Find dA/dt if dr/dt = 2 and r = 5
@@ -87,13 +96,14 @@ print(f"dA/dt formula: {dAdt}")
 # dAdt = 2 * pi * r * dr/dt
 result = 2 * sp.pi * 5 * 2
 print(f"Result: {result} units^2/sec")</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
-
 </html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.04 Properties of Probability - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_03_kolmogorov_axioms.html" class="nav-link">03. Kolmogorov
+                                Axioms</a></li>
+                        <li class="nav-item"><a href="17_04_prob_properties.html" class="nav-link active">04. Prob
+                                Properties</a></li>
+                        <li class="nav-item"><a href="17_05_complement_rule.html" class="nav-link">05. Complement
+                                Rule</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Corollaries</span>
+                </div>
+                <h1>Properties of Probability</h1>
+                <p class="lead-text">What follows from the Three Axioms.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Derived Rules</h3>
+                    <p>
+                        From the three axioms, we can derive everything else:
+                    </p>
+                    <ul>
+                        <li><strong>Empty Set:</strong> \(P(\emptyset) = 0\).</li>
+                        <li><strong>Monotonicity:</strong> If \(A \subseteq B\), then \(P(A) \le P(B)\).</li>
+                        <li><strong>Bound:</strong> \(0 \le P(E) \le 1\).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: ROC Curves</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Thresholds</h3>
+                    <p>
+                        In binary classification, we choose a threshold \(T\) to decide class 1 or 0.
+                        Let \(S\) be the set of samples classified as positive.
+                        If we lower the threshold, the set of positive samples grows ($S_{T=0.9} \subseteq S_{T=0.5}$).
+                        Due to <strong>Monotonicity</strong>, the Recall (True Positive Rate) can never decrease as we
+                        lower the threshold.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Monotonicity</h2>
+                <div class="code-header">monotonicity.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Set A: Even numbers < 10 {2,4,6,8}
+# Set B: All numbers < 10 {1..9}
+# A is a subset of B.
+
+P_A = 4/10
+P_B = 9/10
+
+print(f"P(A)={P_A}, P(B)={P_B}")
+if P_A <= P_B:
+    print("Monotonicity Holds: Subset prob is smaller.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_03_kolmogorov_axioms.html" class="footer-link">← Prev: Axioms</a>
+                        <span class="separator">|</span>
+                        <a href="17_05_complement_rule.html" class="footer-link">Next: Complement Rule →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

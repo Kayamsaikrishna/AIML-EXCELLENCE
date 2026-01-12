@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entropy & Uncertainty - Phase 1.5.7.1</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_01_entropy_uncertainty.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_01_entropy_uncertainty.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_01</div>
+            <h1>01. Entropy & Uncertainty</h1>
+            <p class="lead-text">Measuring the pure information content of a signal.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. What is Entropy?</h2>
+<p><strong>Shannon Entropy ($H$)</strong> is a measure of the average level of "Surprise" or "Uncertainty"
+                in a random variable. If an event is 100% predictable, its entropy is 0. If it's a random coin toss, its
+                entropy is high. </p>
+<div class="math-block">
+                $$ H(X) = -\sum_{i=1}^{n} p(x_i) \log_2 p(x_i) $$
+            </div>
+</section>
+<section class="module-card">
+<h2>2. Bits as Information</h2>
+<p>Entropy tells you the minimum number of <strong>Bits</strong> required to transmit a signal. If a message
+                is repetitive, we can compress it because its entropy is low. AI is essentially a compression engine
+                that tries to find the lowest possible entropy representation of data.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Decision Trees and Loss Energy</h2>
+<div class="module-card">
+<h3>Reducing Impurity</h3>
+<p>In AI, Entropy is the fundamental metric for <strong>Decision Tree Learning (ID3, C4.5)**. </strong></p>
+<p>When an <strong>XGBoost</strong> model splits a node, it chooses the feature that results in the largest
+                    <strong>Information Gain</strong> (reduction in Entropy). It "Squeezes out" uncertainty until the clusters are
+                    pure. Furthermore, in <strong>Deep Learning**, Entropy is related to the "Certainty" of a model's
+                        prediction. If the Softmax output is $[0.5, 0.5]$, the entropy is maximized—the model doesn't
+                        know what it's doing. By minimizing entropy during training, we force the model to commit to a
+                        specific label. It is the mathematical bridge between <strong>Uncertainty</strong> and **Deep Learning
+                        Certainty**. </strong></p>
+</div>
+</section>
+<section>
+<h2>4. Python: Calculating Shannon Entropy</h2>
+<div class="code-block">
+<pre><code class="language-python">from scipy.stats import entropy
+
+# p(x) for three categories
+p = [0.1, 0.2, 0.7]
+
+# Calculate entropy in bits (base 2)
+h = entropy(p, base=2)
+
+print(f"Entropy: {h:.4f} bits")
+# If p=[0, 0, 1], entropy will be 0.0 (Zero surprise!)</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31.08 Cantor's Diagonal Argument - Set Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.7.2 Infinite Aggregates</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="31_07_infinity_countable_sets.html" class="nav-link">07. Infinite
+                                Sets & Countability</a></li>
+                        <li class="nav-item"><a href="31_08_cantor_diagonal_argument.html" class="nav-link active">08.
+                                Cantor's Argument</a></li>
+                        <li class="nav-item"><a href="31_09_russell_paradox_axioms.html" class="nav-link">09. Russell's
+                                Paradox</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Proof</span>
+                    <span class="badge secondary">Uncountable</span>
+                </div>
+                <h1>Cantor's Diagonal Argument</h1>
+                <p class="lead-text">Infinity Reimagined. Georg Cantor's elegant proof that the set of real numbers is
+                    fundamentally larger than the set of integers, forever changing the landscape of logic and
+                    computation.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Missing Number</h3>
+                    <p>
+                        Cantor's proof is a <strong>Proof by Contradiction</strong>. He assumed that the real numbers between 0 and 1
+                        *could* be listed (meaning they are countable), and then he mathematically constructed a number
+                        that <strong>was not on the list</strong>.
+                    </p>
+                </div>
+
+                <h2>1. The setup</h2>
+                <p>Assume we have an exhaustive list of all real numbers in the interval \((0, 1)\) represented as
+                    infinite decimals:</p>
+                <div class="math-box">
+                    $$ r_1 = 0.d_{11}d_{12}d_{13}d_{14}... $$
+                    $$ r_2 = 0.d_{21}d_{22}d_{23}d_{24}... $$
+                    $$ r_3 = 0.d_{31}d_{32}d_{33}d_{34}... $$
+                </div>
+                <p>Each \(d_{ij}\) is a digit from 0 to 9.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Diagonal Construction</h2>
+                <p>Construct a new number \(x = 0.x_1x_2x_3...\) by looking at the diagonal digits \(d_{ii}\):</p>
+                <ul>
+                    <li>If \(d_{11}\) is 5, let \(x_1 = 4\).</li>
+                    <li>If \(d_{22}\) is 5, let \(x_2 = 4\).</li>
+                    <li>In general, pick \(x_n \neq d_{nn}\).</li>
+                </ul>
+                <div class="example-box">
+                    <p><strong>The Contradiction:</strong></p>
+                    <ul>
+                        <li>\(x\) cannot be \(r_1\) because they differ in the 1st digit.</li>
+                        <li>\(x\) cannot be \(r_2\) because they differ in the 2nd digit.</li>
+                        <li>\(x\) cannot be <strong>any</strong> number \(r_n\) on our list.</li>
+                    </ul>
+                    <p>But \(x\) is a real number between 0 and 1! \(\therefore\) Our list was NOT exhaustive. Real
+                        numbers are <strong>Uncountable</strong>. \(\square\)</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">LLM Tokenization</span>
+                    <span class="ml-badge">Search Space</span>
+                    <h3>Why this breaks AI</h3>
+                    <ul>
+                        <li><strong>The Discrete Limit:</strong> All digital AI (like GPT-4) exists in the world of <strong>Countable</strong>
+                            things (finite vocabularies, discrete tokens, integer weights). However, the physics and
+                            mathematical landscapes we try to model are often <strong>Uncountable</strong>. This "Representation Gap"
+                            is a fundamental limit of current hardware.</li>
+                        <li><strong>Continuum Hypothesis:</strong> Cantor wondered if there's an infinity "between" the integers and
+                            the reals. This question led to the discovery that some things in math are <strong>Indecidable</strong>
+                            (cannot be proven true or false). In AI, this relates to problems that a model may never be
+                            able to solve, no matter how much data it sees.</li>
+                        <li><strong>Optimization:</strong> Gradient descent assumes a <strong>Continuous</strong> surface. Cantor's work proves
+                            that the "Real" surface is infinitely denser than any discrete grid we could ever simulate.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Diagonal Proof Workflow</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Assume Goal is Countable] --> B[List all elements r₁, r₂, r₃...]
+                    B --> C[Identify Diagonal Digits d₁₁, d₂₂, d₃₃...]
+                    C --> D[Modify Diagonal to create x]
+                    D --> E[Check: Is x in the list?]
+                    E -- No --> F[Contradiction Found!]
+                    F --> G[Result: Set is Uncountable]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

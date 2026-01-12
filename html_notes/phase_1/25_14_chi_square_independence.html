@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.14 Chi-Square Independence - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_13_anova_two_way.html" class="nav-link">13. Anova Two Way</a>
+                        </li>
+                        <li class="nav-item"><a href="25_14_chi_square_independence.html" class="nav-link active">14.
+                                Chi Square Independence</a></li>
+                        <li class="nav-item"><a href="25_15_chi_square_goodness_fit.html" class="nav-link">15. Chi
+                                Square Goodness Fit</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Categorical</span>
+                </div>
+                <h1>Chi-Square (\(\chi^2\)) Test for Independence</h1>
+                <p class="lead-text">Testing if two categorical variables are related or if they occur independently of
+                    each other.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Count Test</h3>
+                    <p>
+                        Unlike T-tests which use "Means," Chi-square uses <strong>Counts</strong>.
+                        - <strong>Null Hypothesis (\(H_0\)):</strong> The two variables are independent.
+                        - <strong>Alternative (\(H_a\)):</strong> The two variables are associated.
+                    </p>
+                </div>
+
+                <h2>1. The Test Statistic</h2>
+                <div class="math-box">
+                    $$ \chi^2 = \sum \frac{(O - E)^2}{E} $$
+                    $$ df = (\text{rows} - 1)(\text{cols} - 1) $$
+                </div>
+                <ul>
+                    <li>\(O\): Observed Frequency (Actual counts in your table).</li>
+                    <li>\(E\): Expected Frequency (Counts expected if the variables were independent).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Expected Frequency Calculation</h2>
+                <div class="math-box">
+                    $$ E = \frac{(\text{Row Total}) \times (\text{Column Total})}{\text{Grand Total}} $$
+                </div>
+                <p>
+                    If the gap between Observed and Expected (\(O - E\)) is large, it means the categories aren't mixing
+                    randomly—they are influencing each other!
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Feature Selection (Categorical)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Data Science</span>
+                    <h3>Is this feature useful?</h3>
+                    <p>
+                        You are building a churn prediction model. You have a categorical feature: <strong>Device Type</strong> (iOS,
+                        Android, Web) and your target: <strong>Churned</strong> (Yes, No).
+                    </p>
+                    <p>
+                        <strong>The Chi-Square Test:</strong>
+                        1. Create a contingency table (3 rows for devices, 2 columns for churn).
+                        2. Calculate \(\chi^2\).
+                    </p>
+                    <p>
+                        If the P-value is 0.85, <strong>Device Type</strong> is independent of <strong>Churn</strong>. It carries no predictive
+                        signal! You should drop this feature from your Random Forest or XGBoost model to reduce
+                        complexity.
+                    </p>
+                    <p>
+                        Standard libraries like `sklearn.feature_selection.chi2` do exactly this to rank features.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

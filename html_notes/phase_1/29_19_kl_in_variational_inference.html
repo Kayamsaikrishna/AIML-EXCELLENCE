@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.19 KL in Variational Inference - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.3 Divergences</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_17_kl_divergence_definition.html" class="nav-link">17. KL
+                                Divergence Definition</a></li>
+                        <li class="nav-item"><a href="29_18_properties_of_kl_divergence.html" class="nav-link">18.
+                                Properties of KL Divergence</a></li>
+                        <li class="nav-item"><a href="29_19_kl_in_variational_inference.html"
+                                class="nav-link active">19. KL in Variational Inference</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Bayesian ML</span>
+                    <span class="badge secondary">Inference</span>
+                </div>
+                <h1>KL in Variational Inference</h1>
+                <p class="lead-text">Bridging the Gap. How we turn the impossible task of finding evidence into an
+                    optimization problem using the KL Divergence.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Bayesian Problem</h3>
+                    <p>
+                        In Bayesian ML, we want the posterior \(P(z|x)\) (what are the hidden factors \(z\) given data
+                        \(x\)). Calculating this exactly is often impossible. <strong>Variational Inference</strong> says: Let's pick
+                        a simple distribution \(Q(z)\) and force it to be as close to \(P(z|x)\) as possible using KL
+                        Divergence.
+                    </p>
+                </div>
+
+                <h2>1. Forward vs. Reverse KL</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Forward KL \(D_{KL}(P \| Q)\)</h4>
+                        <p><strong>Mean-Seeking:</strong> If \(P\) has two peaks, \(Q\) will stretch itself to cover
+                            both. This leads to high-entropy, "blurred" approximations.</p>
+                        <div class="math-box">$$ E_{z \sim P} [ \ln P(z) - \ln Q(z) ] $$</div>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Reverse KL \(D_{KL}(Q \| P)\)</h4>
+                        <p><strong>Mode-Seeking:</strong> \(Q\) will pick one peak of \(P\) and fit it very tightly.
+                            This is used in VI because we can calculate the gradient with respect to \(Q\).</p>
+                        <div class="math-box">$$ E_{z \sim Q} [ \ln Q(z) - \ln P(z) ] $$</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The ELBO (Evidence Lower Bound)</h2>
+                <p>
+                    Since we don't know the posterior \(P(z|x)\), we can't minimize \(D_{KL}(Q \| P)\) directly.
+                    However, we can minimize a different term that is mathematically equivalent:
+                </p>
+                <div class="math-box">
+                    $$ \ln P(x) = \text{ELBO}(Q) + D_{KL}(Q(z) \| P(z|x)) $$
+                </div>
+                <p>
+                    Because KL is always \(\ge 0\), the <strong>ELBO</strong> is a "Lower Bound" on the "Evidence" (\(\ln P(x)\)).
+                </p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Maximize ELBO</h4>
+                        <p>By pushing the ELBO as high as possible, we automatically push the KL Divergence to be as low
+                            as possible.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Intuition</h4>
+                        <p>We are "fitting a balloon inside a box." The box is the true distribution, and the balloon is
+                            our approximation. We expand the balloon until it matches the box shape as closely as
+                            possible.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">VAEs</span>
+                    <span class="ml-badge">Latent Space</span>
+                    <h3>The VAE Loss Function</h3>
+                    <p>
+                        In a Variational Autoencoder, the loss function has two competing terms:
+                    </p>
+                    <ol>
+                        <li><strong>Reconstruction Loss:</strong> Force the model to generate accurate data (Maximize Likelihood).
+                        </li>
+                        <li><strong>KL Divergence Loss:</strong> Force the latent codes \(z\) to follow a simple Prior (usually a
+                            Standard Gaussian).</li>
+                    </ol>
+                    <p>
+                        The KL term acts as a <strong>regularizer</strong>: it prevents the model from "cheating" by assigning a
+                        unique point in space to every data point, forcing the latent space to be continuous and
+                        structured.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Workflow of Variational Inference</h2>
+                <div class="mermaid">
+                    graph TD
+                    A["Complex Reality: P(z|x)"] -- "Intractable" --> B["Pick Simple Model: Q(z)"]
+                    B --> C["Define Loss: Reverse KL"]
+                    C --> D["Optimize Parameters of Q"]
+                    D -- "Maximizes" --> E["ELBO"]
+                    E -- "Approximates" --> F["Likelihood of Data"]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

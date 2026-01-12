@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,69 +9,79 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_24_higher_dimensions.html">24. Higher Dimensions</a></li>
-            <li><a href="02_25_vector_symmetry.html" class="active">25. Vector Symmetry</a></li>
-            <li class="nav-label">1.3 Matrices (Coming Soon)</li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Vectors</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_25_vector_symmetry.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Vector Symmetry
+            <a href="../index.html">Syllabus</a> &gt; 02_25_vector_symmetry.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 02_25</div>
             <h1>25. Vector Space Symmetry</h1>
-            <p class="subtitle">Rotations, Reflections, and Invariance.</p>
+            <p class="lead-text">Rotations, Reflections, and Invariance.</p>
         </header>
 
-        <section>
-            <h2>1. Transformations that Preserve Structure</h2>
-            <p>A transformation is a <strong>Symmetry</strong> if it preserves a certain property (like length or angle)
+        
+
+
+
+<section>
+<h2>1. Transformations that Preserve Structure</h2>
+<p>A transformation is a <strong>Symmetry</strong> if it preserves a certain property (like length or angle)
                 of the vectors in the space. The set of these transformations forms a <strong>Group</strong>.</p>
-
-            <div class="module-card">
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Rotations (SO(n)):</strong> Preserve both length and orientation.
+<div class="module-card">
+<ul class="topic-list">
+<li class="topic-item"><strong>Rotations (SO(n)):</strong> Preserve both length and orientation.
                     </li>
-                    <li class="topic-item"><strong>Reflections:</strong> Preserve length but flip orientation.</li>
-                    <li class="topic-item"><strong>Invariance:</strong> A property \( P \) is invariant if \(
+<li class="topic-item"><strong>Reflections:</strong> Preserve length but flip orientation.</li>
+<li class="topic-item"><strong>Invariance:</strong> A property \( P \) is invariant if \(
                         P(\mathbf{v}) = P(T \mathbf{v}) \).</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. Geometric Deep Learning</h2>
-            <div class="module-card">
-                <h3>Equivariance in CNNs</h3>
-                <p>A <strong>Convolutional Neural Network (CNN)</strong> is powerful because it is <strong>Translation
+</ul>
+</div>
+</section>
+<section>
+<h2>2. Geometric Deep Learning</h2>
+<div class="module-card">
+<h3>Equivariance in CNNs</h3>
+<p>A <strong>Convolutional Neural Network (CNN)</strong> is powerful because it is <strong>Translation
                         Invariant</strong>.
                     It doesn't matter if a cat is in the top-left or bottom-right; the features are the same.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Data Augmentation:</strong> We artificially create symmetry by
+<ul class="topic-list">
+<li class="topic-item"><strong>Data Augmentation:</strong> We artificially create symmetry by
                         rotating and flipping images, teaching the AI to be invariant to these transformations.</li>
-                    <li class="topic-item"><strong>Geometric AI:</strong> Modern models for molecule discovery (Graph
+<li class="topic-item"><strong>Geometric AI:</strong> Modern models for molecule discovery (Graph
                         Neural Networks) must be 3D-rotation invariant.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <h2>3. Python: Rotation Symmetry</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+</ul>
+</div>
+</section>
+<section>
+<h2>3. Python: Rotation Symmetry</h2>
+<div class="code-block">
+<pre><code class="language-python">import numpy as np
 
 def rotate_2d(v, theta_deg):
     theta = np.radians(theta_deg)
@@ -89,13 +98,14 @@ v_rot = rotate_2d(v, 90)
 # Symmetry: Magnitude is preserved
 print(f"Original Mag: {np.linalg.norm(v)}")
 print(f"Rotated Mag: {np.linalg.norm(v_rot)}") # Should be 1.0</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
-
 </html>

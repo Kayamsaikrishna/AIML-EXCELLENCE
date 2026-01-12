@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.06 Applied Optimization - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.3 Applications</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="10_01_extrema.html" class="nav-link">01. Critical Points</a></li>
+                        <li class="nav-item"><a href="10_02_first_deriv_test.html" class="nav-link">02. First Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_03_concavity.html" class="nav-link">03. Concavity</a></li>
+                        <li class="nav-item"><a href="10_04_second_deriv_test.html" class="nav-link">04. Second Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_05_curve_sketching.html" class="nav-link">05. Curve
+                                Sketching</a></li>
+                        <li class="nav-item"><a href="10_06_optimization.html" class="nav-link active">06.
+                                Optimization</a></li>
+                        <li class="nav-item"><a href="10_07_physics_apps.html" class="nav-link">07. Motion Physics</a>
+                        </li>
+                        <li class="nav-item"><a href="10_08_economics_ml.html" class="nav-link">08. Cost & Marginal</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">The Goal</span>
+                </div>
+                <h1>Applied Optimization</h1>
+                <p class="lead-text">Maximize gain, minimize cost. The universal algorithm of existence.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Constraint Satisfaction</h3>
+                    <p>
+                        In the real world, you never just "Maximize Profit". You "Maximize Profit *subject to* Budget,
+                        Time, and Physics".
+                    </p>
+                </div>
+
+                <h2>1. The Workflow</h2>
+                <div class="glass-card">
+                    <ol class="step-list">
+                        <li><strong>Objective Function ($J$):</strong> What do you want to optimize? (e.g., Area, Cost).
+                        </li>
+                        <li><strong>Constraints ($g$):</strong> What limits you? (e.g., Perimeter=100).</li>
+                        <li><strong>Reduction:</strong> Use Constraint to eliminate variables in Objective.</li>
+                        <li><strong>Differentiate:</strong> Find critical points of the new single-variable function.
+                        </li>
+                        <li><strong>Verify:</strong> Check endpoints and 2nd derivative.</li>
+                    </ol>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Start[Real Problem] --> math[Math Model]
+                        math --> Obj[Objective: Max f]
+                        math --> Con[Constraint: g=0]
+                        Obj -->|Substitute g| Reduced[Reduced f]
+                        Reduced -->|Derivative = 0| Solved[Optimal x]
+
+                        style Solved fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Constrained Optimization</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Regularization is a Constraint</h3>
+                    <p>
+                        Why do we add "L2 Regularization" (Weight Decay) to our loss function?
+                        \[ Loss = MSE + \lambda ||W||^2 \]
+                    </p>
+                    <p>
+                        This is actually a Lagrange Multiplier formulation of a constrained optimization problem:
+                        "Minimize Error <strong>subject to</strong> the Weights remaining small (within a sphere of
+                        radius \(C\))."
+                    </p>
+                    <p>
+                        By optimizing this combined function, we find a "sweet spot" model that fits the data well but
+                        isn't too complex (preventing overfitting).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Parameter Optimization</h2>
+                <div class="code-header">optimize_box.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+# Problem: Minimize Surface Area of an OPEN box with Volume = 500 cm^3
+# Dimensions: x (square base), h (height)
+# Volume V = x^2 * h = 500 -> h = 500/x^2
+# Surface Area S = x^2 (base) + 4xh (sides)
+
+x = sp.Symbol('x')
+S = x**2 + 4 * x * (500 / x**2)
+# Simplify: S = x^2 + 2000/x
+
+# 1. Differentiate
+dS = sp.diff(S, x)
+print(f"Objective Function S(x): {S}")
+print(f"Derivative dS/dx: {dS}")
+
+# 2. Solve dS/dx = 0
+crit_pt = sp.solve(dS, x)[0] # Taking the real solution
+# x^3 = 1000 -> x=10
+
+print(f"Optimal Base Width x: {crit_pt}")
+print(f"Optimal Height h: {500 / crit_pt**2}")
+print(f"Min Surface Area: {S.subs(x, crit_pt)}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="10_05_curve_sketching.html" class="footer-link">← Prev: Curve Sketching</a>
+                        <span class="separator">|</span>
+                        <a href="10_07_physics_apps.html" class="footer-link">Next: Physics/Motion →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

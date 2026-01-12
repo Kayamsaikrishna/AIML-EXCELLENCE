@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.05 Expectations of Multiple RVs - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_04_independence_rv.html" class="nav-link">04. Independence</a>
+                        </li>
+                        <li class="nav-item"><a href="21_05_exp_multiple_rvs.html" class="nav-link active">05. Exp
+                                Multiple RVs</a></li>
+                        <li class="nav-item"><a href="21_06_covariance.html" class="nav-link">06. Covariance</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Superpower</span>
+                </div>
+                <h1>Expectations of Multiple Random Variables</h1>
+                <p class="lead-text">Calculus of averages for high-dimensional data.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Mathematical Magic of Addition</h3>
+                    <p>
+                        The most important theorem in all of probability is <strong>Linearity of Expectation</strong>.
+                        <br><br>
+                        It states that the expected value of a sum is the sum of the expected values, <strong>REGARDLESS
+                            of whether the variables are independent or not</strong>.
+                    </p>
+                </div>
+
+                <h2>1. Linearity of Expectation</h2>
+                <div class="math-box">
+                    For any random variables \(X_1, X_2, \dots, X_n\) and constants \(a_i\):
+                    $$ E[a_1 X_1 + a_2 X_2 + \dots + a_n X_n] = a_1 E[X_1] + a_2 E[X_2] + \dots + a_n E[X_n] $$
+                </div>
+                <p>
+                    <strong>Why is this a big deal?</strong> Summing variables is easy, but calculating their joint
+                    distribution is hard. Because expectation is linear, we can ignore the complex dependencies
+                    (correlations) between variables if we only care about their sum's average.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Expectation of a Product</h2>
+                <div class="math-box">
+                    If \(X\) and \(Y\) are <strong>Independent</strong>, then:
+                    $$ E[XY] = E[X] E[Y] $$
+                </div>
+                <p>
+                    <strong>Warning:</strong> This is generally <strong>NOT true</strong> if they are dependent. The
+                    difference \(E[XY] - E[X]E[Y]\) is actually how we define <strong>Covariance</strong> (coming in the
+                    next module!).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Expected Loss</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Optimization</span>
+                    <h3>Stochastic Gradient Descent (SGD)</h3>
+                    <p>
+                        In deep learning, we want to minimize the <strong>Global Loss</strong>:
+                        $$ L(\theta) = E_{x,y \sim \mathcal{D}} [ \ell(f(x; \theta), y) ] $$
+                        Calculating this across millions of data points is impossible.
+                    </p>
+                    <p>
+                        Linearity of expectation allows us to use <strong>Mini-batches</strong>. The expectation of the
+                        gradient calculated on a small batch is an <strong>unbiased estimator</strong> of the true
+                        global gradient.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Variance of a Sum</h2>
+                <p>
+                    Unlike Expectation, <strong>Variance is NOT linear</strong> (unless variables are independent).
+                </p>
+                <div class="math-box">
+                    $$ \text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X, Y) $$
+                </div>
+                <p>
+                    <strong>The Diversification Principle:</strong> In finance, you want to invest in assets with
+                    <em>negative</em> covariance. If Asset A goes down while Asset B goes up, the sum of their returns
+                    stays stable, reducing total variance (risk).
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.03 Statistics & Estimators - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_02_parameter_space.html" class="nav-link">02. Parameter
+                                Space</a></li>
+                        <li class="nav-item"><a href="23_03_statistics_estimators.html" class="nav-link active">03.
+                                Statistics Estimators</a></li>
+                        <li class="nav-item"><a href="23_04_sampling_dist.html" class="nav-link">04. Sampling Dist</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Measuring the Data</span>
+                </div>
+                <h1>Statistics & Estimators</h1>
+                <p class="lead-text">Converting a pile of data into a single, meaningful number.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>What is a Statistic?</h3>
+                    <p>
+                        A <strong>Statistic</strong> is any function of the sample data. Crucially, a statistic cannot
+                        depend on unknown parameters. It must be something you can calculate purely from the numbers in
+                        your hand.
+                    </p>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Statistic</h4>
+                        <p>Any summary of data.</p>
+                        <ul>
+                            <li>The sum of all values.</li>
+                            <li>The maximum value.</li>
+                            <li>The average.</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Estimator (\(\hat{\theta}\))</h4>
+                        <p>A statistic used specifically to guess a population parameter.</p>
+                        <ul>
+                            <li>\(\bar{x}\) (Estimates \(\mu\)).</li>
+                            <li>\(s^2\) (Estimates \(\sigma^2\)).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>1. Estimator vs. Estimate</h2>
+                <ul>
+                    <li><strong>Estimator:</strong> The mathematical rule (the "code" or function). It is a
+                        <strong>Random Variable</strong>.</li>
+                    <li><strong>Estimate:</strong> The specific numerical value obtained from a specific dataset. It is
+                        a <strong>Number</strong>.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Learning is Estimation</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Supervised</span>
+                    <span class="ml-badge">Loss Functions</span>
+                    <h3>Model Training as Iterative Estimation</h3>
+                    <p>
+                        A Neural Network is a massive <strong>Estimator</strong>. When you run `model.fit(X, y)`, you
+                        are calculating a specific <strong>Estimate</strong> (the final weights) that hopefully reflects the true
+                        relationship in the data.
+                    </p>
+                </div>
+
+                <h3>Evaluation Metrics</h3>
+                <p>
+                    Accuracy, Precision, Recall, and F1-score are all <strong>Statistics</strong>. They are summaries of
+                    the model's performance on the sample. We use them to infer the model's "True Accuracy" on the
+                    population of all possible future inputs.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Desirable Qualities</h2>
+                <p>We don't just want <em>any</em> estimator; we want ones that are:</p>
+                <ul>
+                    <li><strong>Unbiased:</strong> On average, they hit the mark.</li>
+                    <li><strong>Consistent:</strong> They get more accurate with more data.</li>
+                    <li><strong>Efficient:</strong> They require the least amount of data to hit a target precision.</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

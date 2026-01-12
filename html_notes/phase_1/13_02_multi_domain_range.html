@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Several Variables - Phase 1.3.5.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_02_multi_domain_range.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_02_multi_domain_range.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_02</div>
+            <h1>02. Functions of Several Variables</h1>
+            <p class="lead-text">Mappings from vector space to scalar space.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. What is a Multivariable Function?</h2>
+<p>Instead of a function \(y = f(x)\) taking one input, a multivariable function \(z = f(x, y)\) takes two
+                (or more) independent inputs to produce one output.</p>
+<ul class="topic-list">
+<li><strong>Domain:</strong> A region in the \(xy\)-plane.</li>
+<li><strong>Range:</strong> A set of values on the \(z\)-axis.</li>
+<li><strong>Level Curves:</strong> Slices of the surface at a constant height (\(f(x, y) = k\)).</li>
+</ul>
+</section>
+<section class="module-card">
+<h2>2. Visualizing with Level Curves</h2>
+<p>Level curves are like <strong>Topographic Maps</strong> of a mountain. If the curves are close together,
+                the mountain is steep. In AI, these are called <strong>Contour Plots</strong>.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Loss Isocontours</h2>
+<div class="module-card">
+<h3>Visualizing Gradient Descent</h3>
+<p>When training a model with two weights (\(w_1, w_2\)), we visualize the error as a contour plot.
+                    <strong>Gradient Descent</strong> always moves <strong>perpendicular</strong> to these level curves.
+                </p>
+<p>If the level curves are "elongated" (elliptical), it means the model is much more sensitive to one
+                    weight than the other—leading to zig-zagging training paths. Understanding the shape of these level
+                    curves allows researchers to design better <strong>Normalization</strong> techniques (like Batch
+                    Norm) that "circle out" the contours, making optimization smoother and faster.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Contour Plotting</h2>
+<div class="code-block">
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-2, 2, 100)
+y = np.linspace(-2, 2, 100)
+X, Y = np.meshgrid(x, y)
+Z = X**2 + Y**2 # Sphere/Paraboloid contours
+
+plt.contour(X, Y, Z, levels=20)
+plt.title("Level Curves of z = x^2 + y^2")
+plt.xlabel("w1")
+plt.ylabel("w2")
+plt.show()</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07.04 Regression Math - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.6 AI Applications</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="07_03_whitening.html" class="nav-link">03. Data Whitening</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">04. Regression Math</a></li>
+                    <li class="nav-item"><a href="07_05_nn_weights.html" class="nav-link">05. NN Weights</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 04. Optimization
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 04</div>
+            <h1>Mathematics of Regression</h1>
+            <p class="lead-text"> Minimizing \( ||y - Xw||^2 \). Calculus meets Algebra.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: OPTIMIZATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Finding the Bottom</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    Loss["Loss Function J(w)"]
+    
+    subgraph Methods
+        Analytical["Normal Equation (Set Gradient = 0)"]
+        Iterative["Gradient Descent (Steps along Gradient)"]
+    end
+    
+    Loss --> Analytical
+    Loss --> Iterative
+    
+    Analytical -- "w = (X^T X)^-1 X^T y" --> Solution["Optimal w*"]
+    Iterative -- "w = w - lr * grad" --> Solution
+
+    style Solution fill:#dcfce7,stroke:#16a34a
+    style Analytical fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: THE GRADIENT -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Derivatives with Matrices</h2>
+                <p>To minimize \( J(w) = ||y - Xw||^2 \), we take the derivative with respect to vector \( w \):</p>
+                <div class="math-block">
+                    $$ \nabla_w J = -2 X^T (y - Xw) $$
+                </div>
+                <p>Setting this to zero gives the Normal Equation \( X^T X w = X^T y \). Learning to differentiate
+                    matrix expressions is crucial for deriving backpropagation.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: SGD -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Stochastic Gradient Descent (SGD)</h2>
+                <p>Inverting matrices is \( O(n^3) \). When \( n \) is large (Big Data), the analytical solution is too
+                    slow.</p>
+                <p>Instead, we use iterative methods: update \( w \) using the gradient computed on a <strong>small
+                        batch</strong> of data. This avoids big matrix inversions and allows us to train on datasets
+                    larger than RAM.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Gradient Descent from Scratch</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Synthetic Data
+X = 2 * np.random.rand(100, 1)
+y = 4 + 3 * X + np.random.randn(100, 1)
+
+# Add bias term (column of 1s)
+X_b = np.c_[np.ones((100, 1)), X]
+
+# Init weights
+w = np.random.randn(2, 1)
+learning_rate = 0.1
+n_iterations = 50
+
+# Gradient Descent Loop
+for iteration in range(n_iterations):
+    # Compute Gradient
+    gradients = 2/100 * X_b.T @ (X_b @ w - y)
+    
+    # Update
+    w = w - learning_rate * gradients
+
+print("Learned Intercept & Slope:", w.flatten())
+print("Expected approx: [4.0, 3.0]")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

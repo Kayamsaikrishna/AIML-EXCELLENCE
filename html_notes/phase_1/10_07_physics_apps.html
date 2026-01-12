@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.07 Motion Physics - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.3 Applications</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="10_01_extrema.html" class="nav-link">01. Critical Points</a></li>
+                        <li class="nav-item"><a href="10_02_first_deriv_test.html" class="nav-link">02. First Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_03_concavity.html" class="nav-link">03. Concavity</a></li>
+                        <li class="nav-item"><a href="10_04_second_deriv_test.html" class="nav-link">04. Second Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_05_curve_sketching.html" class="nav-link">05. Curve
+                                Sketching</a></li>
+                        <li class="nav-item"><a href="10_06_optimization.html" class="nav-link">06. Optimization</a>
+                        </li>
+                        <li class="nav-item"><a href="10_07_physics_apps.html" class="nav-link active">07. Motion
+                                Physics</a></li>
+                        <li class="nav-item"><a href="10_08_economics_ml.html" class="nav-link">08. Cost & Marginal</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Dynamics</span>
+                </div>
+                <h1>Velocity, Acceleration & Jerk</h1>
+                <p class="lead-text">Position is a state. Motion is a derivative.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Hierarchy of Change</h3>
+                    <p>
+                        Calculus was invented largely to understand planetary motion. The relationship between where you
+                        are, how fast you're going, and what force is pushing you is purely differential.
+                    </p>
+                </div>
+
+                <h2>1. The Ladder of Derivatives</h2>
+                <div class="glass-card">
+                    <ul class="topic-list">
+                        <li><strong>\(s(t)\) Position:</strong> Location at time \(t\).</li>
+                        <li><strong>\(v(t) = s'(t)\) Velocity:</strong> Rate of change of position.</li>
+                        <li><strong>\(a(t) = v'(t) = s''(t)\) Acceleration:</strong> Rate of change of velocity. (F=ma).
+                        </li>
+                        <li><strong>\(j(t) = a'(t) = s'''(t)\) Jerk:</strong> Rate of change of acceleration.
+                            (Whiplash).</li>
+                    </ul>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Pos[s: Position] -->|d/dt| Vel[v: Velocity]
+                        Vel -->|d/dt| Acc[a: Acceleration]
+                        Acc -->|d/dt| Jerk[j: Jerk]
+
+                        style Pos fill:#2b6cb0
+                        style Vel fill:#4299e1
+                        style Acc fill:#63b3ed
+                        style Jerk fill:#90cdf4
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Trajectory Planning</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Minimizing Jerk</h3>
+                    <p>
+                        In <strong>Robotics</strong> and <strong>Autonomous Driving</strong>, we plan paths from A to B.
+                    </p>
+                    <p>
+                        If we just minimize time, the robot might accelerate instantly (Infinite Force -> Impossible).
+                        If we just minimize acceleration, the motion is smooth but spiky.
+                    </p>
+                    <p>
+                        We actually minimize <strong>Jerk</strong> (the 3rd derivative). High jerk causes wear and tear
+                        on motors and makes passengers sick.
+                        The cost function often looks like: \( J = \int (s'''(t))^2 dt \).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Kalman Filter Logic</h2>
+                <div class="code-header">motion_simulation.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+import numpy as np
+
+t = sp.Symbol('t')
+# A particle moves according to a cubic function (smooth jerk)
+# s(t) = t^3 - 6t^2 + 9t
+position = t**3 - 6*t**2 + 9*t
+
+velocity = sp.diff(position, t)
+acceleration = sp.diff(velocity, t)
+jerk = sp.diff(acceleration, t)
+
+print(f"Pos: {position}")
+print(f"Vel: {velocity}") # 3t^2 - 12t + 9
+print(f"Acc: {acceleration}") # 6t - 12
+print(f"Jrk: {jerk}") # 6 (Constant Jerk)
+
+# Find when particle stops (v=0)
+stops = sp.solve(velocity, t)
+print(f"Particle stops at t={stops}")
+
+# Calculate total distance in first 5 seconds
+# We must integrate speed |v(t)| or sum absolute displacements
+times = [0] + sorted([float(x) for x in stops if 0 < x < 5]) + [5]
+total_dist = 0
+for i in range(len(times)-1):
+    t1, t2 = times[i], times[i+1]
+    p1 = position.subs(t, t1)
+    p2 = position.subs(t, t2)
+    total_dist += abs(float(p2 - p1))
+
+print(f"Total Distance Traveled (0 to 5s): {total_dist}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="10_06_optimization.html" class="footer-link">← Prev: Optimization</a>
+                        <span class="separator">|</span>
+                        <a href="10_08_economics_ml.html" class="footer-link">Next: Cost & Marginal →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

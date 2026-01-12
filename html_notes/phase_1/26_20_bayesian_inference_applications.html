@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.20 Bayesian Inference Applications - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_19_conditional_independence_bn.html" class="nav-link">19.
+                                Conditional Independence Bn</a></li>
+                        <li class="nav-item"><a href="26_20_bayesian_inference_applications.html"
+                                class="nav-link active">20. Bayesian Inference Applications</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Real World AI</span>
+                </div>
+                <h1>Bayesian Inference Applications</h1>
+                <p class="lead-text">Where the math meets the metal. How modern AI uses Bayesian logic to build safer,
+                    smarter systems.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Predictive Posterior</h3>
+                    <p>
+                        The ultimate application of Bayes isn't finding parameters \(\theta\); it's predicting **New
+                        Data** (\(X_{new}\)).
+                    </p>
+                    <div class="math-box">
+                        $$ P(x_{new} | D) = \int P(x_{new} | \theta) P(\theta | D) d\theta $$
+                    </div>
+                    <p>
+                        Instead of using one "best" model, we make a prediction that is an <strong>Average</strong> of every possible
+                        model, weighted by how much we trust them. This is the <strong>Gold Standard</strong> for forecasting.
+                    </p>
+                </div>
+
+                <h2>1. Key Application Areas</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Medical Diagnosis</h4>
+                        <p>Combining test results with prior disease prevalence. "The test is 99% accurate, but the
+                            disease only affects 1 in 10,000 people. Probability you actually have it? Still very low."
+                        </p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Robotics & SLAM</h4>
+                        <p>Simultaneous Localization and Mapping. Updating the car's belief about where it is in 3D
+                            space as it sees new landmarks.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Quantitative Finance</h4>
+                        <p>Estimating the volatility of assets while incorporating "priors" about market crashes (Black
+                            Swan events).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Active Learning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Active Learning</span>
+                    <span class="ml-badge">Cost Optimization</span>
+                    <h3>Sampling by "Surprise"</h3>
+                    <p>
+                        In many ML tasks, labeling data is expensive (e.g., asking a doctor to label X-rays).
+                    </p>
+                    <p>
+                        A Bayesian model doesn't ask for labels at random. It calculates the <strong>Posterior Variance</strong> for
+                        every unlabeled image.
+                        - If the variance is <strong>Low</strong>, the model is confident. Don't waste money labeling it.
+                        - If the variance is <strong>High</strong>, the model is confused. **This is the image we ask the human to
+                        label.**
+                    </p>
+                    <p>
+                        By using Bayesian Uncertainty to drive the labeling process, companies can train models that are
+                        90% accurate using only 10% of the usual data labeling budget.
+                    </p>
+                </div>
+
+                <h2>Module 26 Recap Diagram</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Bayesian Statistics] --> B[Foundations]
+                        A --> C[Computational Inference]
+                        A --> D[Graphical Models]
+                        B --> B1[Priors/Likelihood]
+                        B --> B2[Conjugate Pairs]
+                        B --> B3[MAP vs Mean]
+                        C --> C1[MCMC]
+                        C --> C2[Metropolis/Gibbs]
+                        C --> C3[HMC/NUTS]
+                        D --> D1[Bayesian Networks]
+                        D --> D2[D-Separation]
+                        D --> D3[Causal Inference]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

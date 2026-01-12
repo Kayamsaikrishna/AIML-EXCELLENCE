@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,98 +9,102 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_01_vector_basics.html" class="active">01. Vector Basics</a></li>
-            <li><a href="02_02_vector_geometry.html">02. Geometry</a></li>
-            <li><a href="02_03_vector_ops.html">03. Operations</a></li>
-            <li><a href="02_04_scalar_mult.html">04. Scalar Mult</a></li>
-            <li><a href="02_05_dot_product.html">05. Dot Product</a></li>
-            <li><a href="02_06_dot_product_geom.html">06. Dot Product Geom</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-            <li><a href="01_01_number_systems.html">01. Number Systems</a></li>
-            <li><a href="01_28_angle_measurement.html">28. Angle Measurement</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Vectors</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_01_vector_basics.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Vector Basics
+            <a href="../index.html">Syllabus</a> &gt; 02_01_vector_basics.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 02_01</div>
             <h1>01. Vector Definition & Notation</h1>
-            <p class="subtitle">The fundamental unit of data in modern AI.</p>
+            <p class="lead-text">The fundamental unit of data in modern AI.</p>
         </header>
 
-        <section>
-            <h2>1. What is a Vector?</h2>
-            <p>From a <strong>Computer Science</strong> perspective, a vector is simply an ordered list of numbers.
+        
+
+
+
+<section>
+<h2>1. What is a Vector?</h2>
+<p>From a <strong>Computer Science</strong> perspective, a vector is simply an ordered list of numbers.
                 From a <strong>Mathematical</strong> perspective, it is an element of a Vector Space.
                 From an <strong>AI</strong> perspective, it represents a single data point or a "Feature" in
                 multi-dimensional space.</p>
-
-            <div class="math-block">
+<div class="math-block">
                 $$ \mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{bmatrix}, \quad \mathbf{v} \in
                 \mathbb{R}^n $$
             </div>
-
-            <div class="module-card">
-                <h3>Notation Standards</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Column Vectors:</strong> Standard in Linear Algebra (\( n \times 1
+<div class="module-card">
+<h3>Notation Standards</h3>
+<ul class="topic-list">
+<li class="topic-item"><strong>Column Vectors:</strong> Standard in Linear Algebra (\( n \times 1
                         \)).</li>
-                    <li class="topic-item"><strong>Row Vectors:</strong> Common in Batch Processing (\( 1 \times n \)).
+<li class="topic-item"><strong>Row Vectors:</strong> Common in Batch Processing (\( 1 \times n \)).
                     </li>
-                    <li class="topic-item"><strong>Components:</strong> \( v_i \) denotes the \( i \)-th element or
+<li class="topic-item"><strong>Components:</strong> \( v_i \) denotes the \( i \)-th element or
                         feature.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. Vectors as Tensors</h2>
-            <div class="module-card">
-                <h3>Rank & Dimensionality</h3>
-                <p>In libraries like <strong>PyTorch</strong> or <strong>TensorFlow</strong>, we call everything a
+</ul>
+</div>
+</section>
+<section>
+<h2>2. Vectors as Tensors</h2>
+<div class="module-card">
+<h3>Rank &amp; Dimensionality</h3>
+<p>In libraries like <strong>PyTorch</strong> or <strong>TensorFlow</strong>, we call everything a
                     "Tensor".
                     A Vector is specifically a <strong>Rank-1 Tensor</strong>.</p>
-                <div class="visual-diagram">
-                    <svg width="500" height="150" viewBox="0 0 500 150">
-                        <!-- Scalar -->
-                        <rect x="50" y="50" width="40" height="40" fill="#fef08a" stroke="#ca8a04" />
-                        <text x="70" y="110" text-anchor="middle">Scalar (Rank 0)</text>
-                        <!-- Vector -->
-                        <rect x="180" y="50" width="120" height="40" fill="#bfdbfe" stroke="#2563eb" />
-                        <line x1="210" y1="50" x2="210" y2="90" stroke="#2563eb" />
-                        <line x1="240" y1="50" x2="240" y2="90" stroke="#2563eb" />
-                        <line x1="270" y1="50" x2="270" y2="90" stroke="#2563eb" />
-                        <text x="240" y="110" text-anchor="middle">Vector (Rank 1)</text>
-                        <!-- Matrix -->
-                        <rect x="360" y="30" width="100" height="80" fill="#bbf7d0" stroke="#16a34a" />
-                        <text x="410" y="130" text-anchor="middle">Matrix (Rank 2)</text>
-                    </svg>
-                </div>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Word Embeddings:</strong> A vector representing a word (e.g., 512
+<div class="visual-diagram">
+<svg height="150" viewbox="0 0 500 150" width="500">
+<!-- Scalar -->
+<rect fill="#fef08a" height="40" stroke="#ca8a04" width="40" x="50" y="50"></rect>
+<text text-anchor="middle" x="70" y="110">Scalar (Rank 0)</text>
+<!-- Vector -->
+<rect fill="#bfdbfe" height="40" stroke="#2563eb" width="120" x="180" y="50"></rect>
+<line stroke="#2563eb" x1="210" x2="210" y1="50" y2="90"></line>
+<line stroke="#2563eb" x1="240" x2="240" y1="50" y2="90"></line>
+<line stroke="#2563eb" x1="270" x2="270" y1="50" y2="90"></line>
+<text text-anchor="middle" x="240" y="110">Vector (Rank 1)</text>
+<!-- Matrix -->
+<rect fill="#bbf7d0" height="80" stroke="#16a34a" width="100" x="360" y="30"></rect>
+<text text-anchor="middle" x="410" y="130">Matrix (Rank 2)</text>
+</svg>
+</div>
+<ul class="topic-list">
+<li class="topic-item"><strong>Word Embeddings:</strong> A vector representing a word (e.g., 512
                         dimensions).</li>
-                    <li class="topic-item"><strong>Weights:</strong> A vector of parameters in a single neuron.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <h2>3. Python: Vector Notation in Numpy</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+<li class="topic-item"><strong>Weights:</strong> A vector of parameters in a single neuron.</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>3. Python: Vector Notation in Numpy</h2>
+<div class="code-block">
+<pre><code class="language-python">import numpy as np
 
 # Creating a Column Vector
 v_col = np.array([[1], [2], [3]])
@@ -113,13 +116,172 @@ print(f"Row Vector Shape: {v_row.shape}")    # (3,)
 
 # Accessing components
 print(f"Second component: {v_row[1]}")      # Output: 2</code></pre>
+</div>
+</section>
+
+
+
+        <!-- COMPREHENSIVE APPLICATIONS SECTION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>4. Applications in AI/ML Systems</h2>
+                <div class="application-grid">
+                    <div class="application-card">
+                        <h3>Word Embeddings</h3>
+                        <p>Vectors representing semantic meaning of words in high-dimensional space. Words with similar meanings are located close to each other.</p>
+                        <div class="math-block">
+                            $$ \text{similarity}(\vec{w}_{king}, \vec{w}_{queen}) = \cos(\theta) = \frac{\vec{w}_{king} \cdot \vec{w}_{queen}}{||\vec{w}_{king}|| ||\vec{w}_{queen}||} $$
+                        </div>
+                    </div>
+                    <div class="application-card">
+                        <h3>Feature Vectors</h3>
+                        <p>Representing data points as vectors in machine learning. Each dimension corresponds to a feature of the data.</p>
+                        <div class="math-block">
+                            $$ \vec{x} = [x_1, x_2, ..., x_n] \text{ where } x_i \text{ represents the } i^{th} \text{ feature} $$
+                        </div>
+                    </div>
+                    <div class="application-card">
+                        <h3>Neural Network Representations</h3>
+                        <p>Activations in neural networks are represented as vectors at each layer, transforming input data through learned transformations.</p>
+                        <div class="math-block">
+                            $$ \vec{a}^{(l+1)} = \sigma(W^{(l)}\vec{a}^{(l)} + \vec{b}^{(l)}) $$
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <!-- PROBLEM-SOLVING METHODOLOGIES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>5. Problem-Solving Methodologies</h2>
+                <div class="methodology-grid">
+                    <div class="methodology-card">
+                        <h3>Vector Normalization</h3>
+                        <p>Techniques to scale vectors to a consistent magnitude while preserving direction.</p>
+                        <div class="math-block">
+                            $$ \hat{v} = \frac{\vec{v}}{||\vec{v}||_2} = \frac{\vec{v}}{\sqrt{\sum_{i=1}^n v_i^2}} $$
+                        </div>
+                        <div class="code-example">
+                            <pre><code class="language-python">
+import numpy as np
+
+def normalize_vector(v):
+    norm = np.linalg.norm(v)
+    if norm == 0:
+        return v
+    return v / norm
+
+# Example usage
+v = np.array([3, 4])
+normalized_v = normalize_vector(v)
+print(f'Original: {v}, Normalized: {normalized_v}')
+# Output: Original: [3 4], Normalized: [0.6 0.8]
+                            </code></pre>
+                        </div>
+                    </div>
+                    <div class="methodology-card">
+                        <h3>Vector Operations</h3>
+                        <p>Fundamental operations for manipulating vector data in machine learning.</p>
+                        <div class="math-block">
+                            \text{Addition: } \vec{a} + \vec{b} = [a_1+b_1, a_2+b_2, ..., a_n+b_n] \\\n                            \text{Dot Product: } \vec{a} \cdot \vec{b} = \sum_{i=1}^n a_i b_i
+                        </div>
+                    </div>
+                    <div class="methodology-card">
+                        <h3>Distance Metrics</h3>
+                        <p>Different ways to measure similarity or distance between vectors.</p>
+                        <div class="math-block">
+                            \text{Euclidean Distance: } d(\vec{a}, \vec{b}) = ||\vec{a} - \vec{b}||_2 \\\n                            \text{Cosine Similarity: } \cos(\theta) = \frac{\vec{a} \cdot \vec{b}}{||\vec{a}|| ||\vec{b}||}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INDUSTRY USE CASES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>6. Industry Use Cases</h2>
+                <div class="use-case-grid">
+                    <div class="use-case-card">
+                        <h3>Recommendation Systems</h3>
+                        <p>Representing users and items as vectors in embedding space to find similarities and make recommendations.</p>
+                        <ul>
+                            <li>User vectors based on preferences and behavior</li>
+                            <li>Item vectors based on content and user interactions</li>
+                            <li>Similarity calculations for personalized recommendations</li>
+                        </ul>
+                    </div>
+                    <div class="use-case-card">
+                        <h3>Computer Vision</h3>
+                        <p>Image features extracted as vectors for classification, detection, and similarity matching.</p>
+                        <ul>
+                            <li>Feature extraction using CNNs</li>
+                            <li>Face recognition embeddings</li>
+                            <li>Image similarity and clustering</li>
+                        </ul>
+                    </div>
+                    <div class="use-case-card">
+                        <h3>Search Engines</h3>
+                        <p>Document and query vectors for semantic search and information retrieval.</p>
+                        <ul>
+                            <li>Semantic search using vector similarity</li>
+                            <li>Document ranking based on vector distances</li>
+                            <li>Question answering systems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP-BY-STEP PROBLEM SOLVING -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>7. Step-by-Step Problem Solving</h2>
+                <div class="problem-solving-steps">
+                    <div class="step">
+                        <h3>Step 1: Define the Vector Space</h3>
+                        <p>Identify the dimensionality and nature of your vector space:</p>
+                        <ul>
+                            <li>Determine the number of features/dimensions</li>
+                            <li>Define the data type (real numbers, binary, categorical)</li>
+                            <li>Consider normalization requirements</li>
+                        </ul>
+                    </div>
+                    <div class="step">
+                        <h3>Step 2: Choose Appropriate Operations</h3>
+                        <p>Select vector operations based on your problem requirements:</p>
+                        <ul>
+                            <li>Dot product for similarity measures</li>
+                            <li>Cross product for perpendicular vectors (3D only)</li>
+                            <li>Norms for measuring vector magnitudes</li>
+                        </ul>
+                    </div>
+                    <div class="step">
+                        <h3>Step 3: Implement Numerical Stability</h3>
+                        <p>Apply appropriate techniques to ensure reliable computation:</p>
+                        <ul>
+                            <li>Normalize vectors to prevent magnitude issues</li>
+                            <li>Handle zero vectors appropriately</li>
+                            <li>Use stable algorithms for distance calculations</li>
+                        </ul>
+                    </div>
+                    <div class="step">
+                        <h3>Step 4: Optimize for Performance</h3>
+                        <p>Implement efficient vector operations for your use case:</p>
+                        <ul>
+                            <li>Use vectorized operations in NumPy/PyTorch</li>
+                            <li>Consider approximate nearest neighbor algorithms</li>
+                            <li>Apply dimensionality reduction if needed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
-
 </html>

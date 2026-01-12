@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.12 ACF/PACF & Autocorrelation - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.13 Time Series Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_11_moving_averages_smoothing.html" class="nav-link">11. Moving
+                                Averages Smoothing</a></li>
+                        <li class="nav-item"><a href="28_12_acf_pacf_autocorrelation.html" class="nav-link active">12.
+                                ACF/PACF & Autocorrelation</a></li>
+                        <li class="nav-item"><a href="28_13_arima_models.html" class="nav-link">13. ARIMA Models</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Correlation</span>
+                </div>
+                <h1>ACF, PACF & Autocorrelation</h1>
+                <p class="lead-text">Measuring the memory of data. How past events echo into the present.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Echo Effect</h3>
+                    <p>
+                        In a Time Series, data points are almost never independent. Today's temperature is strongly
+                        correlated with yesterday's.
+                        <br><br>
+                        <strong>Autocorrelation</strong> measures the strength of this "Echo" at different time lags.
+                    </p>
+                </div>
+
+                <h2>1. ACF vs. PACF</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Autocorrelation Function (ACF)</h4>
+                        <p>The total correlation between \(Y_t\) and \(Y_{t-k}\). <br> <strong>Note:</strong> This includes both the
+                            *direct* relationship and the *indirect* relationship (e.g., \(t\) correlates with \(t-2\)
+                            because they both correlate with \(t-1\)).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Partial Autocorrelation (PACF)</h4>
+                        <p>The "Pure" correlation between \(Y_t\) and \(Y_{t-k}\) after we remove the effect of all
+                            intermediate lags. <br> <strong>Analogy:</strong> It's like a Multiple Regression where we control for
+                            the values in between.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Identifying the Model</h2>
+                <p>
+                    These plots are the specific "fingerprints" used to build <strong>ARIMA</strong> models:
+                </p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>AR(p) Process</h4>
+                        <p><strong>PACF:</strong> Spikes at first \(p\) lags, then shuts off. <br> <strong>ACF:</strong> Dies out slowly
+                            (Exponentially).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>MA(q) Process</h4>
+                        <p><strong>ACF:</strong> Spikes at first \(q\) lags, then shuts off. <br> <strong>PACF:</strong> Dies out slowly.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Lag Feature Engineering</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Feature Eng</span>
+                    <h3>Why "Lags" are your best features</h3>
+                    <p>
+                        If you are building a Supervised ML model (like XGBoost) to predict time series, ACF/PACF plots
+                        tell you exactly which features to build.
+                    </p>
+                    <ul>
+                        <li><strong>Lag Selection:</strong> If the PACF spike at Lag 7 is significant, it means there is a "Weekly
+                            Pattern". You should create a feature `target_lag_7`.</li>
+                        <li><strong>Window Statistics:</strong> If the ACF dies out very slowly over 30 days, a simple lag won't
+                            work. You should create a <strong>Rolling Mean</strong> or <strong>Rolling Std</strong> feature representing the
+                            "Month's momentum".</li>
+                        <li><strong>Attention Mechanisms:</strong> In Transformers (like the Informer or Temporal Fusion
+                            Transformer), the "Self-Attention" weights effectively learn a dynamic version of the
+                            ACF/PACF, deciding which past historical points are most relevant to the current prediction.
+                        </li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Pro-Tip:</strong> If all your ACF/PACF values are within the "Blue Confidence Band," your
+                        data is <strong>White Noise</strong>. There is zero predictability in the patterns, and no model (not even a
+                        Transformer) can find a signal.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

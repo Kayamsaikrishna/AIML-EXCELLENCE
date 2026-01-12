@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.09 Bayesian Workflow - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_08_conjugate_priors_gamma.html" class="nav-link">08. Conjugate
+                                Priors Gamma</a></li>
+                        <li class="nav-item"><a href="26_09_bayesian_workflow.html" class="nav-link active">09. Bayesian
+                                Workflow</a></li>
+                        <li class="nav-item"><a href="26_10_credible_vs_confidence.html" class="nav-link">10. Credible
+                                Vs Confidence</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Best Practices</span>
+                </div>
+                <h1>The Bayesian Workflow</h1>
+                <p class="lead-text">A rigorous cycle of building, checking, and improving models using probability as
+                    the compass.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Beyond just "Running Bayes"</h3>
+                    <p>
+                        A professional Bayesian doesn't just calculate a posterior and quit. They constantly ask: "Does
+                        my model still make sense in the real world?"
+                    </p>
+                </div>
+
+                <h2>1. The Four Steps</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Mathematical Setup</h4>
+                        <p>Choosing your <strong>Prior</strong> and <strong>Likelihood</strong>. What is the generator
+                            of this data?</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Prior Predictive Check</h4>
+                        <p>Simulate data from your prior. If your "prior" predicts that human heights can be -5 feet,
+                            your prior is broken! Fix it before looking at real data.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Inference</h4>
+                        <p>Merge data and prior to get the <strong>Posterior</strong>. (Usually using software like
+                            Stan, PyMC, or Edward).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>4. Posterior Predictive Check (PPC)</h4>
+                        <p>Does the model's posterior "look" like the real data? If the real data has outliers and your
+                            model doesn't, the model is lying to you.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The PPP Lifecycle</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Prior Check] --> B[Inference]
+                        B --> C[Posterior Check]
+                        C -->|Fail| A
+                        C -->|Pass| D[Final Decision]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Probabilistic Programming</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Software</span>
+                    <span class="ml-badge">Automation</span>
+                    <h3>Stan and PyMC</h3>
+                    <p>
+                        You don't usually write Bayesian integrals by hand. You use **Probabilistic Programming
+                        Languages (PPLs)**.
+                    </p>
+                    <p>
+                        In <strong>PyMC</strong>, you describe your model in Python code:
+                        <code class="language-python">mu = pm.Normal('mu', 0, 10)</code>
+                        <code class="language-python">obs = pm.Normal('obs', mu, 1, observed=data)</code>
+                    </p>
+                    <p>
+                        The software then automatically chooses the best sampling algorithm (<strong>NUTS</strong> or <strong>Metropolis</strong>)
+                        to find the posterior. This "Declarative" approach to statistics allows ML engineers to build
+                        incredibly complex hierarchies (e.g., estimating conversion rates for 10,000 different stores
+                        simultaneously) with just a few lines of code.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

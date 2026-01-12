@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.09 Stationarity & Unit Root - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.13 Time Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_08_timeseries_components.html" class="nav-link">08. Time Series
+                                Components</a></li>
+                        <li class="nav-item"><a href="28_09_stationarity_unit_root.html" class="nav-link active">09.
+                                Stationarity Unit Root</a></li>
+                        <li class="nav-item"><a href="28_10_differencing_transformations.html" class="nav-link">10.
+                                Differencing Transformations</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Stability</span>
+                </div>
+                <h1>Stationarity & Unit Root</h1>
+                <p class="lead-text">The requirement of predictable statistics. Why we can't predict a signal that keeps
+                    changing its rules.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Rule of Regularity</h3>
+                    <p>
+                        A Time Series is <strong>Stationary</strong> if its statistical properties do not change over time.
+                        <br><br>
+                        Imagine trying to predict who will win a football game, but the field gets 10 meters longer
+                        every minute and the ball gets heavier every second. That is <strong>Non-Stationary</strong>. You can't use
+                        past data to predict the future because the future is a different game.
+                    </p>
+                </div>
+
+                <h2>1. The Three Conditions</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Constant Mean (\(\mu\))</h4>
+                        <p>The average value stays the same. (No Trend).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Constant Variance (\(\sigma^2\))</h4>
+                        <p>The "swing" or volatility of the data doesn't grow or shrink over time.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Constant Autocovariance</h4>
+                        <p>The relationship between time \(t\) and time \(t-k\) depends only on the gap \(k\), not on
+                            what time it is.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Unit Root (The "Memory" Problem)</h2>
+                <div class="math-box">
+                    $$ Y_t = \phi Y_{t-1} + \epsilon_t $$
+                </div>
+                <p>
+                    - If **\(|\phi| < 1\)**: The series is stationary. Previous shocks eventually die out. - If
+                        **\(\phi=1\)**: You have a **Unit Root** (Random Walk). Shocks last forever. The
+                        series "wanders" aimlessly. </p>
+                        <div class="insight-box" style="border-left-color: var(--secondary);">
+                            <strong>ADF Test (Augmented Dickey-Fuller):</strong>
+                            - \(H_0\): Series has a unit root (Non-Stationary).
+                            - \(p \le 0.05\): Reject \(H_0\) \(\rightarrow\) Series is Stationary.
+                        </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Spurious Correlations</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Validation</span>
+                    <h3>Why AI models "hallucinate" in Finance</h3>
+                    <p>
+                        Non-stationary data is the #1 reason why finance models fail in production.
+                    </p>
+                    <ul>
+                        <li><strong>Spurious Regression:</strong> If you regress "Global Warming" against "Number of Pirates", you
+                            will find a perfect correlation just because both have a strong trend. This is a statistical
+                            illusion.</li>
+                        <li><strong>Feature Drift:</strong> If your model is trained on Stationary data but the environment becomes
+                            Non-Stationary (e.g., a stock market crash), your model's weights become obsolete instantly
+                            because the "distribution" of the world has shifted.</li>
+                        <li><strong>Recurrent Neural Networks (RNNs):</strong> LSTMs and GRUs are designed to handle long-term
+                            memory, but even they struggle with unit roots. De-trending the data into a stationary
+                            format before feeding it into an LSTM often yields much better results.</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Checklist:</strong> Before you run any time series model:
+                        1. Plot the values.
+                        2. Run an <strong>ADF Test</strong>.
+                        3. If it fails, use <strong>Differencing</strong> or <strong>Log-Transforms</strong> (The next topic!) to "fix" it into
+                        stationarity.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.22 Channel Capacity - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.4 Advanced Concepts</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_22_channel_capacity.html" class="nav-link active">22. Channel
+                                Capacity</a></li>
+                        <li class="nav-item"><a href="29_23_source_coding_theorem.html" class="nav-link">23. Source
+                                Coding Theorem</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Communication</span>
+                    <span class="badge secondary">Shannon</span>
+                </div>
+                <h1>Channel Capacity</h1>
+                <p class="lead-text">The Speed Limit of Information. Shannon's Second Theorem defines the ultimate
+                    ceiling on how fast we can transmit data error-free through a noisy world.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Miraculous Discovery</h3>
+                    <p>
+                        Before Shannon, engineers thought that if you wanted to reduce errors in a noisy channel, you
+                        had to slow down to a crawl. Shannon proved them wrong: you can transmit data at a **fixed
+                        rate** (the capacity) and make the error rate <strong>approach zero</strong>, provided you use a clever
+                        enough code.
+                    </p>
+                </div>
+
+                <h2>1. The Formal Definition</h2>
+                <p>
+                    Channel Capacity (\(C\)) is the maximum <strong>Mutual Information</strong> between the input \(X\) and the
+                    output \(Y\), optimized over all possible input distributions \(P(X)\).
+                </p>
+                <div class="math-box">
+                    $$ C = \max_{P(X)} I(X; Y) $$
+                </div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Intuition</h4>
+                        <p>Mutual Information measures how much \(Y\) tells us about \(X\). Capacity is the "best case
+                            scenario" where we choose an input style that survives the channel noise most effectively.
+                        </p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Units</h4>
+                        <p>Usually measured in <strong>bits per channel use</strong> or <strong>bits per second</strong>. It represents the
+                            "throughput" of the information pipe.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Shannon-Hartley Theorem</h2>
+                <p>
+                    For a continuous channel with Additive White Gaussian Noise (AWGN), the capacity is determined by
+                    bandwidth and the Signal-to-Noise Ratio (SNR).
+                </p>
+                <div class="math-box">
+                    $$ C = B \log_2 \left( 1 + \frac{S}{N} \right) $$
+                </div>
+                <ul>
+                    <li><strong>B:</strong> Bandwidth in Hertz.</li>
+                    <li><strong>S/N:</strong> Signal power over Noise power.</li>
+                </ul>
+                <p>
+                    This formula is the reason why your 5G is faster than 4G (more bandwidth) and why your WiFi is
+                    slower in the kitchen (more noise).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Distributed AI</span>
+                    <h3>Capacity in Machine Learning</h3>
+                    <p>
+                        Information capacity isn't just for radios; it defines the limits of neural architectures:
+                    </p>
+                    <ul>
+                        <li><strong>Dropout as a Noisy Channel:</strong> We can view a neural layer as a channel. Dropout adds noise.
+                            The network must learn to encode information robustly so that it can be decoded even when
+                            parts of the signal are missing.</li>
+                        <li><strong>Information Bottleneck:</strong> The capacity of a latent layer determines how much information
+                            from the input can be "remembered" for the output. Too much capacity leads to overfitting;
+                            too little leads to underfitting.</li>
+                        <li><strong>Communication in Distributed ML:</strong> In Large Language Model training (e.g., across
+                            thousands of GPUs), the "Channel Capacity" of the network interconnect is the primary
+                            bottleneck for scaling.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Communication Loop</h2>
+                <div class="mermaid">
+                    graph LR
+                    M[Message] --> E[Encoder]
+                    E -- "X (Input)" --> C{Noisy Channel}
+                    C -- "Y (Output)" --> D[Decoder]
+                    D --> M_hat[Estimate of Message]
+                    N[Noise Source] -.-> C
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

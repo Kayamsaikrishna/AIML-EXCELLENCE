@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11.01 Antiderivatives - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.4 Integration</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="11_01_antiderivatives.html" class="nav-link active">01.
+                                Antiderivatives</a></li>
+                        <li class="nav-item"><a href="11_02_indefinite_integrals.html" class="nav-link">02. Indefinite
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="11_03_definite_integrals.html" class="nav-link">03. Definite
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="11_04_ftc.html" class="nav-link">04. FTC</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.4</span>
+                    <span class="badge secondary">Inversion</span>
+                </div>
+                <h1>Antiderivatives</h1>
+                <p class="lead-text">To understand the crime, reconstruct the timeline.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Reverse-Engineering Reality</h3>
+                    <p>
+                        Differentiation breaks a whole function into momentary rates of change. Integration rebuilds the
+                        whole from the parts. If differentiating is "analysis", integrating is "synthesis".
+                    </p>
+                </div>
+
+                <h2>1. The Definition</h2>
+                <div class="glass-card">
+                    <p>
+                        A function \(F\) is an <strong>Antiderivative</strong> of \(f\) if:
+                        \[ F'(x) = f(x) \]
+                    </p>
+                    <p>
+                        <strong>Example:</strong>
+                        If \(f(x) = 2x\), then \(F(x) = x^2\) is an antiderivative because \(\frac{d}{dx}(x^2) = 2x\).
+                    </p>
+                    <p>
+                        <strong>The Constant of Integration:</strong>
+                        Since the derivative of a constant is zero, there are infinitely many answers.
+                        \(x^2 + 1\), \(x^2 - 1000\), \(x^2 + \pi\)...
+                        <br>
+                        We write the <strong>General Solution</strong> as:
+                        \[ F(x) + C \]
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        F[F: Original Function] -->|Differentiate| f[f: Derivative]
+                        f -->|Integrate| F_new[F + C: Reconstructed Family]
+
+                        style f fill:#48bb78,stroke:#2f855a
+                        style F_new fill:#4299e1,stroke:#2b6cb0
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Reconstructing Generative Data</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Deconvolution & Autoencoders</h3>
+                    <p>
+                        In a Convolutional Neural Network (CNN), we "differentiate" an image to find edges (changes in
+                        pixel intensity). This is analysis.
+                    </p>
+                    <p>
+                        In a <strong>GAN (Generative Adversarial Network)</strong> or <strong>Autoencoder</strong>, we
+                        do the opposite. We start with a compressed vector (the rate/seed) and "integrate" it back up to
+                        produce a full 2D image.
+                    </p>
+                    <p>
+                        The \(+C\) represents the <strong>Latent Space Uncertainty</strong>. One seed vector could
+                        generate multiple valid variations of a face (with glasses, without glasses) depending on the
+                        initial conditions (the \(C\)).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Reversal</h2>
+                <div class="code-header">find_antiderivative.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+
+# Function 1: Power Rule
+f1 = 3*x**2
+F1 = sp.integrate(f1, x)
+print(f"Antiderivative of {f1}: {F1} + C") 
+# Output: x**3 + C
+
+# Function 2: Trig
+f2 = sp.cos(x)
+F2 = sp.integrate(f2, x)
+print(f"Antiderivative of {f2}: {F2} + C") 
+# Output: sin(x) + C
+
+# Function 3: 1/x (Log Rule)
+f3 = 1/x
+F3 = sp.integrate(f3, x)
+print(f"Antiderivative of {f3}: {F3} + C") 
+# Output: log(x) + C</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="../phase_1/10_08_economics_ml.html" class="footer-link">← Prev: Module 10</a>
+                        <span class="separator">|</span>
+                        <a href="11_02_indefinite_integrals.html" class="footer-link">Next: Indefinite Integrals →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.18 Bayesian Networks Structure - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_17_hamiltonian_monte_carlo.html" class="nav-link">17.
+                                Hamiltonian Monte Carlo</a></li>
+                        <li class="nav-item"><a href="26_18_bayesian_networks_structure.html"
+                                class="nav-link active">18. Bayesian Networks Structure</a></li>
+                        <li class="nav-item"><a href="26_19_conditional_independence_bn.html" class="nav-link">19.
+                                Conditional Independence Bn</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Causal Graphs</span>
+                </div>
+                <h1>Bayesian Networks Structure</h1>
+                <p class="lead-text">Visualizing high-dimensional probability as a directed story of "Who causes Who."
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Combinatorial Explosion</h3>
+                    <p>
+                        To define a Joint Distribution of 10 binary variables, you need a table with \(2^{10} = 1024\)
+                        entries.
+                        <br><br>
+                        <strong>In a Bayesian Network</strong>, you only define local relationships. If each node only has 2 parents,
+                        you might only need 50 entries! It is the ultimate tool for **Efficient Probability
+                        Representation**.
+                    </p>
+                </div>
+
+                <h2>1. What is a Bayesian Network?</h2>
+                <p>
+                    A <strong>Directed Acyclic Graph (DAG)</strong> where:
+                    - <strong>Nodes</strong> represent Random Variables.
+                    - <strong>Edges</strong> represent conditional dependencies (Causality-ish).
+                </p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Rain] --> C[Wet Grass]
+                        B[Sprinkler] --> C
+                        C --> D[Slippery Floor]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Joint Distribution Factorization</h2>
+                <p>
+                    The "Magic" of BN is that the joint probability of the entire world is simply the product of each
+                    node given its parents.
+                </p>
+                <div class="math-box">
+                    $$ P(X_1, \dots, X_n) = \prod_{i=1}^n P(X_i | \text{Parents}(X_i)) $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Root Cause Analysis (RCA)</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Monitoring</span>
+                    <span class="ml-badge">Systems</span>
+                    <h3>The "Cloud Outage" Problem</h3>
+                    <p>
+                        A major e-commerce site goes down. You have 5,000 metrics (CPU, DB latency, Network bandwidth,
+                        etc.).
+                    </p>
+                    <p>
+                        A <strong>Bayesian Network</strong> can be built to represent the architecture of the app. By observing the
+                        "Evidence" (High Latency in Service A), the network uses <strong>Bayesian Inference</strong> (Belief
+                        Propagation) to backtrack and calculate the probability of where the fault lies. It might tell
+                        you: "There is an 85% probability the root cause is a Deadlock in Database Cluster B."
+                    </p>
+                    <p>
+                        Companies like <strong>Microsoft</strong> and <strong>Intel</strong> use BNs for hardware troubleshooting and medical
+                        software to help doctors find the specific disease (hidden node) that caused a set of symptoms
+                        (observed nodes).
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

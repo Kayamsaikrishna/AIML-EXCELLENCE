@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.25 Relative Entropy & Inference - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.4 Advanced Concepts</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_24_huffman_coding.html" class="nav-link">24. Huffman Coding</a>
+                        </li>
+                        <li class="nav-item"><a href="29_25_relative_entropy.html" class="nav-link active">25. Relative
+                                Entropy & Inference</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Statistics</span>
+                    <span class="badge secondary">Bayesian</span>
+                </div>
+                <h1>Relative Entropy & Bayesian Inference</h1>
+                <p class="lead-text">Measuring the Surprise of Discovery. How Relative Entropy (KL Divergence)
+                    quantifies the information gained during the cycle of Bayesian updating.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Information Gain of Data</h3>
+                    <p>
+                        In Bayesian statistics, we start with a <strong>Prior</strong> (our guess) and see <strong>Data</strong>. The data
+                        transforms our guess into a <strong>Posterior</strong>. The Relative Entropy between the Posterior and the
+                        Prior is exactly the amount of information we extracted from the data.
+                    </p>
+                </div>
+
+                <h2>1. Bayesian Updating as Information Transfer</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>The Informative Prior</h4>
+                        <p>If our Prior is already very accurate, the new data won't change it much. The KL divergence
+                            is low. We say the "Relative Information" of the data is small.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>The Surprise of Data</h4>
+                        <p>If the data contradicts our Prior, our beliefs shift drastically. The KL divergence is high.
+                            This is where learning happens.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Sanov's Theorem: Large Deviations</h2>
+                <p>
+                    Relative Entropy also answers a deep statistical question: If I flip a fair coin 100 times, how
+                    likely am I to see 70 heads?
+                </p>
+                <div class="math-box">
+                    $$ P(\text{Empirical Dist } \approx P) \sim 2^{-n D_{KL}(P \| Q)} $$
+                </div>
+                <p>
+                    The probability of seeing a "weird" distribution falls exponentially with the <strong>Relative Entropy</strong>
+                    between the observed frequency and the true probability. This is why KL is the natural language of
+                    large-scale statistical testing.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Active Learning</span>
+                    <span class="ml-badge">Bayesian NNs</span>
+                    <h3>Application in Modern AI</h3>
+                    <ul>
+                        <li><strong>Active Learning (BALD):</strong> We want to label the most "informative" data points. One common
+                            strategy is to pick points that are expected to maximize the <strong>KL Divergence</strong> between our
+                            current model weights and the updated weights. We look for samples that cause the most
+                            "Bayesian Surprise."</li>
+                        <li><strong>PAC-Bayes Bounds:</strong> Theoretical researchers use KL divergence between a learned model and
+                            a prior to put an upper bound on how much the model might overfit. A small KL means the
+                            model hasn't "memorized" the data too much.</li>
+                        <li><strong>Variational Objectives:</strong> As we've seen, VI is just a way to perform Bayesian inference by
+                            minimizing relative entropy.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Bayesian Cycle</h2>
+                <div class="mermaid">
+                    graph TD
+                    Q[Prior Beliefs: Q] --> D(New Data)
+                    D -- Bayesian Rule --> P[Posterior Beliefs: P]
+                    P -- "Calculate Information Gain" --> K[D_KL(P || Q)]
+                    K --> S{Was it informative?}
+                    S -- Yes --> L[Model Learned]
+                    S -- No --> N[Redundant Data]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

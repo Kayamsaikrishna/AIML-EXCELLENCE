@@ -4,163 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Induction - Phase 1.1.27</title>
+    <title>01.27 Induction - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html" class="active">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_26_summation.html" class="nav-link">26. Summation</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">27. Induction</a></li>
+                    <!-- End of Module 1.1 -->
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Mathematical Induction
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 27. Mathematical Induction
         </div>
 
-        <header>
-            <h1>27. Mathematical Induction</h1>
-            <p class="subtitle">The Domino Effect. Proving things for infinity.</p>
+        <header class="page-header">
+            <div class="badge">Module 27</div>
+            <h1>Induction & Generalization</h1>
+            <p class="lead-text">Proving the infinite domino effect. The logic behind Generalization: If it works for \(
+                k \), will it work for \( k+1 \)?</p>
         </header>
 
-        <!-- 1. BASICS -->
-        <section id="basics">
-            <h2>1. The Logic</h2>
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Two Steps</h3>
-                    <ul class="topic-list">
-                        <li class="topic-item"><strong>Base Case:</strong> Prove it works for the first domino
-                            (\(n=1\)).
-                        </li>
-                        <li class="topic-item"><strong>Inductive Step:</strong> Prove that IF it works for any domino
-                            \(k\), THEN it must work for the next domino \(k+1\).</li>
-                    </ul>
+        <!-- VISUAL DIAGRAM: DOMINOES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Domino Effect</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Step1["Base Case (n=1)"]
+    StepK["Hypothesis (n=k)"]
+    StepK1["Inductive Step (n=k+1)"]
+    
+    subgraph Proof_Engine
+        Domino1["Knock over First Domino"]
+        Rule["If k falls, k+1 falls"]
+        Result["All Dominos Fall"]
+    end
+    
+    subgraph AI_Gen [AI Generalization]
+        Train["Learn on n samples"]
+        Test["Predict on n+1 sample"]
+        Gap["Generalization Gap"]
+    end
+    
+    Step1 --> StepK
+    StepK --> StepK1
+    StepK1 --> Result
+    
+    Rule --> Gap
+    Test -.-> StepK1
+
+    style Step1 fill:#dcfce7,stroke:#16a34a
+    style Gap fill:#fee2e2,stroke:#b91c1c
+                    </pre>
                 </div>
             </div>
+        </section>
 
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <!-- SVG: Dominos -->
-                <svg width="600" height="200" viewBox="0 0 600 200" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Domino 1 -->
-                    <rect x="50" y="100" width="30" height="80" fill="#3b82f6" transform="rotate(15 50 180)" />
-                    <text x="50" y="200" font-weight="bold">n=1</text>
+        <!-- 1. THE STRUCTURE OF INDUCTION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Two Steps</h2>
+                <p>To prove a statement \( P(n) \) is true for all integers \( n \ge 1 \):</p>
+                <ol>
+                    <li><strong>Base Case:</strong> Show \( P(1) \) is true.</li>
+                    <li><strong>Inductive Step:</strong> Assume \( P(k) \) is true. Show this implies \( P(k+1) \) is
+                        true.</li>
+                </ol>
 
-                    <!-- Domino k -->
-                    <rect x="250" y="100" width="30" height="80" fill="#3b82f6" transform="rotate(15 250 180)" />
-                    <text x="250" y="200" font-weight="bold">n=k</text>
-
-                    <!-- Domino k+1 -->
-                    <rect x="300" y="100" width="30" height="80" fill="#3b82f6" opacity="0.5" />
-                    <text x="320" y="200" font-weight="bold">n=k+1</text>
-
-                    <!-- Impact Arrow -->
-                    <path d="M 280 120 Q 290 120 300 120" stroke="#ef4444" stroke-width="3" marker-end="url(#arrow)" />
-
-                    <text x="300" y="50" text-anchor="middle" font-size="1.2rem" fill="#1e293b">If K falls, K+1 MUST
-                        fall.</text>
-                </svg>
+                <h3>AI "Induction"</h3>
+                <p>In Machine Learning, we don't have a formal proof. We have <strong>Empirical Risk
+                        Minimization</strong>. We assume that if the model works on \( k \) training examples (drawn
+                    from distribution \( \mathcal{D} \)), it will work on the \( k+1 \)-th example from \( \mathcal{D}
+                    \). This is the leap of faith called <strong>Generalization</strong>.</p>
             </div>
         </section>
 
-        <!-- 2. AI CONTEXT -->
-        <section id="ai-context">
-            <h2>2. Recursion & DP</h2>
-            <p>Induction is the mathematical foundation of <strong>Recursive Algorithms</strong> and <strong>Dynamic
-                    Programming</strong>.</p>
-            <p>In the Bellman Equation (Reinforcement Learning), we solve the optimal path by assuming we know the
-                optimal path from the <em>next</em> step. We work backwards, just like induction works forwards.</p>
-        </section>
-
-        <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Coding Induction (Recursion)</h2>
-            <p>Using recursion to solve a problem, with Memoization (DP) to make it fast.</p>
-
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Python: Fibonacci with Memoization</div>
-                <pre><code class="language-python"># The "Inductive Step" in code:
-# F(n) = F(n-1) + F(n-2)
-
-memo = {}
-
-def fib(n):
-    # Base Cases
-    if n == 0: return 0
-    if n == 1: return 1
-    
-    # Check Memo (The "Dynamic Programming" part)
-    if n in memo: return memo[n]
-    
-    # Recursive Step
-    result = fib(n-1) + fib(n-2)
-    memo[n] = result
-    return result
-
-print(f"Fib(50): {fib(50)}") 
-# Computes instantly due to Memoization</code></pre>
+        <!-- 2. RECURSION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #8b5cf6;">
+                <h2>2. Induction is Recursion</h2>
+                <p>Induction is just Recursion running backwards.</p>
+                <ul>
+                    <li>Recursion: Solve \( n \) by breaking it down to \( n-1 \).</li>
+                    <li>Induction: Build up from \( 1 \) to prove \( n \).</li>
+                </ul>
+                <p>Dynamic Programming (like the Bellman Equation in RL) relies entirely on this principle.</p>
             </div>
         </section>
 
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Recursive Proofs in Code</h2>
+                <p>Calculating Factorials: Determining truth by stepping down to the Base Case.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">def factorial(n):
+    # Base Case (Dominos stop falling here)
+    if n == 1:
+        return 1
+    
+    # Inductive Step (Relationship between k and k-1)
+    # n! = n * (n-1)!
+    return n * factorial(n - 1)
+
+print(f"5! = {factorial(5)}") 
+# 120. It works because it chained back to 1.
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

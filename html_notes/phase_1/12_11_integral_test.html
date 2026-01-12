@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12.11 Integral Test - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.5 Sequences & Series</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="12_11_integral_test.html" class="nav-link active">11. Integral
+                                Test</a></li>
+                        <li class="nav-item"><a href="12_12_alternating_series.html" class="nav-link">12. Alternating
+                                Series</a></li>
+                        <li class="nav-item"><a href="12_13_abs_cond_convergence.html" class="nav-link">13. Abs & Cond
+                                Conv</a></li>
+                        <li class="nav-item"><a href="12_14_power_series.html" class="nav-link">14. Power Series</a>
+                        </li>
+                        <li class="nav-item"><a href="12_15_radius_interval.html" class="nav-link">15. Radius &
+                                Interval</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.5</span>
+                    <span class="badge secondary">Continuous Logic</span>
+                </div>
+                <h1>The Integral Test</h1>
+                <p class="lead-text">Approximating steps with a smooth curve.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Summation via Integration</h3>
+                    <p>
+                        Sometimes summing a series \(\sum a_n\) is hard, but integrating the function \(f(x)\) is easy.
+                        If \(f(x)\) is continuous, positive, and decreasing, then:
+                    </p>
+                    <p>
+                        \[ \int_{1}^{\infty} f(x) dx \quad \text{and} \quad \sum_{n=1}^{\infty} a_n \]
+                    </p>
+                    <p>
+                        ...either <strong>both converge</strong> or <strong>both diverge</strong>. They share the same destiny because the
+                        integral represents the "area under the curve" which bounds the sum of the rectangles (the
+                        series terms).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Online Learning Regret</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Bounding the Mistakes</h3>
+                    <p>
+                        In <strong>Online Learning</strong>, an AI processes an infinite stream of data. We want to bound its
+                        "Regret" (the total accumulated error over time).
+                        If the error at step \(t\) is \(r_t\), we want \(\sum r_t\) to be small (sub-linear).
+                    </p>
+                    <p>
+                        Researchers use the <strong>Integral Test</strong> to prove convergence bounds. If we choose a learning rate
+                        of \(\eta_t = 1/\sqrt{t}\), we can prove that the total regret grows at most like \(\int
+                        \frac{1}{\sqrt{t}} dt\).
+                        This ensures that the AI's performance stabilizes over time, crucial for **High-Frequency
+                        Trading** algorithms that run forever.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Stream[Infinite Data Stream] --> Error[Error at Step t]
+                        Error --> Sum[Total Accumulated Error]
+                        Sum --> IntegralCheck{Integral Test}
+                        IntegralCheck -->|Converges| Stable[Safe to Deploy]
+                        IntegralCheck -->|Diverges| Unstable[Risk of Explosion]
+
+                        style Stable fill:#48bb78,stroke:#2f855a
+                        style Unstable fill:#f56565,stroke:#c53030
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Sum vs Integral</h2>
+                <div class="code-header">integral_test.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from scipy.integrate import quad
+
+# Series: 1/n^2 (Converges)
+# Integral: 1/x^2 -> [-1/x] -> 1.0
+
+def f(x):
+    return 1 / (x**2)
+
+# Specific partial sum
+limit = 1000
+partial_sum = sum(f(n) for n in range(1, limit))
+
+# Improper Integral
+integral_val, error = quad(f, 1, np.inf)
+
+print(f"Sum (n={limit}): {partial_sum:.6f} (Approaches pi^2/6 approx 1.645)")
+print(f"Integral (1 to inf): {integral_val:.6f}")
+print("Both are finite. Convergence Confirmed.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="12_10_root_test.html" class="footer-link">← Prev: Root Test</a>
+                        <span class="separator">|</span>
+                        <a href="12_12_alternating_series.html" class="footer-link">Next: Alternating →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

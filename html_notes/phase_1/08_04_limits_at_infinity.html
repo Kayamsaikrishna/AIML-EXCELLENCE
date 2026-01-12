@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08.04 Limits at Infinity - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.1 Limits & Continuity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="08_01_limits_intuition.html" class="nav-link">01. Limits
+                                Intuition</a></li>
+                        <li class="nav-item"><a href="08_02_limits_formal.html" class="nav-link">02. Formal
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_03_limits_onesided.html" class="nav-link">03. One-Sided
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_04_limits_at_infinity.html" class="nav-link active">04. Limits
+                                at Infinity</a></li>
+                        <li class="nav-item"><a href="08_05_limits_infinite.html" class="nav-link">05. Infinite
+                                Limits</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Asymptotes</span>
+                </div>
+                <h1>Limits at Infinity</h1>
+                <p class="lead-text">Understanding the long-term behavior of functions: What happens when inputs grow
+                    aggressively large?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">End Behavior</h3>
+                    <p>
+                        In many physical and computational systems, we care about stability over time or inputs. Does
+                        the system explode? Does it settle down to a steady state? Limits at infinity (\(x \to \infty\))
+                        answer this question.
+                    </p>
+                </div>
+
+                <h2>1. Definition & Horizontal Asymptotes</h2>
+                <div class="math-block">
+                    \[ \lim_{x \to \infty} f(x) = L \]
+                </div>
+                <p>
+                    This means as \(x\) gets arbitrarily large, \(f(x)\) settles closer and closer to the value \(L\).
+                    Geometrically, the line \(y = L\) is a <strong>Horizontal Asymptote</strong>.
+                </p>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Huge Positive Input] -->|Approaches +inf| B(Function)
+                        B -->|Settles at| C[Value 1.0]
+                        D[Huge Negative Input] -->|Approaches -inf| B
+                        B -->|Settles at| E[Value 0.0]
+                        style A fill:#2d3748,stroke:#4fd1c5
+                        style C fill:#2d3748,stroke:#f6e05e
+                        style E fill:#2d3748,stroke:#f6e05e
+                    </div>
+                    <div class="caption">Behavior of the Sigmoid Function: Bounded between 0 and 1.</div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Rational Functions: The Power Struggle</h2>
+                <p>For a rational function \(f(x) = \frac{P(x)}{Q(x)}\), the limit relies entirely on the
+                    <strong>highest powers</strong> (degrees) of \(x\).</p>
+
+                <div class="glass-card">
+                    <h3 class="text-accent">The 3 Rules</h3>
+                    <ol>
+                        <li><strong>Top Heavy (Degree P > Degree Q):</strong> Limit is \(\pm \infty\). (No asymptote).
+                        </li>
+                        <li><strong>Bottom Heavy (Degree P < Degree Q):</strong> Limit is \(0\). (Asymptote \(y=0\)).
+                        </li>
+                        <li><strong>Balanced (Degree P = Degree Q):</strong> Limit is ratio of leading coefficients.
+                        </li>
+                    </ol>
+                    <div class="math-block" style="font-size: 0.9em;">
+                        \[ \lim_{x \to \infty} \frac{3x^2 + 5}{2x^2 - x} = \frac{3}{2} \]
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. AI/ML Application: Activation Saturation</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Vanishing Gradient Problem</h3>
+                    <p>
+                        Consider the <strong>Sigmoid</strong> function used in early neural networks:
+                    </p>
+                    <div class="math-block">
+                        \[ \sigma(x) = \frac{1}{1 + e^{-x}} \]
+                    </div>
+                    <ul>
+                        <li>\(\lim_{x \to \infty} \sigma(x) = 1\)</li>
+                        <li>\(\lim_{x \to -\infty} \sigma(x) = 0\)</li>
+                    </ul>
+                    <p>
+                        This "squashing" behavior is useful because it maps any input to a probability range \([0, 1]\).
+                    </p>
+                    <div class="feature-box">
+                        <h4>The Downsides: Saturation</h4>
+                        <p>
+                            When the input \(x\) is very large (e.g., 100), \(\sigma(x) \approx 1\). The curve becomes
+                            completely flat.
+                            Since the derivative (gradient) represents the <strong>slope</strong>, the gradient becomes
+                            almost 0.
+                            This effectively stops the network from learning ("Vanishing Gradient"). This limitation led
+                            to the adoption of ReLU, which does not saturate at positive infinity (\(\lim_{x \to \infty}
+                            x = \infty\)).
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Python: Observing Saturation</h2>
+                <div class="code-header">sigmoid_limits.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def sigmoid_derivative(x):
+    s = sigmoid(x)
+    return s * (1 - s)
+
+test_values = [0, 2, 5, 10, 50]
+
+print(f"{'Input x':<10} | {'Sigmoid(x)':<15} | {'Slope (Gradient)':<15}")
+print("-" * 45)
+
+for x in test_values:
+    val = sigmoid(x)
+    grad = sigmoid_derivative(x)
+    print(f"{x:<10} | {val:<15.8f} | {grad:<15.8f}")
+
+# Notice specifically at x=50:
+# Sigmoid is effectively 1.0
+# Gradient is 0.00000000 -> Vanishing Gradient!</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="08_03_limits_onesided.html" class="footer-link">← Prev: One-Sided Limits</a>
+                        <span class="separator">|</span>
+                        <a href="08_05_limits_infinite.html" class="footer-link">Next: Infinite Limits →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

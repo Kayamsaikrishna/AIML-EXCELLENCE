@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.02 GD Variants - Calculus for ML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.9 Calculus for ML</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="16_01_loss_optimization.html" class="nav-link">01. Loss
+                                Optimization</a></li>
+                        <li class="nav-item"><a href="16_02_gradient_descent_variants.html" class="nav-link active">02.
+                                GD Variants</a></li>
+                        <li class="nav-item"><a href="16_03_backpropagation_math.html" class="nav-link">03.
+                                Backpropagation Math</a></li>
+                        <li class="nav-item"><a href="16_04_neural_chain_rule.html" class="nav-link">04. Neural Chain
+                                Rule</a></li>
+                        <li class="nav-item"><a href="16_05_loss_convexity_ml.html" class="nav-link">05. Loss
+                                Convexity</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">ML Calc 1.9</span>
+                    <span class="badge secondary">Evolution</span>
+                </div>
+                <h1>Gradient Descent Variants</h1>
+                <p class="lead-text">From Vanilla SGD to Adam.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Zoo of Optimizers</h3>
+                    <p>
+                        <strong>SGD (Stochastic Gradient Descent):</strong> Updates using one sample at a time. Noisy
+                        but fast.
+                        \[ \mathbf{w} \leftarrow \mathbf{w} - \eta \nabla L_i(\mathbf{w}) \]
+                    </p>
+                    <p>
+                        <strong>Momentum:</strong> Adds a "velocity" term to dampen oscillations and power through
+                        ravines.
+                    </p>
+                    <p>
+                        <strong>Adam (Adaptive Moment Estimation):</strong> The current gold standard. It adapts the
+                        learning rate for *each parameter* individually based on statistics of the gradients (First and
+                        Second moments).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Why Adam Wins</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Parameter Scale</h3>
+                    <p>
+                        In a deep net, some weights might have huge gradients (early layers) and some tiny (later
+                        layers).
+                        A global learning rate \(\eta\) cannot satisfy both.
+                        Adam divides the step size by the running average of the gradient's magnitude, effectively
+                        normalizing the update for every single neuron.
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Grad[Compute Gradient g] --> Moment1[Update Momentum m]
+                        Grad --> Moment2[Update RMS prop v]
+                        Moment1 --> BiasCorr[Bias Correction]
+                        Moment2 --> BiasCorr
+                        BiasCorr --> Update[Parameter Update w = w - lr * m / sqrt(v)]
+
+                        style Update fill:#2f855a,stroke:#48bb78
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Optimizers in Torch</h2>
+                <div class="code-header">optimizer_compare.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import torch
+import torch.nn as nn
+
+# Dummy model
+model = nn.Linear(10, 1)
+
+# 1. Vanilla SGD
+opt_sgd = torch.optim.SGD(model.parameters(), lr=0.01)
+
+# 2. SGD with Momentum
+opt_mom = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+
+# 3. Adam
+opt_adam = torch.optim.Adam(model.parameters(), lr=0.001)
+
+print("Optimizers initialized.")
+# In practice:
+# opt.zero_grad()
+# loss.backward()
+# opt.step()</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="16_01_loss_optimization.html" class="footer-link">← Prev: Loss Functions</a>
+                        <span class="separator">|</span>
+                        <a href="16_03_backpropagation_math.html" class="footer-link">Next: Backprop Math →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

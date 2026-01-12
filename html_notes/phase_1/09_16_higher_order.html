@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.16 Higher Order Derivatives - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_15_log_diff.html" class="nav-link">15. Logarithmic Diff</a>
+                        </li>
+                        <li class="nav-item"><a href="09_16_higher_order.html" class="nav-link active">16. Higher Order
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="09_17_mvt.html" class="nav-link">17. Mean Value Theorem</a></li>
+                        <li class="nav-item"><a href="09_18_rolles_theorem.html" class="nav-link">18. Rolle's
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="09_19_lhopital.html" class="nav-link">19. L'Hopital's Rule</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Curvature</span>
+                </div>
+                <h1>Higher Order Derivatives</h1>
+                <p class="lead-text">Velocity tells you where you're going. Acceleration tells you how hard it is to
+                    stop.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Beyond the Slope</h3>
+                    <p>
+                        The First Derivative measures <strong>Slope</strong> (Rate of Change).
+                        The Second Derivative measures <strong>Curvature</strong> (Rate of Change of the Slope).
+                        In ML, curvature tells us if a minimum is a sharp narrow valley (unstable) or a wide flat basin
+                        (stable, generalizes well).
+                    </p>
+                </div>
+
+                <h2>1. The Hierarchy</h2>
+                <div class="glass-card">
+                    <ul class="space-y-4">
+                        <li>
+                            <strong>First Derivative \(f'(x)\)</strong>: Velocity. In ML, this is the Gradient Gradient
+                            vector \(\nabla\).
+                        </li>
+                        <li>
+                            <strong>Second Derivative \(f''(x)\)</strong>: Acceleration/Concavity. In ML, this is the
+                            <strong>Hessian Matrix</strong> \(H\).
+                        </li>
+                        <li>
+                            <strong>Third Derivative \(f'''(x)\)</strong>: Jerk. Rarely used in ML, but critical in
+                            robotics for smooth motion planning.
+                        </li>
+                    </ul>
+                    <div class="math-block">
+                        \[ f''(x) = \frac{d}{dx}\left( \frac{df}{dx} \right) = \frac{d^2f}{dx^2} \]
+                    </div>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Pos[Position f] -->|Diff| Vel[Velocity f']
+                        Vel -->|Diff| Acc[Acceleration f'']
+                        Acc -->|Diff| Jerk[Jerk f''']
+
+                        style Vel fill:#63b3ed,stroke:#2b6cb0
+                        style Acc fill:#f6ad55,stroke:#dd6b20
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Hessian Matrix</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Second-Order Optimization</h3>
+                    <p>
+                        Standard Gradient Descent takes small steps downhill. But how big should the step be?
+                    </p>
+                    <ul>
+                        <li>If curvature is high (steep valley), big steps will overshoot.</li>
+                        <li>If curvature is low (flat plateau), small steps take forever.</li>
+                    </ul>
+                    <p>
+                        <strong>Newton's Method</strong> uses the Hessian (2nd derivative) to perfectly scale the step
+                        size:
+                        \[ \theta_{new} = \theta_{old} - H^{-1} \nabla \]
+                        In Deep Learning, calculating the full Hessian for 10M parameters is too expensive
+                        (memory-wise), so we approximate it (using Adam, RMSprop) or use diagonal approximations.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Computing the Hessian</h2>
+                <div class="code-header">hessian_matrix.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x, y = sp.symbols('x y')
+
+# A simplified Loss Landscape (Bowl shape)
+loss = x**2 + 2*y**2 + x*y
+
+# 1. Gradient (First Derivatives)
+grad_x = sp.diff(loss, x) # 2x + y
+grad_y = sp.diff(loss, y) # 4y + x
+
+# 2. Hessian (Second Derivatives Matrix)
+# [ d2/dx2   d2/dxdy ]
+# [ d2/dydx  d2/dy2  ]
+
+hessian = [[sp.diff(loss, x, x), sp.diff(loss, x, y)],
+           [sp.diff(loss, y, x), sp.diff(loss, y, y)]]
+
+print(f"Loss Function: {loss}")
+print(f"Gradient Vector: [{grad_x}, {grad_y}]")
+print("Hessian Matrix:")
+for row in hessian:
+    print(row)
+    
+# Output Hessian: [[2, 1], [1, 4]]
+# The eigenvalues of this matrix determine if we are in a valley, a peak, or a saddle point.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_15_log_diff.html" class="footer-link">← Prev: Log Diff</a>
+                        <span class="separator">|</span>
+                        <a href="09_17_mvt.html" class="footer-link">Next: Mean Value Theorem →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

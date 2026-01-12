@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.18 Properties of KL Divergence - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.3 Divergences</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_17_kl_divergence_definition.html" class="nav-link">17. KL
+                                Divergence Definition</a></li>
+                        <li class="nav-item"><a href="29_18_properties_of_kl_divergence.html"
+                                class="nav-link active">18. Properties of KL Divergence</a></li>
+                        <li class="nav-item"><a href="29_19_kl_in_variational_inference.html" class="nav-link">19. KL in
+                                Variational Inference</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Info Theory</span>
+                    <span class="badge secondary">Conservation</span>
+                </div>
+                <h1>Properties of KL Divergence</h1>
+                <p class="lead-text">Rules of the Manifold. The mathematical properties that distinguish KL from a
+                    simple distance metric and make it a sovereign tool for probability theory.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Non-Metric Distance</h3>
+                    <p>
+                        In our 3D world, the distance from A to B is the same as B to A. In the world of probability,
+                        this is <strong>not true</strong>. Measuring the distance from a "Real" source to a "Model" is different from
+                        measuring the distance from a "Model" to a "Real" source.
+                    </p>
+                </div>
+
+                <h2>1. Fundamental Axioms</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Gibbs' Inequality</h4>
+                        <div class="math-box">
+                            $$ D_{KL}(P \| Q) \ge 0 $$
+                        </div>
+                        <p>Divergence is always non-negative. This is the "Thermodynamic Law" of information: an
+                            approximation always adds bits; it never subtracts them.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. The Identity Principle</h4>
+                        <div class="math-box">
+                            $$ D_{KL}(P \| Q) = 0 \iff P = Q $$
+                        </div>
+                        <p>The only way to reach zero divergence is to be identical. This is why minimizing KL is a
+                            valid way to train models to match data.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Asymmetry</h4>
+                        <div class="math-box">
+                            $$ D_{KL}(P \| Q) \neq D_{KL}(Q \| P) $$
+                        </div>
+                        <p>This is why we must be extremely careful which variable is the "Reference" (\(P\)) and which
+                            is the "Approximation" (\(Q\)).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Advanced Mathematical Traits</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Convexity</h4>
+                        <p>KL divergence is a <strong>convex function</strong> of the pair \((P, Q)\). This is mathematically vital
+                            because it guarantees that a global minimum exists when we optimize distributions.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Additivity</h4>
+                        <p>If sources are independent, the total KL divergence is simply the sum of individual
+                            divergences. This allows us to scale information theory to multiple independent features.
+                        </p>
+                        <div class="math-box">
+                            $$ D_{KL}(P_x P_y \| Q_x Q_y) = D_{KL}(P_x \| Q_x) + D_{KL}(P_y \| Q_y) $$
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Fisher Information</span>
+                    <h3>Why Symmetry Fails Deep Learning</h3>
+                    <p>
+                        In standard SGD, we step in "Euclidean" weight space. But the relationship between weights and
+                        probabilities is highly non-linear.
+                    </p>
+                    <ul>
+                        <li><strong>Natural Gradient Descent:</strong> Instead of taking a fixed step in weight space, we take a
+                            fixed step in <strong>KL Divergence space</strong>. This ensures that the model's actual *behavior* (its
+                            output distribution) changes at a constant rate, regardless of how complex the weights are.
+                        </li>
+                        <li><strong>Fisher Information Matrix:</strong> The "Hessian" of the KL Divergence is the Fisher Information
+                            Matrix. It measures the curvature of the probability space and tells us which weights are
+                            "sensitive" and which are "robust."</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Logical Property Map</h2>
+                <div class="mermaid">
+                    mindmap
+                    root((KL Properties))
+                    Primary
+                    Non-Negative
+                    Zero iff P=Q
+                    Topology
+                    Asymmetric (Non-metric)
+                    Convex
+                    Usage
+                    Additivity (Independence)
+                    Invariant to invertibility
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

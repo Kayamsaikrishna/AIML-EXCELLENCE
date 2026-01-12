@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07.07 Attention Math - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.6 AI Applications</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="07_06_convolution_matrix.html" class="nav-link">06. Convolution
+                            Matrix</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">07. Attention Math</a></li>
+                    <li class="nav-item"><a href="07_08_graph_algos.html" class="nav-link">08. Graph Algorithms</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 07. The Transformer
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 07</div>
+            <h1>Mathematics of Attention</h1>
+            <p class="lead-text"> \( \text{Softmax}(\frac{QK^T}{\sqrt{d_k}})V \). Matrix weighted averages.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: ATTENTION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Lookup</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Input X"]
+    
+    subgraph Projections
+        Q["Query (What I look for)"]
+        K["Key (What I have)"]
+        V["Value (What I pass on)"]
+    end
+    
+    Input --> Q
+    Input --> K
+    Input --> V
+    
+    Q -- "Dot Product" --> Score["Similarity QK^T"]
+    K --> Score
+    
+    Score -- "Softmax" --> Weights["Attention Map"]
+    Weights -- "Weighted Sum" --> Output["Context Vector (AV)"]
+    V --> Output
+
+    style Output fill:#dcfce7,stroke:#16a34a
+    style Score fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: SCALED DOT PRODUCT -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Formula</h2>
+                <p>Self-Attention defines a dynamic weight matrix based on data similarity.</p>
+                <div class="math-block">
+                    $$ \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V $$
+                </div>
+                <ul>
+                    <li>\( Q K^T \): Computes "Angle" between every query vector and every key vector (Similarity
+                        Matrix).</li>
+                    <li>\( \text{softmax} \): Normalizes rows to sum to 1 (Probability distribution).</li>
+                    <li>\( \times V \): Computes expected value (weighted average) of Value vectors.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: LLMS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Context Windows</h2>
+                <p>The matrix \( A = QK^T \) is size \( T \times T \) (where \( T \) is sequence length). This is why
+                    attention is \( O(T^2) \).</p>
+                <p>Each entry \( A_{ij} \) tells the model "How much should word \( i \) attend to word \( j \)?". It is
+                    essentially a dynamic adjacency matrix of a fully connected graph of tokens.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Self-Attention Step</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from scipy.special import softmax
+
+# Dimensions
+seq_len = 3
+d_model = 4
+d_k = 4
+
+# Dummy Inputs (Embeddings)
+X = np.random.rand(seq_len, d_model)
+
+# Weights (Typically learned)
+W_Q = np.eye(d_model)
+W_K = np.eye(d_model)
+W_V = np.eye(d_model)
+
+# Projections
+Q = X @ W_Q
+K = X @ W_K
+V = X @ W_V
+
+# 1. Similarity Scores (Unnormalized)
+scores = Q @ K.T
+
+# 2. Scaling
+scores = scores / np.sqrt(d_k)
+
+# 3. Softmax (Row-wise)
+attn_weights = softmax(scores, axis=1)
+
+# 4. Output
+output = attn_weights @ V
+
+print("Attention Map (LxL):\n", attn_weights.round(2))
+# Shows how tokens mix
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

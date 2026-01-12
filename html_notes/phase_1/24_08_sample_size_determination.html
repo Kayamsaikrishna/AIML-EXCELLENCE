@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.08 Sample Size Determination - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_07_ci_difference_means.html" class="nav-link">07. CI Difference
+                                Means</a></li>
+                        <li class="nav-item"><a href="24_08_sample_size_determination.html" class="nav-link active">08.
+                                Sample Size</a></li>
+                        <li class="nav-item"><a href="24_09_bootstrap_principle.html" class="nav-link">09. Bootstrap
+                                Principle</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Resource Planning</span>
+                </div>
+                <h1>Sample Size Determination</h1>
+                <p class="lead-text">Answering the executive question: "How much data do we actually need to be sure?"
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Cost of Certainty</h3>
+                    <p>
+                        In Machine Learning, data is expensive. Labeling costs time and money.
+                        In A/B testing, running a test too long wastes traffic, but running it too short leads to
+                        incorrect conclusions (False Positives).
+                        <br><br>
+                        <strong>Sample Size Determination</strong> calculates the minimum $n$ required to achieve a desired Margin of
+                        Error.
+                    </p>
+                </div>
+
+                <h2>1. The Formula for Mean</h2>
+                <div class="math-box">
+                    To achieve a Margin of Error \(E\):
+                    $$ n = \left( \frac{z^* \cdot \sigma}{E} \right)^2 $$
+                </div>
+                <ul>
+                    <li>\(z^*\): Desired confidence (e.g., 1.96 for 95%).</li>
+                    <li>\(\sigma\): Estimated population standard deviation (from pilot study).</li>
+                    <li>\(E\): Maximum allowable error (the "precision" you want).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Formula for Proportion</h2>
+                <div class="math-box">
+                    $$ n = \hat{p}(1-\hat{p}) \left( \frac{z^*}{E} \right)^2 $$
+                </div>
+                <p>
+                    <strong>Pro Tip:</strong> If you have no idea what \(\hat{p}\) is, use <strong>0.5</strong>. This gives the
+                    largest possible sample size (The "Worst Case" scenario), ensuring your study is safe.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Budgeting for Labels</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Project Management</span>
+                    <span class="ml-badge">Data Annotation</span>
+                    <h3>How many images should I label?</h3>
+                    <p>
+                        If you are building a medical diagnosis AI and you want your measured accuracy to be accurate
+                        within <strong>±2%</strong> (at 95% confidence):
+                    </p>
+                    <ol>
+                        <li>Assume \(\hat{p} = 0.5\) (Conservative).</li>
+                        <li>Target Error \(E = 0.02\).</li>
+                        <li>\(n = 0.5(1-0.5) \times (1.96 / 0.02)^2 \approx \mathbf{2,401}\).</li>
+                    </ol>
+                    <p>
+                        This tells you exactly how many images you need to send to your labeling team. Labeling 10,000
+                        would be a waste of money; labeling 500 would make your accuracy numbers unreliable.
+                    </p>
+                </div>
+
+                <h3>A/B Power Analysis</h3>
+                <p>
+                    In industry (e.g., Netflix, Amazon), this is called <strong>Power Analysis</strong>. It prevents the "Peeking
+                    Problem"—checking the results every day and stopping when the chart looks good. By setting the
+                    sample size upfront, you ensure the result is statistically valid.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

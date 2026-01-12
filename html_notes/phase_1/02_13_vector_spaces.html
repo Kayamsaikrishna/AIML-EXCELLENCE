@@ -4,96 +4,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vector Spaces - Phase 1.2.13</title>
+    <title>02.13 Vector Spaces - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_12_orthogonality.html">12. Orthogonality</a></li>
-            <li><a href="02_13_vector_spaces.html" class="active">13. Vector Spaces</a></li>
-            <li><a href="02_14_subspaces_span.html">14. Subspaces & Span</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_12_orthogonality.html" class="nav-link">12. Orthogonality</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">13. Vector Spaces</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Vector Spaces
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 13. Abstract Vector Spaces
         </div>
 
-        <header>
-            <h1>13. Vector Spaces Definition</h1>
-            <p class="subtitle">The playground for data.</p>
+        <header class="page-header">
+            <div class="badge">Module 13</div>
+            <h1>The Rules of the Game</h1>
+            <p class="lead-text"> \( V \). It's not just lists of numbers. Functions, Polynomials, and Signals can be
+                vectors too.</p>
         </header>
 
-        <section>
-            <h2>1. The 10 Axioms</h2>
-            <p>A Vector Space \( V \) is a set of elements called vectors, together with two operations: Addition and
-                Scalar Multiplication. For \( V \) to be a vector space, it must satisfy 10 axioms, the most critical
-                being
-                <strong>Closure</strong>.
-            </p>
+        <!-- VISUAL DIAGRAM: VECTOR SPACE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Playground</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Space["Vector Space V"]
+    
+    subgraph Axioms [The Two Golden Rules]
+        Add["Closed under Addition (u+v in V)"]
+        Scal["Closed under Scaling (cu in V)"]
+    end
+    
+    subgraph Examples
+        R2["Euclidean Space R^n"]
+        Funcs["Functions f(x)"]
+        Polys["Polynomials P(x)"]
+        Images["Pixels (Matrices)"]
+    end
+    
+    Space --> Add
+    Space --> Scal
+    
+    Space --> R2
+    Space --> Funcs
+    Space --> Polys
+    Space --> Images
 
-            <div class="module-card">
-                <h3>Closure Rules</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Addition Closure:</strong> If \( \mathbf{u}, \mathbf{v} \in V \),
-                        then \( \mathbf{u} + \mathbf{v} \in V \).</li>
-                    <li class="topic-item"><strong>Scalar Closure:</strong> If \( \mathbf{v} \in V \) and \( c \in
-                        \mathbb{R} \), then \( c \mathbf{v} \in V \).</li>
+    style Add fill:#dcfce7,stroke:#16a34a
+    style Scal fill:#dcfce7,stroke:#16a34a
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: CLOSURE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. What Makes a "Space"?</h2>
+                <p>A set of objects is a <strong>Vector Space</strong> if you can add them and scale them, and the
+                    result stays in the set.</p>
+                <ul>
+                    <li><strong>Closure:</strong> If \( u, v \in V \), then \( u+v \in V \).</li>
+                    <li><strong>Zero Vector:</strong> There must be a "neutral" element \( \mathbf{0} \) (e.g., the
+                        function \( f(x)=0 \)).</li>
                 </ul>
-            </div>
-            <p>If these rules are broken, your "playground" has gaps, and AI operations will fail to produce valid
-                outputs.</p>
-        </section>
-
-        <section>
-            <h2>2. The Embedding Space</h2>
-            <div class="module-card">
-                <h3>Bounded vs. Unbounded Spaces</h3>
-                <p>In AI, we often treat <strong>Representations</strong> as vectors in a space.
-                    However, many AI "spaces" are technically not full Vector Spaces because they have boundaries (e.g.,
-                    values restricted between 0 and 1).
-                </p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Latent Space:</strong> The multi-dimensional space created by a
-                        model's hidden layers where semantically similar items are grouped.</li>
-                    <li class="topic-item"><strong>The Zero Vector:</strong> Every vector space must have a zero vector
-                        (Origin). In AI, this usually represents "Silence" or "No Feature Presence".</li>
-                </ul>
+                <p>Example: The set of all continuous functions \( C[0, 1] \) is a vector space. If you add two
+                    continuous functions, the result is continuous.</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Checking for Closure</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># Concept: A set of positive integers is NOT a vector space 
-# because it's not closed under negative scalar multiplication.
-
-v = 5
-c = -1
-result = v * c # -5 (This leaves the space of positive numbers)
-
-# In AI, if we use ReLU, we are working with a "Convex Cone"
-# rather than a full Vector Space.</code></pre>
+        <!-- 2. AI APPLICATION: FUNCTION SPACES -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Hilbert Spaces (Infinite Dimensions)</h2>
+                <p>In Machine Learning, we often map data into "Infinite Dimensional" spaces (RKHS - Reproducing Kernel
+                    Hilbert Spaces).</p>
+                <p>We treat <strong>Functions</strong> as vectors. The "Dot Product" becomes an
+                    <strong>Integral</strong>:</p>
+                <div class="math-block">
+                    $$ \langle f, g \rangle = \int f(x)g(x) dx $$
+                </div>
+                <p>This allows us to do geometry (angles, distances) on complicated curves.</p>
             </div>
         </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Functions as Vectors</h2>
+                <p>Demonstrating linearity with Python functions.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Define "Vector" objects as Python Functions
+f = np.sin
+g = np.cos
+alpha = 2.0
+beta = 3.0
+
+# Linear Combination: h(x) = 2sin(x) + 3cos(x)
+def h(x):
+    return alpha * f(x) + beta * g(x)
+
+# Visualize over a domain (Discretized Vector)
+x = np.linspace(0, 2*np.pi, 100)
+y = h(x)
+
+# Check a point
+x0 = np.pi/4
+val = alpha * np.sin(x0) + beta * np.cos(x0) # 2(0.707) + 3(0.707) = 3.535
+print(f"h({x0:.2f}) = {h(x0):.4f}")
+print(f"Expected: {val:.4f}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

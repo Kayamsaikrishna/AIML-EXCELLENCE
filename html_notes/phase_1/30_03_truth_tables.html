@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30.03 Truth Tables & Equivalence - Logic & Proofs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.6.1 Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="30_02_logical_connectives.html" class="nav-link">02. Logical
+                                Connectives</a></li>
+                        <li class="nav-item"><a href="30_03_truth_tables.html" class="nav-link active">03. Truth Tables
+                                & Equivalence</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Operations</span>
+                    <span class="badge secondary">Simmetry</span>
+                </div>
+                <h1>Truth Tables & Logical Equivalence</h1>
+                <p class="lead-text">Mapping the Possibilities. Systematic tools for analyzing every possible world and
+                    proving that two complex statements are secretly identical.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Brute Force of Truth</h3>
+                    <p>
+                        A <strong>Truth Table</strong> is a matrix that lists every possible combination of truth values for its
+                        components. If a statement has \(n\) variables, the table has \(2^n\) rows. It is the exhaustive
+                        "simulation" of a logical system.
+                    </p>
+                </div>
+
+                <h2>1. Analyzing Compound Statements</h2>
+                <p>Let's analyze the implication \(p \rightarrow q\) and its contrapositive \(\neg q \rightarrow \neg
+                    p\).</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>p</th>
+                            <th>q</th>
+                            <th>¬p</th>
+                            <th>¬q</th>
+                            <th>p → q</th>
+                            <th>¬q → ¬p</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Since the last two columns are identical, we say they are <strong>Logically Equivalent</strong> (\(\equiv\)).</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Tautologies, Contradictions, and Contingencies</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Tautology</h4>
+                        <p>A statement that is <strong>always true</strong>, no matter what. Example: \(p \lor \neg p\) (The Law of
+                            Excluded Middle).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Contradiction</h4>
+                        <p>A statement that is <strong>always false</strong>. Example: \(p \land \neg p\) (The Law of
+                            Non-Contradiction).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Contingency</h4>
+                        <p>A statement that is true in some cases and false in others. Most natural language falls here.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. De Morgan's Laws</h2>
+                <p>Fundamental rules for distributing "NOT" across "AND" and "OR":</p>
+                <div class="math-box">
+                    $$ \neg(p \land q) \equiv \neg p \lor \neg q $$
+                    $$ \neg(p \lor q) \equiv \neg p \land \neg q $$
+                </div>
+                <p><strong>Intuition:</strong> "I don't have (Apples AND Bananas)" means "I (Don't have Apples) OR
+                    (Don't have Bananas)."</p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Constraint Satisfaction</span>
+                    <span class="ml-badge">SAT Solvers</span>
+                    <h3>The Complexity of Truth</h3>
+                    <p>
+                        While truth tables are easy for 2 or 3 variables, they become impossible for thousands. This is
+                        the <strong>SAT (Boolean Satisfiability) Problem</strong>.
+                    </p>
+                    <ul>
+                        <li><strong>Configuration AI:</strong> When you customize a computer online (e.g., Apple Store), an
+                            underlying SAT solver uses logical equivalence and truth analysis to ensure you don't pick a
+                            motherboard that is incompatible with your RAM.</li>
+                        <li><strong>Circuit Design:</strong> Hardware engineers use De Morgan's Laws to simplify massive logic
+                            circuits, reducing the number of physical transistors needed while keeping the "Truth Table"
+                            identical.</li>
+                        <li><strong>Neuro-symbolic AI:</strong> Modern research tries to combine Deep Learning with SAT solvers to
+                            create AI that can both "feel" patterns (Neural) and "prove" its answers (Symbolic).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Logical Equivalence Flow</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Complexity Statement] -- "De Morgan's" --> B[Simplified Form]
+                    B -- "Double Negation" --> C[Atomic Form]
+                    C -- "Verification" --> D{Identical Truth Columns?}
+                    D -- Yes --> E[Logically Equivalent]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

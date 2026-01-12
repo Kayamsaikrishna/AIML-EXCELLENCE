@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.13 Mutual Information Estimation - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.2 Mutual Information</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_12_mutual_information_properties.html" class="nav-link">12.
+                                Mutual Information Properties</a></li>
+                        <li class="nav-item"><a href="29_13_mutual_information_estimation.html"
+                                class="nav-link active">13. Mutual Information Estimation</a></li>
+                        <li class="nav-item"><a href="29_14_mi_in_feature_selection.html" class="nav-link">14. MI in
+                                Feature Selection</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Applied AI</span>
+                    <span class="badge secondary">Numerical Stats</span>
+                </div>
+                <h1>Mutual Information Estimation</h1>
+                <p class="lead-text">From Calculus to Computation. How to actually measure MI when you don't know the
+                    underlying probability densities.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Integration Wall</h3>
+                    <p>
+                        In theory, calculating MI requires integrating over the joint density of your variables. In
+                        practice, we only have <strong>samples</strong> (data points).
+                        <br><br>
+                        Estimating MI from finite data is one of the most challenging problems in statistical Machine
+                        Learning.
+                    </p>
+                </div>
+
+                <h2>1. The Discrete Case: Frequency Counting</h2>
+                <p>If your variables are discrete (e.g., "City" and "Product Category"), you can use the **Plug-in
+                    Estimator**:</p>
+                <div class="math-box">
+                    $$ \hat{I}(X; Y) = \sum_{x, y} \frac{count(x, y)}{N} \log \frac{count(x, y) \cdot N}{count(x)
+                    count(y)} $$
+                </div>
+                <div class="insight-box warning">
+                    <strong>The Finite Sample Bias:</strong> With small datasets, this estimator tends to <strong>overestimate</strong> MI. If
+                    every user is unique, the formula will think the "User ID" perfectly predicts the "Outcome," which
+                    is a false correlation.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Continuous Case: KSG (K-Nearest Neighbors)</h2>
+                <p>For two continuous variables (e.g., "Age" and "Income"), we use the Kraskov-Stögbauer-Grassberger
+                    (KSG) estimator. It doesn't bin the data; instead, it looks at the distance to the \(k\)-th
+                    neighbor.</p>
+                <div class="math-box">
+                    $$ I(X; Y) \approx \psi(k) - \langle \psi(n_x + 1) + \psi(n_y + 1) \rangle + \psi(N) $$
+                </div>
+                <ul>
+                    <li><strong>\(\psi\):</strong> The Digamma function.</li>
+                    <li><strong>Why it's better:</strong> It adapts to the local density of the data, working well even in areas
+                        where data is sparse.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Modern Era: MINE (Neural Estimation)</h2>
+                <p>What if the relationship is incredibly complex (e.g., Image Pixels and a Concept)? We use a **Neural
+                    Network** to estimate the MI. This is known as <strong>MINE</strong> (Mutual Information Neural Estimator).</p>
+                <div class="math-box">
+                    $$ I(X; Y) \ge E_{P(X, Y)}[T_\theta(x, y)] - \log E_{P(X)P(Y)}[\exp(T_\theta(x, y))] $$
+                </div>
+                <p>
+                    By training a network \(T_\theta\) to maximize this bound, the output of the loss function becomes a
+                    direct estimate of the Mutual Information. This scales to high-dimensional images and language
+                    embeddings where traditional statistics fail.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Representation Learning</span>
+                    <h3>Why we need Neural Estimators</h3>
+                    <ul>
+                        <li><strong>Self-Supervised Learning:</strong> Models like <strong>SimCLR</strong> or <strong>CPC</strong> (Contrastive Predictive
+                            Coding) don't use labels. Instead, they maximize the mutual information between different
+                            slices or views of the same data. </li>
+                        <li><strong>Information Bottleneck Analysis:</strong> Researchers use MINE to plot how much information about
+                            the training labels is kept at each layer of a neural network, proving that networks "learn
+                            by forgetting" irrelevant details.</li>
+                        <li><strong>GAN Evaluation:</strong> Measuring the MI between the GAN latent space and the output helps
+                            quantify if the model is suffering from Mode Collapse.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Estimation Methods Comparison</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Binning</h4>
+                        <p>Fast, easy. Fails in high dimensions (empty bins).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>KSG (KNN)</h4>
+                        <p>Very accurate for 1D-5D. Slow for millions of points (\(O(N^2)\)).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Neural (MINE)</h4>
+                        <p>Scales to any dimension. Requires GPU and training time.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1st Order ODEs - Phase 1.3.8.2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.8 ODEs</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="15_02_first_order_detail.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 15_02_first_order_detail.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 22_02</div>
+            <h1>02. First-Order Differential Equations</h1>
+            <p class="lead-text">Solving the simplest building blocks of change.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. Separable Equations</h2>
+<p>A first-order ODE is <strong>Separable</strong> if it can be written as \( \frac{dy}{dx} = g(x)h(y) \).
+                We solve these by grouping all \(y\) terms with \(dy\) and all \(x\) terms with \(dx\), then integrating
+                both sides.</p>
+<div class="math-block">
+                $$ \int \frac{1}{h(y)} dy = \int g(x) dx $$
+            </div>
+</section>
+<section class="module-card">
+<h2>2. Linear Equations &amp; Integrating Factor</h2>
+<p>For equations of the form \( y' + P(x)y = Q(x) \), we use a magic multiplier called the
+                <strong>Integrating Factor</strong> (\(I\)):</p>
+<div class="math-block">
+                $$ I(x) = e^{\int P(x) dx} $$
+            </div>
+<p>Multiplying the whole equation by \(I(x)\) makes the left side a perfect Product Rule derivative,
+                allowing for a direct solution.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Learning Rate Scheduling</h2>
+<div class="module-card">
+<h3>Decay Dynamics</h3>
+<p>When training an AI, we often want the <strong>Learning Rate</strong> (\(\eta\)) to decrease over
+                    time so the model settles into a perfect minimum. </p>
+<p>A common "Exponential Decay" schedule is defined by a simple first-order ODE: \( \frac{d\eta}{dt} =
+                    -k\eta \). The solution is \(\eta(t) = \eta_0 e^{-kt}\). By understanding how to solve this ODE, AI
+                    engineers can predict exactly when the learning rate will become too small to make progress,
+                    allowing them to optimize the training "Compute Budget" effectively.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Solving Linear ODEs</h2>
+<div class="code-block">
+<pre><code class="language-python"># Solving dy/dx + 2y = exp(-x)
+# P(x) = 2, Q(x) = exp(-x)
+# Integrating factor = exp(2x)
+
+import sympy as sp
+
+x = sp.symbols('x')
+y = sp.Function('y')
+
+ode = sp.Eq(y(x).diff(x) + 2*y(x), sp.exp(-x))
+sol = sp.dsolve(ode, y(x))
+
+print(f"Solution: {sol}")
+# Result: y(x) = (C1 + exp(x)) * exp(-2x)</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

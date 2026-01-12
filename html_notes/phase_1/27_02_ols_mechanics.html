@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.02 OLS Mechanics - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_01_simple_linear_regression.html" class="nav-link">01. Simple
+                                Linear Regression</a></li>
+                        <li class="nav-item"><a href="27_02_ols_mechanics.html" class="nav-link active">02. OLS
+                                Mechanics</a></li>
+                        <li class="nav-item"><a href="27_03_geometric_regression.html" class="nav-link">03. Geometric
+                                Regression</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Optimization</span>
+                </div>
+                <h1>OLS Mechanics</h1>
+                <p class="lead-text">Ordinary Least Squares: The engine that minimizes the "Square of Errors" to find
+                    the perfect fit.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Why "Squares"?</h3>
+                    <p>
+                        We square the errors for two reasons:
+                        <br>
+                        1. <strong>Positivity:</strong> It ensures that positive and negative errors don't cancel each other out.
+                        2. <strong>Penalty:</strong> It punishes large errors much more than small ones (a 2m error is 4x worse than
+                        a 1m error).
+                    </p>
+                </div>
+
+                <h2>1. The Objective Function</h2>
+                <p>We want to minimize the <strong>Residual Sum of Squares (RSS)</strong>:</p>
+                <div class="math-box">
+                    $$ \min \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $$
+                    $$ \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Analytical Solution</h2>
+                <p>Using calculus (taking partial derivatives and setting to zero), we get the "best" estimates:</p>
+                <div class="math-box">
+                    $$ \hat{\beta}_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2} =
+                    \frac{\text{Cov}(x,y)}{\text{Var}(x)} $$
+                    $$ \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x} $$
+                </div>
+                <p>
+                    <strong>Key Insight:</strong> The slope is simply the relationship (covariance) normalized by the spread of the
+                    input.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Normal Equation vs Gradient Descent</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Optimization</span>
+                    <span class="ml-badge">Computational Complexity</span>
+                    <h3>How Scikit-Learn works</h3>
+                    <p>
+                        When you run `LinearRegression().fit()`, the computer has two choices:
+                    </p>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Complexity</th>
+                                <th>Best For...</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Normal Equation</strong> (Formula)</td>
+                                <td>\(O(n^3)\)</td>
+                                <td>Small/Medium datasets. Exact solution in one step.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gradient Descent</strong></td>
+                                <td>\(O(kn^2)\)</td>
+                                <td>Massive data. Iteratively "walks" towards the minimum error.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        For most tabular data, OLS (Normal Equation/SVD) is preferred because it's deterministic and
+                        requires no "learning rate" tuning.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

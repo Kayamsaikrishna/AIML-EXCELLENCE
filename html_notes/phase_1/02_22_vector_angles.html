@@ -4,94 +4,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vector Angles - Phase 1.2.22</title>
+    <title>02.22 Vector Angles - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_21_distance_metrics.html">21. Distance Metrics</a></li>
-            <li><a href="02_22_vector_angles.html" class="active">22. Angle between Vectors</a></li>
-            <li><a href="02_23_gram_schmidt.html">23. Gram-Schmidt</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.1 Vectors</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_21_distance_metrics.html" class="nav-link">21. Distance Metrics</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">22. Vector Angles</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Vector Angles
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 22. Angles & Correlation
         </div>
 
-        <header>
-            <h1>22. Angle between Vectors</h1>
-            <p class="subtitle">From raw numbers to geometric orientation.</p>
+        <header class="page-header">
+            <div class="badge">Module 22</div>
+            <h1>The Angle</h1>
+            <p class="lead-text"> \( |\mathbf{u} \cdot \mathbf{v}| \le ||\mathbf{u}|| ||\mathbf{v}|| \). The
+                Cauchy-Schwarz Inequality guarantees angles exist.</p>
         </header>
 
-        <section>
-            <h2>1. The Formula</h2>
-            <p>Using the dot product geometric definition, we can solve for the angle \(\theta\).</p>
+        <!-- VISUAL DIAGRAM: ANGLES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: From Geometry to Statistics</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Vectors["Vectors u, v"]
+    
+    subgraph Math
+        Dot["Dot Product"]
+        CS["Cauchy-Schwarz Inequality"]
+        Angle["Angle Θ"]
+    end
+    
+    subgraph Stats
+        Centered["Centered Data (Mean=0)"]
+        Correlation["Pearson Correlation r"]
+    end
+    
+    Vectors --> Dot
+    Dot --> CS
+    CS -- "Allows definition of" --> Angle
+    
+    Vectors --> Centered
+    Centered -- "Cosine of Centered Data" --> Correlation
 
-            <div class="math-block">
-                $$ \theta = \cos^{-1} \left( \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|} \right)
-                $$
+    style CS fill:#fefe93,stroke:#d97706
+    style Correlation fill:#dcfce7,stroke:#16a34a
+                    </pre>
+                </div>
             </div>
+        </section>
 
-            <div class="module-card">
-                <h3>Intuition</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>θ = 0°:</strong> Parallel, maximum correlation.</li>
-                    <li class="topic-item"><strong>θ = 90°:</strong> Orthogonal, zero correlation.</li>
-                    <li class="topic-item"><strong>θ = 180°:</strong> Opposite, maximum negative correlation.</li>
+        <!-- 1. DEFINITION: CAUCHY-SCHWARZ -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Most Important Inequality</h2>
+                <p>The Cauchy-Schwarz inequality states that the magnitude of the inner product is bounded by the
+                    product of the norms:</p>
+                <div class="math-block">
+                    $$ |\langle \mathbf{u}, \mathbf{v} \rangle| \le ||\mathbf{u}|| \cdot ||\mathbf{v}|| $$
+                </div>
+                <p>This implies that the ratio \( \frac{\langle \mathbf{u}, \mathbf{v} \rangle}{||\mathbf{u}||
+                    ||\mathbf{v}||} \) is always between -1 and 1, which allows us to define it as \( \cos \theta \).
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: CORRELATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Correlation is Cosine</h2>
+                <p>Pearson's Correlation Coefficient (\( r \)) is simply the <strong>Cosine of the Angle</strong>
+                    between two <strong>Centered</strong> vectors (mean subtracted).</p>
+                <ul>
+                    <li>\( r = 1 \): Vectors point same way (Angle 0°).</li>
+                    <li>\( r = 0 \): Vectors are Orthogonal (Angle 90°). Uncorrelated.</li>
+                    <li>\( r = -1 \): Vectors are Opposite (Angle 180°). Negatively correlated.</li>
                 </ul>
             </div>
         </section>
 
-        <section>
-            <h2>2. Document Embeddings & NLP</h2>
-            <div class="module-card">
-                <h3>The "King - Man + Woman = Queen" Logic</h3>
-                <p>In <strong>Word2Vec</strong> and <strong>Transformer</strong> embeddings, semantic relationships are
-                    often captured as angles. If the angle between "Paris" and "France" is similar to the angle
-                    between "Berlin" and "Germany", the model has effectively learned the concept of "Capital of".</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Attention Scores:</strong> Softmax over dot products (angles) decides
-                        which words are "seeing" each other.</li>
-                    <li class="topic-item"><strong>Query-Key Alignment:</strong> High attention occurs when the query
-                        vector and key vector have a small angle.</li>
-                </ul>
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Financial Correlation</h2>
+                <p>Analyzing stock price movements as vector angles.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Daily returns of two stocks
+stock_A = np.array([0.1, 0.2, -0.1, 0.1, 0.3])
+stock_B = np.array([0.05, 0.1, -0.05, 0.05, 0.15]) # Correlated
+stock_C = np.array([-0.1, -0.2, 0.1, -0.1, -0.3]) # Inverse
+
+# 1. Center the data (Subtract mean)
+A_centered = stock_A - np.mean(stock_A)
+B_centered = stock_B - np.mean(stock_B)
+
+# 2. Compute Cosine Similarity
+def cosine_sim(u, v):
+    return np.dot(u, v) / (np.linalg.norm(u) * np.linalg.norm(v))
+
+corr_AB = cosine_sim(A_centered, B_centered)
+print(f"Correlation A-B: {corr_AB:.2f}") 
+# ~1.0 (Strong Positive)
+
+# Verify with NumPy corrcoef
+np_corr = np.corrcoef(stock_A, stock_B)[0, 1]
+print(f"NumPy Corr A-B:  {np_corr:.2f}")
+</code></pre>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Calculating the Angle</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-u = np.array([1, 0])
-v = np.array([1, 1])
-
-cosine_theta = np.dot(u, v) / (np.linalg.norm(u) * np.linalg.norm(v))
-theta_rad = np.arccos(np.clip(cosine_theta, -1.0, 1.0))
-theta_deg = np.degrees(theta_rad)
-
-print(f"Angle: {theta_deg:.2f}°") # Output: 45.00°</code></pre>
-            </div>
-        </section>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

@@ -4,90 +4,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subspaces & Span - Phase 1.2.14</title>
+    <title>02.14 Subspaces and Span - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_13_vector_spaces.html">13. Vector Spaces</a></li>
-            <li><a href="02_14_subspaces_span.html" class="active">14. Subspaces & Span</a></li>
-            <li><a href="02_15_linear_combinations.html">15. Linear Combinations</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Subspaces & Span
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>14. Subspaces and Span</h1>
-            <p class="subtitle">Finding the limits of what vectors can reach.</p>
-        </header>
-
-        <section>
-            <h2>1. What is a Subspace?</h2>
-            <p>A subset \( S \) of a vector space \( V \) is a <strong>Subspace</strong> if it is itself a vector space.
-                Crucially, every subspace must contain the Zero Vector \(\mathbf{0}\).</p>
-
-            <div class="math-block">
-                $$ \text{span}(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_k) = \{ c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2
-                + \dots + c_k \mathbf{v}_k \} $$
-            </div>
-            <p>The <strong>Span</strong> of a set of vectors is the collection of all possible linear combinations of
-                those vectors.</p>
-        </section>
-
-        <section>
-            <h2>2. Low-Rank Approximations in AI</h2>
-            <div class="module-card">
-                <h3>The Manifold Hypothesis</h3>
-                <p>AI researchers believe that real-world data (like images of faces) occupies a small
-                    <strong>Subspace</strong>
-                    within the massive space of all possible pixels. This is the <strong>Manifold Hypothesis</strong>.
-                </p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Column Space:</strong> The span of the columns of a matrix \( X \).
-                        If your target \( y \) lies outside this span, your model will always have error.</li>
-                    <li class="topic-item"><strong>LoRA (Low-Rank Adaptation):</strong> A modern technique to fine-tune
-                        massive LLMs by only training a small "Subspace" of weights.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_13_vector_spaces.html" class="nav-link">13. Vector Spaces</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">14. Subspaces & Span</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Rank & Span Detection</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 14. Span and Subspaces
+        </div>
 
-# Two vectors that are parallel (Linear Dependent)
-v1 = np.array([1, 2])
-v2 = np.array([2, 4])
+        <header class="page-header">
+            <div class="badge">Module 14</div>
+            <h1>The Span</h1>
+            <p class="lead-text"> "Everywhere you can reach". Defining the geometric space accessible by combining a set
+                of vectors.</p>
+        </header>
 
-# The span is just a line, not a 2D plane
-matrix = np.array([v1, v2])
-rank = np.linalg.matrix_rank(matrix)
+        <!-- VISUAL DIAGRAM: SPAN -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Reachable Worlds</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Basis Vectors {v1, v2}"]
+    Space["Vector Space R^n"]
+    
+    subgraph Operation
+        Combo["Linear Combination c1*v1 + c2*v2"]
+        SpanSet["Set of ALL Outcomes"]
+    end
+    
+    subgraph Result
+        Line["Line (1 Vector)"]
+        Plane["Plane (2 Vectors)"]
+        Hyper["Hyperplane (n Vectors)"]
+    end
+    
+    Input --> Combo
+    Combo --> SpanSet
+    
+    SpanSet --> Line
+    SpanSet --> Plane
+    SpanSet --> Hyper
+    
+    SpanSet -- Subset of --> Space
 
-print(f"Dimension of Span (Rank): {rank}") # Output: 1</code></pre>
+    style SpanSet fill:#dcfce7,stroke:#16a34a
+    style Plane fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION: SUBSPACE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. What is a Subspace?</h2>
+                <p>A subspace is a smaller vector space inside a larger one. It must satisfy three rules:</p>
+                <ol>
+                    <li><strong>Contains Zero:</strong> It must pass through the origin. (A plane floating above the
+                        origin is NOT a subspace).</li>
+                    <li><strong>Closed under Addition:</strong> If you add two vectors in the subspace, you stay in the
+                        subspace.</li>
+                    <li><strong>Closed under Scaling:</strong> If you stretch a vector, it stays in the subspace
+                        (infinite extent).</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: MANIFOLDS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The Data Manifold</h2>
+                <p>We assume real-world data (images of faces) lies on a low-dimensional <strong>Subspace</strong> (or
+                    Manifold) inside the high-dimensional pixel space.</p>
+                <p>If we have 1000 pictures of faces, the <strong>Span</strong> of these vectors defines the "Face
+                    Space". Anything outside this span is noise or "not a face".</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Checking the Span</h2>
+                <p>Does a target vector lie within the span of our basis?</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Basis Vectors (The Span)
+v1 = np.array([1, 0, 0])
+v2 = np.array([0, 1, 0]) # Standard XY Plane
+
+# Quantifying the Matrix
+A = np.column_stack((v1, v2))
+
+# Target Vector (Is this in the span?)
+b_in = np.array([2, 3, 0]) # Yes (z=0)
+b_out = np.array([2, 3, 5]) # No (z=5)
+
+# We solve Ax = b. If solution exists, b is in Span.
+try:
+    # Use Least Squares to check residual
+    x, residuals, rank, s = np.linalg.lstsq(A, b_in, rcond=None)
+    print(f"Residual for b_in: {residuals}") # Should be empty or near zero
+    
+    x, residuals, rank, s = np.linalg.lstsq(A, b_out, rcond=None)
+    print(f"Residual for b_out: {residuals}") # Should be > 0 (Squared Error = 25)
+except:
+    print("Error in calculation")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

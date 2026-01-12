@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.20 Conservative Fields - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_18_multi_integral_apps.html" class="nav-link">18. Integral
+                                Apps</a></li>
+                        <li class="nav-item"><a href="13_19_line_integrals.html" class="nav-link">19. Line Integrals</a>
+                        </li>
+                        <li class="nav-item"><a href="13_20_conservative_fields.html" class="nav-link active">20.
+                                Conservative Fields</a></li>
+                        <li class="nav-item"><a href="13_21_ftc_line.html" class="nav-link">21. FTC for Line
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_22_greens_theorem.html" class="nav-link">22. Green's
+                                Theorem</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Potentials</span>
+                </div>
+                <h1>Conservative Vector Fields</h1>
+                <p class="lead-text">Path independence.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Gradient" Test</h3>
+                    <p>
+                        Some vector fields are special. If a field \( \vec{F} \) is simply the gradient of a scalar
+                        function \( f \) (i.e., \( \vec{F} = \nabla f \)), it is called <strong>Conservative</strong>.
+                    </p>
+                    <p>
+                        Conservative fields have a magical property: The work done moving between two points **does not
+                        depend on the path taken**.
+                        Test for 2D field \( F = \langle P, Q \rangle \): It is conservative if
+                        \[ \frac{\partial Q}{\partial x} = \frac{\partial P}{\partial y} \]
+                        " The curl is zero."
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Consistent Gradients</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Avoiding Cycle Loops</h3>
+                    <p>
+                        In SGD (Optimization), we WANT the gradient field to be conservative (derived from a Loss
+                        function). This guarantees there are no "Energy Loops" where the AI could cycle forever without
+                        improving.
+                    </p>
+                    <p>
+                        However, in <strong>Game Theory (GANs)</strong>, the vector field of updates for the Generator and
+                        Discriminator is <strong>NOT</strong> always conservative. It often has "Rotational" components (non-zero
+                        Curl). This is why GANs often oscillate forever instead of converging.
+                        Researchers analyze the <strong>Symplectic Gradient Adjustment</strong> to force the field to behave more
+                        "Conservatively" and converge to a Nash Equilibrium.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: The Curl Test</h2>
+                <div class="code-header">check_conservative.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x, y = sp.symbols('x y')
+
+# Field F = < 2xy, x^2 >
+# P = 2xy, Q = x^2
+P = 2*x*y
+Q = x**2
+
+# Check Curl condition: dQ/dx == dP/dy
+dQ_dx = sp.diff(Q, x) # 2x
+dP_dy = sp.diff(P, y) # 2x
+
+print(f"dQ/dx: {dQ_dx}")
+print(f"dP/dy: {dP_dy}")
+
+if dQ_dx == dP_dy:
+    print("Field is Conservative! Finding Potential Function...")
+    # Integrate P wrt x
+    f = sp.integrate(P, x) # x^2*y
+    print(f"Potential Function f(x,y): {f}")
+else:
+    print("Field is NOT Conservative.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_19_line_integrals.html" class="footer-link">← Prev: Line Integrals</a>
+                        <span class="separator">|</span>
+                        <a href="13_21_ftc_line.html" class="footer-link">Next: FTC Line Int →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

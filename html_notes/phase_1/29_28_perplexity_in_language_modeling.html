@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.28 Perplexity in Language Modeling - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.4 Advanced Concepts</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_27_entropy_rate.html" class="nav-link">27. Entropy Rate</a>
+                        </li>
+                        <li class="nav-item"><a href="29_28_perplexity_in_language_modeling.html"
+                                class="nav-link active">28. Perplexity in LLMs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">LLMs</span>
+                    <span class="badge secondary">Evaluation</span>
+                </div>
+                <h1>Perplexity in Language Modeling</h1>
+                <p class="lead-text">Measuring the Confusion of Machines. The most important metric in Natural Language
+                    Processing, transforming the abstract concept of cross-entropy into a human-readable "branching
+                    factor."</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>How much do we know?</h3>
+                    <p>
+                        When we train a GPT model, we minimize Cross-Entropy loss. But "0.78 bits" doesn't feel
+                        intuitive. <strong>Perplexity</strong> turns that number into a physical intuition: "The model is as confused
+                        as if it were guessing between 1.7 possibilities."
+                    </p>
+                </div>
+
+                <h2>1. The Mathematics of Confusion</h2>
+                <p>
+                    Perplexity (\(PP\)) is simply the exponentiation of the Cross-Entropy (\(H\)).
+                </p>
+                <div class="math-box">
+                    $$ PP(X) = 2^{H(P, Q)} $$
+                    $$ \text{or, using natural log: } PP(X) = e^{H(P, Q)} $$
+                </div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Branching Factor</h4>
+                        <p>If a model has a perplexity of 10, it means the next word is as uncertain as picking a card
+                            from a deck of 10. The lower the perplexity, the more certain the model is.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Worst Case</h4>
+                        <p>If an LLM with a vocabulary of 50,000 words is perfectly random, its perplexity would be
+                            50,000. It doesn't know anything.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Perplexity and Quality</h2>
+                <p>
+                    In the LLM era, perplexity is used as a proxy for intelligence and reasoning.
+                </p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Text Type</th>
+                            <th>Relative Perplexity</th>
+                            <th>Why?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Python Code</td>
+                            <td>Low</td>
+                            <td>Strict syntax rules make next tokens very predictable.</td>
+                        </tr>
+                        <tr>
+                            <td>Technical Prose</td>
+                            <td>Medium</td>
+                            <td>Bounded vocabulary and logical structure reduce uncertainty.</td>
+                        </tr>
+                        <tr>
+                            <td>Creative Fiction</td>
+                            <td>High</td>
+                            <td>Metaphors and creative choices increase "surprise."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Fine-Tuning</span>
+                    <span class="ml-badge">Loss Function</span>
+                    <h3>The Feedback Loop</h3>
+                    <p>
+                        Why do we minimize Cross-Entropy instead of Perplexity directly during training?
+                    </p>
+                    <ul>
+                        <li><strong>Linearity:</strong> Cross-Entropy is linear in the log-probability space, making the gradients
+                            well-behaved and stable for backpropagation.</li>
+                        <li><strong>Scale:</strong> Perplexity can explode exponentially. A small change in loss might mean a massive
+                            drop in perplexity, which would lead to unstable training steps.</li>
+                    </ul>
+                    <p>
+                        <strong>Final Result:</strong> We train on Cross-Entropy to keep the math stable, but we report Perplexity to
+                        keep the humans happy.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Module 29 Wrap-up</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Shannon Entropy] --> B[Relative Entropy]
+                    B --> C[Cross-Entropy Loss]
+                    C --> D[Model Training]
+                    D --> E[Perplexity Score]
+                    E -- "Low Score" --> F[State-of-the-art LLM]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

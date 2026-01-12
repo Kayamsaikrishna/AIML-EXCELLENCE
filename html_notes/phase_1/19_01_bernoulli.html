@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19.01 Bernoulli Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.3 Discrete Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="19_01_bernoulli.html" class="nav-link active">01. Bernoulli</a>
+                        </li>
+                        <li class="nav-item"><a href="19_02_binomial.html" class="nav-link">02. Binomial</a></li>
+                        <li class="nav-item"><a href="19_03_geometric.html" class="nav-link">03. Geometric</a></li>
+                        <li class="nav-item"><a href="19_04_neg_binomial.html" class="nav-link">04. Neg Binomial</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">The Atom</span>
+                </div>
+                <h1>The Bernoulli Distribution</h1>
+                <p class="lead-text">The building block of all probability: The Coin Flip.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Bit of Probability</h3>
+                    <p>
+                        A Bernoulli random variable is the simplest possible random variable. It has exactly two
+                        outcomes: 0 (Failure) or 1 (Success).
+                        <br><br>
+                        In Machine Learning, this is the language of <strong>Binary Classification</strong> (Cat vs.
+                        Dog, Spam vs. Not Spam). Every Logistic Regression model is essentially predicting the parameter
+                        \(p\) of a Bernoulli distribution.
+                    </p>
+                </div>
+
+                <h2>1. Definition and PMF</h2>
+                <div class="math-box">
+                    A Random Variable \(X\) follows a Bernoulli distribution with parameter \(p\) (where \(0 \le p \le
+                    1\)):
+                    $$ X \sim \text{Bern}(p) $$
+                    The Probability Mass Function (PMF) is:
+                    $$ P(X=k) = \begin{cases} p & \text{if } k=1 \\ 1-p & \text{if } k=0 \\ 0 & \text{otherwise}
+                    \end{cases} $$
+                    Compact form: \(P(X=k) = p^k (1-p)^{1-k}\) for \(k \in \{0,1\}\).
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Moments (Mean & Variance)</h2>
+
+                <div class="two-col-grid">
+                    <div class="concept-card">
+                        <h3>Expectation (Mean)</h3>
+                        <p>$$ E[X] = 1 \cdot p + 0 \cdot (1-p) = p $$</p>
+                        <p>The "average" outcome is the probability of success. If \(p=0.8\), the expected value is 0.8
+                            (even though you never see a 0.8, only 0s and 1s).</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>Variance</h3>
+                        <p>$$ \text{Var}(X) = E[X^2] - (E[X])^2 $$</p>
+                        <p>Since \(1^2=1\) and \(0^2=0\), \(E[X^2] = p\).</p>
+                        <p>$$ \text{Var}(X) = p - p^2 = p(1-p) $$</p>
+                    </div>
+                </div>
+
+                <h3>Variance Intuition</h3>
+                <p>
+                    When is variance highest?
+                    <br>
+                    \(\frac{d}{dp}(p - p^2) = 1 - 2p = 0 \Rightarrow p = 0.5\).
+                    <br><br>
+                    <strong>Implication:</strong> Unpredictability is maximized when the coin is fair (\(p=0.5\)). If
+                    \(p=0.99\) (highly biased), the variance is low because we are almost certain it will be a 1.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Binary Cross-Entropy</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Loss Functions</span>
+                    <span class="ml-badge">Logistic Regression</span>
+                    <h3>Maximum Likelihood Estimation (MLE)</h3>
+                    <p>
+                        Suppose we have a dataset of labels \(y_1, y_2, \dots, y_n \in \{0, 1\}\) and our model predicts
+                        probabilities \(\hat{y}_i\). We assume \(y_i \sim \text{Bern}(\hat{y}_i)\).
+                    </p>
+                    <p>The likelihood of the data is:</p>
+                    $$ L = \prod_{i=1}^n \hat{y}_i^{y_i} (1-\hat{y}_i)^{1-y_i} $$
+                    <p>Taking the negative log-likelihood gives us the <strong>Binary Cross-Entropy Loss</strong>:</p>
+                    $$ J = - \sum_{i=1}^n [y_i \log(\hat{y}_i) + (1-y_i) \log(1-\hat{y}_i)] $$
+                    <p>Minimizing this loss is mathematically equivalent to finding the Bernoulli parameter that makes
+                        the observed data most probable.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Another ML Connection: Dropout</h2>
+                <p>
+                    <strong>Dropout</strong> describes a regularization technique where neurons are "dropped" (set to 0)
+                    during training with probability \(p\).
+                </p>
+                <p>
+                    Mathematically, this involves multiplying the activation vector \(h\) by a mask vector \(m\), where
+                    \(m_j \sim \text{Bern}(p)\).
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

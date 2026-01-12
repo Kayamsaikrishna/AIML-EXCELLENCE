@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11.11 Numerical Integration - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.4 Integration</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="11_07_trig_integrals.html" class="nav-link">07. Trig Integrals</a>
+                        </li>
+                        <li class="nav-item"><a href="11_08_trig_substitution.html" class="nav-link">08. Trig
+                                Substitution</a></li>
+                        <li class="nav-item"><a href="11_09_partial_fractions.html" class="nav-link">09. Partial
+                                Fractions</a></li>
+                        <li class="nav-item"><a href="11_10_improper.html" class="nav-link">10. Improper Integrals</a>
+                        </li>
+                        <li class="nav-item"><a href="11_11_numerical.html" class="nav-link active">11. Numerical
+                                Methods</a></li>
+                        <li class="nav-item"><a href="11_12_area.html" class="nav-link">12. Area Between Curves</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.4</span>
+                    <span class="badge secondary">Approximation</span>
+                </div>
+                <h1>Numerical Integration</h1>
+                <p class="lead-text">When exact math fails, estimation takes over.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Unsolvable Majority</h3>
+                    <p>
+                        Most functions (like \(e^{-x^2}\), \(\frac{\sin x}{x}\)) simply do not have an antiderivative
+                        that can be written with elementary functions. For these, we stop looking for \(F(x)\) and start
+                        approximating the area directly.
+                    </p>
+                </div>
+
+                <h2>1. Algorithms</h2>
+                <div class="glass-card">
+                    <ul class="step-list">
+                        <li><strong>Trapezoidal Rule:</strong> Connects points with straight lines (linear
+                            interpolation). Good accuracy \(O(h^2)\).</li>
+                        <li><strong>Simpson's Rule:</strong> Connects points with parabolas (quadratic interpolation).
+                            Very high accuracy \(O(h^4)\).</li>
+                    </ul>
+                    <p class="math-block">
+                        $$ T_n = \frac{\Delta x}{2} [f(x_0) + 2f(x_1) + ... + f(x_n)] $$
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Function[Unsolvable Function] --> Trap[Trapezoids: Straight Lines]
+                        Function --> Simp[Simpson: Parabolas]
+                        Function --> MC[Monte Carlo: Random Sampling]
+
+                        Simp --> Acc2[High Accuracy]
+                        MC --> Acc3[High Dimensions]
+
+                        style MC fill:#ed64a6,stroke:#97266d
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Monte Carlo Integration</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Sampling the Latent Space</h3>
+                    <p>
+                        In Bayesian Neural Networks and Reinforcement Learning, we often need to integrate over 1,000+
+                        dimensions.
+                    </p>
+                    <p>
+                        Grid-based methods (like Simpson’s Rule) fail because the number of points grows exponentially
+                        (The Curse of Dimensionality).
+                        The solution is <strong>Monte Carlo Integration</strong>:
+                        \[ \int f(x) p(x) dx \approx \frac{1}{N} \sum_{i=1}^N f(x_i) \]
+                        We approximate the integral by just taking the average of random samples. This method converges
+                        regardless of dimension, making modern AI possible.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Simpson vs. Monte Carlo</h2>
+                <div class="code-header">monte_carlo_demo.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from scipy.integrate import simpson
+
+def f(x):
+    return np.exp(-x**2)
+
+# 1. Deterministic (Simpson's Rule)
+# Integrals in 1D are fast with Simpson
+x = np.linspace(-3, 3, 1000)
+y = f(x)
+area_simp = simpson(y, x=x)
+print(f"Simpson's Area: {area_simp:.5f}")
+
+# 2. Stochastic (Monte Carlo)
+# Better for high dimensions
+N = 10000
+# Sample uniformly from [-3, 3]
+samples = np.random.uniform(-3, 3, N)
+# Average height * width of interval
+area_mc = np.mean(f(samples)) * (3 - (-3))
+
+print(f"Monte Carlo Area: {area_mc:.5f}")
+# MC will be close, but noisy.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="11_10_improper.html" class="footer-link">← Prev: Improper</a>
+                        <span class="separator">|</span>
+                        <a href="11_12_area.html" class="footer-link">Next: Area & Volume →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

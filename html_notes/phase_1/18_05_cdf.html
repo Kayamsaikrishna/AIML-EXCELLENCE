@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.05 Cumulative Distribution Function (CDF) - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.2 Random Variables</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="18_04_pdf.html" class="nav-link">04. PDF</a></li>
+                        <li class="nav-item"><a href="18_05_cdf.html" class="nav-link active">05. CDF</a></li>
+                        <li class="nav-item"><a href="18_06_cdf_properties.html" class="nav-link">06. CDF Properties</a>
+                        </li>
+                        <li class="nav-item"><a href="18_07_expected_value.html" class="nav-link">07. Expected Value</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Accumulation</span>
+                </div>
+                <h1>Cumulative Distribution Function (CDF)</h1>
+                <p class="lead-text">How much probability is behind you?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Definition</h3>
+                    <p>
+                        The CDF \(F_X(x)\) gives the probability that \(X\) takes a value essentially <i>less than or
+                            equal to</i> \(x\).
+                        \[ F_X(x) = P(X \le x) \]
+                        It is the integral of the PDF:
+                        \[ F_X(x) = \int_{-\infty}^{x} f_X(t) dt \]
+                        It always starts at 0 and grows monotonically to 1.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: KS Test</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Comparing Distributions</h3>
+                    <p>
+                        How do we know if our data follows a specific distribution?
+                        The <strong>Kolmogorov-Smirnov (KS) Test</strong> compares the empirical CDF of the data against the
+                        theoretical CDF of the reference distribution.
+                        It basically measures the maximum vertical distance between the two CDF curves.
+                    </p>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        PDF -- Integrate --> CDF
+                        CDF -- Differentiate --> PDF
+
+                        style CDF fill:#c05621,stroke:#ed8936
+                    </div>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="18_04_pdf.html" class="footer-link">← Prev: PDF</a>
+                        <span class="separator">|</span>
+                        <a href="18_06_cdf_properties.html" class="footer-link">Next: CDF Properties →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

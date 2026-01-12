@@ -4,98 +4,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cross Product - Phase 1.2.7</title>
+    <title>02.07 Cross Product - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2 Linear Algebra</li>
-            <li><a href="02_06_dot_product_geom.html">06. Dot Product Geom</a></li>
-            <li><a href="02_07_cross_product.html" class="active">07. Cross Product</a></li>
-            <li><a href="02_08_cross_product_geom.html">08. Cross Product Geom</a></li>
-            <li><a href="02_09_triple_scalar.html">09. Triple Scalar Product</a></li>
-            <li class="nav-label">1.1 Arithmetic & Algebra</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2 Linear Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="02_06_dot_product_geom.html" class="nav-link">06. Projections</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">07. Cross Product</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Cross Product
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 07. The Cross Product
         </div>
 
-        <header>
-            <h1>07. Cross Product (Vector Product)</h1>
-            <p class="subtitle">Generating orthogonality in 3D space.</p>
+        <header class="page-header">
+            <div class="badge">Module 07</div>
+            <h1>The Normal Vector</h1>
+            <p class="lead-text"> \( \mathbf{a} \times \mathbf{b} \). Creating a new dimension perpendicular to the
+                existing reality.</p>
         </header>
 
-        <section>
-            <h2>1. Definition & Determinant Form</h2>
-            <p>Unlike the dot product, the cross product only exists in <strong>3D Space</strong> (or 7D). It returns a
-                vector that is perpendicular to both inputs.</p>
-
-            <div class="math-block">
-                $$ \mathbf{u} \times \mathbf{v} = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ u_1 & u_2 &
-                u_3 \\ v_1 & v_2 & v_3 \end{vmatrix} $$
+        <!-- VISUAL DIAGRAM: CROSS PRODUCT -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Breaking the Plane</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Plane["Plane (Defined by A & B)"]
+    VecA["Vector A"]
+    VecB["Vector B"]
+    
+    subgraph Operation
+        Cross["A x B"]
+    end
+    
+    subgraph Output
+        Normal["Normal Vector n"]
+        Perp["Perpendicular to A & B"]
+        Torque["Torque (Physics)"]
+    end
+    
+    VecA --> Plane
+    VecB --> Plane
+    
+    VecA --> Cross
+    VecB --> Cross
+    
+    Cross --> Normal
+    Normal --> Perp
+    Normal --> Torque
+    
+    style Normal fill:#dbeafe,stroke:#2563eb
+    style Perp fill:#dcfce7,stroke:#16a34a
+                    </pre>
+                </div>
             </div>
+        </section>
 
-            <div class="module-card">
-                <h3>Properties</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Anti-Commutative:</strong> \( \mathbf{u} \times \mathbf{v} =
-                        -(\mathbf{v} \times \mathbf{u}) \).</li>
-                    <li class="topic-item"><strong>Magnitude:</strong> \( \|\mathbf{u} \times \mathbf{v}\| =
-                        \|\mathbf{u}\| \|\mathbf{v}\| \sin \theta \).</li>
-                    <li class="topic-item"><strong>Self-Parallel:</strong> \( \mathbf{u} \times \mathbf{u} = \mathbf{0}
-                        \).</li>
+        <!-- 1. DEFINITION: THE DETERMINANT SHORTCUT -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Determinant Formula</h2>
+                <p>Unlike the Dot Product (Scalar), the Cross Product returns a <strong>Vector</strong>.</p>
+                <div class="math-block">
+                    $$ \mathbf{a} \times \mathbf{b} = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ a_1 & a_2
+                    & a_3 \\ b_1 & b_2 & b_3 \end{vmatrix} $$
+                </div>
+                <p>Features:</p>
+                <ul>
+                    <li><strong>Magnitude:</strong> \( ||\mathbf{a} \times \mathbf{b}|| = ||\mathbf{a}|| ||\mathbf{b}||
+                        \sin \theta \). (Area of Parallelogram).</li>
+                    <li><strong>Direction:</strong> Determined by the Right-Hand Rule.</li>
+                    <li><strong>Orthogonality:</strong> The result is always perpendicular to both inputs.</li>
                 </ul>
             </div>
         </section>
 
-        <section>
-            <h2>2. Applications in Robotics & Graphics AI</h2>
-            <div class="module-card">
-                <h3>Surface Normals & Torque</h3>
-                <p>In <strong>3D Computer Vision</strong> (like NeRFs or LiDAR processing), we need to find the
-                    orientation of a surface. The cross product of two vectors on a plane gives the <strong>Surface
-                        Normal</strong>.</p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Robotics:</strong> Calculating the torque \( \mathbf{\tau} =
-                        \mathbf{r} \times \mathbf{F} \) for arm movements.</li>
-                    <li class="topic-item"><strong>Ray Casting:</strong> Determining if a point is "inside" or "outside"
-                        a mesh during AI-driven 3D reconstruction.</li>
-                </ul>
+        <!-- 2. AI APPLICATION: MANIFOLDS & PLANES -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Defining Planes</h2>
+                <p>In 3D Graphics and Robotic Vision, we define a "surface" by its <strong>Normal Vector</strong>. To
+                    find the normal of a triangle mesh (e.g. in a game engine or simulator), we take the cross product
+                    of two edges.</p>
+                <p>In High-Dim AI, we generalize this to finding the "Null Space" (Kernel) of a matrix, which gives us
+                    vectors perpendicular to every row.</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Computing Cross Product</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Calculating Normals</h2>
+                <p>Computing the vector perpendicular to a surface.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
-u = np.array([1, 0, 0]) # i vector
-v = np.array([0, 1, 0]) # j vector
+# Two Vectors on a plane (e.g. x-axis and y-axis)
+a = np.array([1, 0, 0])
+b = np.array([0, 1, 0])
 
-# The cross product should be k (0, 0, 1)
-cp = np.cross(u, v)
+# Cross Product
+normal = np.cross(a, b)
 
-print(f"Cross Product (u x v): {cp}") # Output: [0 0 1]</code></pre>
+print(f"Vector A: {a}")
+print(f"Vector B: {b}")
+print(f"Normal (A x B): {normal}") 
+# Result: [0, 0, 1] (The z-axis)
+
+# Check Orthogonality (Dot product should be 0)
+print(f"Dot(A, Normal): {np.dot(a, normal)}")
+print(f"Dot(B, Normal): {np.dot(b, normal)}")
+</code></pre>
+                </div>
             </div>
         </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

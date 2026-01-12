@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32.02 Permutations - Combinatorics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.8.1 Counting Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="32_01_basic_counting_principles.html" class="nav-link">01. Basic
+                                Counting Principles</a></li>
+                        <li class="nav-item"><a href="32_02_permutations_arrangements.html" class="nav-link active">02.
+                                Permutations</a></li>
+                        <li class="nav-item"><a href="32_03_combinations_selections.html" class="nav-link">03.
+                                Combinations</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Combinatorics</span>
+                    <span class="badge secondary">Ordering</span>
+                </div>
+                <h1>Permutations & Ordered Arrangements</h1>
+                <p class="lead-text">Order Matters. How many ways can we arrange a subset of items where the sequence of
+                    participation completely changes the result?</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Power of Factorials</h3>
+                    <p>
+                        A <strong>Permutation</strong> is an ordered arrangement of objects. If you have \(n\) distinct items and you
+                        want to arrange all of them, the number of ways is \(n! = n \times (n-1) \times ... \times 1\).
+                        This number grows faster than almost any other function in computing.
+                    </p>
+                </div>
+
+                <h2>1. Permutations of \(n\) objects taken \(r\) at a time</h2>
+                <p>
+                    When we only choose a part of the set to arrange.
+                </p>
+                <div class="math-box">
+                    $$ P(n, r) = {}^n P_r = \frac{n!}{(n-r)!} $$
+                </div>
+                <div class="example-box">
+                    <p><strong>Example:</strong> Out of 10 athletes, how many ways can we award Gold, Silver, and Bronze
+                        medals?</p>
+                    <p>Order matters! This is \(P(10, 3) = \frac{10!}{7!} = 10 \times 9 \times 8 = 720\).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Permutations with Repetition</h2>
+                <p>
+                    What if some items are the same? (e.g., the letters in "GOOGLE").
+                </p>
+                <div class="math-box">
+                    $$ N = \frac{n!}{n_1! n_2! ... n_k!} $$
+                </div>
+                <p>Where \(n_1, n_2...\) are the frequencies of identical items.</p>
+                <div class="example-box">
+                    <p><strong>Example:</strong> "APPLE" has 5 letters, but 'P' repeats twice.</p>
+                    <p>Total arrangements = \(5! / 2! = 120 / 2 = 60\).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">NLP</span>
+                    <h3>Why Permutations matter in AI</h3>
+                    <ul>
+                        <li><strong>Sequential Modeling:</strong> In NLP, a "Sentence" is a unique permutation of tokens. Changing
+                            the order (permutation) changes the meaning (e.g., "The cat ate the rat" vs. "The rat ate
+                            the cat"). Transformers use <strong>Positional Encodings</strong> specifically to capture this order.
+                        </li>
+                        <li><strong>Ranking & Sorting:</strong> LTR (Learning to Rank) models, used in Search Engines, predict the
+                            optimal permutation of documents for a given query. Evaluating them requires metrics like
+                            <strong>NDCG</strong> which care about the exact order.</li>
+                        <li><strong>Traveling Salesperson Problem (TSP):</strong> In combinatorial optimization, finding the shortest
+                            route through \(n\) cities is about finding the "best" permutation of those cities. With
+                            \(n=20\), you have \(20! \approx 2.4 \times 10^{18}\) paths to check.</li>
+                        <li><strong>Ensemble Diversity:</strong> Sometimes we train models on different permutations of the data to
+                            ensure they haven't just memorized the sequence.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Decision Tree: Arranging vs Selecting</h2>
+                <div class="mermaid">
+                    graph TD
+                    A{Choose r from n} --> B[Does Order Matter?]
+                    B -- Yes --> C[Permutation]
+                    B -- No --> D[Combination]
+                    C --> E[Repetitions?]
+                    E -- No --> F["n! / (n-r)!"]
+                    E -- Yes --> G["nⁿ (If picking r with replacement)"]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

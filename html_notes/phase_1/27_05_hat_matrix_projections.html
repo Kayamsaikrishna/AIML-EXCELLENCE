@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.05 Hat Matrix & Projections - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_04_multiple_linear_regression.html" class="nav-link">04.
+                                Multiple Linear Regression</a></li>
+                        <li class="nav-item"><a href="27_05_hat_matrix_projections.html" class="nav-link active">05. Hat
+                                Matrix Projections</a></li>
+                        <li class="nav-item"><a href="27_06_gauss_markov_theorem.html" class="nav-link">06. Gauss Markov
+                                Theorem</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Matrix Algebra</span>
+                </div>
+                <h1>The Hat Matrix (\(\mathbf{H}\))</h1>
+                <p class="lead-text">The linear transformation that maps observed data to our predictions.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Mathematical Name</h3>
+                    <p>
+                        We call it the <strong>Hat Matrix</strong> because it literally "puts a hat" on \(\mathbf{y}\).
+                    </p>
+                    <div class="math-box">
+                        $$ \hat{\mathbf{y}} = \mathbf{H} \mathbf{y} $$
+                    </div>
+                </div>
+
+                <h2>1. Definition & Formula</h2>
+                <div class="math-box">
+                    $$ \mathbf{H} = \mathbf{X}(\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T $$
+                </div>
+                <p>
+                    While this looks complex, its geometry is simple: <strong>\(\mathbf{H}\) is a Projection Matrix.</strong> It
+                    takes the raw data vector \(\mathbf{y}\) and smashes it down into the subspace formed by our
+                    features \(\mathbf{X}\).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Two Critical Properties</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Idempotency (\(\mathbf{H} \cdot \mathbf{H} = \mathbf{H}\))</h4>
+                        <p>If you project a vector onto a plane, and then project the result onto the same plane again,
+                            nothing changes. You're already there!</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Symmetry (\(\mathbf{H} = \mathbf{H}^T\))</h4>
+                        <p>This ensures that the projection is <strong>Orthogonal</strong> (the shortest path to the plane).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Leverage & Outliers</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Diagnostics</span>
+                    <span class="ml-badge">Robustness</span>
+                    <h3>The Diagonals of H</h3>
+                    <p>
+                        The diagonal elements of the Hat matrix (\(h_{ii}\)) are called <strong>Leverage values</strong>.
+                    </p>
+                    <p>
+                        They tell you how much weight a single data point \(y_i\) has on its own prediction
+                        \(\hat{y}_i\).
+                        - If \(h_{ii}\) is high, it means that even a small change in that data point will pull the
+                        entire regression line towards it.
+                    </p>
+                    <p>
+                        <strong>In ML Production:</strong> We use these values to detect <strong>Influential Points</strong>. If one user's data
+                        has a massive leverage value, it might be skewing the whole model (e.g., a "whale" in a spending
+                        dataset). We might want to remove them or use <strong>Robust Regression</strong> to mitigate their power.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

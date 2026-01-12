@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Distortion Theory - Phase 1.5.7.20</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_20_rate_distortion_theory.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_20_rate_distortion_theory.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_20</div>
+            <h1>20. Rate Distortion Theory</h1>
+            <p class="lead-text">Finding the minimum bits for a given level of "Blur."</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Lossy Limit</h2>
+<p>Shannon's first theorems dealt with *Lossless* compression (error = 0). But in reality (like JPEG or
+                MP3), we are willing to accept some error (Distortion) to get a much smaller file. <strong>Rate
+                    Distortion Theory** provides the theoretical minimum bit rate $R(D)$ required for a given maximum
+                    average distortion $D$. </strong></p>
+<div class="math-block">
+                $$ R(D) = \min_{p(\hat{x}|x): \sum p(x, \hat{x}) d(x, \hat{x}) \le D} I(X; \hat{X}) $$
+            </div>
+</section>
+<section class="module-card">
+<h2>2. The Rate-Distortion Curve</h2>
+<p>The curve is monotonically decreasing. To have ZERO distortion, you need infinite bits (for continuous
+                variables). To have ZERO bits, you accept maximum distortion (predicting the mean). Most AI models live
+                somewhere in the middle.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: VAE Beta-Terms and Neural Image Compressors</h2>
+<div class="module-card">
+<h3>The Bottleneck Trade-off</h3>
+<p>In AI, Rate Distortion Theory is the mathematical soul of <strong>Variational Autoencoders (VAEs)**.
+                </strong></p>
+<p>The VAE loss consists of two parts: <strong>Reconstruction Loss</strong> (Distortion) and the <strong>KL Divergence</strong>
+                    (Rate). By adjusting the <strong>$\beta$ hyperparameter</strong> in $\beta$-VAEs, we are literally moving the
+                    model along the Rate-Distortion curve. A high $\beta$ forces a lower rate (higher compression),
+                    leading to better "Disentangled" features but a "Blurrier" reconstruction. In <strong>Learned Image
+                        Compression (Balle et al.)**, we use rate-distortion objectives to train neural networks that
+                        outperform JPEG and HEVC by finding the most efficient non-linear manifold of the pixels. It is
+                        the math that tells AI engineers: "You can't have both perfect quality and a tiny model—pick
+                        your point on the curve." </strong></p>
+</div>
+</section>
+<section>
+<h2>4. Mathematical Insight</h2>
+<p>Rate Distortion is a <strong>Convex Optimization</strong> problem. Finding the optimal $R(D)$ for a Gaussian source is
+                the baseline for analyzing how much information a neural network layer "Throws away" during training.
+            </p>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

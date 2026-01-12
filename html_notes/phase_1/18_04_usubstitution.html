@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,75 +9,81 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.4 Integration</li>
-            <li><a href="18_03_integration_rules.html">03. Integration Rules</a></li>
-            <li><a href="18_04_usubstitution.html" class="active">04. U-Substitution</a></li>
-            <li><a href="18_05_integration_by_parts.html">05. Integration by Parts</a></li>
-            <li><a href="18_06_trig_integrals.html">06. Trig Integrals</a></li>
-            <hr>
-            <li class="nav-label">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.4 Integration</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="18_04_usubstitution.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; U-Substitution
+            <a href="../index.html">Syllabus</a> &gt; 18_04_usubstitution.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 18_04</div>
             <h1>04. Integration by Substitution (U-Substitution)</h1>
-            <p class="subtitle">Reversing the Chain Rule.</p>
+            <p class="lead-text">Reversing the Chain Rule.</p>
         </header>
 
-        <section>
-            <h2>1. The Concept</h2>
-            <p>U-Substitution is a technique to solve integrals that contain a function and its derivative. It is based
+        
+
+
+
+<section>
+<h2>1. The Concept</h2>
+<p>U-Substitution is a technique to solve integrals that contain a function and its derivative. It is based
                 on the <strong>Chain Rule</strong> for differentiation.</p>
-            <div class="math-block">
+<div class="math-block">
                 $$ \int f(g(x))g'(x) dx = \int f(u) du \quad \text{where } u = g(x) $$
             </div>
-        </section>
-
-        <section class="module-card">
-            <h2>2. The Checklist</h2>
-            <ol>
-                <li>Identify an "inner" function \(u\).</li>
-                <li>Calculate its derivative \(\frac{du}{dx}\).</li>
-                <li>Solve for \(dx\) or notice if \(du\) is already present in the integrand.</li>
-                <li>Rewrite the whole integral in terms of \(u\).</li>
-                <li>Integrate and then <strong>substitute back</strong> to get the final answer in terms of \(x\).</li>
-            </ol>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Change of Variables</h2>
-            <div class="module-card">
-                <h3>Normalizing Flows & Reparameterization</h3>
-                <p>In <strong>Generative AI (Variational Autoencoders)</strong>, we often need to transform a simple
+</section>
+<section class="module-card">
+<h2>2. The Checklist</h2>
+<ol>
+<li>Identify an "inner" function \(u\).</li>
+<li>Calculate its derivative \(\frac{du}{dx}\).</li>
+<li>Solve for \(dx\) or notice if \(du\) is already present in the integrand.</li>
+<li>Rewrite the whole integral in terms of \(u\).</li>
+<li>Integrate and then <strong>substitute back</strong> to get the final answer in terms of \(x\).</li>
+</ol>
+</section>
+<section>
+<h2>3. AI/ML Connection: Change of Variables</h2>
+<div class="module-card">
+<h3>Normalizing Flows &amp; Reparameterization</h3>
+<p>In <strong>Generative AI (Variational Autoencoders)</strong>, we often need to transform a simple
                     probability distribution (like a Normal/Gaussian distribution) into a complex one that matches
                     real-world data (like a face or a cat). This is called a <strong>Change of Variables</strong>.</p>
-                <p>Mathematically, this involves the <strong>Jacobian determinant</strong>, which is the
+<p>Mathematically, this involves the <strong>Jacobian determinant</strong>, which is the
                     multi-dimensional version of the "u-substitution" rule. By performing substitution inside our
                     probability integrals, we can "stretch" and "squeeze" distributions until they fit our training data
                     perfectly. This is the secret sauce behind <strong>Normalizing Flows</strong>.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: U-Substitution Example</h2>
-            <div class="code-block">
-                <pre><code class="language-python"># Integral of 2x * exp(x^2)
+</div>
+</section>
+<section>
+<h2>4. Python: U-Substitution Example</h2>
+<div class="code-block">
+<pre><code class="language-python"># Integral of 2x * exp(x^2)
 # Let u = x^2, du = 2x dx
 # Result should be exp(x^2) + C
 
@@ -92,13 +97,14 @@ result = sp.integrate(f, x)
 
 print(f"Integral is: {result} + C") 
 # Output: exp(x**2) + C</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19.06 Poisson Distribution - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.3 Discrete Distributions</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="19_05_hypergeometric.html" class="nav-link">05. Hypergeometric</a>
+                        </li>
+                        <li class="nav-item"><a href="19_06_poisson.html" class="nav-link active">06. Poisson</a></li>
+                        <li class="nav-item"><a href="19_07_discrete_uniform.html" class="nav-link">07. Discrete
+                                Uniform</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Rare Events</span>
+                </div>
+                <h1>The Poisson Distribution</h1>
+                <p class="lead-text">Modeling the flow of time and space.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Law of Rare Events</h3>
+                    <p>
+                        Imagine a Binomial distribution where \(n \to \infty\) (millions of trials) and \(p \to 0\)
+                        (very rare chance of success), but the average number of successes \(np = \lambda\) stays
+                        constant.
+                        <br><br>
+                        This limit is the <strong>Poisson Distribution</strong>. It models the number of events
+                        occurring in a fixed interval of time or space.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    $$ P(X=k) = \frac{e^{-\lambda} \lambda^k}{k!} $$
+                    Where \(\lambda > 0\) is the average rate (events per interval).
+                </div>
+                <ul>
+                    <li>Wait time at a call center (calls per minute).</li>
+                    <li>Radioactive decay (particles per second).</li>
+                    <li>Typos on a page (errors per page).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Properties</h2>
+                <ul>
+                    <li><strong>Mean:</strong> \(E[X] = \lambda\)</li>
+                    <li><strong>Variance:</strong> \(\text{Var}(X) = \lambda\)</li>
+                </ul>
+                <p>
+                    A key property of Poisson is that Mean = Variance. If your data has Variance >> Mean, use Negative
+                    Binomial (as discussed previously).
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Poisson Process</h2>
+                <p>
+                    If events follow a Poisson distribution, the <strong>time between events</strong> follows an
+                    <strong>Exponential Distribution</strong> (continuous).
+                </p>
+                <div class="mermaid">
+                    graph LR
+                    A[Poisson Distribution] -- Count of events in fixed time --> B[Discrete]
+                    C[Exponential Distribution] -- Time between events --> D[Continuous]
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. ML Connection: Poisson Regression</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">GLMs</span>
+                    <span class="ml-badge">Regression</span>
+                    <h3>Predicting Counts</h3>
+                    <p>
+                        Standard Linear Regression (MSE Loss) assumes the target \(y\) is Gaussian (continuous,
+                        symmetric, can be negative).
+                        <br><br>
+                        When predicting counts (e.g., number of website visitors), we use <strong>Poisson
+                            Regression</strong> (a Generalized Linear Model).
+                        <br>
+                        We predict the log of the rate: \(\log(\lambda) = w^T x\).
+                        <br>
+                        The loss function derived from Poisson likelihood is:
+                        $$ \text{Loss} = \hat{y} - y \log(\hat{y}) $$
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

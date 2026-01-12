@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>34.07 Communication Complexity - Complexity Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.10.2 Practical Complexity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="34_06_probabilistic_complexity_bpp.html" class="nav-link">06.
+                                Probabilistic Complexity</a></li>
+                        <li class="nav-item"><a href="34_07_communication_complexity.html" class="nav-link active">07.
+                                Communication Complexity</a></li>
+                        <li class="nav-item"><a href="34_08_randomized_algorithms_ai.html" class="nav-link">08.
+                                Randomized Algorithms AI</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Complexity Theory</span>
+                    <span class="badge secondary">Distributed AI</span>
+                </div>
+                <h1>Communication Complexity</h1>
+                <p class="lead-text">The Cost of Dialogue. Analyzing the minimum amount of information two or more
+                    parties must exchange to compute a function of their private inputs.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Beyond the Processor</h3>
+                    <p>
+                        In a single-chip system, Time and Space are king. But in a distributed cluster of 10,000 GPUs,
+                        the bottleneck isn't the computation—it's the <strong>Interconnect (NVLink/InfiniBand)</strong>.
+                        Communication Complexity measures the "Network Budget" of an AI algorithm.
+                    </p>
+                </div>
+
+                <h2>1. The Alice & Bob Scenario</h2>
+                <p>Alice has bitstring \(x\), Bob has bitstring \(y\). They want to compute \(f(x, y)\) while minimizing
+                    the number of bits sent between them.</p>
+                <div class="math-box">
+                    $$ D(f) = \text{Minimum bits for a deterministic protocol} $$
+                    $$ R(f) = \text{Minimum bits for a randomized protocol with error } \epsilon $$
+                </div>
+                <div class="example-box">
+                    <p><strong>The Equality Problem (EQ):</strong> Do Alice and Bob have the same string?
+                        Deterministically, they must exchange \(n\) bits. Randomly, they can exchange \(O(\log n)\) bits
+                        (using Bloom filters or Hashing).</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Communication Bottlenecks in AI</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Gradient Sync (All-Reduce)</h4>
+                        <p>In Data Parallel training, every GPU must share its gradients. For a model with \(P\)
+                            parameters, the communication cost is \(O(P)\) per step. This often takes longer than the
+                            actual backprop!</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Federated Learning</h4>
+                        <p>Learning on edge devices (phones) requires minimizing data sent to the server. We use
+                            <strong>Communication-Efficient SGD (FedAvg)</strong> to update weights locally and send only periodic
+                            delta-updates.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Systems</span>
+                    <span class="ml-badge">Cloud</span>
+                    <h3>The Interconnect Frontier</h3>
+                    <ul>
+                        <li><strong>Model Parallelism:</strong> When a model is too big for one GPU, we split it. The "Boundary
+                            Layers" must pass activations between GPUs. Communication complexity determines the optimal
+                            "Split Point."</li>
+                        <li><strong>Parameter Servers:</strong> Centralized nodes that handle weight updates. The communication
+                            complexity defines the network bandwidth required to prevent the server from becoming a
+                            bottleneck.</li>
+                        <li><strong>Quantized Communication:</strong> Sending gradients in 8-bit or 4-bit (or even 1-bit) is a
+                            technique to reduce the communication complexity of distributed training.</li>
+                        <li><strong>Ring All-Reduce:</strong> An algorithm used in NCCL to share weights in \(O(P)\) time regardless
+                            of the number of nodes, by treating the network as a graph cycle.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Distributed Workflow</h2>
+                <div class="mermaid">
+                    graph LR
+                    GPU1[GPU 1: Grad g1] -- "Send/Recv" --> Hub{All-Reduce}
+                    GPU2[GPU 2: Grad g2] -- "Send/Recv" --> Hub
+                    GPU3[GPU 3: Grad g3] -- "Send/Recv" --> Hub
+                    Hub -- "Mean(g)" --> GPU1
+                    Hub -- "Mean(g)" --> GPU2
+                    Hub -- "Mean(g)" --> GPU3
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">The All-Reduce pattern
+                    used to synchronize decentralized intelligence.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

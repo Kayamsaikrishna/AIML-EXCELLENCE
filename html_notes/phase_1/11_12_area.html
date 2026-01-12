@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11.12 Area Between Curves - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.4 Integration</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="11_09_partial_fractions.html" class="nav-link">09. Partial
+                                Fractions</a></li>
+                        <li class="nav-item"><a href="11_10_improper.html" class="nav-link">10. Improper Integrals</a>
+                        </li>
+                        <li class="nav-item"><a href="11_11_numerical.html" class="nav-link">11. Numerical Methods</a>
+                        </li>
+                        <li class="nav-item"><a href="11_12_area.html" class="nav-link active">12. Area Between
+                                Curves</a></li>
+                        <li class="nav-item"><a href="11_13_volumes.html" class="nav-link">13. Volumes of Revolution</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.4</span>
+                    <span class="badge secondary">Application</span>
+                </div>
+                <h1>Area Between Curves</h1>
+                <p class="lead-text">Measuring the Gap.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Difference Integral</h3>
+                    <p>
+                        To find the area between two functions \(f(x)\) (top) and \(g(x)\) (bottom), we simply integrate
+                        the difference in their heights.
+                        \[ A = \int_a^b (High - Low) dx \]
+                    </p>
+                </div>
+
+                <h2>1. The Process</h2>
+                <div class="glass-card">
+                    <ol class="step-list">
+                        <li><strong>Identify the Top and Bottom:</strong> Graph or test a point to see which function is
+                            larger.</li>
+                        <li><strong>Find Intersections:</strong> Solve \(f(x) = g(x)\) to find the start (\(a\)) and end
+                            (\(b\)) of the region.</li>
+                        <li><strong>Integrate:</strong> Compute \(\int_a^b [f(x) - g(x)] dx\).</li>
+                    </ol>
+                    <p>
+                        <strong>Note:</strong> If the curves switch places (cross each other), split the integral into
+                        two parts.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Start[Functions f and g] --> Intersect[Find Intersection Points]
+                        Intersect --> Identify[Identify Top vs Bottom]
+                        Identify --> Integrate[Integral f - g]
+                        Integrate --> Area[Total Area]
+
+                        style Area fill:#4299e1,stroke:#2b6cb0
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: AUC and Model Comparison</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">ROC Curves</h3>
+                    <p>
+                        In Classification, we use the <strong>ROC Curve</strong> (Receiver Operating Characteristic) to visualize
+                        performance. The metric we care about is <strong>AUC (Area Under the Curve)</strong>.
+                    </p>
+                    <p>
+                        If we are comparing two models (Model A vs Model B), the "Area Between the Curves" represents
+                        the <strong>Performance Gap</strong>.
+                        If we integrate \(\int (ROC_A - ROC_B) dx\), we get a scalar value representing exactly how much
+                        better Model A is across all possible thresholds.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Calculating the Gap</h2>
+                <div class="code-header">area_between.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+
+# Function 1: Line y = x
+f1 = x
+# Function 2: Parabola y = x^2
+f2 = x**2
+
+# 1. Find Intersections (x = x^2)
+roots = sp.solve(f1 - f2, x)
+print(f"Intersections: {roots}") # [0, 1]
+
+# 2. Integrate (Top - Bottom)
+# Between 0 and 1, x > x^2 (e.g., 0.5 > 0.25)
+area = sp.integrate(f1 - f2, (x, 0, 1))
+
+print(f"Area Between Curves: {area}")
+# Output: 1/6</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="11_11_numerical.html" class="footer-link">← Prev: Numerical</a>
+                        <span class="separator">|</span>
+                        <a href="11_13_volumes.html" class="footer-link">Next: Volumes →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

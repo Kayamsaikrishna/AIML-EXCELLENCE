@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.11 Paired T-Test - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_10_two_sample_t_test.html" class="nav-link">10. Two Sample T
+                                Test</a></li>
+                        <li class="nav-item"><a href="25_11_paired_t_test.html" class="nav-link active">11. Paired T
+                                Test</a></li>
+                        <li class="nav-item"><a href="25_12_anova_one_way.html" class="nav-link">12. Anova One Way</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Before vs After</span>
+                </div>
+                <h1>Paired T-Test</h1>
+                <p class="lead-text">Removing individual noise by comparing a subject to their own previous baseline.
+                </p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Dependent Sample</h3>
+                    <p>
+                        In a Paired T-test, the "Groups" are the same people measured twice.
+                        - Group 1: Weight before a diet.
+                        - Group 2: Weight after a diet.
+                    </p>
+                    <p>
+                        <strong>Why it's better:</strong> It has much higher <strong>Power</strong>. Since we are looking at the *Difference* for
+                        each person, we ignore the fact that some people are naturally heavier than others. We only care
+                        how much <em>they</em> changed.
+                    </p>
+                </div>
+
+                <h2>1. The Test Statistic</h2>
+                <div class="math-box">
+                    $$ t = \frac{\bar{d}}{s_d / \sqrt{n}} $$
+                </div>
+                <ul>
+                    <li>\(d\): The difference score (\(x_{after} - x_{before}\)) for each subject.</li>
+                    <li>\(\bar{d}\): Mean of the differences.</li>
+                    <li>\(s_d\): Standard deviation of the differences.</li>
+                </ul>
+                <p>
+                    A Paired T-test is mathematically identical to a <strong>Single-Sample T-test</strong> performed on the
+                    "Differences."
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Model Fine-tuning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">NLP</span>
+                    <h3>The Impact of RLHF</h3>
+                    <p>
+                        You have a Base Large Language Model. You apply **Reinforcement Learning from Human Feedback
+                        (RLHF)** to make it safer.
+                    </p>
+                    <p>
+                        <strong>The Test:</strong>
+                        1. Give 100 prompts to the Base Model and rate the "Safety Score" (1-10) for each.
+                        2. Give the <u>same 100 prompts</u> to the RLHF Model and score them.
+                        3. Use a <strong>Paired T-test</strong>.
+                    </p>
+                    <p>
+                        Because we used the exact same prompts, we've eliminated the noise of "hard prompts" vs "easy
+                        prompts." We are directly measuring the <em>transformation</em> caused by the RLHF process.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

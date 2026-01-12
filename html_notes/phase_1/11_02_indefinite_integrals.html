@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11.02 Indefinite Integrals - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.4 Integration</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="11_01_antiderivatives.html" class="nav-link">01.
+                                Antiderivatives</a></li>
+                        <li class="nav-item"><a href="11_02_indefinite_integrals.html" class="nav-link active">02.
+                                Indefinite Integrals</a></li>
+                        <li class="nav-item"><a href="11_03_definite_integrals.html" class="nav-link">03. Definite
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="11_04_ftc.html" class="nav-link">04. FTC</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.4</span>
+                    <span class="badge secondary">Notation</span>
+                </div>
+                <h1>Indefinite Integrals</h1>
+                <p class="lead-text">The formal language of addition.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "S" stands for Sum</h3>
+                    <p>
+                        The integral symbol \(\int\) is literally a stretched-out "S" because integration is
+                        fundamentally about summing up infinite tiny pieces to recover the whole.
+                    </p>
+                </div>
+
+                <h2>1. Notation Decomposition</h2>
+                <div class="glass-card">
+                    <p>
+                        \[ \int f(x) dx = F(x) + C \]
+                    </p>
+                    <ul class="topic-list">
+                        <li><strong>\(\int\) Integral Sign:</strong> The command to integrate.</li>
+                        <li><strong>\(f(x)\) Integrand:</strong> The function we are summing/integrating.</li>
+                        <li><strong>\(dx\) Differential:</strong> Indicates the variable of integration (and represents
+                            the tiny width).</li>
+                        <li><strong>\(F(x)\) Primitive:</strong> The resulting function.</li>
+                        <li><strong>\(C\) Constant:</strong> The shift parameter.</li>
+                    </ul>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Op[Operator: Integrate] --> Input[Input: f x ]
+                        Input --> Process[Process: Reverse Power Rule etc]
+                        Process --> Output[Output: F x + C]
+
+                        style Op fill:#ed64a6
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Continuous Expectation</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Integrating Probability</h3>
+                    <p>
+                        In discrete math, the expected value (average) is a sum: \( E[X] = \sum x \cdot P(x) \).
+                    </p>
+                    <p>
+                        In AI, most variables (weights, activations, pixel values) are treated as continuous. So the sum
+                        becomes an <strong>Integral</strong>:
+                        \[ E[X] = \int_{-\infty}^{\infty} x \cdot p(x) dx \]
+                    </p>
+                    <p>
+                        When Variational Autoencoders (VAEs) calculate the "KL-Divergence" loss, they are evaluating an
+                        integral of probability distributions to see how different the generated image is from the real
+                        distribution.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Solving Integrals</h2>
+                <div class="code-header">solve_integral.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+
+# Standard Polynomials
+expr1 = x**2 + 5*x + 1
+sol1 = sp.integrate(expr1, x)
+print(f"Int({expr1}) = {sol1} + C")
+
+# Exponential Functions (Crucial for Softmax/Sigmoid math)
+expr2 = sp.exp(2*x)
+sol2 = sp.integrate(expr2, x)
+print(f"Int({expr2}) = {sol2} + C") 
+# Result: exp(2x)/2. Note the division by the inner derivative (Reverse Chain Rule).</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="11_01_antiderivatives.html" class="footer-link">← Prev: Antiderivatives</a>
+                        <span class="separator">|</span>
+                        <a href="11_03_definite_integrals.html" class="footer-link">Next: Definite Integrals →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

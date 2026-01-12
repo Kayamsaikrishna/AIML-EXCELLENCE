@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.14 MI in Feature Selection - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.2 Mutual Information</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_13_mutual_information_estimation.html" class="nav-link">13.
+                                Mutual Information Estimation</a></li>
+                        <li class="nav-item"><a href="29_14_mi_in_feature_selection.html" class="nav-link active">14. MI
+                                in Feature Selection</a></li>
+                        <li class="nav-item"><a href="29_15_cross_entropy_definition.html" class="nav-link">15.
+                                Cross-Entropy Definition</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Data Eng</span>
+                    <span class="badge secondary">Feature Optimization</span>
+                </div>
+                <h1>Mutual Information in Feature Selection</h1>
+                <p class="lead-text">Identifying "Ghost" relationships. How MI finds patterns that standard linear
+                    correlation measures completely miss.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Blindness of Pearson</h3>
+                    <p>
+                        The standard Pearson Correlation (\(r\)) only measures <strong>Linear</strong> relationships. If two
+                        variables form a perfect circle, their correlation is zero.
+                        <br><br>
+                        Mutual Information, however, would identify this as a perfect relationship because knowing where
+                        you are on the circle perfectly predicts your other coordinates.
+                    </p>
+                </div>
+
+                <h2>1. mRMR: Minimum Redundancy Maximum Relevance</h2>
+                <p>Simple MI ranking has a problem: it might select 10 features that all tell you the same thing. The
+                    <strong>mRMR algorithm</strong> fixes this with a twin objective:</p>
+                <div class="math-box">
+                    $$ J = \max \left[ \underbrace{I(X_i; Y)}_{\text{Relevance}} - \underbrace{\frac{1}{|S|} \sum_{X_j
+                    \in S} I(X_i; X_j)}_{\text{Redundancy}} \right] $$
+                </div>
+                <ul>
+                    <li><strong>Max Relevance:</strong> Pick features that are strongly related to the target \(Y\).</li>
+                    <li><strong>Min Redundancy:</strong> Avoid picking features that are strongly related to features we <strong>already</strong>
+                        picked.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Feature Significance Levels</h2>
+                <p>How do we know if a Mutual Information score of 0.05 is "good"? We use <strong>Permutation Testing</strong>:</p>
+                <ol>
+                    <li>Calculate real \(I(X; Y)\).</li>
+                    <li>Shuffle (permute) \(Y\) randomly to break the relationship.</li>
+                    <li>Calculate \(I_{shuffled}\).</li>
+                    <li>If \(I_{real}\) is significantly higher than 95% of shuffled attempts, the feature is likely a
+                        true "Signal."</li>
+                </ol>
+                <div class="mermaid">
+                    graph TD
+                    A[Feature Set] --> B[Calculate MI with Target]
+                    B --> C[Check Redundancy with Other Features]
+                    C --> D{High Relevance & Low Redundancy?}
+                    D -- Yes --> E[Keep for Model]
+                    D -- No --> F[Discard]
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. MI vs. Correlation Comparison</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Relationship Type</th>
+                            <th>Pearson Correlation (\(r\))</th>
+                            <th>Mutual Information (\(I\))</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Straight Line (\(y = x\))</td>
+                            <td>1.0 (High)</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td>Sine Wave (\(y = \sin x\))</td>
+                            <td>~0.0 (Blind)</td>
+                            <td>High (Sees pattern)</td>
+                        </tr>
+                        <tr>
+                            <td>Categorical Data</td>
+                            <td>Invalid</td>
+                            <td>Excellent</td>
+                        </tr>
+                        <tr>
+                            <td>Outliers</td>
+                            <td>Highly sensitive</td>
+                            <td>Robust</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Cybersecurity</span>
+                    <span class="ml-badge">Financial Fraud</span>
+                    <h3>MI in Critical Applications</h3>
+                    <ul>
+                        <li><strong>Intrusion Detection:</strong> In network logs, raw packet sizes and timestamps aren't linear. MI
+                            identifies the non-linear "burst" patterns of an attacker.</li>
+                        <li><strong>Financial Arbitrage:</strong> MI can detect "Lead-Lag" relationships where one stock predictably
+                            moves after another, even if their direct correlation is low due to time shifts.</li>
+                        <li><strong>Genomics:</strong> Feature selection with MI is the standard for gene expression analysis, where
+                            tens of thousands of genes might interact in incredibly complex, non-linear biological
+                            pathways.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary of MI Utility</h2>
+                <div class="insight-box">
+                    <strong>Final Mastery:</strong> Mutual Information is the "Swiss Army Knife" of feature engineering. If your
+                    model (like a Deep Neural Network or Random Forest) is capable of learning non-linear patterns, your
+                    feature selection method <strong>must</strong> be MI-based. Standard correlation will leave half of your model's
+                    potential on the table.
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

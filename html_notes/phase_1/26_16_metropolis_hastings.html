@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26.16 Metropolis-Hastings - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.10 Bayesian Statistics</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="26_15_gibbs_sampling.html" class="nav-link">15. Gibbs Sampling</a>
+                        </li>
+                        <li class="nav-item"><a href="26_16_metropolis_hastings.html" class="nav-link active">16.
+                                Metropolis Hastings</a></li>
+                        <li class="nav-item"><a href="26_17_hamiltonian_monte_carlo.html" class="nav-link">17.
+                                Hamiltonian Monte Carlo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.6</span>
+                    <span class="badge secondary">Generic Sampler</span>
+                </div>
+                <h1>Metropolis-Hastings</h1>
+                <p class="lead-text">The "Swiss Army Knife" of MCMC. If you can define a likelihood, Metropolis-Hastings
+                    can sample from it.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Acceptance Rule</h3>
+                    <p>
+                        Unlike Gibbs, Metropolis doesn't need to know the conditional math. It just makes a guess and
+                        asks: "Is this spot better than where I am now?"
+                        <br><br>
+                        - <strong>Better?</strong> Move there.
+                        - <strong>Worse?</strong> Maybe move there (to avoid getting stuck in a local spike).
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    Acceptance Ratio (\(r\)): <br>
+                    $$ r = \frac{P(\theta_{new} | D)}{P(\theta_{old} | D)} $$
+                </div>
+                <p>
+                    1. Proposed a new state \(\theta_{new}\). <br>
+                    2. If \(r \ge 1\), accept. <br>
+                    3. If \(r < 1\), accept with probability \(r\). </p>
+                        <div class="diagram-container">
+                            <div class="mermaid">
+                                graph LR
+                                A[Old State] --> B{Suggest New}
+                                B --> C(Better?)
+                                C -->|Yes| D[Move]
+                                C -->|No| E{Roll Dice}
+                                E -->|Success| D
+                                E -->|Fail| A
+                            </div>
+                        </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The "Proposal Distribution" Problem</h2>
+                <p>
+                    Metropolis-Hastings depends heavily on how "big" your jumps are.
+                </p>
+                <ul>
+                    <li><strong>Jumps too small:</strong> You explore the space way too slowly (it takes a million years to see the
+                        whole distribution).</li>
+                    <li><strong>Jumps too big:</strong> You almost always land in a "bad" (low probability) zone and your proposals
+                        keep getting rejected. You never move.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Sampling Arbitrary Distributions</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Generative AI</span>
+                    <span class="ml-badge">Complexity</span>
+                    <h3>Why it's the Gold Standard for non-standard models</h3>
+                    <p>
+                        In many modern ML areas (like <strong>Ising Models</strong> or <strong>Energy Based Models</strong>), we have an "Energy
+                        Function" \(E(x)\) but we don't know the normalization constant (\(Z\)).
+                    </p>
+                    <p>
+                        $$ P(x) = \frac{1}{Z} \exp(-E(x)) $$
+                    </p>
+                    <p>
+                        Because Metropolis-Hastings only cares about the <strong>Ratio</strong> of two points (\(P_{new} /
+                        P_{old}\)), the constant \(Z\) cancels out and disappears! This allows you to sample from
+                        distributions where you can't even compute the actual probability, only "relative" probability.
+                        This is the superpower that lets us sample from things as complex as <strong>Spin Glasses</strong> and
+                        <strong>Molecular Dynamics</strong> simulations.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

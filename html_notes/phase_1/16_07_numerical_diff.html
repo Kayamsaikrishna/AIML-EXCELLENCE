@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.07 Numerical Differentiation - Calculus for ML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.9 Calculus for ML</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="16_06_taylor_optimization_ml.html" class="nav-link">06. Taylor in
+                                ML</a></li>
+                        <li class="nav-item"><a href="16_07_numerical_diff.html" class="nav-link active">07. Numerical
+                                Diff</a></li>
+                        <li class="nav-item"><a href="16_08_automatic_diff.html" class="nav-link">08. Autodiff
+                                Basics</a></li>
+                        <li class="nav-item"><a href="16_09_comp_graphs.html" class="nav-link">09. Comp Graphs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">ML Calc 1.9</span>
+                    <span class="badge secondary">Verification</span>
+                </div>
+                <h1>Numerical Differentiation</h1>
+                <p class="lead-text">How to check if your calculus is correct.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Finite Differences</h3>
+                    <p>
+                        The mathematical definition of a derivative uses a limit:
+                        \[ f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} \]
+                        Computers can't do limits, but they can pick a very small \(h\) (e.g., \(1e-5\)).
+                        This is the <strong>Finite Difference Approximation</strong>.
+                    </p>
+                    <p>
+                        <strong>Central Difference</strong> is more accurate:
+                        \[ f'(x) \approx \frac{f(x+h) - f(x-h)}{2h} \]
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Gradient Checking</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Trust Check</h3>
+                    <p>
+                        Implementing Backpropagation manually is error-prone. One flipped sign in layer 50 ruins the
+                        whole network.
+                        <strong>Gradient Checking</strong> involves calculating the gradient of your network numerically (slow, but
+                        robust) and comparing it to your analytic backprop gradient.
+                    </p>
+                    <p>
+                        If they match to within \(1e-7\), your implementation is correct. If they differ, you have a
+                        bug.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Grad Check</h2>
+                <div class="code-header">grad_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def f(x): return x**2 + 3*x
+
+def analytic_grad(x): return 2*x + 3
+
+def numerical_grad(x, h=1e-5):
+    return (f(x+h) - f(x-h)) / (2*h)
+
+x_test = 5.0
+ag = analytic_grad(x_test)
+ng = numerical_grad(x_test)
+
+print(f"Analytic: {ag}")
+print(f"Numeric:  {ng}")
+print(f"Diff:     {abs(ag - ng)}")
+# Should be extremely small!</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="16_06_taylor_optimization_ml.html" class="footer-link">← Prev: Taylor Optimization</a>
+                        <span class="separator">|</span>
+                        <a href="16_08_automatic_diff.html" class="footer-link">Next: Autodiff Basics →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

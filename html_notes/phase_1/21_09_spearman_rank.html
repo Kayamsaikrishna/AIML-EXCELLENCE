@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.09 Spearman Rank Correlation - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_08_corr_properties.html" class="nav-link">08. Corr
+                                Properties</a></li>
+                        <li class="nav-item"><a href="21_09_spearman_rank.html" class="nav-link active">09. Spearman
+                                Rank</a></li>
+                        <li class="nav-item"><a href="21_10_covariance_matrix.html" class="nav-link">10. Covariance
+                                Matrix</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Robust Stats</span>
+                </div>
+                <h1>Spearman Rank Correlation (\(r_s\))</h1>
+                <p class="lead-text">Measuring monotonic relationships: When Pearson fails because the relation isn't a
+                    straight line.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Beyond the Straight Line</h3>
+                    <p>
+                        Pearson correlation assumes a linear (straight line) relationship. But what if doubling \(X\)
+                        always increases \(Y\), but by different amounts each time (e.g., \(Y = e^X\))?
+                        <br><br>
+                        Pearon will be less than 1. But the relationship is "perfectly monotonic". **Spearman Rank
+                        Correlation** solves this by looking at the <strong>ranks</strong> (order) of the data rather
+                        than the values.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    Spearman's \(\rho\) is simply the <strong>Pearson correlation of the ranked variables</strong>.
+                    <br>
+                    For a sample of size \(n\) with no tied ranks:
+                    $$ r_s = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)} $$
+                    where \(d_i\) is the difference between the rank of \(X\) and the rank of \(Y\) for each point.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Two Advantages</h2>
+                <div class="two-col-grid">
+                    <div class="concept-card">
+                        <h3>1. Capture Non-Linearity</h3>
+                        <p>If \(Y = e^X\), Pearson might be 0.88. Spearman will be <strong>1.00</strong> because the
+                            order is perfectly preserved.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>2. Robust to Outliers</h3>
+                        <p>A single extreme outlier can destroy a Pearson coefficient. But in Spearman, that outlier is
+                            just assigned the "highest rank" (e.g., rank 100), limiting its disruptive power.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Feature Selection & Ranking</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">EDA</span>
+                    <span class="ml-badge">Ordinal Data</span>
+                    <h3>Categorical / Ordinal Features</h3>
+                    <p>
+                        If your features are ordinal (e.g., "Low", "Medium", "High"), Pearson is not technically valid
+                        because the distance between categories isn't defined. Spearman is the standard tool for
+                        measuring the relationship between such ranked categories and your target.
+                    </p>
+                </div>
+
+                <h3>Information Bottleneck</h3>
+                <p>
+                    In some cases, Spearman can reveal dependencies that Pearson misses. If Spearman is much higher than
+                    Pearson, it's a strong hint that you should try a <strong>non-linear model</strong> (like a Random
+                    Forest or Neural Network) or apply a log-transform to your data to linearize it.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary Comparison</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Coefficient</th>
+                            <th>Relationship Type</th>
+                            <th>Data Sensitive?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pearson</td>
+                            <td>Linear</td>
+                            <td>High (Outliers hurt)</td>
+                        </tr>
+                        <tr>
+                            <td>Spearman</td>
+                            <td>Monotonic</td>
+                            <td>Low (Robust)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

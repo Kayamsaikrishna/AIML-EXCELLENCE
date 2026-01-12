@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Entropy Loss - Phase 1.5.7.5</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.5 Info Theory</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="29_05_cross_entropy_loss.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 29_05_cross_entropy_loss.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 36_05</div>
+            <h1>05. Cross-Entropy Loss</h1>
+            <p class="lead-text">The engine that trains 99% of classification models.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Decomposition</h2>
+<p><strong>Cross-Entropy $H(P, Q)$</strong> is the total information content required if we use distribution
+                $Q$ (the model) to describe distribution $P$ (the truth). It is simply the sum of the Entropy of the
+                truth + the KL divergence: </p>
+<div class="math-block">
+                $$ H(P, Q) = H(P) + D_{KL}(P || Q) $$
+            </div>
+<p>Since the entropy of our data $H(P)$ is constant, minimizing Cross-Entropy is mathematically identical to
+                minimizing KL Divergence. </p>
+</section>
+<section class="module-card">
+<h2>2. Why not Mean Squared Error (MSE)?</h2>
+<p>For classification, MSE (calculating the squared distance between labels) has "Flat" gradients when the
+                model is very wrong. <strong>Cross-Entropy** has steep gradients when predictions are far from the
+                    truth, allowing the AI to learn dramatically faster. </strong></p>
+</section>
+<section>
+<h2>3. AI/ML Connection: The Softmax-CrossEntropy Duo</h2>
+<div class="module-card">
+<h3>Probabilistic Alignment</h3>
+<p>In AI, Cross-Entropy is the standard loss used in <strong>PyTorch (`nn.CrossEntropyLoss`)</strong> and
+                    <strong>TensorFlow</strong>. </p>
+<p>When you train a <strong>Neural Network</strong> to recognize cats vs dogs, the final layer outputs "Logits." We
+                    squash these into a probability distribution using <strong>Softmax</strong>. We then compare this distribution to
+                    the Ground Truth (e.g., $[1, 0]$ for cat) using Cross-Entropy. The model's "Goal" is to reach 0
+                    Cross-Entropy. In <strong>Multi-label Classification**, we use Binary Cross-Entropy (BCE). In
+                        <strong>Knowledge Distillation**, a "Student" model tries to minimize the cross-entropy between
+                            its outputs and a "Teacher" model's outputs. It is the language that tells the AI: "Be more
+                            certain about the right answer." </strong></strong></p>
+</div>
+</section>
+<section>
+<h2>4. Python: Binary Cross-Entropy (BCE)</h2>
+<div class="code-block">
+<pre><code class="language-python">import torch
+import torch.nn as nn
+
+# Target: [1] (e.g., Cat)
+target = torch.tensor([1.0])
+# Prediction: 0.8 probability of 'Cat'
+pred = torch.tensor([0.8])
+
+# BCE Loss
+criterion = nn.BCELoss()
+loss = criterion(pred, target)
+
+print(f"BCE Loss: {loss.item():.4f}")
+# As pred moves to 1.0, loss moves to 0.0</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

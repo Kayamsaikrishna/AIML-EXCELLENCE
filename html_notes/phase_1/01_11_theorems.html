@@ -4,188 +4,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remainder & Factor Theorems - Phase 1.1.11</title>
+    <title>01.11 Theorems - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html" class="active">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_10_poly_division.html" class="nav-link">10. Division</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">11. Theorems</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; The Core Theorems
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 11. Theorems
         </div>
 
-        <header>
-            <h1>11. Remainder & Factor Theorems</h1>
-            <p class="subtitle">If \( P(c) = 0 \), then \( c \) is a factor. This simple rule powers Recommender
-                Systems.</p>
+        <header class="page-header">
+            <div class="badge">Module 11</div>
+            <h1>The Fundamental Theorem of Algebra</h1>
+            <p class="lead-text">Why does every polynomial of degree \(n\) have exactly \(n\) roots? The math that
+                guarantees Eigenvalues exist.</p>
         </header>
 
-        <!-- 1. BASICS -->
-        <section id="basics">
-            <h2>1. The Two Pillars</h2>
+        <!-- VISUAL DIAGRAM: ROOTS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Hunting for Roots</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    Poly["Polynomial P(x)"]
+    Roots["Roots (Zeros)"]
+    Complex["Complex Plane (C)"]
+    Eigen["Eigenvalues"]
 
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Remainder Theorem</h3>
-                    <p>If you divide a polynomial \( P(x) \) by \( (x - c) \), the remainder is simply \( P(c) \).</p>
-                    <p><em>Interpretation:</em> The "Value" of a function at a point is equivalent to the "Leftover"
-                        after division.</p>
+    Poly -->|"Has n"| Roots
+    Roots -->|"Must live in"| Complex
+    
+    subgraph Theorem [FTA Statement]
+    FTA["Fundamental Theorem of Algebra"]
+    NoReal["Real Roots not guaranteed"]
+    YesComplex["Complex Roots guaranteed"]
+    end
+    
+    FTA --> YesComplex
+    Roots -.->|"Equivalent to"| Eigen
+
+    style FTA fill:#dbeafe,stroke:#2563eb
+    style Eigen fill:#f3e8ff,stroke:#9333ea
+                    </pre>
                 </div>
-
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Factor Theorem</h3>
-                    <p>If \( P(c) = 0 \), then \( (x - c) \) is a factor of \( P(x) \).</p>
-                    <p><em>Interpretation:</em> Roots are Factors. If we find where the system is zero (stable), we have
-                        found a fundamental component of the system.</p>
-                </div>
-            </div>
-
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <!-- SVG: Roots as Factors -->
-                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Axis -->
-                    <line x1="50" y1="150" x2="550" y2="150" stroke="#64748b" stroke-width="2" />
-
-                    <!-- Polynomial Curve -->
-                    <path d="M 50 250 C 150 50, 250 250, 350 150 S 550 50, 550 250" fill="none" stroke="#0f172a"
-                        stroke-width="3" />
-
-                    <!-- Roots (Zero Crossings) -->
-                    <circle cx="110" cy="150" r="8" fill="#ef4444" />
-                    <text x="110" y="180" text-anchor="middle" font-weight="bold">c1</text>
-                    <text x="110" y="130" text-anchor="middle" fill="#64748b">Factor (x-c1)</text>
-
-                    <circle cx="280" cy="150" r="8" fill="#ef4444" />
-                    <text x="280" y="180" text-anchor="middle" font-weight="bold">c2</text>
-                    <text x="280" y="130" text-anchor="middle" fill="#64748b">Factor (x-c2)</text>
-
-                    <circle cx="490" cy="150" r="8" fill="#ef4444" />
-                    <text x="490" y="180" text-anchor="middle" font-weight="bold">c3</text>
-                    <text x="490" y="130" text-anchor="middle" fill="#64748b">Factor (x-c3)</text>
-                </svg>
             </div>
         </section>
 
-        <!-- 2. AI CONTEXT -->
-        <section id="ai-context">
-            <h2>2. Latent Factors (Matrix Factorization)</h2>
-            <p>In AI, we generalize the Factor Theorem to Matrices. A massive logical system (User-Movie Rating Matrix)
-                can be broken down into simpler "Factors".</p>
-            <div class="math-block">
-                $$ Rating \approx UserFactor \cdot MovieFactor $$
-            </div>
+        <!-- 1. THE THEOREM -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Fundamental Theorem of Algebra (FTA)</h2>
+                <p><strong>Statement:</strong> Every non-zero, single-variable, degree \(n\) polynomial with complex
+                    coefficients has at least one complex root.</p>
+                <P><strong>Corollary:</strong> It has exactly \(n\) roots (counting multiplicity).</P>
 
-            <div class="module-card">
-                <h3 class="module-title">AI: Recommender Systems</h3>
-                <p>Netflix doesn't store a rating for every movie. It stores:</p>
+                <div class="math-block">
+                    $$ P(z) = a_n(z-r_1)(z-r_2)\dots(z-r_n) $$
+                </div>
+
+                <h3>Why this matters for AI</h3>
+                <p>The "Characteristic Equation" of a matrix is a polynomial: \( \det(A - \lambda I) = 0 \).</p>
+                <p>Because of FTA, we know that an \( n \times n \) matrix is guaranteed to have \( n \) Eigenvalues
+                    (possibly complex). If FTA weren't true, Spectral Theory (and thus PCA, Google PageRank) would fall
+                    apart.</p>
+            </div>
+        </section>
+
+        <!-- 2. ROOTS & FACTOR THEOREM -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #10b981;">
+                <h2>2. Factor & Remainder Theorems</h2>
                 <ul>
-                    <li><strong>User Factors:</strong> [Likes Action, Hates Romance, Likes 90s]</li>
-                    <li><strong>Movie Factors:</strong> [Is Action, Is Romance, Is 90s]</li>
+                    <li><strong>Remainder Theorem:</strong> \( P(a) \) is the remainder when dividing by \( (x-a) \).
+                    </li>
+                    <li><strong>Factor Theorem:</strong> \( (x-a) \) is a factor if and only if \( P(a) = 0 \).</li>
                 </ul>
-                <p>The prediction is the dot product (multiplication) of these factors. We discovered these factors by
-                    "solving used roots" (SVD/NMF) of the data matrix.</p>
             </div>
         </section>
 
-        <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Coding Matrix Factorization</h2>
-            <p>Let's use NMF (Non-negative Matrix Factorization) to extract latent topics.</p>
+        <!-- 3. PYTHON: FINDING ROOTS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Numerical Root Finding</h2>
+                <p>Computers solve \( P(x)=0 \) by turning it into an Eigenvalue problem (Companion Matrix algorithm).
+                </p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Sklearn: Finding Latent Factors</div>
-                <pre><code class="language-python">from sklearn.decomposition import NMF
-import numpy as np
+# P(x) = x^2 + 1
+# Roots should be +i and -i (No real roots)
+coeffs = [1, 0, 1]
 
-# Data: 3 Users, 4 Movies (0 to 5 Star Ratings)
-X = np.array([
-    [5, 4, 1, 1],
-    [1, 1, 5, 4],
-    [5, 5, 1, 1] 
-])
+roots = np.roots(coeffs)
+print(f"Roots: {roots}")
+# Output: [0.+1.j, 0.-1.j] -> Correct!
 
-# Factorize into 2 Components (Action vs Romance)
-model = NMF(n_components=2, init='random', random_state=0)
-
-W = model.fit_transform(X) # User Factors
-H = model.components_      # Movie Factors
-
-print("User Factors (Taste Profile):")
-print(W.round(2))
-
-print("\nMovie Factors (Genre Profile):")
-print(H.round(2))
-
-# Reconstruct Original Matrix
-approx = np.dot(W, H)
-print("\nReconstructed (Predicted Ratings):")
-print(approx.round(2))</code></pre>
+# P(x) = x^5 - 32
+# Should have 5 roots (1 Real, 4 Complex)
+roots_5 = np.roots([1, 0, 0, 0, 0, -32])
+print(f"5th Roots of 32:\n{roots_5}")
+</code></pre>
+                </div>
             </div>
         </section>
 
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

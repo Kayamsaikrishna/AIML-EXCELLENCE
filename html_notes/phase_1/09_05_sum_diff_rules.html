@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.05 Sum & Difference Rules - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_01_derivative_defn.html" class="nav-link">01. Derivative
+                                Definition</a></li>
+                        <li class="nav-item"><a href="09_02_geometric_interp.html" class="nav-link">02. Geometric
+                                Interpretation</a></li>
+                        <li class="nav-item"><a href="09_03_diff_notation.html" class="nav-link">03. Notation
+                                (Leibniz/Lagrange)</a></li>
+                        <li class="nav-item"><a href="09_04_basic_rules.html" class="nav-link">04. Basic Power Rules</a>
+                        </li>
+                        <li class="nav-item"><a href="09_05_sum_diff_rules.html" class="nav-link active">05. Sum &
+                                Difference Rules</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Linearity</span>
+                </div>
+                <h1>Sum & Difference Rules</h1>
+                <p class="lead-text">Differentiation is a linear operator. This means you can break a big problem into
+                    small pieces, solve them, and add the answers.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Principle of Superposition</h3>
+                    <p>
+                        In Physics and Linear Systems, "Superposition" means the effect of A+B is the effect of A plus
+                        the effect of B. Calculus respects this principle.
+                    </p>
+                </div>
+
+                <h2>1. The Linearity Property</h2>
+                <div class="glass-card">
+                    <p>
+                        The derivative of a sum is the sum of the derivatives.
+                    </p>
+                    <div class="math-block">
+                        \[ \frac{d}{dx}[f(x) \pm g(x)] = f'(x) \pm g'(x) \]
+                    </div>
+                    <p>This allows us to differentiate complex polynomials term-by-term.</p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Input[Input Function: f + g]
+                        Input -->|Route 1| Diff1[Differentiate f]
+                        Input -->|Route 2| Diff2[Differentiate g]
+                        Diff1 --> Sum[Add Results]
+                        Diff2 --> Sum
+                        Sum --> Output[Derivative: f' + g']
+                        style Sum fill:#f6ad55,stroke:#dd6b20
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Regularized Loss</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why we can "Add" Penalties</h3>
+                    <p>
+                        In training models, we often want to minimize error <strong>AND</strong> keep weights small
+                        (Regularization). We define our Total Loss as:
+                    </p>
+                    <div class="math-block">
+                        \[ L_{total} = L_{data} + \lambda L_{reg} \]
+                    </div>
+                    <p>
+                        Thanks to the Sum Rule, we don't need a complex new formula for the gradient. We just calculate
+                        the gradient of the error, calculate the gradient of the regularization term, and add them up.
+                    </p>
+                    <div class="math-block">
+                        \[ \nabla L_{total} = \nabla L_{data} + \lambda \nabla L_{reg} \]
+                    </div>
+                    <p>
+                        This modularity allows libraries like PyTorch to let you stick arbitrary loss compoments
+                        together Lego-style.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Modular Gradients</h2>
+                <div class="code-header">sum_rule_demo.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+
+# Component 1: Data Fitting (Polynomial)
+loss_data = x**4 - 3*x**2
+
+# Component 2: Regularization (Keep x small)
+loss_reg = 0.5 * x**2
+
+# Total Loss
+loss_total = loss_data + loss_reg
+
+# Differentiate separately
+grad_data = sp.diff(loss_data, x)
+grad_reg = sp.diff(loss_reg, x)
+
+# Differentiate combined
+grad_total = sp.diff(loss_total, x)
+
+print(f"Gradient of Data Term: {grad_data}")
+print(f"Gradient of Reg Term:  {grad_reg}")
+print(f"Sum of Gradients:      {grad_data + grad_reg}")
+print(f"Gradient of Total:     {grad_total}")
+
+if sp.simplify((grad_data + grad_reg) - grad_total) == 0:
+    print("\n✅ The Sum Rule holds: The derivative of the sum is the sum of the derivatives.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_04_basic_rules.html" class="footer-link">← Prev: Basic Rules</a>
+                        <span class="separator">|</span>
+                        <a href="09_06_product_rule.html" class="footer-link">Next: Product Rule →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -4,121 +4,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angle Measurement - Phase 1.1.28</title>
+    <title>01.28 Angle Measurement - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.2 Trigonometry</li>
-            <li><a href="01_28_angle_measurement.html" class="active">28. Angle Measurement</a></li>
-            <li><a href="01_29_trig_functions.html">29. Trig Functions</a></li>
-            <li><a href="01_30_right_triangle_trig.html">30. Right Triangle Trig</a></li>
-            <li><a href="01_31_unit_circle.html">31. Unit Circle</a></li>
-            <li><a href="01_32_trig_identities.html">32. Trig Identities</a></li>
-            <li><a href="01_33_sum_diff_formulas.html">33. Sum & Diff Formulas</a></li>
-            <li><a href="01_34_double_half_angle.html">34. Double & Half Angle</a></li>
-            <li><a href="01_35_product_sum_formulas.html">35. Product-Sum Formulas</a></li>
-            <li><a href="01_36_trig_equations.html">36. Trig Equations</a></li>
-            <li><a href="01_37_inverse_trig.html">37. Inverse Trig Functions</a></li>
-            <li><a href="01_38_law_sines_cosines.html">38. Law of Sines & Cosines</a></li>
-            <li><a href="01_39_trig_applications.html">39. Trig Applications</a></li>
-            <li><a href="01_40_polar_coordinates.html">40. Polar Coordinates</a></li>
-            <li><a href="01_41_complex_trig.html">41. Complex Numbers (Trig)</a></li>
-            <li><a href="01_42_de_moivre.html">42. De Moivre's Theorem</a></li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Angle Measurement
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>28. Angle Measurement (Degrees & Radians)</h1>
-            <p class="subtitle">Why math prefers Radians while humans prefer Degrees.</p>
-        </header>
-
-        <section>
-            <h2>1. The Geometry of a Revolution</h2>
-            <p>While <strong>Degrees</strong> are a historical artifact (360 is roughly the number of days in a year),
-                <strong>Radians</strong> are a natural mathematical unit based on the arc length of a unit circle.</p>
-
-            <div class="math-block">
-                $$ \theta_{rad} = \frac{\pi}{180} \times \theta_{deg} $$
-                $$ \theta_{deg} = \frac{180}{\pi} \times \theta_{rad} $$
-            </div>
-
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <svg width="400" height="400" viewBox="0 0 400 400" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Circle -->
-                    <circle cx="200" cy="200" r="120" fill="none" stroke="#cbd5e1" stroke-width="2" />
-                    <!-- Radius -->
-                    <line x1="200" y1="200" x2="320" y2="200" stroke="#64748b" stroke-width="2" />
-                    <line x1="200" y1="200" x2="285" y2="115" stroke="#3b82f6" stroke-width="3" />
-                    <!-- Arc -->
-                    <path d="M 320 200 A 120 120 0 0 0 285 115" fill="none" stroke="#3b82f6" stroke-width="5" />
-                    <!-- Labels -->
-                    <text x="210" y="190" fill="#3b82f6" font-weight="bold">θ = 1 Radian</text>
-                    <text x="330" y="160" fill="#3b82f6">Arc Length = Radius</text>
-                    <text x="260" y="220">Initial Side</text>
-                </svg>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. Engineering & AI Context</h2>
-            <div class="module-card">
-                <h3>Phase Shifts & Periodicity</h3>
-                <p>In AI models dealing with signals (Audio, Time Series) or <strong>Positional Embeddings</strong>
-                    (Transformers), we use radians because they simplify the derivative of trigonometric functions. </p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Rotary Embeddings (RoPE):</strong> Used in Llama 3 to rotate token
-                        vectors in high-dimensional space. These rotations are always calculated in radians to maintain
-                        rotational invariance.</li>
-                    <li class="topic-item"><strong>Complex exponentials:</strong> \( e^{i\theta} \) expects \( \theta \)
-                        in radians for the Taylor expansion to hold.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_27_induction.html" class="nav-link">27. Induction</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">28. Angles (Trig)</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python Implementation</h2>
-            <p>Handling angle conversions in Large Scale Vectorized Operations.</p>
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Trig &gt; 28. Angle Measurement
+        </div>
 
-# A batch of angles in degrees
-degrees = np.array([0, 30, 45, 60, 90, 180])
+        <header class="page-header">
+            <div class="badge">Module 28</div>
+            <h1>Radians & Positional Encoding</h1>
+            <p class="lead-text">Why Degrees are for humans, but Radians are for Mathematics. The geometry of attention
+                in Transformers.</p>
+        </header>
 
-# Direct conversion (Faster in Numpy than manual math)
-radians = np.deg2rad(degrees)
+        <!-- VISUAL DIAGRAM: RADIAN -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Natural Unit</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Circle["Unit Circle (r=1)"]
+    
+    subgraph Units
+        Deg["Degrees (360) - Arbitrary"]
+        Rad["Radians (2π) - Natural"]
+    end
+    
+    subgraph AI [Transformer Models]
+        PosEnc["Positional Encoding"]
+        RoPE["Rotary Embeddings (RoPE)"]
+    end
 
-# Inverse conversion
-back_to_deg = np.rad2deg(radians)
+    Circle -->|"Circumference 2πr"| Rad
+    Circle -->|"Babylonian History"| Deg
+    
+    Rad --> PosEnc
+    Rad --> RoPE
 
-print(f"Degrees: {degrees}")
-print(f"Radians: {radians}")
-# Output: [0.         0.52359878 0.78539816 1.04719755 1.57079633 3.14159265]</code></pre>
+    style Rad fill:#dcfce7,stroke:#16a34a
+    style RoPE fill:#f3e8ff,stroke:#9333ea
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. RADIANS VS DEGREES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. What is a Radian?</h2>
+                <p>One radian is the angle where the arc length equals the radius.</p>
+                <div class="math-block">
+                    $$ \theta_{rad} = \frac{\text{arc length}}{\text{radius}} $$
+                </div>
+                <p>This makes Calculus beautiful: \( \frac{d}{dx} \sin(x) = \cos(x) \) ONLY works in Radians. In
+                    Degrees, you get an ugly constant factor.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: RoPE -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Rotary Positional Embeddings (RoPE)</h2>
+                <p>In LLaMA 2 (and other modern LLMs), words obtain their position information by being
+                    <strong>rotated</strong> in vector space.</p>
+                <p>The angle of rotation depends on the position index \( m \) and a frequency \( \theta \).</p>
+                <div class="math-block">
+                    $$ f(x, m) = x \cdot e^{i m \theta} $$
+                </div>
+                <p>This allows the model to understand "relative distance" naturally, just by subtracting angles.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Implementing Rotation</h2>
+                <p>Rotating a vector using complex numbers (euler's formula).</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def rotate_vector(vector, angle_rad):
+    # Treat 2D vector as complex number: x + iy
+    z = vector[0] + 1j * vector[1]
+    
+    # Rotate by multiplying by e^(i*theta)
+    rotation = np.exp(1j * angle_rad)
+    z_rotated = z * rotation
+    
+    return np.array([z_rotated.real, z_rotated.imag])
+
+vec = np.array([1.0, 0.0])
+angle = np.pi / 2 # 90 degrees in Radians
+
+new_vec = rotate_vector(vec, angle)
+print(f"Original: {vec}")
+print(f"Rotated (Radiens): {new_vec}") 
+# [0.0, 1.0] (Vertical)
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

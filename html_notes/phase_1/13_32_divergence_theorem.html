@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13.25 Divergence Theorem - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_23_surface_integrals.html" class="nav-link">23. Surface
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_24_stokes_theorem.html" class="nav-link">24. Stokes'
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_32_divergence_theorem.html" class="nav-link active">25.
+                                Divergence Theorem</a></li>
+                        <li class="nav-item"><a href="13_33_curl_divergence.html" class="nav-link">26. Curl &
+                                Divergence</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Expansion</span>
+                </div>
+                <h1>Divergence Theorem</h1>
+                <p class="lead-text">Measuring the "Source" vs "Flow" across a boundary.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Gauss's Theorem</h3>
+                    <p>
+                        The <strong>Divergence Theorem</strong> relates the flow (flux) across a closed surface to the sum of
+                        sources/sinks inside.
+                        \[ \iiint_V (\nabla \cdot \vec{F}) \, dV = \unicode{x222F}_S \vec{F} \cdot d\vec{S} \]
+                    </p>
+                    <p>
+                        <strong>Intuition:</strong> If you have a room full of air, the total amount of air leaving
+                        through the windows (Flux)
+                        must equal the total expansion of air inside the room (Divergence of the volume). If the room is
+                        sealed and incompressible, both are zero.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Normalizing Flows</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Conservation of Probability</h3>
+                    <p>
+                        In <strong>Normalizing Flows</strong> (a type of generative model), we transform a simple probability
+                        distribution (like a Gaussian) into a complex one (images of faces) using a sequence of
+                        invertible functions.
+                    </p>
+                    <p>
+                        The "Change of Variables" formula in probability is essentially the Divergence Theorem in
+                        disguise.
+                        As we stretch and squeeze the space, the probability density must adjust so that the total
+                        probability remains 1.0.
+                        The <strong>log-determinant of the Jacobian</strong> measures this local expansion/contraction—exactly what
+                        Divergence captures in continuous-time flows (ODE-based generative models).
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Noise["Gaussian Noise z"] -->|"Flow f(z)"| Image["Data x"]
+                        Volume["Volume Expansion"] -->|"Divergence"| Density["Change in density p(x)"]
+                        Constraint["Total Prob = 1"] -.->|"Enforced by"| Theorem["Div Theorem / Jacobian"]
+
+                        style Volume fill:#f6ad55,stroke:#c05621
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Verification on a Cube</h2>
+                <div class="code-header">verify_divergence.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+# Field F = < x^2, y, z >
+# Volume V: Cube from 0 to 1 in x, y, z
+# Surface S: 6 faces of the unit cube
+
+x, y, z = sp.symbols('x y z')
+F = sp.Matrix([x**2, y, z])
+
+# 1. Volume Integral: Triple Integral of Div(F)
+div_F = sp.diff(F[0], x) + sp.diff(F[1], y) + sp.diff(F[2], z)
+# Div(F) = 2x + 1 + 1 = 2x + 2
+
+vol_integral = sp.integrate(div_F, (z, 0, 1), (y, 0, 1), (x, 0, 1)) 
+# Integral (2x+2) dx = [x^2 + 2x] from 0 to 1 = 3.
+# Integrate over y (0 to 1) -> 3
+# Integrate over z (0 to 1) -> 3
+print(f"Volume Integral (Div): {vol_integral}")
+
+# 2. Surface Integral: Sum of Flux on 6 faces
+# Face x=1 (Normal i): F=<1,y,z> . <1,0,0> = 1. Int(1) dydz = 1.
+# Face x=0 (Normal -i): F=<0,y,z> . <-1,0,0> = 0.
+# Face y=1 (Normal j): F=<x^2,1,z> . <0,1,0> = 1. Int(1) dxdz = 1.
+# Face y=0 (Normal -j): F=<x^2,0,z> . <0,-1,0> = 0.
+# Face z=1 (Normal k): F=<x^2,y,1> . <0,0,1> = 1. Int(1) dxdy = 1.
+# Face z=0 (Normal -k): F=<x^2,y,0> . <0,0,-1> = 0.
+
+flux_sum = 1 + 0 + 1 + 0 + 1 + 0
+print(f"Surface Integral (Flux): {flux_sum}")
+
+print(f"Theorem Holds: {vol_integral == flux_sum}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_24_stokes_theorem.html" class="footer-link">← Prev: Stokes' Theorem</a>
+                        <span class="separator">|</span>
+                        <a href="13_33_curl_divergence.html" class="footer-link">Next: Curl & Div →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

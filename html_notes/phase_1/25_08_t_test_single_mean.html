@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25.08 T-Test (Single Mean) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.9 Hypothesis Testing</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="25_07_z_test_single_mean.html" class="nav-link">07. Z Test Single
+                                Mean</a></li>
+                        <li class="nav-item"><a href="25_08_t_test_single_mean.html" class="nav-link active">08. T Test
+                                Single Mean</a></li>
+                        <li class="nav-item"><a href="25_09_z_test_proportions.html" class="nav-link">09. Z Test
+                                Proportions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.5</span>
+                    <span class="badge secondary">Small Samples</span>
+                </div>
+                <h1>T-Test (Single Mean)</h1>
+                <p class="lead-text">The standard tool for everyday science when you don't know the population's true
+                    volatility.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Real-World Scenario</h3>
+                    <p>
+                        In the real world, we rarely know the population standard deviation (\(\sigma\)). We have to
+                        estimate it from our sample (\(s\)).
+                        <br><br>
+                        This estimation introduces extra uncertainty, which we handle by using the **Student's
+                        T-Distribution** instead of the Normal Distribution.
+                    </p>
+                </div>
+
+                <h2>1. The Test Statistic</h2>
+                <div class="math-box">
+                    $$ t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} $$
+                    $$ df = n - 1 $$
+                </div>
+                <ul>
+                    <li>\(s\): Sample Standard Deviation.</li>
+                    <li>\(df\): Degrees of Freedom.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>2. T-test vs. Z-test</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Z-test</th>
+                            <th>T-test</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Population Sigma (\(\sigma\))</td>
+                            <td>Known</td>
+                            <td><strong>Unknown</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Sample Size</td>
+                            <td>Large (\(n \ge 30\))</td>
+                            <td><strong>Any size</strong> (Small preferred)</td>
+                        </tr>
+                        <tr>
+                            <td>Distribution Used</td>
+                            <td>Standard Normal (\(Z\))</td>
+                            <td><strong>Student's T</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Expensive Training Runs</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Resource Optimization</span>
+                    <h3>Small Sample Benchmarks</h3>
+                    <p>
+                        If training a Large Language Model (LLM) costs $50,000, you cannot afford to train it 1,000
+                        times to get a "Large Sample." You might only train it 5 times with different seeds.
+                    </p>
+                    <p>
+                        To test if a new optimizer significantly reduces final loss:
+                        1. Calculate loss across 5 seeds.
+                        2. Use a <strong>T-test</strong> since \(n=5\) is small and \(\sigma\) is unknown.
+                    </p>
+                    <p>
+                        The T-test is more conservative (requires a much higher difference to prove significance)
+                        because it acknowledges that with only 5 data points, your estimate of "volatility" (\(s\))
+                        might be way off.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

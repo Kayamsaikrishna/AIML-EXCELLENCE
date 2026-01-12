@@ -4,176 +4,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graphing Quadratic Functions - Phase 1.1.20</title>
+    <title>01.20 Graph Quadratic - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <!-- Sidebar content (unchanged) -->
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Arithmetic & Algebra</li>
-
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html" class="active">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
-
-            <li
-                style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">
-                1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_19_graph_linear.html" class="nav-link">19. Graphing Lines</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">20. Graphing Quadratics</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Quadratic Graphs
+            <a href="../index.html">Syllabus</a> &gt; 1.1 Arithmetic &gt; 20. Graphing Quadratics
         </div>
 
-        <header>
-            <h1>20. Graphing Quadratic Functions</h1>
-            <p class="subtitle">The Parabola. The "Bowl" of Optimization.</p>
+        <header class="page-header">
+            <div class="badge">Module 20</div>
+            <h1>Parabolas & Loss Landscapes</h1>
+            <p class="lead-text">From \( y=x^2 \) to High-Dimensional Bowls. Why convex functions are the "Easy Mode" of
+                Optimization.</p>
         </header>
 
-        <!-- 1. BASICS -->
-        <section id="basics">
-            <h2>1. The Vertex Form</h2>
-            <div class="math-block">
-                $$ y = a(x-h)^2 + k $$
-            </div>
-            <p>Every parabola has a <strong>Vertex</strong> (the bottom of the bowl) at \( (h, k) \).</p>
+        <!-- VISUAL DIAGRAM: BOWL -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Optimization Terrain</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    Shape["Parabola (U-Shape)"]
+    Min["Vertex (Minimum)"]
+    Slope["Gradient (Derivative)"]
+    
+    subgraph Properties
+        Convex["Convex (Bowl)"]
+        NonConvex["Wobbly (Many Hills)"]
+        Saddle["Saddle Point"]
+    end
+    
+    subgraph AI [Optimization]
+        GD["Gradient Descent"]
+        Global["Global Minima"]
+        Local["Local Minima"]
+    end
 
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Convexity</h3>
-                    <p>If \( a > 0 \), the bowl opens UP (Convex). It has a global minimum.</p>
-                    <p>If \( a < 0 \), the bowl opens DOWN (Concave). It has a global maximum.</p>
-                            <p><strong>Optimization Holy Grail:</strong> In AI, we want our Loss Function to be Convex,
-                                because then we can always find the best solution just by rolling downhill.</p>
+    Shape --> Min
+    Shape --> Slope
+    
+    Min -->|Goal of| GD
+    Convex -->|Guarantees| Global
+    NonConvex -->|Risks| Local
+    Saddle -->|Traps| GD
+    
+    Slope -->|Point Downhill to| GD
+
+    style Min fill:#dcfce7,stroke:#16a34a
+    style Saddle fill:#fee2e2,stroke:#b91c1c
+                    </pre>
                 </div>
-            </div>
-
-            <div class="visual-diagram" style="text-align: center; margin: 3rem 0;">
-                <!-- SVG: Convex vs Non-Convex -->
-                <svg width="600" height="300" viewBox="0 0 600 300" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Axis -->
-                    <line x1="50" y1="250" x2="550" y2="250" stroke="#64748b" stroke-width="2" />
-                    <line x1="50" y1="50" x2="50" y2="250" stroke="#64748b" stroke-width="2" />
-
-                    <!-- Convex Parabola -->
-                    <path d="M 100 50 Q 200 280 300 50" fill="none" stroke="#10b981" stroke-width="3" />
-                    <circle cx="200" cy="165" r="8" fill="#10b981" />
-                    <text x="200" y="200" text-anchor="middle" font-weight="bold" fill="#047857">Global Min
-                        (Easy)</text>
-
-                    <!-- Non-Convex Wiggle -->
-                    <path d="M 350 50 C 400 250, 450 150, 480 200 S 550 50, 550 250" fill="none" stroke="#ef4444"
-                        stroke-width="3" />
-                    <circle cx="420" cy="165" r="6" fill="#ef4444" opacity="0.5" />
-                    <text x="420" y="190" text-anchor="middle" font-weight="bold" fill="#b91c1c">Local Min (Trap)</text>
-                </svg>
             </div>
         </section>
 
-        <!-- 2. AI CONTEXT -->
-        <section id="ai-context">
-            <h2>2. The Loss Landscape</h2>
-            <p>Training a Neural Network is essentially walking on a high-dimensional surface, looking for the lowest
-                valley.</p>
-            <p>For Linear Regression, the surface is a perfect Quadratic Bowl (a Paraboloid). You result is guaranteed.
-            </p>
-            <p>For Deep Networks, the surface is wobbly, with many "Local Minima" and "Saddle Points" (flat areas).</p>
-
-            <div class="module-card">
-                <h3 class="module-title">Squared Error (MSE)</h3>
-                <p>The reason we use Mean Squared Error (\(L_2\)) is specifically to create this parabolic shape. </p>
+        <!-- 1. THE PARABOLA -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Geometry of Squared Error</h2>
+                <p>Most Loss Functions are quadratic-ish because we define error as \( (y_{true} - y_{pred})^2 \).</p>
                 <div class="math-block">
-                    $$ J(w) = \frac{1}{n} \sum (y - \hat{y})^2 $$
+                    $$ J(w) = w^2 $$
                 </div>
-                <p>Squaring the error ensures the curve is smooth, differentiable, and has a clear bottom.</p>
+                <p>This creates a U-shaped curve. No matter where you start (except the exact bottom), the gradient
+                    (slope) always points towards the minimum.</p>
             </div>
         </section>
 
-        <!-- 3. CODE IMPLEMENTATION -->
-        <section id="code">
-            <h2>3. Visualizing the Surface</h2>
-            <p>Let's plot a 3D Loss Surface in Python.</p>
+        <!-- 2. HIGH DIMENSONS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. 3D Loss Surfaces</h2>
+                <p>In 2D, we have a line. In 3D (2 weights), we have a Bowl (Paraboloid). In 1 Billion dimensions
+                    (GPT-4), we have a Hyper-Bowl.</p>
+                <p>But beware <strong>Saddle Points</strong>: Regions where the surface curves up in one direction but
+                    down in another (like a Pringles chip or a horse saddle). These are major obstacles for training.
+                </p>
+            </div>
+        </section>
 
-            <div
-                style="background: #1e293b; color: #f8fafc; padding: 1.5rem; border-radius: 8px; font-family: var(--font-code);">
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">// Python: 3D Optimization Surface</div>
-                <pre><code class="language-python">import numpy as np
+        <!-- 3. PYTHON PLOTTING -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Plotting the Bowl of Gradient Descent</h2>
+                <p>Using Matplotlib to visualize a 3D loss surface.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 import matplotlib.pyplot as plt
 
-# Define the "Bowl" function (Paraboloid)
-def loss_function(w1, w2):
-    return w1**2 + w2**2  # Simple convex surface
-
-# Generate grid
+# Create grid of w1, w2 values
 w1 = np.linspace(-10, 10, 50)
 w2 = np.linspace(-10, 10, 50)
 W1, W2 = np.meshgrid(w1, w2)
-Loss = loss_function(W1, W2)
 
-# Plot 3D
-fig = plt.figure(figsize=(8, 6))
-ax = fig.add_subplot(111, projection='3d')
-ax.plot_surface(W1, W2, Loss, cmap='viridis', alpha=0.8)
+# Loss Function: J = w1^2 + w2^2 (Perfect Bowl)
+J = W1**2 + W2**2
 
-ax.set_xlabel('Weight 1')
-ax.set_ylabel('Weight 2')
-ax.set_zlabel('Loss')
-plt.title("The Gradient Descent Bowl")
-plt.show()</code></pre>
+# Plot not available in text, but concept remains:
+print(f"Loss at (0,0): {0**2 + 0**2} (Global Min)")
+print(f"Loss at (5,5): {5**2 + 5**2} (High Error)")
+
+# Gradient at (5,5) is [2*5, 2*5] = [10, 10]
+# It points AWAY from minimum. We go OPPOSITE.
+# New w = w - learning_rate * gradient
+</code></pre>
+                </div>
             </div>
         </section>
 
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
-    </footer>
 </body>
 
 </html>

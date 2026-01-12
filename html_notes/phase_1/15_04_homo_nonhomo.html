@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15.04 Homogeneous vs Non-Homogeneous - Differential Equations</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.8 Differential Equations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="15_03_second_order_odes.html" class="nav-link">03. Second-Order
+                                ODEs</a></li>
+                        <li class="nav-item"><a href="15_04_homo_nonhomo.html" class="nav-link active">04. Homogeneous
+                                Eqs</a></li>
+                        <li class="nav-item"><a href="15_05_ode_ml_apps.html" class="nav-link">05. Diffusion Models</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">DiffEq 1.8</span>
+                    <span class="badge secondary">Forcing Functions</span>
+                </div>
+                <h1>Homogeneous vs Non-Homogeneous</h1>
+                <p class="lead-text">Natural responses vs. Externally driven systems.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Driver</h3>
+                    <p>
+                        <strong>Homogeneous ODE:</strong> \(ay'' + by' + cy = 0\).
+                        This represents the system's "Natural" behavior (e.g., a bell ringing after being struck).
+                    </p>
+                    <p>
+                        <strong>Non-Homogeneous ODE:</strong> \(ay'' + by' + cy = F(t)\).
+                        Here \(F(t)\) is an external "Forcing Function" (e.g., continually pushing a swing).
+                        The solution is \(y(t) = y_{homogeneous}(t) + y_{particular}(t)\).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Control & Robotics</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Driven Systems</h3>
+                    <p>
+                        In <strong>Reinforcement Learning (Robotics)</strong>, the robot is the system (defined by
+                        Homogeneous Dynamics like mass/inertia).
+                        The "Action" or "Motor Torque" applied by the Neural Network Policy is the <strong>Forcing Function</strong>
+                        \(F(t)\).
+                    </p>
+                    <p>
+                        The goal of the RL agent is to find a function \(F(t)\) (the control policy) that forces the
+                        system into a desired state (e.g., standing upright).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Superposition</h2>
+                <div class="code-header">forcing_func.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# System: y' = -y + sin(t)
+# Homogeneous part: y' = -y -> Decay e^-t
+# Particular part: sin(t) driver
+
+t = np.linspace(0, 10, 100)
+forcing = np.sin(t)
+y_homo = np.exp(-t) # Natural decay
+
+plt.plot(t, forcing, label="Forcing (Input)", alpha=0.5)
+plt.plot(t, y_homo, label="Homogeneous (Natural)", alpha=0.5)
+plt.plot(t, forcing + y_homo, label="Total Response", linewidth=2)
+plt.title("System Response = Natural + Forced")
+plt.legend()
+plt.show()</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="15_03_second_order_odes.html" class="footer-link">← Prev: Second Order</a>
+                        <span class="separator">|</span>
+                        <a href="15_05_ode_ml_apps.html" class="footer-link">Next: Diffusion Models →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.12 Bootstrap Confidence Intervals - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_11_bootstrap_parametric.html" class="nav-link">11. Bootstrap
+                                Parametric</a></li>
+                        <li class="nav-item"><a href="24_12_bootstrap_confidence_intervals.html"
+                                class="nav-link active">12. Bootstrap CI</a></li>
+                        <li class="nav-item"><a href="24_13_jackknife_method.html" class="nav-link">13. Jackknife
+                                Method</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Percentiles</span>
+                </div>
+                <h1>Bootstrap Confidence Intervals</h1>
+                <p class="lead-text">Converting the histogram of your resampled statistics into a single trustworthy
+                    range.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Histogram Approach</h3>
+                    <p>
+                        Once you have 1,000 bootstrap estimates (\(\hat{\theta}_1^*, \dots, \hat{\theta}_{1000}^*\)),
+                        you don't need Z-tables or T-tables. The data itself tells you which values are common and which
+                        are rare.
+                    </p>
+                </div>
+
+                <h2>1. The Percentile Method</h2>
+                <div class="math-box">
+                    For a 95% Confidence Interval:
+                    - <strong>Lower Bound:</strong> The 2.5th percentile of the bootstrap estimates.
+                    - <strong>Upper Bound:</strong> The 97.5th percentile of the bootstrap estimates.
+                </div>
+                <p>
+                    <strong>Why it's great:</strong> It's intuitive. It handles skewed distributions naturally. It never produces
+                    "impossible" values (like a negative variance) as long as your data points are valid.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Advanced Methods (BCa)</h2>
+                <p>
+                    Sometimes the basic Percentile method is biased if the original data is very small or very skewed.
+                </p>
+                <ul>
+                    <li><strong>BCa (Bias-Corrected and Accelerated):</strong> This is the "Gold Standard" bootstrap interval. It
+                        adjusts the percentiles to account for bias in the estimator and the "acceleration" (the rate at
+                        which the standard error changes with the parameter).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Comparing AUC of Two Models</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Research</span>
+                    <h3>The Overlap Rule</h3>
+                    <p>
+                        If you have two models, and Model B's AUC is 0.96 while Model A's is 0.94, how do you know if
+                        that 0.02 is real?
+                    </p>
+                    <p>
+                        <strong>Step 1:</strong> Calculate the <strong>95% Bootstrap CI</strong> for the <strong>Difference</strong> (Model B AUC
+                        - Model A AUC).
+                        <br>
+                        <strong>Step 2:</strong> If the 95% Bootstrap CI for the difference is <strong>[0.005, 0.035]</strong>, you can publish
+                        your paper with confidence! Even the "worst-case scenario" (the lower bound) shows Model B is
+                        better than Model A.
+                    </p>
+                </div>
+
+                <h3>Cross-Validation Stability</h3>
+                <p>
+                    Bootstrap is often used in conjunction with Cross-Validation to estimate the "Variance of the
+                    Variance"—measuring how much the CV score itself changes if the dataset was slightly different.
+                </p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -4,94 +4,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Operations - Phase 1.2.2.4</title>
+    <title>03.04 Matrix Ops - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_03_special_matrices.html">03. Special Matrices</a></li>
-            <li><a href="03_04_matrix_ops.html" class="active">04. Matrix Ops</a></li>
-            <li><a href="03_05_matrix_mult.html">05. Matrix Mult</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_03_special_matrices.html" class="nav-link">03. Special Matrices</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">04. Matrix Ops</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Operations
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 04. Operations
         </div>
 
-        <header>
-            <h1>04. Matrix Operations (Addition & Scalar)</h1>
-            <p class="subtitle">Linear adjustments to data grids.</p>
+        <header class="page-header">
+            <div class="badge">Module 04</div>
+            <h1>Arithmetic</h1>
+            <p class="lead-text"> \( A+B, cA, \text{Tr}(A) \). Adding, Scaling, and Summarizing matrices. The magic of
+                Broadcasting.</p>
         </header>
 
-        <section>
-            <h2>1. Addition and Subtraction</h2>
-            <p>Matrices must have the <strong>same dimensions</strong>. Operations are performed element-wise.</p>
+        <!-- VISUAL DIAGRAM: OPERATIONS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Element-wise</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Input["Matrices A, B"]
+    
+    subgraph ElementWise
+        Add["Addition A + B"]
+        Scale["Scalar Mult cA"]
+        Hadamard["Hadamard A ⊙ B"]
+    end
+    
+    subgraph Aggregate
+        Trace["Trace Tr(A) (Sum Diag)"]
+    end
+    
+    subgraph AI
+        Broadcast["Broadcasting (Stretch)"]
+    end
+    
+    Input --> Add
+    Input --> Scale
+    Input --> Trace
+    
+    Add --> Broadcast
 
-            <div class="math-block">
-                $$ \mathbf{A} + \mathbf{B} = \begin{bmatrix} a_{11} + b_{11} & a_{12} + b_{12} \\ a_{21} + b_{21} &
-                a_{22} + b_{22} \end{bmatrix} $$
+    style Trace fill:#dcfce7,stroke:#16a34a
+    style Broadcast fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
+        </section>
 
-            <div class="module-card">
-                <h3>Broadcasting in AI</h3>
-                <p>In libraries like PyTorch, if you add a vector \( \mathbf{b} \) (Bias) to a matrix \( \mathbf{X} \),
-                    the vector is
-                    automatically "copied" (broadcasted) across all rows. This is mathematically equivalent to adding a
-                    matrix where every row is \( \mathbf{b} \).</p>
+        <!-- 1. DEFINITION: THE TRACE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Trace</h2>
+                <p>The Trace of a square matrix is the sum of its diagonal elements.</p>
+                <div class="math-block">
+                    $$ \text{Tr}(A) = \sum_{i} a_{ii} $$
+                </div>
+                <p><strong>Amazing Property:</strong> The trace is the sum of the Eigenvalues! \( \text{Tr}(A) = \sum
+                    \lambda_i \). It is invariant under change of basis.</p>
             </div>
         </section>
 
-        <section>
-            <h2>2. Scalar Multiplication</h2>
-            <p>Multiplying a matrix by a scalar \( c \) multiplies every single element by \( c \).</p>
-            <div class="math-block">
-                $$ c\mathbf{A} = \begin{bmatrix} ca_{11} & ca_{12} \\ ca_{21} & ca_{22} \end{bmatrix} $$
-            </div>
-            <p><strong>AI Use:</strong> Gradient descent updates are scalar multiplications: \( \mathbf{W}_{new} =
-                \mathbf{W}_{old} - \eta \cdot \nabla \mathbf{L} \).</p>
-        </section>
-
-        <section>
-            <h2>3. Python: Vectorized Arithmetic</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-
-A = np.array([[1, 2], [3, 4]])
-B = np.array([[10, 20], [30, 40]])
-
-# Addition
-sum_mat = A + B
-
-# Scalar Mult
-scaled_mat = 0.5 * A
-
-# Broadcasting Example
-bias = np.array([1, 1])
-broadcast_add = A + bias # Adds [1,1] to each row of A
-
-print(f"Sum:\n{sum_mat}")
-print(f"Broadcast Result:\n{broadcast_add}")</code></pre>
+        <!-- 2. AI APPLICATION: BROADCASTING -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Broadcasting</h2>
+                <p>In Math, \( A + \mathbf{v} \) is undefined (Size Mismatch). In Python/NumPy/PyTorch, it is valid!</p>
+                <p>The vector \( \mathbf{v} \) is "Broadcast" (copied/stretched) across all rows of the matrix. This is
+                    used everywhere, e.g., adding bias vectors to neural network layers.</p>
             </div>
         </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Broadcasting in Action</h2>
+                <p>Adding a bias vector to a batch of data.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+# Batch of 3 Linear Outputs (e.g., Logits for 3 classes)
+# 2 Samples (Rows)
+Mat = np.array([
+    [1, 2, 3],
+    [4, 5, 6]
+])
+
+# Bias Vector (1 per class)
+bias = np.array([10, 20, 30])
+
+# Broadcasting Addition
+# bias is added to EACH ROW automatically
+Result = Mat + bias
+
+print(f"Original:\n{Mat}")
+print(f"Bias:\n{bias}")
+print(f"\nResult (Broadcasted):\n{Result}")
+
+# Trace
+tr = np.trace(Mat) # 1+5 = 6 (Only main diagonal elements exist)
+# Note: np.trace on non-square takes diagonal starting at (0,0)
+print(f"\nTrace: {tr}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

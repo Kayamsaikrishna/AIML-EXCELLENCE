@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05.02 Homogeneous - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.4 Systems of Equations</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="05_01_systems_intro.html" class="nav-link">01. Systems Intro</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">02. Homogeneous</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 02. The Null State
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 02</div>
+            <h1>Homogeneous Systems</h1>
+            <p class="lead-text"> \( Ax = 0 \). Trivial vs Non-Trivial Solutions.</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: HOMOGENEOUS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Through the Origin</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Eq["Ax = 0"]
+    
+    subgraph Solutions
+        Trivial["x = 0 (Always strict solution)"]
+        NonTrivial["x != 0 (Infinite Solutions)"]
+    end
+    
+    Eq --> Trivial
+    
+    Condition["Is Matrix A Invertible?"]
+    Condition -- "Yes (Det != 0)" --> OnlyTriv["Only Trivial Solution"]
+    Condition -- "No (Det = 0)" --> NonTrivial
+    
+    NonTrivial -- "Forms" --> NullSpace["The Null Space / Kernel"]
+
+    style NullSpace fill:#dcfce7,stroke:#16a34a
+    style Trivial fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: THE ZERO VECTOR -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>A system is <strong>homogeneous</strong> if the right-hand side is the zero vector: \( A \mathbf{x} =
+                    \mathbf{0} \).</p>
+                <ul>
+                    <li><strong>Trivial Solution:</strong> \( \mathbf{x} = \mathbf{0} \) always works. (Since \( A \cdot
+                        0 = 0 \)).</li>
+                    <li><strong>Non-Trivial Solution:</strong> Exists ONLY if columns of \( A \) are linearly dependent
+                        (i.e., \( A \) is singular).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: EIGENVECTORS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Finding Eigenvectors</h2>
+                <p>To find eigenvectors for a known eigenvalue \( \lambda \), we solve the homogeneous system:</p>
+                <div class="math-block">
+                    $$ (A - \lambda I)\mathbf{x} = \mathbf{0} $$
+                </div>
+                <p>The solution space of this homogeneous system is the Eigenspace.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Null Space Basis</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from scipy.linalg import null_space
+
+# Case 1: Invertible Matrix (Only Trivial Solution)
+A_inv = np.array([[1, 2], [3, 4]])
+ns_inv = null_space(A_inv)
+print("Null Space of Invertible Matrix (Should be empty):")
+print(ns_inv) 
+
+# Case 2: Singular Matrix (Non-Trivial Solution Exists)
+# Row 2 is 2x Row 1
+A_sing = np.array([[1, 2], [2, 4]])
+ns_sing = null_space(A_sing)
+
+print("\nNull Space Basis of Singular Matrix:")
+print(ns_sing)
+# Returns a vector like [[-0.89], [0.44]].
+# Any multiple of this vector maps to 0.
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

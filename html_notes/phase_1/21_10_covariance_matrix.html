@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21.10 Covariance Matrix - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.5 Joint & Multivariate</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="21_09_spearman_rank.html" class="nav-link">09. Spearman Rank</a>
+                        </li>
+                        <li class="nav-item"><a href="21_10_covariance_matrix.html" class="nav-link active">10.
+                                Covariance Matrix</a></li>
+                        <li class="nav-item"><a href="21_11_precision_matrix.html" class="nav-link">11. Precision
+                                Matrix</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Multivariate Spread</span>
+                </div>
+                <h1>The Covariance Matrix (\(\Sigma\))</h1>
+                <p class="lead-text">Organizing all pairwise relationships in a high-dimensional dataset.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Map of Dependency</h3>
+                    <p>
+                        When we have a random vector \(\mathbf{X} = [X_1, X_2, \dots, X_n]^\top\), we need a way to
+                        describe how every variable interacts with every other variable.
+                        <br><br>
+                        The <strong>Covariance Matrix</strong> is a square table where:
+                        <br>
+                        - <strong>Diagonals</strong> are the Variances of each feature.
+                        <br>
+                        - <strong>Off-diagonals</strong> are the Covariances between pairs.
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="math-box">
+                    $$ \Sigma = E[(\mathbf{X} - \mu)(\mathbf{X} - \mu)^\top] $$
+                    For two variables \(X\) and \(Y\):
+                    $$ \Sigma = \begin{bmatrix} \text{Var}(X) & \text{Cov}(X, Y) \\ \text{Cov}(Y, X) & \text{Var}(Y)
+                    \end{bmatrix} $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Mathematical Properties</h2>
+                <ul>
+                    <li><strong>Symmetric:</strong> \(\Sigma_{ij} = \Sigma_{ji}\) because covariance is symmetric.</li>
+                    <li><strong>Positive Semi-definite (PSD):</strong> For any vector \(\mathbf{v}\), \(\mathbf{v}^\top
+                        \Sigma \mathbf{v} \ge 0\).
+                        <br><span class="text-sm">Intuition: This is the matrix version of saying "variance can't be
+                            negative". You can't have a "spread" in any direction that is less than zero.</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Mahalanobis Distance</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Anomaly Detection</span>
+                    <span class="ml-badge">Clustering</span>
+                    <h3>Mahalanobis Distance</h3>
+                    <p>
+                        Standard Euclidean distance assumes features are independent and have the same variance
+                        (hyper-spheres). But real data is often multi-dimensional "ellipsoids" because of correlation.
+                    </p>
+                    <p>
+                        The Mahalanobis distance uses the inverse of the covariance matrix to "normalize" the space,
+                        accounting for the spread and rotation of the data:
+                        $$ D_M(\mathbf{x}) = \sqrt{(\mathbf{x} - \mu)^\top \Sigma^{-1} (\mathbf{x} - \mu)} $$
+                        This is essential for identifying <strong>Outliers</strong> that might look "close" in raw units
+                        but are actually very far from the data distribution when correlation is considered.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. The Geometry of $\Sigma$</h2>
+                <p>
+                    The <strong>Eigenvectors</strong> of the covariance matrix point in the directions of maximum
+                    variance (the principal axes of the data ellipsoid).
+                    <br>
+                    The <strong>Eigenvalues</strong> represent the amount of variance (the stretch) along those axes.
+                    <br><br>
+                    This is the theoretical bedrock of <strong>PCA</strong> (Principal Component Analysis).
+                </p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Input Data] --> B[Subtract Mean]
+                        B --> C[Compute Covariance Matrix]
+                        C --> D[Eigen-Decomposition]
+                        D --> E[Principal Components]
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

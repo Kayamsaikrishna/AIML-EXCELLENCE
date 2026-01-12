@@ -4,95 +4,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Functions - Phase 1.2.3.20</title>
+    <title>04.20 Matrix Functions - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_19_eigendecomp_apps.html">19. Eigendecomposition Apps</a></li>
-            <li><a href="04_20_matrix_functions.html" class="active">20. Matrix Functions</a></li>
-            <li><a href="04_21_positive_definite.html">21. Positive Definite</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_19_eigendecomp_apps.html" class="nav-link">19. Classic Apps</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">20. Matrix Functions</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Matrix Functions
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 20. e to the A
         </div>
 
-        <header>
-            <h1>20. Matrix Functions (Exp, Log, Sqrt)</h1>
-            <p class="subtitle">Applying calculus functions to entire matrices.</p>
+        <header class="page-header">
+            <div class="badge">Module 20</div>
+            <h1>Matrix Functions</h1>
+            <p class="lead-text"> \( e^{At} \). Applying functions to matrices via Taylor Series.</p>
         </header>
 
-        <section>
-            <h2>1. The Definition via Eigendecomposition</h2>
-            <p>How do you compute \(e^{\mathbf{A}}\)? You can't just apply \(e\) to every entry. However, if
-                \(\mathbf{A} = \mathbf{PDP}^{-1}\), we define:</p>
-            <div class="math-block">
-                $$ f(\mathbf{A}) = \mathbf{P} f(\mathbf{D}) \mathbf{P}^{-1} $$
-            </div>
-            <p>Where \(f(\mathbf{D})\) is a diagonal matrix obtained by applying \(f\) to the
-                <strong>eigenvalues</strong>
-                along the diagonal.</p>
-        </section>
+        <!-- VISUAL DIAGRAM: FUNCTIONS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Diagonal Application</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    A["Matrix A"]
+    
+    subgraph Computation
+        Decomp["Diagonalize A = P D P-1"]
+        EigFunc["Apply f() to Diagonal Elements f(D)"]
+        Recon["Recombine P f(D) P-1"]
+    end
+    
+    A --> Decomp --> EigFunc --> Recon
+    
+    Recon --> Result["Matrix Function f(A)"]
+    
+    Result -- "Example" --> Exp["Matrix Exponential (Dynamics)"]
 
-        <section>
-            <h2>2. The Matrix Exponential (\(e^{\mathbf{A}}\))</h2>
-            <div class="module-card">
-                <h3>Solving Dynamic Systems</h3>
-                <p>In Physics and some <strong>Continuous Neural Networks</strong> (Neural ODEs), if we have
-                    \(\frac{d\mathbf{x}}{dt} = \mathbf{Ax}\), the solution is exactly \(\mathbf{x}(t) =
-                    e^{\mathbf{A}t}\mathbf{x}(0)\).
-                    The eigenvalues of \(\mathbf{A}\) dictate whether the system decays to zero, explodes, or
-                    oscillates.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>3. Matrix Square Root (\(\mathbf{A}^{1/2}\))</h2>
-            <div class="module-card">
-                <p>In <strong>Whiteing Transformations</strong> (pre-processing data to have zero mean and identity
-                    covariance), we need the inverse square root of the covariance matrix \(\mathbf{S}^{-1/2}\).
-                    This ensures all features are perfectly uncorrelated and have unit variance.</p>
+    style Exp fill:#dcfce7,stroke:#16a34a
+    style EigFunc fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2>4. Python: Exponential vs Element-wise</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+        <!-- 1. DEFINITION: TAYLOR SERIES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>How do we compute \( e^A \) or \( \sin(A) \)? We use the Taylor Series definition.</p>
+                <div class="math-block">
+                    $$ e^A = I + A + \frac{A^2}{2!} + \frac{A^3}{3!} + \dots $$
+                </div>
+                <p>If \( A = PDP^{-1} \), this collapses to \( P e^D P^{-1} \), where \( e^D \) is just the exponential
+                    of each diagonal element.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: NEURAL ODES -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Neural ODEs & Diffusion</h2>
+                <p>Continuous-depth neural networks (Neural ODEs) model the hidden state as \( \frac{dh}{dt} = f(h, t)
+                    \).</p>
+                <p>Linear dynamics \( \frac{dh}{dt} = Ah \) have the closed-form solution \( h(t) = e^{At} h(0) \).
+                    Understanding matrix exponentials is key to solving and creating stable Diffusion probablistic
+                    models.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. SciPy expm</h2>
+                <p>Note: never compute \( e^A \) by simply taking the exponential of each element!</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
 from scipy.linalg import expm
 
-A = np.array([[1, 2], [0, 1]])
+# A 90 degree rotation generator
+A = np.array([
+    [0, -np.pi/2],
+    [np.pi/2, 0]
+])
 
-# Element-wise exp (Usually WRONG for math)
-element_exp = np.exp(A)
+# Matrix Exponential (Rotation Matrix at t=1)
+Rot = expm(A)
 
-# Proper Matrix Exponential
-matrix_exp = expm(A)
+print("Matrix Exponential:")
+print(Rot.round(2))
+# Expected: [[0, -1], [1, 0]]
 
-print(f"Matrix Exp:\n{matrix_exp}")
-# Note: expm(A) != exp(A)_ij</code></pre>
+# WRONG way (Element-wise)
+Wrong = np.exp(A)
+print("\nElement-wise Exp (WRONG):")
+print(Wrong.round(2))
+</code></pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

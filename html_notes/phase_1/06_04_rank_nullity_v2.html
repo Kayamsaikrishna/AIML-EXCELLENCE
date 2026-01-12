@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06.04 Rank-Nullity - AI/ML Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.5 Linear Transforms</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="06_03_kernel_image.html" class="nav-link">03. Kernel & Image</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">04. Rank-Nullity</a></li>
+                    <li class="nav-item"><a href="06_05_isomorphisms.html" class="nav-link">05. Isomorphisms</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 04. Conservation Law
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 04</div>
+            <h1>Rank-Nullity Theorem</h1>
+            <p class="lead-text"> \( \dim(V) = \dim(\text{Ker } T) + \dim(\text{Im } T) \)</p>
+        </header>
+
+        <!-- VISUAL DIAGRAM: THEOREM -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Balance</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph TD
+    Total["Total Input Dimensions (n)"]
+    
+    Total --> Split
+    
+    Split --> Null["Nullity (Dimensions destroyed/collapsed)"]
+    Split --> Rank["Rank (Dimensions preserved/output)"]
+    
+    Formula["n = Nullity + Rank"]
+    
+    Total -.-> Formula
+    Null -.-> Formula
+    Rank -.-> Formula
+
+    style Formula fill:#dcfce7,stroke:#16a34a
+    style Null fill:#fee2e2,stroke:#b91c1c
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: CONSERVATION OF DIMENSION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Fundamental Theorem</h2>
+                <p>For any linear map \( T: \mathbb{R}^n \to \mathbb{R}^m \):</p>
+                <div class="math-block">
+                    $$ n = \text{nullity}(T) + \text{rank}(T) $$
+                </div>
+                <p>This is a conservation law. Input dimensions must either be preserved (landing in the Image) or
+                    destroyed (landing in the Kernel). They cannot vanish without a trace.</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: COMPRESSION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Data Compression</h2>
+                <p>If we matrix multiply a high-dim vector \( x \in \mathbb{R}^{1000} \) by a low-rank matrix \( A \)
+                    (Rank 50), the Nullity is necessarily 950.</p>
+                <p>This means 950 dimensions of information are completely lost (compressed to zero). Whether this is
+                    "lossy compression" or "noise removal" depends on whether the signal lived in the Kernel or the
+                    Image.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Numerical Verification</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from numpy.linalg import matrix_rank
+
+# A 4x4 Singular Matrix
+A = np.array([
+    [1, 2, 3, 4],
+    [2, 4, 6, 8], # Dependent
+    [1, 0, 1, 0],
+    [0, 1, 0, 1]
+])
+
+n = A.shape[1] # Input dimension = 4
+
+# Calculate Rank
+rank = matrix_rank(A)
+
+# Calculate Nullity (n - rank)
+# Or via scipy.linalg.null_space
+from scipy.linalg import null_space
+nullity = null_space(A).shape[1]
+
+print(f"Total Dimensions (n): {n}")
+print(f"Rank (Preserved):     {rank}")
+print(f"Nullity (Lost):       {nullity}")
+print(f"Sum: {rank + nullity}")
+assert rank + nullity == n
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

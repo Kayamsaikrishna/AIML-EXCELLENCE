@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.27 Entropy Rate - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.4 Advanced Concepts</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_26_fisher_information_revisited.html" class="nav-link">26.
+                                Fisher Information Revisited</a></li>
+                        <li class="nav-item"><a href="29_27_entropy_rate.html" class="nav-link active">27. Entropy
+                                Rate</a></li>
+                        <li class="nav-item"><a href="29_28_perplexity_in_language_modeling.html" class="nav-link">28.
+                                Perplexity in LLMs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stochastic Processes</span>
+                    <span class="badge secondary">Sequences</span>
+                </div>
+                <h1>Entropy Rate</h1>
+                <p class="lead-text">Information Over Time. Measuring the density of uncertainty in a never-ending
+                    stream of symbols, the core concept behind modern language models.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Beyond the Snapshot</h3>
+                    <p>
+                        Shannon Entropy usually measures a single variable. But what if the next letter depends on the
+                        last 10 letters? <strong>Entropy Rate</strong> measures the average uncertainty per symbol as the sequence
+                        becomes infinitely long. It is the "real-time cost" of a conversation.
+                    </p>
+                </div>
+
+                <h2>1. The Formal Limit</h2>
+                <p>
+                    For a sequence of random variables \(\mathcal{X} = \{X_1, X_2, ..., X_n\}\), the entropy rate
+                    \(H(\mathcal{X})\) is the limit of the joint entropy divided by the number of symbols:
+                </p>
+                <div class="math-box">
+                    $$ H(\mathcal{X}) = \lim_{n \to \infty} \frac{1}{n} H(X_1, X_2, ..., X_n) $$
+                </div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Markov Chains</h4>
+                        <p>In a Markov process, where only the current state matters for the future, the entropy rate is
+                            elegant: it's the average of the entropy of the transitions.</p>
+                        <div class="math-box">$$ H(\mathcal{X}) = \sum_{ij} \mu_i P_{ij} \log \frac{1}{P_{ij}} $$</div>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Stationarity</h4>
+                        <p>If the rules of the system don't change over time (stationarity), the entropy rate is
+                            guaranteed to exist and is always \(\le\) the entropy of a single symbol.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Asymptotic Equipartition Property (AEP)</h2>
+                <p>
+                    The AEP is the "Law of Large Numbers" for information theory. It states that for a large enough
+                    \(n\), almost all sequences generated by a source will belong to a <strong>Typical Set</strong>.
+                </p>
+                <ul>
+                    <li><strong>Surprise:</strong> Every sequence in the typical set has roughly the same probability:
+                        \(2^{-nH(\mathcal{X})}\).</li>
+                    <li><strong>Efficiency:</strong> This is why we can compress data. We only need to assign codes to the Typical
+                        Set; the rest are so rare they essentially don't matter.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">LLMs</span>
+                    <span class="ml-badge">Predictability</span>
+                    <h3>The Entropy of Language</h3>
+                    <p>
+                        The primary goal of a Large Language Model (LLM) is to minimize its cross-entropy with the
+                        "true" entropy rate of human language.
+                    </p>
+                    <ul>
+                        <li><strong>Predictive Power:</strong> If a model has a lower entropy than another, it means it "understands"
+                            the structure of language better (it is less surprised by the next word).</li>
+                        <li><strong>The Context Window:</strong> As we increase the context length (the number of previous tokens the
+                            model can see), the conditional entropy of the next token decreases, approaching the true
+                            Entropy Rate of the language.</li>
+                        <li><strong>Infinite Monkeys:</strong> A random monkey has an entropy rate of \(\log_2(26) \approx 4.7\)
+                            bits/char. A human has an entropy rate of \(\approx 1.0\) bit/char. AI's job is to close
+                            that gap.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Workflow: Sequence Analysis</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Sequence Data] --> B{Determine Dependency}
+                    B -- Independent --> C[Single Symbol Entropy]
+                    B -- Markov --> D[Transition Entropy]
+                    B -- Complex Context --> E[Cross-Entropy / LLM]
+                    C & D & E --> F[Estimate Entropy Rate]
+                    F --> G[Theoretical Compression Limit]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

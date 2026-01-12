@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23.06 Mean Squared Error (MSE) - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.7 Stats Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="23_05_bias_estimator.html" class="nav-link">05. Bias Estimator</a>
+                        </li>
+                        <li class="nav-item"><a href="23_06_mse.html" class="nav-link active">06. Mse</a></li>
+                        <li class="nav-item"><a href="23_07_consistency_inference.html" class="nav-link">07. Consistency
+                                Inference</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Total Quality</span>
+                </div>
+                <h1>Mean Squared Error (MSE)</h1>
+                <p class="lead-text">Measuring the "closeness" of an estimator to the truth, accounting for both
+                    accuracy and precision.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Total Error</h3>
+                    <p>
+                        Being unbiased is great, but it's not everything. An estimator could be unbiased but have a
+                        <strong>massive variance</strong>, meaning any single guess could be wildly wrong.
+                        <strong>MSE</strong> captures the total "badness" of an estimator.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="math-box">
+                    $$ \text{MSE}(\hat{\theta}) = E[(\hat{\theta} - \theta)^2] $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Bias-Variance Decomposition</h2>
+                <div class="math-box">
+                    This is one of the most important equations in all of Data Science:
+                    $$ \text{MSE}(\hat{\theta}) = \text{Bias}(\hat{\theta})^2 + \text{Var}(\hat{\theta}) $$
+                </div>
+                <div class="insight-box">
+                    <h3>The Trade-off</h3>
+                    <p>
+                        To reduce total error (MSE), you have two knobs:
+                        1. <strong>Reduce Bias:</strong> Make your model more complex to capture reality better.
+                        2. <strong>Reduce Variance:</strong> Make your model simpler so it doesn't over-react to noise in the
+                        specific sample.
+                        <br><br>
+                        Often, you can only reduce one by increasing the other. This is the <strong>Bias-Variance Trade-off</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Regularization</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Overfitting</span>
+                    <span class="ml-badge">Ridge/Lasso</span>
+                    <h3>The "Shrinkage" Strategy</h3>
+                    <p>
+                        In Ridge Regression (L2), we intentionally add a small amount of <strong>Bias</strong> by pushing weights
+                        towards zero.
+                        Why? Because this drastically reduces the <strong>Variance</strong> of the weights. If the reduction in
+                        variance is greater than the increase in bias-squared, the <strong>Total Error (MSE)</strong> goes down.
+                        <br><br>
+                        This is why <strong>Regularized</strong> models often generalize better to new data than
+                        unconstrained ones.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Visualization: Error Components</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        Total[Total MSE] --> B[Bias Squared]
+                        Total --> V[Variance]
+                        B -->|Model too simple| Underfitting
+                        V -->|Model too complex| Overfitting
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

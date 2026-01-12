@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>34.01 Time Complexity & Big O - Complexity Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.10.1 Complexity Core</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="34_01_time_complexity_big_o.html" class="nav-link active">01. Time
+                                Complexity & Big O</a></li>
+                        <li class="nav-item"><a href="34_02_space_complexity_mem_bounds.html" class="nav-link">02. Space
+                                Complexity</a></li>
+                        <li class="nav-item"><a href="34_03_complexity_classes_p_np.html" class="nav-link">03.
+                                Complexity Classes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Complexity Theory</span>
+                    <span class="badge secondary">Resource Optimization</span>
+                </div>
+                <h1>Time Complexity & Big O Notation</h1>
+                <p class="lead-text">Measuring Efficiency. Defining the mathematical bounds on how an algorithm's
+                    runtime scales as input size approaches infinity.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Scalability Wall</h3>
+                    <p>
+                        An algorithm that works on 100 images might fail on 100 billion. <strong>Complexity Theory</strong> provides
+                        the tools to predict this failure before it happens. It focuses on the *rate of growth* rather
+                        than the exact number of seconds.
+                    </p>
+                </div>
+
+                <h2>1. Formal Definition of Big O</h2>
+                <p>We say \(f(n) = O(g(n))\) if there exist constants \(c > 0\) and \(n_0 \geq 0\) such that:</p>
+                <div class="math-box">
+                    $$ |f(n)| \leq c \cdot |g(n)| \quad \text{for all } n \geq n_0 $$
+                </div>
+                <p>In simple terms, Big O provides an <strong>upper bound</strong> on the worst-case growth. For AI, this defines the
+                    maximum "compute budget" needed for a model.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Common Time Complexities</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Constant: \(O(1)\)</h4>
+                        <p>Time does not change with input size. Example: Accessing an element in a Hash Map or checking
+                            a boolean flag.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Logarithmic: \(O(\log n)\)</h4>
+                        <p>Time grows very slowly. Example: Binary search in a sorted array or traversing a balanced
+                            Decision Tree.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Linear: \(O(n)\)</h4>
+                        <p>Time scales 1:1 with input. Example: A single pass through a dataset to calculate mean or
+                            variance.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Quadratic: \(O(n^2)\)</h4>
+                        <p>Time scales with the square of input. Example: Nested loops used in simple matrix
+                            multiplication or basic Self-Attention (without optimizations).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Ops</span>
+                    <h3>The Complexity of AI</h3>
+                    <ul>
+                        <li><strong>Transformer Self-Attention:</strong> Standard Attention has a complexity of **\(O(L^2 \cdot
+                            d)\)** where \(L\) is the sequence length. This quadratic scaling is why LLMs have "context
+                            window" limits.</li>
+                        <li><strong>Layer Weights:</strong> Calculating a single forward pass in a Fully Connected layer with \(N\)
+                            inputs and \(M\) outputs is <strong>\(O(N \cdot M)\)</strong>.</li>
+                        <li><strong>K-Nearest Neighbors (KNN):</strong> A naive search for the nearest neighbor in a dataset of size
+                            \(N\) is <strong>\(O(N \cdot D)\)</strong>. This is why "Approximate Nearest Neighbor" (ANN) algorithms
+                            are used for large vector databases.</li>
+                        <li><strong>Viterbi Decoding:</strong> For an HMM with \(S\) states and sequence length \(T\), the complexity
+                            is <strong>\(O(S^2 \cdot T)\)</strong>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Growth Visualization</h2>
+                <div class="mermaid">
+                    graph LR
+                    A[Input Size n] -- Linear --> B(O n)
+                    A -- Logarithmic --> C(O log n)
+                    A -- Quadratic --> D(O n^2)
+                    A -- Exponential --> E(O 2^n)
+                    style B fill:#a8e6cf,stroke:#333
+                    style E fill:#ff9999,stroke:#333
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">Comparing scaling
+                    behaviors as data volume increases.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.03 Concavity & Inflection - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.3 Applications</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="10_01_extrema.html" class="nav-link">01. Critical Points</a></li>
+                        <li class="nav-item"><a href="10_02_first_deriv_test.html" class="nav-link">02. First Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_03_concavity.html" class="nav-link active">03. Concavity</a>
+                        </li>
+                        <li class="nav-item"><a href="10_04_second_deriv_test.html" class="nav-link">04. Second Deriv
+                                Test</a></li>
+                        <li class="nav-item"><a href="10_05_curve_sketching.html" class="nav-link">05. Curve
+                                Sketching</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Curvature</span>
+                </div>
+                <h1>Concavity & Inflection Points</h1>
+                <p class="lead-text">Is the glass half full or half empty? It depends on the curvature.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Bend" of Data</h3>
+                    <p>
+                        The First Derivative tells you direction (up/down). The Second Derivative tells you curvature
+                        (smiling/frowning). This distinction separates exponential growth ("accelerating") from
+                        logarithmic growth ("saturating").
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <div class="glass-card">
+                    <ul class="topic-list">
+                        <li><strong>Concave UP (Convex):</strong> \(f''(x) > 0\). Slope is increasing. Holds water like
+                            a cup.</li>
+                        <li><strong>Concave DOWN (Concave):</strong> \(f''(x) < 0\). Slope is decreasing. Spills water
+                                like an umbrella.</li>
+                        <li><strong>Inflection Point:</strong> Where \(f''(x) = 0\) AND changes sign. The curve switches
+                            from cup to umbrella.</li>
+                    </ul>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        Start[Function f] -->|d/dx| Velocity[First Deriv f']
+                        Velocity -->|d/dx| Accel[Second Deriv f'']
+
+                        Accel -->|Positive| Cup[Concave Up (Smiley)]
+                        Accel -->|Negative| Frown[Concave Down]
+                        Accel -->|Zero + SignChange| Inflec[Inflection Point]
+
+                        style Cup fill:#4299e1
+                        style Frown fill:#ed8936
+                        style Inflec fill:#9f7aea
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Elbow Method (K-Means)</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Law of Diminishing Returns</h3>
+                    <p>
+                        When tuning hyperparameters (like \(K\) in K-Means clustering), we plot Error vs \(K\).
+                        The error drops rapidly at first, then flattens out.
+                    </p>
+                    <p>
+                        The "Elbow Point" is where the <strong>Curvature</strong> (second derivative) is maximum (most
+                        sharp bend).
+                        This inflection point represents the optimal trade-off: getting maximum benefit before the
+                        "saturating" behavior (concave up nature) dominates.
+                    </p>
+                    <p>
+                        Also: <strong>Convex Optimization</strong> relies entirely on functions being Concave Up
+                        everywhere (bowl shaped), guaranteeing a single Global Optimum.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Detecting the Bend</h2>
+                <div class="code-header">inflection_detection.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+# A Logistic-like S-curve: f(x) = 1 / (1 + e^-x) - simplified version
+# Let's use polynomial x^3 which also has inflection at 0
+f = x**3 - 3*x**2 + 2
+
+f1 = sp.diff(f, x)
+f2 = sp.diff(f1, x)
+
+print(f"Function: {f}")
+print(f"1st Deriv: {f1}")
+print(f"2nd Deriv: {f2}") # 6x - 6
+
+# Find Inflection: f''(x) = 0
+inflection_pts = sp.solve(f2, x)
+print(f"Candidate Inflection Point: {inflection_pts}")
+
+# Test Concavity around x=1
+for pt in [0, 2]:
+    curvature = f2.subs(x, pt)
+    shape = "Concave UP" if curvature > 0 else "Concave DOWN"
+    print(f"At x={pt}: f''={curvature} -> {shape}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="10_02_first_deriv_test.html" class="footer-link">← Prev: 1st Deriv Test</a>
+                        <span class="separator">|</span>
+                        <a href="10_04_second_deriv_test.html" class="footer-link">Next: 2nd Deriv Test →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

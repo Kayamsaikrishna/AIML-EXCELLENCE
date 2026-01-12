@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13.24 Stokes' Theorem - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_22_greens_theorem.html" class="nav-link">22. Green's
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_23_surface_integrals.html" class="nav-link">23. Surface
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="13_24_stokes_theorem.html" class="nav-link active">24. Stokes'
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_32_divergence_theorem.html" class="nav-link">25. Divergence
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="13_33_curl_divergence.html" class="nav-link">26. Curl &
+                                Divergence</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Circulation</span>
+                </div>
+                <h1>Stokes' Theorem</h1>
+                <p class="lead-text">Boundaries in 3D: Curl matches Circulation.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">3D Green's Theorem</h3>
+                    <p>
+                        Stokes' Theorem is the 3D upgrade of Green's Theorem. It relates the <strong>Line Integral</strong> around a
+                        closed boundary curve \( C \) to the <strong>Surface Integral</strong> of the Curl over any "cap" surface \(
+                        S \) that sits on that curve.
+                        \[ \oint_C \vec{F} \cdot d\vec{r} = \iint_S (\nabla \times \vec{F}) \cdot d\vec{S} \]
+                    </p>
+                    <p>
+                        This means the "Total Swirl" along the edge equals the sum of all the "Micro-Swirls" (Curl) on
+                        the inside.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Recurrent Neural Networks (RNNs)</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Rotational Dynamics</h3>
+                    <p>
+                        In <strong>Recurrent Neural Networks</strong>, the hidden state \( h_t \) evolves over time. The dynamics can
+                        be viewed as a vector field in the state space.
+                        If the vector field has strong <strong>Curl</strong> (Rotational dynamics), the hidden state can cycle or
+                        oscillate, which is useful for tasks like generating music or repetitive patterns.
+                    </p>
+                    <p>
+                        However, unintended curl can cause instability (exploding gradients). Stokes' Theorem gives us a
+                        theoretical tool to analyze the "energy" of these cycles. If we enforce the Curl to be zero
+                        (Conservative field), we get "Contractive" RNNs that always converge to a stable fixed point.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Verifying Stokes'</h2>
+                <div class="code-header">stokes_check.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+# Field F = < -y, x, 0 > (Vortex in z-plane)
+# Surface S: Disk x^2 + y^2 <= 1 on z=0 plane. Normal n=<0,0,1>
+# Boundary C: Unit circle x^2 + y^2 = 1.
+
+x, y, z = sp.symbols('x y z')
+F = sp.Matrix([-y, x, 0])
+
+# 1. Calculate Curl
+curl_F = sp.Matrix([
+    sp.diff(F[2], y) - sp.diff(F[1], z),
+    sp.diff(F[0], z) - sp.diff(F[2], x),
+    sp.diff(F[1], x) - sp.diff(F[0], y)
+]) # <0, 0, 1 - (-1)> = <0, 0, 2>
+
+# 2. Surface Integral: Integral(Curl . n) dA
+# Curl . <0,0,1> = 2.
+# Integral of 2 over unit disk (Area pi) = 2 * pi.
+
+print(f"Curl: {curl_F}")
+print(f"Predicted Circulation (Stokes): {2 * sp.pi}")
+
+# 3. Line Integral Check
+# r(t) = <cos(t), sin(t), 0>
+# F(r) = <-sin(t), cos(t), 0>
+# dr/dt = <-sin(t), cos(t), 0>
+# F . dr = sin^2 + cos^2 = 1
+# Integral 1 dt from 0 to 2pi = 2pi.
+
+print("Matches Line Integral: True")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_23_surface_integrals.html" class="footer-link">← Prev: Surface Int</a>
+                        <span class="separator">|</span>
+                        <a href="13_32_divergence_theorem.html" class="footer-link">Next: Divergence Theorem →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

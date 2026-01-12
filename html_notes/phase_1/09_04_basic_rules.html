@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.04 Basic Power Rules - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_01_derivative_defn.html" class="nav-link">01. Derivative
+                                Definition</a></li>
+                        <li class="nav-item"><a href="09_02_geometric_interp.html" class="nav-link">02. Geometric
+                                Interpretation</a></li>
+                        <li class="nav-item"><a href="09_03_diff_notation.html" class="nav-link">03. Notation
+                                (Leibniz/Lagrange)</a></li>
+                        <li class="nav-item"><a href="09_04_basic_rules.html" class="nav-link active">04. Basic Power
+                                Rules</a></li>
+                        <li class="nav-item"><a href="09_05_sum_diff_rules.html" class="nav-link">05. Sum & Difference
+                                Rules</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Core Mechanics</span>
+                </div>
+                <h1>Constant, Power, and Multiple Rules</h1>
+                <p class="lead-text">90% of Machine Learning calculus involves differentiating polynomials (or sums of
+                    them).</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Look and Solve" Era</h3>
+                    <p>
+                        Using the limit definition is tedious. We instead build a "Catalog of Shortcuts." Once you
+                        memorize these, finding the gradient of even complex neural networks becomes a matter of pattern
+                        matching.
+                    </p>
+                </div>
+
+                <h2>1. The Big Three Rules</h2>
+                <div class="glass-card">
+                    <h3>1. The Constant Rule</h3>
+                    <p>If \(f(x) = c\), it never changes. Its slope is zero.</p>
+                    <div class="math-block">\[ \frac{d}{dx}[c] = 0 \]</div>
+                </div>
+                <div class="glass-card">
+                    <h3>2. The Power Rule (The MVP)</h3>
+                    <p>For any real number \(n\):</p>
+                    <div class="math-block">\[ \frac{d}{dx}[x^n] = n x^{n-1} \]</div>
+                    <p><em>Example:</em> \(\frac{d}{dx}[x^3] = 3x^2\), \(\frac{d}{dx}[\sqrt{x}] = \frac{1}{2}x^{-1/2} =
+                        \frac{1}{2\sqrt{x}}\)</p>
+                </div>
+                <div class="glass-card">
+                    <h3>3. The Constant Multiple Rule</h3>
+                    <p>Scalars just come along for the ride. They scale the slope.</p>
+                    <div class="math-block">\[ \frac{d}{dx}[c \cdot f(x)] = c \cdot f'(x) \]</div>
+                    <p><em>Example:</em> \(\frac{d}{dx}[5x^4] = 5 \cdot (4x^3) = 20x^3\)</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Polynomial Regression</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Gradient of MSE</h3>
+                    <p>
+                        Consider a simple loss function for linear regression using Mean Squared Error (MSE):
+                    </p>
+                    <div class="math-block">
+                        \[ J(w) = (wx - y)^2 = w^2x^2 - 2wxy + y^2 \]
+                    </div>
+                    <p>
+                        To find the minimum, we compute the derivative with respect to \(w\) (treating \(x\) and \(y\)
+                        as constants).
+                    </p>
+                    <ul>
+                        <li>Term 1 (\(w^2 \cdot x^2\)): Use Power Rule -> \(2w \cdot x^2\)</li>
+                        <li>Term 2 (\(-2wxy\)): Use Power Rule on \(w^1\) -> \(-2xy\)</li>
+                        <li>Term 3 (\(y^2\)): Constant -> 0</li>
+                    </ul>
+                    <p>
+                        Result: \(J'(w) = 2x^2w - 2xy = 2x(wx - y)\). This is exactly the gradient update rule used in
+                        ML libraries.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Differentiation</h2>
+                <div class="code-header">sympy_power_rule.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+# Define variables
+x = sp.Symbol('x')
+w = sp.Symbol('w')
+
+# 1. Simple Polynomial
+f = 3*x**4 - 2*x**2 + 5
+df = sp.diff(f, x)
+
+print(f"Function: {f}")
+print(f"Derivative: {df}") 
+# Output: 12*x**3 - 4*x
+
+# 2. ML Loss Function Example
+y_true = sp.Symbol('y_true')
+x_input = sp.Symbol('x_input')
+
+# Loss = (w * x_input - y_true)^2
+loss = (w * x_input - y_true)**2
+gradient = sp.diff(loss, w)
+
+print(f"\nLoss Function: {loss}")
+print(f"Gradient wrt w: {gradient}")
+# Output: 2*x_input*(w*x_input - y_true) -> Matches manual math!
+
+# 3. Fractional Powers (Square Roots)
+g = sp.sqrt(x) # x^(1/2)
+dg = sp.diff(g, x)
+print(f"\nFunction: {g}")
+print(f"Derivative: {dg}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_03_diff_notation.html" class="footer-link">← Prev: Notation</a>
+                        <span class="separator">|</span>
+                        <a href="09_05_sum_diff_rules.html" class="footer-link">Next: Sum & Difference →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

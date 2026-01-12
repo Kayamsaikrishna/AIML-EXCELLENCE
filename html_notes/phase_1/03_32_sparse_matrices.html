@@ -4,96 +4,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparse Matrices - Phase 1.2.2.32</title>
+    <title>03.32 Sparse Matrices - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_31_condition_number.html">31. Condition Number</a></li>
-            <li><a href="03_32_sparse_matrices.html" class="active">32. Sparse Matrices</a></li>
-            <li><a href="03_33_band_matrices.html">33. Band Matrices</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_31_condition_number.html" class="nav-link">31. Condition Number</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">32. Sparse Matrices</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Sparse Matrices
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 32. Zero Compression
         </div>
 
-        <header>
-            <h1>32. Sparse Matrices</h1>
-            <p class="subtitle">Efficient computing for mostly empty data.</p>
+        <header class="page-header">
+            <div class="badge">Module 32</div>
+            <h1>Sparse Storage</h1>
+            <p class="lead-text"> Storing the 1%, ignoring the 99% zeros. CSR, CSC, and COO formats.</p>
         </header>
 
-        <section>
-            <h2>1. What is Sparsity?</h2>
-            <p>A matrix is <strong>Sparse</strong> if the vast majority of its elements are zero. Storing all those
-                zeros
-                is a massive waste of memory and compute.</p>
+        <!-- VISUAL DIAGRAM: SPARSE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Compression</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Dense["Dense Matrix (Stores Zeros)"]
+    
+    subgraph Formats
+        COO["COO (Row, Col, Value) - Simple"]
+        CSR["CSR (Compressed Row) - Fast Arithmetic"]
+        CSC["CSC (Compressed Col) - Fast Slicing"]
+    end
+    
+    Dense -- "Compress" --> Formats
+    
+    Formats --> Ops["Fast Operations O(NNZ)"]
 
-            <div class="module-card">
-                <h3>Storage Formats</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>COO (Coordinate):</strong> Stores (row, col, value) tuples. Best for
-                        building matrices.</li>
-                    <li class="topic-item"><strong>CSR (Compressed Sparse Row):</strong> Optimized for fast row-access
-                        and matrix-vector multiplication.</li>
-                    <li class="topic-item"><strong>CSC (Compressed Sparse Column):</strong> Optimized for column-access
-                        and slicing.</li>
+    style Ops fill:#dcfce7,stroke:#16a34a
+    style COO fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. DEFINITION: FORMATS -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Why Sparse?</h2>
+                <p>Most real-world adjacency matrices (Social Graphs, Web Links) are 99.99% zeros.</p>
+                <p>Storing a 1M x 1M dense matrix requires 8TB RAM. Storing it sparse (with 1B edges) requires only
+                    ~12GB.</p>
+                <ul>
+                    <li><strong>COO (Coordinate):</strong> List of (row, col, value). Good for construction.</li>
+                    <li><strong>CSR (Compressed Row):</strong> Optimized for matrix-vector multiplication.</li>
                 </ul>
             </div>
         </section>
 
-        <section>
-            <h2>2. Large Scale AI Applications</h2>
-            <div class="module-card">
-                <h3>NLP and Graphs</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>TF-IDF:</strong> In a vocabulary of 50k words, a single document only
-                        contains a few hundred.</li>
-                    <li class="topic-item"><strong>Adjacency Matrices:</strong> In a social network, the friend-matrix
-                        is 99.98% sparse.</li>
-                    <li class="topic-item"><strong>Model Pruning:</strong> Removing small weights to make neural
-                        networks sparse for edge devices.</li>
-                </ul>
+        <!-- 2. AI APPLICATION: GRAPH NEURAL NETS -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. GNNs</h2>
+                <p>Graph Neural Networks rely entirely on sparse matrix operations. The "Message Passing" step is
+                    effectively \( A \times H \), where \( A \) is the sparse adjacency matrix.</p>
+                <p>Without sparse optimization, training GNNs on huge datasets (Reddit, Protein structures) would be
+                    impossible.</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Sparse Computing</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-from scipy.sparse import csr_matrix
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. SciPy Sparse</h2>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import scipy.sparse as sp
+import sys
 
-# Create a largely empty matrix
-data = np.zeros((1000, 1000))
-data[1, 5] = 10.0
-data[500, 500] = 3.0
+N = 10000
+density = 0.001
 
-# Convert to CSR
-sparse_data = csr_matrix(data)
+# Create random sparse matrix
+A_dense = np.zeros((N, N))
+# ... filling this would take too much RAM if N was bigger
 
-print(f"Full Data: {data.nbytes} bytes")
-print(f"Compressed: {sparse_data.data.nbytes} bytes")</code></pre>
+# Create CSR directly
+nnz = int(N * N * density)
+data = np.random.rand(nnz)
+rows = np.random.randint(0, N, nnz)
+cols = np.random.randint(0, N, nnz)
+
+A_sparse = sp.coo_matrix((data, (rows, cols)), shape=(N, N)).tocsr()
+
+print(f"Matrix Size: {N}x{N}")
+print(f"Non-Zeros: {A_sparse.nnz}")
+print(f"Memory Usage (MB): {A_sparse.data.nbytes / (1024**2):.2f}")
+# A dense 10k x 10k float64 would be 800MB. This is ~1MB.
+</code></pre>
+                </div>
             </div>
         </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.07 Residual Analysis - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_06_gauss_markov_theorem.html" class="nav-link">06. Gauss Markov
+                                Theorem</a></li>
+                        <li class="nav-item"><a href="27_07_residual_analysis.html" class="nav-link active">07. Residual
+                                Analysis</a></li>
+                        <li class="nav-item"><a href="27_08_r_squared.html" class="nav-link">08. R Squared</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Model Diagnostics</span>
+                </div>
+                <h1>Residual Analysis</h1>
+                <p class="lead-text">Decoding the signal in the noise. If your residuals have a pattern, your model is
+                    missing the point.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Ideal Residual</h3>
+                    <p>
+                        A perfect model should leave behind residuals that look like "White Noise":
+                        <br>
+                        - Mean of zero.
+                        - No visible patterns (No U-shapes, no fan-shapes).
+                        - Normal distribution (QQ-plot should be a straight line).
+                    </p>
+                </div>
+
+                <h2>1. The Four Horsemen of Regression Failure</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Non-Linearity</h4>
+                        <p><strong>Symptom:</strong> Residual Plot has a "U" or "S" curve. <br> <strong>Fix:</strong> Add polynomial terms
+                            (\(X^2\)) or transform X.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Heteroscedasticity</h4>
+                        <p><strong>Symptom:</strong> Residual plot looks like a "Fan" (Variance grows). <br> <strong>Fix:</strong> Use
+                            Log-transform on Y or Weighted Least Squares.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Outliers</h4>
+                        <p><strong>Symptom:</strong> 1 or 2 points are far away from the Zero-line. <br> <strong>Fix:</strong> Check for data
+                            entry errors or use Robust Regression.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>4. Autocorrelation</h4>
+                        <p><strong>Symptom:</strong> Residuals cluster (positive follows positive). <br> <strong>Fix:</strong> Add a Time-series
+                            component or a Lag variable.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Error Distribution Logic</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Monitoring</span>
+                    <h3>Why Residuals drive Loss Functions</h3>
+                    <p>
+                        Why do we use MSE (L2) vs MAE (L1)? It's all about how we view residuals!
+                    </p>
+                    <p>
+                        - <strong>MSE:</strong> Assumes residuals are <strong>Normal</strong>. It penalizes large misses heavily.
+                        - <strong>MAE:</strong> Assumes residuals are <strong>Laplace</strong> (Longer tails). It is robust to outliers.
+                        - <strong>Poisson Loss:</strong> Assumes residuals follow a Poisson distribution (Used for count data).
+                    </p>
+                    <div class="insight-box">
+                        In <strong>Model Monitoring</strong>, if you see the mean of your residuals drifting away from zero over
+                        time, your model is suffering from <strong>Concept Drift</strong>. The world has changed, and your weights
+                        are now biased.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

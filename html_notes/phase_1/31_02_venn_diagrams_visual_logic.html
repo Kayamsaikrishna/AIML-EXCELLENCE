@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31.02 Venn Diagrams & Visual Logic - Set Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.7.1 Theory of Sets</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="31_01_set_notation_operations.html" class="nav-link">01. Set
+                                Notation & Operations</a></li>
+                        <li class="nav-item"><a href="31_02_venn_diagrams_visual_logic.html" class="nav-link active">02.
+                                Venn Diagrams</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Visualization</span>
+                    <span class="badge secondary">Logic</span>
+                </div>
+                <h1>Venn Diagrams & Visual Logic</h1>
+                <p class="lead-text">Seeing the Truth. How geometric overlap provides an intuitive map for complex
+                    logical identities and set-based reasoning.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Spatial Mapping</h3>
+                    <p>
+                        A <strong>Venn Diagram</strong> is a geometric representation of sets. By drawing circles (or ellipses)
+                        inside a bounding box (the Universal Set \(U\)), we can visually "solve" logical problems that
+                        would be cryptic in symbolic notation.
+                    </p>
+                </div>
+
+                <h2>1. Mapping Basic Operations</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Intersection (\(A \cap B\))</h4>
+                        <p>The shared region where the circles overlap. It represents "AND".</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Union (\(A \cup B\))</h4>
+                        <p>The entire shaded area of both circles. It represents "OR".</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Disjoint Sets</h4>
+                        <p>Circles that don't touch. Their intersection is the empty set \(\varnothing\).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Principle of Inclusion-Exclusion (PIE)</h2>
+                <p>How do we count the elements in a union without double-counting the overlap?</p>
+                <div class="math-box">
+                    $$ |A \cup B| = |A| + |B| - |A \cap B| $$
+                </div>
+                <p><strong>For three sets:</strong></p>
+                <div class="math-box">
+                    $$ |A \cup B \cup C| = |A| + |B| + |C| - (|A \cap B| + |A \cap C| + |B \cap C|) + |A \cap B \cap C|
+                    $$
+                </div>
+                <p class="small-text">Intuition: Add the single circles, subtract the double-counts, add back the
+                    "triple-center" that was subtracted too many times.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Visualizing De Morgan's Laws</h2>
+                <p>Set theory and Logic are identical at this level. Let's look at \((A \cap B)^c\):</p>
+                <ul>
+                    <li><strong>Symbolic:</strong> "Not (A and B)"</li>
+                    <li><strong>Visual:</strong> Everything in the box *except* the center overlap.</li>
+                    <li><strong>Result:</strong> This is equivalent to "Everything not in A" UNION "Everything not in B" (\(A^c \cup
+                        B^c\)).</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Classification</span>
+                    <span class="ml-badge">Object Detection</span>
+                    <h3>Venn Diagrams in AI/ML</h3>
+                    <ul>
+                        <li><strong>Confusion Matrices:</strong> A multiclass classifier's performance is often visualized as a Venn
+                            diagram of true labels vs. predicted labels. The intersection is the set of "True
+                            Positives."</li>
+                        <li><strong>IOU (Intersection Over Union):</strong> In object detection, we evaluate how well a model found a
+                            box by calculating the <strong>Jaccard Similarity</strong> (IOU) between the predicted box and the ground
+                            truth box. This is pure set-geometry.</li>
+                        <li><strong>Data Quality:</strong> Data engineers use Venn diagrams to track "Data Leakage." If the
+                            intersection between the Train set and the Test set is not \(\varnothing\), the model is
+                            cheating.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Logical Geometry Flow</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Problem Statement] --> B[Identify Sets]
+                    B --> C[Draw Universal Set U]
+                    C --> D[Draw Overlapping Regions]
+                    D --> E[Shade Targeted Logic]
+                    E --> F[Extract Numerical Equation - PIE]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

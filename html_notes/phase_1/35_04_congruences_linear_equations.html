@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>35.04 Congruences & Linear Equations - Number Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.11.2 Equations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="35_03_lcm_modular_arithmetic.html" class="nav-link">03. LCM &
+                                Modular Arithmetic</a></li>
+                        <li class="nav-item"><a href="35_04_congruences_linear_equations.html"
+                                class="nav-link active">04. Congruences & Equations</a></li>
+                        <li class="nav-item"><a href="35_05_chinese_remainder_theorem.html" class="nav-link">05. Chinese
+                                Remainder Theorem</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Number Theory</span>
+                    <span class="badge secondary">Linear Algebra Mod N</span>
+                </div>
+                <h1>Congruences & Linear Equations</h1>
+                <p class="lead-text">Solving for X in a Finite World. How to find unknowns when the rules of equality
+                    wrap around like a clock face.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Modular Equation</h3>
+                    <p>
+                        A linear congruence is an equation of the form $ax \equiv b \pmod n$. It asks: "Is there an
+                        integer $x$ such that multiplying it by $a$ and dividing by $n$ leaves a remainder of $b$?" This
+                        is the core logic behind cryptographic key exchange.
+                    </p>
+                </div>
+
+                <h2>1. Solvability Condition</h2>
+                <p>The congruence $ax \equiv b \pmod n$ has a solution if and only if:</p>
+                <div class="math-box">
+                    $$ d | b \quad \text{where } d = gcd(a, n) $$
+                </div>
+                <p>If $d$ divides $b$, there are exactly $d$ distinct solutions modulo $n$. If $d=1$ (coprime), there is
+                    exactly one unique solution.</p>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Solving the Equation</h2>
+                <p>To solve, we multiply both sides by the <strong>modular inverse</strong> of $a$ modulo $n$.</p>
+                <div class="math-box">
+                    $$ x \equiv a^{-1} b \pmod n $$
+                </div>
+                <p>The inverse $a^{-1}$ exists only if $gcd(a, n) = 1$. We find it using the Extended Euclidean
+                    Algorithm.</p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Randomness</span>
+                    <span class="ml-badge">Simulation</span>
+                    <h3>Linear Congruential Generators (LCG)</h3>
+                    <p>Almost all basic random number generators in AI (like older versions of Python's `random`) use a
+                        recurrence relation based on a linear congruence:</p>
+                    <div class="math-box">
+                        $$ X_{n+1} = (aX_n + c) \pmod m $$
+                    </div>
+                    <ul>
+                        <li><strong>Choice of Parameters:</strong> The values of $a, c, m$ determine the "period" (how
+                            long before
+                            the sequence repeats). Number theory tells us how to pick them to maximize the period.</li>
+                        <li><strong>Predictability:</strong> Because LCGs differ from true randomness (they are
+                            deterministic), they
+                            are fast but unsuitable for crypto. However, they are perfect for <strong>Stochastic
+                                Gradient
+                                Descent (SGD)</strong> shuffling where speed is key.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Inverting the Map</h2>
+                <div class="mermaid">
+                    graph LR
+                    Input[Input x] -- "Multiply by a" --> Step1[ax]
+                    Step1 -- "Mod n" --> Output[b]
+                    Output -- "Multiply by inv(a)" --> Step2[b * inv(a)]
+                    Step2 -- "Mod n" --> Original[Original Input x]
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">The reversible nature of
+                    modular arithmetic when GCD(a, n) = 1.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

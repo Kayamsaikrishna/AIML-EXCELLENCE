@@ -4,87 +4,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schur Decomposition - Phase 1.2.2.25</title>
+    <title>03.25 Schur - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_24_cholesky.html">24. Cholesky</a></li>
-            <li><a href="03_25_schur.html" class="active">25. Schur Decomposition</a></li>
-            <li><a href="03_26_jordan_form.html">26. Jordan Form</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Schur Decomposition
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>25. Schur Decomposition</h1>
-            <p class="subtitle">Unitary transformations for stability analysis.</p>
-        </header>
-
-        <section>
-            <h2>1. The Theorem</h2>
-            <p>Every square matrix \( \mathbf{A} \) (with potentially complex eigenvalues) can be factored as:</p>
-            <div class="math-block">
-                $$ \mathbf{A} = \mathbf{QTQ}^H $$
-            </div>
-            <p>Where \( \mathbf{Q} \) is a <strong>Unitary Matrix</strong> (\( \mathbf{Q}^H\mathbf{Q} = \mathbf{I} \))
-                and \( \mathbf{T} \) is an <strong>Upper Triangular Matrix</strong> (Schur Form).</p>
-        </section>
-
-        <section>
-            <h2>2. Importance in Control & Stability</h2>
-            <div class="module-card">
-                <h3>Theoretical Cornerstone</h3>
-                <p>Unlike Eigendecomposition (which requires the matrix to be diagonalizable), Schur Decomposition
-                    <strong>always exists</strong> for any square matrix. This makes it a primary tool for numerical
-                    stability proofs in control systems and recurrent neural networks (RNNs).
-                </p>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>Stability:</strong> The diagonal elements of \( \mathbf{T} \) are the
-                        eigenvalues of \( \mathbf{A} \). If any \( \text{Re}(\lambda) > 0 \), the system is unstable
-                        (Exploding Gradients).</li>
-                    <li class="topic-item"><strong>Base for other Decompositions:</strong> Most computer algorithms
-                        first reduce a matrix to Schur form before finding SVD or Eigendecomposition.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_24_cholesky.html" class="nav-link">24. Cholesky</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">25. Schur</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Real Schur Form</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
-from scipy.linalg import schur
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 25. Unitary Triangular
+        </div>
 
-A = np.array([[0, 2, 2], [0, 1, 2], [1, 0, 1]])
+        <header class="page-header">
+            <div class="badge">Module 25</div>
+            <h1>Schur Decomposition</h1>
+            <p class="lead-text"> \( A = QUQ^H \). The bridge to Eigenvalues for ALL matrices.</p>
+        </header>
 
-# T is the (quasi) upper triangular schur form
-T, Q = schur(A)
+        <!-- VISUAL DIAGRAM: SCHUR -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: Almost Diagonal</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    Matrix["Arbitrary Square A"]
+    
+    subgraph Factors
+        U["Unitary Q (Orthonormal Basis)"]
+        T["Upper Triangular T (Eigenvalues on Diagonal)"]
+    end
+    
+    Matrix -- "Unitary Similiarity" --> T
+    
+    T --> Reconstruct["A = Q T Q^H"]
 
-print(f"Schur Form T:\n{np.round(T, 2)}")
-print(f"Eigenvalues: {np.diag(T)}")</code></pre>
+    style T fill:#dcfce7,stroke:#16a34a
+    style U fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION: ROBUST EIGENVALUES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>Every square matrix \( A \) can be unitarily triangulated:</p>
+                <div class="math-block">
+                    $$ A = Q T Q^H $$
+                </div>
+                <ul>
+                    <li>\( Q \): Unitary Matrix (Complex Orthogonal).</li>
+                    <li>\( T \): Upper Triangular. The <strong>diagonal entries of T are the eigenvalues of A</strong>.
+                    </li>
+                </ul>
+                <p>Unlike diagonalization (which fails for defective matrices), Schur <strong>always exists</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: QR ITERATION -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. The QR Algorithm</h2>
+                <p>The standard algorithm to find eigenvalues (the QR Algorithm) actually computes the Schur
+                    Decomposition.</p>
+                <p>It iteratively converges \( A \) to the triangular form \( T \). Once we have \( T \), the
+                    eigenvalues represent the natural frequencies or stability modes of the system.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. SciPy Schur</h2>
+                <p>Computing T and Q.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import scipy.linalg as la
+
+# A non-symmetric matrix
+A = np.array([
+    [5, 2],
+    [-2, 5]
+]) # Eigenvalues are 5+2i, 5-2i
+
+# Compute Schur
+T, Z = la.schur(A, output='complex')
+
+print("Upper Triangular T:")
+print(T.round(2))
+# Diagonal should be [5+2j, 5-2j]
+
+print("\nUnitary Z:")
+print(Z.round(2))
+
+print("\nCheck A = Z T Z.H:")
+print((Z @ T @ Z.conj().T).real.round(2))
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

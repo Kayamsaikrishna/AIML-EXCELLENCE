@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28.06 Power Analysis - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.12 Experimental Design</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="28_05_multi_armed_bandits.html" class="nav-link">05. Multi Armed
+                                Bandits</a></li>
+                        <li class="nav-item"><a href="28_06_power_analysis.html" class="nav-link active">06. Power
+                                Analysis</a></li>
+                        <li class="nav-item"><a href="28_07_anova_in_experimental.html" class="nav-link">07. Anova In
+                                Experimental</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.8</span>
+                    <span class="badge secondary">Rigorous Design</span>
+                </div>
+                <h1>Power Analysis</h1>
+                <p class="lead-text">Eliminating "Maybe". How to ensure your experiment is strong enough to detect the
+                    truth.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Four Levers</h3>
+                    <p>
+                        Power analysis is like a 4-dial machine. If you know any three, you can calculate the fourth:
+                        <br>
+                        1. <strong>Sample Size (\(n\)):</strong> How many people are in the test?
+                        2. <strong>Effect Size (\(d\)):</strong> How big is the change you expect to see?
+                        3. <strong>Significance Level (\(\alpha\)):</strong> Your tolerance for False Positives (Usually 0.05).
+                        4. <strong>Power (\(1-\beta\)):</strong> Your probability of detecting an effect that actually exists
+                        (Usually 0.80).
+                    </p>
+                </div>
+
+                <h2>1. Error Types Refresher</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Type I Error (\(\alpha\))</h4>
+                        <p><strong>False Positive:</strong> You say "It works!" but it was just noise. <br> *Penalty:* Wasted
+                            engineering effort launching a useless feature.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Type II Error (\(\beta\))</h4>
+                        <p><strong>False Negative:</strong> You say "Nothing happened," but there was a real win you missed. <br>
+                            *Penalty:* Missing out on growth or revenue.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The Formula Logic</h2>
+                <div class="math-box">
+                    $$ n \approx \frac{16 \cdot \sigma^2}{\delta^2} \quad (\text{For } \alpha=0.05, \text{ Power}=0.8)
+                    $$
+                </div>
+                <p>
+                    Where <strong>\(\delta\)</strong> is the Minimum Detectable Effect (MDE).
+                    <br><br>
+                    Notice the squared relationship: To detect an effect that is <strong>half as big</strong>, you need **four times
+                    as much data**.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Sample Size Planning</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Product ML</span>
+                    <span class="ml-badge">Validation</span>
+                    <h3>Why "Big Data" still needs Power</h3>
+                    <p>
+                        Engineers often think: "We have millions of users, we don't need power analysis!"
+                    </p>
+                    <ul>
+                        <li><strong>The Micro-Effect Problem:</strong> In mature products (Google Search, Amazon Ads), a "huge" win
+                            might only be a 0.1% increase in revenue. To detect a 0.1% increase with confidence, you
+                            might still need tens of millions of users. Power analysis tells you <strong>how many weeks</strong> to
+                            wait.</li>
+                        <li><strong>Data Collection Costs:</strong> In medical AI or robotics, data is expensive (Human labeling,
+                            physical sensor time). Power analysis prevents you from over-collecting data, saving
+                            thousands of dollars.</li>
+                        <li><strong>Iterative Refinement:</strong> If your A/B test results are "Insignificant," power analysis helps
+                            you decide: "Was the change useless, or was my sample size just too small?"</li>
+                    </ul>
+                    <div class="insight-box">
+                        <strong>Engineer's Rule:</strong> Always perform an <strong>A-priori Power Analysis</strong> *before* you start the
+                        experiment. Doing it after the data is collected (Post-hoc) is considered statistically invalid.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

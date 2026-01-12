@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>33.06 Shortest Path Algorithms - Graph Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.9.2 Path & Tree Algorithms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="33_05_spanning_trees_mst.html" class="nav-link">05. Spanning
+                                Trees</a></li>
+                        <li class="nav-item"><a href="33_06_shortest_paths_dijkstra.html" class="nav-link active">06.
+                                Shortest Paths</a></li>
+                        <li class="nav-item"><a href="33_07_bipartite_graphs_matching.html" class="nav-link">07.
+                                Bipartite Matching</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Graph Theory</span>
+                    <span class="badge secondary">Navigation</span>
+                </div>
+                <h1>Shortest Path Algorithms</h1>
+                <p class="lead-text">Finding the Optimal Route. Solving the fundamental problem of navigating weighted
+                    graphs to find the minimum distance between two points.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>Beyond Geometry</h3>
+                    <p>
+                        In a graph, the "shortest" path isn't necessarily a straight line. It's the path where the sum
+                        of edge weights is minimized. These weights can represent time, fuel, cost, or the probability
+                        of an error in an AI sequence.
+                    </p>
+                </div>
+
+                <h2>1. Core Algorithms</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Dijkstra's Algorithm</h4>
+                        <p>Finds shortest paths from a source to all other nodes. <strong>Constraint:</strong> Edge
+                            weights must be non-negative. Uses a Priority Queue for optimization (\(O(E \log V)\)).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Bellman-Ford Algorithm</h4>
+                        <p>Handles graphs with <strong>negative edge weights</strong>. It can also detect <strong>Negative
+                                Cycles</strong> (infinite distance reduction loops).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>A* (A-Star) Search</h4>
+                        <p>Dijkstra with a <strong>Heuristic</strong> (\(f = g + h\)). It uses domain knowledge (like
+                            Euclidean distance) to "guide" the search toward the target.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. All-Pairs Shortest Path</h2>
+                <p>When you need the shortest path between <strong>every</strong> pair of nodes in the graph.</p>
+                <div class="math-box">
+                    <strong>Floyd-Warshall Algorithm:</strong> Uses dynamic programming to update distances through
+                    intermediate nodes. Complexity: \(O(V^3)\).
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">NLP</span>
+                    <span class="ml-badge">Reinforcement Learning</span>
+                    <h3>Routing in AI</h3>
+                    <ul>
+                        <li><strong>Viterbi Algorithm:</strong> In Hidden Markov Models (HMMs) and NLP (Part-of-Speech tagging),
+                            Viterbi is essentially a shortest-path algorithm on a "Trellis Graph" to find the most
+                            likely sequence of states.</li>
+                        <li><strong>Beam Search:</strong> Used in LLMs and translation models to explore the most likely paths in the
+                            vocabulary graph while keeping memory usage under control.</li>
+                        <li><strong>Game AI Pathfinding:</strong> A* is the industry standard for autonomous agents in video games
+                            and robotics to navigate complex environments.</li>
+                        <li><strong>Optimal Policy in RL:</strong> Finding the optimal path through a State-Action graph is the core
+                            of Reinforcement Learning. Bellman-Ford's logic directly inspires the <strong>Bellman Equations</strong>
+                            used in Q-Learning.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Dijkstra's Logic Flow</h2>
+                <div class="mermaid">
+                    graph TD
+                    Start[Start at Source node] --> Init[Set dist=0, all others=infinity]
+                    Init --> Select[Pick unvisited node with smallest dist]
+                    Select --> Relax[For each neighbor: update dist if current path is shorter]
+                    Relax --> Mark[Mark current node as Visited]
+                    Mark --> Check{All nodes visited?}
+                    Check -- No --> Select
+                    Check -- Yes --> End[Shortest Paths Found]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

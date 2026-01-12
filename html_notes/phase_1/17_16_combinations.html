@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.16 Combinations - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_15_permutations.html" class="nav-link">15. Permutations</a>
+                        </li>
+                        <li class="nav-item"><a href="17_16_combinations.html" class="nav-link active">16.
+                                Combinations</a></li>
+                        <li class="nav-item"><a href="17_17_binomial_coefficients.html" class="nav-link">17. Binomial
+                                Coeffs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Selection</span>
+                </div>
+                <h1>Combinations</h1>
+                <p class="lead-text">Choosing without ordering.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">n Choose k</h3>
+                    <p>
+                        When order doesn't matter (a pizza with pepperoni and cheese is the same as cheese and
+                        pepperoni), we use Combinations:
+                        \[ C(n, k) = \binom{n}{k} = \frac{n!}{k!(n-k)!} \]
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Feature Selection</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Subset Selection</h3>
+                    <p>
+                        If you have 100 features and want to find the best subset of 5 features to train your model, you
+                        have \(\binom{100}{5}\) possibilities (about 75 million).
+                        Since we can't test them all, we use greedy algorithms like <strong>Forward Selection</strong> or **L1
+                        Regularization (Lasso)** to approximate the best combination.
+                    </p>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_15_permutations.html" class="footer-link">← Prev: Permutations</a>
+                        <span class="separator">|</span>
+                        <a href="17_17_binomial_coefficients.html" class="footer-link">Next: Binomial Coeffs →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,90 +9,95 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.4 Integration</li>
-            <li><a href="18_05_integration_by_parts.html">05. Integration by Parts</a></li>
-            <li><a href="18_06_trig_integrals.html">06. Trig Integrals</a></li>
-            <li><a href="18_07_trig_substitution.html" class="active">07. Trig Substitution</a></li>
-            <li><a href="18_08_pfd.html">08. Partial Fractions</a></li>
-            <li><a href="18_09_rational_integration.html">09. Rational Functions</a></li>
-            <hr>
-            <li class="nav-label">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.4 Integration</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="18_07_trig_substitution.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Trig Substitution
+            <a href="../index.html">Syllabus</a> &gt; 18_07_trig_substitution.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 18_07</div>
             <h1>07. Trigonometric Substitution</h1>
-            <p class="subtitle">Using triangles to solve square roots.</p>
+            <p class="lead-text">Using triangles to solve square roots.</p>
         </header>
 
-        <section>
-            <h2>1. The Goal</h2>
-            <p>Trig substitution is a specialized form of U-substitution used to integrate functions containing square
+        
+
+
+
+<section>
+<h2>1. The Goal</h2>
+<p>Trig substitution is a specialized form of U-substitution used to integrate functions containing square
                 roots of the following forms:</p>
-            <table class="module-card" style="width: 100%; border-collapse: collapse;">
-                <tr>
-                    <th style="padding: 10px; border: 1px solid #ddd;">Expression</th>
-                    <th style="padding: 10px; border: 1px solid #ddd;">Substitution</th>
-                    <th style="padding: 10px; border: 1px solid #ddd;">Identity Used</th>
-                </tr>
-                <tr>
-                    <td style="padding: 10px; border: 1px solid #ddd;">\(\sqrt{a^2 - x^2}\)</td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">\(x = a \sin \theta\)</td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">\(1 - \sin^2 \theta = \cos^2 \theta\)</td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px; border: 1px solid #ddd;">\(\sqrt{a^2 + x^2}\)</td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">\(x = a \tan \theta\)</td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">\(1 + \tan^2 \theta = \sec^2 \theta\)</td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px; border: 1px solid #ddd;">\(\sqrt{x^2 - a^2}\)</td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">\(x = a \sec \theta\)</td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">\(\sec^2 \theta - 1 = \tan^2 \theta\)</td>
-                </tr>
-            </table>
-        </section>
-
-        <section class="module-card">
-            <h2>2. The Reverse Step</h2>
-            <p>After integrating in terms of \(\theta\), you must draw a <strong>Reference Triangle</strong> to convert
+<table class="module-card" style="width: 100%; border-collapse: collapse;">
+<tr>
+<th style="padding: 10px; border: 1px solid #ddd;">Expression</th>
+<th style="padding: 10px; border: 1px solid #ddd;">Substitution</th>
+<th style="padding: 10px; border: 1px solid #ddd;">Identity Used</th>
+</tr>
+<tr>
+<td style="padding: 10px; border: 1px solid #ddd;">\(\sqrt{a^2 - x^2}\)</td>
+<td style="padding: 10px; border: 1px solid #ddd;">\(x = a \sin \theta\)</td>
+<td style="padding: 10px; border: 1px solid #ddd;">\(1 - \sin^2 \theta = \cos^2 \theta\)</td>
+</tr>
+<tr>
+<td style="padding: 10px; border: 1px solid #ddd;">\(\sqrt{a^2 + x^2}\)</td>
+<td style="padding: 10px; border: 1px solid #ddd;">\(x = a \tan \theta\)</td>
+<td style="padding: 10px; border: 1px solid #ddd;">\(1 + \tan^2 \theta = \sec^2 \theta\)</td>
+</tr>
+<tr>
+<td style="padding: 10px; border: 1px solid #ddd;">\(\sqrt{x^2 - a^2}\)</td>
+<td style="padding: 10px; border: 1px solid #ddd;">\(x = a \sec \theta\)</td>
+<td style="padding: 10px; border: 1px solid #ddd;">\(\sec^2 \theta - 1 = \tan^2 \theta\)</td>
+</tr>
+</table>
+</section>
+<section class="module-card">
+<h2>2. The Reverse Step</h2>
+<p>After integrating in terms of \(\theta\), you must draw a <strong>Reference Triangle</strong> to convert
                 the answer back into \(x\). This step is where most errors occur.</p>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Manifold Geometry</h2>
-            <div class="module-card">
-                <h3>Circular Latent Spaces</h3>
-                <p>In <strong>Computer Vision</strong>, we often deal with "Rotation" and "Pose". If an AI model is
+</section>
+<section>
+<h2>3. AI/ML Connection: Manifold Geometry</h2>
+<div class="module-card">
+<h3>Circular Latent Spaces</h3>
+<p>In <strong>Computer Vision</strong>, we often deal with "Rotation" and "Pose". If an AI model is
                     trying to calculate the average orientation or area within a circular view, it must integrate over
                     circular domains. </p>
-                <p>The \(\sqrt{1-x^2}\) form is the upper half of a unit circle. Integrating this allows us to calculate
+<p>The \(\sqrt{1-x^2}\) form is the upper half of a unit circle. Integrating this allows us to calculate
                     <strong>geometric priors</strong> for models. Without trig substitution, we wouldn't have the
                     precise analytical formulas for the geometry of spheres and circles that AI models use to understand
                     spatial dimensions in 3D reconstruction.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Radial Integration</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>4. Python: Radial Integration</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 x = sp.Symbol('x')
 # Integral of sqrt(1 - x^2) - representing a circle's area
@@ -104,13 +108,14 @@ result = sp.integrate(f, x)
 
 print(f"Integral is: {result}")
 # Output: x*sqrt(1 - x**2)/2 + asin(x)/2</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

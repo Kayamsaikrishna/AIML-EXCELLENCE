@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20.02 Domain & Limits - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.6 Multivariable Calculus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="13_01_multi_functions.html" class="nav-link">01. Several
+                                Variables</a></li>
+                        <li class="nav-item"><a href="13_02_multi_domain_limit.html" class="nav-link active">02. Domain
+                                & Limits</a></li>
+                        <li class="nav-item"><a href="13_03_level_curves_surfaces.html" class="nav-link">03. Level
+                                Curves</a></li>
+                        <li class="nav-item"><a href="13_04_partial_derivatives.html" class="nav-link">04. Partial
+                                Derivatives</a></li>
+                        <li class="nav-item"><a href="13_05_higher_order_partials.html" class="nav-link">05.
+                                Higher-Order Partials</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.6</span>
+                    <span class="badge secondary">Topology</span>
+                </div>
+                <h1>Domain & Limits</h1>
+                <p class="lead-text">Boundaries and Continuity in N-Dimensions.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Infinite Approaches</h3>
+                    <p>
+                        In 1D Calculus, a limit \( \lim_{x \to a} f(x) \) exists if left-approach equals right-approach.
+                    </p>
+                    <p>
+                        In 2D (or higher), a point \((x, y)\) can approach \((a, b)\) from <strong>infinite</strong> directions:
+                        along the x-axis, y-axis, a spiral, a parabola, etc.
+                        For the limit to exist, <strong>ALL</strong> paths must yield the same value.
+                        \[ \lim_{(x,y) \to (a,b)} f(x,y) = L \]
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Feasible Regions</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Constrained Optimization</h3>
+                    <p>
+                        The <strong>Domain</strong> of a function corresponds to the <strong>Feasible Region</strong> in optimization.
+                        For example, in a Recommender System, the "probability" that a user likes a movie must be
+                        between 0 and 1.
+                        The domain is restricted to \([0, 1]\).
+                    </p>
+                    <p>
+                        <strong>Continuity</strong> is essential for robustness. If a slight change in input features (e.g., pixel
+                        noise) causes a massive jump in the model's output (a discontinuity), the model is brittle and
+                        vulnerable to <strong>Adversarial Attacks</strong>.
+                        We mathematically enforce continuity using activation functions like Softmax or ReLU.
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Point((Start Point))
+                        Point --> Path1[Path: y = 0]
+                        Point --> Path2[Path: x = 0]
+                        Point --> Path3[Path: y = x]
+                        Path1 --> Result1
+                        Path2 --> Result2
+                        Path3 --> Result3
+                        Result1 --Matches--> Result2
+                        Result2 --Matches--> Result3
+                        Result3 --> Conclusion[Limit Exists?]
+
+                        style Conclusion fill:#6b46c1,stroke:#44337a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Path Testing</h2>
+                <div class="code-header">limit_paths.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+def f(x, y):
+    # Function: (x^2 - y^2) / (x^2 + y^2)
+    # Undefined at (0,0)
+    if x==0 and y==0: return None
+    return (x**2 - y**2) / (x**2 + y**2)
+
+# Path 1: Approach along X-axis (y=0)
+lim_x = f(0.0001, 0) # (eps^2 - 0) / (eps^2 + 0) = 1
+
+# Path 2: Approach along Y-axis (x=0)
+lim_y = f(0, 0.0001) # (0 - eps^2) / (0 + eps^2) = -1
+
+print(f"Limit along x-axis: {lim_x}")
+print(f"Limit along y-axis: {lim_y}")
+
+if lim_x != lim_y:
+    print("Conclusion: Limit DOES NOT EXIST.")
+else:
+    print("More tests needed.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="13_01_multi_functions.html" class="footer-link">← Prev: Functions</a>
+                        <span class="separator">|</span>
+                        <a href="13_03_level_curves_surfaces.html" class="footer-link">Next: Level Curves →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

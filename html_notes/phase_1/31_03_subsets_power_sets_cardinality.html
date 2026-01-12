@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31.03 Subsets & Power Sets - Set Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.7.1 Theory of Sets</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="31_02_venn_diagrams_visual_logic.html" class="nav-link">02. Venn
+                                Diagrams</a></li>
+                        <li class="nav-item"><a href="31_03_subsets_power_sets_cardinality.html"
+                                class="nav-link active">03. Subsets & Power Sets</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Hierarchy</span>
+                    <span class="badge secondary">Diversity</span>
+                </div>
+                <h1>Subsets, Power Sets & Cardinality</h1>
+                <p class="lead-text">Worlds within Worlds. Understanding the hierarchical structure of collections and
+                    how the size of a set dictates the complexity of its internal relationships.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Container Logic</h3>
+                    <p>
+                        A set isn't just a list; it's a boundary. <strong>Subsets</strong> define smaller boundaries within that set.
+                        <strong>Power Sets</strong> build a universe out of those boundaries. <strong>Cardinality</strong> tells us how crowded
+                        that universe is.
+                    </p>
+                </div>
+
+                <h2>1. Subsets (\(\subseteq\))</h2>
+                <p>
+                    \(A\) is a subset of \(B\) if every element of \(A\) is also in \(B\).
+                </p>
+                <div class="math-box">\( A \subseteq B \iff \forall x (x \in A \rightarrow x \in B) \)</div>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>Proper Subset (\(\subset\))</h4>
+                        <p>\(A\) is inside \(B\), but \(A\) is not equal to \(B\). There's at least one element in \(B\)
+                            that isn't in \(A\).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Identity</h4>
+                        <p>Every set is a subset of itself. The Empty set \(\varnothing\) is a subset of every set.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Cardinality (\(|A|\))</h2>
+                <p>The "size" or number of elements in a set. For a finite set, it is a non-negative integer.</p>
+                <div class="math-box">
+                    $$ A = \{a, b, c, d\} \rightarrow |A| = 4 $$
+                    $$ |\varnothing| = 0 $$
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Power Set (\(\mathcal{P}(A)\))</h2>
+                <p>
+                    The set of <strong>all possible subsets</strong> of \(A\). This is the key to understanding complexity and
+                    combinations.
+                </p>
+                <div class="math-box">
+                    $$ A = \{1, 2\} \rightarrow \mathcal{P}(A) = \{\varnothing, \{1\}, \{2\}, \{1, 2\}\} $$
+                </div>
+                <div class="topic-card">
+                    <h4>The \(2^n\) Rule</h4>
+                    <p>If \(|A| = n\), then the number of elements in the Power Set is \(2^n\). </p>
+                    <p><strong>Intuition:</strong> For every element, you have 2 choices: Include it or Exclude it.</p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Feature Engineering</span>
+                    <span class="ml-badge">Complexity</span>
+                    <h3>Why Power Sets matter in ML</h3>
+                    <ul>
+                        <li><strong>Feature Selection (Wrapper Methods):</strong> If you have \(n\) features and you want to find the
+                            "best" subset, you are searching through the <strong>Power Set</strong> of features. Since there are
+                            \(2^n\) subsets, this is why greedy algorithms like "Forward Selection" are needed
+                            (searching the whole power set is impossible for \(n > 30\)).</li>
+                        <li><strong>Market Basket Analysis:</strong> Retailers look for "Frequent Itemsets." They are essentially
+                            searching the power set of all products in the store to find combinations that appear
+                            together often.</li>
+                        <li><strong>Model Complexity:</strong> The VC-Dimension (a measure of model capacity) is related to how many
+                            subsets of a point cloud the model can "shatter" (separate). A model that can shatter all
+                            \(2^n\) subsets has very high capacity.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Hierarchical Structure</h2>
+                <div class="mermaid">
+                    graph BT
+                    Empty[∅] --> S1["{a}"]
+                    Empty --> S2["{b}"]
+                    S1 --> All["{a, b}"]
+                    S2 --> All
+                    subgraph PowerSet ["Power Set P({a,b})"]
+                    Empty
+                    S1
+                    S2
+                    All
+                    end
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,73 +9,78 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.2 Differentiation</li>
-            <li><a href="16_01_derivative_defn.html">01. Limit Definition</a></li>
-            <li><a href="16_02_geometric_interp.html">02. Geometric Interp</a></li>
-            <li><a href="16_03_physical_interp.html" class="active">03. Physical Interp</a></li>
-            <li><a href="16_04_diff_notation.html">04. Notation Styles</a></li>
-            <li><a href="16_05_basic_rules.html">05. Power & Constant</a></li>
-            <hr>
-            <li class="nav-label">Navigation</li>
-            <li><a href="index.html">Syllabus Index</a></li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.2 Differentiation</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="16_03_physical_interp.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; <a
-                href="index.html#calculus">Calculus</a> &gt; Physical Interpretation
+            <a href="../index.html">Syllabus</a> &gt; 16_03_physical_interp.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 16_03</div>
             <h1>03. Physical Interpretation of the Derivative</h1>
-            <p class="subtitle">The rate at which reality changes.</p>
+            <p class="lead-text">The rate at which reality changes.</p>
         </header>
 
-        <section>
-            <h2>1. Velocity: The First Derivative</h2>
-            <p>If \(s(t)\) is a position function that tells you where an object is at time \(t\), the derivative \(v(t)
+        
+
+
+
+<section>
+<h2>1. Velocity: The First Derivative</h2>
+<p>If \(s(t)\) is a position function that tells you where an object is at time \(t\), the derivative \(v(t)
                 = s'(t)\) tells you its <strong>velocity</strong> (how fast its position is changing).</p>
-            <div class="math-block">
+<div class="math-block">
                 $$ v(t) = \frac{ds}{dt} = \lim_{\Delta t \to 0} \frac{s(t+\Delta t) - s(t)}{\Delta t} $$
             </div>
-        </section>
-
-        <section class="module-card">
-            <h2>2. Acceleration: The Second Derivative</h2>
-            <p>If velocity is changing, we have <strong>acceleration</strong>. This is the derivative of velocity, or
+</section>
+<section class="module-card">
+<h2>2. Acceleration: The Second Derivative</h2>
+<p>If velocity is changing, we have <strong>acceleration</strong>. This is the derivative of velocity, or
                 the second derivative of position:</p>
-            <div class="math-block">
+<div class="math-block">
                 $$ a(t) = v'(t) = s''(t) = \frac{d^2s}{dt^2} $$
             </div>
-        </section>
-
-        <section>
-            <h2>3. AI/ML Connection: Optimizers with "Momentum"</h2>
-            <div class="module-card">
-                <h3>Velocity in Gradient Descent</h3>
-                <p>In standard Gradient Descent, we update weights based on the current gradient (position change).
+</section>
+<section>
+<h2>3. AI/ML Connection: Optimizers with "Momentum"</h2>
+<div class="module-card">
+<h3>Velocity in Gradient Descent</h3>
+<p>In standard Gradient Descent, we update weights based on the current gradient (position change).
                     However, modern optimizers like <strong>SGD with Momentum</strong> actually maintain a "velocity"
                     vector. Instead of just looking at the slope at the current step, the optimizer "remembers" previous
                     slopes, allowing it to accelerate through flat regions of the loss landscape.</p>
-                <p>Thinking of optimization as a physical ball rolling down a hill with acceleration and velocity makes
+<p>Thinking of optimization as a physical ball rolling down a hill with acceleration and velocity makes
                     it easier to understand why Momentum and Adam optimizers converge faster than basic SGD.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Calculating Instantaneous Velocity</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
+</div>
+</section>
+<section>
+<h2>4. Python: Calculating Instantaneous Velocity</h2>
+<div class="code-block">
+<pre><code class="language-python">import sympy as sp
 
 t = sp.Symbol('t')
 # Position function: s(t) = 5t^2 + 2t
@@ -90,13 +94,14 @@ a = sp.diff(v, t)
 print(f"Position: {s}")
 print(f"Velocity: {v}")      # Output: 10*t + 2
 print(f"Acceleration: {a}")  # Output: 10</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub. Part of Phase 1.3 Expansion.</p>
-    </footer>
 </body>
-
 </html>

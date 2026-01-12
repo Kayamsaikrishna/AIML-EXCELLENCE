@@ -4,89 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hadamard Product - Phase 1.2.2.29</title>
+    <title>03.29 Hadamard - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-            <li><a href="03_28_kronecker.html">28. Kronecker Product</a></li>
-            <li><a href="03_29_hadamard.html" class="active">29. Hadamard Product</a></li>
-            <li><a href="03_30_sparse_matrices.html">30. Sparse Matrices</a></li>
-            <li class="nav-label">1.2.1 Vectors</li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Hadamard Product
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
         </div>
-
-        <header>
-            <h1>29. Hadamard Product (Element-wise)</h1>
-            <p class="subtitle">Scaling features without spatial interaction.</p>
-        </header>
-
-        <section>
-            <h2>1. The Definition</h2>
-            <p>The <strong>Hadamard Product</strong> \( \mathbf{A} \odot \mathbf{B} \) is simply the element-wise
-                multiplication of two matrices of the same dimension.</p>
-            <div class="math-block">
-                $$ (\mathbf{A} \odot \mathbf{B})_{ij} = a_{ij}b_{ij} $$
-            </div>
-            <p>Unlike standard matrix multiplication, the Hadamard product is <strong>Commutative</strong>:
-                \( \mathbf{A} \odot \mathbf{B} = \mathbf{B} \odot \mathbf{A} \).</p>
-        </section>
-
-        <section>
-            <h2>2. Critical Uses in Deep Learning</h2>
-            <div class="module-card">
-                <h3>Activation Gating & Attention Scaling</h3>
-                <ul class="topic-list">
-                    <li class="topic-item"><strong>LSTMs/GRUs:</strong> The "Gating" mechanism (Forget Gate, Input Gate)
-                        uses Hadamard products to decide which information to pass through or block.</li>
-                    <li class="topic-item"><strong>Dropout:</strong> We multiply the layer outputs by a binary mask
-                        matrix (Hadamard product) to randomly deactivate neurons.</li>
-                    <li class="topic-item"><strong>Attention Mechanism:</strong> When we apply a mask to prevent a model
-                        from "looking into the future" in a Transformer, we use a Hadamard product with a masking
-                        matrix.</li>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
                 </ul>
             </div>
-        </section>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.2 Matrices</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="03_28_kronecker.html" class="nav-link">28. Tensor Product</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">29. Hadamard</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section>
-            <h2>3. Python: Element-wise vs Matrix Mult</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 29. Element-wise
+        </div>
 
-A = np.array([[1, 2], [3, 4]])
-B = np.array([[5, 6], [7, 8]])
+        <header class="page-header">
+            <div class="badge">Module 29</div>
+            <h1>Hadamard Product</h1>
+            <p class="lead-text"> \( A \odot B \). Point-to-point multiplication. The primary op in Neural Nets.</p>
+        </header>
 
-# Hadamard Product (The * operator in Numpy)
-hadamard = A * B
+        <!-- VISUAL DIAGRAM: HADAMARD -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Mask</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    A["Matrix A (Pixels)"]
+    B["Mask B (0s and 1s)"]
+    
+    subgraph Operation
+        Mult["Multiplication A_ij * B_ij"]
+    end
+    
+    Result["Result (Masked Image)"]
+    
+    A -- "Hadamard" --> Mult
+    B -- "Hadamard" --> Mult
+    Mult --> Result
 
-# Standard Matrix Product (The @ operator)
-standard = A @ B
-
-print(f"Hadamard:\n{hadamard}")
-print(f"Standard:\n{standard}")</code></pre>
+    style Result fill:#dcfce7,stroke:#16a34a
+    style Mult fill:#fefe93,stroke:#d97706
+                    </pre>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
+        <!-- 1. DEFINITION: THE ELEMENT WISE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. Definition</h2>
+                <p>The Hadamard Product (also Schur product) is simply multiplying corresponding elements.</p>
+                <div class="math-block">
+                    $$ (A \odot B)_{ij} = A_{ij} B_{ij} $$
+                </div>
+                <p>The dimensions of A and B must match <strong>exactly</strong> (unless broadcasting implies
+                    expansion).</p>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: FORGET GATES -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Gating Mechanisms</h2>
+                <p>In LSTMs and GRUs, we have "Forget Gates" \( f_t = \sigma(W x_t) \).</p>
+                <p>The cell state update is \( C_t = f_t \odot C_{t-1} \). This element-wise multiplication allows the
+                    network to selectively "zero out" (forget) specific dimensions of the state vector while keeping
+                    others.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. Python Operator</h2>
+                <p>Using `*` vs `@`.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+
+A = np.array([
+    [1, 2],
+    [3, 4]
+])
+
+B = np.array([
+    [2, 0],
+    [0, 2]
+])
+
+Hadamard = A * B
+# [1*2, 2*0]
+# [3*0, 4*2]
+# = [2, 0], [0, 8]
+
+MatMul = A @ B
+# [1*2+2*0, ...]
+# = [2, 4], [6, 8] (Doubles every value)
+
+print("Hadamard (A * B):")
+print(Hadamard)
+
+print("\nMatMul (A @ B):")
+print(MatMul)
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

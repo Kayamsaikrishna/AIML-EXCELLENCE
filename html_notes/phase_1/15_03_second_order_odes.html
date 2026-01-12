@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15.03 Second-Order ODEs - Differential Equations</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.8 Differential Equations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="15_02_first_order_odes.html" class="nav-link">02. First-Order
+                                ODEs</a></li>
+                        <li class="nav-item"><a href="15_03_second_order_odes.html" class="nav-link active">03.
+                                Second-Order ODEs</a></li>
+                        <li class="nav-item"><a href="15_04_homo_nonhomo.html" class="nav-link">04. Homogeneous Eqs</a>
+                        </li>
+                        <li class="nav-item"><a href="15_05_ode_ml_apps.html" class="nav-link">05. Diffusion Models</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">DiffEq 1.8</span>
+                    <span class="badge secondary">Momentum</span>
+                </div>
+                <h1>Second-Order ODEs</h1>
+                <p class="lead-text">Acceleration, Oscillations, and Heavy Balls.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Spring-Mass System</h3>
+                    <p>
+                        A second-order linear ODE typically looks like:
+                        \[ ay'' + by' + cy = 0 \]
+                        This models a mass on a spring with damping.
+                        \(a\) is mass (inertia), \(b\) is friction (damping), and \(c\) is the spring constant.
+                    </p>
+                    <p>
+                        It defines how systems oscillate and settle. The solution depends on the characteristic equation
+                        \(ar^2 + br + c = 0\).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Momentum Optimization</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The Heavy Ball Method</h3>
+                    <p>
+                        Standard Gradient Descent is a massless particle sliding down a hill (First Order).
+                        <strong>SGD with Momentum</strong> adds "Mass" to the particle using a Second Order ODE:
+                    </p>
+                    <div class="math-block">
+                        $$ m \frac{d^2\mathbf{w}}{dt^2} + \gamma \frac{d\mathbf{w}}{dt} = - \nabla L(\mathbf{w}) $$
+                    </div>
+                    <p>
+                        The "inertia" helps the optimizer plow through small bumps (noise) and travel faster along flat
+                        directions (ravines), solving the "Zero Gradient" problem of saddle points.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Simulating Damping</h2>
+                <div class="code-header">momentum_sim.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Simulate a ball in a harmonic well: L(x) = x^2
+# Force = -Grad = -2x
+
+def optimize_momentum(start_x, friction, lr, steps=50):
+    x = start_x
+    velocity = 0
+    path = []
+    
+    for _ in range(steps):
+        grad = 2 * x
+        
+        # Physics Update
+        # velocity_{t+1} = friction * velocity_t - lr * grad
+        velocity = friction * velocity - lr * grad
+        
+        # Position Update
+        x = x + velocity
+        path.append(x)
+        
+    return path
+
+# High Friction (Standard GD behavior)
+path_gd = optimize_momentum(10.0, friction=0.0, lr=0.1)
+
+# Low Friction (Momentum - Oscillates!)
+path_mom = optimize_momentum(10.0, friction=0.9, lr=0.1)
+
+print(f"GD Final: {path_gd[-1]:.4f}")
+print(f"Momentum Final: {path_mom[-1]:.4f}")
+# Momentum reaches closer to 0 faster but might overshoot.</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="15_02_first_order_odes.html" class="footer-link">← Prev: First Order ODEs</a>
+                        <span class="separator">|</span>
+                        <a href="15_04_homo_nonhomo.html" class="footer-link">Next: Homogeneous Eqs →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

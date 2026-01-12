@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green's Theorem - Phase 1.3.6.29</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_29_greens_theorem.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_29_greens_theorem.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_29</div>
+            <h1>29. Green's Theorem</h1>
+            <p class="lead-text">Connecting the boundary to the interior.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Theorem</h2>
+<p><strong>Green's Theorem</strong> relates a line integral around a simple closed curve \(C\) to a double
+                integral over the region \(D\) enclosed by \(C\). </p>
+<div class="math-block">
+                $$ \oint_C (P dx + Q dy) = \iint_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}
+                \right) dA $$
+            </div>
+<p>This "Boundary-Integrity" connection is one of the most important bridges in vector calculus.</p>
+</section>
+<section class="module-card">
+<h2>2. Applications in Area</h2>
+<p>By picking specific functions for \(P\) and \(Q\) (like \(P=0, Q=x\)), we can use a 1D line integral to
+                calculate a 2D area. This is the math behind a <strong>Planimeter</strong>, a device that measures area
+                by tracing the perimeter.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Boundary Estimation</h2>
+<div class="module-card">
+<h3>Shape Analysis and GANs</h3>
+<p>In <strong>Computer Vision</strong>, when an AI tries to detect the area of a segmented object (like
+                    a tumor in a medical scan or a car in a self-driving camera), it doesn't always sum every pixel.
+                </p>
+<p>By using <strong>Green's Theorem</strong>, the AI can calculate the <strong>Object Area</strong> just
+                    by looking at the <strong>Edges</strong> (the boundary). This is computationally much faster.
+                    Furthermore, in <strong>Generative Adversarial Networks (GANs)</strong>, researchers use the
+                    relationship between the boundary of a "Face Distribution" and its interior density to ensure the
+                    model generates realistic varied samples. Boundary-interior consistency is what keeps AI generated
+                    shapes from looking physically impossible.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Area via Line Integral</h2>
+<div class="code-block">
+<pre><code class="language-python"># Area of a circle unit using parametric line integral
+# x = cos(t), y = sin(t) -&gt; dx = -sin(t), dy = cos(t)
+# Area = Integral [x dy] = Integral [cos(t) * cos(t) dt] from 0 to 2pi
+
+import numpy as np
+from scipy.integrate import quad
+
+def integrand(t):
+    return (np.cos(t))**2
+
+area, error = quad(integrand, 0, 2*np.pi)
+print(f"Calculated Area: {area:.6f}")
+print(f"Goal (pi):       {np.pi:.6f}")</code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

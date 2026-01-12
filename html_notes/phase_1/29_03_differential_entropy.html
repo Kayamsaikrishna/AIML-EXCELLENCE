@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>29.03 Differential Entropy - Information Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.5.1 Entropy</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="29_02_entropy_for_discrete_distributions.html"
+                                class="nav-link">02. Entropy for Discrete Distributions</a></li>
+                        <li class="nav-item"><a href="29_03_differential_entropy.html" class="nav-link active">03.
+                                Differential Entropy</a></li>
+                        <li class="nav-item"><a href="29_04_properties_of_entropy.html" class="nav-link">04. Properties
+                                of Entropy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Info Theory</span>
+                    <span class="badge secondary">Continuous Variables</span>
+                </div>
+                <h1>Differential Entropy</h1>
+                <p class="lead-text">Expanding the concept of uncertainty to the infinite world of continuous
+                    probability density functions (PDFs).</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Continuous Paradox</h3>
+                    <p>
+                        In discrete variables, entropy measures the "Average bits of information." But in continuous
+                        space, an exact value has zero probability. To solve this, we define <strong>Differential Entropy</strong>,
+                        which measures the uncertainty of the *shape* of the distribution.
+                    </p>
+                </div>
+
+                <h2>1. Definition</h2>
+                <p>For a continuous random variable \(X\) with probability density function \(f(x)\), the differential
+                    entropy \(h(X)\) is:</p>
+                <div class="math-box">
+                    $$ h(X) = - \int_{-\infty}^{\infty} f(x) \log f(x) \, dx $$
+                </div>
+                <div class="insight-box warning">
+                    <strong>Crucial Warning:</strong> Unlike Shannon Entropy (discrete), Differential Entropy <strong>can be negative!</strong>
+                    <br><br>
+                    Example: A uniform distribution on \([0, 0.5]\) has \(h(X) = \log(0.5) = -1\) bit. A negative value
+                    simply means the distribution is more "concentrated" than the base unit of the log.
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Common Distributions</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Uniform Distribution</h4>
+                        <p>For \(X \sim U(a, b)\):</p>
+                        <div class="math-box">
+                            $$ h(X) = \log(b-a) $$
+                        </div>
+                        <p>Wide intervals = High entropy. Narrow intervals = Low entropy.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Normal Distribution</h4>
+                        <p>For \(X \sim N(\mu, \sigma^2)\):</p>
+                        <div class="math-box">
+                            $$ h(X) = \frac{1}{2} \log(2\pi e \sigma^2) $$
+                        </div>
+                        <p>Only the <strong>variance</strong> (\(\sigma^2\)) affects entropy. The location (\(\mu\)) doesn't change
+                            how uncertain the distribution is.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. The Maximum Entropy Principle</h2>
+                <p>One of the most profound results in information theory:</p>
+                <div class="math-box">
+                    **Among all continuous distributions with a given variance \(\sigma^2\), the Normal (Gaussian)
+                    distribution has the MAXIMUM differential entropy.**
+                </div>
+                <p>
+                    This is why the Gaussian appears everywhere in nature. It is the distribution that makes the fewest
+                    assumptions (maximum disorder) while respecting a given energy (variance) constraint.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Generative AI</span>
+                    <span class="ml-badge">Deep Learning</span>
+                    <h3>Entropy in Model Training</h3>
+                    <ul>
+                        <li><strong>Variational Autoencoders (VAEs):</strong> During training, we force the latent variable \(z\) to
+                            follow a Unit Gaussian. We do this by minimizing the <strong>KL Divergence</strong> between the predicted
+                            latent PDF and the Gaussian PDF—effectively comparing their differential entropies.</li>
+                        <li><strong>Mutual Information Estimation:</strong> Measuring the relationship between two continuous
+                            variables (like an Image and its Embedding) requires calculating the difference between
+                            their joint and individual differential entropies.</li>
+                        <li><strong>Diffusion Models:</strong> These models work by slowly adding Gaussian noise to an image,
+                            maximizing its differential entropy until it becomes pure White Noise.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Summary Diagram</h2>
+                <div class="mermaid">
+                    graph TD
+                    A[Discrete Entropy] -- Limiting Density --> B[Differential Entropy h_X]
+                    B --> C{h_X &lt; 0?} C -- Yes --> D(Highly Concentrated)
+                        C -- No --> E(Spread Out)
+                        B --> F[Gaussian Peak]
+                        F --> G[Max h_X for Fixed Variance]
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

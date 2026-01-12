@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09.08 The Chain Rule - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.2 Differentiation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="09_06_product_rule.html" class="nav-link">06. The Product Rule</a>
+                        </li>
+                        <li class="nav-item"><a href="09_07_quotient_rule.html" class="nav-link">07. The Quotient
+                                Rule</a></li>
+                        <li class="nav-item"><a href="09_08_chain_rule.html" class="nav-link active">08. The Chain
+                                Rule</a></li>
+                        <li class="nav-item"><a href="09_09_implicit_diff.html" class="nav-link">09. Implicit
+                                Differentiation</a></li>
+                        <li class="nav-item"><a href="09_10_trig_derivatives.html" class="nav-link">10. Trig
+                                Derivatives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Composition</span>
+                </div>
+                <h1>The Chain Rule</h1>
+                <p class="lead-text">If A drives B, and B drives C, how does A drive C? The single most important rule
+                    in Artificial Intelligence.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Backbone of Backprop</h3>
+                    <p>
+                        "Backpropagation" is just a fancy name for the recursive application of the Chain Rule. It
+                        allows us to calculate how much a single pixel in an input image contributed to an error in the
+                        final classification.
+                    </p>
+                </div>
+
+                <h2>1. The Formula</h2>
+                <div class="glass-card">
+                    <p>
+                        For a composite function \(y = f(g(x))\), let \(u = g(x)\). Then:
+                    </p>
+                    <div class="math-block">
+                        \[ \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} \]
+                    </div>
+                    <p>
+                        In Lagrange notation: \( [f(g(x))]' = f'(g(x)) \cdot g'(x) \).
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        X[Input x] -->|g| U[Hidden u]
+                        U -->|f| Y[Output y]
+
+                        Y -. "dy/du (Local)" .-> U
+                        U -. "du/dx (Local)" .-> X
+
+                        linkStyle 2 stroke:orange,stroke-width:2px;
+                        linkStyle 3 stroke:orange,stroke-width:2px;
+
+                        Note[Total Change: dy/du * du/dx]
+                        style Note fill:#2d3748,color:white,border:0
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: The Computation Graph</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Node-by-Node Differentiation</h3>
+                    <p>
+                        In libraries like TensorFlow or PyTorch, we view a function as a graph.
+                        Consider \(L(w) = \text{ReLU}(w \cdot x + b)\).
+                    </p>
+                    <ol>
+                        <li><strong>Forward Pass:</strong> Compute \(z = wx+b\), then \(a = \text{ReLU}(z)\).</li>
+                        <li><strong>Backward Pass:</strong> We want \(\frac{\partial L}{\partial w}\).</li>
+                    </ol>
+                    <div class="math-block">
+                        \[ \frac{\partial L}{\partial w} = \frac{\partial L}{\partial a} \cdot \frac{\partial
+                        a}{\partial z} \cdot \frac{\partial z}{\partial w} \]
+                    </div>
+                    <p>
+                        This "upstream gradient times local gradient" pattern is how we train networks with 100+ layers
+                        without losing our minds.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Deep Composition</h2>
+                <div class="code-header">chain_rule_deep.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+
+# A Deep Neural Network style function (3 layers)
+# Loss = log( sin( x^2 ) )
+# Inner most (Layer 1): u = x^2
+# Middle (Layer 2):     v = sin(u)
+# Outer (Loss):         L = log(v)
+
+f = sp.log(sp.sin(x**2))
+
+# 1. Manual Chain Rule
+# dL/dv * dv/du * du/dx
+# L = log(v) -> dL/dv = 1/v = 1/sin(x^2)
+# v = sin(u) -> dv/du = cos(u) = cos(x^2)
+# u = x^2    -> du/dx = 2x
+
+manual_deriv = (1/sp.sin(x**2)) * sp.cos(x**2) * (2*x)
+
+# 2. Automated Chain Rule
+auto_deriv = sp.diff(f, x)
+
+print(f"Function: {f}")
+print(f"Manual Chain Rule: {manual_deriv}")
+print(f"Auto Derivative:   {auto_deriv}")
+
+# Verify they are identical
+if sp.simplify(manual_deriv - auto_deriv) == 0:
+    print("\n✅ Chain Rule Verified. Complexity collapse successful.")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="09_07_quotient_rule.html" class="footer-link">← Prev: Quotient Rule</a>
+                        <span class="separator">|</span>
+                        <a href="09_09_implicit_diff.html" class="footer-link">Next: Implicit Diff →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

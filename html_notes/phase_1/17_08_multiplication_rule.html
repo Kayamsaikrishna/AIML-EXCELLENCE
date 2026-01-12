@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.08 Multiplication Rule - Probability</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.1 Probability Axioms</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="17_07_general_addition_rule.html" class="nav-link">07. Gen.
+                                Addition Rule</a></li>
+                        <li class="nav-item"><a href="17_08_multiplication_rule.html" class="nav-link active">08.
+                                Multiplication</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Prob 1.4</span>
+                    <span class="badge secondary">Chain logic</span>
+                </div>
+                <h1>Multiplication Rule</h1>
+                <p class="lead-text">P(A and B).</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">Conditioning</h3>
+                    <p>
+                        To calculate the probability that BOTH \(A\) AND \(B\) occur, we use conditioning:
+                        \[ P(A \cap B) = P(A) P(B|A) \]
+                        "First A happens, then B happens given that A happened."
+                        If \(A\) and \(B\) are <strong>Independent</strong>, this simplifies to \(P(A)P(B)\).
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. ML Connection: Naive Bayes</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">The "Naive" Assumption</h3>
+                    <p>
+                        In a Naive Bayes classifier, we want \(P(x_1, x_2, \dots | Class)\).
+                        Applying the multiplication rule generally is hard due to complexities.
+                        The "Naive" assumption is that features are <strong>independent given the class</strong>.
+                        \[ P(x_1, \dots | C) \approx P(x_1|C) \cdot P(x_2|C) \dots \]
+                        This turns a hard problem into simple multiplication.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Chaining</h2>
+                <div class="code-header">chain_prob.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Two cards drawn without replacement
+# A: First is Ace
+# B: Second is Ace
+
+p_A = 4/52
+p_B_given_A = 3/51 # One ace gone, one card gone
+
+p_both = p_A * p_B_given_A
+print(f"Prob(Ace then Ace): {p_both:.5f}")</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="17_07_general_addition_rule.html" class="footer-link">← Prev: General Addition</a>
+                        <span class="separator">|</span>
+                        <a href="../index.html" class="footer-link">Next: Module 18 →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27.15 GLM & Link Functions - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.11 Regression Analysis</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="27_14_weighted_least_squares.html" class="nav-link">14. Weighted
+                                Least Squares</a></li>
+                        <li class="nav-item"><a href="27_15_glm_link_functions.html" class="nav-link active">15. GLM &
+                                Link Functions</a></li>
+                        <li class="nav-item"><a href="27_16_logistic_regression.html" class="nav-link">16. Logistic
+                                Regression</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.7</span>
+                    <span class="badge secondary">Generalization</span>
+                </div>
+                <h1>Generalized Linear Models (GLM)</h1>
+                <p class="lead-text">Breaking the chains of Normality. How to do regression when your data is binary,
+                    counts, or strictly positive.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Problem with OLS</h3>
+                    <p>
+                        Standard OLS assumes your errors are Normal (\(-\infty\) to \(+\infty\)).
+                        But what if you're predicting <strong>"Number of Website Visits"</strong>? You can't have -5 visits.
+                        What if you're predicting <strong>"Customer Churn"</strong>? You can't be 1.5 "churned".
+                        <br><br>
+                        GLMs solve this by using a <strong>Link Function</strong> to map the linear model's output to a valid space.
+                    </p>
+                </div>
+
+                <h2>1. The Three Components of a GLM</h2>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>1. Random Component</h4>
+                        <p>The probability distribution of the target (e.g., Bernoulli for Binary, Poisson for Counts).
+                        </p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>2. Systematic Component</h4>
+                        <p>The linear predictor: \(\eta = \beta_0 + \beta_1 X_1 + ... + \beta_p X_p\).</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>3. Link Function (\(g\))</h4>
+                        <p>The math that connects the linear predictor to the mean of the distribution: \(g(\mu) =
+                            \eta\).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Common Link Functions</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Distribution</th>
+                            <th>Link Function</th>
+                            <th>Predicts...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Normal (Gaussian)</td>
+                            <td>Identity (\(\mu = \eta\))</td>
+                            <td>Continuous values (OLS)</td>
+                        </tr>
+                        <tr>
+                            <td>Bernoulli / Binomial</td>
+                            <td>Logit (\(\ln(\frac{\mu}{1-\mu}) = \eta\))</td>
+                            <td>Probabilities (0 to 1)</td>
+                        </tr>
+                        <tr>
+                            <td>Poisson</td>
+                            <td>Log (\(\ln(\mu) = \eta\))</td>
+                            <td>Counts (0 to \(\infty\))</td>
+                        </tr>
+                        <tr>
+                            <td>Gamma</td>
+                            <td>Inverse (\(\frac{1}{\mu} = \eta\))</td>
+                            <td>Waiting times, Insurance claims</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Neural Network Activations</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Deep Learning</span>
+                    <span class="ml-badge">Architectures</span>
+                    <h3>Link Functions are Activations</h3>
+                    <p>
+                        Every modern Neural Network is essentially a "Chain of GLMs".
+                    </p>
+                    <ul>
+                        <li><strong>Sigmoid Activation:</strong> This is literally the <strong>Inverse Logit</strong> link function. It squeezes
+                            values into (0, 1) for classification.</li>
+                        <li><strong>Softmax Activation:</strong> The multi-class version of the logit link.</li>
+                        <li><strong>Exponential Activation:</strong> Used in the output layer of networks predicting strictly
+                            positive values (Counts/Demand).</li>
+                    </ul>
+                    <div class="insight-box">
+                        In <strong>Insurance Tech (InsurTech)</strong>, GLMs are still the regulated standard. You cannot use a
+                        "Black Box" to set premiums; you must show the GLM link and the coefficients.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

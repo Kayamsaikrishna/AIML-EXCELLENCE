@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24.05 The T-Distribution - Statistics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.4.8 Estimation & Bootstrap</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="24_04_ci_mean_unknown.html" class="nav-link">04. CI Mean
+                                Unknown</a></li>
+                        <li class="nav-item"><a href="24_05_t_distribution_inference.html" class="nav-link active">05. T
+                                Distribution</a></li>
+                        <li class="nav-item"><a href="24_06_ci_proportion.html" class="nav-link">06. CI Proportion</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Stats 1.4</span>
+                    <span class="badge secondary">Fat Tails</span>
+                </div>
+                <h1>The T-Distribution (Student's T)</h1>
+                <p class="lead-text">Why small datasets need "cautious" distributions that respect the unknown.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Origin Story</h3>
+                    <p>
+                        William Sealy Gosset, a chemist at Guinness Brewery, developed this distribution to handle small
+                        samples of beer ingredients. Since Guinness didn't allow employees to publish, he used the
+                        pseudonym "Student".
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>1. Heavy Tails vs. Normal</h2>
+                <p>
+                    The T-distribution looks like the Normal distribution but has <strong>higher probability in the
+                        tails</strong>.
+                </p>
+                <ul>
+                    <li><strong>Normal:</strong> 95% of data is within ~2 standard deviations.</li>
+                    <li><strong>T (df=2):</strong> To capture 95% of the data, you have to go out ~4.3 standard deviations!</li>
+                </ul>
+                <div class="insight-box">
+                    <h3>The Intuition</h3>
+                    <p>
+                        With only 3 data points, you haven't seen enough to be sure that extreme values are rare. The
+                        T-distribution "hedges its bets" by making those extreme values more likely than the Normal
+                        distribution would suggest.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Convergence</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A["T (df=1) - Very Fat Tails"] --> B["T (df=10)"]
+                        B --> C["T (df=30)"]
+                        C --> D["Standard Normal (Z)"]
+                    </div>
+                </div>
+                <p>
+                    This is why the "Rule of 30" exists in intro stats—at \(n=30\), the T-distribution is practically
+                    indistinguishable from the Z-distribution.
+                </p>
+            </section>
+
+            <section class="content-block">
+                <h2>3. ML Connection: Robustness</h2>
+                <div class="ml-connection">
+                    <span class="ml-badge">Robustness</span>
+                    <span class="ml-badge">Deep Learning</span>
+                    <h3>Combating Outliers</h3>
+                    <p>
+                        In many Bayesian ML models, we replace the Gaussian (Normal) likelihood with a **Student-T
+                        likelihood**.
+                        <br><br>
+                        Because the T-distribution has heavy tails, it is less "surprised" by outliers. A single extreme
+                        data point that would pull a Gaussian mean wildly off track will have less impact on a
+                        T-distribution model. This makes the model more <strong>Robust</strong>.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

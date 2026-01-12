@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>35.03 LCM & Modular Arithmetic - Number Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.11.1 Foundations</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="35_02_gcd_euclidean_algorithm.html" class="nav-link">02. GCD &
+                                Euclidean Algorithm</a></li>
+                        <li class="nav-item"><a href="35_03_lcm_modular_arithmetic.html" class="nav-link active">03. LCM
+                                & Modular Arithmetic</a></li>
+                        <li class="nav-item"><a href="35_04_congruences_linear_equations.html" class="nav-link">04.
+                                Congruences & Equations</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Number Theory</span>
+                    <span class="badge secondary">Modular Logic</span>
+                </div>
+                <h1>LCM & Modular Arithmetic</h1>
+                <p class="lead-text">Thinking in Circles. Understanding the relationship between shared multiples and
+                    the mathematics of remainders—the engine behind pseudo-randomness and hashing.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3>The Least Common Multiple (LCM)</h3>
+                    <p>
+                        The LCM of $a$ and $b$ is the smallest positive integer that is divisible by both. It relates to
+                        the GCD via the elegant identity:
+                    </p>
+                    <div class="math-box">
+                        $$ gcd(a, b) \cdot lcm(a, b) = |a \cdot b| $$
+                    </div>
+                </div>
+
+                <h2>1. Introduction to Modular Arithmetic</h2>
+                <p>Often called "Clock Arithmetic," modular arithmetic deals with the remainders of division. We say $a
+                    \equiv b \pmod n$ if $n$ divides $(a - b)$.</p>
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>The Modulo Operator</h4>
+                        <p>In code, `a % n` returns the remainder. Properties: $(a+b) \pmod n = ((a \pmod n) + (b \pmod
+                            n)) \pmod n$.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Residue Classes</h4>
+                        <p>The set $\{0, 1, \dots, n-1\}$ represents all possible remainders. This finite set forms the
+                            basis of all modern digital security.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. Mathematical Properties</h2>
+                <ul>
+                    <li><strong>Addition:</strong> $a \equiv b \pmod n, c \equiv d \pmod n \implies a+c \equiv b+d \pmod
+                        n$.</li>
+                    <li><strong>Multiplication:</strong> $ac \equiv bd \pmod n$.</li>
+                    <li><strong>Exponentiation:</strong> $a^k \equiv b^k \pmod n$. This is used in RSA to sign and
+                        encrypt large data
+                        blocks.</li>
+                </ul>
+            </section>
+
+            <section class="content-block">
+                <div class="ml-connection">
+                    <span class="ml-badge">Systems</span>
+                    <span class="ml-badge">Optimization</span>
+                    <h3>The Infrastructure of AI</h3>
+                    <ul>
+                        <li><strong>Data Shuffling:</strong> When training on multiple GPUs, we often use modular logic
+                            to index data
+                            batches (e.g., `batch_id % num_gpus`) to ensure balanced workloads.</li>
+                        <li><strong>Cycle Detection:</strong> Finding the period of a random numbers generator or a
+                            cyclic pattern in
+                            a time-series model relies on LCM calculations.</li>
+                        <li><strong>Feature Hashing:</strong> High-cardinality features (like user IDs) are often hashed
+                            as `hash(id)
+                            % 1000` to create a fixed-size embedding vector.</li>
+                        <li><strong>Distributed Memory:</strong> Segmenting large tensors across nodes often uses modular addressing
+                            to ensure $O(1)$ lookup time.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Clock Visualization</h2>
+                <div class="mermaid">
+                    graph TD
+                    0((0)) --- 1((1))
+                    1 --- 2((2))
+                    2 --- 3((3))
+                    3 --- 4((4))
+                    4 --- 5((5))
+                    5 --- 0
+                    style 0 fill:#f9f,stroke:#333
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: var(--text-secondary);">A Modulo-6 system. Every
+                    number resets to zero after reaching 5, ensuring a finite and predictable state space.</p>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTC for Line Integrals - Phase 1.3.6.11</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.6 Multivariable</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="13_28_ftc_line.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="main-wrapper">
+        <div class="breadcrumb">
+            <a href="../index.html">Syllabus</a> &gt; 13_28_ftc_line.html
+        </div>
+
+        <header class="page-header">
+            <div class="badge">Module 20_28</div>
+            <h1>11. Fundamental Theorem for Line Integrals</h1>
+            <p class="lead-text">When only the start and end matter.</p>
+        </header>
+
+        
+
+
+
+<section>
+<h2>1. The Path Independence</h2>
+<p>If a vector field \(\vec{F}\) is <strong>Conservative</strong> (meaning \(\vec{F} = \nabla f\) for some
+                potential function \(f\)), then the line integral depends <strong>only</strong> on the endpoints of the
+                path, not the journey between them.</p>
+<div class="math-block">
+                $$ \int_{C} \nabla f \cdot d\vec{r} = f(\vec{r}(b)) - f(\vec{r}(a)) $$
+            </div>
+<p>This is the 2D/3D generalization of the Fundamental Theorem of Calculus.</p>
+</section>
+<section class="module-card">
+<h2>2. Work in a Loop</h2>
+<p>In a conservative field, if you travel in a complete circle and return to your starting point
+                (\(\vec{r}(a) = \vec{r}(b)\)), the total work done is <strong>exactly zero</strong>. The energy you
+                spent is perfectly regained.</p>
+</section>
+<section>
+<h2>3. AI/ML Connection: Potential Functions &amp; GANs</h2>
+<div class="module-card">
+<h3>Wasserstein Distance &amp; Earth Mover</h3>
+<p>In advanced <strong>Generative Adversarial Networks (WGANs)</strong>, the "Discriminator" acts as a
+                    <strong>Potential Function</strong>. The distance between the "Real Data" and "Fake AI Data" is
+                    calculated by finding the work required to move the probability mass from one to the other. </p>
+<p>By forcing the discriminator to be "Conservative" (Lipshitz-constrained), we ensure that the distance
+                    calculation is stable and path-independent. This solves the "Mode Collapse" problem where AI models
+                    would otherwise get stuck generating the same boring image over and over. Conservative fields are
+                    the "Railings" that keep AI training on a stable track.</p>
+</div>
+</section>
+<section>
+<h2>4. Python: Path Independence Verification</h2>
+<div class="code-block">
+<pre><code class="language-python"># Let f = x*y, then F = <y, x="">
+# Integrate from (0,0) to (1,1)
+# Path 1: Straight line y=x
+# Path 2: Corner (0,0)-&gt;(1,0)-&gt;(1,1)
+# Both should result in f(1,1) - f(0,0) = 1*1 - 0 = 1
+
+import sympy as sp
+t = sp.Symbol('t')
+
+# Path 1: r = <t, t="">, t:0-&gt;1. dr = &lt;1,1&gt;
+# F dot dr = (y*1 + x*1) = (t + t) = 2t
+work1 = sp.integrate(2*t, (t, 0, 1))
+
+print(f"Work along straight line: {work1}")
+# Expected: 1</t,></y,></code></pre>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
+    </main>
+</body>
+</html>

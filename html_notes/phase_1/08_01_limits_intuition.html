@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08.01 Intuitive Understanding of Limits - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Back to Overview</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.1 Limits & Continuity</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="08_01_limits_intuition.html" class="nav-link active">01. Limits
+                                Intuition</a></li>
+                        <li class="nav-item"><a href="08_02_limits_formal.html" class="nav-link">02. Formal
+                                Definition</a></li>
+                        <li class="nav-item"><a href="08_03_limits_onesided.html" class="nav-link">03. One-Sided
+                                Limits</a></li>
+                        <li class="nav-item"><a href="08_04_limits_at_infinity.html" class="nav-link">04. Limits at
+                                Infinity</a></li>
+                        <li class="nav-item"><a href="08_05_limits_infinite.html" class="nav-link">05. Infinite
+                                Limits</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.3</span>
+                    <span class="badge secondary">Foundations</span>
+                </div>
+                <h1>Intuitive Understanding of Limits</h1>
+                <p class="lead-text">The mathematical microscope that allows us to study the behavior of functions at
+                    the edge of the undefined, forming the bedrock of differentiation and training AI models.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The "Nearness" Concept</h3>
+                    <p>
+                        In deep learning, we constantly deal with continuous changes—adjusting weights by "tiny" amounts
+                        to reduce mistake. But what is "tiny"? A <strong>Limit</strong> formalizes the idea of
+                        approaching a specific state without necessarily reaching it. It answers the question:
+                        <em>"Where is the function going, regardless of whether it actually gets there?"</em>
+                    </p>
+                </div>
+
+                <h2>1. The Limit Notation</h2>
+                <div class="math-block">
+                    \[ \lim_{x \to a} f(x) = L \]
+                </div>
+                <p>
+                    This is read as: <em>"The limit of \(f(x)\) as \(x\) approaches \(a\) is \(L\)."</em>
+                </p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Input x] -->|Approaches a| B(Function Process)
+                        B -->|Output f_x| C[Target Value L]
+                        style A fill:#2d3748,stroke:#4fd1c5,stroke-width:2px
+                        style C fill:#2d3748,stroke:#f6e05e,stroke-width:2px
+                        linkStyle 0 stroke:#63b3ed,stroke-width:2px;
+                        linkStyle 1 stroke:#63b3ed,stroke-width:2px;
+                    </div>
+                    <div class="caption">Flow of Convergence: Typically, x never touches a, but f(x) gets arbitrarily
+                        close to L.</div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. The "Hole" in the Graph</h2>
+                <p>
+                    The most classic motivation for a limit is a function that is undefined at a specific point,
+                    creating a "hole".
+                    Consider the function:
+                </p>
+                <div class="math-block">
+                    \[ f(x) = \frac{x^2 - 1}{x - 1} \]
+                </div>
+                <p>
+                    If we try to evaluate \(f(1)\), we get \(\frac{0}{0}\), which is <strong>indeterminate</strong>. We
+                    cannot compute it directly. However, we can simplify algebraically for \(x \neq 1\):
+                </p>
+                <div class="math-block">
+                    \[ \frac{x^2 - 1}{x - 1} = \frac{(x-1)(x+1)}{x-1} = x + 1 \]
+                </div>
+                <p>
+                    So, the graph looks exactly like the line \(y = x + 1\), except for a hole at \(x = 1\). As \(x \to
+                    1\), the value \(x+1 \to 2\).
+                </p>
+
+                <h3 class="section-title">Numerical Evidence</h3>
+                <div class="two-col-grid">
+                    <div class="glass-card">
+                        <h4>Approaching from Left (x < 1)</h4>
+                                <table class="data-table">
+                                    <tr>
+                                        <th>x</th>
+                                        <th>f(x)</th>
+                                    </tr>
+                                    <tr>
+                                        <td>0.9</td>
+                                        <td>1.9</td>
+                                    </tr>
+                                    <tr>
+                                        <td>0.99</td>
+                                        <td>1.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td>0.999</td>
+                                        <td>1.999</td>
+                                    </tr>
+                                </table>
+                    </div>
+                    <div class="glass-card">
+                        <h4>Approaching from Right (x > 1)</h4>
+                        <table class="data-table">
+                            <tr>
+                                <th>x</th>
+                                <th>f(x)</th>
+                            </tr>
+                            <tr>
+                                <td>1.1</td>
+                                <td>2.1</td>
+                            </tr>
+                            <tr>
+                                <td>1.01</td>
+                                <td>2.01</td>
+                            </tr>
+                            <tr>
+                                <td>1.001</td>
+                                <td>2.001</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. AI/ML Application: The Gradient Definition</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Why Limits Enable Learning</h3>
+                    <p>
+                        The core of training a Neural Network is <strong>Backpropagation</strong>, which relies on
+                        gradients (derivatives). The standard definition of a derivative is purely a limit:
+                    </p>
+                    <div class="math-block">
+                        \[ \frac{d\mathcal{L}}{dw} = \lim_{h \to 0} \frac{\mathcal{L}(w + h) - \mathcal{L}(w)}{h} \]
+                    </div>
+                    <p>
+                        Here, \(\mathcal{L}\) differs slightly from a simple function like \(x^2\); it's a
+                        high-dimensional loss landscape.
+                        <br><br>
+                        <strong>Without the limit concept:</strong> We could never define "instantaneous slope" or
+                        "direction of steepest descent" because we can't literally set \(h=0\) (division by zero). The
+                        limit bridges the gap between discrete steps and continuous smooth optimization.
+                    </p>
+                    <ul>
+                        <li><strong>Numerical Gradient Checking:</strong> In practice, when debugging AI models, we
+                            approximate this limit by choosing a very small \(h\) (e.g., \(1e-7\)) to verify our
+                            analytic derivatives.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>4. Python Implementation: Numerical Limits</h2>
+                <p>We can simulate the limit process computationally to see convergence.</p>
+
+                <div class="code-header">approaching_limit.py</div>
+                <pre><code class="language-python">import numpy as np
+import pandas as pd
+
+def f(x):
+    # Function with a hole at x=2
+    # f(x) = (x^2 - 4) / (x - 2) which simplifies to x + 2
+    return (x**2 - 4) / (x - 2)
+
+target_x = 2.0
+deltas = [0.1, 0.01, 0.001, 0.0001, 1e-5]
+
+print(f"{'Delta':<10} | {'x_left':<10} | {'f(x_left)':<10} | {'x_right':<10} | {'f(x_right)':<10}")
+print("-" * 65)
+
+for delta in deltas:
+    # Approach from left
+    x_left = target_x - delta
+    y_left = f(x_left)
+    
+    # Approach from right
+    x_right = target_x + delta
+    y_right = f(x_right)
+    
+    print(f"{delta:<10} | {x_left:<10.5f} | {y_left:<10.5f} | {x_right:<10.5f} | {y_right:<10.5f}")
+
+# Expected Limit: 4.0
+# Notice both sides converge to 4.00000</code></pre>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="../index.html" class="footer-link">Syllabus</a>
+                        <span class="separator">|</span>
+                        <a href="08_02_limits_formal.html" class="footer-link">Next: Formal Definition (Epsilon-Delta)
+                            →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11.05 U-Substitution - ML Calculus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+
+<body class="feynman-mode">
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">AI/ML Hub</div>
+                <div class="status-indicator">Phase I: Platinum</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-group">
+                    <div class="nav-group-title">Syllabus</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">1.3.4 Integration</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="11_01_antiderivatives.html" class="nav-link">01.
+                                Antiderivatives</a></li>
+                        <li class="nav-item"><a href="11_02_indefinite_integrals.html" class="nav-link">02. Indefinite
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="11_03_definite_integrals.html" class="nav-link">03. Definite
+                                Integrals</a></li>
+                        <li class="nav-item"><a href="11_04_ftc.html" class="nav-link">04. FTC</a></li>
+                        <li class="nav-item"><a href="11_05_substitution.html" class="nav-link active">05. Substitution
+                                Rule</a></li>
+                        <li class="nav-item"><a href="11_06_by_parts.html" class="nav-link">06. Integration by Parts</a>
+                        </li>
+                        <li class="nav-item"><a href="11_07_trig_integrals.html" class="nav-link">07. Trig Integrals</a>
+                        </li>
+                        <li class="nav-item"><a href="11_08_trig_substitution.html" class="nav-link">08. Trig
+                                Substitution</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div class="badge-container">
+                    <span class="badge primary">Calculus 1.4</span>
+                    <span class="badge secondary">Techniques</span>
+                </div>
+                <h1>The Substitution Rule</h1>
+                <p class="lead-text">Simplifying the complex by changing the point of view.</p>
+            </header>
+
+            <section class="content-block">
+                <div class="insight-box">
+                    <h3 class="insight-title">The Reverse Chain Rule</h3>
+                    <p>
+                        Differentiation is linear, but integration is messy. Substitution is our primary weapon for
+                        untangling functions inside functions. It's simply the Chain Rule in reverse.
+                    </p>
+                </div>
+
+                <h2>1. The Process</h2>
+                <div class="glass-card">
+                    <p>
+                        Integration of \(\int f(g(x)) g'(x) dx\):
+                    </p>
+                    <ol class="step-list">
+                        <li><strong>Choose \(u\):</strong> Pick the "inner" function \(g(x)\).</li>
+                        <li><strong>Find \(du\):</strong> Differentiate \(u\) to get \(du = g'(x) dx\).</li>
+                        <li><strong>Substitute:</strong> Replace all \(x\) terms with \(u\) terms.</li>
+                        <li><strong>Integrate:</strong> Solve the simpler Integral in \(u\).</li>
+                        <li><strong>Back-Substitute:</strong> Replace \(u\) with \(g(x)\).</li>
+                    </ol>
+                    <p class="math-block">
+                        $$ \int 2x(x^2+1)^4 dx \xrightarrow{u=x^2+1} \int u^4 du $$
+                    </p>
+                </div>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        Complex[Integral f g x * g' x] -->|Set u = g x| Simple[Integral f u du]
+                        Simple -->|Integrate| Result[F u]
+                        Result -->|Replace u| Final[F g x]
+
+                        style Simple fill:#ed8936,stroke:#dd6b20
+                        style Final fill:#48bb78,stroke:#2f855a
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>2. AI/ML Connection: Change of Variables</h2>
+                <div class="deep-dive">
+                    <h3 class="deep-dive-title">Normalizing Flows</h3>
+                    <p>
+                        In deep generative models called <strong>Normalizing Flows</strong>, we transform a simple distribution (like
+                        a Gaussian) into a complex one (like an image) using a series of invertible functions.
+                    </p>
+                    <p>
+                        To calculate the probability density of the new variable, we use the multivariate version of
+                        U-Substitution, which involves the <strong>Determinant of the Jacobian Matrix</strong> (the equivalent of the
+                        \(dx/du\) term).
+                        \[ p_x(x) = p_z(z) \left| \det \frac{\partial z}{\partial x} \right| \]
+                        Without understanding substitution, this formula is magic. With it, it's just correcting for the
+                        "stretching" of space.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-block">
+                <h2>3. Python: Symbolic Substitution</h2>
+                <div class="code-header">u_sub_solver.py</div>
+                <div class="code-block">
+                    <pre><code class="language-python">import sympy as sp
+
+x = sp.Symbol('x')
+# Problem: Integrate 2x * e^(x^2)
+# Let u = x^2, then du = 2x dx. The integral becomes e^u du.
+f = 2*x * sp.exp(x**2)
+
+# SymPy handles substitution automatically internally
+result = sp.integrate(f, x)
+
+print(f"Original: {f}")
+print(f"Integrated: {result}")
+# Output: exp(x**2)
+
+# Verify by differentiating
+deriv = sp.diff(result, x)
+print(f"Differentiation Check: {deriv == f}") # True</code></pre>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 Kayam Sai Krishna | AI/ML Education Hub</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="11_04_ftc.html" class="footer-link">← Prev: FTC</a>
+                        <span class="separator">|</span>
+                        <a href="11_06_by_parts.html" class="footer-link">Next: Integration by Parts →</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

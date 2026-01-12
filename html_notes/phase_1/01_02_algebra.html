@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,209 +7,340 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
-                    <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">? Dashboard</a></li>
-            <li style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">1.1 Arithmetic & Algebra</li>
-            
-            <li><a href="01_01_number_systems.html">1. Number systems</a></li>
-            <li><a href="01_02_operations.html">2. Operations & Props</a></li>
-            <li><a href="01_03_pemdas.html">3. Order of Operations</a></li>
-            
-            <li><a href="01_04_linear_equations.html">4. Linear equations</a></li>
-            <li><a href="01_05_linear_inequalities.html">5. Linear inequalities</a></li>
-            <li><a href="01_06_absolute_value.html">6. Absolute value</a></li>
-            
-            <li><a href="01_07_quadratic_equations.html">7. Quadratic equations</a></li>
-            <li><a href="01_08_quadratic_inequalities.html">8. Quadratic inequalities</a></li>
-            
-            <li><a href="01_09_polynomials.html">9. Polynomials</a></li>
-            <li><a href="01_10_poly_division.html">10. Poly division</a></li>
-            <li><a href="01_11_theorems.html">11. Remainder/Factor Thms</a></li>
-            <li><a href="01_12_rationals.html">12. Rational expressions</a></li>
-            
-            <li><a href="01_13_exponentials.html">13. Exponentials</a></li>
-            <li><a href="01_14_logarithms.html">14. Logarithms</a></li>
-            <li><a href="01_15_growth_decay.html">15. Growth & decay</a></li>
-            
-            <li><a href="01_16_functions.html">16. Functions</a></li>
-            <li><a href="01_17_transformations.html">17. Function transforms</a></li>
-            <li><a href="01_18_inverses.html">18. Inverse functions</a></li>
-            
-            <li><a href="01_19_graph_linear.html">19. Graphing linear</a></li>
-            <li><a href="01_20_graph_quadratic.html">20. Graphing quadratic</a></li>
-            <li><a href="01_21_graph_poly.html">21. Graphing poly</a></li>
-            <li><a href="01_22_graph_rational.html">22. Graphing rational</a></li>
-            <li><a href="01_23_graph_explog.html">23. Graphing exp/log</a></li>
-            
-            <li><a href="01_24_sequences.html">24. Sequences</a></li>
-            <li><a href="01_25_series.html">25. Series</a></li>
-            <li><a href="01_26_summation.html">26. Summation notation</a></li>
-            <li><a href="01_27_induction.html">27. Mathematical induction</a></li>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
-            <li style="margin-top: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; padding-left: 1rem; margin-bottom: 0.5rem;">1.1 Trigonometry</li>
-            <li><a href="01_17_trigonometry.html">Trigonometry Basics</a></li>
-        </ul>
+    
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.1 Arithmetic & Algebra</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="01_02_algebra.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../index.html">Home</a> &gt; <a href="index.html">Phase 1</a> &gt; Arithmetic & Algebra
+            <a href="../index.html">Syllabus</a> &gt; 01_02_algebra.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 01_02</div>
             <h1>Arithmetic & Algebra</h1>
-            <p class="subtitle">The structural rules of mathematics. From basic order of operations to the polynomial
+            <p class="lead-text">The structural rules of mathematics. From basic order of operations to the polynomial
                 landscapes of high-dimensional optimization.</p>
         </header>
 
-        <!-- 1. OPERATIONS & BASICS -->
-        <section id="basics">
-            <h2>1. Foundations of Operations</h2>
-            <p>Before optimizing neural networks, we must master the rules that govern how numbers interact. These
+        
+
+
+
+
+ 1. OPERATIONS & BASICS 
+<section id="basics">
+<h2>1. Foundations of Operations</h2>
+<p>Before optimizing neural networks, we must master the rules that govern how numbers interact. These
                 properties—Associativity, Commutativity, and Distributivity—are the reasons why matrix multiplication
                 behaves the way it does.</p>
-
-            <div class="content-block">
-                <h3>Core Properties</h3>
-                <ul class="topic-grid">
-                    <li>
-                        <strong>Associative:</strong> \( (a+b)+c = a+(b+c) \)
-                        <br><span class="note">Crucial for parallel computing (MapReduce).</span>
-                    </li>
-                    <li>
-                        <strong>Commutative:</strong> \( a+b = b+a \)
-                        <br><span class="note">Matrix Multiplication is NOT commutative (\(AB \neq BA\)), a vital
+<div class="content-block">
+<h3>Core Properties</h3>
+<ul class="topic-grid">
+<li>
+<strong>Associative:</strong> \( (a+b)+c = a+(b+c) \)
+                        <br/><span class="note">Crucial for parallel computing (MapReduce).</span>
+</li>
+<li>
+<strong>Commutative:</strong> \( a+b = b+a \)
+                        <br/><span class="note">Matrix Multiplication is NOT commutative (\(AB \neq BA\)), a vital
                             distinction in Deep Learning.</span>
-                    </li>
-                    <li>
-                        <strong>Distributive:</strong> \( a(b+c) = ab + ac \)
-                        <br><span class="note">The basis for tensor factorization.</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="ai-insight-box">
-                <div class="ai-insight-title">PEMDAS & Computational Graphs</div>
-                <p>Order of Operations (PEMDAS/BODMAS) isn't just for school. It defines the <strong>Computational
+</li>
+<li>
+<strong>Distributive:</strong> \( a(b+c) = ab + ac \)
+                        <br/><span class="note">The basis for tensor factorization.</span>
+</li>
+</ul>
+</div>
+<div class="ai-insight-box">
+<div class="ai-insight-title">PEMDAS &amp; Computational Graphs</div>
+<p>Order of Operations (PEMDAS/BODMAS) isn't just for school. It defines the <strong>Computational
                         Graph</strong> in frameworks like PyTorch.</p>
-                <p>When you write `loss = (y_pred - y) ** 2`, PyTorch builds a Directed Acyclic Graph (DAG) respecting
+<p>When you write `loss = (y_pred - y) ** 2`, PyTorch builds a Directed Acyclic Graph (DAG) respecting
                     these priorities to perform backpropagation. Misunderstanding precedence leads to silent bugs in
                     loss functions.</p>
-            </div>
-        </section>
-
-        <!-- 2. EQUATIONS & INEQUALITIES -->
-        <section id="equations">
-            <h2>2. Equations & Inequalities</h2>
-            <p>Solving for \(x\) is the "Hello World" of AI. Training a model is literally solving a massive system of
+</div>
+</section>
+ 2. EQUATIONS & INEQUALITIES 
+<section id="equations">
+<h2>2. Equations &amp; Inequalities</h2>
+<p>Solving for \(x\) is the "Hello World" of AI. Training a model is literally solving a massive system of
                 equations to find the optimal weights.</p>
-
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Linear Equations</h3>
-                    <p>Form: \( ax + b = 0 \). In AI, this scales to \( \mathbf{W}x + \mathbf{b} = \mathbf{y} \), the
+<div class="syllabus-container">
+<div class="sub-module">
+<h3 class="sub-module-title">Linear Equations</h3>
+<p>Form: \( ax + b = 0 \). In AI, this scales to \( \mathbf{W}x + \mathbf{b} = \mathbf{y} \), the
                         foundation of the Perceptron.</p>
-                </div>
-
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Absolute Value (\( |x| \))</h3>
-                    <p>Measures "magnitude" or distance from zero. \( |x| \geq 0 \).</p>
-                    <div class="ai-insight-box">
-                        <div class="ai-insight-title">L1 Regularization (Lasso)</div>
-                        <p>We add \( \lambda \sum |w| \) to our loss function to force weights to zero. This creates
+</div>
+<div class="sub-module">
+<h3 class="sub-module-title">Absolute Value (\( |x| \))</h3>
+<p>Measures "magnitude" or distance from zero. \( |x| \geq 0 \).</p>
+<div class="ai-insight-box">
+<div class="ai-insight-title">L1 Regularization (Lasso)</div>
+<p>We add \( \lambda \sum |w| \) to our loss function to force weights to zero. This creates
                             <strong>Sparse Models</strong> (Feature Selection), because the gradient of \(|x|\) is
                             constant (unlike \(x^2\)), pushing small values all the way to 0.</p>
+</div>
+</div>
+</div>
+</section>
+ 3. POLYNOMIALS 
+<section id="polynomials">
+<h2>3. Polynomials &amp; Quadratics</h2>
+<p>Functions of the form \( f(x) = a_n x^n + ... + a_1 x + a_0 \).</p>
+<div class="content-block">
+<h3>Quadratic Equations (\(ax^2 + bx + c = 0\))</h3>
+<p>Parabolas are everywhere. The most common Loss Function, <strong>Mean Squared Error (MSE)</strong>,
+                    is a parabola in high dimensions.</p>
+<div class="math-block">
+                    $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+                </div>
+</div>
+<div class="deep-dive-box">
+<h4 class="deep-dive-title">Why do we love Quadratics? (Convexity)</h4>
+<p>A specific type of polynomial—the Quadratic—has a magical property: <strong>Convexity</strong>.</p>
+<p>If a function is convex (bowl-shaped), Gradient Descent is <strong>guaranteed</strong> to find the
+                    global minimum. This is why Least Squares Regression always works perfectly. Deep Neural Networks,
+                    however, are non-convex (wavy landscapes), making optimization much harder.</p>
+</div>
+</section>
+ 4. EXPONENTIALS & LOGS 
+<section id="exponentials">
+<h2>4. Exponentials &amp; Logarithms</h2>
+<p>The language of growth, decay, and information.</p>
+<div class="row">
+<div class="col" style="flex:1; padding-right: 2rem;">
+<h3>Exponentials (\(e^x\))</h3>
+<p>Used in <strong>Softmax</strong> to convert logits into probabilities. \(e^x\) ensures all
+                        outputs are positive and amplifies differences between large values.</p>
+</div>
+<div class="col" style="flex:1;">
+<h3>Logarithms (\(\ln x\))</h3>
+<p>The undo button for exponentials. Used in <strong>Cross-Entropy Loss</strong> (`-sum(y *
+                        log(p))`). Logarithms turn multiplication into addition (\(\log(ab) = \log a + \log b\)), which
+                        prevents numerical underflow when multiplying many small probabilities.</p>
+</div>
+</div>
+</section>
+ 5. FUNCTIONS & GRAPHS 
+<section id="functions">
+<h2>5. Functions: Domain, Range, &amp; Graphs</h2>
+<p>A function maps an input \(x\) (Domain) to an output \(y\) (Range). In AI, we approximate a function \(
+                f(x) \) maps input data to labels.</p>
+<div class="syllabus-container">
+<div class="sub-module">
+<h3 class="sub-module-title">Composition of Functions</h3>
+<p>\( (f \circ g)(x) = f(g(x)) \).</p>
+<p><strong>Deep Learning</strong> is simply function composition repeated many times:
+                        \[ y = f_3(f_2(f_1(x))) \]
+                        where each \(f\) is a layer. The <strong>Chain Rule</strong> allows us to differentiate through
+                        this nested structure.</p>
+</div>
+<div class="sub-module">
+<h3 class="sub-module-title">Inverse Functions</h3>
+<p>Functions that "undo" each other. \( f^{-1}(f(x)) = x \). Generative Flows (Normalizing Flows)
+                        rely on invertible neural networks to map complex data distributions back to a simple Gaussian.
+                    </p>
+</div>
+</div>
+</section>
+ 6. SEQUENCES & SERIES 
+<section id="sequences">
+<h2>6. Sequences &amp; Series</h2>
+<p>Ordered lists of numbers and their sums. Vital for Recurrent Neural Networks (RNNs) and Time Series
+                analysis.</p>
+<div class="ai-insight-box">
+<div class="ai-insight-title">Vanishing Gradients &amp; Geometric Series</div>
+<p>When training RNNs, gradients are multiplied repeatedly (a Geometric Sequence with ratio \(r &lt;
+                        1\)).</p>
+<p>If the sequence converges to 0, the model stops learning early layers. This is the
+                            <strong>Vanishing Gradient Problem</strong>. LSTMs were invented specifically to break this
+                            geometric decay.</p>
+</div>
+</section>
+
+
+
+
+        <!-- COMPREHENSIVE APPLICATIONS SECTION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>7. Applications in AI/ML Systems</h2>
+                <div class="application-grid">
+                    <div class="application-card">
+                        <h3>Linear Algebra in Neural Networks</h3>
+                        <p>Neural network operations are fundamentally matrix and vector operations.</p>
+                        <div class="math-block">
+                            $$ \mathbf{y} = \sigma(\mathbf{Wx} + \mathbf{b}) $$
+                        </div>
+                        <p>Where \(\mathbf{W}\) is the weight matrix, \(\mathbf{x}\) is the input vector, \(\mathbf{b}\) is the bias vector, and \(\sigma\) is the activation function.</p>
+                    </div>
+                    <div class="application-card">
+                        <h3>Optimization in Loss Functions</h3>
+                        <p>Training neural networks involves solving optimization problems using algebraic techniques.</p>
+                        <div class="math-block">
+                            $$ \min_\theta \frac{1}{n} \sum_{i=1}^n L(f_\theta(x_i), y_i) $$
+                        </div>
+                    </div>
+                    <div class="application-card">
+                        <h3>Regularization Techniques</h3>
+                        <p>Algebraic methods to prevent overfitting by adding penalty terms to loss functions.</p>
+                        <div class="math-block">
+                            $$ L_{reg} = L_{original} + \lambda \sum_{i} |w_i| \text{ (L1 regularization)}$$
+                            $$ L_{reg} = L_{original} + \lambda \sum_{i} w_i^2 \text{ (L2 regularization)}$$
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. POLYNOMIALS -->
-        <section id="polynomials">
-            <h2>3. Polynomials & Quadratics</h2>
-            <p>Functions of the form \( f(x) = a_n x^n + ... + a_1 x + a_0 \).</p>
+        <!-- PROBLEM-SOLVING METHODOLOGIES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>8. Problem-Solving Methodologies</h2>
+                <div class="methodology-grid">
+                    <div class="methodology-card">
+                        <h3>Symbolic Computation</h3>
+                        <p>Using algebraic manipulation to derive closed-form solutions when possible.</p>
+                        <div class="code-example">
+                            <pre><code class="language-python">
+from sympy import symbols, solve, expand, factor
 
-            <div class="content-block">
-                <h3>Quadratic Equations (\(ax^2 + bx + c = 0\))</h3>
-                <p>Parabolas are everywhere. The most common Loss Function, <strong>Mean Squared Error (MSE)</strong>,
-                    is a parabola in high dimensions.</p>
-                <div class="math-block">
-                    $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
-                </div>
-            </div>
+# Define symbolic variables
+x, y = symbols('x y')
 
-            <div class="deep-dive-box">
-                <h4 class="deep-dive-title">Why do we love Quadratics? (Convexity)</h4>
-                <p>A specific type of polynomial—the Quadratic—has a magical property: <strong>Convexity</strong>.</p>
-                <p>If a function is convex (bowl-shaped), Gradient Descent is <strong>guaranteed</strong> to find the
-                    global minimum. This is why Least Squares Regression always works perfectly. Deep Neural Networks,
-                    however, are non-convex (wavy landscapes), making optimization much harder.</p>
-            </div>
-        </section>
+# Solve equations
+expr = x**2 - 5*x + 6
+equation_solution = solve(expr, x)
+print(f'Solutions to x^2 - 5x + 6 = 0: {equation_solution}')
 
-        <!-- 4. EXPONENTIALS & LOGS -->
-        <section id="exponentials">
-            <h2>4. Exponentials & Logarithms</h2>
-            <p>The language of growth, decay, and information.</p>
-
-            <div class="row">
-                <div class="col" style="flex:1; padding-right: 2rem;">
-                    <h3>Exponentials (\(e^x\))</h3>
-                    <p>Used in <strong>Softmax</strong> to convert logits into probabilities. \(e^x\) ensures all
-                        outputs are positive and amplifies differences between large values.</p>
-                </div>
-                <div class="col" style="flex:1;">
-                    <h3>Logarithms (\(\ln x\))</h3>
-                    <p>The undo button for exponentials. Used in <strong>Cross-Entropy Loss</strong> (`-sum(y *
-                        log(p))`). Logarithms turn multiplication into addition (\(\log(ab) = \log a + \log b\)), which
-                        prevents numerical underflow when multiplying many small probabilities.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. FUNCTIONS & GRAPHS -->
-        <section id="functions">
-            <h2>5. Functions: Domain, Range, & Graphs</h2>
-            <p>A function maps an input \(x\) (Domain) to an output \(y\) (Range). In AI, we approximate a function \(
-                f(x) \) maps input data to labels.</p>
-
-            <div class="syllabus-container">
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Composition of Functions</h3>
-                    <p>\( (f \circ g)(x) = f(g(x)) \).</p>
-                    <p><strong>Deep Learning</strong> is simply function composition repeated many times:
-                        \[ y = f_3(f_2(f_1(x))) \]
-                        where each \(f\) is a layer. The <strong>Chain Rule</strong> allows us to differentiate through
-                        this nested structure.</p>
-                </div>
-
-                <div class="sub-module">
-                    <h3 class="sub-module-title">Inverse Functions</h3>
-                    <p>Functions that "undo" each other. \( f^{-1}(f(x)) = x \). Generative Flows (Normalizing Flows)
-                        rely on invertible neural networks to map complex data distributions back to a simple Gaussian.
-                    </p>
+# Expand expressions
+expanded_expr = expand((x + 2)*(x - 3))
+print(f'Expanded form: {expanded_expr}')
+                            </code></pre>
+                        </div>
+                    </div>
+                    <div class="methodology-card">
+                        <h3>Numerical Methods</h3>
+                        <p>When symbolic solutions are intractable, numerical methods provide approximations.</p>
+                        <div class="math-block">
+                            \text{Newton's Method: } x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+                        </div>
+                    </div>
+                    <div class="methodology-card">
+                        <h3>Algorithmic Approaches</h3>
+                        <p>Systematic procedures for solving classes of algebraic problems.</p>
+                        <ul>
+                            <li>Gaussian elimination for linear systems</li>
+                            <li>Polynomial factoring algorithms</li>
+                            <li>Root finding methods</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 6. SEQUENCES & SERIES -->
-        <section id="sequences">
-            <h2>6. Sequences & Series</h2>
-            <p>Ordered lists of numbers and their sums. Vital for Recurrent Neural Networks (RNNs) and Time Series
-                analysis.</p>
+        <!-- INDUSTRY USE CASES -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>9. Industry Use Cases</h2>
+                <div class="use-case-grid">
+                    <div class="use-case-card">
+                        <h3>Computer Vision</h3>
+                        <p>Image processing and feature extraction using algebraic operations.</p>
+                        <ul>
+                            <li>Convolution as matrix operations</li>
+                            <li>Principal Component Analysis (PCA) for dimensionality reduction</li>
+                            <li>Image filtering using kernel operations</li>
+                        </ul>
+                    </div>
+                    <div class="use-case-card">
+                        <h3>Natural Language Processing</h3>
+                        <p>Transforming text into algebraic representations for processing.</p>
+                        <ul>
+                            <li>Word embeddings as high-dimensional vectors</li>
+                            <li>Attention mechanisms using dot products</li>
+                            <li>Transformer architectures based on linear algebra</li>
+                        </ul>
+                    </div>
+                    <div class="use-case-card">
+                        <h3>Recommendation Systems</h3>
+                        <p>Matrix factorization techniques for collaborative filtering.</p>
+                        <ul>
+                            <li>Singular Value Decomposition (SVD)</li>
+                            <li>Alternating Least Squares (ALS)</li>
+                            <li>Matrix completion algorithms</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <div class="ai-insight-box">
-                <div class="ai-insight-title">Vanishing Gradients & Geometric Series</div>
-                <p>When training RNNs, gradients are multiplied repeatedly (a Geometric Sequence with ratio \(r <
-                        1\)).</p>
-                        <p>If the sequence converges to 0, the model stops learning early layers. This is the
-                            <strong>Vanishing Gradient Problem</strong>. LSTMs were invented specifically to break this
-                            geometric decay.</p>
+        <!-- STEP-BY-STEP PROBLEM SOLVING -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>10. Step-by-Step Problem Solving</h2>
+                <div class="problem-solving-steps">
+                    <div class="step">
+                        <h3>Step 1: Identify the Problem Type</h3>
+                        <p>Classify the algebraic problem to select appropriate solution strategies:</p>
+                        <ul>
+                            <li>Linear vs. nonlinear equations</li>
+                            <li>Single vs. systems of equations</li>
+                            <li>Exact vs. approximate solutions needed</li>
+                        </ul>
+                    </div>
+                    <div class="step">
+                        <h3>Step 2: Simplify the Expression</h3>
+                        <p>Apply algebraic rules to make the problem more manageable:</p>
+                        <ul>
+                            <li>Combine like terms</li>
+                            <li>Factor polynomials</li>
+                            <li>Rationalize denominators</li>
+                        </ul>
+                    </div>
+                    <div class="step">
+                        <h3>Step 3: Apply Solution Technique</h3>
+                        <p>Choose and implement the most suitable method:</p>
+                        <ul>
+                            <li>Quadratic formula for quadratic equations</li>
+                            <li>Substitution for systems of equations</li>
+                            <li>Factoring for polynomial equations</li>
+                        </ul>
+                    </div>
+                    <div class="step">
+                        <h3>Step 4: Verify the Solution</h3>
+                        <p>Confirm the solution satisfies the original equation:</p>
+                        <ul>
+                            <li>Substitute back into original equation</li>
+                            <li>Check domain restrictions</li>
+                            <li>Validate against problem constraints</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -219,8 +349,4 @@
         </footer>
     </main>
 </body>
-
 </html>
-
-
-

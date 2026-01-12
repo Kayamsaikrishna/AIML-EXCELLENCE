@@ -4,92 +4,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finding Eigen - Phase 1.2.3.03</title>
+    <title>04.03 Finding Eigen - AI/ML Hub</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.2.3 Eigen-systems</li>
-            <li><a href="04_02_char_equation.html">02. Characteristic Equation</a></li>
-            <li><a href="04_03_finding_eigen.html" class="active">03. Finding Eigen (2x2, 3x3)</a></li>
-            <li><a href="04_04_multiplicity.html">04. Multiplicity</a></li>
-            <li class="nav-label">1.2.2 Matrices</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.2.3 Eigen-Systems</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="04_02_char_equation.html" class="nav-link">02. Char Equation</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">03. Calculating</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Finding Eigen
+            <a href="../index.html">Syllabus</a> &gt; 1.2 Linear Algebra &gt; 03. Manual Solve
         </div>
 
-        <header>
-            <h1>03. Finding Eigenvalues & Eigenvectors</h1>
-            <p class="subtitle">A step-by-step mechanical guide.</p>
+        <header class="page-header">
+            <div class="badge">Module 03</div>
+            <h1>Finding Eigenvectors</h1>
+            <p class="lead-text"> Once you have \( \lambda \), finding \( \mathbf{x} \) is just dealing with the Null
+                Space.</p>
         </header>
 
-        <section>
-            <h2>Step 1: The Eigenvalues</h2>
-            <p>Solve \(\det(\mathbf{A} - \lambda\mathbf{I}) = 0\).</p>
-            <div class="module-card">
-                <h3>Numerical Example (2x2)</h3>
-                <p>Let \(\mathbf{A} = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}\).</p>
-                <div class="math-block">
-                    $$ \begin{vmatrix} 4-\lambda & 1 \\ 2 & 3-\lambda \end{vmatrix} = 0 $$
-                    $$ (4-\lambda)(3-\lambda) - 2 = 12 - 7\lambda + \lambda^2 - 2 = 0 $$
-                    $$ \lambda^2 - 7\lambda + 10 = 0 \implies (\lambda-5)(\lambda-2) = 0 $$
+        <!-- VISUAL DIAGRAM: FINDING X -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2 class="card-title">Concept Map: The Two Steps</h2>
+                <div class="visual-diagram">
+                    <pre class="mermaid">
+graph LR
+    A["Matrix A"]
+    
+    subgraph Step1
+        CharEq["Solve det(A - &lambda;I) = 0"]
+        Lambda["Get Eigenvalues &lambda;"]
+    end
+    
+    subgraph Step2
+        Subs["Substitute &lambda; back"]
+        Null["Find Null Space of (A - &lambda;I)"]
+        Vector["Get Eigenvectors x"]
+    end
+    
+    A --> CharEq --> Lambda --> Subs --> Null --> Vector
+
+    style Vector fill:#dcfce7,stroke:#16a34a
+    style Null fill:#fefe93,stroke:#d97706
+                    </pre>
                 </div>
-                <p>Results: \(\lambda_1 = 5, \lambda_2 = 2\).</p>
             </div>
         </section>
 
-        <section>
-            <h2>Step 2: The Eigenvectors</h2>
-            <p>For each \(\lambda\), solve the system \((\mathbf{A} - \lambda\mathbf{I})\mathbf{v} = 0\).</p>
-            <div class="module-card">
-                <h3>For \(\lambda_1 = 5\):</h3>
-                <div class="math-block">
-                    $$ \begin{bmatrix} 4-5 & 1 \\ 2 & 3-5 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} =
-                    \begin{bmatrix} 0 \\ 0 \end{bmatrix} $$
-                    $$ \begin{bmatrix} -1 & 1 \\ 2 & -2 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} =
-                    \begin{bmatrix} 0 \\ 0 \end{bmatrix} $$
+        <!-- 1. DEFINITION: NULL SPACE -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>1. The Method</h2>
+                <p>For each eigenvalue \( \lambda \):</p>
+                <ol>
+                    <li>Construct the singular matrix \( M = A - \lambda I \).</li>
+                    <li>Solve the homogeneous system \( M \mathbf{x} = \mathbf{0} \).</li>
+                    <li>The solution space (Kernel of M) is the <strong>Eigenspace</strong> corresponding to \( \lambda
+                        \).</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 2. AI APPLICATION: MANIFOLD LEARNING -->
+        <section class="content-section">
+            <div class="glass-card" style="border-left: 4px solid #f97316;">
+                <h2>2. Basis Finding</h2>
+                <p>Finding eigenvectors is essentially finding the "natural coordinate system" for your data.</p>
+                <p>In AI, when we move from pixel space to "feature space", we often want axes that decouple the data's
+                    variations. This is what solving for eigenvectors does manually.</p>
+            </div>
+        </section>
+
+        <!-- 3. PYTHON IMPLEMENTATION -->
+        <section class="content-section">
+            <div class="glass-card">
+                <h2>3. SciPy Null Space</h2>
+                <p>Calculating the kernel for a specific lambda.</p>
+                <div class="code-block">
+                    <pre><code class="language-python">import numpy as np
+from scipy.linalg import null_space
+
+A = np.array([
+    [2, 1],
+    [1, 2]
+])
+
+# We know lambda = 3 is an eigenvalue.
+lambda_val = 3
+
+# Form M = A - 3I
+M = A - lambda_val * np.eye(2)
+print("A - 3I:")
+print(M)
+# [[-1, 1], [1, -1]] -> Rows are dependent! Good.
+
+# Find x such that Mx = 0
+basis = null_space(M)
+print(f"\nEigenvector Basis for lambda={lambda_val}:")
+print(basis)
+# Should be proportional to [1, 1] normalized
+</code></pre>
                 </div>
-                <p>Both equations imply \(-x + y = 0 \implies x = y\). An eigenvector is \(\begin{bmatrix} 1 \\ 1
-                    \end{bmatrix}\).</p>
             </div>
         </section>
 
-        <section>
-            <h2>3. Python: Step-by-Step with Sympy</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import sympy as sp
-
-A = sp.Matrix([[4, 1], [2, 3]])
-
-# Step 1: Eigenvalues
-eigenvals = A.eigenvals()
-print(f"Eigenvalues: {eigenvals}") # Returns value:multiplicity
-
-# Step 2: Eigenvectors
-eigenvects = A.eigenvects()
-for val, mult, vects in eigenvects:
-    print(f"Lambda = {val}: Vector = {vects[0]}")</code></pre>
-            </div>
-        </section>
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
 
 </html>

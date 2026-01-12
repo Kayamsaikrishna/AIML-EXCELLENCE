@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,67 +9,77 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 
+    
     <nav class="sidebar">
-        <div class="sidebar-header">AI/ML Hub</div>
-        <ul class="nav-links">
-            <li><a href="../home.html">← Dashboard</a></li>
-            <li class="nav-label">1.3.3 Applications of Derivatives</li>
-            <li><a href="17_01_extrema.html">01. Extrema</a></li>
-            <li><a href="17_02_concavity.html" class="active">02. Concavity</a></li>
-            <li><a href="17_03_optimization.html">03. Optimization</a></li>
-            <li class="nav-label">1.3.2 Differentiation</li>
-        </ul>
+        <div class="sidebar-header">
+            <div class="brand-logo">AI/ML Hub</div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-group">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">← Phase 1 Syllabus</a></li>
+                </ul>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group-title">1.3.3 Deriv Apps</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="17_02_concavity.html" class="nav-link active">Current Module</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
 
-    <main class="main-content">
+    <main class="main-wrapper">
         <div class="breadcrumb">
-            <a href="../home.html">Dashboard</a> &gt; <a href="index.html">Phase 1</a> &gt; Concavity
+            <a href="../index.html">Syllabus</a> &gt; 17_02_concavity.html
         </div>
 
-        <header>
+        <header class="page-header">
+            <div class="badge">Module 17_02</div>
             <h1>02. Concavity and Inflection Points</h1>
-            <p class="subtitle">Mapping the curvature of the loss surface.</p>
+            <p class="lead-text">Mapping the curvature of the loss surface.</p>
         </header>
 
-        <section>
-            <h2>1. Concavity Rules</h2>
-            <div class="math-block">
-                $$ f''(x) > 0 \implies \text{Concave Up (∪)} $$
-                $$ f''(x) < 0 \implies \text{Concave Down (∩)} $$ </div>
-                    <p>If \(f''(x)\) changes sign at point \(c\), then \(c\) is an <strong>Inflection Point</strong>.
-                        This is where the function flip-flops its curvature.</p>
-        </section>
+        
 
-        <section>
-            <h2>2. Importance of Convexity</h2>
-            <div class="module-card">
-                <p>A function that is <strong>Concave Up everywhere</strong> is called a **Convex Function**.
+
+
+<section>
+<h2>1. Concavity Rules</h2>
+<div class="math-block">
+                $$ f''(x) &gt; 0 \implies \text{Concave Up (∪)} $$
+                $$ f''(x) &lt; 0 \implies \text{Concave Down (∩)} $$ </div>
+<p>If \(f''(x)\) changes sign at point \(c\), then \(c\) is an <strong>Inflection Point</strong>.
+                        This is where the function flip-flops its curvature.</p>
+</section>
+<section>
+<h2>2. Importance of Convexity</h2>
+<div class="module-card">
+<p>A function that is <strong>Concave Up everywhere</strong> is called a <strong>Convex Function</strong>.
                     Convex functions are the "gold standard" in AI because any local minimum is
                     guaranteed to be the <strong>Global Minimum</strong>. Linear Regression and Logistic
                     Regression have convex loss surfaces; Deep Neural Networks do not.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>3. AI Connection: Learning Rate Scheduling</h2>
-            <div class="module-card">
-                <p>The "sharpness" of the concavity (the magnitude of \(f''(x)\)) tells us how fast the gradient
+</div>
+</section>
+<section>
+<h2>3. AI Connection: Learning Rate Scheduling</h2>
+<div class="module-card">
+<p>The "sharpness" of the concavity (the magnitude of \(f''(x)\)) tells us how fast the gradient
                     is changing. In "sharp" valleys (high concavity), a large learning rate will cause the
                     optimizer to over-shoot and diverge. In "flat" regions (low concavity), we need large
                     learning rates to make progress. Second-order optimizers automate this by dividing
                     the gradient by the curvature.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Python: Plotting Concavity</h2>
-            <div class="code-block">
-                <pre><code class="language-python">import numpy as np
+</div>
+</section>
+<section>
+<h2>4. Python: Plotting Concavity</h2>
+<div class="code-block">
+<pre><code class="language-python">import numpy as np
 import matplotlib.pyplot as plt
 
 x = np.linspace(-2, 2, 100)
@@ -81,17 +90,18 @@ dy2 = 12*x**2 - 4 # Second derivative
 plt.plot(x, y, label='f(x)')
 plt.plot(x, dy2, label="f''(x) (Curvature)")
 plt.axhline(0, color='black', lw=1)
-plt.fill_between(x, -5, 5, where=dy2>0, alpha=0.1, color='green', label='Convex')
-plt.fill_between(x, -5, 5, where=dy2<0, alpha=0.1, color='red', label='Concave')
+plt.fill_between(x, -5, 5, where=dy2&gt;0, alpha=0.1, color='green', label='Convex')
+plt.fill_between(x, -5, 5, where=dy2&lt;0, alpha=0.1, color='red', label='Concave')
 plt.legend()
 plt.show()</code></pre>
-            </div>
-        </section>
+</div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2026 Kayam Sai Krishna. AI/ML Education Hub.</p>
+        </footer>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Kayam Sai Krishna. AI/ML Excellence Hub.</p>
-    </footer>
 </body>
-
 </html>
